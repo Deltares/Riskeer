@@ -50,6 +50,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTKWp"
 			id="01a8cff1-2dad-4f40-abf5-f73ee2e5c6f5"
@@ -65,6 +87,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="02a908ba-deb6-4354-9d61-830e89e8809e"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="02a9ce1f-d639-43f7-ba9e-4268f39271ba"
 			name="NewProject"
@@ -340,6 +368,40 @@
 					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
+			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
+			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="nameParameterToValidate"
+					datasourceid="6e80f060-cb78-47ce-a16b-3425624471c4"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="nameParameterToValidate"
+					datasourceid="c9a01064-ecde-4068-ad48-42fc6d1640a2"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2128,6 +2190,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="31ad3255-520a-4e6d-afff-76a2b442a8d5"
+			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
+			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="31bff391-b4e6-4a1b-b0ce-497602716d4e"
 			name="InitializeDropDownMenu">
@@ -2207,6 +2275,12 @@
 					variablename="fileNameToSave">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="3385736c-301d-49e3-a2c6-2b35a8899643"
@@ -2338,6 +2412,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
+			name="ValidateResultsInTableLeft">
+			</smartfoldernode>
 			<testmodule
 			id="35d7839d-d4e7-44b5-8dc9-504941e59cbc"
 			name="SelectDetailedAssessmentForRowCategoryIv"
@@ -3418,6 +3496,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="5089f1e1-4962-415a-a8d8-ad30c223db76"
+			name="ValidateWaterLevelInDocumentView"
+			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5099abec-ce77-41bd-bf6d-7a191f3d596c"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
 			ref="42cf05e3-77be-41b2-bb8e-2d6b14e70872"
@@ -3568,6 +3680,28 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
+			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
+			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
+					variablename="expectedValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="5328d042-0c00-4277-af0a-8c5ec2f49435"
 			name="FormulaType2_(AGK)">
@@ -3621,6 +3755,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script15a_MessagesSkippedCalculation"
+			errorbehavior="ContinueNextIteration"
+			id="539ff93f-9f3d-48a0-b590-523c20e9d613"
+			name="ValidateMessagesCalculationsSkipped">
+			</smartfoldernode>
 			<testmodule
 			id="53a7f1aa-0eb4-41e3-bfff-e62b69d60fc5"
 			name="OpenResultView"
@@ -4406,6 +4546,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
+			name="ClickOnRunSelectedCalculations"
+			ref="907b89b7-6058-4333-a615-ff354007586c"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTBI"
 			id="5f34eb96-1a97-44fa-bc83-24c6462d5152"
@@ -4918,7 +5064,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
-			name="ValidateThatCalculationHasBeenStopped">
+			name="ValidateAfterCalculationsHaveBeenInterrupted">
 			</smartfoldernode>
 			<testmodule
 			id="6bdeabec-dde6-477f-a01e-2246c12b1265"
@@ -4975,9 +5121,50 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations"
 			id="6e80f060-cb78-47ce-a16b-3425624471c4"
-			name="ValidateNotFinishedYetCalculations">
+			name="ValidateUnfinishedCalculations">
+				<parameters>
+					<param
+					name="nameParameterToValidate"
+					value="Waterstand [m+NAP]">
+					</param>
+				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="564f6640-9e70-4431-a67a-97e50565edc4"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="564f6640-9e70-4431-a67a-97e50565edc4"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="3e08f721-f36d-40cb-a2d0-79a3dfc93a5e"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="3e08f721-f36d-40cb-a2d0-79a3dfc93a5e"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="6f7225b0-5d59-4885-9b55-39b7457e0c0e"
 			name="SetCustomAssessmentAtRow"
@@ -5356,6 +5543,12 @@
 			id="769e68de-1110-4f1d-bced-778fb9b01ef1"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -6188,6 +6381,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
+			name="ValidateResultsIllustrationPoints">
+			</smartfoldernode>
 			<testmodule
 			id="85c62712-bbe5-489f-965e-90fd6852f168"
 			name="AddNewTraject"
@@ -6219,6 +6416,40 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="863863e0-0734-49e4-8b38-fd295dd7ed86"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="3e08f721-f36d-40cb-a2d0-79a3dfc93a5e"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="3e08f721-f36d-40cb-a2d0-79a3dfc93a5e"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06a83cc0-3c28-49b2-8f15-5706c34a6cba"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="06a83cc0-3c28-49b2-8f15-5706c34a6cba"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="866ab523-8f0f-4453-8c7b-31319b148e5c"
@@ -6562,7 +6793,7 @@
 			<smartfoldernode
 			datasource="script15a_MessagesToValidateWhenStoppingCalculation"
 			id="8c63949e-becf-47b7-b071-cf8264d3b52b"
-			name="ValidateMessages">
+			name="ValidateMessagesInterruption">
 			</smartfoldernode>
 			<testmodule
 			id="8c915389-4d24-4386-8483-c1d7f0469327"
@@ -7913,7 +8144,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedWaterstand"
+					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
 					variablename="expectedValue">
@@ -8000,7 +8231,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedWaterstand"
+					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
@@ -8542,6 +8773,10 @@
 					value="44-2">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="b3886fdf-ba39-49e3-8f2e-fdec24393082"
+			name="MakeScreenshotOfDocumentView">
 			</smartfoldernode>
 			<testmodule
 			id="b39cc087-b854-48a4-93a1-80dd23202db7"
@@ -9369,6 +9604,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="c2827979-50a8-479f-a070-38134ba75683"
+			name="ValidateAfterAlCalculationsHaveFinished">
+			</smartfoldernode>
+			<smartfoldernode
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
 			name="ValidateChartsInCalculations">
 			</smartfoldernode>
@@ -9818,7 +10057,7 @@
 			<smartfoldernode
 			datasource="script15a_FinishedCalculationsData"
 			id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-			name="ValidateAlreadyFinishedCalculations">
+			name="ValidateFinishedCalculations">
 				<parameters>
 					<param
 					name="nameParameterToValidate"
@@ -10301,7 +10540,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedWaterstand"
+					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
 					variablename="expectedValue">
@@ -10889,6 +11128,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script15a_MessagesLastCalculationsFinished"
+			errorbehavior="ContinueNextIteration"
+			id="df52fee7-7732-49dc-b801-6be1c59e8fb2"
+			name="ValidateMessagesCalculationsFinished">
+			</smartfoldernode>
 			<testmodule
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
@@ -13412,7 +13657,7 @@
 								</testmodule>
 								<smartfoldernode
 								id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
-								name="ValidateThatCalculationHasBeenStopped">
+								name="ValidateAfterCalculationsHaveBeenInterrupted">
 									<smartfoldernode
 									id="dc49a1cf-9a7f-4d5b-bd4c-d44aa18e22d7"
 									name="MakeScreenshotOfDocumentView">
@@ -13423,7 +13668,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="8c63949e-becf-47b7-b071-cf8264d3b52b"
-									name="ValidateMessages">
+									name="ValidateMessagesInterruption">
 										<testmodule
 										id="f28a9867-dd6d-4e89-a472-3154167f3a61"
 										name="ValidateTextMesage">
@@ -13431,7 +13676,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-									name="ValidateAlreadyFinishedCalculations">
+									name="ValidateFinishedCalculations">
 										<testmodule
 										id="c3b92e46-53a3-46ef-91e2-69ea648e0f03"
 										name="SelectRowCalculation">
@@ -13459,7 +13704,75 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="6e80f060-cb78-47ce-a16b-3425624471c4"
-									name="ValidateNotFinishedYetCalculations">
+									name="ValidateUnfinishedCalculations">
+										<testmodule
+										id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
+										name="SelectRowCalculation">
+										</testmodule>
+										<testmodule
+										id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
+										name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="5089f1e1-4962-415a-a8d8-ad30c223db76"
+										name="ValidateWaterLevelInDocumentView">
+										</testmodule>
+										<testmodule
+										id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
+										name="CreateScreenShotPropertiesPanel">
+										</testmodule>
+										<testmodule
+										id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
+										name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<testmodule
+								id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
+								name="ClickOnRunSelectedCalculations">
+								</testmodule>
+								<testmodule
+								id="31ad3255-520a-4e6d-afff-76a2b442a8d5"
+								name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+								</testmodule>
+								<smartfoldernode
+								id="c2827979-50a8-479f-a070-38134ba75683"
+								name="ValidateAfterAlCalculationsHaveFinished">
+									<smartfoldernode
+									id="b3886fdf-ba39-49e3-8f2e-fdec24393082"
+									name="MakeScreenshotOfDocumentView">
+										<testmodule
+										id="02a908ba-deb6-4354-9d61-830e89e8809e"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="539ff93f-9f3d-48a0-b590-523c20e9d613"
+									name="ValidateMessagesCalculationsSkipped">
+										<testmodule
+										id="863863e0-0734-49e4-8b38-fd295dd7ed86"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="df52fee7-7732-49dc-b801-6be1c59e8fb2"
+									name="ValidateMessagesCalculationsFinished">
+										<testmodule
+										id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
+									name="ValidateResultsInTableLeft">
+									</smartfoldernode>
+									<smartfoldernode
+									id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
+									name="ValidateResultsIllustrationPoints">
 									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -18332,16 +18645,16 @@
 			</file>
 		</DataSource>
 		<DataSource
-		id="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-		lastknownrowcount="1"
-		name="script15a_FinishedCalculationsData"
+		id="2c832a98-5496-447e-a782-293c7d8a977a"
+		lastknownrowcount="2"
+		name="script15a_ExpectedUnfinished_Calculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
 					indexRow
 				</column>
 				<column>
-					expectedWaterstand
+					expectedWaterLevel
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -18352,7 +18665,49 @@
 						indexRow
 					</th>
 					<th>
-						expectedWaterstand
+						expectedWaterLevel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+		lastknownrowcount="1"
+		name="script15a_FinishedCalculationsData"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					expectedWaterLevel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						expectedWaterLevel
 					</th>
 				</tr>
 				<tr>
@@ -18426,6 +18781,170 @@
 					</td>
 					<td>
 						true
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="564f6640-9e70-4431-a67a-97e50565edc4"
+		lastknownrowcount="12"
+		name="script15a_MessagesLastCalculationsFinished"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					substringMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						substringMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						is gelukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Berekening is beëindigd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						Berekening is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						Validatie is beëindigd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						Validatie is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						is gelukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						8
+					</td>
+					<td>
+						Berekening is beëindigd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						10
+					</td>
+					<td>
+						Berekening is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						11
+					</td>
+					<td>
+						Validatie is beëindigd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12
+					</td>
+					<td>
+						Validatie is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						13
+					</td>
+					<td>
+						is gestart.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="3e08f721-f36d-40cb-a2d0-79a3dfc93a5e"
+		lastknownrowcount="2"
+		name="script15a_MessagesSkippedCalculation"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					substringMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						substringMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						15
+					</td>
+					<td>
+						is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14
+					</td>
+					<td>
+						is reeds voltooid.
 					</td>
 				</tr>
 			</table>
@@ -19239,6 +19758,9 @@
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
+			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33">
+			</testcontainer>
+			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
 			</testcontainer>
 			<testcontainer
@@ -19267,6 +19789,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5328d042-0c00-4277-af0a-8c5ec2f49435">
+			</testcontainer>
+			<testcontainer
+			id="539ff93f-9f3d-48a0-b590-523c20e9d613">
 			</testcontainer>
 			<testcontainer
 			id="54726836-ea20-4aed-9544-c3ea520ce225">
@@ -19326,6 +19851,9 @@
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee">
 			</testcontainer>
 			<testcontainer
+			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8">
+			</testcontainer>
+			<testcontainer
 			id="87a0e03b-abc1-4296-980a-56ed1cbd73d8">
 			</testcontainer>
 			<testcontainer
@@ -19368,6 +19896,9 @@
 			id="aedd5571-96f0-44fd-9a62-fa76607ec249">
 			</testcontainer>
 			<testcontainer
+			id="b3886fdf-ba39-49e3-8f2e-fdec24393082">
+			</testcontainer>
+			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
@@ -19378,6 +19909,9 @@
 			</testcontainer>
 			<testcontainer
 			id="bf121a60-f853-42d9-97a2-42a7a3601c72">
+			</testcontainer>
+			<testcontainer
+			id="c2827979-50a8-479f-a070-38134ba75683">
 			</testcontainer>
 			<testcontainer
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
@@ -19408,6 +19942,9 @@
 			</testcontainer>
 			<testcontainer
 			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
+			</testcontainer>
+			<testcontainer
+			id="df52fee7-7732-49dc-b801-6be1c59e8fb2">
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
