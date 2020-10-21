@@ -2355,7 +2355,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             const double diameter70CoefficientOfVariation = 27.7;
             const double gravity = 28.8;
             const double criticalHeaveGradientMean = 29.9;
-            const double criticalHeaveGradientStandardDeviation = 29.9;
+            const double criticalHeaveGradientStandardDeviation = 30.0;
 
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
