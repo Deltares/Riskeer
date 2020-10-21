@@ -29,7 +29,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
@@ -167,16 +166,15 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_GroupWithChildPipingCalculations_CreateEntities()
         {
             // Setup
-            var generalInputParameters = new GeneralPipingInput();
             var group = new CalculationGroup
             {
                 Children =
                 {
-                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "A"
                     },
-                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "B"
                     }
@@ -204,7 +202,6 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_GroupWithChildPipingCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var generalInputParameters = new GeneralPipingInput();
             var group = new CalculationGroup
             {
                 Children =
@@ -213,7 +210,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "B"
                     },
@@ -221,7 +218,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "D"
                     }

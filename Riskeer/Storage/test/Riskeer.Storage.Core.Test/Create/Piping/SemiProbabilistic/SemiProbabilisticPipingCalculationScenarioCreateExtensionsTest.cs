@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -47,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
             void Call() => calculation.Create(null, 0);
@@ -67,7 +66,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             // Setup
             var random = new Random(randomSeed);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 IsRelevant = isRelevant,
                 Contribution = (RoundedDouble) contribution,
@@ -133,7 +132,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             // Setup
             const string name = "A";
             const string comments = "B";
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Name = name,
                 Comments =
@@ -169,7 +168,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
             SurfaceLineEntity surfaceLineEntity = surfaceLine.Create(registry, 0);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -193,7 +192,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
             HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -223,7 +222,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
             StochasticSoilModelEntity soilModelEntity = soilModel.Create(registry, 0);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -248,7 +247,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
 
             SemiProbabilisticPipingOutput newOutput = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = newOutput
             };
