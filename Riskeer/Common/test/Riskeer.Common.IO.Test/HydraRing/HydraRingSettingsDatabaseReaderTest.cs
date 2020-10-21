@@ -67,7 +67,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
         [Test]
         [TestCase(-1)]
-        [TestCase(12)]
+        [TestCase(13)]
         [TestCase(15)]
         public void ReadDesignTableSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
@@ -150,7 +150,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
         [Test]
         [TestCase(-1)]
-        [TestCase(12)]
+        [TestCase(13)]
         [TestCase(15)]
         public void ReadTimeIntegrationSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
