@@ -72,14 +72,14 @@ namespace Riskeer.Piping.Integration.Test
                 DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var calculation1 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation1 = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
                         SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var calculation2 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation2 = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(2, dataGridView.Rows.Count);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
-                var pipingCalculation3 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation3 = new SemiProbabilisticPipingCalculationScenario();
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);
@@ -139,7 +139,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(exitPointL.ToString(), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
 
                 // Add another calculation and assign all soil models
-                var pipingCalculation4 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation4 = new SemiProbabilisticPipingCalculationScenario();
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation4);
                 failureMechanism.CalculationsGroup.NotifyObservers();
                 pipingCalculation4.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");

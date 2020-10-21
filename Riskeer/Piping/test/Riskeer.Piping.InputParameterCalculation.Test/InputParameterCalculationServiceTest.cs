@@ -62,10 +62,12 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
             double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
+                generalInput.WaterVolumetricWeight,
                 SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
@@ -112,9 +114,11 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                 StochasticSoilProfile = stochasticSoilProfile
             };
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
+                generalInput.WaterVolumetricWeight,
                 SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
@@ -155,9 +159,11 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                 StochasticSoilProfile = stochasticSoilProfile
             };
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
+                generalInput.WaterVolumetricWeight,
                 SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
@@ -189,13 +195,14 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
             // Setup
             SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
+            var generalInput = new GeneralPipingInput();
 
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 PipingInput inputParameters = validPipingCalculation.InputParameters;
                 InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                    inputParameters.WaterVolumetricWeight,
+                    generalInput.WaterVolumetricWeight,
                     SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     inputParameters.ExitPointL,
                     inputParameters.SurfaceLine,
@@ -211,7 +218,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                                 input.PhreaticLevelExit.GetAccuracy());
                 AssertEqualSoilProfiles(input.StochasticSoilProfile.SoilProfile, effectiveThicknessCalculator.SoilProfile);
                 AssertEqualSurfaceLines(input.SurfaceLine, effectiveThicknessCalculator.SurfaceLine);
-                Assert.AreEqual(input.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
+                Assert.AreEqual(generalInput.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
             }
         }
 
