@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ValidateWaterLevelInDocumentView"
+	classname="ValidateWaterLevelWaveHeightInDocumentView"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -92,7 +92,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ValidateWaterLevelInDocumentView.UserCode.cs
+		ValidateWaterLevelWaveHeightInDocumentView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

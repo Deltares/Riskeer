@@ -583,6 +583,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="0e5e3fc2-5968-4a03-8394-20fe672155d0"
 			name="SelectDetailedAssessmentForRowCategoryVv"
 			ref="f1d6edc7-4e95-46f4-a178-9742cb112be4"
@@ -2032,6 +2038,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="2f77973f-cbf2-4687-abc8-1412c4c9cc07"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2347,8 +2354,15 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
 			name="ValidateResultsInTableLeft">
+				<parameters>
+					<param
+					name="notCalculatedValue"
+					value="-">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="35d7839d-d4e7-44b5-8dc9-504941e59cbc"
@@ -3406,7 +3420,7 @@
 			</testmodule>
 			<testmodule
 			id="5089f1e1-4962-415a-a8d8-ad30c223db76"
-			name="ValidateWaterLevelInDocumentView"
+			name="ValidateWaterLevelWaveHeightInDocumentView"
 			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
 			type="Recording">
 				<databinding>
@@ -9917,7 +9931,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="d3ac74ba-c4a6-4369-a128-c992f3841830"
-			name="ValidateWaterLevelInDocumentView"
+			name="ValidateWaterLevelWaveHeightInDocumentView"
 			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
 			type="Recording">
 				<databinding>
@@ -10551,6 +10565,28 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="e147ecaf-e3ea-4716-b151-63dd6a828117"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -10877,6 +10913,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="e705e23a-cb2e-4064-8471-8c16a13076e5"
+			name="ValidateWaterLevelWaveHeightNotEmptyInDocumentView"
+			ref="b7ac941c-5b89-48cd-92dd-2974ba18eb21"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="notCalculatedValue"
+					datasourceid="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
+					variableid="cfd6ab47-34a6-480e-82b3-0cb82ab6f500"
+					variablename="notExpectedValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="FMsInGroup1SimpleAssessment"
 			id="e756f312-1a93-4042-9200-8ee398806472"
@@ -13088,7 +13144,7 @@
 										</testmodule>
 										<testmodule
 										id="d3ac74ba-c4a6-4369-a128-c992f3841830"
-										name="ValidateWaterLevelInDocumentView">
+										name="ValidateWaterLevelWaveHeightInDocumentView">
 										</testmodule>
 										<testmodule
 										id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
@@ -13116,7 +13172,7 @@
 										</testmodule>
 										<testmodule
 										id="5089f1e1-4962-415a-a8d8-ad30c223db76"
-										name="ValidateWaterLevelInDocumentView">
+										name="ValidateWaterLevelWaveHeightInDocumentView">
 										</testmodule>
 										<testmodule
 										id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
@@ -13166,6 +13222,18 @@
 									<smartfoldernode
 									id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
 									name="ValidateResultsInTableLeft">
+										<testmodule
+										id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
+										name="SelectRowCalculation">
+										</testmodule>
+										<testmodule
+										id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="e705e23a-cb2e-4064-8471-8c16a13076e5"
+										name="ValidateWaterLevelWaveHeightNotEmptyInDocumentView">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
@@ -18040,6 +18108,41 @@
 			<file>
 				X:\script21\CSVs\relevanceOfFMsInTraject44_2PE.csv
 			</file>
+		</DataSource>
+		<DataSource
+		id="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+		lastknownrowcount="3"
+		name="script15a_AllRows"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+				</tr>
+			</table>
 		</DataSource>
 		<DataSource
 		id="2c832a98-5496-447e-a782-293c7d8a977a"
