@@ -10,7 +10,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
