@@ -39,6 +39,26 @@ namespace Riskeer.Piping.Forms.Test
 
         private Form testForm;
 
+        private static IEnumerable<TestCaseData> GetCheckBoxes
+        {
+            get
+            {
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog)
+                });
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
+                });
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog),
+                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
+                });
+            }
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -409,7 +429,7 @@ namespace Riskeer.Piping.Forms.Test
             using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
             {
                 dialog.Show();
-                
+
                 // When
                 var semiProbabilisticCheckBox = new CheckBoxTester("SemiProbabilisticCheckBox", dialog);
                 if (checkBoxChecked)
@@ -420,7 +440,7 @@ namespace Riskeer.Piping.Forms.Test
                 {
                     semiProbabilisticCheckBox.UnCheck();
                 }
-                
+
                 // Then
                 Assert.AreEqual(checkBoxChecked, dialog.GenerateSemiProbabilistic);
             }
@@ -435,7 +455,7 @@ namespace Riskeer.Piping.Forms.Test
             using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
             {
                 dialog.Show();
-                
+
                 // When
                 var probabilisticCheckBox = new CheckBoxTester("ProbabilisticCheckBox", dialog);
                 if (checkBoxChecked)
@@ -446,29 +466,9 @@ namespace Riskeer.Piping.Forms.Test
                 {
                     probabilisticCheckBox.UnCheck();
                 }
-                
+
                 // Then
                 Assert.AreEqual(checkBoxChecked, dialog.GenerateProbabilistic);
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GetCheckBoxes
-        {
-            get
-            {
-                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
-                {
-                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog)
-                });
-                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
-                {
-                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
-                });
-                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
-                {
-                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog),
-                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
-                });
             }
         }
     }

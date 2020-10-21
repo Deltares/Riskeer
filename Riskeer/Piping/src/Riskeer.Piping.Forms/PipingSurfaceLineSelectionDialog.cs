@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Forms
         /// Gets an indicator whether to generate semi-probabilistic calculation scenario's.
         /// </summary>
         public bool GenerateSemiProbabilistic { get; private set; }
-        
+
         /// <summary>
         /// Gets an indicator whether to generate probabilistic calculation scenario's.
         /// </summary>
@@ -163,7 +163,7 @@ namespace Riskeer.Piping.Forms
         {
             Close();
         }
-        
+
         private void SemiProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             GenerateSemiProbabilistic = SemiProbabilisticCheckBox.Checked;

@@ -45,9 +45,9 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         public double PhiExit { get; private set; }
         public double PhiPolder { get; private set; }
         public double RExit { get; private set; }
+        public double Zh { get; private set; }
 
         public double Gradient { get; private set; }
-        public double Zh { get; private set; }
         public double FoSh { get; private set; }
 
         public void SetDTotal(double dTotal)
