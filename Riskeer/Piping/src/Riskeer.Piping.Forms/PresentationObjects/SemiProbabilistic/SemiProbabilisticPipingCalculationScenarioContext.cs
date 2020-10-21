@@ -33,16 +33,16 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="SemiProbabilisticPipingCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="SemiProbabilisticPipingCalculationScenario"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class SemiProbabilisticPipingCalculationScenarioContext : PipingContext<SemiProbabilisticPipingCalculationScenario>,
                                                                      ICalculationContext<SemiProbabilisticPipingCalculationScenario, PipingFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SemiProbabilisticPipingCalculationScenarioContext"/> class.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculationScenario"/> instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped scenario.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
@@ -70,8 +70,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
         public override bool Equals(WrappedObjectContextBase<SemiProbabilisticPipingCalculationScenario> other)
         {
             return base.Equals(other)
-                   && other is SemiProbabilisticPipingCalculationScenarioContext
-                   && ReferenceEquals(Parent, ((SemiProbabilisticPipingCalculationScenarioContext) other).Parent);
+                   && other is SemiProbabilisticPipingCalculationScenarioContext context
+                   && ReferenceEquals(Parent, context.Parent);
         }
 
         public override bool Equals(object obj)

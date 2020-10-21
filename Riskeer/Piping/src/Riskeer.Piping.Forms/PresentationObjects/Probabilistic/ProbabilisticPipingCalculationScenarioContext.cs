@@ -33,28 +33,28 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="ProbabilisticPipingCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="ProbabilisticPipingCalculationScenario"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class ProbabilisticPipingCalculationContext : PipingContext<ProbabilisticPipingCalculation>,
-                                                         ICalculationContext<ProbabilisticPipingCalculation, PipingFailureMechanism>
+    public class ProbabilisticPipingCalculationScenarioContext : PipingContext<ProbabilisticPipingCalculationScenario>,
+                                                                 ICalculationContext<ProbabilisticPipingCalculationScenario, PipingFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingCalculationContext"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> instance wrapped by this context object.</param>
-        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
+        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculationScenario"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped scenario.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ProbabilisticPipingCalculationContext(ProbabilisticPipingCalculation calculation,
-                                                     CalculationGroup parent,
-                                                     IEnumerable<PipingSurfaceLine> surfaceLines,
-                                                     IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
-                                                     PipingFailureMechanism pipingFailureMechanism,
-                                                     IAssessmentSection assessmentSection)
+        public ProbabilisticPipingCalculationScenarioContext(ProbabilisticPipingCalculationScenario calculation,
+                                                             CalculationGroup parent,
+                                                             IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                             IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                                             PipingFailureMechanism pipingFailureMechanism,
+                                                             IAssessmentSection assessmentSection)
             : base(calculation, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)
         {
             if (parent == null)
@@ -67,16 +67,16 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
 
         public CalculationGroup Parent { get; }
 
-        public override bool Equals(WrappedObjectContextBase<ProbabilisticPipingCalculation> other)
+        public override bool Equals(WrappedObjectContextBase<ProbabilisticPipingCalculationScenario> other)
         {
             return base.Equals(other)
-                   && other is ProbabilisticPipingCalculationContext context
+                   && other is ProbabilisticPipingCalculationScenarioContext context
                    && ReferenceEquals(Parent, context.Parent);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ProbabilisticPipingCalculationContext);
+            return Equals(obj as ProbabilisticPipingCalculationScenarioContext);
         }
 
         public override int GetHashCode()
