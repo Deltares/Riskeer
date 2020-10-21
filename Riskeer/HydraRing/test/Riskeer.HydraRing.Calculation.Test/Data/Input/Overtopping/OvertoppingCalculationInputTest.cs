@@ -73,7 +73,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-
             var overtoppingCalculationInput = new OvertoppingCalculationInput(
                 hydraulicBoundaryLocationId, sectionNormal,
                 expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,

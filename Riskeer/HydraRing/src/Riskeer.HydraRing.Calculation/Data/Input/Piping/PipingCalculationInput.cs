@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Riskeer.HydraRing.Calculation.Data.Input
+namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
 {
     /// <summary>
     /// Container of all data necessary for performing a piping calculation via Hydra-Ring.
