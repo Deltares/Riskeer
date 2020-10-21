@@ -34,11 +34,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var inputParameters = new SemiProbabilisticPipingInput(generalInputParameters);
+            var inputParameters = new SemiProbabilisticPipingInput();
 
             // Assert
             Assert.IsInstanceOf<PipingInput>(inputParameters);
@@ -53,7 +50,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         {
             // Setup
             const double assessmentLevel = 1.111111;
-            var input = new SemiProbabilisticPipingInput(new GeneralPipingInput());
+            var input = new SemiProbabilisticPipingInput();
 
             int originalNumberOfDecimalPlaces = input.AssessmentLevel.NumberOfDecimalPlaces;
 
@@ -69,7 +66,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new SemiProbabilisticPipingInput(new GeneralPipingInput());
+            var original = new SemiProbabilisticPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
@@ -84,7 +81,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new SemiProbabilisticPipingInput(new GeneralPipingInput());
+            var original = new SemiProbabilisticPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 

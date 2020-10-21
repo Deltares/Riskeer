@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 
 namespace Riskeer.Piping.Data.SemiProbabilistic
@@ -34,11 +33,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingInput"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        public SemiProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters)
+        public SemiProbabilisticPipingInput()
         {
             assessmentLevel = new RoundedDouble(2, double.NaN);
         }
