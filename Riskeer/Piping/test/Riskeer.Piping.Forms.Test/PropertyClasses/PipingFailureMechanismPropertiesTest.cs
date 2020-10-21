@@ -33,6 +33,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
@@ -144,17 +145,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.Mean);
             Assert.AreEqual(generalInput.UpliftModelFactor.StandardDeviation, properties.UpliftModelFactor.StandardDeviation);
-            Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.DesignValue);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalInput).GetDesignValue(),
+                            properties.UpliftModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.Mean);
             Assert.AreEqual(generalInput.SellmeijerModelFactor.StandardDeviation, properties.SellmeijerModelFactor.StandardDeviation);
-            Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.DesignValue);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalInput).GetDesignValue(),
+                            properties.SellmeijerModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
             Assert.AreEqual(generalInput.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
             Assert.AreEqual(generalInput.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
-            Assert.AreEqual(0.3, properties.CriticalHeaveGradient.DesignValue);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalInput).GetDesignValue(),
+                            properties.CriticalHeaveGradient.DesignValue);
 
             Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
