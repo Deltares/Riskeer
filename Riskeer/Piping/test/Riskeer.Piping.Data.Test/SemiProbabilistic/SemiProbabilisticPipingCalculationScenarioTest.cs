@@ -37,11 +37,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var scenario = new SemiProbabilisticPipingCalculationScenario(generalInputParameters);
+            var scenario = new SemiProbabilisticPipingCalculationScenario();
 
             // Assert
             Assert.IsInstanceOf<SemiProbabilisticPipingCalculation>(scenario);
@@ -58,7 +55,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void IsRelevant_Always_ReturnsSetValue(bool isRelevant)
         {
             // Setup
-            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var scenario = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
             scenario.IsRelevant = isRelevant;
@@ -74,7 +71,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             var random = new Random(21);
             RoundedDouble contribution = random.NextRoundedDouble();
 
-            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var scenario = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
             scenario.Contribution = contribution;
@@ -116,7 +113,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         {
             var random = new Random(21);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Comments =
                 {
