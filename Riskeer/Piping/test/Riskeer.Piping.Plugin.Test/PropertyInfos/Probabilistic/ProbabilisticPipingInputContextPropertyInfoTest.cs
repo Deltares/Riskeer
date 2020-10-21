@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void CreateInstance_WithContext_ExpectedProperties()
         {
             // Setup
-            var scenario = new ProbabilisticPipingCalculation();
+            var scenario = new ProbabilisticPipingCalculationScenario();
             var context = new ProbabilisticPipingInputContext(
                 scenario.InputParameters,
                 scenario,

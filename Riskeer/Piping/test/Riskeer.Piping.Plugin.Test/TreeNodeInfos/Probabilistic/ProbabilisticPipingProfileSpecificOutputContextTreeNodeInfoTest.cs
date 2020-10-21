@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculation());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             Color color = info.ForeColor(context);
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
