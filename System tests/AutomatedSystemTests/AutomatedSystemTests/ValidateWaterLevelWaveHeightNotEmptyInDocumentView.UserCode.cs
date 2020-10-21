@@ -8,7 +8,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ValidateWaterLevelInDocumentView
+    public partial class ValidateWaterLevelWaveHeightNotEmptyInDocumentView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,16 +31,6 @@ namespace AutomatedSystemTests
         private void Init()
         {
             // Your recording specific initialization code goes here.
-        }
-
-        public string CovertValueIntoCurrentCulture(string valueToConvert)
-        {
-            System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
-			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
-			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
-			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-			valueToConvert= Double.Parse(valueToConvert, fixedDataSourceCulture).ToString(currentCulture);
-			return valueToConvert;
         }
 
     }

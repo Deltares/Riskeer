@@ -24,22 +24,22 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelInDocumentView recording.
+    ///The ValidateWaterLevelWaveHeightInDocumentView recording.
     /// </summary>
     [TestModule("c93bb1b9-c14c-4a0a-ae72-fe034593361b", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelInDocumentView : ITestModule
+    public partial class ValidateWaterLevelWaveHeightInDocumentView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelInDocumentView instance = new ValidateWaterLevelInDocumentView();
+        static ValidateWaterLevelWaveHeightInDocumentView instance = new ValidateWaterLevelWaveHeightInDocumentView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelInDocumentView()
+        public ValidateWaterLevelWaveHeightInDocumentView()
         {
             expectedValue = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelInDocumentView Instance
+        public static ValidateWaterLevelWaveHeightInDocumentView Instance
         {
             get { return instance; }
         }

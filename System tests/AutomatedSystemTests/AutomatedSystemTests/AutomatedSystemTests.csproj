@@ -1305,17 +1305,29 @@
       <UserCode>true</UserCode>
       <id>6933b1f0-e685-46fa-afeb-f550560bf1b5</id>
     </Compile>
-    <Compile Include="ValidateWaterLevelInDocumentView.cs">
+    <Compile Include="ValidateWaterLevelWaveHeightInDocumentView.cs">
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
-      <DependentUpon>ValidateWaterLevelInDocumentView.rxrec</DependentUpon>
+      <DependentUpon>ValidateWaterLevelWaveHeightInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>8550311c-8bfa-4c55-a0d1-9a867ff12464</id>
     </Compile>
-    <Compile Include="ValidateWaterLevelInDocumentView.UserCode.cs">
+    <Compile Include="ValidateWaterLevelWaveHeightInDocumentView.UserCode.cs">
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
-      <DependentUpon>ValidateWaterLevelInDocumentView.rxrec</DependentUpon>
+      <DependentUpon>ValidateWaterLevelWaveHeightInDocumentView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
+    </Compile>
+    <Compile Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.cs">
+      <BoundTo>103381a9-7531-44a7-92ea-2144323f1101</BoundTo>
+      <DependentUpon>ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f9cbfcc6-0f9b-4b82-8969-0a205f97c232</id>
+    </Compile>
+    <Compile Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.UserCode.cs">
+      <BoundTo>103381a9-7531-44a7-92ea-2144323f1101</BoundTo>
+      <DependentUpon>ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9183e89e-da58-4702-96c4-c8e026c09e87</id>
     </Compile>
     <Compile Include="WaitUntilAllCalculationsHaveBeenCarriedOut.cs">
       <BoundTo>22827a2a-52ff-4696-b84a-c57de9b4af2e</BoundTo>
@@ -1830,10 +1842,15 @@
       <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
       <recordtableid>54946666-7cba-49b9-b848-41ea43b074d9</recordtableid>
     </None>
-    <None Include="ValidateWaterLevelInDocumentView.rxrec">
+    <None Include="ValidateWaterLevelWaveHeightInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b6c2ba00-63e3-4440-af0f-320297649b7e</id>
       <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
+    </None>
+    <None Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>103381a9-7531-44a7-92ea-2144323f1101</id>
+      <recordtableid>b7ac941c-5b89-48cd-92dd-2974ba18eb21</recordtableid>
     </None>
     <None Include="WaitUntilAllCalculationsHaveBeenCarriedOut.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
