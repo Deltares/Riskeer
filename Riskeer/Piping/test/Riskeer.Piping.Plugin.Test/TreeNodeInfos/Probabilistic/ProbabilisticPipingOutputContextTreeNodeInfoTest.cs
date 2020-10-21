@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
@@ -89,7 +88,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var context = new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculation(new GeneralPipingInput()));
+            var context = new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculation());
 
             // Call
             Color color = info.ForeColor(context);
@@ -102,7 +101,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
@@ -132,7 +131,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = hasOutput ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput() : null
             };

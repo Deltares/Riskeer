@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = hasOutput
                              ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+                var calculation = new ProbabilisticPipingCalculation();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new ProbabilisticPipingCalculationContext(calculation,
@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+                var calculation = new ProbabilisticPipingCalculation
                 {
                     Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
                 };
@@ -229,7 +229,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+                var calculation = new ProbabilisticPipingCalculation();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new ProbabilisticPipingCalculationContext(calculation,
@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(new GeneralPipingInput()),
+                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(),
                                                                          new CalculationGroup(),
                                                                          Enumerable.Empty<PipingSurfaceLine>(),
                                                                          Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -334,7 +334,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(new GeneralPipingInput()),
+                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(),
                                                                          new CalculationGroup(),
                                                                          Enumerable.Empty<PipingSurfaceLine>(),
                                                                          Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -384,7 +384,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+                var calculation = new ProbabilisticPipingCalculation();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new ProbabilisticPipingCalculationContext(calculation,
@@ -426,7 +426,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+                var calculation = new ProbabilisticPipingCalculation
                 {
                     InputParameters =
                     {
@@ -474,7 +474,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+                var calculation = new ProbabilisticPipingCalculation
                 {
                     InputParameters =
                     {
@@ -693,11 +693,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var elementToBeRemoved = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var elementToBeRemoved = new ProbabilisticPipingCalculation();
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new ProbabilisticPipingCalculation(new GeneralPipingInput()));
+            group.Children.Add(new ProbabilisticPipingCalculation());
             group.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -737,7 +737,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+                var calculation = new ProbabilisticPipingCalculation();
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -831,7 +831,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            calculation = new ProbabilisticPipingCalculation
             {
                 InputParameters =
                 {

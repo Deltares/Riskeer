@@ -151,8 +151,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<ICalculationBase>();
 
-            var semiProbabilisticChildCalculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
-            var probabilisticChildCalculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var semiProbabilisticChildCalculation = new SemiProbabilisticPipingCalculationScenario();
+            var probabilisticChildCalculation = new ProbabilisticPipingCalculation();
 
             var childGroup = new CalculationGroup();
 
@@ -205,7 +205,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             });
@@ -342,7 +342,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
 
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             });
@@ -916,7 +916,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculationItem = new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Nieuwe berekening"
                 };
@@ -976,7 +976,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculationItem = new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Nieuwe berekening"
                 };
@@ -1609,7 +1609,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {

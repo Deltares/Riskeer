@@ -91,8 +91,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         {
             // Setup
             var pipingInputContext = new ProbabilisticPipingInputContext(
-                new ProbabilisticPipingInput(new GeneralPipingInput()),
-                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
+                new ProbabilisticPipingInput(),
+                new ProbabilisticPipingCalculation(),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
@@ -112,8 +112,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         {
             // Setup
             var pipingInputContext = new ProbabilisticPipingInputContext(
-                new ProbabilisticPipingInput(new GeneralPipingInput()),
-                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
+                new ProbabilisticPipingInput(),
+                new ProbabilisticPipingCalculation(),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),

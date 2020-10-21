@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
@@ -159,7 +159,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+            var pipingCalculationContext = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                                  new CalculationGroup(),
                                                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -188,7 +188,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
@@ -224,7 +224,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario
                 {
                     Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
@@ -305,7 +305,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+                var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
                                                                                      Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -367,7 +367,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+                var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
                                                                                      Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -417,7 +417,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
@@ -459,7 +459,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -507,7 +507,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -726,11 +726,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario();
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario());
             group.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -772,7 +772,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
-            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -782,7 +782,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario());
             group.Attach(observer);
             pipingFailureMechanism.CalculationsGroup.Children.Add(group);
 
@@ -823,7 +823,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var failureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var pipingCalculationContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
@@ -886,7 +886,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
 
@@ -1004,7 +1004,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -1098,7 +1098,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
