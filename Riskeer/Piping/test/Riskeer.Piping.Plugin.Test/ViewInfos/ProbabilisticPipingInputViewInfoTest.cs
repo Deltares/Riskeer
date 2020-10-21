@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(ProbabilisticPipingInputContext));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(ProbabilisticPipingInputContext) && tni.ViewType == typeof(PipingInputView));
         }
 
         [TearDown]
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedCalculation()
+        public void GetViewData_CorrectContext_ReturnsWrappedCalculation()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -88,9 +88,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
             var calculationInputContext = new ProbabilisticPipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                  new PipingFailureMechanism(),
-                                                                                  assessmentSection);
+                                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                              new PipingFailureMechanism(),
+                                                                              assessmentSection);
 
             // Call
             object viewData = info.GetViewData(calculationInputContext);
@@ -108,12 +108,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var pipingCalculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
-            var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationContext(pipingCalculation,
-                                                                                                         new CalculationGroup(),
-                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                                         new PipingFailureMechanism(),
-                                                                                                         assessmentSection);
+            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(pipingCalculation,
+                                                                                             new CalculationGroup(),
+                                                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                             new PipingFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -121,7 +121,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, pipingCalculationScenarioContext);
+                bool closeForData = info.CloseForData(view, pipingCalculationContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -139,12 +139,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var pipingCalculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
             var calculationToRemove = new ProbabilisticPipingCalculation(new GeneralPipingInput());
 
-            var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationContext(calculationToRemove,
-                                                                                                         new CalculationGroup(),
-                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                                         new PipingFailureMechanism(),
-                                                                                                         assessmentSection);
+            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(calculationToRemove,
+                                                                                             new CalculationGroup(),
+                                                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                             new PipingFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -152,7 +152,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, pipingCalculationScenarioContext);
+                bool closeForData = info.CloseForData(view, pipingCalculationContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

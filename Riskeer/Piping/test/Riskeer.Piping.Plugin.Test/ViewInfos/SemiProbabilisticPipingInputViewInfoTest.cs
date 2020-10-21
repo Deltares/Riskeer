@@ -38,7 +38,7 @@ using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class PipingInputViewInfoTest
+    public class SemiProbabilisticPipingInputViewInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(SemiProbabilisticPipingInputContext));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(SemiProbabilisticPipingInputContext) && tni.ViewType == typeof(PipingInputView));
         }
 
         [TearDown]
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedCalculation()
+        public void GetViewData_CorrectContext_ReturnsWrappedCalculation()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
