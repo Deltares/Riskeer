@@ -1018,7 +1018,7 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip SemiProbabilisticPipingCalculationScenarioContextContextMenuStrip(SemiProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                     object parentData, TreeViewControl treeViewControl)
+                                                                                                   object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1077,7 +1077,7 @@ namespace Riskeer.Piping.Plugin
 
         private static object[] ProbabilisticPipingCalculationScenarioContextChildNodeObjects(ProbabilisticPipingCalculationScenarioContext context)
         {
-            ProbabilisticPipingCalculation calculation = context.WrappedData;
+            ProbabilisticPipingCalculationScenario calculation = context.WrappedData;
 
             var childNodes = new List<object>
             {
@@ -1095,7 +1095,7 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                 object parentData, TreeViewControl treeViewControl)
+                                                                                               object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1143,7 +1143,7 @@ namespace Riskeer.Piping.Plugin
 
         private static object[] ProbabilisticOutputChildNodeObjects(ProbabilisticPipingOutputContext context)
         {
-            ProbabilisticPipingCalculation calculation = context.WrappedData;
+            ProbabilisticPipingCalculationScenario calculation = context.WrappedData;
 
             return new object[]
             {

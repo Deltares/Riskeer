@@ -28,7 +28,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
     /// <summary>
     /// Presentation object for the output of <see cref="ProbabilisticPipingCalculationScenario"/>.
     /// </summary>
-    public class ProbabilisticPipingOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>
+    public class ProbabilisticPipingOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingOutputContext"/>.
