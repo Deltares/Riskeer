@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Data.TestUtil
             });
             pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
 
-            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var scenario = new SemiProbabilisticPipingCalculationScenario
             {
                 IsRelevant = true,
                 InputParameters =
@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenarioWithInvalidInput()
         {
-            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            return new SemiProbabilisticPipingCalculationScenario();
         }
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Riskeer.Piping.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
-            
-            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+
+            return new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {

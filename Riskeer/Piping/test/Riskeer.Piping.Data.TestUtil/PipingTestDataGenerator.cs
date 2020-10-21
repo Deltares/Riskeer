@@ -149,7 +149,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
