@@ -33,13 +33,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
 
             // Call
             var context = new ProbabilisticPipingOutputContext(calculation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
         }
     }

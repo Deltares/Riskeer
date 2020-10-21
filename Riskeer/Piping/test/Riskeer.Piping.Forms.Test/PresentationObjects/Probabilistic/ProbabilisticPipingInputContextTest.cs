@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
