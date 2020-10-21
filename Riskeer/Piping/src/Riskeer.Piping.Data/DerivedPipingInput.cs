@@ -90,13 +90,19 @@ namespace Riskeer.Piping.Data
         /// [m]
         /// </summary>
         /// <param name="input">The input to calculate the derived piping input for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <param name="generalInput">The general input that is required for the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived input value.</returns>
-        public static LogNormalDistribution GetEffectiveThicknessCoverageLayer(PipingInput input)
+        public static LogNormalDistribution GetEffectiveThicknessCoverageLayer(PipingInput input, GeneralPipingInput generalInput)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             var thicknessCoverageLayer = new LogNormalDistribution(2)
@@ -105,7 +111,7 @@ namespace Riskeer.Piping.Data
                 StandardDeviation = (RoundedDouble) 0.5
             };
 
-            UpdateEffectiveThicknessCoverageLayerMean(input, thicknessCoverageLayer);
+            UpdateEffectiveThicknessCoverageLayerMean(input, generalInput, thicknessCoverageLayer);
 
             return thicknessCoverageLayer;
         }
@@ -246,13 +252,14 @@ namespace Riskeer.Piping.Data
             }
         }
 
-        private static void UpdateEffectiveThicknessCoverageLayerMean(PipingInput input, LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
+        private static void UpdateEffectiveThicknessCoverageLayerMean(PipingInput input, GeneralPipingInput generalInput,
+                                                                      LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
         {
             if (input.SurfaceLine != null && input.StochasticSoilProfile?.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                                                         input.WaterVolumetricWeight,
+                                                         generalInput.WaterVolumetricWeight,
                                                          SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                          input.ExitPointL,
                                                          input.SurfaceLine,

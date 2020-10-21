@@ -37,11 +37,22 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null);
+            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null, new GeneralPipingInput());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
+        public void GetEffectiveThicknessCoverageLayer_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(new TestPipingInput(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("generalInput", paramName);
         }
 
         [Test]
@@ -51,7 +62,7 @@ namespace Riskeer.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer, 2.0);
@@ -66,7 +77,7 @@ namespace Riskeer.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -81,7 +92,7 @@ namespace Riskeer.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -96,7 +107,7 @@ namespace Riskeer.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -119,7 +130,7 @@ namespace Riskeer.Piping.Data.Test
             );
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -146,7 +157,7 @@ namespace Riskeer.Piping.Data.Test
             );
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
