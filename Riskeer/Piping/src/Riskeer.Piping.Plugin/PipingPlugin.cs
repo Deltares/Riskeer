@@ -278,7 +278,7 @@ namespace Riskeer.Piping.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
-                CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
@@ -438,7 +438,7 @@ namespace Riskeer.Piping.Plugin
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = ProbabilisticOutputChildNodeObjects,
+                ChildNodeObjects = ProbabilisticOutputChildNodeObjects
             };
 
             yield return new TreeNodeInfo<ProbabilisticPipingProfileSpecificOutputContext>
@@ -913,7 +913,7 @@ namespace Riskeer.Piping.Plugin
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation,
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip,
                 RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon,
-                (sender, args) => AddCalculation(() => new SemiProbabilisticPipingCalculationScenario(context.FailureMechanism.GeneralInput), context.WrappedData));
+                (sender, args) => AddCalculation(() => new SemiProbabilisticPipingCalculationScenario(), context.WrappedData));
         }
 
         private static StrictContextMenuItem CreateAddProbabilisticCalculationItem(PipingCalculationGroupContext context)
@@ -922,7 +922,7 @@ namespace Riskeer.Piping.Plugin
                 Resources.CalculationGroup_Add_ProbabilisticCalculation,
                 Resources.CalculationGroup_Add_ProbabilisticCalculation_ToolTip,
                 RiskeerCommonFormsResources.ProbabilisticCalculationIcon,
-                (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(context.FailureMechanism.GeneralInput), context.WrappedData));
+                (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(), context.WrappedData));
         }
 
         private static void AddCalculation(Func<IPipingCalculation<PipingInput>> createCalculationFunc, CalculationGroup parentGroup)
@@ -942,14 +942,13 @@ namespace Riskeer.Piping.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    foreach (ICalculationBase @group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                    foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                         dialog.SelectedItems,
                         dialog.GenerateSemiProbabilistic,
                         dialog.GenerateProbabilistic,
-                        nodeData.AvailableStochasticSoilModels,
-                        nodeData.FailureMechanism.GeneralInput))
+                        nodeData.AvailableStochasticSoilModels))
                     {
-                        nodeData.WrappedData.Children.Add(@group);
+                        nodeData.WrappedData.Children.Add(group);
                     }
 
                     nodeData.NotifyObservers();
