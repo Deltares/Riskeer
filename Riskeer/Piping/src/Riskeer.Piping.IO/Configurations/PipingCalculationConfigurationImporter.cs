@@ -84,7 +84,7 @@ namespace Riskeer.Piping.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(PipingCalculationConfiguration readCalculation)
         {
-            var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput)
+            var pipingCalculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Name = readCalculation.Name
             };
