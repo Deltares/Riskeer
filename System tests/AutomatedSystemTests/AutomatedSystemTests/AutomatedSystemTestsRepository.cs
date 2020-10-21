@@ -1398,18 +1398,20 @@ namespace AutomatedSystemTests
             RepoItemInfo _bestandInfo;
             RepoItemInfo _buttonmenufilesaveprojectasInfo;
             RepoItemInfo _buttonmenufilenewprojectInfo;
+            RepoItemInfo _addassessmentsectionbuttonInfo;
 
             /// <summary>
             /// Creates a new Ribbon  folder.
             /// </summary>
             public RibbonFolder(RepoGenBaseFolder parentFolder) :
-                    base("Ribbon", "menubar[@automationid='Ribbon']", parentFolder, 30000, null, true, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
+                    base("Ribbon", "menubar", parentFolder, 30000, null, true, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
             {
                 _tabsbuttons = new AutomatedSystemTestsRepositoryFolders.TABsButtonsFolder(this);
                 _upperbuttonscontainer = new AutomatedSystemTestsRepositoryFolders.UpperButtonsContainerFolder(this);
                 _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
                 _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
                 _buttonmenufilenewprojectInfo = new RepoItemInfo(this, "ButtonMenuFileNewProject", "?/?/button[@automationid='ButtonMenuFileNewProject']", 30000, null, "9b0a050a-4689-4755-8f6d-c46dfe951fe7");
+                _addassessmentsectionbuttonInfo = new RepoItemInfo(this, "AddAssessmentSectionButton", ".//button[@automationid='AddAssessmentSectionButton']", 30000, null, "b862f8e9-14fb-4449-825c-ca6e151ff6c2");
             }
 
             /// <summary>
@@ -1509,6 +1511,30 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The AddAssessmentSectionButton item.
+            /// </summary>
+            [RepositoryItem("b862f8e9-14fb-4449-825c-ca6e151ff6c2")]
+            public virtual Ranorex.Button AddAssessmentSectionButton
+            {
+                get
+                {
+                    return _addassessmentsectionbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AddAssessmentSectionButton item info.
+            /// </summary>
+            [RepositoryItemInfo("b862f8e9-14fb-4449-825c-ca6e151ff6c2")]
+            public virtual RepoItemInfo AddAssessmentSectionButtonInfo
+            {
+                get
+                {
+                    return _addassessmentsectionbuttonInfo;
+                }
+            }
+
+            /// <summary>
             /// The TABsButtons folder.
             /// </summary>
             [RepositoryFolder("b203905b-f6d6-4f92-a188-a998df3833d1")]
@@ -1595,7 +1621,6 @@ namespace AutomatedSystemTests
         [RepositoryFolder("28059a50-4cd9-4563-9dbf-b81f3edf6567")]
         public partial class StartBeeldTabsFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _addassessmentsectionbuttonInfo;
 
             /// <summary>
             /// Creates a new StartBeeldTabs  folder.
@@ -1603,7 +1628,6 @@ namespace AutomatedSystemTests
             public StartBeeldTabsFolder(RepoGenBaseFolder parentFolder) :
                     base("StartBeeldTabs", "list", parentFolder, 30000, null, true, "28059a50-4cd9-4563-9dbf-b81f3edf6567", "")
             {
-                _addassessmentsectionbuttonInfo = new RepoItemInfo(this, "AddAssessmentSectionButton", "button[@automationid='AddAssessmentSectionButton']", 30000, null, "7a81ef7d-edff-44f0-9cd8-00e61c6c28f3");
             }
 
             /// <summary>
@@ -1627,30 +1651,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AddAssessmentSectionButton item.
-            /// </summary>
-            [RepositoryItem("7a81ef7d-edff-44f0-9cd8-00e61c6c28f3")]
-            public virtual Ranorex.Button AddAssessmentSectionButton
-            {
-                get
-                {
-                    return _addassessmentsectionbuttonInfo.CreateAdapter<Ranorex.Button>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AddAssessmentSectionButton item info.
-            /// </summary>
-            [RepositoryItemInfo("7a81ef7d-edff-44f0-9cd8-00e61c6c28f3")]
-            public virtual RepoItemInfo AddAssessmentSectionButtonInfo
-            {
-                get
-                {
-                    return _addassessmentsectionbuttonInfo;
                 }
             }
         }
