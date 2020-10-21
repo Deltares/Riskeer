@@ -152,7 +152,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var calculationItem = mocks.StrictMock<ICalculationBase>();
 
             var semiProbabilisticChildCalculation = new SemiProbabilisticPipingCalculationScenario();
-            var probabilisticChildCalculation = new ProbabilisticPipingCalculation();
+            var probabilisticChildCalculation = new ProbabilisticPipingCalculationScenario();
 
             var childGroup = new CalculationGroup();
 
