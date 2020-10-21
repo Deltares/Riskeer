@@ -49,13 +49,20 @@ namespace Riskeer.Piping.Data.Test
                 Mean = (RoundedDouble) 1.0,
                 StandardDeviation = (RoundedDouble) 0.12
             };
+
+            var criticalHeaveGradient = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.5,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
             DistributionAssert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
             DistributionAssert.AreEqual(sellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
 
             Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight.Value);
             Assert.AreEqual(2, inputParameters.WaterVolumetricWeight.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
+            DistributionAssert.AreEqual(criticalHeaveGradient, inputParameters.CriticalHeaveGradient);
 
             Assert.AreEqual(16.19, inputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight.GetAccuracy());
             Assert.AreEqual(2, inputParameters.SandParticlesVolumicWeight.NumberOfDecimalPlaces);
