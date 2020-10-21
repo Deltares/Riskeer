@@ -43,10 +43,12 @@ namespace Riskeer.Piping.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing the calculations to create
         /// activities for.</param>
+        /// <param name="generalPipingInput">The general piping input that is used during the calculations.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(PipingFailureMechanism failureMechanism,
+                                                                                    GeneralPipingInput generalPipingInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -54,12 +56,17 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, generalPipingInput, assessmentSection);
         }
 
         /// <summary>
@@ -67,16 +74,23 @@ namespace Riskeer.Piping.Service
         /// <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to create activities for.</param>
+        /// <param name="generalPipingInput">The general piping input that is used during the calculations.</param>
         /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
         /// belong to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
+                                                                                    GeneralPipingInput generalPipingInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
             {
                 throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             if (assessmentSection == null)
@@ -86,7 +100,7 @@ namespace Riskeer.Piping.Service
 
             return calculationGroup.GetCalculations()
                                    .Cast<SemiProbabilisticPipingCalculation>()
-                                   .Select(calc => CreateSemiProbabilisticPipingCalculationActivity(calc, assessmentSection))
+                                   .Select(calc => CreateSemiProbabilisticPipingCalculationActivity(calc, generalPipingInput, assessmentSection))
                                    .ToArray();
         }
 
@@ -94,16 +108,23 @@ namespace Riskeer.Piping.Service
         /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create an activity for.</param>
+        /// <param name="generalPipingInput">The general piping input that is used during the calculation.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/>
         /// belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static CalculatableActivity CreateSemiProbabilisticPipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
+                                                                                            GeneralPipingInput generalPipingInput,
                                                                                             IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             if (assessmentSection == null)
@@ -112,6 +133,7 @@ namespace Riskeer.Piping.Service
             }
 
             return new SemiProbabilisticPipingCalculationActivity(calculation,
+                                                                  generalPipingInput,
                                                                   assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
     }
