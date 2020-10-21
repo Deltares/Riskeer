@@ -117,6 +117,9 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(4));
             repo.ActivityProgressDialog.ButtonCancel.Click();
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(5));
+            Delay.Duration(1000, false);
+            
         }
 
 #region Image Feature Data
