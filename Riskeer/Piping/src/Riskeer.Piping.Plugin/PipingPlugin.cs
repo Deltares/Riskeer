@@ -729,7 +729,8 @@ namespace Riskeer.Piping.Plugin
         private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
         {
             ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData,
+                                                                                             failureMechanismContext.Parent));
         }
 
         #endregion
@@ -977,7 +978,9 @@ namespace Riskeer.Piping.Plugin
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                             context.FailureMechanism.GeneralInput,
+                                                                                             context.AssessmentSection));
         }
 
         #endregion
@@ -1063,7 +1066,9 @@ namespace Riskeer.Piping.Plugin
         private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation, context.AssessmentSection));
+                                             PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
+                                                                                                                               context.FailureMechanism.GeneralInput,
+                                                                                                                               context.AssessmentSection));
         }
 
         #endregion

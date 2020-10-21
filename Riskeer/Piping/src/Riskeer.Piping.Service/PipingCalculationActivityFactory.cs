@@ -43,12 +43,10 @@ namespace Riskeer.Piping.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing the calculations to create
         /// activities for.</param>
-        /// <param name="generalPipingInput">The general piping input that is used during the calculations.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(PipingFailureMechanism failureMechanism,
-                                                                                    GeneralPipingInput generalPipingInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -56,17 +54,12 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (generalPipingInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalPipingInput));
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, generalPipingInput, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism.GeneralInput, assessmentSection);
         }
 
         /// <summary>
