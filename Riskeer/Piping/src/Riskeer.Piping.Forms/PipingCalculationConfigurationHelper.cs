@@ -83,6 +83,12 @@ namespace Riskeer.Piping.Forms
             }
 
             var groups = new List<CalculationGroup>();
+
+            if (!generateSemiProbabilistic && !generateProbabilistic)
+            {
+                return groups;
+            }
+            
             foreach (PipingSurfaceLine surfaceLine in surfaceLines)
             {
                 CalculationGroup group = CreateCalculationGroup(surfaceLine, generateSemiProbabilistic, generateProbabilistic, soilModels, generalInput);
@@ -139,12 +145,20 @@ namespace Riskeer.Piping.Forms
                 {
                     if (generateSemiProbabilistic)
                     {
-                        calculationGroup.Children.Add(CreateSemiProbabilisticPipingCalculationScenario(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput));
+                        calculationGroup.Children.Add(
+                            CreateSemiProbabilisticPipingCalculationScenario(
+                                surfaceLine, stochasticSoilModel, soilProfile,
+                                calculationGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>(),
+                                generalInput));
                     }
 
                     if (generateProbabilistic)
                     {
-                        calculationGroup.Children.Add(CreateProbabilisticPipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput));
+                        calculationGroup.Children.Add(
+                            CreateProbabilisticPipingCalculation(
+                                surfaceLine, stochasticSoilModel, soilProfile,
+                                calculationGroup.Children.OfType<ProbabilisticPipingCalculation>(),
+                                generalInput));
                     }
                 }
             }
