@@ -721,7 +721,9 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput>>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput>>(),
+                        context.WrappedData.GeneralInput,
+                        context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
@@ -967,7 +969,9 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput>>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput>>(),
+                        context.FailureMechanism.GeneralInput,
+                        context.AssessmentSection);
         }
 
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
@@ -1051,7 +1055,9 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateSemiProbabilistic(SemiProbabilisticPipingCalculationScenarioContext context)
         {
-            SemiProbabilisticPipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
+            SemiProbabilisticPipingCalculationService.Validate(context.WrappedData,
+                                                               context.FailureMechanism.GeneralInput,
+                                                               GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
         private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
@@ -1192,11 +1198,15 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput>> pipingCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput>> pipingCalculations,
+                                        GeneralPipingInput generalPipingInput,
+                                        IAssessmentSection assessmentSection)
         {
             foreach (SemiProbabilisticPipingCalculation calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculation>())
             {
-                SemiProbabilisticPipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
+                SemiProbabilisticPipingCalculationService.Validate(calculation,
+                                                                   generalPipingInput,
+                                                                   GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
