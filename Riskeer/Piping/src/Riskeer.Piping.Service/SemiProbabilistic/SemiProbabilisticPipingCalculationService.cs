@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             CalculationServiceHelper.LogValidationBegin();
 
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             CalculationServiceHelper.LogCalculationBegin();
 
             try
@@ -396,7 +396,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                     PiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, effectiveAssessmentLevel),
                     DampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
                     PhreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                    CriticalHeaveGradient = generalPipingInput.CriticalHeaveGradient,
+                    CriticalHeaveGradient = SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(),
                     ThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
                     EffectiveThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue(),
                     SellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
