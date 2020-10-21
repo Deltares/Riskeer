@@ -33,7 +33,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -69,7 +68,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dampingFactorExitMean = (RoundedDouble) 1.0;
             var phreaticLevelExitMean = (RoundedDouble) 2.0;
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -115,7 +114,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingStochasticSoilModel newModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(newModel);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
@@ -149,7 +148,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var newProfile = new PipingStochasticSoilProfile(0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(newProfile);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
@@ -184,7 +183,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
@@ -194,7 +193,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var dampingFactorExitMean = (RoundedDouble) 2.3;
 
             // Call & Assert
@@ -226,7 +225,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var phreaticLevelExitMean = (RoundedDouble) 5.1;
 
             // Call & Assert
@@ -258,7 +257,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var entryPointL = (RoundedDouble) 0.1;
 
             // Call & Assert
