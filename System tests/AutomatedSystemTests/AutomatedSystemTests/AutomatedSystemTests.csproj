@@ -1305,6 +1305,18 @@
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
     </Compile>
+    <Compile Include="WaitUntilAllCalculationsHaveBeenCarriedOut.cs">
+      <BoundTo>22827a2a-52ff-4696-b84a-c57de9b4af2e</BoundTo>
+      <DependentUpon>WaitUntilAllCalculationsHaveBeenCarriedOut.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3d9f8e66-ef67-476e-98f7-02d456e4c42d</id>
+    </Compile>
+    <Compile Include="WaitUntilAllCalculationsHaveBeenCarriedOut.UserCode.cs">
+      <BoundTo>22827a2a-52ff-4696-b84a-c57de9b4af2e</BoundTo>
+      <DependentUpon>WaitUntilAllCalculationsHaveBeenCarriedOut.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>a8b971a6-5fd7-40a7-bdbf-69646a2b8f41</id>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AddNewTraject.rxrec">
@@ -1805,6 +1817,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b6c2ba00-63e3-4440-af0f-320297649b7e</id>
       <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
+    </None>
+    <None Include="WaitUntilAllCalculationsHaveBeenCarriedOut.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>22827a2a-52ff-4696-b84a-c57de9b4af2e</id>
+      <recordtableid>ada8c353-8b24-47e4-b6bf-adfb36229783</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>
