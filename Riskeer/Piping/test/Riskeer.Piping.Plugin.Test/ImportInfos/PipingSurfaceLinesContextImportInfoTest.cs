@@ -148,7 +148,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario());
 
             var surfaceLines = new PipingSurfaceLineCollection();
             var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -178,7 +178,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };

@@ -172,7 +172,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
