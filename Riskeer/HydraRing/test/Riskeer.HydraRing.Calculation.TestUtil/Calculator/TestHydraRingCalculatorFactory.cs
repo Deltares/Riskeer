@@ -25,6 +25,7 @@ using Riskeer.HydraRing.Calculation.Calculator;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Exceptions;
@@ -101,6 +102,14 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
         public bool? Converged { get; set; }
+    }
+
+    public class TestPipingCalculator : TestHydraRingCalculator<PipingCalculationInput>, IPipingCalculator
+    {
+        public double ExceedanceProbabilityBeta { get; set; }
+        public string OutputDirectory { get; set; }
+        public string LastErrorFileContent { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
     }
 
     public class TestHydraRingCalculator<T>
