@@ -32,11 +32,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var inputParameters = new ProbabilisticPipingInput(generalInputParameters);
+            var inputParameters = new ProbabilisticPipingInput();
 
             // Assert
             Assert.IsInstanceOf<PipingInput>(inputParameters);
@@ -47,7 +44,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new ProbabilisticPipingInput(new GeneralPipingInput());
+            var original = new ProbabilisticPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
@@ -62,7 +59,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new ProbabilisticPipingInput(new GeneralPipingInput());
+            var original = new ProbabilisticPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
