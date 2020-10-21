@@ -88,21 +88,6 @@ mode="Global">
 			id="4bbbcd08-d223-4d84-ab8d-8d9ac9dc5cfb">
 			</arguments>
 		</userrecorditem>
-		<userrecorditem
-		classname="CalculateValueParameterN"
-		enabled="False"
-		isexternaltestmethod="False"
-		methodname="Report_Log"
-		namespace="AutomatedSystemTests"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="2d9cd972-5d75-41b6-ac8f-9143424dcfec">
-			</arguments>
-		</userrecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

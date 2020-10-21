@@ -34,11 +34,6 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Report_Log()
-        {
-            Report.Log(ReportLevel.Info, "", "For traject: " + substringTrajectName + ", item: " + substringNameItemInTraject + ", parameter: " + nameOfParameterInPropertiesPanel + ", value read = " + valueOfParameterInPropertiesPanel);
-        }
-
         public void CalculateValueNFromFMParameters()
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;

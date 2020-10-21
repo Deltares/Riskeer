@@ -2703,7 +2703,7 @@ namespace AutomatedSystemTests
             /// Creates a new DocumentViewContainer  folder.
             /// </summary>
             public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, true, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
+                    base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
             {
                 _failuremechanismresultview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder(this);
                 _failuremechanismscontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder1(this);
@@ -3372,7 +3372,7 @@ namespace AutomatedSystemTests
             /// Creates a new DesignWaterLevelCalculationsViewCached  folder.
             /// </summary>
             public DesignWaterLevelCalculationsViewCachedFolder(RepoGenBaseFolder parentFolder) :
-                    base("DesignWaterLevelCalculationsViewCached", "container[@controlname='DesignWaterLevelCalculationsView']/container", parentFolder, 30000, null, true, "535b985f-89e1-4888-9b6e-edd71990ca55", "")
+                    base("DesignWaterLevelCalculationsViewCached", "container[@controlname='DesignWaterLevelCalculationsView']/container", parentFolder, 30000, null, false, "535b985f-89e1-4888-9b6e-edd71990ca55", "")
             {
                 _leftside = new AutomatedSystemTestsRepositoryFolders.LeftSideFolder1(this);
                 _rightside = new AutomatedSystemTestsRepositoryFolders.RightSideFolder1(this);
@@ -3434,7 +3434,7 @@ namespace AutomatedSystemTests
             /// Creates a new LeftSide  folder.
             /// </summary>
             public LeftSideFolder1(RepoGenBaseFolder parentFolder) :
-                    base("LeftSide", "container[@controlname='panel1']", parentFolder, 30000, null, true, "d5d31bfe-0545-4bf6-ae8d-2a692de100bd", "")
+                    base("LeftSide", "container[@controlname='panel1']", parentFolder, 30000, null, false, "d5d31bfe-0545-4bf6-ae8d-2a692de100bd", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder3(this);
                 _calculationbuttons = new AutomatedSystemTestsRepositoryFolders.CalculationButtonsFolder1(this);
@@ -3499,7 +3499,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder3(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container/table", parentFolder, 30000, null, true, "ca96439e-ba37-4ebe-aa7b-19515fb51914", "")
+                    base("Table", "container/table", parentFolder, 30000, null, false, "ca96439e-ba37-4ebe-aa7b-19515fb51914", "")
             {
                 _genericrowInfo = new RepoItemInfo(this, "GenericRow", "row[@accessiblename='Row '+$rowIndex]", 30000, null, "8d26c2ea-9826-475b-ba13-7a87660216ce");
                 _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "4b247c1d-9839-4696-ae92-cb7f86e1c5d1");

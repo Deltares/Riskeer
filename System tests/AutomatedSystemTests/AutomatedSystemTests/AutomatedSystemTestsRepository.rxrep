@@ -574,7 +574,7 @@ name="AutomatedSystemTestsRepository">
 			name="DocumentViewContainer"
 			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
 			searchtimeout="30000ms"
-			usecache="True">
+			usecache="False">
 				<item
 				addcaps="cell,accessible"
 				capname="cell"
@@ -774,7 +774,7 @@ name="AutomatedSystemTestsRepository">
 				name="DesignWaterLevelCalculationsViewCached"
 				refimgid="66bafd6c-a8a6-440a-8820-9d9958af2bf8"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="container"
 					id="d5d31bfe-0545-4bf6-ae8d-2a692de100bd"
@@ -782,7 +782,7 @@ name="AutomatedSystemTestsRepository">
 					name="LeftSide"
 					refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
 					searchtimeout="30000ms"
-					usecache="True">
+					usecache="False">
 						<folder
 						capname="table"
 						id="ca96439e-ba37-4ebe-aa7b-19515fb51914"
@@ -790,7 +790,7 @@ name="AutomatedSystemTestsRepository">
 						name="Table"
 						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
 						searchtimeout="30000ms"
-						usecache="True">
+						usecache="False">
 							<item
 							capname="row"
 							id="8d26c2ea-9826-475b-ba13-7a87660216ce"

@@ -141,8 +141,6 @@ namespace AutomatedSystemTests
             
             CalculateValueNFromFMParameters();
             
-            //Report_Log();
-            
         }
 
 #region Image Feature Data
