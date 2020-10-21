@@ -942,20 +942,17 @@ namespace Riskeer.Piping.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateCalculations(nodeData.WrappedData, dialog.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
+                    foreach (ICalculationBase @group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                        dialog.SelectedItems,
+                        true, false,
+                        nodeData.AvailableStochasticSoilModels,
+                        nodeData.FailureMechanism.GeneralInput))
+                    {
+                        nodeData.WrappedData.Children.Add(@group);
+                    }
+
                     nodeData.NotifyObservers();
                 }
-            }
-        }
-
-        private static void GenerateCalculations(CalculationGroup target,
-                                                 IEnumerable<PipingSurfaceLine> surfaceLines,
-                                                 IEnumerable<PipingStochasticSoilModel> soilModels,
-                                                 GeneralPipingInput generalInput)
-        {
-            foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
-            {
-                target.Children.Add(group);
             }
         }
 

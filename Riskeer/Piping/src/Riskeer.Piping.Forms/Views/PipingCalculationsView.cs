@@ -127,6 +127,7 @@ namespace Riskeer.Piping.Forms.Views
                 {
                     IEnumerable<ICalculationBase> calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                         dialog.SelectedItems,
+                        true, false,
                         FailureMechanism.StochasticSoilModels,
                         FailureMechanism.GeneralInput);
 
