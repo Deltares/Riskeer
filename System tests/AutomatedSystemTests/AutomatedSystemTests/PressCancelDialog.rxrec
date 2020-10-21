@@ -75,7 +75,7 @@ mode="Global">
 		optional="False"
 		searchpropertyid="42f75fde-2352-4c0b-bc24-532442b24096"
 		waitaction="AttributeContains"
-		waittimeout="5000ms">
+		waittimeout="1800000ms">
 			<comment>
 			</comment>
 			<bindings>
@@ -984,8 +984,26 @@ iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKK
 KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 			</helperscreenshot>
 		</mouseitem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="3703acb5-4eb3-45bd-993f-73c3bcc39a79"
+		waitaction="NotExists"
+		waittimeout="5000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="6992b395-923d-4913-be11-dc9d7fa075dc"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ActivityProgressDialog']
+				</path>
+			</info>
+		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="1000ms"
+		duration="500ms"
 		enabled="True"
 		optional="False">
 			<comment>
