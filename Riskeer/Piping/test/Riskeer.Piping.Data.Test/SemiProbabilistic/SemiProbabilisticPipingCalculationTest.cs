@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculation = new SemiProbabilisticPipingCalculation();
+            var calculation = new TestSemiProbabilisticPipingCalculation();
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation<SemiProbabilisticPipingInput>>(calculation);
@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculation
+            var calculation = new TestSemiProbabilisticPipingCalculation
             {
                 Output = null
             };
@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculation
+            var calculation = new TestSemiProbabilisticPipingCalculation
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculation
+            var calculation = new TestSemiProbabilisticPipingCalculation
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
         private static SemiProbabilisticPipingCalculation CreateRandomCalculationWithoutOutput()
         {
-            var calculation = new SemiProbabilisticPipingCalculation
+            var calculation = new TestSemiProbabilisticPipingCalculation
             {
                 Name = "Random name",
                 Comments =
