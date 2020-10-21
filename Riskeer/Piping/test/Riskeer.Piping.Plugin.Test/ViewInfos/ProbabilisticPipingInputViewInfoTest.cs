@@ -107,13 +107,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculation = new ProbabilisticPipingCalculation();
-            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(pipingCalculation,
-                                                                                     new CalculationGroup(),
-                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                     new PipingFailureMechanism(),
-                                                                                     assessmentSection);
+            var pipingCalculation = new ProbabilisticPipingCalculationScenario();
+            var pipingCalculationContext = new ProbabilisticPipingCalculationScenarioContext(pipingCalculation,
+                                                                                             new CalculationGroup(),
+                                                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                             new PipingFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -136,15 +136,15 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculation = new ProbabilisticPipingCalculation();
-            var calculationToRemove = new ProbabilisticPipingCalculation();
+            var pipingCalculation = new ProbabilisticPipingCalculationScenario();
+            var calculationToRemove = new ProbabilisticPipingCalculationScenario();
 
-            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(calculationToRemove,
-                                                                                     new CalculationGroup(),
-                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                     new PipingFailureMechanism(),
-                                                                                     assessmentSection);
+            var pipingCalculationContext = new ProbabilisticPipingCalculationScenarioContext(calculationToRemove,
+                                                                                             new CalculationGroup(),
+                                                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                             new PipingFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var view = new PipingInputView
             {
