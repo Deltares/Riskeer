@@ -83,6 +83,8 @@ namespace Riskeer.Piping.Forms.Test
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 CollectionAssert.IsEmpty(dialog.SelectedItems);
                 Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
+                Assert.IsTrue(dialog.GenerateSemiProbabilistic);
+                Assert.IsFalse(dialog.GenerateProbabilistic);
             }
         }
 
@@ -397,7 +399,59 @@ namespace Riskeer.Piping.Forms.Test
                 Assert.IsTrue(button.Enabled);
             }
         }
-        
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenDialog_WhenChangingSemiProbabilisticCheckBoxValue_ThenGenerateSemiProbabilisticExpectedValue(bool checkBoxChecked)
+        {
+            // Given
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
+            {
+                dialog.Show();
+                
+                // When
+                var semiProbabilisticCheckBox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
+                if (checkBoxChecked)
+                {
+                    semiProbabilisticCheckBox.Check();
+                }
+                else
+                {
+                    semiProbabilisticCheckBox.UnCheck();
+                }
+                
+                // Then
+                Assert.AreEqual(checkBoxChecked, dialog.GenerateSemiProbabilistic);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenDialog_WhenChangingProbabilisticCheckBoxValue_ThenGenerateProbabilisticExpectedValue(bool checkBoxChecked)
+        {
+            // Given
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
+            {
+                dialog.Show();
+                
+                // When
+                var probabilisticCheckBox = new CheckBoxTester("ProbabilisticCheckbox", dialog);
+                if (checkBoxChecked)
+                {
+                    probabilisticCheckBox.Check();
+                }
+                else
+                {
+                    probabilisticCheckBox.UnCheck();
+                }
+                
+                // Then
+                Assert.AreEqual(checkBoxChecked, dialog.GenerateProbabilistic);
+            }
+        }
+
         private static IEnumerable<TestCaseData> GetCheckboxes
         {
             get

@@ -64,6 +64,7 @@ namespace Riskeer.Piping.Forms
             InitializeDataGridView();
 
             DataGridViewControl.SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
+            SemiProbabilisticCheckbox.Checked = true;
         }
 
         /// <summary>
@@ -72,6 +73,16 @@ namespace Riskeer.Piping.Forms
         /// <see cref="PipingSurfaceLine"/> was selected, then an empty collection is returned.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> SelectedItems { get; private set; }
+
+        /// <summary>
+        /// Gets an indicator whether to generate semi-probabilistic calculation scenario's.
+        /// </summary>
+        public bool GenerateSemiProbabilistic { get; private set; }
+        
+        /// <summary>
+        /// Gets an indicator whether to generate probabilistic calculation scenario's.
+        /// </summary>
+        public bool GenerateProbabilistic { get; private set; }
 
         protected override Button GetCancelButton()
         {
@@ -155,17 +166,20 @@ namespace Riskeer.Piping.Forms
         
         private void SemiProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            GenerateSemiProbabilistic = SemiProbabilisticCheckbox.Checked;
             UpdateDoForSelectedButton();
         }
 
         private void ProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            GenerateProbabilistic = ProbabilisticCheckbox.Checked;
             UpdateDoForSelectedButton();
         }
 
         private void UpdateDoForSelectedButton()
         {
-            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected) && (SemiProbabilisticCheckbox.Checked || ProbabilisticCheckbox.Checked);
+            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected)
+                                          && (GenerateSemiProbabilistic || GenerateProbabilistic);
         }
 
         #endregion

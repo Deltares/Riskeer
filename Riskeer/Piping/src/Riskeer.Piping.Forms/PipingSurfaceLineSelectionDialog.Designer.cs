@@ -144,7 +144,6 @@ namespace Riskeer.Piping.Forms
             this.SemiProbabilisticCheckbox.Size = new System.Drawing.Size(80, 17);
             this.SemiProbabilisticCheckbox.TabIndex = 0;
             this.SemiProbabilisticCheckbox.UseVisualStyleBackColor = true;
-            this.SemiProbabilisticCheckbox.Checked = true;
             this.SemiProbabilisticCheckbox.CheckedChanged += new System.EventHandler(this.SemiProbabilisticCheckbox_CheckedChanged);
             // 
             // SelectDeselectPanel
