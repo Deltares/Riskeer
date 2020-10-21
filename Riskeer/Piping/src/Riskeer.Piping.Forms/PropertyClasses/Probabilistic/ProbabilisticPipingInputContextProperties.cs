@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil models on <see cref="ProbabilisticPipingCalculationContext"/>.
+        /// Gets the available stochastic soil models on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
         {
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil profiles on <see cref="ProbabilisticPipingCalculationContext"/>.
+        /// Gets the available stochastic soil profiles on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationContext"/>.
+        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
