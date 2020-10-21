@@ -1411,7 +1411,7 @@ namespace AutomatedSystemTests
                 _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
                 _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
                 _buttonmenufilenewprojectInfo = new RepoItemInfo(this, "ButtonMenuFileNewProject", "?/?/button[@automationid='ButtonMenuFileNewProject']", 30000, null, "9b0a050a-4689-4755-8f6d-c46dfe951fe7");
-                _addassessmentsectionbuttonInfo = new RepoItemInfo(this, "AddAssessmentSectionButton", ".//button[@automationid='AddAssessmentSectionButton']", 30000, null, "b862f8e9-14fb-4449-825c-ca6e151ff6c2");
+                _addassessmentsectionbuttonInfo = new RepoItemInfo(this, "AddAssessmentSectionButton", "list/?/?/button[@automationid='AddAssessmentSectionButton']", 30000, null, "b862f8e9-14fb-4449-825c-ca6e151ff6c2");
             }
 
             /// <summary>

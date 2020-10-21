@@ -310,7 +310,7 @@ name="AutomatedSystemTestsRepository">
 				name="AddAssessmentSectionButton"
 				refimgid="b30bd1d0-a4cc-466c-9fea-d8b59803f065"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/menubar//button[@automationid='AddAssessmentSectionButton']
+					/form[@automationid='RiskeerMainWindow']/menubar/list/?/?/button[@automationid='AddAssessmentSectionButton']
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/menubar
