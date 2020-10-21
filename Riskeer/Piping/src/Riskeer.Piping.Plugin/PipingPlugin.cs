@@ -307,7 +307,7 @@ namespace Riskeer.Piping.Plugin
                 SemiProbabilisticCalculationContextOnNodeRemoved,
                 CalculationType.SemiProbabilistic);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ProbabilisticPipingCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ProbabilisticPipingCalculationScenarioContext>(
                 ProbabilisticCalculationContextChildNodeObjects,
                 ProbabilisticCalculationContextContextMenuStrip,
                 ProbabilisticCalculationContextOnNodeRemoved,
@@ -541,9 +541,9 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
-            if (o is ProbabilisticPipingCalculationContext probabilisticPipingCalculationContext)
+            if (o is ProbabilisticPipingCalculationScenarioContext probabilisticPipingCalculationScenarioContext)
             {
-                return ReferenceEquals(view.Data, probabilisticPipingCalculationContext.WrappedData);
+                return ReferenceEquals(view.Data, probabilisticPipingCalculationScenarioContext.WrappedData);
             }
 
             if (o is SemiProbabilisticPipingCalculationScenarioContext semiProbabilisticPipingCalculationScenarioContext)
@@ -753,13 +753,13 @@ namespace Riskeer.Piping.Plugin
                                                                                                    nodeData.FailureMechanism,
                                                                                                    nodeData.AssessmentSection));
                         break;
-                    case ProbabilisticPipingCalculation probabilisticCalculation:
-                        childNodeObjects.Add(new ProbabilisticPipingCalculationContext(probabilisticCalculation,
-                                                                                       nodeData.WrappedData,
-                                                                                       nodeData.AvailablePipingSurfaceLines,
-                                                                                       nodeData.AvailableStochasticSoilModels,
-                                                                                       nodeData.FailureMechanism,
-                                                                                       nodeData.AssessmentSection));
+                    case ProbabilisticPipingCalculationScenario probabilisticCalculation:
+                        childNodeObjects.Add(new ProbabilisticPipingCalculationScenarioContext(probabilisticCalculation,
+                                                                                               nodeData.WrappedData,
+                                                                                               nodeData.AvailablePipingSurfaceLines,
+                                                                                               nodeData.AvailableStochasticSoilModels,
+                                                                                               nodeData.FailureMechanism,
+                                                                                               nodeData.AssessmentSection));
                         break;
                     case CalculationGroup group:
                         childNodeObjects.Add(new PipingCalculationGroupContext(group,
@@ -1073,9 +1073,9 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        #region ProbabilisticPipingCalculationContext TreeNodeInfo
+        #region ProbabilisticPipingCalculationScenarioContext TreeNodeInfo
 
-        private static object[] ProbabilisticCalculationContextChildNodeObjects(ProbabilisticPipingCalculationContext context)
+        private static object[] ProbabilisticCalculationContextChildNodeObjects(ProbabilisticPipingCalculationScenarioContext context)
         {
             ProbabilisticPipingCalculation calculation = context.WrappedData;
 
@@ -1094,7 +1094,7 @@ namespace Riskeer.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip ProbabilisticCalculationContextContextMenuStrip(ProbabilisticPipingCalculationContext nodeData,
+        private ContextMenuStrip ProbabilisticCalculationContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
                                                                                  object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -1128,14 +1128,14 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private static void ProbabilisticCalculationContextOnNodeRemoved(ProbabilisticPipingCalculationContext calculationContext, object parentNodeData)
+        private static void ProbabilisticCalculationContextOnNodeRemoved(ProbabilisticPipingCalculationScenarioContext calculationContext, object parentNodeData)
         {
             CalculationContextOnNodeRemoved(parentNodeData, calculationContext.WrappedData);
         }
 
-        private static void ValidateProbabilistic(ProbabilisticPipingCalculationContext context) {}
+        private static void ValidateProbabilistic(ProbabilisticPipingCalculationScenarioContext context) {}
 
-        private static void CalculateProbabilistic(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
+        private static void CalculateProbabilistic(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationScenarioContext context) {}
 
         #endregion
 
