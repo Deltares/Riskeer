@@ -295,43 +295,36 @@ namespace Riskeer.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                null, true, true,
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new GeneralPipingInput());
+            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                null, true, true, Enumerable.Empty<PipingStochasticSoilModel>(), new GeneralPipingInput());
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("surfaceLines", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("surfaceLines", exception.ParamName);
         }
 
         [Test]
         public void GenerateCalculationItemsStructure_WithoutSoilModels_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(),
-                true, true, null,
-                new GeneralPipingInput());
+            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                Enumerable.Empty<PipingSurfaceLine>(), true, true, null, new GeneralPipingInput());
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilModels", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilModels", exception.ParamName);
         }
 
         [Test]
         public void GenerateCalculationItemsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(),
-                true, true,
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                null);
+            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                Enumerable.Empty<PipingSurfaceLine>(), true, true, Enumerable.Empty<PipingStochasticSoilModel>(), null);
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("generalInput", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -353,13 +346,11 @@ namespace Riskeer.Piping.Forms.Test
             IEnumerable<ICalculationBase> result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    pipingSurfaceLines, true, true,
-                    Enumerable.Empty<PipingStochasticSoilModel>(),
-                    new GeneralPipingInput()).ToArray();
-            };
+                    pipingSurfaceLines, true, true, Enumerable.Empty<PipingStochasticSoilModel>(), new GeneralPipingInput()).ToArray();
+            }
 
             // Assert
             const string format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
@@ -370,7 +361,7 @@ namespace Riskeer.Piping.Forms.Test
                 Tuple.Create(string.Format(format, testName3), LogLevelConstant.Warn),
                 Tuple.Create(string.Format(format, testName4), LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
             CollectionAssert.IsEmpty(result);
         }
 
@@ -559,19 +550,17 @@ namespace Riskeer.Piping.Forms.Test
             IEnumerable<ICalculationBase> result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines, true, true,
-                    availableSoilModels,
-                    new GeneralPipingInput()).ToArray();
-            };
+                    surfaceLines, true, true, availableSoilModels, new GeneralPipingInput()).ToArray();
+            }
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+            var expectedMessage = Tuple.Create(
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessage);
             CollectionAssert.IsEmpty(result);
         }
 
@@ -834,17 +823,17 @@ namespace Riskeer.Piping.Forms.Test
             ICalculationBase[] result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines, true, true, availableSoilModels, new GeneralPipingInput()).ToArray();
-            };
+            }
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+            var expectedMessage = Tuple.Create(
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{surfaceLineName2}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessage, 1);
 
             Assert.AreEqual(1, result.Length);
             var calculationGroup1 = (CalculationGroup) result.First(g => g.Name == surfaceLineName1);
