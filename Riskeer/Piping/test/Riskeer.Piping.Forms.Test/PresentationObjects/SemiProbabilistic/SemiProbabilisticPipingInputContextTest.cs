@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationInput = new SemiProbabilisticPipingInput(new GeneralPipingInput());
+            var calculationInput = new SemiProbabilisticPipingInput();
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)

@@ -21,7 +21,6 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
@@ -34,7 +33,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation();
 
             // Call
             var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);

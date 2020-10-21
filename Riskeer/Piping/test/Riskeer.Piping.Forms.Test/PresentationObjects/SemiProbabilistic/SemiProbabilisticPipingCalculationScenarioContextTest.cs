@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             private static readonly MockRepository mocks = new MockRepository();
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            private static readonly SemiProbabilisticPipingCalculationScenario calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            private static readonly SemiProbabilisticPipingCalculationScenario calculation = new SemiProbabilisticPipingCalculationScenario();
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+                yield return new TestCaseData(new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                                     parent,
                                                                                                     surfaceLines,
                                                                                                     stochasticSoilModels,

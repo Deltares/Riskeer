@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation();
             var failureMechanism = new PipingFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             private static readonly MockRepository mocks = new MockRepository();
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            private static readonly ProbabilisticPipingCalculation calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            private static readonly ProbabilisticPipingCalculation calculation = new ProbabilisticPipingCalculation();
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(new GeneralPipingInput()),
+                yield return new TestCaseData(new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(),
                                                                                         parent,
                                                                                         surfaceLines,
                                                                                         stochasticSoilModels,
