@@ -111,14 +111,15 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         {
             // Setup
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var generalPipingInput = new GeneralPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
-                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters, generalPipingInput);
 
             // Assert
             Assert.IsInstanceOf<PercentileBasedDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
-            DistributionAssert.AreEqual(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters), effectiveThicknessCoverageLayer.Distribution);
+            DistributionAssert.AreEqual(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, generalPipingInput), effectiveThicknessCoverageLayer.Distribution);
             AssertPercentile(0.05, effectiveThicknessCoverageLayer);
         }
 
@@ -127,14 +128,15 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         {
             // Setup
             var inputParameters = new TestPipingInput();
+            var generalPipingInput = new GeneralPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
-                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters, generalPipingInput);
 
             // Assert
             Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
-            DistributionAssert.AreEqual(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters), effectiveThicknessCoverageLayer.Distribution);
+            DistributionAssert.AreEqual(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, generalPipingInput), effectiveThicknessCoverageLayer.Distribution);
             Assert.AreEqual(new RoundedDouble(2), effectiveThicknessCoverageLayer.GetDesignValue());
         }
 

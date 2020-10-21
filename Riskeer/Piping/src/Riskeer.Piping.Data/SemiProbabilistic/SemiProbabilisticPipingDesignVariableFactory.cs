@@ -95,11 +95,12 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// Creates the design variable for the effective thickness of the coverage layers at the exit point.
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
+        /// <param name="generalInput">The general piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
-        public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput pipingInput)
+        public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput pipingInput, GeneralPipingInput generalInput)
         {
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(pipingInput);
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(pipingInput);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(pipingInput, generalInput);
 
             if (double.IsNaN(thicknessCoverageLayer.Mean))
             {
