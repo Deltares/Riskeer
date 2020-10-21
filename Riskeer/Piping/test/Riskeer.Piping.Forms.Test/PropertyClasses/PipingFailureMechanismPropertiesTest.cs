@@ -149,7 +149,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
-            Assert.AreEqual(generalInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
 
             Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
@@ -285,6 +286,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[criticalHeaveGradientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(criticalHeaveGradientProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalHeaveGradientProperty,
                                                                             heaveCategory,
                                                                             "Kritiek verhang m.b.t. heave [-]",
