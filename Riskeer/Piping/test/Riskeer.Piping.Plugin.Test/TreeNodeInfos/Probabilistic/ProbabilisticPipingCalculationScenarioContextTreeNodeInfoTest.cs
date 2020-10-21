@@ -50,7 +50,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 {
     [TestFixture]
-    public class ProbabilisticPipingCalculationContextTreeNodeInfoTest : NUnitFormTest
+    public class ProbabilisticPipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuUpdateEntryAndExitPointIndex = 5;
@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = hasOutput
                              ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
@@ -119,18 +119,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(calculation,
-                                                                                     new CalculationGroup(),
-                                                                                     new[]
-                                                                                     {
-                                                                                         new PipingSurfaceLine(string.Empty)
-                                                                                     },
-                                                                                     new[]
-                                                                                     {
-                                                                                         PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                                                                                     },
-                                                                                     pipingFailureMechanism,
-                                                                                     assessmentSection);
+            var pipingCalculationContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                             new CalculationGroup(),
+                                                                                             new[]
+                                                                                             {
+                                                                                                 new PipingSurfaceLine(string.Empty)
+                                                                                             },
+                                                                                             new[]
+                                                                                             {
+                                                                                                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+                                                                                             },
+                                                                                             pipingFailureMechanism,
+                                                                                             assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
@@ -155,15 +155,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation();
+                var calculation = new ProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -191,18 +191,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation
+                var calculation = new ProbabilisticPipingCalculationScenario
                 {
                     Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -229,15 +229,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation();
+                var calculation = new ProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -272,12 +272,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(new ProbabilisticPipingCalculationScenario(),
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -334,12 +334,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(new ProbabilisticPipingCalculationScenario(),
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -384,15 +384,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation();
+                var calculation = new ProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -426,7 +426,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new ProbabilisticPipingCalculation
+                var calculation = new ProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -435,12 +435,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -474,7 +474,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new ProbabilisticPipingCalculation
+                var calculation = new ProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -483,12 +483,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -518,17 +518,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculation calculation;
+                ProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var inputObserver = mocks.StrictMock<IObserver>();
                 inputObserver.Expect(obs => obs.UpdateObserver());
@@ -567,18 +567,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculation calculation;
+                ProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var inputObserver = mocks.StrictMock<IObserver>();
                 calculation.InputParameters.Attach(inputObserver);
@@ -629,18 +629,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculation calculation;
+                ProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new ProbabilisticPipingCalculationContext(calculation,
-                                                                         new CalculationGroup(),
-                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                         pipingFailureMechanism,
-                                                                         assessmentSection);
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
 
                 var inputObserver = mocks.StrictMock<IObserver>();
                 inputObserver.Expect(obs => obs.UpdateObserver());
@@ -693,23 +693,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var elementToBeRemoved = new ProbabilisticPipingCalculation();
+            var elementToBeRemoved = new ProbabilisticPipingCalculationScenario();
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new ProbabilisticPipingCalculation());
+            group.Children.Add(new ProbabilisticPipingCalculationScenario());
             group.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationContext = new ProbabilisticPipingCalculationContext(elementToBeRemoved,
-                                                                               group,
-                                                                               Enumerable.Empty<PipingSurfaceLine>(),
-                                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                               pipingFailureMechanism,
-                                                                               assessmentSection);
+            var calculationContext = new ProbabilisticPipingCalculationScenarioContext(elementToBeRemoved,
+                                                                                       group,
+                                                                                       Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                       pipingFailureMechanism,
+                                                                                       assessmentSection);
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  null,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
@@ -737,16 +737,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new ProbabilisticPipingCalculation();
+                var calculation = new ProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var pipingCalculationContext = new ProbabilisticPipingCalculationContext(calculation,
-                                                                                         new CalculationGroup(),
-                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                         pipingFailureMechanism,
-                                                                                         assessmentSection);
+                var pipingCalculationContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                                 new CalculationGroup(),
+                                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                 pipingFailureMechanism,
+                                                                                                 assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(pipingCalculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -797,7 +797,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingCalculationContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingCalculationScenarioContext));
         }
 
         public override void TearDown()
@@ -823,7 +823,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
         }
 
-        private static void CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculation calculation, out PipingSurfaceLine surfaceLine)
+        private static void CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine)
         {
             surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -831,7 +831,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            calculation = new ProbabilisticPipingCalculation
+            calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
