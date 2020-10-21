@@ -925,7 +925,7 @@ namespace Riskeer.Piping.Plugin
                 Resources.CalculationGroup_Add_ProbabilisticCalculation,
                 Resources.CalculationGroup_Add_ProbabilisticCalculation_ToolTip,
                 RiskeerCommonFormsResources.ProbabilisticCalculationIcon,
-                (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(), context.WrappedData));
+                (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculationScenario(), context.WrappedData));
         }
 
         private static void AddCalculation(Func<IPipingCalculation<PipingInput>> createCalculationFunc, CalculationGroup parentGroup)

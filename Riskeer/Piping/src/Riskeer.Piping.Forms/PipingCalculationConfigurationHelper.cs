@@ -142,7 +142,7 @@ namespace Riskeer.Piping.Forms
                     if (generateProbabilistic)
                     {
                         calculationGroup.Children.Add(
-                            CreateProbabilisticPipingCalculation(
+                            CreateProbabilisticPipingCalculationScenario(
                                 surfaceLine, stochasticSoilModel, soilProfile,
                                 calculationGroup.Children.OfType<ProbabilisticPipingCalculation>()));
                     }
@@ -172,14 +172,14 @@ namespace Riskeer.Piping.Forms
             };
         }
 
-        private static ProbabilisticPipingCalculation CreateProbabilisticPipingCalculation(
+        private static ProbabilisticPipingCalculationScenario CreateProbabilisticPipingCalculationScenario(
             PipingSurfaceLine surfaceLine, PipingStochasticSoilModel stochasticSoilModel,
             PipingStochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations)
         {
             var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new ProbabilisticPipingCalculation
+            return new ProbabilisticPipingCalculationScenario
             {
                 Name = name,
                 InputParameters =
@@ -187,7 +187,8 @@ namespace Riskeer.Piping.Forms
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
-                }
+                },
+                Contribution = (RoundedDouble) stochasticSoilProfile.Probability
             };
         }
     }
