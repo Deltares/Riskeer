@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
     public class SemiProbabilisticPipingCalculationActivityTest
     {
         [Test]
-        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        public void Constructor_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new SemiProbabilisticPipingCalculationActivity(new SemiProbabilisticPipingCalculation(),
@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("generalInput", exception.ParamName);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
         [Test]

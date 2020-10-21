@@ -60,6 +60,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+            
             CalculationServiceHelper.LogValidationBegin();
 
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
@@ -105,6 +110,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+            
             CalculationServiceHelper.LogCalculationBegin();
 
             try

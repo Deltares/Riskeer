@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Data.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
@@ -77,7 +76,6 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingInput original, PipingInput clone)
         {
-            Assert.AreSame(TypeUtils.GetField<GeneralPipingInput>(original, "generalInputParameters"), TypeUtils.GetField<GeneralPipingInput>(clone, "generalInputParameters"));
             Assert.AreEqual(original.EntryPointL, clone.EntryPointL);
             Assert.AreEqual(original.ExitPointL, clone.ExitPointL);
             CoreCloneAssert.AreObjectClones(original.PhreaticLevelExit, clone.PhreaticLevelExit, DistributionAssert.AreEqual);

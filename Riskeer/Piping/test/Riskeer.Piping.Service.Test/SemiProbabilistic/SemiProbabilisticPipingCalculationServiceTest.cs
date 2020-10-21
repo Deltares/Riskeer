@@ -1023,7 +1023,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
