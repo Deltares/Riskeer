@@ -38,21 +38,6 @@ namespace Riskeer.Piping.Forms.Test
     [TestFixture]
     public class PipingCalculationConfigurationHelperTest
     {
-        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, IPipingCalculation<PipingInput> calculationInput)
-        {
-            Assert.AreEqual(generalInput.BeddingAngle, calculationInput.InputParameters.BeddingAngle);
-            Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(generalInput.Gravity, calculationInput.InputParameters.Gravity);
-            Assert.AreEqual(generalInput.MeanDiameter70, calculationInput.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInput.SandParticlesVolumicWeight.Value, calculationInput.InputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInput.SellmeijerModelFactor, calculationInput.InputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(generalInput.SellmeijerReductionFactor, calculationInput.InputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInput.UpliftModelFactor, calculationInput.InputParameters.UpliftModelFactor);
-            Assert.AreEqual(generalInput.WaterKinematicViscosity, calculationInput.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInput.WaterVolumetricWeight.Value, calculationInput.InputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInput.WhitesDragCoefficient, calculationInput.InputParameters.WhitesDragCoefficient);
-        }
-
         #region GetPipingSoilProfilesForSurfaceLine
 
         [Test]
@@ -296,7 +281,7 @@ namespace Riskeer.Piping.Forms.Test
         {
             // Call
             void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                null, true, true, Enumerable.Empty<PipingStochasticSoilModel>(), new GeneralPipingInput());
+                null, true, true, Enumerable.Empty<PipingStochasticSoilModel>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -308,23 +293,11 @@ namespace Riskeer.Piping.Forms.Test
         {
             // Call
             void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(), true, true, null, new GeneralPipingInput());
+                Enumerable.Empty<PipingSurfaceLine>(), true, true, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilModels", exception.ParamName);
-        }
-
-        [Test]
-        public void GenerateCalculationItemsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(), true, true, Enumerable.Empty<PipingStochasticSoilModel>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -349,7 +322,7 @@ namespace Riskeer.Piping.Forms.Test
             void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    pipingSurfaceLines, true, true, Enumerable.Empty<PipingStochasticSoilModel>(), new GeneralPipingInput()).ToArray();
+                    pipingSurfaceLines, true, true, Enumerable.Empty<PipingStochasticSoilModel>()).ToArray();
             }
 
             // Assert
@@ -416,8 +389,7 @@ namespace Riskeer.Piping.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines, false, false,
-                availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -475,8 +447,7 @@ namespace Riskeer.Piping.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines, generateSemiProbabilistic,
-                generateProbabilistic, availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -553,7 +524,7 @@ namespace Riskeer.Piping.Forms.Test
             void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines, true, true, availableSoilModels, new GeneralPipingInput()).ToArray();
+                    surfaceLines, true, true, availableSoilModels).ToArray();
             }
 
             // Assert
@@ -625,7 +596,7 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels, new GeneralPipingInput()).ToArray();
+                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -721,7 +692,7 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels, new GeneralPipingInput()).ToArray();
+                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -826,7 +797,7 @@ namespace Riskeer.Piping.Forms.Test
             void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines, true, true, availableSoilModels, new GeneralPipingInput()).ToArray();
+                    surfaceLines, true, true, availableSoilModels).ToArray();
             }
 
             // Assert
@@ -848,7 +819,7 @@ namespace Riskeer.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameGeneralInputAndSemiProbabilisticInput()
+        public void GenerateCalculationItemsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameAndSemiProbabilisticInput()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -892,13 +863,10 @@ namespace Riskeer.Piping.Forms.Test
                 surfaceLine
             };
 
-            var generalInput = new GeneralPipingInput();
-
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines, true, true,
-                availableSoilModels,
-                generalInput).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             var group = (CalculationGroup) result.First(sl => sl.Name == surfaceLine.Name);
@@ -912,11 +880,6 @@ namespace Riskeer.Piping.Forms.Test
             Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", probabilisticCalculation1.Name);
             Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", semiProbabilisticCalculationScenario2.Name);
             Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", probabilisticCalculation2.Name);
-
-            CompareGeneralInputToInput(generalInput, semiProbabilisticCalculationScenario1);
-            CompareGeneralInputToInput(generalInput, probabilisticCalculation1);
-            CompareGeneralInputToInput(generalInput, semiProbabilisticCalculationScenario2);
-            CompareGeneralInputToInput(generalInput, probabilisticCalculation2);
         }
 
         [Test]
@@ -973,7 +936,7 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines, true, true, availableSoilModels, new GeneralPipingInput()).ToArray();
+                surfaceLines, true, true, availableSoilModels).ToArray();
 
             // Assert
             var group = (CalculationGroup) result.First(sl => sl.Name == surfaceLine.Name);
