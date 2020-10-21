@@ -118,10 +118,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -145,10 +145,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -173,10 +173,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -276,6 +276,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
+                
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
 
                 // Call
