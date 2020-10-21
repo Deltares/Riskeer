@@ -39,7 +39,6 @@ namespace Riskeer.Piping.Data
     /// </summary>
     public abstract class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
     {
-        private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;
         private LogNormalDistribution dampingFactorExit;
         private RoundedDouble exitPointL;
@@ -49,19 +48,8 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="PipingInput"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        protected PipingInput(GeneralPipingInput generalInputParameters)
+        protected PipingInput()
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException(nameof(generalInputParameters));
-            }
-
-            this.generalInputParameters = generalInputParameters;
-
             exitPointL = new RoundedDouble(2, double.NaN);
             entryPointL = new RoundedDouble(2, double.NaN);
 
