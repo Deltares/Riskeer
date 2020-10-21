@@ -78,6 +78,7 @@
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
 			<smartfoldernode
+			errorbehavior="ContinueParent"
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388"
 			name="AddNewTraject">
 				<parameters>
@@ -1484,6 +1485,7 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueParent"
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
 			name="AddTraject6-5">
 				<parameters>
@@ -3211,6 +3213,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueParent"
 			id="45d2f6ef-eb2f-4b9d-a62f-c65e74e99199"
 			name="OpenProject">
 				<parameters>
@@ -5286,6 +5289,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
+			errorbehavior="ContinueParent"
 			id="72139e5e-316f-4a54-9d52-75f865439dd6"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
@@ -6031,6 +6035,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
+			errorbehavior="ContinueParent"
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee"
 			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
@@ -7793,6 +7798,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
+			errorbehavior="ContinueParent"
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
 			name="OpenRelevanceProject">
 			</smartfoldernode>
@@ -8452,6 +8458,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
+			errorbehavior="ContinueParent"
 			id="aeb77e69-5899-4233-a3e5-bcfb058676c3"
 			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
@@ -12142,6 +12149,7 @@
 			name="LoopRowsSetCustomAssessmentValue">
 			</smartfoldernode>
 			<smartfoldernode
+			errorbehavior="ContinueParent"
 			id="f4955a2d-d976-4dab-9a66-884a462172a4"
 			name="AddTraject12-2">
 				<parameters>
@@ -12183,6 +12191,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
+			errorbehavior="ContinueParent"
 			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
