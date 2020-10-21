@@ -86,6 +86,31 @@ namespace Riskeer.Piping.Forms.Test
         }
 
         [Test]
+        public void Constructor_ControlsCorrectlyInitialized()
+        {
+            // Call
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
+            {
+                // Assert
+                var selectAllButton = new ButtonTester("SelectAllButton", dialog);
+                var deselectAllButton = new ButtonTester("DeselectAllButton", dialog);
+                var generateButton = new ButtonTester("DoForSelectedButton", dialog);
+                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
+                Assert.AreEqual("Selecteer alles", selectAllButton.Text);
+                Assert.AreEqual("Deselecteer alles", deselectAllButton.Text);
+                Assert.AreEqual("Genereren", generateButton.Text);
+                Assert.AreEqual("Annuleren", cancelButton.Text);
+
+                var semiProbabilisticCheckbox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
+                var probabilisticCheckbox = new CheckBoxTester("ProbabilisticCheckbox", dialog);
+                Assert.AreEqual("Semi-probabilistische toets", semiProbabilisticCheckbox.Text);
+                Assert.IsTrue(semiProbabilisticCheckbox.Checked);
+                Assert.AreEqual("Probabilistische toets", probabilisticCheckbox.Text);
+                Assert.IsFalse(probabilisticCheckbox.Checked);
+            }
+        }
+
+        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -101,14 +126,12 @@ namespace Riskeer.Piping.Forms.Test
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
                 var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[selectItemColumnIndex];
-                const string expectedLocationCalculateHeaderText = "Gebruik";
-                Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+                Assert.AreEqual("Gebruik", locationCalculateColumn.HeaderText);
                 Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
                 var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[nameColumnIndex];
-                const string expectedNameHeaderText = "Profielschematisatie";
-                Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
+                Assert.AreEqual("Profielschematisatie", nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
                 Assert.IsTrue(nameColumn.ReadOnly);

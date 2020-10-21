@@ -521,4 +521,10 @@ opbarsten
   <data name="FailureMechanismSection_Length_Rounded_DisplayName" xml:space="preserve">
     <value>Lengte* [m]</value>
   </data>
+  <data name="PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckbox" xml:space="preserve">
+    <value>Semi-probabilistische toets</value>
+  </data>
+  <data name="PipingSurfaceLineSelectionDialog_ProbabilisticCheckbox" xml:space="preserve">
+    <value>Probabilistische toets</value>
+  </data>
 </root>

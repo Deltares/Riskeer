@@ -92,8 +92,8 @@ namespace Riskeer.Piping.Forms
             DeselectAllButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
             DoForSelectedButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Generate;
             CustomCancelButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Cancel;
-            // SemiProbabilisticCheckbox.Text = "Semi-probabilistische toets";
-            // ProbabilisticCheckbox.Text = "Probabilistische toets";
+            SemiProbabilisticCheckbox.Text = Resources.PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckbox;
+            ProbabilisticCheckbox.Text = Resources.PipingSurfaceLineSelectionDialog_ProbabilisticCheckbox;
         }
 
         private void SetSelectedItems()
