@@ -31,6 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -100,14 +101,16 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(criticalHeaveGradientPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_Description))]
-        public double CriticalHeaveGradient
+        public LogNormalDistributionDesignVariableProperties CriticalHeaveGradient
         {
             get
             {
-                return data.GeneralInput.CriticalHeaveGradient;
+                return new LogNormalDistributionDesignVariableProperties(
+                    SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
             }
         }
 
