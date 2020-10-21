@@ -127,7 +127,7 @@ namespace Riskeer.HydraRing.Calculation.Providers
                         311,
                         313,
                         314
-                    }, 3015, -999, -999)
+                    }, 3015, 9, 1)
                 }
             };
         }

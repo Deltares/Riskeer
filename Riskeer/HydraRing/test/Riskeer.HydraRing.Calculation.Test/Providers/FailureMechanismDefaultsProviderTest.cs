@@ -100,7 +100,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Providers
             311,
             313,
             314
-        }, 3015, -999, -999)]
+        }, 3015, 9, 1)]
         public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType,
                                                                                         int expectedMechanismId,
                                                                                         IEnumerable<int> expectedSubMechanismIds,
