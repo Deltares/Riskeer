@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -173,9 +174,9 @@ namespace Riskeer.Piping.Forms.Test
 
             using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-
                 dialog.Show();
+
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -198,9 +199,9 @@ namespace Riskeer.Piping.Forms.Test
 
             using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-
                 dialog.Show();
+
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -225,10 +226,9 @@ namespace Riskeer.Piping.Forms.Test
 
             using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-
                 dialog.Show();
 
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -311,9 +311,9 @@ namespace Riskeer.Piping.Forms.Test
         }
 
         [Test]
-        public void DoForSelectedButton_NoneSelected_DoForSelectedButtonDisabled()
+        public void GivenDialog_WhenNoSurfaceLinesSelected_ThenDoForSelectedButtonDisabled()
         {
-            // Setup
+            // Given
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine("surface line 1"),
@@ -326,12 +326,95 @@ namespace Riskeer.Piping.Forms.Test
 
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
 
-                // Call
+                // When
                 var button = (Button) buttonTester.TheObject;
 
-                // Assert
+                // Then
                 Assert.IsFalse(button.Enabled);
-                CollectionAssert.IsEmpty(dialog.SelectedItems);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenSurfaceLinesSelectedAndNoCheckboxesChecked_ThenDoForSelectedButtonDisabled()
+        {
+            // Given
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                dialog.Show();
+
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                var semiProbabilisticCheckbox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
+                semiProbabilisticCheckbox.UnCheck();
+
+                var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
+
+                // When
+                var button = (Button) buttonTester.TheObject;
+
+                // Then
+                Assert.IsFalse(button.Enabled);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCheckboxes))]
+        public void GivenDialog_WhenSurfaceLinesSelectedAndCheckboxChecked_ThenDoForSelectedButtonEnabled(IEnumerable<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>> getCheckBoxFuncs)
+        {
+            // Given
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                dialog.Show();
+
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                foreach (Func<PipingSurfaceLineSelectionDialog, CheckBoxTester> getCheckBoxFunc in getCheckBoxFuncs)
+                {
+                    CheckBoxTester checkBox = getCheckBoxFunc(dialog);
+                    checkBox.Check();
+                }
+
+                var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
+
+                // When
+                var button = (Button) buttonTester.TheObject;
+
+                // Then
+                Assert.IsTrue(button.Enabled);
+            }
+        }
+        
+        private static IEnumerable<TestCaseData> GetCheckboxes
+        {
+            get
+            {
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckbox", dialog)
+                });
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("ProbabilisticCheckbox", dialog)
+                });
+                yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
+                {
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckbox", dialog),
+                    dialog => new CheckBoxTester("ProbabilisticCheckbox", dialog)
+                });
             }
         }
     }

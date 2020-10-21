@@ -152,10 +152,20 @@ namespace Riskeer.Piping.Forms
         {
             Close();
         }
+        
+        private void SemiProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDoForSelectedButton();
+        }
+
+        private void ProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDoForSelectedButton();
+        }
 
         private void UpdateDoForSelectedButton()
         {
-            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected);
+            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected) && (SemiProbabilisticCheckbox.Checked || ProbabilisticCheckbox.Checked);
         }
 
         #endregion
