@@ -25,7 +25,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -49,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var entity = new PipingCalculationEntity();
 
             // Call
-            void Call() => entity.Read(null, new GeneralPipingInput());
+            void Call() => entity.Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,28 +82,15 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             };
 
             var collector = new ReadConversionCollector();
-            var generalInputParameters = new GeneralPipingInput();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, generalInputParameters);
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
             Assert.AreEqual(contribution, calculation.Contribution, 1e-6);
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
-
-            Assert.AreEqual(generalInputParameters.BeddingAngle, calculation.InputParameters.BeddingAngle);
-            Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, calculation.InputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(generalInputParameters.Gravity, calculation.InputParameters.Gravity);
-            Assert.AreEqual(generalInputParameters.MeanDiameter70, calculation.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight.Value, calculation.InputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInputParameters.SellmeijerModelFactor, calculation.InputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, calculation.InputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInputParameters.UpliftModelFactor, calculation.InputParameters.UpliftModelFactor);
-            Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, calculation.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight.Value, calculation.InputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, calculation.InputParameters.WhitesDragCoefficient);
 
             AssertRoundedDouble(entryPoint, calculation.InputParameters.EntryPointL);
             AssertRoundedDouble(exitPoint, calculation.InputParameters.ExitPointL);
@@ -146,7 +132,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             collector.Read(surfaceLineEntity, surfaceLine);
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
@@ -181,7 +167,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var collector = new ReadConversionCollector();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.ContainsPipingSurfaceLine(surfaceLineEntity));
@@ -208,7 +194,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -231,7 +217,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var collector = new ReadConversionCollector();
 
             // Call
-            entity.Read(collector, new GeneralPipingInput());
+            entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
@@ -263,7 +249,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             collector.Read(stochasticSoilModelEntity, stochasticSoilModel);
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
@@ -313,7 +299,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var collector = new ReadConversionCollector();
 
             // Call
-            entity.Read(collector, new GeneralPipingInput());
+            entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
@@ -338,7 +324,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var collector = new ReadConversionCollector();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             SemiProbabilisticPipingOutput output = calculation.Output;

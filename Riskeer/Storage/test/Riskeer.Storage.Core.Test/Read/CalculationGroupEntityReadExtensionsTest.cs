@@ -29,7 +29,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
@@ -49,29 +48,13 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var entity = new CalculationGroupEntity();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(null, generalPipingInput);
+            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("collector", paramName);
-        }
-
-        [Test]
-        public void ReadAsPipingCalculationGroup_GeneralPipingInputIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var entity = new CalculationGroupEntity();
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(collector, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("generalPipingInput", paramName);
         }
 
         [Test]
@@ -84,10 +67,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup group = entity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup group = entity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, group.Name);
@@ -130,10 +112,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -179,10 +160,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -233,10 +213,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
