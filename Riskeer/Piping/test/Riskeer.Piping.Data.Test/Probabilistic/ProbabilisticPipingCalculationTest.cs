@@ -34,7 +34,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation();
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation<ProbabilisticPipingInput>>(calculation);
@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = null
             };
@@ -63,7 +63,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
@@ -84,7 +84,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             PartialProbabilisticPipingOutput profileSpecificOutput =
                 PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = output
             };
@@ -102,7 +102,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void ClearIllustrationPoints_CalculationWithoutOutput_DoesNotThrow()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation();
 
             // Call
             void Call() => calculation.ClearIllustrationPoints();
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
@@ -157,7 +157,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
         private static ProbabilisticPipingCalculation CreateRandomCalculationWithoutOutput()
         {
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            var calculation = new ProbabilisticPipingCalculation
             {
                 Name = "Random name",
                 Comments =

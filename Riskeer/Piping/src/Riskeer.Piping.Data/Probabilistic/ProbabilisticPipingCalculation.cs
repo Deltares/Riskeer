@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 namespace Riskeer.Piping.Data.Probabilistic
 {
     /// <summary>
@@ -31,12 +29,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters)
-            : base(new ProbabilisticPipingInput(generalInputParameters)) {}
+        public ProbabilisticPipingCalculation() : base(new ProbabilisticPipingInput()) {}
 
         public override bool HasOutput => Output != null;
 
