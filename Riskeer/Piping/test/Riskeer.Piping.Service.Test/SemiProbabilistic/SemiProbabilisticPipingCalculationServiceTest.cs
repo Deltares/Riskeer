@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Validate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => SemiProbabilisticPipingCalculationService.Validate(new SemiProbabilisticPipingCalculation(),
+            void Call() => SemiProbabilisticPipingCalculationService.Validate(new TestSemiProbabilisticPipingCalculation(),
                                                                               null,
                                                                               RoundedDouble.NaN);
 
@@ -121,7 +121,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculation();
+            var calculation = new TestSemiProbabilisticPipingCalculation();
 
             // Call
             var isValid = false;
@@ -1017,7 +1017,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => SemiProbabilisticPipingCalculationService.Calculate(new SemiProbabilisticPipingCalculation(),
+            void Call() => SemiProbabilisticPipingCalculationService.Calculate(new TestSemiProbabilisticPipingCalculation(),
                                                                                null,
                                                                                RoundedDouble.NaN);
 

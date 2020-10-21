@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Constructor_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SemiProbabilisticPipingCalculationActivity(new SemiProbabilisticPipingCalculation(),
+            void Call() => new SemiProbabilisticPipingCalculationActivity(new TestSemiProbabilisticPipingCalculation(),
                                                                           null,
                                                                           RoundedDouble.NaN);
 
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculation();
+            var calculation = new TestSemiProbabilisticPipingCalculation();
 
             // Call
             var activity = new SemiProbabilisticPipingCalculationActivity(calculation,
