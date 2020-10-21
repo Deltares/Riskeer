@@ -87,6 +87,9 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Wait", "Waiting 30m to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(1800000), new RecordItemIndex(2));
             repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(1800000);
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
+            Delay.Duration(300, false);
+            
         }
 
 #region Image Feature Data

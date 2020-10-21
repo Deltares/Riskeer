@@ -109,16 +109,19 @@ namespace AutomatedSystemTests
             
             PrepareMessageToStopAt();
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s for the attribute 'Text' to contain the specified value $calculationIndexToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(2));
-            repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(5000, "Text", calculationIndexToStopAt);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $calculationIndexToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(2));
+            repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(1800000, "Text", calculationIndexToStopAt);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(3));
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(4));
             repo.ActivityProgressDialog.ButtonCancel.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(5));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(5));
+            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(6));
+            Delay.Duration(500, false);
             
         }
 
