@@ -119,5 +119,16 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// equals <see cref="string.Empty"/>.</remarks>
         IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(HydraRingCalculationSettings calculationSettings)
             where TCalculationInput : ExceedanceProbabilityCalculationInput;
+
+        /// <summary>
+        /// Creates a calculator for performing a piping calculation.
+        /// </summary>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/>.</param>
+        /// <returns>A new <see cref="IPipingCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        IPipingCalculator CreatePipingCalculator(HydraRingCalculationSettings calculationSettings);
     }
 }
