@@ -19,27 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Piping input that can be used for testing.
     /// </summary>
-    public class TestPipingInput : PipingInput
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestPipingInput"/> with default <see cref="GeneralPipingInput"/>.
-        /// </summary>
-        public TestPipingInput() : base(new GeneralPipingInput()) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestPipingInput"/>.
-        /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        public TestPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
-    }
+    public class TestPipingInput : PipingInput {}
 }

@@ -65,10 +65,8 @@ namespace Riskeer.Piping.Data.Test
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var pipingInput = new TestPipingInput(generalInputParameters);
+            var pipingInput = new TestPipingInput();
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(pipingInput);
@@ -82,32 +80,10 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsNull(pipingInput.StochasticSoilProfile);
             Assert.IsNull(pipingInput.HydraulicBoundaryLocation);
 
-            Assert.AreEqual(generalInputParameters.UpliftModelFactor, pipingInput.UpliftModelFactor);
-            Assert.AreEqual(generalInputParameters.SellmeijerModelFactor, pipingInput.SellmeijerModelFactor);
-            Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, pipingInput.CriticalHeaveGradient);
-            Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, pipingInput.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInputParameters.Gravity, pipingInput.Gravity);
-            Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, pipingInput.WaterKinematicViscosity);
-            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight, pipingInput.WaterVolumetricWeight);
-            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight, pipingInput.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, pipingInput.WhitesDragCoefficient);
-            Assert.AreEqual(generalInputParameters.BeddingAngle, pipingInput.BeddingAngle);
-            Assert.AreEqual(generalInputParameters.MeanDiameter70, pipingInput.MeanDiameter70);
-
             Assert.IsNaN(pipingInput.ExitPointL);
             Assert.AreEqual(2, pipingInput.ExitPointL.NumberOfDecimalPlaces);
             Assert.IsNaN(pipingInput.EntryPointL);
             Assert.AreEqual(2, pipingInput.EntryPointL.NumberOfDecimalPlaces);
-        }
-
-        [Test]
-        public void Constructor_GeneralPipingInputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new TestPipingInput(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
