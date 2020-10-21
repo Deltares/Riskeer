@@ -60,9 +60,9 @@ namespace Riskeer.Piping.Forms
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.CheckboxesPanel = new System.Windows.Forms.Panel();
-            this.ProbabilisticCheckbox = new System.Windows.Forms.CheckBox();
-            this.SemiProbabilisticCheckbox = new System.Windows.Forms.CheckBox();
+            this.CheckBoxesPanel = new System.Windows.Forms.Panel();
+            this.ProbabilisticCheckBox = new System.Windows.Forms.CheckBox();
+            this.SemiProbabilisticCheckBox = new System.Windows.Forms.CheckBox();
             this.SelectDeselectPanel = new System.Windows.Forms.Panel();
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.DeselectAllButton = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Forms
             this.OkCancelButtonPanel = new System.Windows.Forms.Panel();
             this.ButtonGroupBox.SuspendLayout();
             this.TableLayoutPanel.SuspendLayout();
-            this.CheckboxesPanel.SuspendLayout();
+            this.CheckBoxesPanel.SuspendLayout();
             this.SelectDeselectPanel.SuspendLayout();
             this.OkCancelButtonPanel.SuspendLayout();
             this.SuspendLayout();
@@ -102,7 +102,7 @@ namespace Riskeer.Piping.Forms
             this.TableLayoutPanel.AutoSize = true;
             this.TableLayoutPanel.ColumnCount = 1;
             this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel.Controls.Add(this.CheckboxesPanel, 0, 0);
+            this.TableLayoutPanel.Controls.Add(this.CheckBoxesPanel, 0, 0);
             this.TableLayoutPanel.Controls.Add(this.DataGridViewControl, 0, 1);
             this.TableLayoutPanel.Controls.Add(this.SelectDeselectPanel, 0, 2);
             this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -115,36 +115,36 @@ namespace Riskeer.Piping.Forms
             this.TableLayoutPanel.Size = new System.Drawing.Size(348, 457);
             this.TableLayoutPanel.TabIndex = 7;
             // 
-            // CheckboxesPanel
+            // CheckBoxesPanel
             // 
-            this.CheckboxesPanel.AutoSize = true;
-            this.CheckboxesPanel.Controls.Add(this.ProbabilisticCheckbox);
-            this.CheckboxesPanel.Controls.Add(this.SemiProbabilisticCheckbox);
-            this.CheckboxesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CheckboxesPanel.Location = new System.Drawing.Point(3, 3);
-            this.CheckboxesPanel.Name = "CheckboxesPanel";
-            this.CheckboxesPanel.Size = new System.Drawing.Size(342, 49);
-            this.CheckboxesPanel.TabIndex = 8;
+            this.CheckBoxesPanel.AutoSize = true;
+            this.CheckBoxesPanel.Controls.Add(this.ProbabilisticCheckBox);
+            this.CheckBoxesPanel.Controls.Add(this.SemiProbabilisticCheckBox);
+            this.CheckBoxesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CheckBoxesPanel.Location = new System.Drawing.Point(3, 3);
+            this.CheckBoxesPanel.Name = "CheckBoxesPanel";
+            this.CheckBoxesPanel.Size = new System.Drawing.Size(342, 49);
+            this.CheckBoxesPanel.TabIndex = 8;
             // 
-            // ProbabilisticCheckbox
+            // ProbabilisticCheckBox
             // 
-            this.ProbabilisticCheckbox.AutoSize = true;
-            this.ProbabilisticCheckbox.Location = new System.Drawing.Point(4, 28);
-            this.ProbabilisticCheckbox.Name = "ProbabilisticCheckbox";
-            this.ProbabilisticCheckbox.Size = new System.Drawing.Size(80, 17);
-            this.ProbabilisticCheckbox.TabIndex = 1;
-            this.ProbabilisticCheckbox.UseVisualStyleBackColor = true;
-            this.ProbabilisticCheckbox.CheckedChanged += new System.EventHandler(this.ProbabilisticCheckbox_CheckedChanged);
+            this.ProbabilisticCheckBox.AutoSize = true;
+            this.ProbabilisticCheckBox.Location = new System.Drawing.Point(4, 28);
+            this.ProbabilisticCheckBox.Name = "ProbabilisticCheckBox";
+            this.ProbabilisticCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.ProbabilisticCheckBox.TabIndex = 1;
+            this.ProbabilisticCheckBox.UseVisualStyleBackColor = true;
+            this.ProbabilisticCheckBox.CheckedChanged += new System.EventHandler(this.ProbabilisticCheckbox_CheckedChanged);
             // 
-            // SemiProbabilisticCheckbox
+            // SemiProbabilisticCheckBox
             // 
-            this.SemiProbabilisticCheckbox.AutoSize = true;
-            this.SemiProbabilisticCheckbox.Location = new System.Drawing.Point(4, 4);
-            this.SemiProbabilisticCheckbox.Name = "SemiProbabilisticCheckbox";
-            this.SemiProbabilisticCheckbox.Size = new System.Drawing.Size(80, 17);
-            this.SemiProbabilisticCheckbox.TabIndex = 0;
-            this.SemiProbabilisticCheckbox.UseVisualStyleBackColor = true;
-            this.SemiProbabilisticCheckbox.CheckedChanged += new System.EventHandler(this.SemiProbabilisticCheckbox_CheckedChanged);
+            this.SemiProbabilisticCheckBox.AutoSize = true;
+            this.SemiProbabilisticCheckBox.Location = new System.Drawing.Point(4, 4);
+            this.SemiProbabilisticCheckBox.Name = "SemiProbabilisticCheckBox";
+            this.SemiProbabilisticCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.SemiProbabilisticCheckBox.TabIndex = 0;
+            this.SemiProbabilisticCheckBox.UseVisualStyleBackColor = true;
+            this.SemiProbabilisticCheckBox.CheckedChanged += new System.EventHandler(this.SemiProbabilisticCheckbox_CheckedChanged);
             // 
             // SelectDeselectPanel
             // 
@@ -224,8 +224,8 @@ namespace Riskeer.Piping.Forms
             this.ButtonGroupBox.PerformLayout();
             this.TableLayoutPanel.ResumeLayout(false);
             this.TableLayoutPanel.PerformLayout();
-            this.CheckboxesPanel.ResumeLayout(false);
-            this.CheckboxesPanel.PerformLayout();
+            this.CheckBoxesPanel.ResumeLayout(false);
+            this.CheckBoxesPanel.PerformLayout();
             this.SelectDeselectPanel.ResumeLayout(false);
             this.OkCancelButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -243,8 +243,8 @@ namespace Riskeer.Piping.Forms
         private System.Windows.Forms.Button CustomCancelButton;
         private System.Windows.Forms.Panel OkCancelButtonPanel;
         private TableLayoutPanel TableLayoutPanel;
-        private Panel CheckboxesPanel;
-        private CheckBox ProbabilisticCheckbox;
-        private CheckBox SemiProbabilisticCheckbox;
+        private Panel CheckBoxesPanel;
+        private CheckBox ProbabilisticCheckBox;
+        private CheckBox SemiProbabilisticCheckBox;
     }
 }

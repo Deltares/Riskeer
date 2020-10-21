@@ -104,12 +104,12 @@ namespace Riskeer.Piping.Forms.Test
                 Assert.AreEqual("Genereren", generateButton.Text);
                 Assert.AreEqual("Annuleren", cancelButton.Text);
 
-                var semiProbabilisticCheckbox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
-                var probabilisticCheckbox = new CheckBoxTester("ProbabilisticCheckbox", dialog);
-                Assert.AreEqual("Semi-probabilistische toets", semiProbabilisticCheckbox.Text);
-                Assert.IsTrue(semiProbabilisticCheckbox.Checked);
-                Assert.AreEqual("Probabilistische toets", probabilisticCheckbox.Text);
-                Assert.IsFalse(probabilisticCheckbox.Checked);
+                var semiProbabilisticCheckBox = new CheckBoxTester("SemiProbabilisticCheckBox", dialog);
+                var probabilisticCheckBox = new CheckBoxTester("ProbabilisticCheckBox", dialog);
+                Assert.AreEqual("Semi-probabilistische toets", semiProbabilisticCheckBox.Text);
+                Assert.IsTrue(semiProbabilisticCheckBox.Checked);
+                Assert.AreEqual("Probabilistische toets", probabilisticCheckBox.Text);
+                Assert.IsFalse(probabilisticCheckBox.Checked);
             }
         }
 
@@ -353,7 +353,7 @@ namespace Riskeer.Piping.Forms.Test
                 var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
-                var semiProbabilisticCheckbox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
+                var semiProbabilisticCheckbox = new CheckBoxTester("SemiProbabilisticCheckBox", dialog);
                 semiProbabilisticCheckbox.UnCheck();
 
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
@@ -367,7 +367,7 @@ namespace Riskeer.Piping.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetCheckboxes))]
+        [TestCaseSource(nameof(GetCheckBoxes))]
         public void GivenDialog_WhenSurfaceLinesSelectedAndCheckboxChecked_ThenDoForSelectedButtonEnabled(IEnumerable<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>> getCheckBoxFuncs)
         {
             // Given
@@ -411,7 +411,7 @@ namespace Riskeer.Piping.Forms.Test
                 dialog.Show();
                 
                 // When
-                var semiProbabilisticCheckBox = new CheckBoxTester("SemiProbabilisticCheckbox", dialog);
+                var semiProbabilisticCheckBox = new CheckBoxTester("SemiProbabilisticCheckBox", dialog);
                 if (checkBoxChecked)
                 {
                     semiProbabilisticCheckBox.Check();
@@ -437,7 +437,7 @@ namespace Riskeer.Piping.Forms.Test
                 dialog.Show();
                 
                 // When
-                var probabilisticCheckBox = new CheckBoxTester("ProbabilisticCheckbox", dialog);
+                var probabilisticCheckBox = new CheckBoxTester("ProbabilisticCheckBox", dialog);
                 if (checkBoxChecked)
                 {
                     probabilisticCheckBox.Check();
@@ -452,22 +452,22 @@ namespace Riskeer.Piping.Forms.Test
             }
         }
 
-        private static IEnumerable<TestCaseData> GetCheckboxes
+        private static IEnumerable<TestCaseData> GetCheckBoxes
         {
             get
             {
                 yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
                 {
-                    dialog => new CheckBoxTester("SemiProbabilisticCheckbox", dialog)
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog)
                 });
                 yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
                 {
-                    dialog => new CheckBoxTester("ProbabilisticCheckbox", dialog)
+                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
                 });
                 yield return new TestCaseData(new List<Func<PipingSurfaceLineSelectionDialog, CheckBoxTester>>
                 {
-                    dialog => new CheckBoxTester("SemiProbabilisticCheckbox", dialog),
-                    dialog => new CheckBoxTester("ProbabilisticCheckbox", dialog)
+                    dialog => new CheckBoxTester("SemiProbabilisticCheckBox", dialog),
+                    dialog => new CheckBoxTester("ProbabilisticCheckBox", dialog)
                 });
             }
         }

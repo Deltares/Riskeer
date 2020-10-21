@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1207,9 +1207,9 @@ namespace Riskeer.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Probabilistische toets.
         /// </summary>
-        public static string PipingSurfaceLineSelectionDialog_ProbabilisticCheckbox {
+        public static string PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox {
             get {
-                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_ProbabilisticCheckbox", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox", resourceCulture);
             }
         }
         
@@ -1225,9 +1225,9 @@ namespace Riskeer.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Semi-probabilistische toets.
         /// </summary>
-        public static string PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckbox {
+        public static string PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox {
             get {
-                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckbox", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox", resourceCulture);
             }
         }
         

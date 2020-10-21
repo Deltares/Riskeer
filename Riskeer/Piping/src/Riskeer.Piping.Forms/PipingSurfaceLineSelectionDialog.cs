@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms
             InitializeDataGridView();
 
             DataGridViewControl.SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
-            SemiProbabilisticCheckbox.Checked = true;
+            SemiProbabilisticCheckBox.Checked = true;
         }
 
         /// <summary>
@@ -103,8 +103,8 @@ namespace Riskeer.Piping.Forms
             DeselectAllButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
             DoForSelectedButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Generate;
             CustomCancelButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Cancel;
-            SemiProbabilisticCheckbox.Text = Resources.PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckbox;
-            ProbabilisticCheckbox.Text = Resources.PipingSurfaceLineSelectionDialog_ProbabilisticCheckbox;
+            SemiProbabilisticCheckBox.Text = Resources.PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox;
+            ProbabilisticCheckBox.Text = Resources.PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox;
         }
 
         private void SetSelectedItems()
@@ -166,13 +166,13 @@ namespace Riskeer.Piping.Forms
         
         private void SemiProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            GenerateSemiProbabilistic = SemiProbabilisticCheckbox.Checked;
+            GenerateSemiProbabilistic = SemiProbabilisticCheckBox.Checked;
             UpdateDoForSelectedButton();
         }
 
         private void ProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            GenerateProbabilistic = ProbabilisticCheckbox.Checked;
+            GenerateProbabilistic = ProbabilisticCheckBox.Checked;
             UpdateDoForSelectedButton();
         }
 
