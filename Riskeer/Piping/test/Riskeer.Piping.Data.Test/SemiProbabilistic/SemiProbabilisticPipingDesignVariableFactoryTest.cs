@@ -75,6 +75,31 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
+        public void GetCriticalHeaveGradientDesignVariable_GeneralPipingInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("generalPipingInput", paramName);
+        }
+
+        [Test]
+        public void GetCriticalHeaveGradientDesignVariable_GeneralPipingInput_CreateDeterministicDesignVariableForCriticalHeaveGradient()
+        {
+            // Setup
+            var generalPipingInput = new GeneralPipingInput();
+
+            // Call
+            DeterministicDesignVariable<LogNormalDistribution> criticalHeaveGradient = SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput);
+
+            // Assert
+            DistributionAssert.AreEqual(generalPipingInput.CriticalHeaveGradient, criticalHeaveGradient.Distribution);
+            Assert.AreEqual(0.3, criticalHeaveGradient.GetDesignValue());
+        }
+
+        [Test]
         public void GetSellmeijerModelFactorDesignVariable_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Call

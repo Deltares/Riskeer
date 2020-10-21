@@ -64,6 +64,22 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         }
 
         /// <summary>
+        /// Creates the deterministic design variable for the critical exit gradient for heave.
+        /// </summary>
+        /// <param name="generalPipingInput">The general piping input.</param>
+        /// <returns>The created <see cref="DeterministicDesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
+        public static DeterministicDesignVariable<LogNormalDistribution> GetCriticalHeaveGradientDesignVariable(GeneralPipingInput generalPipingInput)
+        {
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
+            }
+
+            return new DeterministicDesignVariable<LogNormalDistribution>(generalPipingInput.CriticalHeaveGradient, 0.3);
+        }
+
+        /// <summary>
         /// Creates the design variable for the volumic weight of the saturated coverage layer.
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
