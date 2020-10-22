@@ -283,25 +283,23 @@ namespace Riskeer.Piping.Plugin
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
             {
+                GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
-                                                                                                  ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput),
-                GetViewData = context => context.WrappedData.Sections
+                                                                                                  ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingOutputContext, ProbabilisticPipingCalculation, ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView>
+            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticPipingProfileSpecificOutputView>
             {
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                // Check view name
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                 GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                // Check specific output!
-                CreateInstance = context => new ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView(
-                    () => context.WrappedData.Output?.SectionSpecificOutput?.GeneralResult)
+                CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputView(
+                    () => context.WrappedData.Output?.ProfileSpecificOutput?.GeneralResult)
             };
         }
 

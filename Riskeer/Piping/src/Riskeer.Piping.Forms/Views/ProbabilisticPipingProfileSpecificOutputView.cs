@@ -30,16 +30,16 @@ namespace Riskeer.Piping.Forms.Views
     /// Override of <see cref="GeneralResultFaultTreeIllustrationPointView"/> for making output views for
     /// <see cref="ProbabilisticPipingOutput"/> uniquely identifiable (when it comes to opening/closing views).
     /// </summary>
-    public class ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView : GeneralResultFaultTreeIllustrationPointView
+    public class ProbabilisticPipingProfileSpecificOutputView : GeneralResultFaultTreeIllustrationPointView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingProfileSpecificOutputView"/>.
         /// </summary>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
         /// that must be presented.</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="getGeneralResultFunc"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
+        public ProbabilisticPipingProfileSpecificOutputView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
             : base(getGeneralResultFunc) {}
     }
 }
