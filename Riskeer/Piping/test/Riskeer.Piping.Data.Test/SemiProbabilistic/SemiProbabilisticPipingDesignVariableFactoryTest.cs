@@ -56,8 +56,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             void Call() => SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("generalPipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
         [Test]
@@ -81,8 +81,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             void Call() => SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("generalPipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
         [Test]
@@ -106,8 +106,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             void Call() => SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("generalPipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
         [Test]
@@ -195,8 +195,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             void Call() => SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("pipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("pipingInput", exception.ParamName);
         }
 
         [Test]
@@ -221,8 +221,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             void Call() => SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("pipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("pipingInput", exception.ParamName);
         }
 
         [Test]

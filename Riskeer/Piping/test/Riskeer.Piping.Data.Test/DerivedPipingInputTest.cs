@@ -37,22 +37,22 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null, new GeneralPipingInput());
+            void Call() => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null, new GeneralPipingInput());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetEffectiveThicknessCoverageLayer_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(new TestPipingInput(), null);
+            void Call() => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(new TestPipingInput(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("generalInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -167,11 +167,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetThicknessCoverageLayer(null);
+            void Call() => DerivedPipingInput.GetThicknessCoverageLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -286,11 +286,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetThicknessAquiferLayer(null);
+            void Call() => DerivedPipingInput.GetThicknessAquiferLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -355,8 +355,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToTopmostConsecutiveAquiferLayerThickness()
         {
             // Setup
-            double expectedThickness;
-            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
+            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness);
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
@@ -420,8 +419,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToConsecutiveAquiferLayerThickness()
         {
             // Setup
-            double expectedThickness;
-            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
+            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness);
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
@@ -488,11 +486,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetSeepageLength_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetSeepageLength(null);
+            void Call() => DerivedPipingInput.GetSeepageLength(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -542,11 +540,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(null);
+            void Call() => DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -843,11 +841,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetDarcyPermeability(null);
+            void Call() => DerivedPipingInput.GetDarcyPermeability(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -1027,11 +1025,11 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetDiameterD70(null);
+            void Call() => DerivedPipingInput.GetDiameterD70(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
