@@ -1535,10 +1535,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Precondition
-                foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
-                {
-                    CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()));
-                }
+                CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
 
                 DialogBoxHandler = (name, wnd) =>
                 {

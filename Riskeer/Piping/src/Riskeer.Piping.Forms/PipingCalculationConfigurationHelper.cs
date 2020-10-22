@@ -134,17 +134,17 @@ namespace Riskeer.Piping.Forms
                     if (generateSemiProbabilistic)
                     {
                         calculationGroup.Children.Add(
-                            CreateSemiProbabilisticPipingCalculationScenario(
+                            CreateCalculationScenario<SemiProbabilisticPipingCalculationScenario>(
                                 surfaceLine, stochasticSoilModel, soilProfile,
-                                calculationGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>()));
+                                calculationGroup.Children));
                     }
 
                     if (generateProbabilistic)
                     {
                         calculationGroup.Children.Add(
-                            CreateProbabilisticPipingCalculationScenario(
+                            CreateCalculationScenario<ProbabilisticPipingCalculationScenario>(
                                 surfaceLine, stochasticSoilModel, soilProfile,
-                                calculationGroup.Children.OfType<ProbabilisticPipingCalculation>()));
+                                calculationGroup.Children));
                     }
                 }
             }
@@ -152,34 +152,15 @@ namespace Riskeer.Piping.Forms
             return calculationGroup;
         }
 
-        private static SemiProbabilisticPipingCalculationScenario CreateSemiProbabilisticPipingCalculationScenario(
+        private static TCalculationScenario CreateCalculationScenario<TCalculationScenario>(
             PipingSurfaceLine surfaceLine, PipingStochasticSoilModel stochasticSoilModel, PipingStochasticSoilProfile stochasticSoilProfile,
             IEnumerable<ICalculationBase> calculations)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
             var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
-            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
+            string name = NamingHelper.GetUniqueName(calculations.OfType<TCalculationScenario>(), nameBase, c => c.Name);
 
-            return new SemiProbabilisticPipingCalculationScenario
-            {
-                Name = name,
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine,
-                    StochasticSoilModel = stochasticSoilModel,
-                    StochasticSoilProfile = stochasticSoilProfile
-                },
-                Contribution = (RoundedDouble) stochasticSoilProfile.Probability
-            };
-        }
-
-        private static ProbabilisticPipingCalculationScenario CreateProbabilisticPipingCalculationScenario(
-            PipingSurfaceLine surfaceLine, PipingStochasticSoilModel stochasticSoilModel,
-            PipingStochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations)
-        {
-            var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
-            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
-
-            return new ProbabilisticPipingCalculationScenario
+            return new TCalculationScenario
             {
                 Name = name,
                 InputParameters =
