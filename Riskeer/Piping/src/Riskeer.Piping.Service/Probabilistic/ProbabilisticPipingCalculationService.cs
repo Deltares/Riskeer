@@ -19,6 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.HydraRing;
+using Riskeer.Common.Service;
+using Riskeer.Piping.Data.Probabilistic;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
+
 namespace Riskeer.Piping.Service.Probabilistic
 {
     /// <summary>
@@ -26,6 +35,58 @@ namespace Riskeer.Piping.Service.Probabilistic
     /// </summary>
     public class ProbabilisticPipingCalculationService
     {
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
+        /// the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> for which to validate the values.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
+        /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
+        public static bool Validate(ProbabilisticPipingCalculation calculation, IAssessmentSection assessmentSection)
+        {
+            CalculationServiceHelper.LogValidationBegin();
+            
+            string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
+            CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
+            if (hydraulicBoundaryDatabaseMessages.Any())
+            {
+                CalculationServiceHelper.LogValidationEnd();
+                return false;
+            }
+
+            string[] messages = ValidateInput(calculation.InputParameters).ToArray();
+            CalculationServiceHelper.LogMessagesAsError(messages);
+            
+            CalculationServiceHelper.LogValidationEnd();
+            return !messages.Any();
+        }
+
+        private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        {
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            string databaseValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            if (!string.IsNullOrEmpty(databaseValidationProblem))
+            {
+                yield return databaseValidationProblem;
+            }
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            {
+                yield return preprocessorDirectoryValidationProblem;
+            }
+        }
         
+        private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input)
+        {
+            var validationResults = new List<string>();
+
+            if (input.HydraulicBoundaryLocation == null)
+            {
+                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+            }
+
+            return validationResults;
+        }
     }
 }
