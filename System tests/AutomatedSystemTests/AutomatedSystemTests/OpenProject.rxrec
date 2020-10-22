@@ -1062,8 +1062,26 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 				</path>
 			</info>
 		</WaitForRecordItem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="60aa74f5-29af-48fe-a523-215757409c74"
+		waitaction="NotExists"
+		waittimeout="30000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
+				</path>
+			</info>
+		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="500ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>
