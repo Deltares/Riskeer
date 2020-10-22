@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ExpandAllSubnodesHydraulicBCs
+    public partial class ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

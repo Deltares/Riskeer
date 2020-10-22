@@ -24,46 +24,46 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelWaveHeightInDocumentView recording.
+    ///The ValidateValueWaterLevelWaveHeightNotMetInDocumentView recording.
     /// </summary>
-    [TestModule("c93bb1b9-c14c-4a0a-ae72-fe034593361b", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelWaveHeightInDocumentView : ITestModule
+    [TestModule("b7ac941c-5b89-48cd-92dd-2974ba18eb21", ModuleType.Recording, 1)]
+    public partial class ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelWaveHeightInDocumentView instance = new ValidateWaterLevelWaveHeightInDocumentView();
+        static ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView instance = new ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelWaveHeightInDocumentView()
+        public ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView()
         {
-            expectedValue = "";
+            notExpectedValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelWaveHeightInDocumentView Instance
+        public static ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedValue;
+        string _notExpectedValue;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedValue.
+        /// Gets or sets the value of variable notExpectedValue.
         /// </summary>
-        [TestVariable("ac93a9b5-24d0-453b-8057-a697e7574717")]
-        public string expectedValue
+        [TestVariable("cfd6ab47-34a6-480e-82b3-0cb82ab6f500")]
+        public string notExpectedValue
         {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
+            get { return _notExpectedValue; }
+            set { _notExpectedValue = value; }
         }
 
         /// <summary>
@@ -96,14 +96,15 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, "Text", expectedValue);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotEqual (Text!=$notExpectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, new RecordItemIndex(0));
+            Validate.AttributeNotEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, "Text", notExpectedValue);
+            Delay.Milliseconds(0);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
             

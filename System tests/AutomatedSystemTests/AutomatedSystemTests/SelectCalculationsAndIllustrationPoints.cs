@@ -43,6 +43,7 @@ namespace AutomatedSystemTests
         {
             calculationMustBeChecked = "";
             IllustrationPointsMustBeChecked = "";
+            rowIndex = "";
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
+        [TestVariable("e7afd8e0-9527-4691-bd42-5bf89a1349ac")]
         public string rowIndex
         {
             get { return repo.rowIndex; }
@@ -115,7 +116,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            SetCheckBoxesNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.checkBoxCalculateNthRowInfo, repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.checkBoxreadIllustrationPointsNthRowInfo);
+            SetCheckBoxesNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.SelfInfo);
             
         }
 

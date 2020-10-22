@@ -385,8 +385,8 @@
 					variablename="expectedValue">
 					</var>
 					<var
-					dataname="nameParameterToValidate"
-					datasourceid="6e80f060-cb78-47ce-a16b-3425624471c4"
+					dataname="nameParameterInPropertiesPanel"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
@@ -2355,7 +2355,7 @@
 			<smartfoldernode
 			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-			name="ValidateResultsInTableLeft">
+			name="ValidateResultsPresentInTableLeft">
 				<parameters>
 					<param
 					name="notCalculatedValue"
@@ -4871,26 +4871,6 @@
 			name="ValidateAfterCalculationsHaveBeenInterrupted">
 			</smartfoldernode>
 			<testmodule
-			id="6bdeabec-dde6-477f-a01e-2246c12b1265"
-			name="ExpandAllSubnodesHydraulicBCs"
-			ref="3cb9fa1a-aba2-473a-8e0f-8b29e9388cba"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="HydraulicBCName"
-					datasourceid="7ddcf52d-b38d-4e51-82d8-2205317aac45"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-					<var
-					dataname="trajectSubstring"
-					datasourceid="7ddcf52d-b38d-4e51-82d8-2205317aac45"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="6e1c1ab3-0196-441b-ae0e-3063aaade373"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -4928,12 +4908,6 @@
 			datasource="script15a_ExpectedUnfinished_Calculations"
 			id="6e80f060-cb78-47ce-a16b-3425624471c4"
 			name="ValidateUnfinishedCalculations">
-				<parameters>
-					<param
-					name="nameParameterToValidate"
-					value="Waterstand [m+NAP]">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
@@ -5138,12 +5112,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="rowIndex"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
 					dataname="checkedCalculate"
 					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
@@ -5155,7 +5123,21 @@
 					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
 					variablename="IllustrationPointsMustBeChecked">
 					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
+					variablename="rowIndex">
+					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="74f05605-66de-4da9-acd5-7677f62b46bf"
@@ -5591,6 +5573,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="7bfef718-ae35-4fda-a9a3-5738e78e1f58"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="7c6786ee-7f19-446b-bba2-c8d8791a3639"
 			name="CopyFile"
 			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
@@ -5617,6 +5605,7 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			datasource="script15_a_ExpectedResultsCalculations"
 			id="7ddcf52d-b38d-4e51-82d8-2205317aac45"
 			name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
 				<parameters>
@@ -5625,8 +5614,8 @@
 					value="6-6">
 					</param>
 					<param
-					name="HydraulicBCName"
-					value="Hydraulische belastingen">
+					name="rowCalculationToValidate"
+					value="0">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -6299,38 +6288,6 @@
 			id="8b8fa870-c170-4c55-b819-337a8696544e"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="8bcd66c4-b42b-4b54-9d76-f2b345db3ac4"
-			name="OpenViewForSubSubItemInTraject"
-			ref="5b90023d-8ce6-4c31-82f9-6806a72b326f"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="typeHydraulicBC"
-					datasourceid="d78903dd-514b-47c9-94db-58e39280d459"
-					variableid="14ad0e30-b215-4b20-af7b-e22c2709a760"
-					variablename="substringSubitemName">
-					</var>
-					<var
-					dataname="nameHydraulicBC"
-					datasourceid="d78903dd-514b-47c9-94db-58e39280d459"
-					variableid="121a4097-5300-41ca-96ae-24fe4605dd20"
-					variablename="substringSubSubItemName">
-					</var>
-					<var
-					dataname="trajectSubstring"
-					datasourceid="7ddcf52d-b38d-4e51-82d8-2205317aac45"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="HydraulicBCName"
-					datasourceid="7ddcf52d-b38d-4e51-82d8-2205317aac45"
-					variableid="af6f33c3-8a73-4964-96f8-69b424c6a2d1"
-					variablename="substringItemName">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="8be31480-7d91-4a33-ad15-dd0c41722f7d"
 			name="InitializeDropDownMenu"
@@ -7709,12 +7666,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
 					variablename="expectedValue">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentBSKW"
@@ -7796,18 +7761,26 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="nameParameterInPropertiesPanel"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
-					<var
-					dataname="nameParameterToValidate"
-					datasourceid="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="aaec2432-7ff2-4ec8-b30d-e06d293aa57d"
@@ -9138,12 +9111,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="indexRow"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c3ff5558-7cbd-4b78-8fc0-21abe810b3a8"
@@ -9483,15 +9464,8 @@
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15a_FinishedCalculationsData"
 			id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
 			name="ValidateFinishedCalculations">
-				<parameters>
-					<param
-					name="nameParameterToValidate"
-					value="Waterstand [m+NAP]">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
@@ -9935,6 +9909,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="expectedWaterLevel"
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
@@ -9946,7 +9934,7 @@
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
@@ -10464,6 +10452,20 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="de7dc17c-b111-43c8-9a13-4aa7aa4fe6e8"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItem"
+					datasourceid="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="df245ae1-0b6f-4259-8d00-7de375de6e0c"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -10914,7 +10916,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="e705e23a-cb2e-4064-8471-8c16a13076e5"
-			name="ValidateWaterLevelWaveHeightNotEmptyInDocumentView"
+			name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView"
 			ref="b7ac941c-5b89-48cd-92dd-2974ba18eb21"
 			type="Recording">
 				<databinding>
@@ -11006,9 +11008,14 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datasource="script15HydraulicBCItems"
 			id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
 			name="OpenViewForHydraulicBCItem">
+				<parameters>
+					<param
+					name="pathToItem"
+					value="6-6>Hydraulische belastingen>Waterstanden>A+">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="e91f01f5-e6a0-4c25-b8f9-7112c6456c8e"
@@ -11886,10 +11893,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="f9b5ab37-2e95-4aad-a11f-22fe5f8fce2e"
-			name="ExpandAllHydraulicBCs">
-			</smartfoldernode>
 			<testmodule
 			id="f9c64076-d9ad-43b8-a9fa-4154e2ad48e2"
 			name="CreateOutputFolder"
@@ -13073,19 +13076,15 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="f9b5ab37-2e95-4aad-a11f-22fe5f8fce2e"
-							name="ExpandAllHydraulicBCs">
-								<testmodule
-								id="6bdeabec-dde6-477f-a01e-2246c12b1265"
-								name="ExpandAllSubnodesHydraulicBCs">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
 							id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
 							name="OpenViewForHydraulicBCItem">
 								<testmodule
-								id="8bcd66c4-b42b-4b54-9d76-f2b345db3ac4"
-								name="OpenViewForSubSubItemInTraject">
+								id="de7dc17c-b111-43c8-9a13-4aa7aa4fe6e8"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="7bfef718-ae35-4fda-a9a3-5738e78e1f58"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -13220,7 +13219,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-									name="ValidateResultsInTableLeft">
+									name="ValidateResultsPresentInTableLeft">
 										<testmodule
 										id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
 										name="SelectRowCalculation">
@@ -13231,7 +13230,7 @@
 										</testmodule>
 										<testmodule
 										id="e705e23a-cb2e-4064-8471-8c16a13076e5"
-										name="ValidateWaterLevelWaveHeightNotEmptyInDocumentView">
+										name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -18109,6 +18108,288 @@
 			</file>
 		</DataSource>
 		<DataSource
+		id="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+		lastknownrowcount="1"
+		name="script15_a_ExpectedResultsCalculations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathItem
+				</column>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					nameParameterInPropertiesPanel
+				</column>
+				<column>
+					expectedValueWaterLevelOrWaveHeight
+				</column>
+				<column>
+					expectedGoverningWindDirection
+				</column>
+				<column>
+					nameAlpha1
+				</column>
+				<column>
+					expectedValueAlpha1
+				</column>
+				<column>
+					nameAlpha2
+				</column>
+				<column>
+					expectedValueAlpha2
+				</column>
+				<column>
+					nameAlpha3
+				</column>
+				<column>
+					expectedValueAlpha3
+				</column>
+				<column>
+					nameAlpha4
+				</column>
+				<column>
+					expectedValueAlpha4
+				</column>
+				<column>
+					nameAlpha5
+				</column>
+				<column>
+					expectedValueAlpha5
+				</column>
+				<column>
+					nameAlpha6
+				</column>
+				<column>
+					expectedValueAlpha6
+				</column>
+				<column>
+					nameAlpha7
+				</column>
+				<column>
+					expectedValueAlpha7
+				</column>
+				<column>
+					nameAlpha8
+				</column>
+				<column>
+					expectedValueAlpha8
+				</column>
+				<column>
+					nameAlpha9
+				</column>
+				<column>
+					expectedValueAlpha9
+				</column>
+				<column>
+					nameAlpha10
+				</column>
+				<column>
+					expectedValueAlpha10
+				</column>
+				<column>
+					nameAlpha11
+				</column>
+				<column>
+					expectedValueAlpha11
+				</column>
+				<column>
+					nameAlpha12
+				</column>
+				<column>
+					expectedValueAlpha12
+				</column>
+				<column>
+					nameAlpha13
+				</column>
+				<column>
+					expectedValueAlpha13
+				</column>
+				<column>
+					nameAlpha14
+				</column>
+				<column>
+					expectedValueAlpha14
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathItem
+					</th>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						nameParameterInPropertiesPanel
+					</th>
+					<th>
+						expectedValueWaterLevelOrWaveHeight
+					</th>
+					<th>
+						expectedGoverningWindDirection
+					</th>
+					<th>
+						nameAlpha1
+					</th>
+					<th>
+						expectedValueAlpha1
+					</th>
+					<th>
+						nameAlpha2
+					</th>
+					<th>
+						expectedValueAlpha2
+					</th>
+					<th>
+						nameAlpha3
+					</th>
+					<th>
+						expectedValueAlpha3
+					</th>
+					<th>
+						nameAlpha4
+					</th>
+					<th>
+						expectedValueAlpha4
+					</th>
+					<th>
+						nameAlpha5
+					</th>
+					<th>
+						expectedValueAlpha5
+					</th>
+					<th>
+						nameAlpha6
+					</th>
+					<th>
+						expectedValueAlpha6
+					</th>
+					<th>
+						nameAlpha7
+					</th>
+					<th>
+						expectedValueAlpha7
+					</th>
+					<th>
+						nameAlpha8
+					</th>
+					<th>
+						expectedValueAlpha8
+					</th>
+					<th>
+						nameAlpha9
+					</th>
+					<th>
+						expectedValueAlpha9
+					</th>
+					<th>
+						nameAlpha10
+					</th>
+					<th>
+						expectedValueAlpha10
+					</th>
+					<th>
+						nameAlpha11
+					</th>
+					<th>
+						expectedValueAlpha11
+					</th>
+					<th>
+						nameAlpha12
+					</th>
+					<th>
+						expectedValueAlpha12
+					</th>
+					<th>
+						nameAlpha13
+					</th>
+					<th>
+						expectedValueAlpha13
+					</th>
+					<th>
+						nameAlpha14
+					</th>
+					<th>
+						expectedValueAlpha14
+					</th>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand [m+NAP]
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
 		lastknownrowcount="3"
 		name="script15a_AllRows"
@@ -18181,40 +18462,6 @@
 					</td>
 					<td>
 						-
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-		lastknownrowcount="1"
-		name="script15a_FinishedCalculationsData"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					indexRow
-				</column>
-				<column>
-					expectedWaterLevel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						indexRow
-					</th>
-					<th>
-						expectedWaterLevel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						6.02
 					</td>
 				</tr>
 			</table>
@@ -18486,40 +18733,6 @@
 					</td>
 					<td>
 						is geannuleerd.
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="d78903dd-514b-47c9-94db-58e39280d459"
-		lastknownrowcount="1"
-		name="script15HydraulicBCItems"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					typeHydraulicBC
-				</column>
-				<column>
-					nameHydraulicBC
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						typeHydraulicBC
-					</th>
-					<th>
-						nameHydraulicBC
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Waterstanden
-					</td>
-					<td>
-						A+
 					</td>
 				</tr>
 			</table>
@@ -19465,9 +19678,6 @@
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
-			</testcontainer>
-			<testcontainer
-			id="f9b5ab37-2e95-4aad-a11f-22fe5f8fce2e">
 			</testcontainer>
 			<testcontainer
 			id="fbb2a28a-3275-45eb-99ac-4e94fcc817ec">

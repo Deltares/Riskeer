@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ValidateWaterLevelWaveHeightNotEmptyInDocumentView
+    public partial class SelectGenericItemInProjectExplorer
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,5 +34,27 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
+        public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
+        	{
+        	int minimumIndex = 0;
+        	var stepsPathItem = pathItem.Split('>').ToList();
+        	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
+        	// start up variable stepChild
+        	var stepChild = children[0].As<TreeItem>();
+        	for (int i=0; i < stepsPathItem.Count; i++) {
+        			// Find the item corresponding to the step
+        			var step = stepsPathItem[i];
+        			stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
+        			stepChild.Focus();
+        			stepChild.Select();
+        			if (i != stepsPathItem.Count - 1)
+        				{
+        				stepChild.Expand();
+        				}
+        			// Update the children
+        			children = stepChild.Children;
+        			}
+        	return;
+        }
     }
 }

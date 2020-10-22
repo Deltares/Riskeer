@@ -33,19 +33,23 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void SetCheckBoxesNthRow(RepoItemInfo cellCalculationInfo, RepoItemInfo cellIllustrationPointInfo)
+        public void SetCheckBoxesNthRow(RepoItemInfo tableInfo)
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at Center when required.", cellCalculationInfo);
-            ClickOnCheckboxCellIfNeeded(cellCalculationInfo, calculationMustBeChecked);
-            ClickOnCheckboxCellIfNeeded(cellIllustrationPointInfo, IllustrationPointsMustBeChecked);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at Center when required.");
+            int index = Int32.Parse(rowIndex);
+            var row = tableInfo.FindAdapter<Table>().Rows[index+1];
+            var calculationCell = row.Children[1].As<Cell>();
+            var illustrationPointsCell = row.Children[2].As<Cell>();
+            ClickOnCheckboxCellIfNeeded(calculationCell, calculationMustBeChecked);
+            ClickOnCheckboxCellIfNeeded(illustrationPointsCell, IllustrationPointsMustBeChecked);
         }
         
-        public void ClickOnCheckboxCellIfNeeded(RepoItemInfo itemInfo, string expectedCheckedState)
+        public void ClickOnCheckboxCellIfNeeded(Cell cell, string expectedCheckedState)
         {
-        	string currentState = itemInfo.CreateAdapter<Cell>(true).Element.GetAttributeValueText("AccessibleState");
+        	string currentState = cell.Element.GetAttributeValueText("AccessibleState");
         	var currentlyChecked = currentState.Contains("Checked").ToString().ToLower();
             if (currentlyChecked!=expectedCheckedState) {
-        		itemInfo.FindAdapter<Cell>().Click(new Duration(1));
+        		cell.Click();
             }
         
         }

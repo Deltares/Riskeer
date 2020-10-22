@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="7654cb84-67f3-46ba-9397-46d52163b934"
+id="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,29 +19,21 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectCalculationsAndIllustrationPoints"
+	classname="SelectGenericItemInProjectExplorer"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
 		<var
-		id="0deed09a-95e3-4a17-893a-487322bef16e"
-		name="calculationMustBeChecked">
-		</var>
-		<var
-		id="36a16845-003d-4dee-a9b0-1c99113783c1"
-		name="IllustrationPointsMustBeChecked">
-		</var>
-		<var
-		id="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
-		name="rowIndex">
+		id="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+		name="pathToItemToOpenView">
 		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="SelectCalculationsAndIllustrationPoints"
+		classname="SelectGenericItemInProjectExplorer"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="SetCheckBoxesNthRow"
+		methodname="SelectTreeItemInProjectExplorerGivenPath"
 		namespace="AutomatedSystemTests"
 		optional="False">
 			<comment>
@@ -49,20 +41,30 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<arguments
-			id="1d0f28a1-4da5-4c12-bc08-787d178c8faf">
+			id="3ea39130-f5e4-4013-9516-70418c452fc7">
 				<argument
-				argname="tableInfo"
-				id="2b5628ab-3e02-4f4d-be00-9b7085957dc5">
+				argname="pathItem"
+				id="c1484eaf-e453-4df9-9101-b98b5efd887d"
+				variable="pathToItemToOpenView">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+				<argument
+				argname="rootNodeInfo"
+				id="73bae8b5-c744-48e0-8e4f-962b30f4a509">
 					<argvaluetype>
 						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
 					</argvaluetype>
 					<argvalue>
 					</argvalue>
 					<info
-					id="ca96439e-ba37-4ebe-aa7b-19515fb51914"
-					sourcename="RepositoryEditor">
+					id="b466899e-e209-4d83-a46c-0533f333cea5"
+					sourcename="ItemRecorderEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 						</path>
 					</info>
 				</argument>
@@ -84,7 +86,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectCalculationsAndIllustrationPoints.UserCode.cs
+		SelectGenericItemInProjectExplorer.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>
