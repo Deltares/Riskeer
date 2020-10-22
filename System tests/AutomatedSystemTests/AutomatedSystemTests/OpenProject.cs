@@ -118,6 +118,9 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(7));
             repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(8));
+            Delay.Duration(500, false);
+            
         }
 
 #region Image Feature Data

@@ -24,46 +24,43 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectGenericItemInProjectExplorer recording.
+    ///The ExpandAlphasGroup recording.
     /// </summary>
-    [TestModule("ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e", ModuleType.Recording, 1)]
-    public partial class SelectGenericItemInProjectExplorer : ITestModule
+    [TestModule("8ffa45e8-2152-4d07-9590-20154379e184", ModuleType.Recording, 1)]
+    public partial class ExpandAlphasGroup : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SelectGenericItemInProjectExplorer instance = new SelectGenericItemInProjectExplorer();
+        static ExpandAlphasGroup instance = new ExpandAlphasGroup();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectGenericItemInProjectExplorer()
+        public ExpandAlphasGroup()
         {
-            pathToItemToOpenView = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectGenericItemInProjectExplorer Instance
+        public static ExpandAlphasGroup Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _pathToItemToOpenView;
-
         /// <summary>
-        /// Gets or sets the value of variable pathToItemToOpenView.
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
         /// </summary>
-        [TestVariable("a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8")]
-        public string pathToItemToOpenView
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
         {
-            get { return _pathToItemToOpenView; }
-            set { _pathToItemToOpenView = value; }
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion
@@ -92,7 +89,11 @@ namespace AutomatedSystemTests
 
             Init();
 
-            SelectTreeItemInProjectExplorerGivenPath(pathToItemToOpenView, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' at CenterLeft.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Click(Location.CenterLeft);
+            
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(1));
+            Keyboard.Press("{Right}");
             
         }
 

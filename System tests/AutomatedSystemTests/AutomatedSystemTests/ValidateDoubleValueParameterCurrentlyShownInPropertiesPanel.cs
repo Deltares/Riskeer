@@ -26,7 +26,7 @@ namespace AutomatedSystemTests
     /// <summary>
     ///The ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel recording.
     /// </summary>
-    [TestModule("79ee9c65-cb26-47bb-bf72-e22edc799777", ModuleType.Recording, 1)]
+    [TestModule("ee50ca81-702d-41bf-9d5a-c6659515e29c", ModuleType.Recording, 1)]
     public partial class ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel : ITestModule
     {
         /// <summary>
@@ -59,7 +59,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets or sets the value of variable expectedValue.
         /// </summary>
-        [TestVariable("a6e4c5db-16e1-4a03-94a5-9923f0cdbe5c")]
+        [TestVariable("c4454e97-5bc7-4a1c-9898-54fd594a5f41")]
         public string expectedValue
         {
             get { return _expectedValue; }
@@ -96,18 +96,18 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            expectedValue = CovertValueIntoCurrentCulture(expectedValue);
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Focus();
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValue) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, "AccessibleValue", expectedValue);
-            Delay.Milliseconds(0);
+            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer, false, new RecordItemIndex(2));
             
         }
 

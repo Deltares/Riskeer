@@ -34,14 +34,21 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public string CovertValueIntoCurrentCulture(string valueToConvert)
+        public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo rowInfo)
         {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValueText) on item 'rowInfo'.", rowInfo);
             System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
 			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
 			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
 			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-			valueToConvert= Double.Parse(valueToConvert, fixedDataSourceCulture).ToString(currentCulture);
-			return valueToConvert;
+			
+			Report.Log(ReportLevel.Info, "", rowInfo.FindAdapter<Row>().GetAttributeValue<String>("AccessibleName"));
+			
+			double expectedValueDouble = Double.Parse(expectedValue, fixedDataSourceCulture);
+			string currentValue = rowInfo.FindAdapter<Row>().GetAttributeValue<String>("AccessibleValue");
+			double currentValueDouble = Double.Parse(currentValue, currentCulture);
+			
+			Validate.AreEqual(currentValueDouble, expectedValueDouble);
         }
 
     }
