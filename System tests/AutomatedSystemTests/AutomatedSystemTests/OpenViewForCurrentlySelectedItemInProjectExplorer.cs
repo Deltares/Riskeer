@@ -24,57 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelWaveHeightInDocumentView recording.
+    ///The OpenViewForCurrentlySelectedItemInProjectExplorer recording.
     /// </summary>
-    [TestModule("c93bb1b9-c14c-4a0a-ae72-fe034593361b", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelWaveHeightInDocumentView : ITestModule
+    [TestModule("6295dc9c-a237-4ff3-b0ac-355382aaa3df", ModuleType.Recording, 1)]
+    public partial class OpenViewForCurrentlySelectedItemInProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelWaveHeightInDocumentView instance = new ValidateWaterLevelWaveHeightInDocumentView();
+        static OpenViewForCurrentlySelectedItemInProjectExplorer instance = new OpenViewForCurrentlySelectedItemInProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelWaveHeightInDocumentView()
+        public OpenViewForCurrentlySelectedItemInProjectExplorer()
         {
-            expectedValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelWaveHeightInDocumentView Instance
+        public static OpenViewForCurrentlySelectedItemInProjectExplorer Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _expectedValue;
-
-        /// <summary>
-        /// Gets or sets the value of variable expectedValue.
-        /// </summary>
-        [TestVariable("ac93a9b5-24d0-453b-8057-a697e7574717")]
-        public string expectedValue
-        {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable rowIndex.
-        /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
-        {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
-        }
 
 #endregion
 
@@ -96,16 +73,19 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, "Text", expectedValue);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
+            Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at 79;11.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Openen.Click("79;11");
+            Delay.Milliseconds(0);
             
         }
 

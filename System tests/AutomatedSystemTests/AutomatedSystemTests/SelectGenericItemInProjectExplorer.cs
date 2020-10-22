@@ -24,56 +24,46 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelWaveHeightNotEmptyInDocumentView recording.
+    ///The SelectGenericItemInProjectExplorer recording.
     /// </summary>
-    [TestModule("b7ac941c-5b89-48cd-92dd-2974ba18eb21", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelWaveHeightNotEmptyInDocumentView : ITestModule
+    [TestModule("ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e", ModuleType.Recording, 1)]
+    public partial class SelectGenericItemInProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelWaveHeightNotEmptyInDocumentView instance = new ValidateWaterLevelWaveHeightNotEmptyInDocumentView();
+        static SelectGenericItemInProjectExplorer instance = new SelectGenericItemInProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelWaveHeightNotEmptyInDocumentView()
+        public SelectGenericItemInProjectExplorer()
         {
-            notExpectedValue = "";
+            pathToItemToOpenView = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelWaveHeightNotEmptyInDocumentView Instance
+        public static SelectGenericItemInProjectExplorer Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _notExpectedValue;
+        string _pathToItemToOpenView;
 
         /// <summary>
-        /// Gets or sets the value of variable notExpectedValue.
+        /// Gets or sets the value of variable pathToItemToOpenView.
         /// </summary>
-        [TestVariable("cfd6ab47-34a6-480e-82b3-0cb82ab6f500")]
-        public string notExpectedValue
+        [TestVariable("a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8")]
+        public string pathToItemToOpenView
         {
-            get { return _notExpectedValue; }
-            set { _notExpectedValue = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable rowIndex.
-        /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
-        {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return _pathToItemToOpenView; }
+            set { _pathToItemToOpenView = value; }
         }
 
 #endregion
@@ -102,11 +92,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotEqual (Text!=$notExpectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelNthRowInfo, new RecordItemIndex(0));
-            Validate.AttributeNotEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelNthRowInfo, "Text", notExpectedValue);
+            SelectTreeItemInProjectExplorerGivenPath(pathToItemToOpenView, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
             Delay.Milliseconds(0);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelNthRow, false, new RecordItemIndex(1));
             
         }
 

@@ -310,7 +310,7 @@ name="AutomatedSystemTestsRepository">
 				name="AddAssessmentSectionButton"
 				refimgid="b30bd1d0-a4cc-466c-9fea-d8b59803f065"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/menubar/list/?/?/button[@automationid='AddAssessmentSectionButton']
+					/form[@automationid='RiskeerMainWindow']/menubar//button[@automationid='AddAssessmentSectionButton']
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/menubar
@@ -814,9 +814,9 @@ name="AutomatedSystemTestsRepository">
 							<item
 							capname="cell"
 							id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
-							name="WaterLevelNthRow"
+							name="WaterLevelOrWaveHeightNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
 							</item>
 							<item
 							addcaps="cell,accessible"

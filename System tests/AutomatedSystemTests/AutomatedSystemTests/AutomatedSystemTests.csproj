@@ -210,18 +210,6 @@
       <UserCode>true</UserCode>
       <id>83cbb184-cd9a-4bbe-9e6d-347e402a8d89</id>
     </Compile>
-    <Compile Include="ExpandAllSubnodesHydraulicBCs.cs">
-      <BoundTo>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</BoundTo>
-      <DependentUpon>ExpandAllSubnodesHydraulicBCs.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9785942f-dd41-47b9-a5e1-c279b23f3747</id>
-    </Compile>
-    <Compile Include="ExpandAllSubnodesHydraulicBCs.UserCode.cs">
-      <BoundTo>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</BoundTo>
-      <DependentUpon>ExpandAllSubnodesHydraulicBCs.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>654ef44a-74bd-4346-92cb-6094981aa98f</id>
-    </Compile>
     <Compile Include="InitializeDropDownMenu.cs">
       <BoundTo>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</BoundTo>
       <DependentUpon>InitializeDropDownMenu.rxrec</DependentUpon>
@@ -234,17 +222,29 @@
       <UserCode>true</UserCode>
       <id>6277edbc-846c-4b09-b432-b40e7dac3a9b</id>
     </Compile>
-    <Compile Include="OpenViewForSubSubItemInTraject.cs">
-      <BoundTo>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</BoundTo>
-      <DependentUpon>OpenViewForSubSubItemInTraject.rxrec</DependentUpon>
+    <Compile Include="OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
+      <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
+      <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
-      <id>4e56f234-d8af-4325-ac97-79727e8b8bab</id>
+      <id>0ff3f10e-12e5-47ee-a89a-00e19d42aee6</id>
     </Compile>
-    <Compile Include="OpenViewForSubSubItemInTraject.UserCode.cs">
-      <BoundTo>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</BoundTo>
-      <DependentUpon>OpenViewForSubSubItemInTraject.rxrec</DependentUpon>
+    <Compile Include="OpenViewForCurrentlySelectedItemInProjectExplorer.UserCode.cs">
+      <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
+      <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
-      <id>376ab36c-85a8-469c-ad18-78923a6edc3c</id>
+      <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
+    </Compile>
+    <Compile Include="SelectGenericItemInProjectExplorer.cs">
+      <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
+      <DependentUpon>SelectGenericItemInProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f73e12dc-c1db-4941-bfba-93c568bf82d6</id>
+    </Compile>
+    <Compile Include="SelectGenericItemInProjectExplorer.UserCode.cs">
+      <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
+      <DependentUpon>SelectGenericItemInProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
     </Compile>
     <Compile Include="PressCancelDialog.cs">
       <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
@@ -1317,15 +1317,15 @@
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
     </Compile>
-    <Compile Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.cs">
+    <Compile Include="ValidateValueWaterLevelWaveHeightNotMetInDocumentView.cs">
       <BoundTo>103381a9-7531-44a7-92ea-2144323f1101</BoundTo>
-      <DependentUpon>ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec</DependentUpon>
+      <DependentUpon>ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>f9cbfcc6-0f9b-4b82-8969-0a205f97c232</id>
     </Compile>
-    <Compile Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.UserCode.cs">
+    <Compile Include="ValidateValueWaterLevelWaveHeightNotMetInDocumentView.UserCode.cs">
       <BoundTo>103381a9-7531-44a7-92ea-2144323f1101</BoundTo>
-      <DependentUpon>ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec</DependentUpon>
+      <DependentUpon>ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9183e89e-da58-4702-96c4-c8e026c09e87</id>
     </Compile>
@@ -1387,20 +1387,20 @@
       <id>a1bf799f-50b7-4bb2-a418-2705a88cab3e</id>
       <recordtableid>bbe1b453-6dad-446c-8f21-3104847f3bd8</recordtableid>
     </None>
-    <None Include="ExpandAllSubnodesHydraulicBCs.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</id>
-      <recordtableid>3cb9fa1a-aba2-473a-8e0f-8b29e9388cba</recordtableid>
-    </None>
     <None Include="InitializeDropDownMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</id>
       <recordtableid>0e6a2e20-0223-4862-bd2e-af0df661ff0e</recordtableid>
     </None>
-    <None Include="OpenViewForSubSubItemInTraject.rxrec">
+    <None Include="OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</id>
-      <recordtableid>5b90023d-8ce6-4c31-82f9-6806a72b326f</recordtableid>
+      <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
+      <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
+    </None>
+    <None Include="SelectGenericItemInProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
+      <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
     </None>
     <None Include="PressCancelDialog.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1847,7 +1847,7 @@
       <id>b6c2ba00-63e3-4440-af0f-320297649b7e</id>
       <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
     </None>
-    <None Include="ValidateWaterLevelWaveHeightNotEmptyInDocumentView.rxrec">
+    <None Include="ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>103381a9-7531-44a7-92ea-2144323f1101</id>
       <recordtableid>b7ac941c-5b89-48cd-92dd-2974ba18eb21</recordtableid>
