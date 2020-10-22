@@ -3353,6 +3353,10 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testcase
+			id="4d492061-048f-4be2-ab20-d63a8870b77a"
+			name="script00">
+			</testcase>
 			<smartfoldernode
 			datasource="detailedAssessmentHTKWType"
 			id="4d61407c-ed3a-404a-93cb-eff44aa1068a"
@@ -4091,6 +4095,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="77116ac1-99e0-4980-bbc7-a47571455387"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="5a57d066-a011-462b-8619-9e0ed2d74fd4"
 			name="InitializeDropDownMenu"
@@ -5065,6 +5083,20 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="739dbdee-cb57-479e-9461-6d944c1505e4"
 			name="teardown">
@@ -5283,6 +5315,16 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="77116ac1-99e0-4980-bbc7-a47571455387"
+			name="WaitSomeTime">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="2000">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="774300c5-93c5-4b75-80a9-617b96f5fbc7"
 			name="ValidateDetailedAssessmentTypeAtRow"
@@ -7224,6 +7266,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
+			name="setup">
+			</setup>
 			<testmodule
 			id="9abf536b-657f-487d-84e1-7e25c6b0f3b8"
 			name="InitializeDropDownMenu"
@@ -10817,6 +10863,26 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="e645f15d-628b-45b4-9402-fb659010c88b"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="e64f8ab3-66c5-4efc-8b04-73b54fb6cb49"
 			name="ValidateDetailedAssessmentTypeAtRowGroup3"
 			ref="4bec016b-4d75-4a07-9bb2-a12badf2136b"
@@ -11440,6 +11506,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
 			name="ConvertToCurrentCulture"
@@ -12453,6 +12523,34 @@
 				<testcase
 				id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 				name="AutomatedSystemTests">
+					<testcase
+					id="4d492061-048f-4be2-ab20-d63a8870b77a"
+					name="script00">
+						<setup
+						id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
+						name="setup">
+							<testmodule
+							id="e645f15d-628b-45b4-9402-fb659010c88b"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="77116ac1-99e0-4980-bbc7-a47571455387"
+						name="WaitSomeTime">
+							<testmodule
+							id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
+							name="WaitForXMiliseconds">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
+						name="teardown">
+							<testmodule
+							id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
 					name="script08">
@@ -19497,6 +19595,9 @@
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
 			</testcontainer>
 			<testcontainer
+			id="4d492061-048f-4be2-ab20-d63a8870b77a">
+			</testcontainer>
+			<testcontainer
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
 			</testcontainer>
 			<testcontainer
@@ -19540,6 +19641,9 @@
 			</testcontainer>
 			<testcontainer
 			id="769950c3-8881-4bc9-9049-f6488ccc2275">
+			</testcontainer>
+			<testcontainer
+			id="77116ac1-99e0-4980-bbc7-a47571455387">
 			</testcontainer>
 			<testcontainer
 			id="78947188-1351-4994-baff-766da4b7d2e0">
