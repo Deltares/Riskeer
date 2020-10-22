@@ -24,46 +24,56 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectGenericItemInProjectExplorer recording.
+    ///The ValidateTextValueParameterCurrentlyShownInPropertiesPanel recording.
     /// </summary>
-    [TestModule("ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e", ModuleType.Recording, 1)]
-    public partial class SelectGenericItemInProjectExplorer : ITestModule
+    [TestModule("be67159d-b95e-4ab7-8583-e9482fd3475d", ModuleType.Recording, 1)]
+    public partial class ValidateTextValueParameterCurrentlyShownInPropertiesPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SelectGenericItemInProjectExplorer instance = new SelectGenericItemInProjectExplorer();
+        static ValidateTextValueParameterCurrentlyShownInPropertiesPanel instance = new ValidateTextValueParameterCurrentlyShownInPropertiesPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectGenericItemInProjectExplorer()
+        public ValidateTextValueParameterCurrentlyShownInPropertiesPanel()
         {
-            pathToItemToOpenView = "";
+            expectedTextValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectGenericItemInProjectExplorer Instance
+        public static ValidateTextValueParameterCurrentlyShownInPropertiesPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _pathToItemToOpenView;
+        string _expectedTextValue;
 
         /// <summary>
-        /// Gets or sets the value of variable pathToItemToOpenView.
+        /// Gets or sets the value of variable expectedTextValue.
         /// </summary>
-        [TestVariable("a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8")]
-        public string pathToItemToOpenView
+        [TestVariable("5642b8a6-821a-4701-9c40-24555e5f8c14")]
+        public string expectedTextValue
         {
-            get { return _pathToItemToOpenView; }
-            set { _pathToItemToOpenView = value; }
+            get { return _expectedTextValue; }
+            set { _expectedTextValue = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion
@@ -92,7 +102,10 @@ namespace AutomatedSystemTests
 
             Init();
 
-            SelectTreeItemInProjectExplorerGivenPath(pathToItemToOpenView, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedTextValue) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, "AccessibleValue", expectedTextValue);
+            
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer, false, new RecordItemIndex(1));
             
         }
 

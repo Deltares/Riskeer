@@ -535,6 +535,28 @@
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
 			name="ValidateFMsPresentInTrajects">
 			</smartfoldernode>
+			<testmodule
+			id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="expectedCustomAssessmentDA"
 			id="0be4c0d3-4d42-46b5-9a6e-02fb775d70ae"
@@ -1287,6 +1309,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="1afe3633-1389-471f-b783-47ec95df5540"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha11"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha11"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="1bd13439-51d1-45cc-85e1-d3923ac87aac"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1667,6 +1717,34 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha13"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha13"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<testmodule
 			id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
 			name="GetValueParameterForItemInTraject"
@@ -2353,6 +2431,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="340e6795-be92-4d9f-ab6a-ffe254351956"
+			name="ValidateResultsIllustrationPoints">
+				<parameters>
+					<param
+					name="nameAlphasGroupInPropertiesPanel"
+					value="Invloedscoëfficiënten [-]">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
 			name="ValidateResultsPresentInTableLeft">
@@ -2504,6 +2592,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha8"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha8"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="3a1bf3a1-f8c4-46f7-9b52-eda9f5fe3c8d"
 			name="SelectDetailedAssessmentForRowCategoryIIv"
 			ref="1d451e4f-5f11-43ce-8f5b-c4085d00c239"
@@ -2556,6 +2672,34 @@
 					variablename="substringItemName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha14"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha14"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="3b932247-ad45-4862-8925-18e9606261c7"
@@ -4277,6 +4421,34 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha7"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha7"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
 			name="CalculateCategoryBoundary"
 			ref="b235cebd-3495-47c7-96d9-f82c3092f4cb"
@@ -4390,6 +4562,34 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha9"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha9"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="5e68cbb7-c05a-49a6-99e2-d579c677a993"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -4471,6 +4671,26 @@
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="61717bd6-639e-4739-9e0a-020f5c4119cc"
+			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
+			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameGoverningWindDirection"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedGoverningWindDirection"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="5642b8a6-821a-4701-9c40-24555e5f8c14"
+					variablename="expectedTextValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -4735,6 +4955,34 @@
 					variablename="substringItemName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="674ed633-77ee-4a1b-863c-b1c220b20238"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha6"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha6"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="6756c792-78ce-4488-815f-bfe59ffb8fd8"
@@ -5005,6 +5253,34 @@
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
 			name="SaveProject">
 			</smartfoldernode>
+			<testmodule
+			id="71df948a-8310-4b21-80ae-c79c38db051d"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha10"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha10"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<testmodule
 			id="720fc0d3-d812-4104-890f-5a60e986688c"
 			name="OpenChartCalculation"
@@ -5961,7 +6237,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
-			name="ValidateResultsIllustrationPoints">
+			name="ValidateResultsInPropertiesPanel">
 			</smartfoldernode>
 			<testmodule
 			id="85c62712-bbe5-489f-965e-90fd6852f168"
@@ -6721,6 +6997,34 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="9320cf8e-6e3c-498f-b602-5695f054102f"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha12"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha12"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
 			name="SetRelevanceFMsTraject44_2InProjectExplorer">
@@ -7347,6 +7651,34 @@
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
 			name="ValidationInDocumentView">
 			</smartfoldernode>
+			<testmodule
+			id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha5"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha5"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
 			name="a)_Failure_probability_and_space">
@@ -7411,6 +7743,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
+			name="ExpandAlphasGroup"
+			ref="8ffa45e8-2152-4d07-9590-20154379e184"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlphasGroupInPropertiesPanel"
+					datasourceid="340e6795-be92-4d9f-ab6a-ffe254351956"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15"
 			name="ValidateRelevanceFMsTraject44_2InFailureMechanismsContributionView">
@@ -7893,6 +8239,34 @@
 			id="aeb77e69-5899-4233-a3e5-bcfb058676c3"
 			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="aec74860-0172-4fec-8644-f1623c1e51fc"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha4"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha4"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="boundaryTypesNames"
 			errorbehavior="ContinueNextIteration"
@@ -9259,6 +9633,34 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentGEKBValues"
 			id="c48c8467-bdef-4f2f-8d2f-27a5a0de8688"
@@ -9836,6 +10238,34 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha3"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha3"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="d0cf8d4c-e4d4-44b1-9f4f-5c87de35d121"
@@ -10504,8 +10934,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToItem"
-					datasourceid="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
+					dataname="pathItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemToOpenView">
 					</var>
@@ -11076,12 +11506,6 @@
 			<smartfoldernode
 			id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
 			name="OpenViewForHydraulicBCItem">
-				<parameters>
-					<param
-					name="pathToItem"
-					value="6-6>Hydraulische belastingen>Waterstanden>A+">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="e91f01f5-e6a0-4c25-b8f9-7112c6456c8e"
@@ -12424,6 +12848,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="fe7ab044-aca4-4084-a560-fe272cace2b4"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha2"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha2"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="fed9ccd4-1918-418c-9a8c-d05cb1ac83c9"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -13333,7 +13785,79 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
-									name="ValidateResultsIllustrationPoints">
+									name="ValidateResultsInPropertiesPanel">
+										<testmodule
+										id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
+										name="SelectRowCalculation">
+										</testmodule>
+										<testmodule
+										id="61717bd6-639e-4739-9e0a-020f5c4119cc"
+										name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+										</testmodule>
+										<smartfoldernode
+										id="340e6795-be92-4d9f-ab6a-ffe254351956"
+										name="ValidateResultsIllustrationPoints">
+											<testmodule
+											id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
+											name="ExpandAlphasGroup">
+											</testmodule>
+											<testmodule
+											id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="fe7ab044-aca4-4084-a560-fe272cace2b4"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="aec74860-0172-4fec-8644-f1623c1e51fc"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="674ed633-77ee-4a1b-863c-b1c220b20238"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="71df948a-8310-4b21-80ae-c79c38db051d"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="1afe3633-1389-471f-b783-47ec95df5540"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="9320cf8e-6e3c-498f-b602-5695f054102f"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
+											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -18224,6 +18748,9 @@
 					expectedValueWaterLevelOrWaveHeight
 				</column>
 				<column>
+					nameGoverningWindDirection
+				</column>
+				<column>
 					expectedGoverningWindDirection
 				</column>
 				<column>
@@ -18328,6 +18855,9 @@
 						expectedValueWaterLevelOrWaveHeight
 					</th>
 					<th>
+						nameGoverningWindDirection
+					</th>
+					<th>
 						expectedGoverningWindDirection
 					</th>
 					<th>
@@ -18417,6 +18947,7 @@
 				</tr>
 				<tr>
 					<td>
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;A+
 					</td>
 					<td>
 						0
@@ -18428,62 +18959,94 @@
 						6.02
 					</td>
 					<td>
+						Maatgevende windrichting
 					</td>
 					<td>
+						&#32;300.0
 					</td>
 					<td>
+						Windrichting
 					</td>
 					<td>
+						-0.33686
 					</td>
 					<td>
+						Waterstand Delfzijl
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Waterstand Harlingen
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Waterstand Huibertgat
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Waterstand Lauwersoog
 					</td>
 					<td>
+						-0.92026
 					</td>
 					<td>
+						Waterstand West Terschelling
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Onzekerheid waterstand Delfzijl
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Onzekerheid waterstand Harlingen
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Onzekerheid waterstand Huibertgat
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
+						-0.19911
 					</td>
 					<td>
+						Onzekerheid windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Onzekerheid windsnelheid
 					</td>
 					<td>
+						0
 					</td>
 					<td>
+						Modelonzekerheid lokale waterstand
+					</td>
+					<td>
+						0
 					</td>
 				</tr>
 			</table>
@@ -19567,6 +20130,9 @@
 			</testcontainer>
 			<testcontainer
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
+			</testcontainer>
+			<testcontainer
+			id="340e6795-be92-4d9f-ab6a-ffe254351956">
 			</testcontainer>
 			<testcontainer
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33">

@@ -210,6 +210,18 @@
       <UserCode>true</UserCode>
       <id>83cbb184-cd9a-4bbe-9e6d-347e402a8d89</id>
     </Compile>
+    <Compile Include="ExpandAlphasGroup.cs">
+      <BoundTo>c0a92f2d-ef50-471d-8e1e-2102097c50ca</BoundTo>
+      <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>fd16f334-9792-4f93-8069-009af1ca88a0</id>
+    </Compile>
+    <Compile Include="ExpandAlphasGroup.UserCode.cs">
+      <BoundTo>c0a92f2d-ef50-471d-8e1e-2102097c50ca</BoundTo>
+      <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>47fc6b52-2f0b-4243-80e6-008831d5051a</id>
+    </Compile>
     <Compile Include="InitializeDropDownMenu.cs">
       <BoundTo>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</BoundTo>
       <DependentUpon>InitializeDropDownMenu.rxrec</DependentUpon>
@@ -1101,6 +1113,18 @@
       <UserCode>true</UserCode>
       <id>ed9ae4c9-9e1b-4ef1-a043-fccd914ff342</id>
     </Compile>
+    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.cs">
+      <BoundTo>86cc1123-5b93-4182-acb0-1f14fa8feca8</BoundTo>
+      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d77fc179-4970-41dd-89fa-6fdac6f80016</id>
+    </Compile>
+    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.UserCode.cs">
+      <BoundTo>86cc1123-5b93-4182-acb0-1f14fa8feca8</BoundTo>
+      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5a0e2b81-6a5f-4c4d-8f1a-5f7651f92e37</id>
+    </Compile>
     <Compile Include="ValidateErrorIcon.cs">
       <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
@@ -1281,17 +1305,17 @@
       <UserCode>true</UserCode>
       <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
     </Compile>
-    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.cs">
-      <BoundTo>a1f5fde3-a22c-4109-b9aa-57a295901e7a</BoundTo>
-      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+    <Compile Include="ValidateTextValueParameterCurrentlyShownInPropertiesPanel.cs">
+      <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
+      <DependentUpon>ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
-      <id>49843c46-7cc6-44ab-843e-37241eba37de</id>
+      <id>cafb9ff9-e3be-4720-9016-e828cbd89773</id>
     </Compile>
-    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.UserCode.cs">
-      <BoundTo>a1f5fde3-a22c-4109-b9aa-57a295901e7a</BoundTo>
-      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+    <Compile Include="ValidateTextValueParameterCurrentlyShownInPropertiesPanel.UserCode.cs">
+      <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
+      <DependentUpon>ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
       <UserCode>true</UserCode>
-      <id>2f4eb245-a630-42b8-ba85-36351a31ec80</id>
+      <id>667f306e-b119-4562-85e4-7686b58596f8</id>
     </Compile>
     <Compile Include="ValidateValueParameterForItemInTraject.cs">
       <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
@@ -1398,6 +1422,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a1bf799f-50b7-4bb2-a418-2705a88cab3e</id>
       <recordtableid>bbe1b453-6dad-446c-8f21-3104847f3bd8</recordtableid>
+    </None>
+    <None Include="ExpandAlphasGroup.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c0a92f2d-ef50-471d-8e1e-2102097c50ca</id>
+      <recordtableid>8ffa45e8-2152-4d07-9590-20154379e184</recordtableid>
     </None>
     <None Include="InitializeDropDownMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1769,6 +1798,11 @@
       <id>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</id>
       <recordtableid>d39d077e-c625-4d57-a6e7-a73a70d77e0d</recordtableid>
     </None>
+    <None Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>86cc1123-5b93-4182-acb0-1f14fa8feca8</id>
+      <recordtableid>ee50ca81-702d-41bf-9d5a-c6659515e29c</recordtableid>
+    </None>
     <None Include="ValidateErrorIcon.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
@@ -1844,10 +1878,10 @@
       <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
       <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
     </None>
-    <None Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
+    <None Include="ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a1f5fde3-a22c-4109-b9aa-57a295901e7a</id>
-      <recordtableid>79ee9c65-cb26-47bb-bf72-e22edc799777</recordtableid>
+      <id>2bfa17c2-7838-466c-b4bf-98098cb57bba</id>
+      <recordtableid>be67159d-b95e-4ab7-8583-e9482fd3475d</recordtableid>
     </None>
     <None Include="ValidateValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
