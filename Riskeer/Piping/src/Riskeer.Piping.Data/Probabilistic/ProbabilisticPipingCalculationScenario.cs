@@ -27,7 +27,7 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// This class holds the information for a probabilistic piping calculation scenario.
     /// </summary>
-    public class ProbabilisticPipingCalculationScenario : ProbabilisticPipingCalculation, ICalculationScenario
+    public class ProbabilisticPipingCalculationScenario : ProbabilisticPipingCalculation, IPipingCalculationScenario<ProbabilisticPipingInput>
     {
         private RoundedDouble contribution;
 

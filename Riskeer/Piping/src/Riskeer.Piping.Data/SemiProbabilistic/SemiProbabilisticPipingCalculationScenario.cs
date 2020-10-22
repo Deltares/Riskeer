@@ -27,7 +27,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// This class holds the information for a semi-probabilistic piping calculation scenario.
     /// </summary>
-    public class SemiProbabilisticPipingCalculationScenario : SemiProbabilisticPipingCalculation, ICalculationScenario
+    public class SemiProbabilisticPipingCalculationScenario : SemiProbabilisticPipingCalculation, IPipingCalculationScenario<SemiProbabilisticPipingInput>
     {
         private RoundedDouble contribution;
 

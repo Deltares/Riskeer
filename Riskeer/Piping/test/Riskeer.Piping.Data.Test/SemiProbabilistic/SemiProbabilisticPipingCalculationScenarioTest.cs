@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Assert
             Assert.IsInstanceOf<SemiProbabilisticPipingCalculation>(scenario);
-            Assert.IsInstanceOf<ICalculationScenario>(scenario);
+            Assert.IsInstanceOf<IPipingCalculationScenario<SemiProbabilisticPipingInput>>(scenario);
 
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);

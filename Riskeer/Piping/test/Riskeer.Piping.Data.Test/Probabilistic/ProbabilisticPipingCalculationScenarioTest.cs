@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             Assert.IsInstanceOf<ProbabilisticPipingCalculation>(scenario);
-            Assert.IsInstanceOf<ICalculationScenario>(scenario);
+            Assert.IsInstanceOf<IPipingCalculationScenario<ProbabilisticPipingInput>>(scenario);
 
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
