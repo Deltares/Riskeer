@@ -928,10 +928,13 @@ namespace Riskeer.Piping.Plugin
                 (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculationScenario(), context.WrappedData));
         }
 
-        private static void AddCalculation(Func<IPipingCalculation<PipingInput>> createCalculationFunc, CalculationGroup parentGroup)
+        private static void AddCalculation<TCalculationScenario>(Func<TCalculationScenario> createCalculationScenarioFunc, CalculationGroup parentGroup)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>
         {
-            IPipingCalculation<PipingInput> calculation = createCalculationFunc();
-            calculation.Name = NamingHelper.GetUniqueName(parentGroup.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name);
+            TCalculationScenario calculation = createCalculationScenarioFunc();
+            calculation.Name = NamingHelper.GetUniqueName(parentGroup.Children.OfType<TCalculationScenario>(),
+                                                          RiskeerCommonDataResources.Calculation_DefaultName,
+                                                          c => c.Name);
 
             parentGroup.Children.Add(calculation);
             parentGroup.NotifyObservers();

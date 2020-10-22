@@ -916,11 +916,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var calculationItem = new SemiProbabilisticPipingCalculationScenario
+                var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Nieuwe berekening"
                 };
-                group.Children.Add(calculationItem);
+                group.Children.Add(semiProbabilisticCalculationScenario);
 
                 nodeData.Attach(observer);
 
@@ -936,8 +936,61 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
+                }
+            }
+        }
+        
+        [Test]
+        public void GivenCalculationGroupWithProbabilisticCalculation_WhenClickOnAddSemiProbabilisticCalculationItem_ThenCalculationAddedWithSameName()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var parentGroup = new CalculationGroup();
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 parentGroup,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSection);
+                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                       null,
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                       pipingFailureMechanism,
+                                                                       assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Nieuwe berekening"
+                };
+                group.Children.Add(probabilisticCalculationScenario);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    ICalculationBase newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
                 }
             }
         }
@@ -976,11 +1029,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var calculationItem = new SemiProbabilisticPipingCalculationScenario
+                var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
                 {
                     Name = "Nieuwe berekening"
                 };
-                group.Children.Add(calculationItem);
+                group.Children.Add(probabilisticCalculationScenario);
 
                 nodeData.Attach(observer);
 
@@ -996,8 +1049,66 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
+                }
+            }
+        }
+        
+        [Test]
+        public void GivenCalculationGroupWithSemiProbabilisticCalculation_WhenClickOnAddProbabilisticCalculationItem_ThenCalculationAddedWithSameName()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var parentGroup = new CalculationGroup();
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 parentGroup,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSection);
+                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                       null,
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                       pipingFailureMechanism,
+                                                                       assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
+                {
+                    Name = "Nieuwe berekening"
+                };
+                group.Children.Add(semiProbabilisticCalculationScenario);
+
+                nodeData.Attach(observer);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    ICalculationBase newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
                 }
             }
         }
