@@ -291,6 +291,18 @@ namespace Riskeer.Piping.Plugin
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput),
                 GetViewData = context => context.WrappedData.Sections
             };
+
+            yield return new ViewInfo<ProbabilisticPipingOutputContext, ProbabilisticPipingCalculation, ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView>
+            {
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
+                // Check view name
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                // Check specific output!
+                CreateInstance = context => new ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointView(
+                    () => context.WrappedData.Output?.SectionSpecificOutput?.GeneralResult)
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
