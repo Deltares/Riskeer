@@ -59,6 +59,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\ProbabilisticPipingSectionSpecificOutputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\ProbabilisticPipingProfileSpecificOutputView.cs">
       <SubType>UserControl</SubType>
     </Compile>

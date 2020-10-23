@@ -301,6 +301,16 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputView(
                     () => context.WrappedData.Output?.ProfileSpecificOutput?.GeneralResult)
             };
+
+            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticPipingSectionSpecificOutputView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new ProbabilisticPipingSectionSpecificOutputView(
+                    () => context.WrappedData.Output?.SectionSpecificOutput?.GeneralResult)
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

@@ -171,7 +171,7 @@ namespace Riskeer.Piping.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, viewInfos.Length);
+                Assert.AreEqual(9, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -219,6 +219,12 @@ namespace Riskeer.Piping.Plugin.Test
                     typeof(ProbabilisticPipingProfileSpecificOutputContext),
                     typeof(ProbabilisticPipingCalculationScenario),
                     typeof(ProbabilisticPipingProfileSpecificOutputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingSectionSpecificOutputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
+                    typeof(ProbabilisticPipingSectionSpecificOutputView));
             }
         }
 
