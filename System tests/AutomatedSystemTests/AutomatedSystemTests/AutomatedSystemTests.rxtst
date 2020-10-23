@@ -5960,6 +5960,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="7ddcf52d-b38d-4e51-82d8-2205317aac45"
 			maxrange="1"
 			minrange="1"
@@ -19891,7 +19892,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						-0.08155
+						0
 					</td>
 					<td>
 						Onzekerheid waterstand Delfzijl
@@ -19995,7 +19996,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						-0.08155
+						0
 					</td>
 					<td>
 						Onzekerheid waterstand Delfzijl
@@ -20099,7 +20100,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						-0.08155
+						0
 					</td>
 					<td>
 						Onzekerheid waterstand Delfzijl
@@ -20203,7 +20204,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						-0.08155
+						0
 					</td>
 					<td>
 						Onzekerheid waterstand Delfzijl
@@ -20307,7 +20308,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						-0.08155
+						0
 					</td>
 					<td>
 						Onzekerheid waterstand Delfzijl
