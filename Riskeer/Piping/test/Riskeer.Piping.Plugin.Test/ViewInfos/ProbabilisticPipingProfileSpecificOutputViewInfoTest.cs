@@ -76,14 +76,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedCalculationScenario()
+        public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
         {
             // Setup
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var pipingScenariosContext = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario);
 
             // Call
-            object viewData = info.GetViewData(pipingScenariosContext);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
