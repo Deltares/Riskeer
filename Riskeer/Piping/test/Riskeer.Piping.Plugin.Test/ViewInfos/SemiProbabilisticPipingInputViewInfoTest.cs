@@ -62,7 +62,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(SemiProbabilisticPipingInputContext), info.DataType);
             Assert.AreEqual(typeof(SemiProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
         }
@@ -78,7 +77,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_CorrectContext_ReturnsWrappedCalculation()
+        public void GetViewData_WithContext_ReturnsWrappedCalculation()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
