@@ -36,15 +36,22 @@ namespace AutomatedSystemTests
 
         public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
         	{
-        	int minimumIndex = 0;
         	var stepsPathItem = pathItem.Split('>').ToList();
         	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
         	// start up variable stepChild
         	var stepChild = children[0].As<TreeItem>();
+        	var nameStepChild = NameOfTreeItem(stepChild);
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];
-        			stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
+        			if (children.Count(ch => ch.ToString().Contains(step))==1)
+        				{
+        				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
+        				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
+        			} else	{
+        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
+        				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
+        			}
         			stepChild.Focus();
         			stepChild.Select();
         			if (i != stepsPathItem.Count - 1)
@@ -55,6 +62,11 @@ namespace AutomatedSystemTests
         			children = stepChild.Children;
         			}
         	return;
+        }
+        
+        private string NameOfTreeItem(object treeItemInfo)
+        {
+        	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
         }
     }
 }

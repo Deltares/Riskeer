@@ -44,5 +44,14 @@ namespace AutomatedSystemTests
         	fileNameToOpen = Directory.GetCurrentDirectory() + "\\" + fileNameToOpen;
         }
 
+        public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)
+        {
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo'.", buttonInfo);
+            try {
+                buttonInfo.WaitForExists(2000);
+            	buttonInfo.FindAdapter<Button>().Click();
+            } catch(Exception) { }
+        }
+
     }
 }

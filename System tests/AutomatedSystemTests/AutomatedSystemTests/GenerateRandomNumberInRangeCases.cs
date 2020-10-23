@@ -24,56 +24,59 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelWaveHeightInDocumentView recording.
+    ///The GenerateRandomNumberInRangeCases recording.
     /// </summary>
-    [TestModule("c93bb1b9-c14c-4a0a-ae72-fe034593361b", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelWaveHeightInDocumentView : ITestModule
+    [TestModule("6104469d-a535-47ca-b393-2256db12cca4", ModuleType.Recording, 1)]
+    public partial class GenerateRandomNumberInRangeCases : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelWaveHeightInDocumentView instance = new ValidateWaterLevelWaveHeightInDocumentView();
+        static GenerateRandomNumberInRangeCases instance = new GenerateRandomNumberInRangeCases();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelWaveHeightInDocumentView()
+        public GenerateRandomNumberInRangeCases()
         {
-            expectedValue = "";
+            nameOfFolderWithCases = "";
+            generatedRandomNumber = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelWaveHeightInDocumentView Instance
+        public static GenerateRandomNumberInRangeCases Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedValue;
+        string _nameOfFolderWithCases;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedValue.
+        /// Gets or sets the value of variable nameOfFolderWithCases.
         /// </summary>
-        [TestVariable("ac93a9b5-24d0-453b-8057-a697e7574717")]
-        public string expectedValue
+        [TestVariable("14b8b92f-c5ac-45fe-9221-5b190e11f77f")]
+        public string nameOfFolderWithCases
         {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
+            get { return _nameOfFolderWithCases; }
+            set { _nameOfFolderWithCases = value; }
         }
 
+        string _generatedRandomNumber;
+
         /// <summary>
-        /// Gets or sets the value of variable rowIndex.
+        /// Gets or sets the value of variable generatedRandomNumber.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
+        [TestVariable("ff4e49ec-c5ac-454c-81f0-9c2b3d84516c")]
+        public string generatedRandomNumber
         {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return _generatedRandomNumber; }
+            set { _generatedRandomNumber = value; }
         }
 
 #endregion
@@ -96,15 +99,14 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Validate_WaterLevelOrWaveHeightNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
+            generateRandomNumberInRangeRowsCases();
+            Delay.Milliseconds(0);
             
         }
 

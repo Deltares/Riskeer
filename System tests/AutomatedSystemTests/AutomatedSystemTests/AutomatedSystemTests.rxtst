@@ -77,6 +77,26 @@
 			id="01a8cff1-2dad-4f40-abf5-f73ee2e5c6f5"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="01f27b5a-1497-48c7-91cd-b5d4969d152c"
+			name="GenerateRandomNumberInRangeCases"
+			ref="6104469d-a535-47ca-b393-2256db12cca4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameFolderWithCases"
+					datasourceid="0c083a22-60f2-4670-ae4c-5c16796e6423"
+					variableid="14b8b92f-c5ac-45fe-9221-5b190e11f77f"
+					variablename="nameOfFolderWithCases">
+					</var>
+					<var
+					dataname="randomRow"
+					datasourceid="0c083a22-60f2-4670-ae4c-5c16796e6423"
+					variableid="ff4e49ec-c5ac-454c-81f0-9c2b3d84516c"
+					variablename="generatedRandomNumber">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388"
@@ -562,6 +582,20 @@
 			id="0be4c0d3-4d42-46b5-9a6e-02fb775d70ae"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
+			<smartfoldernode
+			id="0c083a22-60f2-4670-ae4c-5c16796e6423"
+			name="SelectCaseToRun">
+				<parameters>
+					<param
+					name="nameFolderWithCases"
+					value="HydraulicBoundaryConditionCases">
+					</param>
+					<param
+					name="randomRow"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="0c475a87-77e5-46a2-9f2a-8a2e450c7167"
 			name="InitializeDropDownMenu"
@@ -679,6 +713,27 @@
 					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
 					variableid="3e080daf-3a8c-454e-9f1c-885391b833ba"
 					variablename="nameSubsurfaceSchematization">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			enabled="False"
+			id="0edf588b-5f5b-45a3-b892-c175024dc66e"
+			name="SelecteSingleCaseInRange"
+			ref="220e925d-6434-4d2c-8772-fc4edd938637"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameFolderWithCases"
+					datasourceid="0c083a22-60f2-4670-ae4c-5c16796e6423"
+					variableid="b452abcc-83df-4d0e-96e2-3f3c41b7e754"
+					variablename="nameOfFolderWithCases">
+					</var>
+					<var
+					dataname="randomRow"
+					datasourceid="0c083a22-60f2-4670-ae4c-5c16796e6423"
+					variableid="901d8aa4-4720-4dc2-9565-19bb5117bcba"
+					variablename="indexRowCaseToSelect">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2553,6 +2608,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="37c431a5-f03b-4cc9-a737-a950832cd9bc"
+			name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="logMessageConnectorSectionB"
 			id="37c811fd-9297-4d92-b429-28a452540bf1"
 			name="b)Total_overview_of_the_assessment_results">
@@ -2692,14 +2751,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="3b932247-ad45-4862-8925-18e9606261c7"
@@ -3751,6 +3802,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
 			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
 			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
@@ -4580,14 +4632,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5e68cbb7-c05a-49a6-99e2-d579c677a993"
@@ -4956,6 +5000,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="66d1dc3d-7595-4f72-a37c-55a89d9ecb30"
+			name="CloseDocumentView">
+			</smartfoldernode>
 			<testmodule
 			id="674ed633-77ee-4a1b-863c-b1c220b20238"
 			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
@@ -5438,14 +5486,6 @@
 					variablename="rowIndex">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="74f05605-66de-4da9-acd5-7677f62b46bf"
@@ -5565,11 +5605,7 @@
 				<parameters>
 					<param
 					name="calculationIndexToStopAt"
-					value="2">
-					</param>
-					<param
-					name="additionalMessageToStopCalculation"
-					value=" van">
+					value="2 van">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -5925,7 +5961,9 @@
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
 			id="7ddcf52d-b38d-4e51-82d8-2205317aac45"
-			name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
+			maxrange="1"
+			minrange="1"
+			name="HydraulicBoundaryConditionCases">
 				<parameters>
 					<param
 					name="trajectSubstring"
@@ -8052,6 +8090,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="a5e33595-5af9-404a-8190-52dda0225b0b"
 			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
 			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
@@ -8218,6 +8257,12 @@
 			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
 			name="b)LengthEffectParameters">
 			</smartfoldernode>
+			<testmodule
+			id="ab8049ea-1d71-4f40-a176-2a57fc48af7d"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGEBUType"
 			id="aba03c61-b85c-4b02-b4fd-6792f2b3b1eb"
@@ -8626,12 +8671,6 @@
 					datasourceid="769950c3-8881-4bc9-9049-f6488ccc2275"
 					variableid="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
 					variablename="calculationIndexToStopAt">
-					</var>
-					<var
-					dataname="additionalMessageToStopCalculation"
-					datasourceid="769950c3-8881-4bc9-9049-f6488ccc2275"
-					variableid="e923fdd5-9881-44eb-9be2-b3edc619d97b"
-					variablename="additionalMessageToStopAt">
 					</var>
 				</databinding>
 			</testmodule>
@@ -9426,7 +9465,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="c2827979-50a8-479f-a070-38134ba75683"
-			name="ValidateAfterAlCalculationsHaveFinished">
+			name="ValidateAfterAllCalculationsHaveFinished">
 			</smartfoldernode>
 			<smartfoldernode
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
@@ -9652,14 +9691,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentGEKBValues"
@@ -11505,7 +11536,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
-			name="OpenViewForHydraulicBCItem">
+			name="OpenDocumentViewForHydraulicBCItem">
 			</smartfoldernode>
 			<testmodule
 			id="e91f01f5-e6a0-4c25-b8f9-7112c6456c8e"
@@ -13615,7 +13646,7 @@
 							</testmodule>
 						</setup>
 						<smartfoldernode
-						id="7ddcf52d-b38d-4e51-82d8-2205317aac45"
+						id="37c431a5-f03b-4cc9-a737-a950832cd9bc"
 						name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
 							<smartfoldernode
 							id="45d2f6ef-eb2f-4b9d-a62f-c65e74e99199"
@@ -13626,239 +13657,263 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
-							name="OpenViewForHydraulicBCItem">
+							id="0c083a22-60f2-4670-ae4c-5c16796e6423"
+							name="SelectCaseToRun">
 								<testmodule
-								id="de7dc17c-b111-43c8-9a13-4aa7aa4fe6e8"
-								name="SelectGenericItemInProjectExplorer">
+								id="01f27b5a-1497-48c7-91cd-b5d4969d152c"
+								name="GenerateRandomNumberInRangeCases">
 								</testmodule>
 								<testmodule
-								id="7bfef718-ae35-4fda-a9a3-5738e78e1f58"
-								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="0903a8f5-5f75-4ab6-9af9-5a77cc0caa35"
-							name="SelectLocationsForCalculation">
-								<testmodule
-								id="74996d46-92c4-428d-aaab-3a416b7a7616"
-								name="SelectCalculationsAndIllustrationPoints">
+								id="0edf588b-5f5b-45a3-b892-c175024dc66e"
+								name="SelecteSingleCaseInRange">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="769950c3-8881-4bc9-9049-f6488ccc2275"
-							name="CarryOutCalculations">
-								<testmodule
-								id="13bc3335-3b6d-4faa-ab62-6600c39d3cc5"
-								name="ClickOnRunSelectedCalculations">
-								</testmodule>
-								<testmodule
-								id="b3d27816-eb65-4a78-9175-21981a52319a"
-								name="PressCancelDialog">
-								</testmodule>
+							id="7ddcf52d-b38d-4e51-82d8-2205317aac45"
+							name="HydraulicBoundaryConditionCases">
 								<smartfoldernode
-								id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
-								name="ValidateAfterCalculationsHaveBeenInterrupted">
-									<smartfoldernode
-									id="dc49a1cf-9a7f-4d5b-bd4c-d44aa18e22d7"
-									name="MakeScreenshotOfDocumentView">
-										<testmodule
-										id="a81c4715-e765-414a-93c8-ea76e6e28ab1"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="8c63949e-becf-47b7-b071-cf8264d3b52b"
-									name="ValidateMessagesInterruption">
-										<testmodule
-										id="f28a9867-dd6d-4e89-a472-3154167f3a61"
-										name="ValidateTextMesage">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-									name="ValidateFinishedCalculations">
-										<testmodule
-										id="c3b92e46-53a3-46ef-91e2-69ea648e0f03"
-										name="SelectRowCalculation">
-										</testmodule>
-										<testmodule
-										id="bfc69429-925a-47da-bf82-53a6a635d9ff"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="a5e33595-5af9-404a-8190-52dda0225b0b"
-										name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
-										</testmodule>
-										<testmodule
-										id="d3ac74ba-c4a6-4369-a128-c992f3841830"
-										name="ValidateWaterLevelWaveHeightInDocumentView">
-										</testmodule>
-										<testmodule
-										id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
-										name="CreateScreenShotPropertiesPanel">
-										</testmodule>
-										<testmodule
-										id="aa5fbc05-ad35-412e-9cbc-44fd912e4a33"
-										name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="6e80f060-cb78-47ce-a16b-3425624471c4"
-									name="ValidateUnfinishedCalculations">
-										<testmodule
-										id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
-										name="SelectRowCalculation">
-										</testmodule>
-										<testmodule
-										id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
-										name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
-										</testmodule>
-										<testmodule
-										id="5089f1e1-4962-415a-a8d8-ad30c223db76"
-										name="ValidateWaterLevelWaveHeightInDocumentView">
-										</testmodule>
-										<testmodule
-										id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
-										name="CreateScreenShotPropertiesPanel">
-										</testmodule>
-										<testmodule
-										id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
-										name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
-										</testmodule>
-									</smartfoldernode>
+								id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66"
+								name="OpenDocumentViewForHydraulicBCItem">
+									<testmodule
+									id="de7dc17c-b111-43c8-9a13-4aa7aa4fe6e8"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="7bfef718-ae35-4fda-a9a3-5738e78e1f58"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
 								</smartfoldernode>
-								<testmodule
-								id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
-								name="ClickOnRunSelectedCalculations">
-								</testmodule>
-								<testmodule
-								id="31ad3255-520a-4e6d-afff-76a2b442a8d5"
-								name="WaitUntilAllCalculationsHaveBeenCarriedOut">
-								</testmodule>
 								<smartfoldernode
-								id="c2827979-50a8-479f-a070-38134ba75683"
-								name="ValidateAfterAlCalculationsHaveFinished">
+								id="0903a8f5-5f75-4ab6-9af9-5a77cc0caa35"
+								name="SelectLocationsForCalculation">
+									<testmodule
+									id="74996d46-92c4-428d-aaab-3a416b7a7616"
+									name="SelectCalculationsAndIllustrationPoints">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="769950c3-8881-4bc9-9049-f6488ccc2275"
+								name="CarryOutCalculations">
+									<testmodule
+									id="13bc3335-3b6d-4faa-ab62-6600c39d3cc5"
+									name="ClickOnRunSelectedCalculations">
+									</testmodule>
+									<testmodule
+									id="b3d27816-eb65-4a78-9175-21981a52319a"
+									name="PressCancelDialog">
+									</testmodule>
 									<smartfoldernode
-									id="b3886fdf-ba39-49e3-8f2e-fdec24393082"
-									name="MakeScreenshotOfDocumentView">
-										<testmodule
-										id="02a908ba-deb6-4354-9d61-830e89e8809e"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="539ff93f-9f3d-48a0-b590-523c20e9d613"
-									name="ValidateMessagesCalculationsSkipped">
-										<testmodule
-										id="863863e0-0734-49e4-8b38-fd295dd7ed86"
-										name="ValidateTextMesage">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="df52fee7-7732-49dc-b801-6be1c59e8fb2"
-									name="ValidateMessagesCalculationsFinished">
-										<testmodule
-										id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
-										name="ValidateTextMesage">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-									name="ValidateResultsPresentInTableLeft">
-										<testmodule
-										id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
-										name="SelectRowCalculation">
-										</testmodule>
-										<testmodule
-										id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="e705e23a-cb2e-4064-8471-8c16a13076e5"
-										name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
-									name="ValidateResultsInPropertiesPanel">
-										<testmodule
-										id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
-										name="SelectRowCalculation">
-										</testmodule>
-										<testmodule
-										id="61717bd6-639e-4739-9e0a-020f5c4119cc"
-										name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
-										</testmodule>
+									id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
+									name="ValidateAfterCalculationsHaveBeenInterrupted">
 										<smartfoldernode
-										id="340e6795-be92-4d9f-ab6a-ffe254351956"
-										name="ValidateResultsIllustrationPoints">
+										id="dc49a1cf-9a7f-4d5b-bd4c-d44aa18e22d7"
+										name="MakeScreenshotOfDocumentView">
 											<testmodule
-											id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
-											name="ExpandAlphasGroup">
+											id="a81c4715-e765-414a-93c8-ea76e6e28ab1"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="8c63949e-becf-47b7-b071-cf8264d3b52b"
+										name="ValidateMessagesInterruption">
+											<testmodule
+											id="f28a9867-dd6d-4e89-a472-3154167f3a61"
+											name="ValidateTextMesage">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
+										name="ValidateFinishedCalculations">
+											<testmodule
+											id="c3b92e46-53a3-46ef-91e2-69ea648e0f03"
+											name="SelectRowCalculation">
 											</testmodule>
 											<testmodule
-											id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="bfc69429-925a-47da-bf82-53a6a635d9ff"
+											name="CreateScreenshotDocumentView">
 											</testmodule>
 											<testmodule
-											id="fe7ab044-aca4-4084-a560-fe272cace2b4"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="a5e33595-5af9-404a-8190-52dda0225b0b"
+											name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
 											</testmodule>
 											<testmodule
-											id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="d3ac74ba-c4a6-4369-a128-c992f3841830"
+											name="ValidateWaterLevelWaveHeightInDocumentView">
 											</testmodule>
 											<testmodule
-											id="aec74860-0172-4fec-8644-f1623c1e51fc"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
+											name="CreateScreenShotPropertiesPanel">
 											</testmodule>
 											<testmodule
-											id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="aa5fbc05-ad35-412e-9cbc-44fd912e4a33"
+											name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="6e80f060-cb78-47ce-a16b-3425624471c4"
+										name="ValidateUnfinishedCalculations">
+											<testmodule
+											id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
+											name="SelectRowCalculation">
 											</testmodule>
 											<testmodule
-											id="674ed633-77ee-4a1b-863c-b1c220b20238"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
+											name="CreateScreenshotDocumentView">
 											</testmodule>
 											<testmodule
-											id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
+											name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
 											</testmodule>
 											<testmodule
-											id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="5089f1e1-4962-415a-a8d8-ad30c223db76"
+											name="ValidateWaterLevelWaveHeightInDocumentView">
 											</testmodule>
 											<testmodule
-											id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
+											name="CreateScreenShotPropertiesPanel">
 											</testmodule>
 											<testmodule
-											id="71df948a-8310-4b21-80ae-c79c38db051d"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-											</testmodule>
-											<testmodule
-											id="1afe3633-1389-471f-b783-47ec95df5540"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-											</testmodule>
-											<testmodule
-											id="9320cf8e-6e3c-498f-b602-5695f054102f"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-											</testmodule>
-											<testmodule
-											id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-											</testmodule>
-											<testmodule
-											id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
-											name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+											id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
+											name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
+									<testmodule
+									id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
+									name="ClickOnRunSelectedCalculations">
+									</testmodule>
+									<testmodule
+									id="31ad3255-520a-4e6d-afff-76a2b442a8d5"
+									name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+									</testmodule>
+									<smartfoldernode
+									id="c2827979-50a8-479f-a070-38134ba75683"
+									name="ValidateAfterAllCalculationsHaveFinished">
+										<smartfoldernode
+										id="b3886fdf-ba39-49e3-8f2e-fdec24393082"
+										name="MakeScreenshotOfDocumentView">
+											<testmodule
+											id="02a908ba-deb6-4354-9d61-830e89e8809e"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="539ff93f-9f3d-48a0-b590-523c20e9d613"
+										name="ValidateMessagesCalculationsSkipped">
+											<testmodule
+											id="863863e0-0734-49e4-8b38-fd295dd7ed86"
+											name="ValidateTextMesage">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="df52fee7-7732-49dc-b801-6be1c59e8fb2"
+										name="ValidateMessagesCalculationsFinished">
+											<testmodule
+											id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
+											name="ValidateTextMesage">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
+										name="ValidateResultsPresentInTableLeft">
+											<testmodule
+											id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
+											name="SelectRowCalculation">
+											</testmodule>
+											<testmodule
+											id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+											<testmodule
+											id="e705e23a-cb2e-4064-8471-8c16a13076e5"
+											name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
+										name="ValidateResultsInPropertiesPanel">
+											<testmodule
+											id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
+											name="SelectRowCalculation">
+											</testmodule>
+											<testmodule
+											id="61717bd6-639e-4739-9e0a-020f5c4119cc"
+											name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+											</testmodule>
+											<smartfoldernode
+											id="340e6795-be92-4d9f-ab6a-ffe254351956"
+											name="ValidateResultsIllustrationPoints">
+												<testmodule
+												id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
+												name="ExpandAlphasGroup">
+												</testmodule>
+												<testmodule
+												id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="fe7ab044-aca4-4084-a560-fe272cace2b4"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="aec74860-0172-4fec-8644-f1623c1e51fc"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="674ed633-77ee-4a1b-863c-b1c220b20238"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="71df948a-8310-4b21-80ae-c79c38db051d"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="1afe3633-1389-471f-b783-47ec95df5540"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="9320cf8e-6e3c-498f-b602-5695f054102f"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+												<testmodule
+												id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
+												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="66d1dc3d-7595-4f72-a37c-55a89d9ecb30"
+								name="CloseDocumentView">
+									<testmodule
+									id="ab8049ea-1d71-4f40-a176-2a57fc48af7d"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -18731,7 +18786,7 @@
 		</DataSource>
 		<DataSource
 		id="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-		lastknownrowcount="1"
+		lastknownrowcount="4"
 		name="script15_a_ExpectedResultsCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -19041,6 +19096,318 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						Modelonzekerheid lokale waterstand
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand [m+NAP]
+					</td>
+					<td>
+						5.20
+					</td>
+					<td>
+						Maatgevende windrichting
+					</td>
+					<td>
+						&#32;300.0
+					</td>
+					<td>
+						Windrichting
+					</td>
+					<td>
+						-0.37773
+					</td>
+					<td>
+						Waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Lauwersoog
+					</td>
+					<td>
+						-0.91610
+					</td>
+					<td>
+						Waterstand West Terschelling
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Lauwersoog
+					</td>
+					<td>
+						-0.13445
+					</td>
+					<td>
+						Onzekerheid windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid windsnelheid
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Modelonzekerheid lokale waterstand
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens B
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand [m+NAP]
+					</td>
+					<td>
+						4.93
+					</td>
+					<td>
+						Maatgevende windrichting
+					</td>
+					<td>
+						&#32;300.0
+					</td>
+					<td>
+						Windrichting
+					</td>
+					<td>
+						-0.39439
+					</td>
+					<td>
+						Waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Lauwersoog
+					</td>
+					<td>
+						-0.91218
+					</td>
+					<td>
+						Waterstand West Terschelling
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Lauwersoog
+					</td>
+					<td>
+						-0.11131
+					</td>
+					<td>
+						Onzekerheid windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid windsnelheid
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Modelonzekerheid lokale waterstand
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Golfhoogte [m]
+					</td>
+					<td>
+						2.76
+					</td>
+					<td>
+						Maatgevende windrichting
+					</td>
+					<td>
+						&#32;330.0
+					</td>
+					<td>
+						Windrichting
+					</td>
+					<td>
+						-0.36891
+					</td>
+					<td>
+						Waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Waterstand Lauwersoog
+					</td>
+					<td>
+						-0.80816
+					</td>
+					<td>
+						Waterstand West Terschelling
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						-0.08211
+					</td>
+					<td>
+						Onzekerheid waterstand Delfzijl
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Harlingen
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Huibertgat
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Onzekerheid waterstand Lauwersoog
+					</td>
+					<td>
+						-0.14396
+					</td>
+					<td>
+						Onzekerheid windsnelheid West Terschelling | wl LO
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Modelonzekerheid golfhoogte
+					</td>
+					<td>
+						-0.42814
 					</td>
 					<td>
 						Modelonzekerheid lokale waterstand
@@ -20114,6 +20481,9 @@
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
 			</testcontainer>
 			<testcontainer
+			id="0c083a22-60f2-4670-ae4c-5c16796e6423">
+			</testcontainer>
+			<testcontainer
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
@@ -20139,6 +20509,9 @@
 			</testcontainer>
 			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
+			</testcontainer>
+			<testcontainer
+			id="37c431a5-f03b-4cc9-a737-a950832cd9bc">
 			</testcontainer>
 			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
@@ -20193,6 +20566,9 @@
 			</testcontainer>
 			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="66d1dc3d-7595-4f72-a37c-55a89d9ecb30">
 			</testcontainer>
 			<testcontainer
 			id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd">

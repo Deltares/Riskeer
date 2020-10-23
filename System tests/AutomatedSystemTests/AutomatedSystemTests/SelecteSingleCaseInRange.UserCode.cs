@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class PressCancelDialog
+    public partial class SelecteSingleCaseInRange
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,5 +32,11 @@ namespace AutomatedSystemTests
         {
             // Your recording specific initialization code goes here.
         }
+
+        public void SelectCase(string nameOfFolderWithRangeCases, string caseToselect)
+        {
+            TestSuite.Current.GetTestContainer(nameOfFolderWithRangeCases).DataContext.SetRange(DataRangeSet.Parse(caseToselect));
+        }
+
     }
 }

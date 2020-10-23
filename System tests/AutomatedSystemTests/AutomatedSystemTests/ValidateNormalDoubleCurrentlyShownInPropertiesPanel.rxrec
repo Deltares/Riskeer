@@ -29,33 +29,37 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
-		<validationitem
-		action="AttributeEqual"
+		<userrecorditem
+		classname="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
 		enabled="True"
-		optional="False"
-		searchpropertyid="90e35b6d-9fed-4804-bff2-ea3c12bceefd">
+		isexternaltestmethod="False"
+		methodname="Validate_GenericParameterVisibleInProjectExplorer"
+		namespace="AutomatedSystemTests"
+		optional="False">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedValue">
-				</binding>
 			</bindings>
-			<info
-			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename=$nameOfParameterInPropertiesPanel]
-				</path>
-			</info>
-			<matchname>
-				AccessibleValue
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
+			<arguments
+			id="9e8e3c97-3954-483d-92c3-98259eeea161">
+				<argument
+				argname="rowInfo"
+				id="662bfc9f-ccba-44f0-bce5-799119b4b801">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"

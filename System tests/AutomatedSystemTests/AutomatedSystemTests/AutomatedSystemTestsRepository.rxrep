@@ -526,6 +526,16 @@ name="AutomatedSystemTestsRepository">
 							searchtimeout="30000ms">
 								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
 							</item>
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="c086cd80-cceb-4d4c-aa4e-a036576a28f2"
+							name="WaterstandMPlusNAPRow2"
+							refimgid="40331b78-82f8-4b00-a47f-c1552c3fba07"
+							refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container[@caption='']/container[@controlname='DesignWaterLevelCalculationsView']/container[@controlname='splitContainer']/container[@controlname='panel1']/container[@controlname='dataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
+							</item>
 							<basepath>
 								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
@@ -795,41 +805,31 @@ name="AutomatedSystemTestsRepository">
 							id="8d26c2ea-9826-475b-ba13-7a87660216ce"
 							name="GenericRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
 							</item>
 							<item
 							capname="cell"
 							id="4b247c1d-9839-4696-ae92-cb7f86e1c5d1"
 							name="checkBoxCalculateNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
 							</item>
 							<item
 							capname="cell"
 							id="5823ab24-e87f-4cea-8490-6d081f7dc01d"
 							name="checkBoxreadIllustrationPointsNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
 							</item>
 							<item
 							capname="cell"
 							id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
 							name="WaterLevelOrWaveHeightNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
-							</item>
-							<item
-							addcaps="cell,accessible"
-							capname="cell"
-							id="ec2abc34-af82-4f6b-904d-4e0179efc220"
-							name="BerekenenRow2"
-							refimgid="0a89cd19-9c91-4412-8110-aa3fe174d58a"
-							refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
 						</folder>
 						<folder
@@ -846,14 +846,14 @@ name="AutomatedSystemTestsRepository">
 							name="CalculateSelectedButton"
 							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
+								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']
 						</basepath>
 					</folder>
 					<folder
@@ -865,11 +865,11 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms"
 					usecache="False">
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel2']
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel2']
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container
 					</basepath>
 				</folder>
 				<basepath>

@@ -29,33 +29,37 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
-		<validationitem
-		action="AttributeEqual"
+		<userrecorditem
+		classname="ValidateWaterLevelWaveHeightInDocumentView"
 		enabled="True"
-		optional="False"
-		searchpropertyid="62549262-62d7-43d9-aca9-652f9dc99638">
+		isexternaltestmethod="False"
+		methodname="Validate_WaterLevelOrWaveHeightNthRow"
+		namespace="AutomatedSystemTests"
+		optional="False">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedValue">
-				</binding>
 			</bindings>
-			<info
-			id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
-				</path>
-			</info>
-			<matchname>
-				Text
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
+			<arguments
+			id="f78f3a54-6032-44c3-b9ac-e93220c28771">
+				<argument
+				argname="cellInfo"
+				id="047eda38-2141-4920-bc02-420a1406847b">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"

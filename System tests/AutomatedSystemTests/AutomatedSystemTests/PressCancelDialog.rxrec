@@ -27,10 +27,6 @@ mode="Global">
 		id="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
 		name="calculationIndexToStopAt">
 		</var>
-		<var
-		id="e923fdd5-9881-44eb-9be2-b3edc619d97b"
-		name="additionalMessageToStopAt">
-		</var>
 	</variables>
 	<recorditems>
 		<loggingrecorditem
@@ -53,21 +49,6 @@ mode="Global">
 				</path>
 			</info>
 		</loggingrecorditem>
-		<userrecorditem
-		classname="PressCancelDialog"
-		enabled="True"
-		isexternaltestmethod="False"
-		methodname="PrepareMessageToStopAt"
-		namespace="AutomatedSystemTests"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="427da398-7f94-46bb-966b-1017f05e87fe">
-			</arguments>
-		</userrecorditem>
 		<WaitForRecordItem
 		enabled="True"
 		matchname="Text"

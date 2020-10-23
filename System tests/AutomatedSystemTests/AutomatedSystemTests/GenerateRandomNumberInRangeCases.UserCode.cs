@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class PressCancelDialog
+    public partial class GenerateRandomNumberInRangeCases
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,5 +32,14 @@ namespace AutomatedSystemTests
         {
             // Your recording specific initialization code goes here.
         }
+
+        public void generateRandomNumberInRangeRowsCases()
+        {
+            int maxNumber = TestSuite.Current.GetTestContainer(nameOfFolderWithCases).DataContext.Source.Rows.Count;
+            Random rnd = new Random();
+            int randomNumber= rnd.Next(1, maxNumber + 1);
+            generatedRandomNumber = randomNumber.ToString();
+        }
+
     }
 }
