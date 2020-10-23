@@ -22,12 +22,12 @@
 using System;
 using Riskeer.Common.Data.Probabilistics;
 
-namespace Riskeer.Piping.Data.SemiProbabilistic
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Factory for creating design variables based on distributions for piping.
     /// </summary>
-    public static class SemiProbabilisticPipingDesignVariableFactory
+    public static class PipingDesignVariableFactory
     {
         #region General parameters
 

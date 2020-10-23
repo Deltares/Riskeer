@@ -258,12 +258,12 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             }
             else
             {
-                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue()))
+                if (double.IsNaN(PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue()))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
                 }
 
-                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue()))
+                if (double.IsNaN(PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue()))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
                 }
@@ -280,7 +280,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             if (hasConsecutiveCoverageLayers)
             {
                 RoundedDouble saturatedVolumicWeightOfCoverageLayer =
-                    SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
+                    PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
 
                 if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
                 {
@@ -337,7 +337,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         {
             var warnings = new List<string>();
 
-            RoundedDouble diameter70Value = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue();
+            RoundedDouble diameter70Value = PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue();
 
             if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
             {
@@ -390,25 +390,25 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 new PipingCalculatorInput.ConstructionProperties
                 {
                     WaterVolumetricWeight = generalPipingInput.WaterVolumetricWeight,
-                    SaturatedVolumicWeightOfCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue(),
-                    UpliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
+                    SaturatedVolumicWeightOfCoverageLayer = PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue(),
+                    UpliftModelFactor = PipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
                     AssessmentLevel = effectiveAssessmentLevel,
                     PiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, effectiveAssessmentLevel),
-                    DampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
-                    PhreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                    CriticalHeaveGradient = SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(),
-                    ThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
-                    EffectiveThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue(),
-                    SellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
+                    DampingFactorExit = PipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                    PhreaticLevelExit = PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                    CriticalHeaveGradient = PipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(),
+                    ThicknessCoverageLayer = PipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
+                    EffectiveThicknessCoverageLayer = PipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue(),
+                    SellmeijerModelFactor = PipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
                     SellmeijerReductionFactor = generalPipingInput.SellmeijerReductionFactor,
-                    SeepageLength = SemiProbabilisticPipingDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
+                    SeepageLength = PipingDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
                     SandParticlesVolumicWeight = generalPipingInput.SandParticlesVolumicWeight,
                     WhitesDragCoefficient = generalPipingInput.WhitesDragCoefficient,
-                    Diameter70 = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
-                    DarcyPermeability = SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
+                    Diameter70 = PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
+                    DarcyPermeability = PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
                     WaterKinematicViscosity = generalPipingInput.WaterKinematicViscosity,
                     Gravity = generalPipingInput.Gravity,
-                    ThicknessAquiferLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
+                    ThicknessAquiferLayer = PipingDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
                     MeanDiameter70 = generalPipingInput.MeanDiameter70,
                     BeddingAngle = generalPipingInput.BeddingAngle,
                     ExitPointXCoordinate = input.ExitPointL,
