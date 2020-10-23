@@ -222,6 +222,18 @@
       <UserCode>true</UserCode>
       <id>47fc6b52-2f0b-4243-80e6-008831d5051a</id>
     </Compile>
+    <Compile Include="GenerateRandomNumberInRangeCases.cs">
+      <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
+      <DependentUpon>GenerateRandomNumberInRangeCases.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>689107e8-05bf-4c50-9ceb-4031fa99f2dd</id>
+    </Compile>
+    <Compile Include="GenerateRandomNumberInRangeCases.UserCode.cs">
+      <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
+      <DependentUpon>GenerateRandomNumberInRangeCases.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b4c096e7-78e8-4d11-aa8e-e966516af4a3</id>
+    </Compile>
     <Compile Include="InitializeDropDownMenu.cs">
       <BoundTo>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</BoundTo>
       <DependentUpon>InitializeDropDownMenu.rxrec</DependentUpon>
@@ -245,6 +257,18 @@
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
+    </Compile>
+    <Compile Include="SelecteSingleCaseInRange.cs">
+      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
+      <DependentUpon>SelecteSingleCaseInRange.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ec00e433-dbc1-44ea-9754-75c60ed35b11</id>
+    </Compile>
+    <Compile Include="SelecteSingleCaseInRange.UserCode.cs">
+      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
+      <DependentUpon>SelecteSingleCaseInRange.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
     </Compile>
     <Compile Include="SelectGenericItemInProjectExplorer.cs">
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
@@ -1428,6 +1452,11 @@
       <id>c0a92f2d-ef50-471d-8e1e-2102097c50ca</id>
       <recordtableid>8ffa45e8-2152-4d07-9590-20154379e184</recordtableid>
     </None>
+    <None Include="GenerateRandomNumberInRangeCases.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ebce4f06-318d-46f0-8678-c8e82cb57486</id>
+      <recordtableid>6104469d-a535-47ca-b393-2256db12cca4</recordtableid>
+    </None>
     <None Include="InitializeDropDownMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</id>
@@ -1437,6 +1466,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
       <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
+    </None>
+    <None Include="SelecteSingleCaseInRange.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
+      <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
     </None>
     <None Include="SelectGenericItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

@@ -24,56 +24,59 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateWaterLevelWaveHeightInDocumentView recording.
+    ///The SelecteSingleCaseInRange recording.
     /// </summary>
-    [TestModule("c93bb1b9-c14c-4a0a-ae72-fe034593361b", ModuleType.Recording, 1)]
-    public partial class ValidateWaterLevelWaveHeightInDocumentView : ITestModule
+    [TestModule("220e925d-6434-4d2c-8772-fc4edd938637", ModuleType.Recording, 1)]
+    public partial class SelecteSingleCaseInRange : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateWaterLevelWaveHeightInDocumentView instance = new ValidateWaterLevelWaveHeightInDocumentView();
+        static SelecteSingleCaseInRange instance = new SelecteSingleCaseInRange();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateWaterLevelWaveHeightInDocumentView()
+        public SelecteSingleCaseInRange()
         {
-            expectedValue = "";
+            nameOfFolderWithCases = "";
+            indexRowCaseToSelect = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateWaterLevelWaveHeightInDocumentView Instance
+        public static SelecteSingleCaseInRange Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedValue;
+        string _nameOfFolderWithCases;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedValue.
+        /// Gets or sets the value of variable nameOfFolderWithCases.
         /// </summary>
-        [TestVariable("ac93a9b5-24d0-453b-8057-a697e7574717")]
-        public string expectedValue
+        [TestVariable("b452abcc-83df-4d0e-96e2-3f3c41b7e754")]
+        public string nameOfFolderWithCases
         {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
+            get { return _nameOfFolderWithCases; }
+            set { _nameOfFolderWithCases = value; }
         }
 
+        string _indexRowCaseToSelect;
+
         /// <summary>
-        /// Gets or sets the value of variable rowIndex.
+        /// Gets or sets the value of variable indexRowCaseToSelect.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
+        [TestVariable("901d8aa4-4720-4dc2-9565-19bb5117bcba")]
+        public string indexRowCaseToSelect
         {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return _indexRowCaseToSelect; }
+            set { _indexRowCaseToSelect = value; }
         }
 
 #endregion
@@ -96,15 +99,14 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Validate_WaterLevelOrWaveHeightNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
+            SelectCase(nameOfFolderWithCases, indexRowCaseToSelect);
+            Delay.Milliseconds(0);
             
         }
 

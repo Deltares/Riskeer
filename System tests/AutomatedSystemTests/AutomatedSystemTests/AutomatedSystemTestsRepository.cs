@@ -2474,6 +2474,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
             RepoItemInfo _waterlevelnthrowInfo;
             RepoItemInfo _berekenenrow2Info;
+            RepoItemInfo _waterstandmplusnaprow2Info;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -2485,6 +2486,7 @@ namespace AutomatedSystemTests
                 _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c");
                 _waterlevelnthrowInfo = new RepoItemInfo(this, "WaterLevelNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Waterstand']", 30000, null, "4d5dcf27-80bb-4eb2-8ac6-e585fceac838");
                 _berekenenrow2Info = new RepoItemInfo(this, "BerekenenRow2", "row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']", 30000, null, "dc9f3394-2ea9-44e2-8321-91f323325fff");
+                _waterstandmplusnaprow2Info = new RepoItemInfo(this, "WaterstandMPlusNAPRow2", "row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']", 30000, null, "c086cd80-cceb-4d4c-aa4e-a036576a28f2");
             }
 
             /// <summary>
@@ -2604,6 +2606,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _berekenenrow2Info;
+                }
+            }
+
+            /// <summary>
+            /// The WaterstandMPlusNAPRow2 item.
+            /// </summary>
+            [RepositoryItem("c086cd80-cceb-4d4c-aa4e-a036576a28f2")]
+            public virtual Ranorex.Cell WaterstandMPlusNAPRow2
+            {
+                get
+                {
+                    return _waterstandmplusnaprow2Info.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WaterstandMPlusNAPRow2 item info.
+            /// </summary>
+            [RepositoryItemInfo("c086cd80-cceb-4d4c-aa4e-a036576a28f2")]
+            public virtual RepoItemInfo WaterstandMPlusNAPRow2Info
+            {
+                get
+                {
+                    return _waterstandmplusnaprow2Info;
                 }
             }
         }
@@ -3372,7 +3398,7 @@ namespace AutomatedSystemTests
             /// Creates a new DesignWaterLevelCalculationsViewCached  folder.
             /// </summary>
             public DesignWaterLevelCalculationsViewCachedFolder(RepoGenBaseFolder parentFolder) :
-                    base("DesignWaterLevelCalculationsViewCached", "container[@controlname='DesignWaterLevelCalculationsView']/container", parentFolder, 30000, null, false, "535b985f-89e1-4888-9b6e-edd71990ca55", "")
+                    base("DesignWaterLevelCalculationsViewCached", "container[@controlname<'CalculationsView']/container", parentFolder, 30000, null, false, "535b985f-89e1-4888-9b6e-edd71990ca55", "")
             {
                 _leftside = new AutomatedSystemTestsRepositoryFolders.LeftSideFolder1(this);
                 _rightside = new AutomatedSystemTestsRepositoryFolders.RightSideFolder1(this);
@@ -3493,7 +3519,6 @@ namespace AutomatedSystemTests
             RepoItemInfo _checkboxcalculatenthrowInfo;
             RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
             RepoItemInfo _waterlevelorwaveheightnthrowInfo;
-            RepoItemInfo _berekenenrow2Info;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -3505,7 +3530,6 @@ namespace AutomatedSystemTests
                 _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "4b247c1d-9839-4696-ae92-cb7f86e1c5d1");
                 _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "5823ab24-e87f-4cea-8490-6d081f7dc01d");
                 _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", 30000, null, "2ab47373-3c5c-4a4d-a609-50beef2a4dbd");
-                _berekenenrow2Info = new RepoItemInfo(this, "BerekenenRow2", "row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']", 30000, null, "ec2abc34-af82-4f6b-904d-4e0179efc220");
             }
 
             /// <summary>
@@ -3625,30 +3649,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _waterlevelorwaveheightnthrowInfo;
-                }
-            }
-
-            /// <summary>
-            /// The BerekenenRow2 item.
-            /// </summary>
-            [RepositoryItem("ec2abc34-af82-4f6b-904d-4e0179efc220")]
-            public virtual Ranorex.Cell BerekenenRow2
-            {
-                get
-                {
-                    return _berekenenrow2Info.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The BerekenenRow2 item info.
-            /// </summary>
-            [RepositoryItemInfo("ec2abc34-af82-4f6b-904d-4e0179efc220")]
-            public virtual RepoItemInfo BerekenenRow2Info
-            {
-                get
-                {
-                    return _berekenenrow2Info;
                 }
             }
         }

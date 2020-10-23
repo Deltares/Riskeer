@@ -42,7 +42,6 @@ namespace AutomatedSystemTests
         public PressCancelDialog()
         {
             calculationIndexToStopAt = "";
-            additionalMessageToStopAt = "";
         }
 
         /// <summary>
@@ -65,18 +64,6 @@ namespace AutomatedSystemTests
         {
             get { return _calculationIndexToStopAt; }
             set { _calculationIndexToStopAt = value; }
-        }
-
-        string _additionalMessageToStopAt;
-
-        /// <summary>
-        /// Gets or sets the value of variable additionalMessageToStopAt.
-        /// </summary>
-        [TestVariable("e923fdd5-9881-44eb-9be2-b3edc619d97b")]
-        public string additionalMessageToStopAt
-        {
-            get { return _additionalMessageToStopAt; }
-            set { _additionalMessageToStopAt = value; }
         }
 
 #endregion
@@ -107,20 +94,18 @@ namespace AutomatedSystemTests
 
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
             
-            PrepareMessageToStopAt();
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $calculationIndexToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $calculationIndexToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(1));
             repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(1800000, "Text", calculationIndexToStopAt);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(3));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(2));
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(3));
             repo.ActivityProgressDialog.ButtonCancel.Click();
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(4));
             repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(5000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(5));
             Delay.Duration(500, false);
             
         }

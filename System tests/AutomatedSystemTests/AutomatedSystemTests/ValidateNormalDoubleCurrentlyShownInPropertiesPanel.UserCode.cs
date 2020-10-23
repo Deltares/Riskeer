@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -33,5 +34,26 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
+        public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo rowInfo)
+        {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValue) on item 'rowInfo'.", rowInfo);
+            
+            System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
+			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+			
+			Report.Log(ReportLevel.Info, "", rowInfo.FindAdapter<Row>().GetAttributeValue<String>("AccessibleName"));
+			string currentValue = rowInfo.FindAdapter<Row>().GetAttributeValue<String>("Text");
+			
+			if (expectedValue=="-") {
+				Validate.AreEqual(currentValue, expectedValue);
+			} else {
+				double expectedValueDouble = Double.Parse(expectedValue, fixedDataSourceCulture);
+				double currentValueDouble = Double.Parse(currentValue, currentCulture);
+			
+				Validate.AreEqual(currentValueDouble, expectedValueDouble);
+			}
+        }
     }
 }

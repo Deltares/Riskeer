@@ -44,5 +44,29 @@ namespace AutomatedSystemTests
 			return valueToConvert;
         }
 
+        public void Validate_WaterLevelOrWaveHeightNthRow(RepoItemInfo cellInfo)
+        {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'cellInfo'.", cellInfo);
+            
+            System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
+			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+			
+			Report.Log(ReportLevel.Info, "", cellInfo.FindAdapter<Cell>().GetAttributeValue<String>("AccessibleName"));
+			
+			string currentValue = cellInfo.FindAdapter<Cell>().GetAttributeValue<String>("Text");
+			
+			if (expectedValue=="-") {
+				Validate.AreEqual(currentValue, expectedValue);
+			} else {
+				double expectedValueDouble = Double.Parse(expectedValue, fixedDataSourceCulture);
+				double currentValueDouble = Double.Parse(currentValue, currentCulture);
+			
+				Validate.AreEqual(currentValueDouble, expectedValueDouble);
+			}
+			
+        }
+
     }
 }
