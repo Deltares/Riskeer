@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The PressCancelDialog recording.
+    ///The StartAllCalculationsInSelectedFolderInProjectExplorer recording.
     /// </summary>
-    [TestModule("de80be27-ca55-476e-b824-e08916e3e0a3", ModuleType.Recording, 1)]
-    public partial class PressCancelDialog : ITestModule
+    [TestModule("9c9a5824-8ab8-44a2-b76c-84bb3359d312", ModuleType.Recording, 1)]
+    public partial class StartAllCalculationsInSelectedFolderInProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static PressCancelDialog instance = new PressCancelDialog();
+        static StartAllCalculationsInSelectedFolderInProjectExplorer instance = new StartAllCalculationsInSelectedFolderInProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public PressCancelDialog()
+        public StartAllCalculationsInSelectedFolderInProjectExplorer()
         {
-            substringProgressMessageToStopAt = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static PressCancelDialog Instance
+        public static StartAllCalculationsInSelectedFolderInProjectExplorer Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _substringProgressMessageToStopAt;
-
-        /// <summary>
-        /// Gets or sets the value of variable substringProgressMessageToStopAt.
-        /// </summary>
-        [TestVariable("91698fd8-ac20-44a1-8d0d-eba65cb9570e")]
-        public string substringProgressMessageToStopAt
-        {
-            get { return _substringProgressMessageToStopAt; }
-            set { _substringProgressMessageToStopAt = value; }
-        }
 
 #endregion
 
@@ -86,27 +73,19 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(1));
-            repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(2));
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(3));
-            repo.ActivityProgressDialog.ButtonCancel.Click();
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(4));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(5));
-            Delay.Duration(500, false);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesBerekenen' at 79;11.", repo.ContextMenu.AllesBerekenenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.AllesBerekenen.Click("79;11");
+            Delay.Milliseconds(0);
             
         }
 
