@@ -2486,6 +2486,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
 			id="340e6795-be92-4d9f-ab6a-ffe254351956"
 			name="ValidateResultsIllustrationPoints">
 				<parameters>
@@ -6275,6 +6276,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
 			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
 			name="ValidateResultsInPropertiesPanel">
 			</smartfoldernode>
