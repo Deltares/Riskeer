@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -123,24 +123,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string Categories_Uplift {
             get {
                 return ResourceManager.GetString("Categories_Uplift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De totale lengte van het vak in meters (afgerond)..
-        /// </summary>
-        public static string FailureMechanismSection_Length_Rounded_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismSection_Length_Rounded_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lengte* [m].
-        /// </summary>
-        public static string FailureMechanismSection_Length_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSection_Length_Rounded_DisplayName", resourceCulture);
             }
         }
         

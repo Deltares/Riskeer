@@ -29,8 +29,8 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties class for implementations of <see cref="LogNormalDistributionProperties"/>
-    /// including the shift for properties panel.
+    /// Properties class for implementations of <see cref="LogNormalDistribution"/>
+    /// including the shift.
     /// </summary>
     public class ShiftedLogNormalDistributionProperties : LogNormalDistributionProperties
     {

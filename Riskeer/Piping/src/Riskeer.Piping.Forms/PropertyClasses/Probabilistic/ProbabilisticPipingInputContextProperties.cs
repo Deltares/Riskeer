@@ -55,27 +55,27 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                                                              IHasStochasticSoilModel,
                                                              IHasStochasticSoilProfile
     {
-        private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
-        private const int dampingFactorExitPropertyIndex = 2;
-        private const int phreaticLevelExitPropertyIndex = 3;
+        private const int selectedHydraulicBoundaryLocationPropertyIndex = 0;
+        private const int dampingFactorExitPropertyIndex = 1;
+        private const int phreaticLevelExitPropertyIndex = 2;
 
-        private const int surfaceLinePropertyIndex = 5;
-        private const int stochasticSoilModelPropertyIndex = 6;
-        private const int stochasticSoilProfilePropertyIndex = 7;
-        private const int entryPointLPropertyIndex = 8;
-        private const int exitPointLPropertyIndex = 9;
-        private const int seepageLengthPropertyIndex = 10;
-        private const int thicknessCoverageLayerPropertyIndex = 11;
-        private const int effectiveThicknessCoverageLayerPropertyIndex = 12;
-        private const int thicknessAquiferLayerPropertyIndex = 13;
-        private const int darcyPermeabilityPropertyIndex = 14;
-        private const int diameter70PropertyIndex = 15;
-        private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 16;
+        private const int surfaceLinePropertyIndex = 3;
+        private const int stochasticSoilModelPropertyIndex = 4;
+        private const int stochasticSoilProfilePropertyIndex = 5;
+        private const int entryPointLPropertyIndex = 6;
+        private const int exitPointLPropertyIndex = 7;
+        private const int seepageLengthPropertyIndex = 8;
+        private const int thicknessCoverageLayerPropertyIndex = 9;
+        private const int effectiveThicknessCoverageLayerPropertyIndex = 10;
+        private const int thicknessAquiferLayerPropertyIndex = 11;
+        private const int darcyPermeabilityPropertyIndex = 12;
+        private const int diameter70PropertyIndex = 13;
+        private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int sectionNamePropertyIndex = 17;
-        private const int sectionLengthPropertyIndex = 18;
+        private const int sectionNamePropertyIndex = 15;
+        private const int sectionLengthPropertyIndex = 16;
 
-        private const int shouldIllustrationPointsBeCalculatedPropertyIndex = 19;
+        private const int shouldIllustrationPointsBeCalculatedPropertyIndex = 17;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil models on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available stochastic soil models on <see cref="ProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
         {
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil profiles on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available stochastic soil profiles on <see cref="ProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available surface lines on <see cref="ProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {

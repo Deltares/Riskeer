@@ -3250,15 +3250,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De lengte van het vak..
-        /// </summary>
-        public static string SectionLength_Description {
-            get {
-                return ResourceManager.GetString("SectionLength_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SectionsIcon {

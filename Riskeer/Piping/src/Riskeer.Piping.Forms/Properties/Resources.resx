@@ -515,12 +515,6 @@ opbarsten
   <data name="Categories_FailureMechanismSection" xml:space="preserve">
     <value>Vakinformatie</value>
   </data>
-  <data name="FailureMechanismSection_Length_Rounded_Description" xml:space="preserve">
-    <value>De totale lengte van het vak in meters (afgerond).</value>
-  </data>
-  <data name="FailureMechanismSection_Length_Rounded_DisplayName" xml:space="preserve">
-    <value>Lengte* [m]</value>
-  </data>
   <data name="PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox" xml:space="preserve">
     <value>Semi-probabilistische toets</value>
   </data>

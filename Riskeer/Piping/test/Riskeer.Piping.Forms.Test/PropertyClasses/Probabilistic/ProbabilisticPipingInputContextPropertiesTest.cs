@@ -507,8 +507,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
+            Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
-
+            
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
@@ -516,7 +517,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
             Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(new RoundedDouble(2), properties.SectionLength);
+            Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
@@ -546,7 +547,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 new FailureMechanismSection("Section", new[]
                 {
                     new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
+                    new Point2D(5.1234, 0.0)
                 })
             }, "path/to/sections");
 
@@ -595,7 +596,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
 
             Assert.AreEqual("Section", properties.SectionName);
-            Assert.AreEqual(new RoundedDouble(2, 5), properties.SectionLength);
+            Assert.AreEqual(5.12, properties.SectionLength, properties.SectionLength.GetAccuracy());
             Assert.AreEqual(true, properties.ShouldIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
