@@ -24,46 +24,43 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The PressCancelDialog recording.
+    ///The ExpandDamInPropertiesPanel recording.
     /// </summary>
-    [TestModule("de80be27-ca55-476e-b824-e08916e3e0a3", ModuleType.Recording, 1)]
-    public partial class PressCancelDialog : ITestModule
+    [TestModule("6e208fe1-d9b3-477a-8c12-d78d705a4908", ModuleType.Recording, 1)]
+    public partial class ExpandDamInPropertiesPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static PressCancelDialog instance = new PressCancelDialog();
+        static ExpandDamInPropertiesPanel instance = new ExpandDamInPropertiesPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public PressCancelDialog()
+        public ExpandDamInPropertiesPanel()
         {
-            substringProgressMessageToStopAt = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static PressCancelDialog Instance
+        public static ExpandDamInPropertiesPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _substringProgressMessageToStopAt;
-
         /// <summary>
-        /// Gets or sets the value of variable substringProgressMessageToStopAt.
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
         /// </summary>
-        [TestVariable("91698fd8-ac20-44a1-8d0d-eba65cb9570e")]
-        public string substringProgressMessageToStopAt
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
         {
-            get { return _substringProgressMessageToStopAt; }
-            set { _substringProgressMessageToStopAt = value; }
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion
@@ -92,21 +89,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(1));
-            repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(2));
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(3));
-            repo.ActivityProgressDialog.ButtonCancel.Click();
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(4));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(5));
-            Delay.Duration(500, false);
+            ExpandDamInPropertiesPanelMethod(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
             
         }
 

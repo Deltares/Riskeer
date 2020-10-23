@@ -25,7 +25,7 @@ mode="Global">
 	<variables>
 		<var
 		id="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
-		name="calculationIndexToStopAt">
+		name="substringProgressMessageToStopAt">
 		</var>
 	</variables>
 	<recorditems>
@@ -62,7 +62,7 @@ mode="Global">
 			<bindings>
 				<binding
 				target="MatchValue"
-				variable="calculationIndexToStopAt">
+				variable="substringProgressMessageToStopAt">
 				</binding>
 			</bindings>
 			<info

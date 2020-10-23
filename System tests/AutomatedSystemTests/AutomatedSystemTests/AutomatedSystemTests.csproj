@@ -150,6 +150,9 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
+    <Compile Include="CaculateFullPathToCalculationInput.cs">
+      <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
+    </Compile>
     <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
       <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
       <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
@@ -221,6 +224,18 @@
       <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>47fc6b52-2f0b-4243-80e6-008831d5051a</id>
+    </Compile>
+    <Compile Include="ExpandDamInPropertiesPanel.cs">
+      <BoundTo>1d602183-ef23-4399-b12f-eaa317121dbb</BoundTo>
+      <DependentUpon>ExpandDamInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>22eb95df-8de7-4fde-bd7d-d9985d11a570</id>
+    </Compile>
+    <Compile Include="ExpandDamInPropertiesPanel.UserCode.cs">
+      <BoundTo>1d602183-ef23-4399-b12f-eaa317121dbb</BoundTo>
+      <DependentUpon>ExpandDamInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>17ee7347-5af6-4c2b-a0e4-e521e0a3abe4</id>
     </Compile>
     <Compile Include="GenerateRandomNumberInRangeCases.cs">
       <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
@@ -329,6 +344,18 @@
       <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
+    </Compile>
+    <Compile Include="StartAllCalculationsInSelectedFolderInProjectExplorer.cs">
+      <BoundTo>af0febe3-a18a-480b-a52f-1a751996c9c0</BoundTo>
+      <DependentUpon>StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1b3beff1-5049-4f01-b2a4-41477b1f0cb9</id>
+    </Compile>
+    <Compile Include="StartAllCalculationsInSelectedFolderInProjectExplorer.UserCode.cs">
+      <BoundTo>af0febe3-a18a-480b-a52f-1a751996c9c0</BoundTo>
+      <DependentUpon>StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>75cdb08c-9692-4282-8c6a-62e2452337a1</id>
     </Compile>
     <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.cs">
       <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
@@ -1452,6 +1479,11 @@
       <id>c0a92f2d-ef50-471d-8e1e-2102097c50ca</id>
       <recordtableid>8ffa45e8-2152-4d07-9590-20154379e184</recordtableid>
     </None>
+    <None Include="ExpandDamInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1d602183-ef23-4399-b12f-eaa317121dbb</id>
+      <recordtableid>6e208fe1-d9b3-477a-8c12-d78d705a4908</recordtableid>
+    </None>
     <None Include="GenerateRandomNumberInRangeCases.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ebce4f06-318d-46f0-8678-c8e82cb57486</id>
@@ -1496,6 +1528,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
       <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
+    </None>
+    <None Include="StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>af0febe3-a18a-480b-a52f-1a751996c9c0</id>
+      <recordtableid>9c9a5824-8ab8-44a2-b76c-84bb3359d312</recordtableid>
     </None>
     <None Include="ValidateCategoryBoundaryInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
