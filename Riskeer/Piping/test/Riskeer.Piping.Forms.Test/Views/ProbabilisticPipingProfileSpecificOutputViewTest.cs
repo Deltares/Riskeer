@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class ProbabilisticPipingOutputGeneralResultFaultTreeIllustrationPointViewTest
+    public class ProbabilisticPipingProfileSpecificOutputViewTest
     {
         [Test]
         public void Constructor_ExpectedValues()

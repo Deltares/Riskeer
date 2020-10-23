@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(ProbabilisticPipingProfileSpecificOutputContext), info.DataType);
-            Assert.AreEqual(typeof(ProbabilisticPipingCalculation), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
         }
 
