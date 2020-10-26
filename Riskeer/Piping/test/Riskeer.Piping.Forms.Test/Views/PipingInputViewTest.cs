@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new TestPipingCalculation(new TestPipingInput());
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput());
 
                 // Call
                 view.Data = calculation;
@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView
             {
-                Data = new TestPipingCalculation(new TestPipingInput())
+                Data = new TestPipingCalculationScenario(new TestPipingInput())
             })
             {
                 // Precondition
@@ -154,7 +154,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Data_SetToNull_TableDataCleared()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new TestPipingInput())
+            var calculation = new TestPipingCalculationScenario(new TestPipingInput())
             {
                 InputParameters =
                 {
@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtRiverAt(new Point3D(1.2, 2.3, 4.0));
 
                 PipingStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {
@@ -228,7 +228,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new TestPipingCalculation(new TestPipingInput());
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput());
 
                 // Call
                 view.Data = calculation;
@@ -245,7 +245,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {
@@ -273,7 +273,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new TestPipingCalculation(new TestPipingInput());
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput());
 
                 // Call
                 view.Data = calculation;
@@ -292,7 +292,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     Name = initialName
                 };
@@ -321,7 +321,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     Name = initialName
                 };
@@ -331,7 +331,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                view.Data = new TestPipingCalculation(new TestPipingInput())
+                view.Data = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     Name = initialName
                 };
@@ -367,7 +367,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtPolderAt(characteristicPoint);
                 surfaceLine.SetDikeToeAtRiverAt(characteristicPoint);
 
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {
@@ -464,7 +464,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         }
                     }, SoilProfileType.SoilProfile1D));
 
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {
@@ -505,7 +505,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             const int updatedExitPointIndex = exitPointIndex - 1;
             const int updatedEntryPointIndex = entryPointIndex - 1;
 
-            var calculation = new TestPipingCalculation(new TestPipingInput());
+            var calculation = new TestPipingCalculationScenario(new TestPipingInput());
 
             using (var view = new PipingInputView
             {
@@ -585,7 +585,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (var view = new PipingInputView())
             {
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {
@@ -601,7 +601,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     chartData.Attach(observer);
                 }
 
-                view.Data = new TestPipingCalculation(new TestPipingInput());
+                view.Data = new TestPipingCalculationScenario(new TestPipingInput());
 
                 calculation.InputParameters.SurfaceLine = GetSecondSurfaceLineWithGeometry();
 
@@ -622,7 +622,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 PipingStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
-                var calculation = new TestPipingCalculation(new TestPipingInput())
+                var calculation = new TestPipingCalculationScenario(new TestPipingInput())
                 {
                     InputParameters =
                     {

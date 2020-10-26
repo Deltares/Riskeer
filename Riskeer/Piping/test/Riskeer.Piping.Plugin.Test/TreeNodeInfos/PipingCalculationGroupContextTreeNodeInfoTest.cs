@@ -1781,7 +1781,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new TestPipingCalculation(new TestPipingInput
+                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
@@ -1791,7 +1791,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new TestPipingCalculation(new TestPipingInput
+                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
@@ -1871,7 +1871,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new TestPipingCalculation(new TestPipingInput
+                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
@@ -1881,7 +1881,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new TestPipingCalculation(new TestPipingInput
+                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
@@ -1980,7 +1980,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new TestPipingCalculation(new TestPipingInput
+                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
@@ -1990,7 +1990,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new TestPipingCalculation(new TestPipingInput
+                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
                 {
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 0,
