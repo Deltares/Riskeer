@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure
         /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
         /// <param name="generateSemiProbabilistic">Indicator whether to generate <see cref="SemiProbabilisticPipingCalculationScenario"/>.</param>
-        /// <param name="generateProbabilistic">Indicator whether to generate <see cref="ProbabilisticPipingCalculation"/>.</param>
+        /// <param name="generateProbabilistic">Indicator whether to generate <see cref="ProbabilisticPipingCalculationScenario"/>.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure
         /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
         /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and

@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilisticPipingCalculation), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
         }
 

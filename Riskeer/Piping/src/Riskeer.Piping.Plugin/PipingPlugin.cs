@@ -264,7 +264,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingInputViewForData
             };
 
-            yield return new ViewInfo<ProbabilisticPipingInputContext, ProbabilisticPipingCalculation, PipingInputView>
+            yield return new ViewInfo<ProbabilisticPipingInputContext, ProbabilisticPipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -1124,7 +1124,7 @@ namespace Riskeer.Piping.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            ProbabilisticPipingCalculation calculation = nodeData.WrappedData;
+            ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
@@ -1160,7 +1160,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateProbabilistic(ProbabilisticPipingCalculationScenarioContext context) {}
 
-        private static void CalculateProbabilistic(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationScenarioContext context) {}
+        private static void CalculateProbabilistic(ProbabilisticPipingCalculationScenario calculation, ProbabilisticPipingCalculationScenarioContext context) {}
 
         #endregion
 
