@@ -445,7 +445,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation(true)
+            var calculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -491,7 +491,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation(true)
+            var affectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -506,7 +506,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new TestPipingCalculation(true)
+            var unAffectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -571,7 +571,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation(true)
+            var affectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -586,7 +586,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new TestPipingCalculation(true)
+            var unAffectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -638,7 +638,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -735,7 +735,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
 
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -794,7 +794,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             });
 
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -844,7 +844,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             });
 
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -894,7 +894,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -909,7 +909,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new PipingSurfaceLine(string.Empty);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new TestPipingCalculation
+            var unAffectedCalculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -992,7 +992,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation(true)
+            var affectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -1044,7 +1044,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(4, 0, 2),
                 new Point3D(5, 0, 3)
             });
-            var affectedCalculation = new TestPipingCalculation(true)
+            var affectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -1108,7 +1108,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(4, 0, 2),
                 new Point3D(5, 0, 3)
             });
-            var affectedCalculation = new TestPipingCalculation(true)
+            var affectedCalculation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {

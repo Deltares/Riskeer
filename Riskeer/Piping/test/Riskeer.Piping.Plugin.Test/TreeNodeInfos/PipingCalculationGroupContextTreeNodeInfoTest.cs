@@ -696,7 +696,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        new TestPipingCalculation()
+                        new TestPipingCalculationScenario()
                     }
                 };
 

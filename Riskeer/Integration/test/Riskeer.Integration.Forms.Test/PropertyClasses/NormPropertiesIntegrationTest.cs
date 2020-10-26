@@ -86,8 +86,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1, random);
 
-            var emptyPipingCalculation = new TestPipingCalculation();
-            var pipingCalculation = new TestPipingCalculation(true);
+            var emptyPipingCalculation = new TestPipingCalculationScenario();
+            var pipingCalculation = new TestPipingCalculationScenario(true);
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
 
-            var pipingCalculation = new TestPipingCalculation(true);
+            var pipingCalculation = new TestPipingCalculationScenario(true);
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
@@ -259,7 +259,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation
             });
 
-            var emptyPipingCalculation = new TestPipingCalculation();
+            var emptyPipingCalculation = new TestPipingCalculationScenario();
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 

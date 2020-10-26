@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Data.Test
         public void Calculations_AddPipingCalculation_ItemIsAddedToCollection()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new TestPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Data.Test
         public void Calculations_RemovePipingCalculation_ItemIsRemovedFromCollection()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new TestPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);

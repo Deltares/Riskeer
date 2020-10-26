@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new TestPipingCalculation());
+                calculationGroup.Children.Add(new TestPipingCalculationScenario());
             }
 
             var context = new PipingCalculationGroupContext(calculationGroup,

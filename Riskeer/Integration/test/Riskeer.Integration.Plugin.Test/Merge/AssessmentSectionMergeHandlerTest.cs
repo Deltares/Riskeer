@@ -383,7 +383,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
-            sourceAssessmentSection.Piping.CalculationsGroup.Children.Add(new TestPipingCalculation
+            sourceAssessmentSection.Piping.CalculationsGroup.Children.Add(new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -472,7 +472,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                      }));
 
             // Then
-            var pipingCalculation = (TestPipingCalculation) targetAssessmentSection.Piping.Calculations.Single();
+            var pipingCalculation = (TestPipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
             Assert.AreSame(targetLocations[0], pipingCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var grassInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();

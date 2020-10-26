@@ -296,8 +296,8 @@ namespace Riskeer.Piping.Data.TestUtil
                 stochasticSoilModel2
             }, "some/path/to/stochasticsoilmodels");
 
-            var calculation = new TestPipingCalculation();
-            var calculationWithOutput = new TestPipingCalculation(true)
+            var calculation = new TestPipingCalculationScenario();
+            var calculationWithOutput = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -306,7 +306,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1
                 }
             };
-            var calculationWithSurfaceLineAndSoilModel = new TestPipingCalculation
+            var calculationWithSurfaceLineAndSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -316,7 +316,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculation(true)
+            var calculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -325,14 +325,14 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2
                 }
             };
-            var calculationWithHydraulicBoundaryLocation = new TestPipingCalculation
+            var calculationWithHydraulicBoundaryLocation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var calculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculation
+            var calculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -342,8 +342,8 @@ namespace Riskeer.Piping.Data.TestUtil
                 }
             };
 
-            var subCalculation = new TestPipingCalculation();
-            var subCalculationWithOutput = new TestPipingCalculation(true)
+            var subCalculation = new TestPipingCalculationScenario();
+            var subCalculationWithOutput = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -353,7 +353,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
                 }
             };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculation(true)
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -363,14 +363,14 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 }
             };
-            var subCalculationWithHydraulicBoundaryLocation = new TestPipingCalculation
+            var subCalculationWithHydraulicBoundaryLocation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var subCalculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculation
+            var subCalculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
