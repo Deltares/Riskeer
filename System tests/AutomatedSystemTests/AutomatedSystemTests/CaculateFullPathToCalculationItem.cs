@@ -24,7 +24,7 @@ namespace AutomatedSystemTests
     /// Description of CaculateFullPathToCalculationInput.
     /// </summary>
     [TestModule("773D0A23-8A22-4D36-AD19-252F24FD9823", ModuleType.UserCode, 1)]
-    public class CaculateFullPathToCalculationInput : ITestModule
+    public class CaculateFullPathToCalculationItem : ITestModule
     {
         
     	
@@ -61,11 +61,20 @@ namespace AutomatedSystemTests
     		set { _relativePathToCalculationFromFolder = value; }
     	}
     	
+    	string _relativePathToItemFromCalculation = "";
+    	[TestVariable("8f6b75a3-47c7-445d-b00e-ab59e786097c")]
+    	public string relativePathToItemFromCalculation
+    	{
+    		get { return _relativePathToItemFromCalculation; }
+    		set { _relativePathToItemFromCalculation = value; }
+    	}
+    	
+    	
     	
     	/// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CaculateFullPathToCalculationInput()
+        public CaculateFullPathToCalculationItem()
         {
             // Do not delete - a parameterless constructor is required!
         }
@@ -78,11 +87,11 @@ namespace AutomatedSystemTests
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
-            Keyboard.DefaultKeyPressTime = 100;
-            Delay.SpeedFactor = 1.0;
+            Mouse.DefaultMoveTime = 0;
+            Keyboard.DefaultKeyPressTime = 0;
+            Delay.SpeedFactor = 0.0;
             
-            fullPath = fullPathToAllCalculationsNode + relativePathToFolderWithCalculations + relativePathToCalculationFromFolder + ">Invoer";
+            fullPath = fullPathToAllCalculationsNode + relativePathToFolderWithCalculations + relativePathToCalculationFromFolder + relativePathToItemFromCalculation;
         }
     }
 }

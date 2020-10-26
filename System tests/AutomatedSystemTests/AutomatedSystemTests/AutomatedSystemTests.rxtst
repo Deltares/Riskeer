@@ -27,6 +27,25 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script15b_pathCalculationsToInspectChart"
+			id="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+			name="ValidateOnlyOneCalculationHasResults">
+				<parameters>
+					<param
+					name="nameItemResultsInPropertiesPanel"
+					value="Resultaat">
+					</param>
+					<param
+					name="fullPath"
+					value="">
+					</param>
+					<param
+					name="relativePathToResultsItemFromCalculation"
+					value=">Resultaat">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="setRelevance44_2FailureMechanismContributionView"
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87"
 			name="LoopFMs">
@@ -1173,6 +1192,52 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="171661be-e349-432c-a53d-c71a83b9a3e3"
+			name="CaculateFullPathToCalculationItem"
+			ref="773d0a23-8a22-4d36-ad19-252f24fd9823"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="55df0884-b1a3-4e1e-a02f-fe3f78aa18e6"
+					variablename="fullPathToAllCalculationsNode">
+					</var>
+					<var
+					dataname="relativePathToCalculationsToInspect"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="cea87378-b630-4c95-801a-d943b01b4f9f"
+					variablename="relativePathToFolderWithCalculations">
+					</var>
+					<var
+					dataname="relativePathToCalculationFromFolder"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
+					variableid="7a9dc1a6-33e2-4d13-b479-241657087175"
+					variablename="relativePathToCalculationFromFolder">
+					</var>
+					<var
+					dataname="fullPath"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="69eee4cc-06f5-4ef5-a9c7-fb232b4039c3"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="relativePathToResultsItemFromCalculation"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="8f6b75a3-47c7-445d-b00e-ab59e786097c"
+					variablename="relativePathToItemFromCalculation">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathItem"
+					datasourceid="619a9725-5d5e-4078-8d52-cbf549c3f323"
+					variableid="69eee4cc-06f5-4ef5-a9c7-fb232b4039c3"
+					variablename="fullPath">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGABIType"
 			id="17559d94-eef1-443e-af59-9a748633df47"
@@ -1816,14 +1881,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
@@ -1876,6 +1933,20 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="2779c078-3da5-4be9-8f0c-7a2d0cb4988b"
+			name="ValidateRowDoesNotExistInPropertiesPanel"
+			ref="a91dc990-2aae-4244-86f4-1f59055da825"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameItemResultsInPropertiesPanel"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="b366a34a-f5ed-4519-a8e4-7450dafb84e4"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="28168ca5-bff1-4689-8364-4bd0b21fb6b6"
@@ -2401,6 +2472,11 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="lastMessageCalculationHasBeenCanceled"
+			id="32b3d2aa-70bc-4991-a8f2-7d8fbcdbb994"
+			name="ValidateTextMessage">
+			</smartfoldernode>
 			<testmodule
 			id="331ec48f-603c-4167-9dd3-aeeaf221dd30"
 			name="SaveAs"
@@ -4807,6 +4883,10 @@
 					name="nameDamInPP"
 					value="Dam">
 					</param>
+					<param
+					name="relativePathToInputItemFromCalculation"
+					value=">Invoer">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
@@ -5688,7 +5768,7 @@
 			</testmodule>
 			<testmodule
 			id="76ac0671-4d26-4ebc-8c90-79a975bd3249"
-			name="CaculateFullPathToCalculationInput"
+			name="CaculateFullPathToCalculationItem"
 			ref="773d0a23-8a22-4d36-ad19-252f24fd9823"
 			type="UserCode">
 				<databinding>
@@ -5715,6 +5795,12 @@
 					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
 					variableid="7a9dc1a6-33e2-4d13-b479-241657087175"
 					variablename="relativePathToCalculationFromFolder">
+					</var>
+					<var
+					dataname="relativePathToInputItemFromCalculation"
+					datasourceid="619a9725-5d5e-4078-8d52-cbf549c3f323"
+					variableid="8f6b75a3-47c7-445d-b00e-ab59e786097c"
+					variablename="relativePathToItemFromCalculation">
 					</var>
 				</databinding>
 			</testmodule>
@@ -6299,6 +6385,12 @@
 			id="827105da-2362-4c6c-86b6-2bd3f1159346"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="8323cfee-77f6-40bb-a59b-6cfa06e946ba"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGABU"
 			id="843e831d-54c5-48b7-9c97-04d2d7330b95"
@@ -6945,6 +7037,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8e160f16-5613-4821-9819-6120a4629211"
+			name="ValidateResultsNodeDoesNotExistForNotFinishedCalculation">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="relativePathToCalculationFromFolder"
+								id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value=">dam0voorland0">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="8ed7279d-e320-432e-8270-1078f7a61c87"
 			name="CloseViewCentralPanelWithFocus"
@@ -10642,6 +10759,20 @@
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="d58661ef-9329-40f2-b40c-636c714532bc"
+			name="ValidateRowExistsInPropertiesPanel"
+			ref="f7696db3-8395-4cde-9420-df76b7faa09a"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameItemResultsInPropertiesPanel"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTMI"
 			id="d58aa16f-5f72-471f-bd28-ea85dd94d491"
@@ -10705,6 +10836,31 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="d64febdc-17b6-4a40-9ae9-318dcd5f31f6"
+			name="ValidateResultsNodeExistsForFinishedCalculation">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="relativePathToCalculationFromFolder"
+								id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value=">dam0voorland0">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="d70b425a-7c55-4fbf-ae5d-3d4b7e3205c1"
 			name="OpenProject"
@@ -10989,7 +11145,7 @@
 			</testmodule>
 			<testcase
 			id="dd2ca099-2926-4cc4-93c9-5fc261368498"
-			name="script15">
+			name="script15_CalculationHydraulicBoundaryConditions">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -11481,6 +11637,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="e543da5f-9ef9-4aa8-a7ab-f597b9a37ad3"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPath"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathItem"
+					datasourceid="619a9725-5d5e-4078-8d52-cbf549c3f323"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75"
 			name="Simple_Assessment">
@@ -13009,6 +13187,40 @@
 			id="fdaf20c9-38bc-4d90-9d0e-cec63bbe5fc4"
 			name="LoopRowsSetCustomAssessment">
 			</smartfoldernode>
+			<testmodule
+			id="fdd270ec-b3b8-4970-a85e-d817eea0148e"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="16fffdda-4ac4-40f4-b2f9-4d7df33ce273"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="message"
+					datasourceid="16fffdda-4ac4-40f4-b2f9-4d7df33ce273"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06a83cc0-3c28-49b2-8f15-5706c34a6cba"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="06a83cc0-3c28-49b2-8f15-5706c34a6cba"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<teardown
 			id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
 			name="teardown">
@@ -13093,6 +13305,10 @@
 					</var>
 				</missingdatavariablesbinding>
 			</testmodule>
+			<smartfoldernode
+			id="fed4c8d7-0412-4e73-85d7-a759cc54e482"
+			name="ValidateInterruption">
+			</smartfoldernode>
 			<testmodule
 			id="fed9ccd4-1918-418c-9a8c-d05cb1ac83c9"
 			name="OpenResultView"
@@ -13819,7 +14035,7 @@
 					</testcase>
 					<testcase
 					id="dd2ca099-2926-4cc4-93c9-5fc261368498"
-					name="script15">
+					name="script15_CalculationHydraulicBoundaryConditions">
 						<setup
 						id="982b99eb-554b-499f-aa9f-6bad9833072d"
 						name="setup">
@@ -14119,7 +14335,7 @@
 								name="InspectInputOfSomeCalculations">
 									<testmodule
 									id="76ac0671-4d26-4ebc-8c90-79a975bd3249"
-									name="CaculateFullPathToCalculationInput">
+									name="CaculateFullPathToCalculationItem">
 									</testmodule>
 									<testmodule
 									id="8d10a02c-74d5-4d91-b2e0-881127b65c2c"
@@ -14158,6 +14374,50 @@
 								id="36a2309b-515c-47d5-a30f-ad311b6e9a4e"
 								name="PressCancelDialog">
 								</testmodule>
+								<smartfoldernode
+								id="fed4c8d7-0412-4e73-85d7-a759cc54e482"
+								name="ValidateInterruption">
+									<smartfoldernode
+									id="32b3d2aa-70bc-4991-a8f2-7d8fbcdbb994"
+									name="ValidateTextMessage">
+										<testmodule
+										id="fdd270ec-b3b8-4970-a85e-d817eea0148e"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+									name="ValidateOnlyOneCalculationHasResults">
+										<testmodule
+										id="171661be-e349-432c-a53d-c71a83b9a3e3"
+										name="CaculateFullPathToCalculationItem">
+										</testmodule>
+										<testmodule
+										id="e543da5f-9ef9-4aa8-a7ab-f597b9a37ad3"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="8323cfee-77f6-40bb-a59b-6cfa06e946ba"
+										name="CreateScreenShotPropertiesPanel">
+										</testmodule>
+										<smartfoldernode
+										id="d64febdc-17b6-4a40-9ae9-318dcd5f31f6"
+										name="ValidateResultsNodeExistsForFinishedCalculation">
+											<testmodule
+											id="d58661ef-9329-40f2-b40c-636c714532bc"
+											name="ValidateRowExistsInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="8e160f16-5613-4821-9819-6120a4629211"
+										name="ValidateResultsNodeDoesNotExistForNotFinishedCalculation">
+											<testmodule
+											id="2779c078-3da5-4be9-8f0c-7a2d0cb4988b"
+											name="ValidateRowDoesNotExistInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -18533,6 +18793,48 @@
 			</file>
 		</DataSource>
 		<DataSource
+		id="16fffdda-4ac4-40f4-b2f9-4d7df33ce273"
+		lastknownrowcount="2"
+		name="lastMessageCalculationHasBeenCanceled"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					message
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						message
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Golfcondities berekenen voor
+					</td>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						is geannuleerd.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="54d34b70-57b9-4100-92db-cca84269c504"
 		includefile="Unchecked"
 		lastknownrowcount="209"
@@ -22232,6 +22534,9 @@
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
 			</testcontainer>
 			<testcontainer
+			id="0073f82e-9688-44db-94a7-e6bdaee6e8b7">
+			</testcontainer>
+			<testcontainer
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
 			</testcontainer>
 			<testcontainer
@@ -22278,6 +22583,9 @@
 			</testcontainer>
 			<testcontainer
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
+			</testcontainer>
+			<testcontainer
+			id="32b3d2aa-70bc-4991-a8f2-7d8fbcdbb994">
 			</testcontainer>
 			<testcontainer
 			id="340e6795-be92-4d9f-ab6a-ffe254351956">
@@ -22403,6 +22711,9 @@
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
 			</testcontainer>
 			<testcontainer
+			id="8e160f16-5613-4821-9819-6120a4629211">
+			</testcontainer>
+			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
 			</testcontainer>
 			<testcontainer
@@ -22472,6 +22783,9 @@
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
 			</testcontainer>
 			<testcontainer
+			id="d64febdc-17b6-4a40-9ae9-318dcd5f31f6">
+			</testcontainer>
+			<testcontainer
 			id="dc49a1cf-9a7f-4d5b-bd4c-d44aa18e22d7">
 			</testcontainer>
 			<testcontainer
@@ -22518,6 +22832,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
+			</testcontainer>
+			<testcontainer
+			id="fed4c8d7-0412-4e73-85d7-a759cc54e482">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

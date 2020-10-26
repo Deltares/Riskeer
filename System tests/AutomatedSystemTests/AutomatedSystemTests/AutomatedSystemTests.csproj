@@ -150,7 +150,7 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
-    <Compile Include="CaculateFullPathToCalculationInput.cs">
+    <Compile Include="CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
     <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
@@ -1224,6 +1224,30 @@
       <UserCode>true</UserCode>
       <id>9cefaa1d-9ded-4c55-8092-777bcd7c2cb8</id>
     </Compile>
+    <Compile Include="ValidateRowDoesNotExistInPropertiesPanel.cs">
+      <BoundTo>b013a104-0577-4bea-aa06-f81de16bdfdc</BoundTo>
+      <DependentUpon>ValidateRowDoesNotExistInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a12ec755-c72d-4c7a-8a65-0e9bb3453a87</id>
+    </Compile>
+    <Compile Include="ValidateRowDoesNotExistInPropertiesPanel.UserCode.cs">
+      <BoundTo>b013a104-0577-4bea-aa06-f81de16bdfdc</BoundTo>
+      <DependentUpon>ValidateRowDoesNotExistInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>46eccfc3-e1c1-4bd6-ac24-35bcfb7afec3</id>
+    </Compile>
+    <Compile Include="ValidateRowExistsInPropertiesPanel.cs">
+      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
+      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>9d15e0a1-ae7a-4048-82cd-ec117aa66989</id>
+    </Compile>
+    <Compile Include="ValidateRowExistsInPropertiesPanel.UserCode.cs">
+      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
+      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>4eb82aeb-b632-4f93-909d-ca316feea9cb</id>
+    </Compile>
     <Compile Include="ValidateTextMesage.cs">
       <BoundTo>a1476601-a356-4d9f-b0f2-de9145f718c9</BoundTo>
       <DependentUpon>ValidateTextMesage.rxrec</DependentUpon>
@@ -1893,6 +1917,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
       <recordtableid>bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1</recordtableid>
+    </None>
+    <None Include="ValidateRowDoesNotExistInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b013a104-0577-4bea-aa06-f81de16bdfdc</id>
+      <recordtableid>a91dc990-2aae-4244-86f4-1f59055da825</recordtableid>
+    </None>
+    <None Include="ValidateRowExistsInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>3c75635e-8e82-4d23-ac92-7e2fe375ba43</id>
+      <recordtableid>f7696db3-8395-4cde-9420-df76b7faa09a</recordtableid>
     </None>
     <None Include="ValidateTextMesage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

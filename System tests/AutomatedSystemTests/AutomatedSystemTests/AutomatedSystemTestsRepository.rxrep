@@ -1343,6 +1343,16 @@ gg==
 			<item
 			addcaps="text,control,nativewindow"
 			capname="text"
+			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
+			name="LabelActivityProgressText"
+			refimgid="746c79e5-beba-443e-bbd7-a96d590e9951"
+			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']"
+			searchtimeout="30000ms">
+				/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']
+			</item>
+			<item
+			addcaps="text,control,nativewindow"
+			capname="text"
 			id="dceeaae8-df9d-4e10-b9b8-7dcf1c822408"
 			name="LabelActivityCounter"
 			refimgid="5b0cfa9e-cf06-4acb-8430-e4a7c2690370"
