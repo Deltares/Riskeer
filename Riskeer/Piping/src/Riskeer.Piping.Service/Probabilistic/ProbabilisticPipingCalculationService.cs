@@ -21,14 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
@@ -58,7 +55,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         private IPipingCalculator profileSpecificCalculator;
         private IPipingCalculator sectionSpecificCalculator;
         private bool canceled;
-        
+
         /// <summary>
         /// Fired when the calculation progress changed.
         /// </summary>
@@ -110,19 +107,29 @@ namespace Riskeer.Piping.Service.Probabilistic
         }
 
         /// <summary>
+        /// Cancels any currently running grass cover erosion inwards calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            profileSpecificCalculator?.Cancel();
+            sectionSpecificCalculator?.Cancel();
+            canceled = true;
+        }
+
+        /// <summary>
         /// Performs a structures calculation based on the supplied <see cref="ProbabilisticPipingCalculation"/> and sets <see cref="ProbabilisticPipingCalculation.Output"/>
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which the <paramref name="calculation"/> belongs to.</param>
+        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="ProbabilisticPipingCalculation"/> instances.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
+        /// <param name="sectionLength">The length of the section the calculation belongs to.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="generalInput"/>
+        /// or <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
-        /// enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
@@ -130,18 +137,19 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism,
-                              HydraulicBoundaryCalculationSettings calculationSettings)
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
+        internal void Calculate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                HydraulicBoundaryCalculationSettings calculationSettings, double sectionLength)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            if (failureMechanism == null)
+            if (generalInput == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (calculationSettings == null)
@@ -163,7 +171,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             try
             {
                 PartialProbabilisticPipingOutput profileSpecificOutput = CalculateProfileSpecific(
-                    calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+                    calculation, generalInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
                 {
@@ -171,7 +179,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 }
 
                 PartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(
-                    calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+                    calculation, generalInput, sectionLength, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
                 {
@@ -189,25 +197,15 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
         }
 
-        /// <summary>
-        /// Cancels any currently running grass cover erosion inwards calculation.
-        /// </summary>
-        public void Cancel()
-        {
-            profileSpecificCalculator?.Cancel();
-            sectionSpecificCalculator?.Cancel();
-            canceled = true;
-        }
-
-        private PartialProbabilisticPipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private PartialProbabilisticPipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                          string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_ProfileSpecific),
                            1, numberOfCalculators);
 
             PipingCalculationInput profileSpecificCalculationInput = CreateInput(
-                calculation, failureMechanism.GeneralInput, 0,
-                hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+                calculation, generalInput, 0, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             PerformCalculation(() => profileSpecificCalculator.Calculate(profileSpecificCalculationInput),
                                () => profileSpecificCalculator.LastErrorFileContent,
@@ -233,16 +231,15 @@ namespace Riskeer.Piping.Service.Probabilistic
                                                         generalResult);
         }
 
-        private PartialProbabilisticPipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private PartialProbabilisticPipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                          double sectionLength, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_SectionSpecific),
                            2, numberOfCalculators);
 
-            FailureMechanismSection section = failureMechanism.Sections.First(s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(s.Points)));
-
             PipingCalculationInput sectionSpecificCalculationInput = CreateInput(
-                calculation, failureMechanism.GeneralInput, section.Length,
+                calculation, generalInput, sectionLength,
                 hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             PerformCalculation(() => sectionSpecificCalculator.Calculate(sectionSpecificCalculationInput),
@@ -429,7 +426,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             return validationResults;
         }
-        
+
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
         {
             OnProgressChanged?.Invoke(stepName, currentStepNumber, totalStepNumber);
