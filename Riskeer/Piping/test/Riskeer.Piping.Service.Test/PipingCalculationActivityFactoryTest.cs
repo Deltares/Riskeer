@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -88,7 +88,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
@@ -123,7 +123,7 @@ namespace Riskeer.Piping.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
             hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            SemiProbabilisticPipingCalculationScenario calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var generalPipingInput = new GeneralPipingInput();
 
@@ -216,8 +216,8 @@ namespace Riskeer.Piping.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            SemiProbabilisticPipingCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
-            SemiProbabilisticPipingCalculationScenario calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
+            SemiProbabilisticPipingCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
+            SemiProbabilisticPipingCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
 
             var calculations = new CalculationGroup
             {
@@ -298,8 +298,8 @@ namespace Riskeer.Piping.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            SemiProbabilisticPipingCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
-            SemiProbabilisticPipingCalculationScenario calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
+            SemiProbabilisticPipingCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
+            SemiProbabilisticPipingCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
@@ -320,15 +320,15 @@ namespace Riskeer.Piping.Service.Test
             AssertPipingCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
         }
 
-        private static SemiProbabilisticPipingCalculationScenario CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static SemiProbabilisticPipingCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
             return calculation;
         }
 
         private static void AssertPipingCalculationActivity(Activity activity,
-                                                            SemiProbabilisticPipingCalculationScenario calculation,
+                                                            SemiProbabilisticPipingCalculation calculation,
                                                             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             using (new PipingSubCalculatorFactoryConfig())

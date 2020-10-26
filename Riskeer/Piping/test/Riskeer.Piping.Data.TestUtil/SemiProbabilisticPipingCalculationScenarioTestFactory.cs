@@ -145,7 +145,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Creates a probabilistic calculation scenario with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <returns>A new <see cref="ProbabilisticPipingCalculation"/>.</returns>
+        /// <returns>A new <see cref="ProbabilisticPipingCalculationScenario"/>.</returns>
         /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
         /// (for instance when it comes to the presence of a normative assessment level).</remarks>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
