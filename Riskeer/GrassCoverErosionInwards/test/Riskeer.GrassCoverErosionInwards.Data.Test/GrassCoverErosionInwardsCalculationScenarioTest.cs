@@ -49,21 +49,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsRelevant_Always_ReturnsSetValue(bool isRelevant)
-        {
-            // Setup
-            var scenario = new GrassCoverErosionInwardsCalculationScenario();
-
-            // Call
-            scenario.IsRelevant = isRelevant;
-
-            // Assert
-            Assert.AreEqual(isRelevant, scenario.IsRelevant);
-        }
-
-        [Test]
         public void Contribution_Always_ReturnsSetValue()
         {
             // Setup
