@@ -165,4 +165,26 @@
   <data name="PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
     <value>Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
   </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0" xml:space="preserve">
+    <value>Uitvoeren piping berekening voor {0}</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report" xml:space="preserve">
+    <value>De {0} berekening voor piping '{1}' is mislukt. Er is geen foutrapport beschikbaar.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2" xml:space="preserve">
+    <value>De {0} berekening voor piping '{1}' is mislukt. Bekijk het foutrapport door op details te klikken.
+{2}</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1" xml:space="preserve">
+    <value>De {0} berekening is uitgevoerd op de tijdelijke locatie '{1}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+  </data>
+  <data name="PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2" xml:space="preserve">
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ProfileSpecific" xml:space="preserve">
+    <value>doorsnede</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_SectionSpecific" xml:space="preserve">
+    <value>vak</value>
+  </data>
 </root>

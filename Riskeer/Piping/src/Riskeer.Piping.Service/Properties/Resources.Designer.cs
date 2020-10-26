@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -228,6 +228,74 @@ namespace Riskeer.Piping.Service.Properties {
             get {
                 return ResourceManager.GetString("PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_b" +
                         "e_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2 {
+            get {
+                return ResourceManager.GetString("PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoi" +
+                        "nts_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_i" +
+                        "n_temporary_directory_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening voor piping &apos;{1}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
+        ///{2}.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_fo" +
+                        "r_calculation_with_name_1_click_details_for_last_error_report_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening voor piping &apos;{1}&apos; is mislukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_fo" +
+                        "r_calculation_with_name_1_no_error_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren piping berekening voor {0}.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to doorsnede.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ProfileSpecific {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ProfileSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to vak.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_SectionSpecific {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_SectionSpecific", resourceCulture);
             }
         }
     }
