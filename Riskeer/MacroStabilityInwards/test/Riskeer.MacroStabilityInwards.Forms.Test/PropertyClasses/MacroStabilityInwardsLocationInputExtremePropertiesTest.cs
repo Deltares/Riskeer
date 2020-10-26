@@ -134,10 +134,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsInput input = calculationItem.InputParameters;
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, handler);
 
             var random = new Random(21);
@@ -171,7 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsDikeSoilScenario dikeSoilScenario, bool expectedReadOnly)
         {
             // Setup
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -179,8 +179,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(calculationItem.InputParameters, handler);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(calculation.InputParameters, handler);
 
             // Call & Assert
             Assert.AreEqual(expectedReadOnly, properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsLocationInputExtremeProperties.PenetrationLength)));

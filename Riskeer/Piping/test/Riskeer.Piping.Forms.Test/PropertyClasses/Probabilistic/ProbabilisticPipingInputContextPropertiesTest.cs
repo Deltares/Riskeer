@@ -102,11 +102,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -129,11 +129,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -197,17 +197,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
             var properties = new ProbabilisticPipingInputContextProperties(context, handler);
@@ -368,7 +368,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
             if (withSurfaceLine)
@@ -379,11 +379,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     new Point3D(0, 0, 0),
                     new Point3D(2, 0, 2)
                 });
-                calculationItem.InputParameters.SurfaceLine = surfaceLine;
+                calculation.InputParameters.SurfaceLine = surfaceLine;
             }
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -445,7 +445,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -458,10 +458,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -531,13 +531,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -551,7 +551,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 })
             }, "path/to/sections");
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
             var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             const double entryPointL = 0.12;
@@ -764,21 +764,21 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
             var properties = new ProbabilisticPipingInputContextProperties(context, handler)
@@ -806,21 +806,21 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new ProbabilisticPipingCalculationScenario();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
             var properties = new ProbabilisticPipingInputContextProperties(context, handler)
@@ -848,7 +848,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -858,8 +858,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -896,7 +896,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var entryPoint = (RoundedDouble) newEntryPoint;
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -906,8 +906,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -941,7 +941,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -951,8 +951,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -986,7 +986,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -996,8 +996,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                              calculationItem,
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -1029,7 +1029,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -1038,10 +1038,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
@@ -1080,7 +1080,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 stochasticSoilProfile
             });
 
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -1091,10 +1091,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               new[]
                                                               {
@@ -1127,7 +1127,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             {
                 stochasticSoilProfile
             });
-            var calculationItem = new ProbabilisticPipingCalculationScenario
+            var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -1137,11 +1137,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 }
             };
 
-            ProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculationItem,
+                                                              calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               new[]
                                                               {

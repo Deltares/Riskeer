@@ -69,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_CalculationItemNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

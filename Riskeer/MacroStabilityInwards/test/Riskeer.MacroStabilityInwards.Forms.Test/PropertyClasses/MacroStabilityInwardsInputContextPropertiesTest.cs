@@ -97,11 +97,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
-                                                                calculationItem,
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -124,11 +124,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
-                                                                calculationItem,
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -153,11 +153,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
-                                                                calculationItem,
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -183,17 +183,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
-                                                                calculationItem,
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
@@ -328,17 +328,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
-                                                                calculationItem,
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
@@ -419,7 +419,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -431,11 +431,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                     StochasticSoilProfile = stochasticSoilProfile
                 }
             };
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -490,19 +490,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
@@ -658,7 +658,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -667,10 +667,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -714,7 +714,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                     stochasticSoilProfile
                 });
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -724,10 +724,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 new[]
                                                                 {
@@ -765,7 +765,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                                                    {
                                                                                                        stochasticSoilProfile
                                                                                                    });
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -775,11 +775,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 new[]
                                                                 {
@@ -834,7 +834,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                                                        stochasticSoilProfile2
                                                                                                    });
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -845,10 +845,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+            MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
-                                                                calculationItem,
+                                                                calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism,
