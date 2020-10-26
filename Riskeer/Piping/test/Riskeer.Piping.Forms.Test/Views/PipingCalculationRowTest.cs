@@ -292,7 +292,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_EntryPointNotBeforeExitPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -306,7 +307,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) (-3.0);
 
             // Call & Assert
@@ -319,7 +321,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 0.3;
 
             // Call & Assert
@@ -353,7 +356,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_ExitPointNotBeyondEntryPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -367,7 +371,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 3.0;
 
             // Call & Assert
@@ -418,7 +423,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             SemiProbabilisticPipingOutput assignedOutput = null;
 
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculationScenario calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
             if (hasOutput)
             {
                 assignedOutput = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
