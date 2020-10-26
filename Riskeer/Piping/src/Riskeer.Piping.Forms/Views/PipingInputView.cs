@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
-        private IPipingCalculation<PipingInput> data;
+        private IPipingCalculationScenario<PipingInput> data;
 
         private PipingSoilProfile currentSoilProfile;
 
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Forms.Views
             }
             set
             {
-                data = value as IPipingCalculation<PipingInput>;
+                data = value as IPipingCalculationScenario<PipingInput>;
 
                 calculationObserver.Observable = data;
                 calculationInputObserver.Observable = data?.InputParameters;
