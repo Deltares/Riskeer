@@ -24,30 +24,32 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SaveAs recording.
+    ///The ExportCurrentItemToCSVFile recording.
     /// </summary>
-    [TestModule("9195acd9-b037-4ace-80c3-0f7f64c35452", ModuleType.Recording, 1)]
-    public partial class SaveAs : ITestModule
+    [TestModule("82c65bc9-8451-45bb-867d-b7d4559e95d9", ModuleType.Recording, 1)]
+    public partial class ExportCurrentItemToCSVFile : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SaveAs instance = new SaveAs();
+        static ExportCurrentItemToCSVFile instance = new ExportCurrentItemToCSVFile();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SaveAs()
+        public ExportCurrentItemToCSVFile()
         {
-            fileNameToSave = "kkdelavaca.risk";
+            fileNameToSave = "";
+            suffixFM = "";
+            originalFileNameToSave = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SaveAs Instance
+        public static ExportCurrentItemToCSVFile Instance
         {
             get { return instance; }
         }
@@ -59,11 +61,35 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets or sets the value of variable fileNameToSave.
         /// </summary>
-        [TestVariable("d40271fe-a08b-44b0-bb48-a991f40e104b")]
+        [TestVariable("fb853fb5-4464-4165-9324-feea0c7aebdd")]
         public string fileNameToSave
         {
             get { return _fileNameToSave; }
             set { _fileNameToSave = value; }
+        }
+
+        string _suffixFM;
+
+        /// <summary>
+        /// Gets or sets the value of variable suffixFM.
+        /// </summary>
+        [TestVariable("f3aec49f-d3dd-461a-8748-a78d336b8847")]
+        public string suffixFM
+        {
+            get { return _suffixFM; }
+            set { _suffixFM = value; }
+        }
+
+        string _originalFileNameToSave;
+
+        /// <summary>
+        /// Gets or sets the value of variable originalFileNameToSave.
+        /// </summary>
+        [TestVariable("b54bbf34-8016-4a9d-b745-f624c7ec02cc")]
+        public string originalFileNameToSave
+        {
+            get { return _originalFileNameToSave; }
+            set { _originalFileNameToSave = value; }
         }
 
 #endregion
@@ -92,33 +118,41 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.Bestand.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAsInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Exporteren' at Center.", repo.ContextMenu.ExporterenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Exporteren.Click();
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'SelectItemDialog.OptionCSV' at Center.", repo.SelectItemDialog.OptionCSVInfo, new RecordItemIndex(2));
+            repo.SelectItemDialog.OptionCSV.Click();
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'SelectItemDialog.ButtonOk' at Center.", repo.SelectItemDialog.ButtonOkInfo, new RecordItemIndex(3));
+            repo.SelectItemDialog.ButtonOk.Click();
+            
+            Report.Log(ReportLevel.Info, "User", "Name of CSV file to export to:", new RecordItemIndex(4));
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "User", "Name of file to save:", new RecordItemIndex(3));
+            finishCreatingFileName();
             
-            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(7));
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(8));
             repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(9));
             repo.OpslaanAls.SaveButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(10));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(12));
             Delay.Duration(250, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(13));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

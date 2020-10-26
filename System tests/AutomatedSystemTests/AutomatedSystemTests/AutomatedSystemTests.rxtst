@@ -5148,6 +5148,32 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="65b4c1f8-37be-4df1-a2de-fea645f72cba"
+			name="ExportCurrentItemToCSVFile"
+			ref="82c65bc9-8451-45bb-867d-b7d4559e95d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fmLabel"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="f3aec49f-d3dd-461a-8748-a78d336b8847"
+					variablename="suffixFM">
+					</var>
+					<var
+					dataname="pathCurrentFile"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="fb853fb5-4464-4165-9324-feea0c7aebdd"
+					variablename="fileNameToSave">
+					</var>
+					<var
+					dataname="rootFileNameExportCSV"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="b54bbf34-8016-4a9d-b745-f624c7ec02cc"
+					variablename="originalFileNameToSave">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="65d9ca0a-ba68-4878-b308-bf32c4b7c73d"
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
@@ -5403,6 +5429,34 @@
 			id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
 			name="ValidateAfterCalculationsHaveBeenInterrupted">
 			</smartfoldernode>
+			<testmodule
+			id="6d72256f-b4b1-4919-bd9d-facf09bded66"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToCalculationResultsInProjectExplorer"
+					datasourceid="8e097c52-9a8d-4843-9e3f-2e48b6743f40"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="6e1c1ab3-0196-441b-ae0e-3063aaade373"
 			name="OpenResultView"
@@ -10964,6 +11018,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="d481cf1c-96b1-4e05-a337-829e97cc3441"
+			name="ValidateAllResultsUsingCSVExportedFile">
+				<parameters>
+					<param
+					name="rootFileNameExportCSV"
+					value="script15\currentResults">
+					</param>
+					<param
+					name="rootPathForReferenceCSVFile"
+					value="X:\script15\External">
+					</param>
+					<param
+					name="pathReferenceFile"
+					value="">
+					</param>
+					<param
+					name="pathCurrentFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="customAssessmentSTBI"
 			id="d49fa026-5b47-4430-998d-1a57f0402e66"
 			name="LoopRowsSetCustomAssessment">
@@ -12720,6 +12796,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="f448a50e-137f-4848-a1ee-e15ee7675bf8"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathCurrentFile"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentHTKWValues"
 			id="f4709c6d-6b14-4bd7-b86d-894c04ab9e92"
@@ -13365,6 +13461,32 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="fce832fd-3503-493a-ab6f-203b2d3688bd"
+			name="CreateNameReferenceCSVFile"
+			ref="bc4f854b-c401-447d-976c-5e86cb4660f2"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="rootPathForReferenceCSVFile"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="c447385a-8ec1-44a8-a65b-dd384bf31a91"
+					variablename="rootGenericPathReferenceFile">
+					</var>
+					<var
+					dataname="fmLabel"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="6882c06f-eeed-4ba0-a79f-c7f7011c638c"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="d481cf1c-96b1-4e05-a337-829e97cc3441"
+					variableid="e0db401e-9eab-4545-a203-ebdbc3b26f17"
+					variablename="pathReferenceFile">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="fd3fbd9b-bda8-447c-adaf-663e3b80ccbf"
@@ -14747,6 +14869,26 @@
 									<testmodule
 									id="798fb810-6b79-47a6-a007-8400ce7e40d9"
 									name="ValidateDoubleValueparameterInPropertiesPanelGivenPath">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="d481cf1c-96b1-4e05-a337-829e97cc3441"
+								name="ValidateAllResultsUsingCSVExportedFile">
+									<testmodule
+									id="6d72256f-b4b1-4919-bd9d-facf09bded66"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="65b4c1f8-37be-4df1-a2de-fea645f72cba"
+									name="ExportCurrentItemToCSVFile">
+									</testmodule>
+									<testmodule
+									id="fce832fd-3503-493a-ab6f-203b2d3688bd"
+									name="CreateNameReferenceCSVFile">
+									</testmodule>
+									<testmodule
+									id="f448a50e-137f-4848-a1ee-e15ee7675bf8"
+									name="ComparePlainTextFiles">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -22096,7 +22238,7 @@
 		</DataSource>
 		<DataSource
 		id="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
-		lastknownrowcount="1"
+		lastknownrowcount="3"
 		name="script15b_LoopAllCalculationsFms"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -22187,6 +22329,63 @@
 					</td>
 					<td>
 						-60.31
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+					</td>
+					<td>
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						2.42
+					</td>
+					<td>
+						1.29
+					</td>
+					<td>
+						6.35
+					</td>
+					<td>
+						350.47
+					</td>
+					<td>
+						-6.53
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+					</td>
+					<td>
+						&gt;golfklap
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						6.85
+					</td>
+					<td>
+						1.40
+					</td>
+					<td>
+						4.46
+					</td>
+					<td>
+						29.76
+					</td>
+					<td>
+						-78.24
 					</td>
 				</tr>
 			</table>
@@ -23178,6 +23377,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
+			</testcontainer>
+			<testcontainer
+			id="d481cf1c-96b1-4e05-a337-829e97cc3441">
 			</testcontainer>
 			<testcontainer
 			id="d64febdc-17b6-4a40-9ae9-318dcd5f31f6">

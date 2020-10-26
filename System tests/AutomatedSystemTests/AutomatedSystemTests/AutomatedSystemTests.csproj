@@ -177,6 +177,18 @@
       <UserCode>true</UserCode>
       <id>443d8da9-77fd-404d-b4e8-8470675a6acc</id>
     </Compile>
+    <Compile Include="ComparePlainTextFiles.cs">
+      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
+      <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c092b834-b7a7-4f89-be1c-bb9463d97e7b</id>
+    </Compile>
+    <Compile Include="ComparePlainTextFiles.UserCode.cs">
+      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
+      <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
+    </Compile>
     <Compile Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.cs">
       <BoundTo>afe71edd-6c53-4ff6-b655-f93726b80b35</BoundTo>
       <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
@@ -188,6 +200,9 @@
       <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>415a7e92-e277-4f06-9523-3ab35c41fb3e</id>
+    </Compile>
+    <Compile Include="CreateNameReferenceCSVFile.cs">
+      <id>fbd3935f-9ecc-45c3-b24a-cc779921d937</id>
     </Compile>
     <Compile Include="CreateScreenshotDocumentView.cs">
       <BoundTo>14e0954b-aab4-4b1e-ba03-71e0aa224712</BoundTo>
@@ -248,6 +263,18 @@
       <DependentUpon>ExpandDamInPropertiesPanel.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>17ee7347-5af6-4c2b-a0e4-e521e0a3abe4</id>
+    </Compile>
+    <Compile Include="ExportCurrentItemToCSVFile.cs">
+      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
+      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f992eacb-d775-435f-8834-84e18ce4782c</id>
+    </Compile>
+    <Compile Include="ExportCurrentItemToCSVFile.UserCode.cs">
+      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
+      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>1458cd92-3504-4445-97f3-eb30ac8b9761</id>
     </Compile>
     <Compile Include="GenerateRandomNumberInRangeCases.cs">
       <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
@@ -1507,6 +1534,11 @@
       <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
       <recordtableid>907b89b7-6058-4333-a615-ff354007586c</recordtableid>
     </None>
+    <None Include="ComparePlainTextFiles.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
+      <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
+    </None>
     <None Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>afe71edd-6c53-4ff6-b655-f93726b80b35</id>
@@ -1536,6 +1568,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1d602183-ef23-4399-b12f-eaa317121dbb</id>
       <recordtableid>6e208fe1-d9b3-477a-8c12-d78d705a4908</recordtableid>
+    </None>
+    <None Include="ExportCurrentItemToCSVFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d5a0a829-3c74-4406-9514-acc72b31ac0a</id>
+      <recordtableid>82c65bc9-8451-45bb-867d-b7d4559e95d9</recordtableid>
     </None>
     <None Include="GenerateRandomNumberInRangeCases.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

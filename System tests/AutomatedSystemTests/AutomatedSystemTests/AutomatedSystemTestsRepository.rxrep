@@ -1178,6 +1178,16 @@ FjcAAAAASUVORK5CYII=
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']
 			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="e6ff1b1d-e9cf-4680-b405-2a5432145390"
+			name="Exporteren"
+			refimgid="8e2d6d0d-4dbf-4acc-979b-6f4008e87869"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
+			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
 			</basepath>
@@ -1739,6 +1749,44 @@ zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
 8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
 cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
 FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="0d9a64ec-2e31-4550-883e-f86cf1e08e29"
+		isrooted="True"
+		name="SelectItemDialog"
+		refpath="/form[@controlname='SelectItemDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="listitem,checkable"
+			capname="listitem"
+			id="ab9a410e-84e4-4d83-aeb5-0574bad1c88e"
+			name="OptionCSV"
+			refimgid="3113f491-1c50-469b-96d1-c48c1ada2ac3"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectItemDialog']/list/listitem[@text&lt;'*.csv)']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="60eebdf2-2a5e-4a38-a8bb-e4c684bad433"
+			name="ButtonOk"
+			refimgid="c0523d75-7808-4f55-b7d9-84e30c80abca"
+			refpath="/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']
+			</item>
+			<basepath>
+				/form[@controlname='SelectItemDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABxSURBVDhPpY4BDsAgCAN5uk/jZ24Yu3QKivGS
+bmOBS+WlXkbqKa7AnpkYoUBVvzfC81YwHntpu5GAlwDPW0GmgSUUYIHhGd+hINMAuIJxyRhnZhKs
+GpRSWkA/PmsAAR3/BasGFrRwBSdMgsu4P5OR+gCK7Y8YG21ArQAAAABJRU5ErkJggg==
 			</icon>
 		</appfolder>
 		<basepath>

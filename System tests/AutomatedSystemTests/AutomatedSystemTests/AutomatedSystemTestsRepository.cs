@@ -39,6 +39,7 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder _dialoggeneratecalculations;
         AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder _riskeer;
         AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder _bevestigen;
+        AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder _selectitemdialog;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace AutomatedSystemTests
             _dialoggeneratecalculations = new AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder(this);
             _riskeer = new AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder(this);
             _bevestigen = new AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder(this);
+            _selectitemdialog = new AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -529,6 +531,15 @@ namespace AutomatedSystemTests
         public virtual AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder Bevestigen
         {
             get { return _bevestigen; }
+        }
+
+        /// <summary>
+        /// The SelectItemDialog folder.
+        /// </summary>
+        [RepositoryFolder("0d9a64ec-2e31-4550-883e-f86cf1e08e29")]
+        public virtual AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder SelectItemDialog
+        {
+            get { return _selectitemdialog; }
         }
     }
 
@@ -4265,6 +4276,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _importerenInfo;
             RepoItemInfo _genereerscenariosInfo;
             RepoItemInfo _bijwerkenInfo;
+            RepoItemInfo _exporterenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4284,6 +4296,7 @@ namespace AutomatedSystemTests
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
                 _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
+                _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
             }
 
             /// <summary>
@@ -4595,6 +4608,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _bijwerkenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Exporteren item.
+            /// </summary>
+            [RepositoryItem("e6ff1b1d-e9cf-4680-b405-2a5432145390")]
+            public virtual Ranorex.MenuItem Exporteren
+            {
+                get
+                {
+                    return _exporterenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Exporteren item info.
+            /// </summary>
+            [RepositoryItemInfo("e6ff1b1d-e9cf-4680-b405-2a5432145390")]
+            public virtual RepoItemInfo ExporterenInfo
+            {
+                get
+                {
+                    return _exporterenInfo;
                 }
             }
         }
@@ -5665,6 +5702,98 @@ namespace AutomatedSystemTests
             /// </summary>
             [RepositoryItemInfo("e7ae93d7-2c71-43b5-99bf-1790cbc314c0")]
             public virtual RepoItemInfo ButtonOKInfo
+            {
+                get
+                {
+                    return _buttonokInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The SelectItemDialogAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("0d9a64ec-2e31-4550-883e-f86cf1e08e29")]
+        public partial class SelectItemDialogAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _optioncsvInfo;
+            RepoItemInfo _buttonokInfo;
+
+            /// <summary>
+            /// Creates a new SelectItemDialog  folder.
+            /// </summary>
+            public SelectItemDialogAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("SelectItemDialog", "/form[@controlname='SelectItemDialog']", parentFolder, 30000, null, true, "0d9a64ec-2e31-4550-883e-f86cf1e08e29", "")
+            {
+                _optioncsvInfo = new RepoItemInfo(this, "OptionCSV", "list/listitem[@text<'*.csv)']", 30000, null, "ab9a410e-84e4-4d83-aeb5-0574bad1c88e");
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "button[@controlname='buttonOk']", 30000, null, "60eebdf2-2a5e-4a38-a8bb-e4c684bad433");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("0d9a64ec-2e31-4550-883e-f86cf1e08e29")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("0d9a64ec-2e31-4550-883e-f86cf1e08e29")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The OptionCSV item.
+            /// </summary>
+            [RepositoryItem("ab9a410e-84e4-4d83-aeb5-0574bad1c88e")]
+            public virtual Ranorex.ListItem OptionCSV
+            {
+                get
+                {
+                    return _optioncsvInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The OptionCSV item info.
+            /// </summary>
+            [RepositoryItemInfo("ab9a410e-84e4-4d83-aeb5-0574bad1c88e")]
+            public virtual RepoItemInfo OptionCSVInfo
+            {
+                get
+                {
+                    return _optioncsvInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOk item.
+            /// </summary>
+            [RepositoryItem("60eebdf2-2a5e-4a38-a8bb-e4c684bad433")]
+            public virtual Ranorex.Button ButtonOk
+            {
+                get
+                {
+                    return _buttonokInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOk item info.
+            /// </summary>
+            [RepositoryItemInfo("60eebdf2-2a5e-4a38-a8bb-e4c684bad433")]
+            public virtual RepoItemInfo ButtonOkInfo
             {
                 get
                 {

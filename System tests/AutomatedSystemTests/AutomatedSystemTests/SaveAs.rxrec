@@ -1124,24 +1124,6 @@ rr/oISf9+0/wq9RQB//Z
 			</bindings>
 		</explicitdelayitem>
 		<WaitForRecordItem
-		enabled="False"
-		optional="False"
-		searchpropertyid="22f8bafe-bbf5-4cdb-ab86-90ceeb3d8693"
-		waitaction="NotExists"
-		waittimeout="300000ms">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="626cf7e9-229f-443b-8711-8359ac8e9d95"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
-				</path>
-			</info>
-		</WaitForRecordItem>
-		<WaitForRecordItem
 		enabled="True"
 		optional="False"
 		searchpropertyid="460b84ec-0411-47ad-8605-36732bfeb283"
