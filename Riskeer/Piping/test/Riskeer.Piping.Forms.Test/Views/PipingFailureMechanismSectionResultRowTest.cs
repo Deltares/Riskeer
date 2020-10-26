@@ -901,6 +901,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
+            SemiProbabilisticPipingCalculationScenario calculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateRelevantPipingCalculationScenario(section);
+
+            calculationScenario.IsRelevant = false;
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -908,7 +913,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     sectionResult,
                     new[]
                     {
-                        SemiProbabilisticPipingCalculationTestFactory.CreateIrrelevantPipingCalculationScenario(section)
+                        calculationScenario
                     },
                     failureMechanism,
                     assessmentSection,
