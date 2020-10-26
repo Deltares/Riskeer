@@ -37,9 +37,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_SectionSpecificOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingOutput(
-                null,
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            void Call() => new ProbabilisticPipingOutput(null,
+                                                         PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -50,9 +49,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ProfileSpecificOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingOutput(
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
-                null);
+            void Call() => new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                         null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -63,10 +61,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput sectionSpecificOutput =
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
-            PartialProbabilisticPipingOutput profileSpecificOutput =
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);

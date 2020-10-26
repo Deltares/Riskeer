@@ -517,6 +517,15 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <summary>
         /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
         /// </summary>
+        /// <returns>A random instance of <see cref="PartialProbabilisticPipingOutput"/>.</returns>
+        public static PartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput()
+        {
+            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
+        /// </summary>
         /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="PartialProbabilisticPipingOutput"/>.</returns>
         public static PartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput(TestGeneralResultFaultTreeIllustrationPoint generalResult)
@@ -533,8 +542,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/>.</returns>
         public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutput()
         {
-            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
-                                                 GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(),
+                                                 GetRandomPartialProbabilisticPipingOutput());
         }
     }
 }
