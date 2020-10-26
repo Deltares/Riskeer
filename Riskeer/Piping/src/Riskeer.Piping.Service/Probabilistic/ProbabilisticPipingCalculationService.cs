@@ -25,6 +25,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
@@ -40,11 +41,14 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> for which to validate the values.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from used during the validation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(ProbabilisticPipingCalculation calculation, IAssessmentSection assessmentSection)
+        public static bool Validate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBegin();
+            
+            CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
             
             string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
             CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
@@ -54,7 +58,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 return false;
             }
 
-            string[] messages = ValidateInput(calculation.InputParameters).ToArray();
+            string[] messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
             CalculationServiceHelper.LogMessagesAsError(messages);
             
             CalculationServiceHelper.LogValidationEnd();
@@ -77,7 +81,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
         }
         
-        private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input)
+        private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input, GeneralPipingInput generalInput)
         {
             var validationResults = new List<string>();
 
@@ -85,6 +89,8 @@ namespace Riskeer.Piping.Service.Probabilistic
             {
                 validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
+            
+            validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input, generalInput));
 
             return validationResults;
         }
