@@ -161,7 +161,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
             };
 
             // Call
@@ -501,7 +501,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -548,7 +548,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -622,7 +622,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -736,7 +736,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section);
+            SemiProbabilisticPipingCalculationScenario calculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -786,7 +787,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     sectionResult,
                     new[]
                     {
-                        SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation(section)
+                        SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section)
                     },
                     failureMechanism,
                     assessmentSection,
@@ -819,8 +820,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation(
-                section);
+            SemiProbabilisticPipingCalculationScenario calculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
             calculationScenario.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(double.NaN, double.NaN, double.NaN);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1033,7 +1034,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation(section);
+            SemiProbabilisticPipingCalculationScenario scenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -1069,7 +1071,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation(section);
+            SemiProbabilisticPipingCalculationScenario scenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
             scenario.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             scenario.Contribution = (RoundedDouble) 0.3;
 
@@ -1108,7 +1111,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var sectionResult = new PipingFailureMechanismSectionResult(section);
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())

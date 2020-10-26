@@ -38,7 +38,6 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 
@@ -289,7 +288,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
             {
-                return SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput();
+                return SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
             }
         }
 
