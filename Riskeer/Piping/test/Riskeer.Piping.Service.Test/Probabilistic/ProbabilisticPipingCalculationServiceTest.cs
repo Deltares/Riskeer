@@ -32,6 +32,7 @@ using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
@@ -1116,6 +1117,260 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.AreEqual(calculateIllustrationPoints, sectionSpecificOutput.HasGeneralResult);
             }
             
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                EndInFailure = true
+            };
+            
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator());
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+                
+                // Call
+                void Call()
+                {
+                    try
+                    {
+                        new ProbabilisticPipingCalculationService().Calculate(
+                            calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    $"Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(exceptionThrown);
+            }
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                EndInFailure = true,
+                LastErrorFileContent = "An error occurred"
+            };
+            
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator());
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+                
+                // Call
+                void Call()
+                {
+                    try
+                    {
+                        new ProbabilisticPipingCalculationService().Calculate(
+                            calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. " +
+                                    $"Bekijk het foutrapport door op details te klikken.\r\n{profileSpecificCalculator.LastErrorFileContent}", msgs[1]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    $"Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(exceptionThrown);
+            }
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                EndInFailure = true
+            };
+            
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+                
+                // Call
+                void Call()
+                {
+                    try
+                    {
+                        new ProbabilisticPipingCalculationService().Calculate(
+                            calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[2]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(exceptionThrown);
+            }
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                EndInFailure = true,
+                LastErrorFileContent = "An error occurred"
+            };
+            
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+                
+                // Call
+                void Call()
+                {
+                    try
+                    {
+                        new ProbabilisticPipingCalculationService().Calculate(
+                            calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. " +
+                                    $"Bekijk het foutrapport door op details te klikken.\r\n{sectionSpecificCalculator.LastErrorFileContent}", msgs[2]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(exceptionThrown);
+            }
             mocks.VerifyAll();
         }
 
