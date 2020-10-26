@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Service
 
             return warnings;
         }
-        
+
         /// <summary>
         /// Gets validation errors for the given <paramref name="input"/>.
         /// </summary>

@@ -64,9 +64,9 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
 
             CalculationServiceHelper.LogValidationBegin();
-            
+
             CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
-            
+
             string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
             CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
             if (hydraulicBoundaryDatabaseMessages.Any())
@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             string[] messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
             CalculationServiceHelper.LogMessagesAsError(messages);
-            
+
             CalculationServiceHelper.LogValidationEnd();
             return !messages.Any();
         }
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 yield return preprocessorDirectoryValidationProblem;
             }
         }
-        
+
         private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input, GeneralPipingInput generalInput)
         {
             var validationResults = new List<string>();
@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             {
                 validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
-            
+
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input, generalInput));
 
             return validationResults;

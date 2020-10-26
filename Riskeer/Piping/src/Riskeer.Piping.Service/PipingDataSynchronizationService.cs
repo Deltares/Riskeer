@@ -362,7 +362,7 @@ namespace Riskeer.Piping.Service
         }
 
         private static IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationsWithSoilProfileAssigned(IFailureMechanism failureMechanism,
-                                                                                                           PipingStochasticSoilProfile soilProfile)
+                                                                                                                   PipingStochasticSoilProfile soilProfile)
         {
             return failureMechanism.Calculations
                                    .Cast<IPipingCalculationScenario<PipingInput>>()

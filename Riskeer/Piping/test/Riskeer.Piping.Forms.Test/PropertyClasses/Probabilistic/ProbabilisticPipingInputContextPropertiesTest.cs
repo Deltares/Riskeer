@@ -509,7 +509,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
-            
+
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);

@@ -29,7 +29,6 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
-using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;

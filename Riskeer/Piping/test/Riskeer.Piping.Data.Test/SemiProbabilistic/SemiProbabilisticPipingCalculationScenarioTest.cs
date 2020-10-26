@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;

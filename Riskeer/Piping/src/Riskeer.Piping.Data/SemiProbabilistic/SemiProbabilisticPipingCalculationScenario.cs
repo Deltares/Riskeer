@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Piping.Data.SemiProbabilistic
 {

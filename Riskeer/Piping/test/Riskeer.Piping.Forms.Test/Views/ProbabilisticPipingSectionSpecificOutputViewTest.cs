@@ -40,6 +40,5 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
         }
-
     }
 }

@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Data.TestUtil
         public TestPipingCalculationScenario(PipingInput pipingInput, bool hasOutput = false) : base(pipingInput, hasOutput) {}
 
         public bool IsRelevant { get; set; }
-        
+
         public RoundedDouble Contribution { get; set; }
     }
 }
