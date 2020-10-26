@@ -36,17 +36,20 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
     public static class SemiProbabilisticPipingCalculationTestFactory
     {
         /// <summary>
-        /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
+        /// Creates a calculated semi-probabilistic calculation for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
+        /// <typeparam name="T">The type of semi-probabilistic calculation to create.</typeparam>
         /// <param name="section">The section for which an intersection will be created.</param>
-        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateCalculation(FailureMechanismSection section)
+        public static T CreateCalculation<T>(FailureMechanismSection section)
+            where T : SemiProbabilisticPipingCalculation, new()
         {
-            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation(section);
-            scenario.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
+            var calculation = CreateNotCalculatedCalculation<T>(section);
 
-            return scenario;
+            calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
+
+            return calculation;
         }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         {
             return CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
         }
-        
+
         /// <summary>
         /// Creates a scenario for which the surface line on the input intersects with <paramref name="section"/> and
         /// is marked as relevant for the assessment.
