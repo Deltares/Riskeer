@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Service.Test
     [TestFixture]
     public class PipingCalculationValidationHelperTest
     {
-        private PipingCalculation<PipingInput> calculation;
+        private IPipingCalculation<PipingInput> calculation;
         private double testSurfaceLineTopLevel;
 
         [SetUp]

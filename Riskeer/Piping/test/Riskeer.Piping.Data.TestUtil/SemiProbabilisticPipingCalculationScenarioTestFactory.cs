@@ -25,23 +25,17 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
-    /// Helper class for creating different instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>
-    /// for easier testing.
+    /// Helper class for creating instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>.
     /// </summary>
     public static class SemiProbabilisticPipingCalculationScenarioTestFactory
     {
-        private const double bottom = 1.12;
-        private const double top = 10.56;
-
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
@@ -140,8 +134,8 @@ namespace Riskeer.Piping.Data.TestUtil
                     {
                         Mean = (RoundedDouble) 2.0
                     },
-                    SurfaceLine = GetSurfaceLine(),
-                    StochasticSoilProfile = GetStochasticSoilProfile(),
+                    SurfaceLine = PipingCalculationScenarioTestFactory.GetSurfaceLine(),
+                    StochasticSoilProfile = PipingCalculationScenarioTestFactory.GetStochasticSoilProfile(),
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
@@ -174,71 +168,11 @@ namespace Riskeer.Piping.Data.TestUtil
                     {
                         Mean = (RoundedDouble) 2.0
                     },
-                    SurfaceLine = GetSurfaceLine(),
-                    StochasticSoilProfile = GetStochasticSoilProfile(),
+                    SurfaceLine = PipingCalculationScenarioTestFactory.GetSurfaceLine(),
+                    StochasticSoilProfile = PipingCalculationScenarioTestFactory.GetStochasticSoilProfile(),
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-        }
-
-        private static PipingSurfaceLine GetSurfaceLine()
-        {
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
-            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
-            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
-            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
-            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 0.0),
-                firstCharacteristicPointLocation,
-                secondCharacteristicPointLocation,
-                thirdCharacteristicPointLocation,
-                fourthCharacteristicPointLocation,
-                fifthCharacteristicPointLocation,
-                new Point3D(1.0, 0.0, top)
-            });
-            surfaceLine.SetDikeToeAtPolderAt(firstCharacteristicPointLocation);
-            surfaceLine.SetDitchDikeSideAt(secondCharacteristicPointLocation);
-            surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
-            surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
-            surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
-            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
-
-            return surfaceLine;
-        }
-
-        private static PipingStochasticSoilProfile GetStochasticSoilProfile()
-        {
-            return new PipingStochasticSoilProfile(
-                0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
-                {
-                    new PipingSoilLayer(top)
-                    {
-                        IsAquifer = false,
-                        BelowPhreaticLevel = new LogNormalDistribution
-                        {
-                            Mean = (RoundedDouble) 17.5,
-                            StandardDeviation = (RoundedDouble) 0,
-                            Shift = (RoundedDouble) 10
-                        }
-                    },
-                    new PipingSoilLayer(top / 2)
-                    {
-                        IsAquifer = true,
-                        DiameterD70 = new VariationCoefficientLogNormalDistribution
-                        {
-                            Mean = (RoundedDouble) 4.0e-4,
-                            CoefficientOfVariation = (RoundedDouble) 0
-                        },
-                        Permeability = new VariationCoefficientLogNormalDistribution
-                        {
-                            Mean = (RoundedDouble) 1.0,
-                            CoefficientOfVariation = (RoundedDouble) 0.5
-                        }
-                    }
-                }, SoilProfileType.SoilProfile1D));
         }
     }
 }

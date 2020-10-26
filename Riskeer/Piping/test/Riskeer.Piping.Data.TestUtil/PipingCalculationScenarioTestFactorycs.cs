@@ -38,22 +38,22 @@ namespace Riskeer.Piping.Data.TestUtil
         private const double top = 10.56;
 
         /// <summary>
-        /// Creates a calculation with valid input.
+        /// Creates a calculation scenario with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
         /// <param name="hasOutput">Indicator whether the calculation has output.</param>
-        /// <returns>A new <see cref="IPipingCalculation{PipingInput}"/>.</returns>
+        /// <returns>A new <see cref="IPipingCalculationScenario{PipingInput}"/>.</returns>
         /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
         /// (for instance when it comes to the presence of a normative assessment level).</remarks>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static PipingCalculation<PipingInput> CreatePipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool hasOutput = false)
+        public static IPipingCalculationScenario<PipingInput> CreatePipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool hasOutput = false)
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            return new TestPipingCalculation(new TestPipingInput
+            return new TestPipingCalculationScenario(new TestPipingInput
             {
                 DampingFactorExit =
                 {
