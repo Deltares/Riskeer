@@ -49,10 +49,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_InputNull_ThrowsArgumentNullException()
+        public void GetValidationErrors_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationValidationHelper.ValidateInput(null, new GeneralPipingInput());
+            void Call() => PipingCalculationValidationHelper.GetValidationErrors(null, new GeneralPipingInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,10 +60,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_GeneralInputNull_ThrowsArgumentNullException()
+        public void GetValidationErrors_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationValidationHelper.ValidateInput(new TestPipingInput(), null);
+            void Call() => PipingCalculationValidationHelper.GetValidationErrors(new TestPipingInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -71,10 +71,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_InvalidCalculationInput_ReturnsErrorMessages()
+        public void GetValidationErrors_InvalidCalculationInput_ReturnsErrorMessages()
         {
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(
                 new TestPipingInput(), new GeneralPipingInput());
 
             // Assert
@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_WithoutAquiferLayer_ReturnsErrorMessages()
+        public void GetValidationErrors_WithoutAquiferLayer_ReturnsErrorMessages()
         {
             // Setup
             var aquitardLayer = new PipingSoilLayer(2.0)
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters,
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
                                                                                            new GeneralPipingInput());
 
             // Assert
@@ -116,7 +116,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void ValidateInput_IncompleteDiameterD70Definition_ReturnsErrorMessages(bool meanSet, bool coefficientOfVariationSet)
+        public void GetValidationErrors_IncompleteDiameterD70Definition_ReturnsErrorMessages(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -161,7 +161,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters,
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
                                                                                            new GeneralPipingInput());
 
             // Assert
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void ValidateInput_IncompletePermeabilityDefinition_ReturnsErrorMessage(bool meanSet, bool coefficientOfVariationSet)
+        public void GetValidationErrors_IncompletePermeabilityDefinition_ReturnsErrorMessage(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -218,7 +218,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters,
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
                                                                                            new GeneralPipingInput());
 
             // Assert
@@ -231,7 +231,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, true, true)]
         [TestCase(true, false, true)]
         [TestCase(true, true, false)]
-        public void ValidateInput_IncompleteSaturatedVolumicWeightDefinition_ReturnsErrorMessage(bool meanSet, bool deviationSet, bool shiftSet)
+        public void GetValidationErrors_IncompleteSaturatedVolumicWeightDefinition_ReturnsErrorMessage(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             var random = new Random(21);
@@ -279,7 +279,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters,
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
                                                                                            new GeneralPipingInput());
 
             // Assert
@@ -288,7 +288,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_ReturnsErrorMessage()
+        public void GetValidationErrors_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_ReturnsErrorMessage()
         {
             // Setup
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -326,7 +326,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters,
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
                                                                                            new GeneralPipingInput());
 
             // Assert
@@ -337,7 +337,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ValidateInput_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_ReturnsErrorMessage()
+        public void GetValidationErrors_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_ReturnsErrorMessage()
         {
             // Setup
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -386,7 +386,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.ValidateInput(calculation.InputParameters, new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters, new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(1, messages.Count());

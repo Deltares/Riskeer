@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -153,7 +153,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             var validationResults = new List<string>();
 
             validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
-            validationResults.AddRange(PipingCalculationValidationHelper.ValidateInput(input, generalInput));
+            validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input, generalInput));
 
             return validationResults;
         }

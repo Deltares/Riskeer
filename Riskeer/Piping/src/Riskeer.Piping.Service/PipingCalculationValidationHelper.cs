@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Service
         /// in the validation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of validation errors.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<string> ValidateInput(PipingInput input, GeneralPipingInput generalInput)
+        public static IEnumerable<string> GetValidationErrors(PipingInput input, GeneralPipingInput generalInput)
         {
             if (input == null)
             {
