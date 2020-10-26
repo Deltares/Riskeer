@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Piping calculation scenario that can be used for testing.
     /// </summary>
-    public class TestPipingCalculationScenario : TestPipingCalculation
+    public class TestPipingCalculationScenario : TestPipingCalculation, IPipingCalculationScenario<PipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculationScenario"/> with default <see cref="PipingInput"/>.
@@ -42,5 +43,9 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>
         /// is <c>null</c>.</exception>
         public TestPipingCalculationScenario(PipingInput pipingInput, bool hasOutput = false) : base(pipingInput, hasOutput) {}
+
+        public bool IsRelevant { get; set; }
+        
+        public RoundedDouble Contribution { get; set; }
     }
 }

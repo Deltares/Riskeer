@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new TestPipingCalculationScenario();
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -76,14 +76,14 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            TestDelegate call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+            void Call() => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
 
             // Assert
-            Assert.Throws<InvalidOperationException>(call);
+            Assert.Throws<InvalidOperationException>(Call);
         }
 
         [Test]
-        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceLine_ReturnsTrue()
         {
             // Setup
             var surfaceLine = new PipingSurfaceLine(string.Empty)
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -121,7 +121,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectReferenceline_ReturnsFalse()
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectReferenceLine_ReturnsFalse()
         {
             // Setup
             var surfaceLine = new PipingSurfaceLine(string.Empty)
@@ -141,7 +141,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
