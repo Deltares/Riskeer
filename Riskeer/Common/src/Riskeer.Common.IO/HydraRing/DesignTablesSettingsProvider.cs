@@ -125,6 +125,9 @@ namespace Riskeer.Common.IO.HydraRing
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, new DesignTablesSetting(0.001, 0.01)
+                },
+                {
+                    HydraRingFailureMechanismType.Piping, new DesignTablesSetting(double.NaN, double.NaN)
                 }
             };
         }

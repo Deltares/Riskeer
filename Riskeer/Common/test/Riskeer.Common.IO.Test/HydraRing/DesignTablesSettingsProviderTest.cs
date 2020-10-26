@@ -114,6 +114,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 700131, 3.5, 6.0)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, -1, 0.001, 0.01)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 700131, double.NaN, double.NaN)]
         public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrLocationId_ReturnsDefaultDesignTablesSetting(
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
