@@ -156,11 +156,11 @@ namespace Riskeer.Piping.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => PipingDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -206,11 +206,11 @@ namespace Riskeer.Piping.Service.Test
             var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
+            void Call() => PipingDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -220,11 +220,11 @@ namespace Riskeer.Piping.Service.Test
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
+            void Call() => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("surfaceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
@@ -279,11 +279,11 @@ namespace Riskeer.Piping.Service.Test
         public void RemoveAllSurfaceLine_PipingFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllSurfaceLines(null);
+            void Call() => PipingDataSynchronizationService.RemoveAllSurfaceLines(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -340,11 +340,11 @@ namespace Riskeer.Piping.Service.Test
             PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
+            void Call() => PipingDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -354,11 +354,11 @@ namespace Riskeer.Piping.Service.Test
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
+            void Call() => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("soilModel", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilModel", exception.ParamName);
         }
 
         [Test]
@@ -413,11 +413,11 @@ namespace Riskeer.Piping.Service.Test
         public void RemoveAllStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllStochasticSoilModels(null);
+            void Call() => PipingDataSynchronizationService.RemoveAllStochasticSoilModels(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]

@@ -90,11 +90,11 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             var stochasticProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
-            TestDelegate test = () => stochasticProfile.Update(null);
+            void Call() => stochasticProfile.Update(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("fromProfile", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("fromProfile", exception.ParamName);
         }
 
         [Test]

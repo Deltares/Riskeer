@@ -51,11 +51,11 @@ namespace Riskeer.Piping.Data.Test
         public void Constructor_PipingInputIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestPipingCalculation(null);
+            void Call() => new TestPipingCalculation(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("pipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("pipingInput", exception.ParamName);
         }
 
         [Test]

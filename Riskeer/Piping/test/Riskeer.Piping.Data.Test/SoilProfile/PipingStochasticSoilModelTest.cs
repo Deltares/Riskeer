@@ -165,11 +165,11 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
                                                       });
 
             // Call
-            TestDelegate test = () => model.Update(null);
+            void Call() => model.Update(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("fromModel", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("fromModel", exception.ParamName);
         }
 
         [Test]

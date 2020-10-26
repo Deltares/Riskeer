@@ -74,8 +74,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             void Call() => new PipingFailureMechanismProperties(null, assessmentSection, handler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("data", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -107,8 +107,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("handler", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
             mocks.VerifyAll();
         }
 

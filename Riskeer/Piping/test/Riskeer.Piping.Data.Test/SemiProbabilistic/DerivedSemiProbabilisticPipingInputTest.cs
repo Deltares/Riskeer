@@ -37,11 +37,11 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetPiezometricHeadExit_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(null, RoundedDouble.NaN);
+            void Call() => DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(null, RoundedDouble.NaN);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]

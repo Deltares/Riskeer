@@ -29,14 +29,14 @@ namespace Riskeer.Piping.KernelWrapper.Test
     public class PipingCalculatorInputTest
     {
         [Test]
-        public void Constructor_WithoutConstructionProperies_ThrowsArgumentNullException()
+        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new PipingCalculatorInput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("properties", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("properties", exception.ParamName);
         }
 
         [Test]

@@ -43,11 +43,11 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
+            void Call() => new SemiProbabilisticPipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("wrappedData", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -60,11 +60,11 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), null, assessmentSection);
+            void Call() => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 

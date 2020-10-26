@@ -46,11 +46,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void Constructor_WithoutCalculations_CreatesNewInstance()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModelUpdateDataStrategy(null);
+            void Call() => new PipingStochasticSoilModelUpdateDataStrategy(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -71,11 +71,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingStochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty);
+            void Call() => strategy.UpdateModelWithImportedData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importedDataCollection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
         [Test]
@@ -85,11 +85,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingStochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<PipingStochasticSoilModel>(), null);
+            void Call() => strategy.UpdateModelWithImportedData(new List<PipingStochasticSoilModel>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]

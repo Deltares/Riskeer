@@ -41,8 +41,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                                                          PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("sectionSpecificOutput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionSpecificOutput", exception.ParamName);
         }
 
         [Test]
@@ -53,8 +53,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                                                          null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("profileSpecificOutput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("profileSpecificOutput", exception.ParamName);
         }
 
         [Test]
