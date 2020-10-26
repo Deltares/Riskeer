@@ -902,7 +902,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
 
             SemiProbabilisticPipingCalculationScenario calculationScenario =
-                SemiProbabilisticPipingCalculationTestFactory.CreateRelevantPipingCalculationScenario(section);
+                SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
 
             calculationScenario.IsRelevant = false;
 

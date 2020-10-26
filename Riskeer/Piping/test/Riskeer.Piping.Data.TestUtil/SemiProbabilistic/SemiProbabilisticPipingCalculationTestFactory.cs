@@ -53,20 +53,6 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         }
 
         /// <summary>
-        /// Creates a scenario for which the surface line on the input intersects with <paramref name="section"/> and
-        /// is marked as relevant for the assessment.
-        /// </summary>
-        /// <param name="section">The section for which an intersection will be created.</param>
-        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateRelevantPipingCalculationScenario(FailureMechanismSection section)
-        {
-            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            scenario.IsRelevant = true;
-            return scenario;
-        }
-
-        /// <summary>
         /// Creates a semi-probabilistic calculation for which the surface line on the input intersects with <paramref name="section"/>
         /// and the calculation has not been performed.
         /// </summary>
