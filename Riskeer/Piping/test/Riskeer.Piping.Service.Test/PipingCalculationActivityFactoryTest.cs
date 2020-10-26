@@ -322,7 +322,7 @@ namespace Riskeer.Piping.Service.Test
 
         private static SemiProbabilisticPipingCalculationScenario CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
             return calculation;
         }

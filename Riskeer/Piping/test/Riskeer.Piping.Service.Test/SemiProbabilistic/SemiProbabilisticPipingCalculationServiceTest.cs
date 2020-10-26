@@ -47,12 +47,12 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
     {
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
         private double testSurfaceLineTopLevel;
-        private SemiProbabilisticPipingCalculationScenario testCalculation;
+        private SemiProbabilisticPipingCalculation testCalculation;
 
         [SetUp]
         public void Setup()
         {
-            testCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            testCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
@@ -710,21 +710,21 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
-                IsAquifer = false
+                IsAquifer = false,
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = meanSet
+                               ? random.NextRoundedDouble(1, double.MaxValue)
+                               : RoundedDouble.NaN,
+                    StandardDeviation = deviationSet
+                                            ? random.NextRoundedDouble()
+                                            : RoundedDouble.NaN,
+                    Shift = shiftSet
+                                ? random.NextRoundedDouble()
+                                : RoundedDouble.NaN
+                }
             };
 
-            incompletePipingSoilLayer.BelowPhreaticLevel = new LogNormalDistribution
-            {
-                Mean = meanSet
-                           ? random.NextRoundedDouble(1, double.MaxValue)
-                           : RoundedDouble.NaN,
-                StandardDeviation = deviationSet
-                                        ? random.NextRoundedDouble()
-                                        : RoundedDouble.NaN,
-                Shift = shiftSet
-                            ? random.NextRoundedDouble()
-                            : RoundedDouble.NaN
-            };
 
             var completeLayer = new PipingSoilLayer(5.0)
             {
