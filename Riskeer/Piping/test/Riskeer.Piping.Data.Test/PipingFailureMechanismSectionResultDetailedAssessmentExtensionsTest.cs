@@ -127,9 +127,9 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario1 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario3 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario3 = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenario(section);
 
             pipingCalculationScenario1.IsRelevant = true;
             pipingCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
@@ -194,7 +194,7 @@ namespace Riskeer.Piping.Data.Test
 
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
-                SemiProbabilisticPipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section)
+                SemiProbabilisticPipingCalculationTestFactory.CreateIrrelevantPipingCalculationScenario(section)
             };
 
             // Call
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
@@ -249,8 +249,8 @@ namespace Riskeer.Piping.Data.Test
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario1 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             pipingCalculationScenario1.IsRelevant = true;
             pipingCalculationScenario1.Contribution = (RoundedDouble) contribution1;
@@ -288,8 +288,8 @@ namespace Riskeer.Piping.Data.Test
 
             var failureMechanism = new PipingFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            SemiProbabilisticPipingCalculationScenario scenarioA = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            SemiProbabilisticPipingCalculationScenario scenarioB = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenarioA = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenarioB = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
@@ -340,13 +340,13 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
             pipingCalculationScenario.Contribution = (RoundedDouble) 0.3211;
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
             pipingCalculationScenario2.Contribution = (RoundedDouble) 0.5435;
 
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario3 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario3 = SemiProbabilisticPipingCalculationTestFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
@@ -394,8 +394,8 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
-            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            SemiProbabilisticPipingCalculationScenario calculationScenario2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             // Call
             IEnumerable<SemiProbabilisticPipingCalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
@@ -418,7 +418,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(998, 998)
             });
             var sectionResult = new PipingFailureMechanismSectionResult(section);
-            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
+            SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedPipingCalculationScenario(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call

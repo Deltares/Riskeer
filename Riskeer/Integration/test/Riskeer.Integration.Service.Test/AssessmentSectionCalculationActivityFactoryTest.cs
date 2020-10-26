@@ -314,7 +314,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
                                                                           HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
             pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);

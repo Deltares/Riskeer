@@ -68,7 +68,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -89,7 +89,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
@@ -323,7 +323,7 @@ namespace Riskeer.Piping.Service.Test
 
         private static SemiProbabilisticPipingCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
             return calculation;
         }

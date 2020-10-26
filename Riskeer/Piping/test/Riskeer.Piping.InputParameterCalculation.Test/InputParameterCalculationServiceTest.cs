@@ -47,7 +47,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
-            SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             // Make invalid by having surface line partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
@@ -194,7 +194,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
             var generalInput = new GeneralPipingInput();
 
@@ -228,7 +228,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())

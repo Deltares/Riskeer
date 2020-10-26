@@ -31,9 +31,9 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
 {
     /// <summary>
-    /// Helper class for creating instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>.
+    /// Helper class for creating instances of <see cref="SemiProbabilisticPipingCalculation"/>.
     /// </summary>
-    public static class SemiProbabilisticPipingCalculationScenarioTestFactory
+    public static class SemiProbabilisticPipingCalculationTestFactory
     {
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
