@@ -66,7 +66,6 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
@@ -523,7 +522,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddMacroStabilityInwardsCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
@@ -691,10 +690,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             });
         }
 
-        private static void AddPipingCalculationScenario(AssessmentSection assessmentSection,
-                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
             pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
             pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
