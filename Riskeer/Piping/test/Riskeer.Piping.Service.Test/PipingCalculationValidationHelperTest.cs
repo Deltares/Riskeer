@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Service.Test
         [SetUp]
         public void SetUp()
         {
-            calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationWithValidInput(
+            calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(
                 new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
@@ -64,10 +64,10 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             calculation.InputParameters.SurfaceLine = null;
-            
+
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
-            
+
             // Assert
             CollectionAssert.IsEmpty(messages);
         }
@@ -77,10 +77,10 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             calculation.InputParameters.StochasticSoilProfile = null;
-            
+
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
-            
+
             // Assert
             CollectionAssert.IsEmpty(messages);
         }
@@ -90,14 +90,14 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
-            
+
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
-            
+
             // Assert
             CollectionAssert.IsEmpty(messages);
         }
-        
+
         [Test]
         public void GetValidationWarnings_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
         {
@@ -130,8 +130,8 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.AreEqual(2, messages.Count());
-                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", messages.ElementAt(0));
-                Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", messages.ElementAt(1));
+            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", messages.ElementAt(0));
+            Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", messages.ElementAt(1));
         }
 
         [Test]
@@ -238,7 +238,7 @@ namespace Riskeer.Piping.Service.Test
             const string expectedMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
             Assert.AreEqual(expectedMessage, messages.ElementAt(0));
         }
-        
+
         [Test]
         [TestCase(6.2e-5)]
         [TestCase(5.1e-3)]
@@ -345,7 +345,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                           new GeneralPipingInput());
+                                                                                                 new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(2, messages.Count());
@@ -403,7 +403,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                           new GeneralPipingInput());
+                                                                                                 new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -460,7 +460,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                           new GeneralPipingInput());
+                                                                                                 new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -521,7 +521,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                           new GeneralPipingInput());
+                                                                                                 new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -568,7 +568,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                           new GeneralPipingInput());
+                                                                                                 new GeneralPipingInput());
 
             // Assert
             Assert.AreEqual(1, messages.Count());

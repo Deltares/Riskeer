@@ -114,38 +114,6 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a calculation with valid input.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <param name="hasOutput">Indicator whether the calculation has output.</param>
-        /// <returns>A new <see cref="IPipingCalculation{PipingInput}"/>.</returns>
-        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
-        /// (for instance when it comes to the presence of a normative assessment level).</remarks>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static PipingCalculation<PipingInput> CreatePipingCalculationWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool hasOutput = false)
-        {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
-            return new TestPipingCalculation(new TestPipingInput
-            {
-                DampingFactorExit =
-                {
-                    Mean = (RoundedDouble) 1.0
-                },
-                PhreaticLevelExit =
-                {
-                    Mean = (RoundedDouble) 2.0
-                },
-                SurfaceLine = GetSurfaceLine(),
-                StochasticSoilProfile = GetStochasticSoilProfile(),
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
-            }, hasOutput);
-        }
-
-        /// <summary>
         /// Creates a scenario with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
