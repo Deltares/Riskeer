@@ -24,9 +24,11 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -67,7 +69,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         #region Validate
-        
+
         [Test]
         public void Validate_CalculationNull_ThrowsArgumentNullException()
         {
@@ -990,9 +992,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             });
             mocks.VerifyAll();
         }
-        
+
         #endregion
-        
+
         #region Calculate
 
         [Test]
@@ -1036,11 +1038,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
-            
+
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -1059,7 +1061,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 // Call
                 void Call() => new ProbabilisticPipingCalculationService().Calculate(
                     calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
-                
+
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
                 {
@@ -1073,7 +1075,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
             }
-            
+
             mocks.VerifyAll();
         }
 
@@ -1084,11 +1086,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
-            
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
@@ -1106,26 +1108,26 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 // Call
                 new ProbabilisticPipingCalculationService().Calculate(
                     calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
-                
+
                 // Assert
                 PartialProbabilisticPipingOutput profileSpecificOutput = calculation.Output.ProfileSpecificOutput;
                 PartialProbabilisticPipingOutput sectionSpecificOutput = calculation.Output.SectionSpecificOutput;
                 Assert.IsFalse(double.IsNaN(profileSpecificOutput.Reliability));
                 Assert.IsFalse(double.IsNaN(sectionSpecificOutput.Reliability));
-            
+
                 Assert.AreEqual(calculateIllustrationPoints, profileSpecificOutput.HasGeneralResult);
                 Assert.AreEqual(calculateIllustrationPoints, sectionSpecificOutput.HasGeneralResult);
             }
-            
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
@@ -1134,7 +1136,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             {
                 EndInFailure = true
             };
-            
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
@@ -1149,7 +1151,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var exceptionThrown = false;
-                
+
                 // Call
                 void Call()
                 {
@@ -1172,21 +1174,22 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
-                                    $"Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
@@ -1196,7 +1199,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 EndInFailure = true,
                 LastErrorFileContent = "An error occurred"
             };
-            
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
@@ -1211,7 +1214,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var exceptionThrown = false;
-                
+
                 // Call
                 void Call()
                 {
@@ -1235,21 +1238,22 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. " +
                                     $"Bekijk het foutrapport door op details te klikken.\r\n{profileSpecificCalculator.LastErrorFileContent}", msgs[1]);
                     Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
-                                    $"Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
@@ -1259,7 +1263,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             {
                 EndInFailure = true
             };
-            
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
@@ -1274,7 +1278,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var exceptionThrown = false;
-                
+
                 // Call
                 void Call()
                 {
@@ -1305,15 +1309,16 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
@@ -1324,7 +1329,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 EndInFailure = true,
                 LastErrorFileContent = "An error occurred"
             };
-            
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
@@ -1339,7 +1344,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var exceptionThrown = false;
-                
+
                 // Call
                 void Call()
                 {
@@ -1371,6 +1376,476 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButProfileSpecificGeneralResultNull_IllustrationPointsNotSetAndLogs()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            const string parserError = "Parser error message";
+            var mocks = new MockRepository();
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserError
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual(parserError, msgs[2]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputCalculateProfileSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            const string parserError = "Parser error message";
+            var mocks = new MockRepository();
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserError
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = false;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButSectionSpecificGeneralResultNull_IllustrationPointsNotSetAndLogs()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            const string parserError = "Parser error message";
+            var mocks = new MockRepository();
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserError
+            };
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    Assert.AreEqual(parserError, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsTrue(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputCalculateSectionSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            const string parserError = "Parser error message";
+            var mocks = new MockRepository();
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserError
+            };
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = false;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButProfileSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[2]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[2].Item3);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ProfileSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculation.Name} (doorsnede): " +
+                                    "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[2]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButSectionSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+            };
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[3].Item3);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsTrue(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_SectionSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
+            };
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator);
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                    Assert.AreEqual(5, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculation.Name} (vak): " +
+                                    "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsTrue(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -1381,7 +1856,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                                                             false,
                                                             string.Empty);
         }
-        
+
         #endregion
     }
 }
