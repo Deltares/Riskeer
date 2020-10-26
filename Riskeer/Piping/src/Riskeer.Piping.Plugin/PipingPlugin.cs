@@ -571,12 +571,12 @@ namespace Riskeer.Piping.Plugin
                 return ReferenceEquals(view.Data, semiProbabilisticPipingCalculationScenarioContext.WrappedData);
             }
 
-            IEnumerable<IPipingCalculation<PipingInput>> calculations = null;
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculations = null;
 
             if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
             {
                 calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                            .OfType<IPipingCalculation<PipingInput>>();
+                                                            .OfType<IPipingCalculationScenario<PipingInput>>();
             }
 
             var failureMechanism = o as PipingFailureMechanism;
@@ -596,7 +596,7 @@ namespace Riskeer.Piping.Plugin
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
-                                               .OfType<IPipingCalculation<PipingInput>>();
+                                               .OfType<IPipingCalculationScenario<PipingInput>>();
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
@@ -742,7 +742,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput>>(),
+            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculationScenario<PipingInput>>(),
                         context.WrappedData.GeneralInput,
                         context.Parent);
         }
@@ -811,9 +811,9 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem addSemiProbabilisticCalculationItem = CreateAddSemiProbabilisticCalculationItem(nodeData);
             StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
-            IPipingCalculation<PipingInput>[] calculations = nodeData.WrappedData.GetCalculations()
-                                                                     .OfType<IPipingCalculation<PipingInput>>()
-                                                                     .ToArray();
+            IPipingCalculationScenario<PipingInput>[] calculations = nodeData.WrappedData.GetCalculations()
+                                                                             .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                             .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
             if (!isNestedGroup)
@@ -876,15 +876,15 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<IPipingCalculation<PipingInput>> calculations)
+        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<IPipingCalculationScenario<PipingInput>> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
-            IPipingCalculation<PipingInput>[] calculationsToUpdate = calculations
-                                                                     .Where(calc => calc.InputParameters.SurfaceLine != null
-                                                                                    && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                                     .ToArray();
+            IPipingCalculationScenario<PipingInput>[] calculationsToUpdate = calculations
+                                                                             .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                                            && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                                             .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -902,12 +902,12 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<IPipingCalculation<PipingInput>> calculations)
+        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<IPipingCalculationScenario<PipingInput>> calculations)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
-                foreach (IPipingCalculation<PipingInput> calculation in calculations)
+                foreach (IPipingCalculationScenario<PipingInput> calculation in calculations)
                 {
                     UpdateSurfaceLineDependentData(calculation);
                 }
@@ -994,7 +994,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput>>(),
+            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculationScenario<PipingInput>>(),
                         context.FailureMechanism.GeneralInput,
                         context.AssessmentSection);
         }
@@ -1179,7 +1179,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculation<PipingInput> calculation)
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculationScenario<PipingInput> calculation)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
@@ -1204,7 +1204,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput> calculation)
+        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculationScenario<PipingInput> calculation)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
@@ -1216,7 +1216,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculation<PipingInput> calculation)
+        private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculationScenario<PipingInput> calculation)
         {
             if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
             {
@@ -1228,7 +1228,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput>> pipingCalculations,
+        private static void ValidateAll(IEnumerable<IPipingCalculationScenario<PipingInput>> pipingCalculations,
                                         GeneralPipingInput generalPipingInput,
                                         IAssessmentSection assessmentSection)
         {
@@ -1240,7 +1240,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private bool VerifyEntryAndExitPointUpdates(IEnumerable<IPipingCalculation<PipingInput>> calculations, string query)
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<IPipingCalculationScenario<PipingInput>> calculations, string query)
         {
             var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
