@@ -58,19 +58,33 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public static SemiProbabilisticPipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
         {
-            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation(section);
-            scenario.IsRelevant = false;
-            return scenario;
+            return CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
         }
-
+        
         /// <summary>
         /// Creates a scenario for which the surface line on the input intersects with <paramref name="section"/> and
-        /// the calculation has not been performed.
+        /// is marked as relevant for the assessment.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateNotCalculatedCalculation(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreateRelevantPipingCalculationScenario(FailureMechanismSection section)
+        {
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            scenario.IsRelevant = true;
+            return scenario;
+        }
+
+        /// <summary>
+        /// Creates a semi-probabilistic calculation for which the surface line on the input intersects with <paramref name="section"/>
+        /// and the calculation has not been performed.
+        /// </summary>
+        /// <typeparam name="T">The type of semi-probabilistic calculation to create.</typeparam>
+        /// <param name="section">The section for which an intersection will be created.</param>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
+        public static T CreateNotCalculatedCalculation<T>(FailureMechanismSection section)
+            where T : SemiProbabilisticPipingCalculation, new()
         {
             if (section == null)
             {
@@ -86,24 +100,24 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
             });
             pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
 
-            var scenario = new SemiProbabilisticPipingCalculationScenario
+            return new T
             {
-                IsRelevant = true,
                 InputParameters =
                 {
                     SurfaceLine = pipingSurfaceLine
                 }
             };
-            return scenario;
         }
 
         /// <summary>
-        /// Creates a scenario with invalid input.
+        /// Creates a semi-probabilistic calculation with invalid input.
         /// </summary>
-        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
-        public static SemiProbabilisticPipingCalculationScenario CreateCalculationWithInvalidInput()
+        /// <typeparam name="T">The type of semi-probabilistic calculation to create.</typeparam>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
+        public static T CreateCalculationWithInvalidInput<T>()
+            where T : SemiProbabilisticPipingCalculation, new()
         {
-            return new SemiProbabilisticPipingCalculationScenario();
+            return new T();
         }
 
         /// <summary>
