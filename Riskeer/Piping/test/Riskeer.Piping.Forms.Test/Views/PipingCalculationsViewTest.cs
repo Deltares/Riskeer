@@ -914,8 +914,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             if (generateProbabilistic)
             {
-                ProbabilisticPipingCalculation[] probabilisticPipingCalculationScenarios =
-                    addedGroup.Children.OfType<ProbabilisticPipingCalculation>().ToArray();
+                ProbabilisticPipingCalculationScenario[] probabilisticPipingCalculationScenarios =
+                    addedGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
 
                 Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
                 Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);

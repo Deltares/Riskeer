@@ -940,7 +940,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
         public void GivenCalculationGroupWithProbabilisticCalculation_WhenClickOnAddSemiProbabilisticCalculationItem_ThenCalculationAddedWithSameName()
         {
@@ -1053,7 +1053,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
         public void GivenCalculationGroupWithSemiProbabilisticCalculation_WhenClickOnAddProbabilisticCalculationItem_ThenCalculationAddedWithSameName()
         {
@@ -1555,8 +1555,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                     if (generateProbabilistic)
                     {
-                        ProbabilisticPipingCalculation[] probabilisticPipingCalculationScenarios =
-                            addedGroup.Children.OfType<ProbabilisticPipingCalculation>().ToArray();
+                        ProbabilisticPipingCalculationScenario[] probabilisticPipingCalculationScenarios =
+                            addedGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
 
                         Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
                         Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
