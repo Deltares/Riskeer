@@ -107,21 +107,23 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         }
 
         /// <summary>
-        /// Creates a scenario with valid input.
+        /// Creates a semi-probabilistic calculation with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
+        /// <typeparam name="T">The type of semi-probabilistic calculation to create.</typeparam>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
         /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
         /// (for instance when it comes to the presence of a normative assessment level).</remarks>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateCalculationWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static T CreateCalculationWithValidInput<T>(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            where T : SemiProbabilisticPipingCalculation, new()
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            return new SemiProbabilisticPipingCalculationScenario
+            return new T
             {
                 InputParameters =
                 {
