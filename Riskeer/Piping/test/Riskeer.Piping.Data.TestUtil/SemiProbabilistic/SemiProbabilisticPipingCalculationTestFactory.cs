@@ -61,7 +61,9 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public static SemiProbabilisticPipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
         {
-            return CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            scenario.IsRelevant = false;
+            return scenario;
         }
 
         /// <summary>
