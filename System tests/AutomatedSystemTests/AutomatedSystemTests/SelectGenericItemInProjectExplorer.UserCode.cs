@@ -53,11 +53,13 @@ namespace AutomatedSystemTests
         				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
         			}
         			stepChild.Focus();
-        			stepChild.Select();
         			if (i != stepsPathItem.Count - 1)
         				{
         				stepChild.Expand();
         				}
+        			else {
+        				stepChild.Click();
+        			}
         			// Update the children
         			children = stepChild.Children;
         			}

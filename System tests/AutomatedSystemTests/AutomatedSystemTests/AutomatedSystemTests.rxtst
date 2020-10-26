@@ -13833,16 +13833,16 @@
 							</testmodule>
 						</setup>
 						<smartfoldernode
+						id="45d2f6ef-eb2f-4b9d-a62f-c65e74e99199"
+						name="OpenProject">
+							<testmodule
+							id="44fb608c-ed2e-4c8b-bd2a-d3d3cc587012"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
 						id="37c431a5-f03b-4cc9-a737-a950832cd9bc"
 						name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
-							<smartfoldernode
-							id="45d2f6ef-eb2f-4b9d-a62f-c65e74e99199"
-							name="OpenProject">
-								<testmodule
-								id="44fb608c-ed2e-4c8b-bd2a-d3d3cc587012"
-								name="OpenProject">
-								</testmodule>
-							</smartfoldernode>
 							<smartfoldernode
 							id="0c083a22-60f2-4670-ae4c-5c16796e6423"
 							name="SelectCaseToRun">
