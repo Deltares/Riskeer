@@ -640,7 +640,8 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, SemiProbabilisticPipingCalculation calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection,
+                                                                 SemiProbabilisticPipingCalculationScenario calculation)
         {
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
@@ -1045,7 +1046,7 @@ namespace Riskeer.Piping.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            SemiProbabilisticPipingCalculation calculation = nodeData.WrappedData;
+            SemiProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
@@ -1086,7 +1087,8 @@ namespace Riskeer.Piping.Plugin
                                                                GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
+        private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculationScenario calculation,
+                                                SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
@@ -1230,7 +1232,7 @@ namespace Riskeer.Piping.Plugin
                                         GeneralPipingInput generalPipingInput,
                                         IAssessmentSection assessmentSection)
         {
-            foreach (SemiProbabilisticPipingCalculation calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculation>())
+            foreach (SemiProbabilisticPipingCalculationScenario calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculationScenario>())
             {
                 SemiProbabilisticPipingCalculationService.Validate(calculation,
                                                                    generalPipingInput,

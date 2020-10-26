@@ -25,7 +25,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
     /// This class represents the placeholder for a <see cref="SemiProbabilisticPipingOutput"/> for a
-    /// <see cref="SemiProbabilisticPipingCalculation"/> that hasn't been calculated yet.
+    /// <see cref="SemiProbabilisticPipingCalculationScenario"/> that hasn't been calculated yet.
     /// </summary>
     public class EmptySemiProbabilisticPipingOutput {}
 }
