@@ -57,6 +57,51 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
+
+        [Test]
+        public void Validate_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
+            // Call
+            void Call() => ProbabilisticPipingCalculationService.Validate(null, new GeneralPipingInput(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
+            // Call
+            void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(), new GeneralPipingInput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
         
         [Test]
         public void Validate_Always_LogStartAndEndOfValidatingInputs()

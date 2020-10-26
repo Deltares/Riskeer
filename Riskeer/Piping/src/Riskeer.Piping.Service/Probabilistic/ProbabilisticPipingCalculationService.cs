@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
@@ -44,8 +45,24 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from used during the validation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static bool Validate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             CalculationServiceHelper.LogValidationBegin();
             
             CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
