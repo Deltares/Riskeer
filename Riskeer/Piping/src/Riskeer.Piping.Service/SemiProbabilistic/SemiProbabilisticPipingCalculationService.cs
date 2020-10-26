@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> for which to validate the values.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from use during the validation.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from used during the validation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
@@ -153,19 +153,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             var validationResults = new List<string>();
 
             validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
-
-            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(input);
-            validationResults.AddRange(coreValidationError);
-
-            if (double.IsNaN(input.EntryPointL))
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
-            }
-
-            if (!coreValidationError.Any())
-            {
-                validationResults.AddRange(ValidateSoilLayers(input, generalInput));
-            }
+            validationResults.AddRange(PipingCalculationValidationHelper.ValidateInput(input, generalInput));
 
             return validationResults;
         }
@@ -204,91 +192,6 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 if (double.IsNaN(normativeAssessmentLevel))
                 {
                     validationResult.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
-                }
-            }
-
-            return validationResult;
-        }
-
-        private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput input)
-        {
-            var validationResults = new List<string>();
-            if (input.SurfaceLine == null)
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
-            }
-
-            if (input.StochasticSoilProfile == null)
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
-            }
-
-            if (double.IsNaN(input.ExitPointL))
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
-            }
-
-            return validationResults;
-        }
-
-        private static IEnumerable<string> ValidateSoilLayers(PipingInput input, GeneralPipingInput generalInput)
-        {
-            var validationResults = new List<string>();
-            if (double.IsNaN(DerivedPipingInput.GetThicknessAquiferLayer(input).Mean))
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
-            }
-
-            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
-            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
-
-            validationResults.AddRange(ValidateAquiferLayers(input, pipingSoilProfile, surfaceLevel));
-            validationResults.AddRange(ValidateCoverageLayers(input, generalInput, pipingSoilProfile, surfaceLevel));
-            return validationResults;
-        }
-
-        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
-        {
-            var validationResult = new List<string>();
-
-            bool hasConsecutiveAquiferLayers = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).Any();
-            if (!hasConsecutiveAquiferLayers)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine);
-            }
-            else
-            {
-                if (double.IsNaN(PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue()))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
-                }
-
-                if (double.IsNaN(PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue()))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
-                }
-            }
-
-            return validationResult;
-        }
-
-        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, GeneralPipingInput generalInput, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
-        {
-            var validationResult = new List<string>();
-
-            bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
-            if (hasConsecutiveCoverageLayers)
-            {
-                RoundedDouble saturatedVolumicWeightOfCoverageLayer =
-                    PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
-
-                if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
-                }
-                else if (saturatedVolumicWeightOfCoverageLayer < generalInput.WaterVolumetricWeight)
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight);
                 }
             }
 

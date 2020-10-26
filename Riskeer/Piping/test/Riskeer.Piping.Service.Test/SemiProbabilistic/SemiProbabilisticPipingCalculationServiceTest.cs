@@ -203,83 +203,6 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_WithoutEntryPointL_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            testCalculation.InputParameters.EntryPointL = RoundedDouble.NaN;
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_WithoutExitPointL_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            testCalculation.InputParameters.ExitPointL = RoundedDouble.NaN;
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_WithoutSurfaceLine_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            testCalculation.InputParameters.SurfaceLine = null;
-            testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
-            testCalculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void Validate_WithSurfaceLineOneOutOfFourDitchPoints_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -308,31 +231,6 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 string expected = $"De sloot in de hoogtegeometrie {surfaceLineName} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.";
                 Assert.AreEqual(expected, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_WithoutStochasticSoilProfile_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            testCalculation.InputParameters.StochasticSoilProfile = null;
-
-            var isValid = false;
-
-            // Call
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
