@@ -31,13 +31,13 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingCalculationScenarioExtensionsTest
+    public class PipingCalculationExtensionsTest
     {
         [Test]
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new TestPipingCalculationScenario();
+            var calculation = new TestPipingCalculation();
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculationScenario
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculationScenario
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
@@ -141,7 +141,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new TestPipingCalculationScenario
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
