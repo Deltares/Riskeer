@@ -35,7 +35,35 @@ namespace Riskeer.Piping.Service
     public static class PipingCalculationValidationHelper
     {
         /// <summary>
-        /// Validates the given <paramref name="input"/>.
+        /// Gets validation warnings for the given <paramref name="input"/>. 
+        /// </summary>
+        /// <param name="input">The <see cref="PipingInput"/> to get the warning for.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of validation warnings.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        public static IEnumerable<string> GetValidationWarnings(PipingInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            var warnings = new List<string>();
+
+            if (IsSurfaceLineProfileDefinitionComplete(input))
+            {
+                double surfaceLineLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
+
+                warnings.AddRange(GetMultipleAquiferLayersWarning(input, surfaceLineLevel));
+                warnings.AddRange(GetMultipleCoverageLayersWarning(input, surfaceLineLevel));
+                warnings.AddRange(GetDiameter70Warnings(input));
+                warnings.AddRange(GetThicknessCoverageLayerWarnings(input));
+            }
+
+            return warnings;
+        }
+        
+        /// <summary>
+        /// Gets validation errors for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="PipingInput"/> to validate.</param>
         /// <param name="generalInput">The <see cref="GeneralPipingInput"/> used
@@ -70,6 +98,74 @@ namespace Riskeer.Piping.Service
             }
 
             return validationResults;
+        }
+
+        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput input)
+        {
+            var warnings = new List<string>();
+
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
+
+            bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
+            if (!hasConsecutiveCoverageLayers)
+            {
+                warnings.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
+            }
+
+            if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(input).Mean))
+            {
+                warnings.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+            }
+
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetDiameter70Warnings(PipingInput input)
+        {
+            var warnings = new List<string>();
+
+            RoundedDouble diameter70Value = PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue();
+
+            if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
+            {
+                warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
+            }
+
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetMultipleCoverageLayersWarning(PipingInput input, double surfaceLineLevel)
+        {
+            var warnings = new List<string>();
+
+            bool hasMoreThanOneCoverageLayer = input.StochasticSoilProfile.SoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            if (hasMoreThanOneCoverageLayer)
+            {
+                warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
+            }
+
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetMultipleAquiferLayersWarning(PipingInput input, double surfaceLineLevel)
+        {
+            var warnings = new List<string>();
+
+            bool hasMoreThanOneAquiferLayer = input.StochasticSoilProfile.SoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            if (hasMoreThanOneAquiferLayer)
+            {
+                warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
+            }
+
+            return warnings;
+        }
+
+        private static bool IsSurfaceLineProfileDefinitionComplete(PipingInput input)
+        {
+            return input.SurfaceLine != null &&
+                   input.StochasticSoilProfile != null &&
+                   !double.IsNaN(input.ExitPointL);
         }
 
         private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput input)

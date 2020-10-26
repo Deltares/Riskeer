@@ -49,6 +49,247 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
+        public void GetValidationWarnings_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationValidationHelper.GetValidationWarnings(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void GetValidationWarnings_WithoutSurfaceLine_ReturnsNoMessages()
+        {
+            // Setup
+            calculation.InputParameters.SurfaceLine = null;
+            
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+            
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void GetValidationWarnings_WithoutStochasticSoilProfile_ReturnsNoMessages()
+        {
+            // Setup
+            calculation.InputParameters.StochasticSoilProfile = null;
+            
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+            
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void GetValidationWarnings_WithoutExitPointL_ReturnsNoMessages()
+        {
+            // Setup
+            calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
+            
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+            
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+        
+        [Test]
+        public void GetValidationWarnings_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
+        {
+            // Setup
+            var aquiferLayer = new PipingSoilLayer(10.56)
+            {
+                IsAquifer = true,
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1e-4,
+                    CoefficientOfVariation = (RoundedDouble) 0
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.5
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    aquiferLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D);
+
+            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
+
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+
+            // Assert
+            Assert.AreEqual(2, messages.Count());
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", messages.ElementAt(0));
+                Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", messages.ElementAt(1));
+        }
+
+        [Test]
+        public void GetValidationWarnings_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
+        {
+            // Setup
+            var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
+            {
+                IsAquifer = false
+            };
+            var bottomAquiferLayer = new PipingSoilLayer(11.0)
+            {
+                IsAquifer = true,
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1e-4,
+                    CoefficientOfVariation = (RoundedDouble) 0
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.5
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    coverageLayerAboveSurfaceLine,
+                                                    bottomAquiferLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D);
+
+            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
+
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+
+            // Assert
+            Assert.AreEqual(2, messages.Count());
+            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", messages.ElementAt(0));
+            Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", messages.ElementAt(1));
+        }
+
+        [Test]
+        public void GetValidationWarnings_MultipleCoverageLayer_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            const double belowPhreaticLevelDeviation = 0.5;
+            const int belowPhreaticLevelShift = 1;
+            const double belowPhreaticLevelMeanBase = 15.0;
+
+            var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            {
+                IsAquifer = false,
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = (RoundedDouble) (belowPhreaticLevelMeanBase + belowPhreaticLevelShift + random.NextDouble()),
+                    StandardDeviation = (RoundedDouble) belowPhreaticLevelDeviation,
+                    Shift = (RoundedDouble) belowPhreaticLevelShift
+                }
+            };
+            var middleCoverageLayer = new PipingSoilLayer(8.5)
+            {
+                IsAquifer = false,
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = (RoundedDouble) (belowPhreaticLevelMeanBase + belowPhreaticLevelShift + random.NextDouble()),
+                    StandardDeviation = (RoundedDouble) belowPhreaticLevelDeviation,
+                    Shift = (RoundedDouble) belowPhreaticLevelShift
+                }
+            };
+            var bottomAquiferLayer = new PipingSoilLayer(5.0)
+            {
+                IsAquifer = true,
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.5
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1e-4,
+                    CoefficientOfVariation = (RoundedDouble) 0
+                }
+            };
+
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    topCoverageLayer,
+                                                    middleCoverageLayer,
+                                                    bottomAquiferLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D);
+
+            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
+
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+
+            // Assert
+            Assert.AreEqual(1, messages.Count());
+            const string expectedMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
+            Assert.AreEqual(expectedMessage, messages.ElementAt(0));
+        }
+        
+        [Test]
+        [TestCase(6.2e-5)]
+        [TestCase(5.1e-3)]
+        public void GetValidationWarnings_InvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
+        {
+            // Setup
+            var random = new Random(21);
+            var coverageLayerInvalidD70 = new PipingSoilLayer(5.0)
+            {
+                IsAquifer = true,
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.5
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) diameter70Value,
+                    CoefficientOfVariation = (RoundedDouble) 0
+                }
+            };
+            var validLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            {
+                IsAquifer = false,
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(15.0, 999.999),
+                    StandardDeviation = random.NextRoundedDouble(1e-6, 5.0),
+                    Shift = random.NextRoundedDouble(1e-6, 10)
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    validLayer,
+                                                    coverageLayerInvalidD70
+                                                },
+                                                SoilProfileType.SoilProfile1D);
+
+            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
+
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+
+            // Assert
+            Assert.AreEqual(1, messages.Count());
+            var expectedMessage = $"Rekenwaarde voor d70 ({new RoundedDouble(6, diameter70Value)} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.";
+            Assert.AreEqual(expectedMessage, messages.ElementAt(0));
+        }
+
+        [Test]
         public void GetValidationErrors_InputNull_ThrowsArgumentNullException()
         {
             // Call
