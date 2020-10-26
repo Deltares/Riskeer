@@ -1317,7 +1317,7 @@ gg==
 		id="6992b395-923d-4913-be11-dc9d7fa075dc"
 		isrooted="True"
 		name="ActivityProgressDialog"
-		refimgid="a2fbb6e9-16e1-4504-9257-bb6d67b367c8"
+		refimgid="0c9fa366-3792-4ebc-bea4-66980cf5fc8b"
 		refpath="/form[@controlname='ActivityProgressDialog']"
 		searchtimeout="30000ms"
 		usecache="True">

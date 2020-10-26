@@ -24,29 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The WaitUntilAllCalculationsHaveBeenCarriedOut recording.
+    ///The CreateScreenShotProgressDialog recording.
     /// </summary>
-    [TestModule("ada8c353-8b24-47e4-b6bf-adfb36229783", ModuleType.Recording, 1)]
-    public partial class WaitUntilAllCalculationsHaveBeenCarriedOut : ITestModule
+    [TestModule("81428c82-c89c-48af-ab82-91a6bcfc44f8", ModuleType.Recording, 1)]
+    public partial class CreateScreenShotProgressDialog : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static WaitUntilAllCalculationsHaveBeenCarriedOut instance = new WaitUntilAllCalculationsHaveBeenCarriedOut();
+        static CreateScreenShotProgressDialog instance = new CreateScreenShotProgressDialog();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public WaitUntilAllCalculationsHaveBeenCarriedOut()
+        public CreateScreenShotProgressDialog()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static WaitUntilAllCalculationsHaveBeenCarriedOut Instance
+        public static CreateScreenShotProgressDialog Instance
         {
             get { return instance; }
         }
@@ -79,16 +79,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
-            Delay.Duration(500, false);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 2h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(7200000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(7200000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
             
         }
 

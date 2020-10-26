@@ -24,34 +24,60 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The WaitUntilAllCalculationsHaveBeenCarriedOut recording.
+    ///The ValidateDoubleValueparameterInPropertiesPanelGivenPath recording.
     /// </summary>
-    [TestModule("ada8c353-8b24-47e4-b6bf-adfb36229783", ModuleType.Recording, 1)]
-    public partial class WaitUntilAllCalculationsHaveBeenCarriedOut : ITestModule
+    [TestModule("3314c841-2400-467a-8ba2-57b55ddfeec2", ModuleType.Recording, 1)]
+    public partial class ValidateDoubleValueparameterInPropertiesPanelGivenPath : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static WaitUntilAllCalculationsHaveBeenCarriedOut instance = new WaitUntilAllCalculationsHaveBeenCarriedOut();
+        static ValidateDoubleValueparameterInPropertiesPanelGivenPath instance = new ValidateDoubleValueparameterInPropertiesPanelGivenPath();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public WaitUntilAllCalculationsHaveBeenCarriedOut()
+        public ValidateDoubleValueparameterInPropertiesPanelGivenPath()
         {
+            expectedValueString = "";
+            pathToRowInPropertiesPanel = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static WaitUntilAllCalculationsHaveBeenCarriedOut Instance
+        public static ValidateDoubleValueparameterInPropertiesPanelGivenPath Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _expectedValueString;
+
+        /// <summary>
+        /// Gets or sets the value of variable expectedValueString.
+        /// </summary>
+        [TestVariable("0675c45c-e880-46f2-98bd-e4e10289d70f")]
+        public string expectedValueString
+        {
+            get { return _expectedValueString; }
+            set { _expectedValueString = value; }
+        }
+
+        string _pathToRowInPropertiesPanel;
+
+        /// <summary>
+        /// Gets or sets the value of variable pathToRowInPropertiesPanel.
+        /// </summary>
+        [TestVariable("d40bcbfe-ffe8-47cc-969c-7d0fac936b80")]
+        public string pathToRowInPropertiesPanel
+        {
+            get { return _pathToRowInPropertiesPanel; }
+            set { _pathToRowInPropertiesPanel = value; }
+        }
 
 #endregion
 
@@ -79,16 +105,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
-            Delay.Duration(500, false);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 2h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(7200000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(7200000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
+            ValidateValueDoubleOfParameterInPropertiesPanelGivenPath(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self, pathToRowInPropertiesPanel);
+            Delay.Milliseconds(0);
             
         }
 

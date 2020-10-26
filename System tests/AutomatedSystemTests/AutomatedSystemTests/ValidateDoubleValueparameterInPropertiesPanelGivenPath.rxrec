@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+id="3314c841-2400-467a-8ba2-57b55ddfeec2"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,21 +19,25 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectGenericItemInProjectExplorer"
+	classname="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
 		<var
-		id="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-		name="pathToItemInProjectExplorer">
+		id="0675c45c-e880-46f2-98bd-e4e10289d70f"
+		name="expectedValueString">
+		</var>
+		<var
+		id="d40bcbfe-ffe8-47cc-969c-7d0fac936b80"
+		name="pathToRowInPropertiesPanel">
 		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="SelectGenericItemInProjectExplorer"
+		classname="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="SelectTreeItemInProjectExplorerGivenPath"
+		methodname="ValidateValueDoubleOfParameterInPropertiesPanelGivenPath"
 		namespace="AutomatedSystemTests"
 		optional="False">
 			<comment>
@@ -41,32 +45,32 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<arguments
-			id="3ea39130-f5e4-4013-9516-70418c452fc7">
+			id="20f10f0e-4eb2-4846-af75-92d9c272ce1c">
 				<argument
-				argname="pathItem"
-				id="c1484eaf-e453-4df9-9101-b98b5efd887d"
-				variable="pathToItemInProjectExplorer">
+				argname="propertiesPanelAdapter"
+				id="16755ce3-9f6f-40c0-8951-29879b1a18b6">
+					<argvaluetype>
+						Ranorex.Adapter, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="pathToRowInPropertiesPanel"
+				id="1803d7e6-333e-439b-9b2f-3cc19e5d985d"
+				variable="pathToRowInPropertiesPanel">
 					<argvaluetype>
 						System.String
 					</argvaluetype>
 					<argvalue>
 					</argvalue>
-				</argument>
-				<argument
-				argname="rootNodeInfo"
-				id="73bae8b5-c744-48e0-8e4f-962b30f4a509">
-					<argvaluetype>
-						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
-					</argvaluetype>
-					<argvalue>
-					</argvalue>
-					<info
-					id="b466899e-e209-4d83-a46c-0533f333cea5"
-					sourcename="ItemRecorderEditor">
-						<path>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
-						</path>
-					</info>
 				</argument>
 			</arguments>
 		</userrecorditem>
@@ -86,7 +90,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectGenericItemInProjectExplorer.UserCode.cs
+		ValidateDoubleValueparameterInPropertiesPanelGivenPath.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

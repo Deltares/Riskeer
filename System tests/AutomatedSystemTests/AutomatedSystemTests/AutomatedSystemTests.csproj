@@ -201,6 +201,18 @@
       <UserCode>true</UserCode>
       <id>92d5b475-ba4e-49fb-b139-178afd9897fb</id>
     </Compile>
+    <Compile Include="CreateScreenShotProgressDialog.cs">
+      <BoundTo>4600c9f1-66ba-48e7-983e-0edea3d9a4a1</BoundTo>
+      <DependentUpon>CreateScreenShotProgressDialog.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1c0d98f7-d578-488b-bd10-76abb3170aeb</id>
+    </Compile>
+    <Compile Include="CreateScreenShotProgressDialog.UserCode.cs">
+      <BoundTo>4600c9f1-66ba-48e7-983e-0edea3d9a4a1</BoundTo>
+      <DependentUpon>CreateScreenShotProgressDialog.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ab62930e-994f-4f28-af30-337b5f413b14</id>
+    </Compile>
     <Compile Include="CreateScreenShotPropertiesPanel.cs">
       <BoundTo>a1bf799f-50b7-4bb2-a418-2705a88cab3e</BoundTo>
       <DependentUpon>CreateScreenShotPropertiesPanel.rxrec</DependentUpon>
@@ -1176,6 +1188,18 @@
       <UserCode>true</UserCode>
       <id>5a0e2b81-6a5f-4c4d-8f1a-5f7651f92e37</id>
     </Compile>
+    <Compile Include="ValidateDoubleValueparameterInPropertiesPanelGivenPath.cs">
+      <BoundTo>a5e38c48-eefe-4ced-9bdf-fddcc85f4c61</BoundTo>
+      <DependentUpon>ValidateDoubleValueparameterInPropertiesPanelGivenPath.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8e7e54d4-1f4e-48f4-aa07-894a26067de6</id>
+    </Compile>
+    <Compile Include="ValidateDoubleValueparameterInPropertiesPanelGivenPath.UserCode.cs">
+      <BoundTo>a5e38c48-eefe-4ced-9bdf-fddcc85f4c61</BoundTo>
+      <DependentUpon>ValidateDoubleValueparameterInPropertiesPanelGivenPath.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>24ab001b-b67c-440c-9f30-ec6c4373ebbd</id>
+    </Compile>
     <Compile Include="ValidateErrorIcon.cs">
       <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
@@ -1492,6 +1516,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>14e0954b-aab4-4b1e-ba03-71e0aa224712</id>
       <recordtableid>8badabce-c10f-42fb-a575-8d9ad473c375</recordtableid>
+    </None>
+    <None Include="CreateScreenShotProgressDialog.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4600c9f1-66ba-48e7-983e-0edea3d9a4a1</id>
+      <recordtableid>81428c82-c89c-48af-ab82-91a6bcfc44f8</recordtableid>
     </None>
     <None Include="CreateScreenShotPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1897,6 +1926,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>86cc1123-5b93-4182-acb0-1f14fa8feca8</id>
       <recordtableid>ee50ca81-702d-41bf-9d5a-c6659515e29c</recordtableid>
+    </None>
+    <None Include="ValidateDoubleValueparameterInPropertiesPanelGivenPath.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a5e38c48-eefe-4ced-9bdf-fddcc85f4c61</id>
+      <recordtableid>3314c841-2400-467a-8ba2-57b55ddfeec2</recordtableid>
     </None>
     <None Include="ValidateErrorIcon.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

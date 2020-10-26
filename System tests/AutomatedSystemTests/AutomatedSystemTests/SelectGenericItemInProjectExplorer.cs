@@ -41,7 +41,7 @@ namespace AutomatedSystemTests
         /// </summary>
         public SelectGenericItemInProjectExplorer()
         {
-            pathToItemToOpenView = "";
+            pathToItemInProjectExplorer = "";
         }
 
         /// <summary>
@@ -54,16 +54,16 @@ namespace AutomatedSystemTests
 
 #region Variables
 
-        string _pathToItemToOpenView;
+        string _pathToItemInProjectExplorer;
 
         /// <summary>
-        /// Gets or sets the value of variable pathToItemToOpenView.
+        /// Gets or sets the value of variable pathToItemInProjectExplorer.
         /// </summary>
         [TestVariable("a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8")]
-        public string pathToItemToOpenView
+        public string pathToItemInProjectExplorer
         {
-            get { return _pathToItemToOpenView; }
-            set { _pathToItemToOpenView = value; }
+            get { return _pathToItemInProjectExplorer; }
+            set { _pathToItemInProjectExplorer = value; }
         }
 
 #endregion
@@ -92,7 +92,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            SelectTreeItemInProjectExplorerGivenPath(pathToItemToOpenView, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
+            SelectTreeItemInProjectExplorerGivenPath(pathToItemInProjectExplorer, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
             
         }
 
