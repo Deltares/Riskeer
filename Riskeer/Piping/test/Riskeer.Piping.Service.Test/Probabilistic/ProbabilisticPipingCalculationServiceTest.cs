@@ -55,7 +55,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [SetUp]
         public void Setup()
         {
-            calculation = ProbabilisticPipingCalculationScenarioTestFactory.CreateProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation = ProbabilisticPipingCalculationTestFactory.CreateProbabilisticPipingCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 

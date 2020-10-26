@@ -27,26 +27,25 @@ using Riskeer.Piping.Data.Probabilistic;
 namespace Riskeer.Piping.Data.TestUtil.Probabilistic
 {
     /// <summary>
-    /// Helper class for creating instances of <see cref="ProbabilisticPipingCalculationScenario"/>.
+    /// Helper class for creating instances of <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    public static class ProbabilisticPipingCalculationScenarioTestFactory
+    public static class ProbabilisticPipingCalculationTestFactory
     {
         /// <summary>
-        /// Creates a probabilistic calculation scenario with valid input.
+        /// Creates a probabilistic calculation with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <returns>A new <see cref="ProbabilisticPipingCalculationScenario"/>.</returns>
-        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
-        /// (for instance when it comes to the presence of a normative assessment level).</remarks>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static ProbabilisticPipingCalculationScenario CreateProbabilisticPipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static T CreateProbabilisticPipingCalculationWithValidInput<T>(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            where T : ProbabilisticPipingCalculation, new()
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            return new ProbabilisticPipingCalculationScenario
+            return new T
             {
                 InputParameters =
                 {
