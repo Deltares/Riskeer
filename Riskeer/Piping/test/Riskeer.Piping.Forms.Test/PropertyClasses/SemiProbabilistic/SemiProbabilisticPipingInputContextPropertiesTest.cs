@@ -622,6 +622,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
+            Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
