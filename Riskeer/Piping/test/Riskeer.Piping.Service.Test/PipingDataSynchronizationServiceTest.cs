@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
         {
             // Setup
-            var calculation = new TestPipingCalculation(true);
+            var calculation = new TestPipingCalculationScenario(true);
 
             // Call
             IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new TestPipingCalculationScenario();
 
             // Call
             IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
