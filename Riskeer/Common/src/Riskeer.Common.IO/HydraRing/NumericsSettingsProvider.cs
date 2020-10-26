@@ -250,6 +250,20 @@ namespace Riskeer.Common.IO.HydraRing
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults(numericsSettingFDir)
+                },
+                {
+                    HydraRingFailureMechanismType.Piping, new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            311, numericsSettingFDir
+                        },
+                        {
+                            313, numericsSettingFDir
+                        },
+                        {
+                            314, numericsSettingFDir
+                        }
+                    }
                 }
             };
         }

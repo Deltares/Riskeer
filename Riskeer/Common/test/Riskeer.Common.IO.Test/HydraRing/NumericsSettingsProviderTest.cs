@@ -107,6 +107,9 @@ namespace Riskeer.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 6, 1, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 102, 11, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 103, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 311, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 313, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 314, 11, 4, 10000, 40000)]
         public void GetNumericsSettings_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
             HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId,
             int expectedFormStartMethod, int expectedDsMinNumberOfIterations, int expectedDsMaxNumberOfIterations)
