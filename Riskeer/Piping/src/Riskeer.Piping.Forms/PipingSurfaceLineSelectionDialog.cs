@@ -75,12 +75,12 @@ namespace Riskeer.Piping.Forms
         public IEnumerable<PipingSurfaceLine> SelectedItems { get; private set; }
 
         /// <summary>
-        /// Gets an indicator whether to generate semi-probabilistic calculation scenario's.
+        /// Gets an indicator whether to generate semi-probabilistic calculation scenarios.
         /// </summary>
         public bool GenerateSemiProbabilistic { get; private set; }
 
         /// <summary>
-        /// Gets an indicator whether to generate probabilistic calculation scenario's.
+        /// Gets an indicator whether to generate probabilistic calculation scenarios.
         /// </summary>
         public bool GenerateProbabilistic { get; private set; }
 

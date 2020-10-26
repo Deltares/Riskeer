@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// Gets the error text to display when the detailed assessment probability fails.
         /// </summary>
         /// <typeparam name="TCalculationScenario">The type of <see cref="ICalculationScenario"/>.</typeparam>
-        /// <param name="relevantScenarios">All relevant scenario's to use.</param>
+        /// <param name="relevantScenarios">All relevant scenarios to use.</param>
         /// <param name="getTotalContributionFunc">The <see cref="Func{T1,TResult}"/> to get
         /// the total contribution.</param>
         /// <param name="getDetailedAssessmentProbabilityFunc">The <see cref="Func{T1,TResult}"/>
