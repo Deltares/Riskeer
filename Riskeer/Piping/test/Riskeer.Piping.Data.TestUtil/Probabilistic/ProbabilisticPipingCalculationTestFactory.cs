@@ -35,9 +35,10 @@ namespace Riskeer.Piping.Data.TestUtil.Probabilistic
         /// Creates a probabilistic calculation with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
+        /// <typeparam name="T">The type of probabilistic calculation to create.</typeparam>
         /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static T CreateProbabilisticPipingCalculationWithValidInput<T>(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static T CreateCalculationWithValidInput<T>(HydraulicBoundaryLocation hydraulicBoundaryLocation)
             where T : ProbabilisticPipingCalculation, new()
         {
             if (hydraulicBoundaryLocation == null)
