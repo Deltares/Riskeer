@@ -35,6 +35,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Probabilistic;
 
@@ -44,7 +45,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
     public class ProbabilisticPipingCalculationServiceTest
     {
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
-        
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
@@ -54,7 +55,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [SetUp]
         public void Setup()
         {
-            calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation = ProbabilisticPipingCalculationScenarioTestFactory.CreateProbabilisticPipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
@@ -65,7 +66,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(null, new GeneralPipingInput(), assessmentSection);
 
@@ -82,7 +83,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(), null, assessmentSection);
 
@@ -102,13 +103,13 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-        
+
         [Test]
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
@@ -283,13 +284,13 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             Assert.IsFalse(isValid);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
@@ -327,7 +328,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var aquitardLayer = new PipingSoilLayer(2.0)
             {
                 IsAquifer = false
@@ -372,7 +373,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var aquiferLayer = new PipingSoilLayer(10.56)
             {
                 IsAquifer = true,
@@ -425,7 +426,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
             {
                 IsAquifer = false
@@ -483,7 +484,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             const double belowPhreaticLevelDeviation = 0.5;
             const int belowPhreaticLevelShift = 1;
@@ -566,7 +567,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
@@ -638,7 +639,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             var coverageLayerInvalidD70 = new PipingSoilLayer(5.0)
             {
@@ -705,7 +706,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
@@ -779,7 +780,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
@@ -851,7 +852,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
                 IsAquifer = false,
@@ -917,7 +918,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
-            
+
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
                 IsAquifer = false,

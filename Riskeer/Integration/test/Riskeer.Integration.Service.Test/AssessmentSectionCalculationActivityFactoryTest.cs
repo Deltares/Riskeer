@@ -50,6 +50,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.StabilityPointStructures.Data.TestUtil;

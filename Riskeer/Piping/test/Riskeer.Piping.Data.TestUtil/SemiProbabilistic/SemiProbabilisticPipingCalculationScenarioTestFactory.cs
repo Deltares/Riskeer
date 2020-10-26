@@ -25,11 +25,10 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
 {
     /// <summary>
     /// Helper class for creating instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>.
@@ -123,40 +122,6 @@ namespace Riskeer.Piping.Data.TestUtil
             }
 
             return new SemiProbabilisticPipingCalculationScenario
-            {
-                InputParameters =
-                {
-                    DampingFactorExit =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    PhreaticLevelExit =
-                    {
-                        Mean = (RoundedDouble) 2.0
-                    },
-                    SurfaceLine = PipingCalculationScenarioTestFactory.GetSurfaceLine(),
-                    StochasticSoilProfile = PipingCalculationScenarioTestFactory.GetStochasticSoilProfile(),
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-        }
-
-        /// <summary>
-        /// Creates a probabilistic calculation scenario with valid input.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <returns>A new <see cref="ProbabilisticPipingCalculationScenario"/>.</returns>
-        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
-        /// (for instance when it comes to the presence of a normative assessment level).</remarks>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static ProbabilisticPipingCalculationScenario CreateProbabilisticPipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
-            return new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
