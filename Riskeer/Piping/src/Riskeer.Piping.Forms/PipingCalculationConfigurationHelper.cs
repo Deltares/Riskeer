@@ -36,22 +36,22 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="PipingCalculation{TPipingInput}"/>
+    /// Class holds methods to help views when dealing with <see cref="IPipingCalculationScenario{TPipingInput}"/>
     /// </summary>
     public static class PipingCalculationConfigurationHelper
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
 
         /// <summary>
-        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="PipingCalculation{TPipingInput}"/>
+        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="IPipingCalculationScenario{TPipingInput}"/>
         /// based on combination of the <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure
-        /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
+        /// <see cref="IPipingCalculationScenario{TPipingInput}"/> with.</param>
         /// <param name="generateSemiProbabilistic">Indicator whether to generate <see cref="SemiProbabilisticPipingCalculationScenario"/>.</param>
         /// <param name="generateProbabilistic">Indicator whether to generate <see cref="ProbabilisticPipingCalculationScenario"/>.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure
-        /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
+        /// <see cref="IPipingCalculationScenario{TPipingInput}"/> with.</param>
         /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="surfaceLines"/> or <paramref name="soilModels"/>
