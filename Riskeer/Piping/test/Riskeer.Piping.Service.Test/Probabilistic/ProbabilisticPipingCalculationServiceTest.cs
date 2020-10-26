@@ -47,7 +47,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private double testSurfaceLineTopLevel;
         private ProbabilisticPipingCalculation calculation;
@@ -60,6 +62,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
+        #region Validate
+        
         [Test]
         public void Validate_CalculationNull_ThrowsArgumentNullException()
         {
@@ -113,7 +117,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -137,7 +141,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = null;
@@ -199,7 +203,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
@@ -294,7 +298,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -327,7 +331,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var aquitardLayer = new PipingSoilLayer(2.0)
@@ -372,7 +376,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var aquiferLayer = new PipingSoilLayer(10.56)
@@ -425,7 +429,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
@@ -483,7 +487,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -566,7 +570,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -638,7 +642,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -705,7 +709,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -779,7 +783,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -851,7 +855,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -917,7 +921,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -982,5 +986,55 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             });
             mocks.VerifyAll();
         }
+        
+        #endregion
+        
+        #region Calculate
+
+        [Test]
+        public void Calculate_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                null, new GeneralPipingInput(), CreateCalculationSettings(), 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                new TestProbabilisticPipingCalculation(), null, CreateCalculationSettings(), 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_CalculationSettingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingCalculationService().Calculate(
+                new TestProbabilisticPipingCalculation(), new GeneralPipingInput(), null, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
+        }
+        
+        private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
+        {
+            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                            validHlcdFilePath,
+                                                            false,
+                                                            string.Empty);
+        }
+        
+        #endregion
     }
 }
