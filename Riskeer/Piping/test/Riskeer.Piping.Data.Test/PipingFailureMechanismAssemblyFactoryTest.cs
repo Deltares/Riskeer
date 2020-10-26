@@ -38,7 +38,6 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.Test
@@ -287,7 +286,7 @@ namespace Riskeer.Piping.Data.Test
                         sectionResult,
                         new[]
                         {
-                            SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation)
+                            SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation)
                         },
                         failureMechanism,
                         assessmentSection);
@@ -324,7 +323,7 @@ namespace Riskeer.Piping.Data.Test
                     sectionResult,
                     new[]
                     {
-                        SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation)
+                        SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation)
                     },
                     failureMechanism,
                     assessmentSection);
