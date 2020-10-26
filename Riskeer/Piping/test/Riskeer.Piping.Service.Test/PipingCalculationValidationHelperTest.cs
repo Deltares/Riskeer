@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Service.Test
         [SetUp]
         public void SetUp()
         {
-            calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(
+            calculation = PipingCalculationTestFactory.CreateCalculationWithValidInput(
                 new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }

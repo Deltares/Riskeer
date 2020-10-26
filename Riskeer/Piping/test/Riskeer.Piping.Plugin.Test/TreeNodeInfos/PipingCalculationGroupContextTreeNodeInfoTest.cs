@@ -747,7 +747,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                        PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -786,7 +786,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                IPipingCalculationScenario<PipingInput> calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+                IPipingCalculationScenario<PipingInput> calculation = PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
                 var group = new CalculationGroup
                 {
                     Children =

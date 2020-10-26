@@ -126,8 +126,8 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
                     {
                         Mean = (RoundedDouble) 2.0
                     },
-                    SurfaceLine = PipingCalculationScenarioTestFactory.GetSurfaceLine(),
-                    StochasticSoilProfile = PipingCalculationScenarioTestFactory.GetStochasticSoilProfile(),
+                    SurfaceLine = PipingCalculationTestFactory.GetSurfaceLine(),
+                    StochasticSoilProfile = PipingCalculationTestFactory.GetStochasticSoilProfile(),
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
