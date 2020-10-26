@@ -174,8 +174,8 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculationA = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0));
-            SemiProbabilisticPipingCalculationScenario calculationB = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8));
+            SemiProbabilisticPipingCalculationScenario calculationA = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0));
+            SemiProbabilisticPipingCalculationScenario calculationB = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8));
 
             calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);
             calculationB.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 4.0);

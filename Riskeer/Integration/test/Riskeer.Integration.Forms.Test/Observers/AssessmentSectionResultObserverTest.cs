@@ -331,7 +331,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput();
             assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))

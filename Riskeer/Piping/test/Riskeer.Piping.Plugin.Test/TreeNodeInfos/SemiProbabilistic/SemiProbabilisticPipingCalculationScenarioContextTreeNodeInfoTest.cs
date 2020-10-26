@@ -939,7 +939,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation);
 
                 var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                              new CalculationGroup(),

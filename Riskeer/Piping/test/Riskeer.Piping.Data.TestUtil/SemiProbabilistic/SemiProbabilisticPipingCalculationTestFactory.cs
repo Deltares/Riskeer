@@ -41,9 +41,9 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenario(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreateCalculation(FailureMechanismSection section)
         {
-            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation(section);
             scenario.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
             return scenario;
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public static SemiProbabilisticPipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
         {
-            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedCalculation(section);
             scenario.IsRelevant = false;
             return scenario;
         }
@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateNotCalculatedPipingCalculationScenario(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreateNotCalculatedCalculation(FailureMechanismSection section)
         {
             if (section == null)
             {
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// Creates a scenario with invalid input.
         /// </summary>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
-        public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenarioWithInvalidInput()
+        public static SemiProbabilisticPipingCalculationScenario CreateCalculationWithInvalidInput()
         {
             return new SemiProbabilisticPipingCalculationScenario();
         }
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Data.TestUtil.SemiProbabilistic
         /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
         /// (for instance when it comes to the presence of a normative assessment level).</remarks>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario CreateSemiProbabilisticPipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static SemiProbabilisticPipingCalculationScenario CreateCalculationWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {
