@@ -68,7 +68,8 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -89,7 +90,8 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput();
+            SemiProbabilisticPipingCalculation calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
 
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
@@ -323,7 +325,8 @@ namespace Riskeer.Piping.Service.Test
 
         private static SemiProbabilisticPipingCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculation calculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculation calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(hydraulicBoundaryLocation);
             calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
             return calculation;
         }

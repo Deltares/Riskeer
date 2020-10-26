@@ -77,7 +77,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Run_InvalidPipingCalculation_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput();
+            SemiProbabilisticPipingCalculation invalidPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
 
             var activity = new SemiProbabilisticPipingCalculationActivity(invalidPipingCalculation,
                                                                           new GeneralPipingInput(),
@@ -109,7 +110,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(new TestHydraulicBoundaryLocation());
 
             var activity = new SemiProbabilisticPipingCalculationActivity(validPipingCalculation,
                                                                           new GeneralPipingInput(),
@@ -142,7 +144,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 
