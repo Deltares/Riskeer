@@ -4508,6 +4508,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _genereerscenariosInfo;
             RepoItemInfo _bijwerkenInfo;
             RepoItemInfo _exporterenInfo;
+            RepoItemInfo _koppelaandatabaseInfo;
+            RepoItemInfo _berekenenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4528,6 +4530,8 @@ namespace AutomatedSystemTests
                 _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
                 _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
+                _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
+                _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
             }
 
             /// <summary>
@@ -4863,6 +4867,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _exporterenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The KoppelAanDatabase item.
+            /// </summary>
+            [RepositoryItem("b67d9db7-c97a-44ee-9cc6-3cac1b3aa092")]
+            public virtual Ranorex.MenuItem KoppelAanDatabase
+            {
+                get
+                {
+                    return _koppelaandatabaseInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The KoppelAanDatabase item info.
+            /// </summary>
+            [RepositoryItemInfo("b67d9db7-c97a-44ee-9cc6-3cac1b3aa092")]
+            public virtual RepoItemInfo KoppelAanDatabaseInfo
+            {
+                get
+                {
+                    return _koppelaandatabaseInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Berekenen item.
+            /// </summary>
+            [RepositoryItem("8811db1f-3002-45fb-8742-158ef19d57b8")]
+            public virtual Ranorex.MenuItem Berekenen
+            {
+                get
+                {
+                    return _berekenenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Berekenen item info.
+            /// </summary>
+            [RepositoryItemInfo("8811db1f-3002-45fb-8742-158ef19d57b8")]
+            public virtual RepoItemInfo BerekenenInfo
+            {
+                get
+                {
+                    return _berekenenInfo;
                 }
             }
         }

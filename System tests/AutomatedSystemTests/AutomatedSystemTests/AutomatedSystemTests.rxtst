@@ -186,6 +186,28 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="0371dcce-374a-48df-9e61-7b9a34e8b284"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToResults"
+					datasourceid="f91e4c2d-a0b3-4662-8e02-130a4b135970"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToHydraulicBCCalculation"
+					datasourceid="f865a291-2481-48ab-83d4-16bfbd98d537"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="04cf2119-1584-4170-802a-2d350b597475"
 			name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
@@ -722,6 +744,16 @@
 					variablename="textDropDownMenu">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="0e8d39da-c90a-4fc5-9356-4e42b7685c4d"
+			name="RunHydraulicBCCalculationUntilFinished">
+			</smartfoldernode>
+			<testmodule
+			id="0e9e466a-956e-4e17-8d7d-535a41306c55"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="0eb80dfc-5f8b-47af-bd90-3595efeb63f7"
@@ -1567,6 +1599,11 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script15d_CalculationHydraulicBoundaryConditionsForClimateScenario"
+			id="1c215492-3303-4a97-955a-bc35b7d2a98c"
+			name="LoopCalculationHydraulicBoundaryConditionsForClimateScenario">
+			</smartfoldernode>
 			<testmodule
 			id="1c3a4907-6b3e-41b0-9d40-7ddde04b29bc"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
@@ -1713,6 +1750,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="1e55ff73-c763-4560-a3aa-bd9a7de6d26c"
+			name="ClickOnRunSelectedCalculations"
+			ref="907b89b7-6058-4333-a615-ff354007586c"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="1ed06d7d-a99b-49fb-95a2-76dc74fd741b"
 			name="SaveAs"
 			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
@@ -1751,6 +1794,32 @@
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
 			name="LoopRows">
 			</smartfoldernode>
+			<testmodule
+			id="202ab015-ce73-4b60-bd2b-ce83f623efd1"
+			name="CalculateFullPathToSeparateCalculation"
+			ref="cddceedc-f299-4851-bffc-8b505702e432"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToSeparateCalculation"
+					datasourceid="9a508ed0-2a85-4b28-b368-cbb9556e13dc"
+					variableid="82392e5d-6689-455c-993e-70492c6024a5"
+					variablename="fullPathToSeparateCalculation">
+					</var>
+					<var
+					dataname="pathFromTrajectToSeparateCalculationItem"
+					datasourceid="f5bc7642-b19d-4c96-b7b6-cc28805f3ca9"
+					variableid="b3c7e7a8-d7c3-4dc7-a148-62f0443259ef"
+					variablename="pathFromTrajectToSeparateCalculation">
+					</var>
+					<var
+					dataname="pathToTraject"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="f1d993f0-026f-43fb-992c-c5026bd0ea05"
+					variablename="pathToTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="20bab620-6661-46d1-ac91-0a5196367c6e"
 			name="DetailedAssessmentFMsGroup2_AGK">
@@ -1977,6 +2046,17 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueParent"
+			id="25422c54-2139-4c65-9484-62b61100f43f"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="fielNameToOpen"
+					value="X:\script15\External\Project_15d_zonder_resultaten.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="255cbae4-6f2e-4e97-b4db-9655ae0b7122"
 			name="CancelCalculations">
 			</smartfoldernode>
@@ -2163,6 +2243,52 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="28e364e1-12e4-4359-b9c4-62ca0aa80c1f"
+			name="SelectCalculationsAndIllustrationPoints"
+			ref="7654cb84-67f3-46ba-9397-46d52163b934"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="checkedReadIllustrationPoints"
+					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
+					variablename="IllustrationPointsMustBeChecked">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="checkedReadIllustrationPoints"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
+					variablename="IllustrationPointsMustBeChecked">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="2936422b-bbb3-46e9-90ff-9b57deb4271f"
@@ -3666,6 +3792,32 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="43c8fa60-63d3-4fa6-a952-28dd91bde53e"
+			name="CalculateFullPathToHydraulicBCcalculation"
+			ref="bc4780cd-bce6-4cd8-b162-bb67f03a7885"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToHydraulicBCCalculation"
+					datasourceid="f865a291-2481-48ab-83d4-16bfbd98d537"
+					variableid="3690de2e-e255-41b9-bd34-cd09b7661fae"
+					variablename="fullPathToCalculation">
+					</var>
+					<var
+					dataname="pathFromTrajectToHydraulicBCCalculationItem"
+					datasourceid="f15d38ce-c989-46a1-b670-6491a0acaf99"
+					variableid="ecfec53b-d181-4fe7-8ee5-b024507fbede"
+					variablename="pathFromTrajectToCalculation">
+					</var>
+					<var
+					dataname="pathToTraject"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="91cc69f5-1b40-4834-8b49-05e113fd479a"
+					variablename="pathToTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentZSTType"
 			id="43d3b98f-8fb4-4230-941d-03143962a61d"
@@ -3924,6 +4076,12 @@
 					variablename="fileNameToOpen">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="48576190-5521-4b65-864f-17f88df04f65"
+			name="StartSingleCalculation"
+			ref="bbf874ea-d649-48f1-b9a6-08ca561100d3"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="4a01d30f-ae28-4241-8011-738b80e3dad7"
@@ -4705,6 +4863,34 @@
 			id="575ee873-16c6-4f4e-ad69-c2ed3365835d"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="5761ba15-e9a3-480c-8f7d-33a4b433f8c8"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemHBCDatabaseInProjectExplorer"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGABIType"
 			id="579f328c-4ee3-4938-bd03-4d50184c0129"
@@ -4799,6 +4985,12 @@
 			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef"
 			name="Custom_Assessment">
 			</smartfoldernode>
+			<testmodule
+			id="5aa9fb8f-3808-4347-a82f-cd55944a7a80"
+			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
+			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="5abb3278-abcb-44cc-a4c0-f7e146e18b99"
 			name="OpenViewForGenericFM"
@@ -5236,6 +5428,10 @@
 			datasource="customAssessmentSTKWp"
 			id="61c39043-1c24-4ae8-ae86-745f1889b53f"
 			name="LoopRowsSetCustomAssessment">
+			</smartfoldernode>
+			<smartfoldernode
+			id="61d2a13b-c418-44c9-bdf9-c62b2566b403"
+			name="CoupleToHBCDatabase">
 			</smartfoldernode>
 			<testmodule
 			id="6221735c-95f3-4273-8a89-6a6fdfae2e9b"
@@ -6195,6 +6391,34 @@
 			id="7489d122-ebfa-46e4-bc4e-7d20ade37334"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="74d13843-ea42-404c-b20e-06060f4b85c3"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemHBCDatabaseInProjectExplorer"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="0073f82e-9688-44db-94a7-e6bdaee6e8b7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="74f05605-66de-4da9-acd5-7677f62b46bf"
 			name="CloseViewCentralPanelWithFocus"
@@ -7752,6 +7976,26 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="8cde361d-3aed-4bb3-ba7f-249cd083157f"
+			name="CalculateFullPathToResultsFromFullPathToCalculation"
+			ref="95b6d533-7626-4835-b2be-85c4ec709857"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToResults"
+					datasourceid="f91e4c2d-a0b3-4662-8e02-130a4b135970"
+					variableid="c97cb09b-34d2-46be-9162-2abbd9a96785"
+					variablename="fullpathToResultsOfCalculation">
+					</var>
+					<var
+					dataname="fullPathToSeparateCalculation"
+					datasourceid="9a508ed0-2a85-4b28-b368-cbb9556e13dc"
+					variableid="6a9998ac-3ae1-48ee-ab1f-84d47f345c8a"
+					variablename="fullPathToCalculation">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8d10a02c-74d5-4d91-b2e0-881127b65c2c"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -7858,6 +8102,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="8de08d81-680c-4e40-a408-59cff79fd868"
+			name="ValidateResultsArePresentInPropertiesPanel"
+			ref="a9248e1a-f262-4746-8962-5872b82ab97b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameOfResultsInPropertiesPanel"
+					datasourceid="f91e4c2d-a0b3-4662-8e02-130a4b135970"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="8e097c52-9a8d-4843-9e3f-2e48b6743f40"
@@ -7918,6 +8176,20 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="8ecd784b-8325-4259-b563-0678f7d05cf4"
+			name="CoupleCurrentItemToHBCDatabase"
+			ref="354b1a8c-c247-4b13-920b-24ee0b2b997d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHBCDatabase"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="39671c14-75a2-44bf-95e5-209ad4946b5e"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="8ed7279d-e320-432e-8270-1078f7a61c87"
 			name="CloseViewCentralPanelWithFocus"
@@ -8670,6 +8942,19 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script15d_LoopSeparateCalculations"
+			id="9a508ed0-2a85-4b28-b368-cbb9556e13dc"
+			maxrange="2"
+			minrange="1"
+			name="LoopSeparateCalculations">
+				<parameters>
+					<param
+					name="fullPathToSeparateCalculation"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="9a56a810-30e4-4b3f-a23f-f15e7fb78735"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryVv"
@@ -10471,6 +10756,28 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="bc686d20-c903-4d0d-8324-375a875dce9d"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToHydraulicBCCalculation"
+					datasourceid="f865a291-2481-48ab-83d4-16bfbd98d537"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="bd03e6fe-98b8-4515-b615-d6a3708ceab3"
 			name="ValidateDetailedAssessmentValueAtRowPerCategory"
 			ref="e8d5931b-4e59-4070-ae4d-51a65c062ea7"
@@ -10581,6 +10888,12 @@
 			id="bf121a60-f853-42d9-97a2-42a7a3601c72"
 			name="loopSubsurfaceSchematizations">
 			</smartfoldernode>
+			<testmodule
+			id="bf47a4e8-1d99-4afd-a4e9-ee5b3dba74d0"
+			name="SetValueParameterForItemInTraject"
+			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="bf5e3ba3-82bd-4285-8dcf-f1212140a6bf"
 			name="teardown">
@@ -11750,6 +12063,20 @@
 			id="d11293c1-3de2-4008-b8d8-c6872d367e41"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="d142b8b3-3d7d-4d20-87e7-f6ec9644e495"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fielNameToOpen"
+					datasourceid="25422c54-2139-4c65-9484-62b61100f43f"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="d214b656-32de-447c-80ff-316e92b6e410"
 			name="teardown">
@@ -13572,6 +13899,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="eef1f6c2-c6d5-4e04-858a-b139d59443ae"
+			name="CoupleHBCWithScenarioInformation">
+			</smartfoldernode>
 			<testmodule
 			id="ef5023c2-2fc5-49d5-b5e3-87603407d9d6"
 			name="InitializeDropDownMenu"
@@ -13665,6 +13996,11 @@
 					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			datasource="script15d_HydraulicBCCalculationsToCarryOut"
+			id="f1a50879-26ce-46f8-8bf8-f1e8a54f2502"
+			name="LoopHydraulicBoundaryCalculationsToCarryOut">
+			</smartfoldernode>
 			<testmodule
 			id="f288c6cb-752f-43d4-a2f7-814346ace807"
 			name="CreateScreenShotProgressDialog"
@@ -14043,6 +14379,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="f865a291-2481-48ab-83d4-16bfbd98d537"
+			name="OpenDocumentViewForHydraulicBCItem">
+				<parameters>
+					<param
+					name="fullPathToHydraulicBCCalculation"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="f88d8120-e89e-4a11-bab3-2d1b84db2867"
 			name="ValidateSubsurfaceSchematizationContributionInPropertiesPanel"
@@ -14057,6 +14403,25 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script15d_LocationsToCalculateWaterLevels"
+			id="f8fd7ce0-0f19-420b-8cc9-7dd3d2d16fef"
+			name="SelectLocationForCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="f91e4c2d-a0b3-4662-8e02-130a4b135970"
+			name="ValidateResultsHaveBeenObtained">
+				<parameters>
+					<param
+					name="fullPathToResults"
+					value="">
+					</param>
+					<param
+					name="nameOfResultsInPropertiesPanel"
+					value="Resultaat">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="f9647991-be20-40bd-8f02-edae1eae2119"
 			name="OpenViewForGenericFM"
@@ -14341,6 +14706,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="fb16069d-347e-4288-b95d-4e4c6a29bb9a"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToSeparateCalculation"
+					datasourceid="9a508ed0-2a85-4b28-b368-cbb9556e13dc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToHydraulicBCCalculation"
+					datasourceid="f865a291-2481-48ab-83d4-16bfbd98d537"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
 			name="CalculateLinearTransformationOfValue"
 			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
@@ -14397,6 +14784,12 @@
 					variablename="xVariable">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fb73baf0-220f-47e1-84b4-cc86bb3f232a"
+			name="WaitUntilCalculationsFinished_NoScreenShotOfDialog"
+			ref="a653ace9-5ee8-4659-932a-53a321bc6e32"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentPKWType"
@@ -16153,6 +16546,118 @@
 						<smartfoldernode
 						id="04cf2119-1584-4170-802a-2d350b597475"
 						name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
+							<smartfoldernode
+							id="25422c54-2139-4c65-9484-62b61100f43f"
+							name="OpenProject">
+								<testmodule
+								id="d142b8b3-3d7d-4d20-87e7-f6ec9644e495"
+								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="1c215492-3303-4a97-955a-bc35b7d2a98c"
+							name="LoopCalculationHydraulicBoundaryConditionsForClimateScenario">
+								<smartfoldernode
+								id="61d2a13b-c418-44c9-bdf9-c62b2566b403"
+								name="CoupleToHBCDatabase">
+									<testmodule
+									id="74d13843-ea42-404c-b20e-06060f4b85c3"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="8ecd784b-8325-4259-b563-0678f7d05cf4"
+									name="CoupleCurrentItemToHBCDatabase">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="f1a50879-26ce-46f8-8bf8-f1e8a54f2502"
+								name="LoopHydraulicBoundaryCalculationsToCarryOut">
+									<smartfoldernode
+									id="f865a291-2481-48ab-83d4-16bfbd98d537"
+									name="OpenDocumentViewForHydraulicBCItem">
+										<testmodule
+										id="43c8fa60-63d3-4fa6-a952-28dd91bde53e"
+										name="CalculateFullPathToHydraulicBCcalculation">
+										</testmodule>
+										<testmodule
+										id="bc686d20-c903-4d0d-8324-375a875dce9d"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="0e9e466a-956e-4e17-8d7d-535a41306c55"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f8fd7ce0-0f19-420b-8cc9-7dd3d2d16fef"
+									name="SelectLocationForCalculation">
+										<testmodule
+										id="28e364e1-12e4-4359-b9c4-62ca0aa80c1f"
+										name="SelectCalculationsAndIllustrationPoints">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="0e8d39da-c90a-4fc5-9356-4e42b7685c4d"
+									name="RunHydraulicBCCalculationUntilFinished">
+										<testmodule
+										id="1e55ff73-c763-4560-a3aa-bd9a7de6d26c"
+										name="ClickOnRunSelectedCalculations">
+										</testmodule>
+										<testmodule
+										id="5aa9fb8f-3808-4347-a82f-cd55944a7a80"
+										name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="9a508ed0-2a85-4b28-b368-cbb9556e13dc"
+								name="LoopSeparateCalculations">
+									<testmodule
+									id="202ab015-ce73-4b60-bd2b-ce83f623efd1"
+									name="CalculateFullPathToSeparateCalculation">
+									</testmodule>
+									<testmodule
+									id="fb16069d-347e-4288-b95d-4e4c6a29bb9a"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="48576190-5521-4b65-864f-17f88df04f65"
+									name="StartSingleCalculation">
+									</testmodule>
+									<testmodule
+									id="fb73baf0-220f-47e1-84b4-cc86bb3f232a"
+									name="WaitUntilCalculationsFinished_NoScreenShotOfDialog">
+									</testmodule>
+									<smartfoldernode
+									id="f91e4c2d-a0b3-4662-8e02-130a4b135970"
+									name="ValidateResultsHaveBeenObtained">
+										<testmodule
+										id="8cde361d-3aed-4bb3-ba7f-249cd083157f"
+										name="CalculateFullPathToResultsFromFullPathToCalculation">
+										</testmodule>
+										<testmodule
+										id="0371dcce-374a-48df-9e61-7b9a34e8b284"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="8de08d81-680c-4e40-a408-59cff79fd868"
+										name="ValidateResultsArePresentInPropertiesPanel">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="eef1f6c2-c6d5-4e04-858a-b139d59443ae"
+								name="CoupleHBCWithScenarioInformation">
+									<testmodule
+									id="bf47a4e8-1d99-4afd-a4e9-ee5b3dba74d0"
+									name="SetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="5761ba15-e9a3-480c-8f7d-33a4b433f8c8"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
 						id="d214b656-32de-447c-80ff-316e92b6e410"
@@ -24114,6 +24619,171 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+		lastknownrowcount="1"
+		name="script15d_CalculationHydraulicBoundaryConditionsForClimateScenario"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathToHBCDatabase
+				</column>
+				<column>
+					pathToItemHBCDatabaseInProjectExplorer
+				</column>
+				<column>
+					pathToTraject
+				</column>
+				<column>
+					pathToHBCWithScenarioInformation
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathToHBCDatabase
+					</th>
+					<th>
+						pathToItemHBCDatabaseInProjectExplorer
+					</th>
+					<th>
+						pathToTraject
+					</th>
+					<th>
+						pathToHBCWithScenarioInformation
+					</th>
+				</tr>
+				<tr>
+					<td>
+						X:\script15\External\WBI2017_IJsselmeer_12-2_v02_klimaat\WBI2017_IJsselmeer_12-2_v02.sqlite
+					</td>
+					<td>
+						12-2&gt;Hydraulische belastingen
+					</td>
+					<td>
+						12-2
+					</td>
+					<td>
+						X:\script15\External\WBI2017_IJsselmeer_12-2_v02_klimaat\hlcd_klimaat.sqlite
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f15d38ce-c989-46a1-b670-6491a0acaf99"
+		lastknownrowcount="3"
+		name="script15d_HydraulicBCCalculationsToCarryOut"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathFromTrajectToHydraulicBCCalculationItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathFromTrajectToHydraulicBCCalculationItem
+					</th>
+				</tr>
+				<tr>
+					<td>
+						&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+		lastknownrowcount="1"
+		name="script15d_LocationsToCalculateWaterLevels"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					checkedCalculate
+				</column>
+				<column>
+					checkedReadIllustrationPoints
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						checkedCalculate
+					</th>
+					<th>
+						checkedReadIllustrationPoints
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						false
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f5bc7642-b19d-4c96-b7b6-cc28805f3ca9"
+		lastknownrowcount="3"
+		name="script15d_LoopSeparateCalculations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathFromTrajectToSeparateCalculationItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathFromTrajectToSeparateCalculationItem
+					</th>
+				</tr>
+				<tr>
+					<td>
+						&gt;steenzetting&gt;Hydraulische belastingen&gt;berekening
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen&gt;berekening
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;berekening
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
 		includefile="Unchecked"
 		lastknownrowcount="11"
@@ -24843,6 +25513,9 @@
 			id="0c083a22-60f2-4670-ae4c-5c16796e6423">
 			</testcontainer>
 			<testcontainer
+			id="0e8d39da-c90a-4fc5-9356-4e42b7685c4d">
+			</testcontainer>
+			<testcontainer
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
@@ -24855,6 +25528,9 @@
 			id="1945a39d-eed1-46d5-9edf-cdc344d1b50f">
 			</testcontainer>
 			<testcontainer
+			id="1c215492-3303-4a97-955a-bc35b7d2a98c">
+			</testcontainer>
+			<testcontainer
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
 			</testcontainer>
 			<testcontainer
@@ -24865,6 +25541,9 @@
 			</testcontainer>
 			<testcontainer
 			id="24a2d5c7-e466-4b82-b1d8-555faa0bb727">
+			</testcontainer>
+			<testcontainer
+			id="25422c54-2139-4c65-9484-62b61100f43f">
 			</testcontainer>
 			<testcontainer
 			id="255cbae4-6f2e-4e97-b4db-9655ae0b7122">
@@ -24958,6 +25637,9 @@
 			</testcontainer>
 			<testcontainer
 			id="619a9725-5d5e-4078-8d52-cbf549c3f323">
+			</testcontainer>
+			<testcontainer
+			id="61d2a13b-c418-44c9-bdf9-c62b2566b403">
 			</testcontainer>
 			<testcontainer
 			id="63427011-49e7-4515-a2fb-a3806b7706e9">
@@ -25054,6 +25736,9 @@
 			</testcontainer>
 			<testcontainer
 			id="980edd35-a335-4919-bd8e-16577a599027">
+			</testcontainer>
+			<testcontainer
+			id="9a508ed0-2a85-4b28-b368-cbb9556e13dc">
 			</testcontainer>
 			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
@@ -25194,10 +25879,16 @@
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
 			</testcontainer>
 			<testcontainer
+			id="eef1f6c2-c6d5-4e04-858a-b139d59443ae">
+			</testcontainer>
+			<testcontainer
 			id="f0818843-8156-4b9c-9947-71fc7349e58c">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
+			</testcontainer>
+			<testcontainer
+			id="f1a50879-26ce-46f8-8bf8-f1e8a54f2502">
 			</testcontainer>
 			<testcontainer
 			id="f2b89f9a-4fdc-4e8f-a729-1e682f98711f">
@@ -25207,6 +25898,15 @@
 			</testcontainer>
 			<testcontainer
 			id="f580991d-3a00-4325-af62-c76e31bc813a">
+			</testcontainer>
+			<testcontainer
+			id="f865a291-2481-48ab-83d4-16bfbd98d537">
+			</testcontainer>
+			<testcontainer
+			id="f8fd7ce0-0f19-420b-8cc9-7dd3d2d16fef">
+			</testcontainer>
+			<testcontainer
+			id="f91e4c2d-a0b3-4662-8e02-130a4b135970">
 			</testcontainer>
 			<testcontainer
 			id="fa388020-ce0a-4df7-bf08-f6ed50cfdc4f">
