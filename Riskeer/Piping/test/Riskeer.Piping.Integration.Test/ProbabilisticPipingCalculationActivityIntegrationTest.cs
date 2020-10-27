@@ -19,13 +19,112 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
+using System.Linq;
+using Core.Common.Base.Service;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
+using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Integration.Test
 {
     [TestFixture]
     public class ProbabilisticPipingCalculationActivityIntegrationTest
     {
-        
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        [Test]
+        public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new TestProbabilisticPipingCalculation();
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+
+            // Call
+            void Call() => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. " +
+                                        "Fout bij het lezen van bestand", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Twice();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001));
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    StringAssert.StartsWith("De vak berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+
+            mocks.VerifyAll();
+        }
     }
 }
