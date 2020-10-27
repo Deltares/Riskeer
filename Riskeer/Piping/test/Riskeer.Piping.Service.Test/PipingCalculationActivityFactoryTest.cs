@@ -21,14 +21,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Service;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input.Piping;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -45,6 +52,9 @@ namespace Riskeer.Piping.Service.Test
     [TestFixture]
     public class PipingCalculationActivityFactoryTest
     {
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
         private static void AssertSemiProbabilisticPipingCalculationActivity(Activity activity,
                                                                              SemiProbabilisticPipingCalculation calculation,
                                                                              HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
@@ -57,6 +67,45 @@ namespace Riskeer.Piping.Service.Test
                 Assert.AreEqual(calculation.InputParameters.ExitPointL, testFactory.LastCreatedEffectiveThicknessCalculator.ExitPointXCoordinate);
                 Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, testFactory.LastCreatedSellmeijerCalculator.HRiver);
             }
+        }
+
+        private static void AssertProbabilisticPipingCalculationActivity(Activity activity,
+                                                                         ProbabilisticPipingCalculation calculation,
+                                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator();
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
+            mocks.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+
+                PipingCalculationInput[] profileSpecificInputs = profileSpecificCalculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, profileSpecificInputs.Length);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, profileSpecificInputs[0].HydraulicBoundaryLocationId);
+                Assert.AreEqual(DerivedPipingInput.GetSeepageLength(calculation.InputParameters).Mean,
+                                profileSpecificInputs[0].Variables.First(v => v.VariableId == 48).Parameter1);
+
+                PipingCalculationInput[] sectionSpecificInputs = sectionSpecificCalculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, sectionSpecificInputs.Length);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, sectionSpecificInputs[0].HydraulicBoundaryLocationId);
+                Assert.AreEqual(DerivedPipingInput.GetSeepageLength(calculation.InputParameters).Mean,
+                                sectionSpecificInputs[0].Variables.First(v => v.VariableId == 48).Parameter1);
+            }
+
+            mocks.VerifyAll();
         }
 
         #region CreateCalculationActivitiesForFailureMechanism
@@ -363,9 +412,13 @@ namespace Riskeer.Piping.Service.Test
         public void CreateProbabilisticPipingCalculationActivity_WithValidCalculation_ReturnsActivityWithParametersSet()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new PipingFailureMechanism();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+            mocks.ReplayAll();
 
             ProbabilisticPipingCalculation calculation =
                 ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(hydraulicBoundaryLocation);
@@ -377,8 +430,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.IsInstanceOf<ProbabilisticPipingCalculationActivity>(activity);
+            AssertProbabilisticPipingCalculationActivity(activity, calculation, hydraulicBoundaryLocation);
+            mocks.VerifyAll();
         }
-
-        #endregion
     }
+
+    #endregion
 }
