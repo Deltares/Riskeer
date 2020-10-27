@@ -28,7 +28,8 @@ namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// Override of <see cref="GeneralResultFaultTreeIllustrationPointView"/> for making output views for
-    /// <see cref="ProbabilisticPipingOutput"/> uniquely identifiable (when it comes to opening/closing views).
+    /// <see cref="ProbabilisticPipingOutput.SectionSpecificOutput"/> uniquely identifiable (when it comes
+    /// to opening/closing views).
     /// </summary>
     public class ProbabilisticPipingSectionSpecificOutputView : GeneralResultFaultTreeIllustrationPointView
     {
