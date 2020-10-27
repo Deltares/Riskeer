@@ -40,11 +40,9 @@ namespace Riskeer.Piping.Service
     public static class PipingCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="failureMechanism"/>.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing the calculations to create
-        /// activities for.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the calculations to create activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -61,21 +59,19 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism.GeneralInput, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="calculationGroup"/>.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to create activities for.</param>
-        /// <param name="generalPipingInput">The general piping input that is used during the calculations.</param>
-        /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
-        /// belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculationGroup"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
-                                                                                    GeneralPipingInput generalPipingInput,
+                                                                                    PipingFailureMechanism failureMechanism,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
@@ -83,9 +79,9 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(calculationGroup));
             }
 
-            if (generalPipingInput == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(generalPipingInput));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             if (assessmentSection == null)
@@ -95,7 +91,7 @@ namespace Riskeer.Piping.Service
 
             return calculationGroup.GetCalculations()
                                    .Cast<SemiProbabilisticPipingCalculation>()
-                                   .Select(calc => CreateSemiProbabilisticPipingCalculationActivity(calc, generalPipingInput, assessmentSection))
+                                   .Select(calc => CreateSemiProbabilisticPipingCalculationActivity(calc, failureMechanism.GeneralInput, assessmentSection))
                                    .ToArray();
         }
 
