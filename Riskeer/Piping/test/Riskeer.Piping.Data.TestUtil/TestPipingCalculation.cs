@@ -31,16 +31,16 @@ namespace Riskeer.Piping.Data.TestUtil
         private bool hasOutput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="PipingInput"/>.
+        /// Creates a new instance of <see cref="TestPipingCalculation"/>.
         /// </summary>
-        /// <param name="hasOutput">Whether or not the calculation should have output.</param>
+        /// <param name="hasOutput">Indicator whether or not the calculation should have output.</param>
         public TestPipingCalculation(bool hasOutput = false) : this(new TestPipingInput(), hasOutput) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/>.
         /// </summary>
         /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
-        /// <param name="hasOutput">Whether or not the calculation should have output.</param>
+        /// <param name="hasOutput">Indicator whether or not the calculation should have output.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>
         /// is <c>null</c>.</exception>
         public TestPipingCalculation(PipingInput pipingInput, bool hasOutput = false) : base(pipingInput)
