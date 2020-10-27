@@ -376,6 +376,9 @@
   <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
   </data>
+  <data name="PipingCalculationsView_InitializeDataGridView_Assessment_description" xml:space="preserve">
+    <value>Toets</value>
+  </data>
   <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
     <value>In oordeel</value>
   </data>

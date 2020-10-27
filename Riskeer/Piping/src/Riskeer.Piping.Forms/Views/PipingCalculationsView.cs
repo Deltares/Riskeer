@@ -179,6 +179,11 @@ namespace Riskeer.Piping.Forms.Views
         protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
         {
             addNameColumn();
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingCalculationRow.AssessmentDescription),
+                Resources.PipingCalculationsView_InitializeDataGridView_Assessment_description);
+
             addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>>(

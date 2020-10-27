@@ -355,6 +355,15 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toets.
+        /// </summary>
+        public static string PipingCalculationsView_InitializeDataGridView_Assessment_description {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_Assessment_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bijdrage aan
         ///scenario
         ///[%].
