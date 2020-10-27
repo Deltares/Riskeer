@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(10, propertyInfos.Length);
+                Assert.AreEqual(11, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -126,6 +126,11 @@ namespace Riskeer.Piping.Plugin.Test
                     propertyInfos,
                     typeof(PipingFailureMechanismSectionsContext),
                     typeof(FailureMechanismSectionsProbabilityAssessmentProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ProbabilisticPipingProfileSpecificOutputContext),
+                    typeof(ProbabilisticPipingProfileSpecificOutputContextProperties));
             }
         }
 
