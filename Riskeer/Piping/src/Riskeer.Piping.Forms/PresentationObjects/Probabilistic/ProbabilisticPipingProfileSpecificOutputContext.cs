@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 
 namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
@@ -31,10 +33,37 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
     public class ProbabilisticPipingProfileSpecificOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingOutputContext"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingProfileSpecificOutputContext"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculationScenario"/> object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingProfileSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation) : base(calculation) {}
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ProbabilisticPipingProfileSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(calculation)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the failure mechanism which the context belongs to.
+        /// </summary>
+        public PipingFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section which the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

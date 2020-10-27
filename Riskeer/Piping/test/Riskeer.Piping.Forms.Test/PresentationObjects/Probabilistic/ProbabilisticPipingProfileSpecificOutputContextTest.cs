@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
 namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
@@ -30,17 +33,54 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
     public class ProbabilisticPipingProfileSpecificOutputContextTest
     {
         [Test]
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(null, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("wrappedData", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), null, new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario();
+            var failureMechanism = new TestPipingFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
     }
 }
