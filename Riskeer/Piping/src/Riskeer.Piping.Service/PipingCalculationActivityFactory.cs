@@ -90,8 +90,8 @@ namespace Riskeer.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .Cast<SemiProbabilisticPipingCalculation>()
-                                   .Select(calc => CreateSemiProbabilisticPipingCalculationActivity(calc, failureMechanism.GeneralInput, assessmentSection))
+                                   .Cast<IPipingCalculationScenario<PipingInput>>()
+                                   .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
                                    .ToArray();
         }
 
@@ -155,6 +155,25 @@ namespace Riskeer.Piping.Service
             }
 
             return new ProbabilisticPipingCalculationActivity(calculation, failureMechanism, assessmentSection);
+        }
+
+        private static CalculatableActivity CreateCalculationActivity(IPipingCalculationScenario<PipingInput> calculation,
+                                                                      PipingFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
+        {
+            switch (calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                    return CreateSemiProbabilisticPipingCalculationActivity(semiProbabilisticPipingCalculationScenario,
+                                                                            failureMechanism.GeneralInput,
+                                                                            assessmentSection);
+                case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                    return CreateProbabilisticPipingCalculationActivity(probabilisticPipingCalculationScenario,
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
