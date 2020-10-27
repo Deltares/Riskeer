@@ -39,6 +39,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Call
             void Call() => new ProbabilisticPipingProfileSpecificOutputContextProperties(null,
+                                                                                         new ProbabilisticPipingCalculationScenario(), 
                                                                                          new TestPipingFailureMechanism(),
                                                                                          new AssessmentSectionStub());
 
@@ -52,6 +53,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Call
             void Call() => new ProbabilisticPipingProfileSpecificOutputContextProperties(new PartialProbabilisticPipingOutput(1.1, null),
+                                                                                         new ProbabilisticPipingCalculationScenario(),
                                                                                          null,
                                                                                          new AssessmentSectionStub());
 
@@ -65,6 +67,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Call
             void Call() => new ProbabilisticPipingProfileSpecificOutputContextProperties(new PartialProbabilisticPipingOutput(1.1, null),
+                                                                                         new ProbabilisticPipingCalculationScenario(),
                                                                                          new TestPipingFailureMechanism(),
                                                                                          null);
 
@@ -85,6 +88,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Call
             var properties = new ProbabilisticPipingProfileSpecificOutputContextProperties(partialProbabilisticPipingOutput,
+                                                                                           new ProbabilisticPipingCalculationScenario(),
                                                                                            new TestPipingFailureMechanism(),
                                                                                            new AssessmentSectionStub());
 

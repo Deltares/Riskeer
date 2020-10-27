@@ -23,12 +23,14 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
@@ -50,16 +52,23 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// Creates a new instance of <see cref="ProbabilisticPipingProfileSpecificOutputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
+        /// <param name="calculation">The calculation the output belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ProbabilisticPipingProfileSpecificOutputContextProperties(PartialProbabilisticPipingOutput data,
+                                                                         ProbabilisticPipingCalculationScenario calculation,
                                                                          PipingFailureMechanism failureMechanism,
                                                                          IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (failureMechanism == null)
@@ -76,7 +85,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
             derivedOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
                                                                       failureMechanism.Contribution,
-                                                                      0.0d,
+                                                                      GetSectionLength(calculation, failureMechanism),
                                                                       data.Reliability);
         }
 
@@ -92,6 +101,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private Stochast[] GetStochasts()
         {
             return data.GeneralResult?.Stochasts.ToArray();
+        }
+
+        private static double GetSectionLength(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism)
+        {
+            FailureMechanismSection failureMechanismSection = failureMechanism
+                                                              .Sections
+                                                              .FirstOrDefault(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
+
+            return failureMechanismSection?.Length ?? double.NaN;
         }
 
         #region Result
