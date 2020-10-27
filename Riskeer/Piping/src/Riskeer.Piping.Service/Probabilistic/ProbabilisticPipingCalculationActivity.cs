@@ -71,6 +71,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
             
             service = new ProbabilisticPipingCalculationService();
+            service.OnProgressChanged += UpdateProgressText;
         }
         
         protected override void OnCancel()

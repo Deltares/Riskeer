@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Service;
@@ -122,6 +123,47 @@ namespace Riskeer.Piping.Integration.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Run_ValidCalculation_ProgressTextSetAccordingly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Twice();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001));
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+
+            var progressTexts = "";
+            activity.ProgressChanged += (s, e) => progressTexts += activity.ProgressText + Environment.NewLine;
+            
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                activity.Run();
+
+                // Assert
+                string expectedProgressTexts = "Stap 1 van 2 | Uitvoeren piping berekening voor doorsnede" + Environment.NewLine +
+                                               "Stap 2 van 2 | Uitvoeren piping berekening voor vak" + Environment.NewLine;
+                
+                Assert.AreEqual(expectedProgressTexts, progressTexts);
             }
 
             mocks.VerifyAll();
