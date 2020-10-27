@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            const string assessmentDescription = "Test";
+            const string calculationType = "Test";
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -90,14 +90,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
 
             // Call
-            var row = new PipingCalculationRow(calculation, assessmentDescription, handler);
+            var row = new PipingCalculationRow(calculation, calculationType, handler);
 
             // Assert
             Assert.IsInstanceOf<CalculationRow<IPipingCalculationScenario<PipingInput>>>(row);
 
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
-            Assert.AreEqual(assessmentDescription, row.AssessmentDescription);
+            Assert.AreEqual(calculationType, row.CalculationType);
             Assert.AreSame(stochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(stochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);

@@ -128,21 +128,21 @@ namespace Riskeer.Piping.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/> is of a type that is not supported.</exception>
         protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)
         {
-            string assessmentDescription;
+            string calculationType;
 
             switch (calculation)
             {
                 case SemiProbabilisticPipingCalculationScenario _:
-                    assessmentDescription = Resources.PipingCalculationsView_CreateRow_Assessment_description_semi_probabilistic;
+                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic;
                     break;
                 case ProbabilisticPipingCalculationScenario _:
-                    assessmentDescription = Resources.PipingCalculationsView_CreateRow_Assessment_description_probabilistic;
+                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_probabilistic;
                     break;
                 default:
                     throw new NotSupportedException();
             }
 
-            return new PipingCalculationRow(calculation, assessmentDescription, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            return new PipingCalculationRow(calculation, calculationType, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }
 
         protected override bool CanGenerateCalculations()
@@ -188,7 +188,7 @@ namespace Riskeer.Piping.Forms.Views
             addNameColumn();
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingCalculationRow.AssessmentDescription),
+                nameof(PipingCalculationRow.CalculationType),
                 Resources.PipingCalculationsView_InitializeDataGridView_Assessment_description);
 
             addHydraulicBoundaryLocationColumn();

@@ -379,10 +379,10 @@
   <data name="PipingCalculationsView_InitializeDataGridView_Assessment_description" xml:space="preserve">
     <value>Toets</value>
   </data>
-  <data name="PipingCalculationsView_CreateRow_Assessment_description_semi_probabilistic" xml:space="preserve">
+  <data name="PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic" xml:space="preserve">
     <value>Semi-probabilistisch</value>
   </data>
-  <data name="PipingCalculationsView_CreateRow_Assessment_description_probabilistic" xml:space="preserve">
+  <data name="PipingCalculationsView_CreateRow_Calculation_type_probabilistic" xml:space="preserve">
     <value>Probabilistisch</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
