@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Service.Probabilistic;
 
@@ -31,13 +33,24 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
     public class ProbabilisticPipingCalculationActivityTest
     {
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var calculation = new TestProbabilisticPipingCalculation();
             
             // Call
-            var activity = new ProbabilisticPipingCalculationActivity(calculation);
+            var activity = new ProbabilisticPipingCalculationActivity(calculation, new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);

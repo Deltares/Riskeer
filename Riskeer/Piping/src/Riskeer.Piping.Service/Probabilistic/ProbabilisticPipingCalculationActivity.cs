@@ -21,6 +21,7 @@
 
 using System;
 using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
@@ -31,15 +32,23 @@ namespace Riskeer.Piping.Service.Probabilistic
     /// </summary>
     public class ProbabilisticPipingCalculationActivity : CalculatableActivity
     {
+        private readonly PipingFailureMechanism failureMechanism;
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> to perform.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        public ProbabilisticPipingCalculationActivity(ProbabilisticPipingCalculation calculation)
+        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ProbabilisticPipingCalculationActivity(ProbabilisticPipingCalculation calculation,
+                                                      PipingFailureMechanism failureMechanism)
             : base(calculation)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            this.failureMechanism = failureMechanism;
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
         
