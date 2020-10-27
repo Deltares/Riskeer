@@ -241,5 +241,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.HasGeneralResult &&
+                   (
+                       propertyName.Equals(nameof(WindDirection)) ||
+                       propertyName.Equals(nameof(AlphaValues)) ||
+                       propertyName.Equals(nameof(Durations)) ||
+                       propertyName.Equals(nameof(IllustrationPoints))
+                   );
+        }
     }
 }
