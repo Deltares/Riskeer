@@ -33,6 +33,7 @@ namespace Riskeer.Piping.Service.Probabilistic
     /// </summary>
     public class ProbabilisticPipingCalculationActivity : CalculatableActivity
     {
+        private readonly ProbabilisticPipingCalculation calculation;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly ProbabilisticPipingCalculationService service;
@@ -59,6 +60,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            this.calculation = calculation;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -74,7 +76,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         protected override void OnFinish()
         {
-            throw new System.NotImplementedException();
+            calculation.NotifyObservers();
         }
 
         protected override void PerformCalculation()
