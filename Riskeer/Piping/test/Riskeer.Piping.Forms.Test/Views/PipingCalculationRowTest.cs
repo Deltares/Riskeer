@@ -110,13 +110,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
+        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
             PipingStochasticSoilModel newModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(newModel);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
@@ -483,7 +483,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<PipingCalculationRow> setProperty,
-            SemiProbabilisticPipingCalculationScenario calculation)
+            IPipingCalculationScenario<PipingInput> calculation)
         {
             // Setup
             var mocks = new MockRepository();
