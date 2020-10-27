@@ -46,6 +46,8 @@ namespace Riskeer.Piping.Service
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="failureMechanism"/> contains calculations of a type
+        /// that is not supported.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(PipingFailureMechanism failureMechanism,
                                                                                     IAssessmentSection assessmentSection)
         {
@@ -70,6 +72,8 @@ namespace Riskeer.Piping.Service
         /// <param name="assessmentSection">The assessment section the <paramref name="calculationGroup"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="calculationGroup"/> contains calculations of a type
+        /// that is not supported.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
                                                                                     PipingFailureMechanism failureMechanism,
                                                                                     IAssessmentSection assessmentSection)
@@ -157,6 +161,14 @@ namespace Riskeer.Piping.Service
             return new ProbabilisticPipingCalculationActivity(calculation, failureMechanism, assessmentSection);
         }
 
+        /// <summary>
+        /// Creates a <see cref="CalculatableActivity"/> based on the provided <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create a <see cref="CalculatableActivity"/> for.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="calculation"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/> belongs to.</param>
+        /// <returns>A <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="calculation"/> is of a type that is not supported.</exception>
         private static CalculatableActivity CreateCalculationActivity(IPipingCalculationScenario<PipingInput> calculation,
                                                                       PipingFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection)
