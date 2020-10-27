@@ -32,8 +32,10 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
@@ -43,9 +45,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class is a view for configuring piping calculations.
+    /// This class is a view for configuring piping calculation scenarios.
     /// </summary>
-    public class PipingCalculationsView : CalculationsView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>
+    public class PipingCalculationsView : CalculationsView<IPipingCalculationScenario<PipingInput>, PipingInput, PipingCalculationRow, PipingFailureMechanism>
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int stochasticSoilModelColumnIndex = 2;
@@ -58,9 +60,9 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationsView"/>.
         /// </summary>
-        /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
-        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the calculations belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
+        /// <param name="calculationGroup">Calculation group containing all calculation scenarios of the failure mechanism.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the calculation scenarios belong to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculation scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection) {}
@@ -86,13 +88,27 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
         {
-            return new SemiProbabilisticPipingInputContext(
-                currentRow.Calculation.InputParameters,
-                currentRow.Calculation,
-                FailureMechanism.SurfaceLines,
-                FailureMechanism.StochasticSoilModels,
-                FailureMechanism,
-                AssessmentSection);
+            switch (currentRow.Calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                    return new SemiProbabilisticPipingInputContext(
+                        semiProbabilisticPipingCalculationScenario.InputParameters,
+                        semiProbabilisticPipingCalculationScenario,
+                        FailureMechanism.SurfaceLines,
+                        FailureMechanism.StochasticSoilModels,
+                        FailureMechanism,
+                        AssessmentSection);
+                case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                    return new ProbabilisticPipingInputContext(
+                        probabilisticPipingCalculationScenario.InputParameters,
+                        probabilisticPipingCalculationScenario,
+                        FailureMechanism.SurfaceLines,
+                        FailureMechanism.StochasticSoilModels,
+                        FailureMechanism,
+                        AssessmentSection);
+                default:
+                    return null;
+            }
         }
 
         protected override IEnumerable<Point2D> GetReferenceLocations()
@@ -100,12 +116,12 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(SemiProbabilisticPipingCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
+        protected override bool IsCalculationIntersectionWithReferenceLineInSection(IPipingCalculationScenario<PipingInput> calculation, IEnumerable<Segment2D> lineSegments)
         {
             return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
         }
 
-        protected override PipingCalculationRow CreateRow(SemiProbabilisticPipingCalculationScenario calculation)
+        protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)
         {
             return new PipingCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }
@@ -229,7 +245,8 @@ namespace Riskeer.Piping.Forms.Views
             {
                 DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
                 dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is PipingCalculationRow dataItem
-                                                                                                 && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
+                                                                                                 && dataItem.Calculation is SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario
+                                                                                                 && semiProbabilisticPipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput;
             }
         }
 
