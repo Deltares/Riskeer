@@ -1113,7 +1113,7 @@ namespace Riskeer.Piping.Plugin
                                                     context.AvailableStochasticSoilModels,
                                                     context.FailureMechanism,
                                                     context.AssessmentSection),
-                new ProbabilisticPipingOutputContext(calculation)
+                new ProbabilisticPipingOutputContext(calculation, context.FailureMechanism, context.AssessmentSection)
             };
 
             return childNodes.ToArray();

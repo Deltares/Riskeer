@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
+            Assert.AreEqual("wrappedData", exception.ParamName);
         }
 
         [Test]
