@@ -52,14 +52,15 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingCalculationsViewTest : NUnitFormTest
     {
         private const int nameColumnIndex = 0;
-        private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
-        private const int stochasticSoilModelsColumnIndex = 2;
-        private const int stochasticSoilProfilesColumnIndex = 3;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
-        private const int dampingFactorExitMeanColumnIndex = 5;
-        private const int phreaticLevelExitMeanColumnIndex = 6;
-        private const int entryPointLColumnIndex = 7;
-        private const int exitPointLColumnIndex = 8;
+        private const int assessmentDescriptionColumnIndex = 1;
+        private const int selectableHydraulicBoundaryLocationsColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
+        private const int dampingFactorExitMeanColumnIndex = 6;
+        private const int phreaticLevelExitMeanColumnIndex = 7;
+        private const int entryPointLColumnIndex = 8;
+        private const int exitPointLColumnIndex = 9;
         private Form testForm;
 
         [Test]
@@ -85,9 +86,10 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(9, dataGridView.ColumnCount);
+            Assert.AreEqual(10, dataGridView.ColumnCount);
 
             Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Toets", dataGridView.Columns[assessmentDescriptionColumnIndex].HeaderText);
             Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
             Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);
             Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
@@ -198,8 +200,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual(10, cells.Count);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Semi-probabilistisch", cells[assessmentDescriptionColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("<selecteer>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -210,8 +213,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual(10, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Probabilistisch", cells[assessmentDescriptionColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);

@@ -49,9 +49,9 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingCalculationsView : CalculationsView<IPipingCalculationScenario<PipingInput>, PipingInput, PipingCalculationRow, PipingFailureMechanism>
     {
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-        private const int stochasticSoilModelColumnIndex = 2;
-        private const int stochasticSoilProfileColumnIndex = 3;
+        private const int selectableHydraulicBoundaryLocationColumnIndex = 2;
+        private const int stochasticSoilModelColumnIndex = 3;
+        private const int stochasticSoilProfileColumnIndex = 4;
 
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
         private Observer stochasticSoilModelsObserver;
