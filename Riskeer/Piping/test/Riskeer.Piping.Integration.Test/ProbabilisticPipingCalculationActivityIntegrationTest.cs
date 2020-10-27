@@ -168,5 +168,144 @@ namespace Riskeer.Piping.Integration.Test
 
             mocks.VerifyAll();
         }
+        
+        [Test]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_InvalidProfileSpecificCalculation_LogErrorAndActivityStateFailedAndOutputNotSet)
+        })]
+        public void Run_InvalidProfileSpecificCalculation_LogErrorAndActivityStateFailedAndOutputNotSet(bool endInFailure,
+                                                                                                        string lastErrorFileContent)
+        {
+            // Setup
+            var profileSpecificCalculator = new TestPipingCalculator
+            {
+                LastErrorFileContent = lastErrorFileContent,
+                EndInFailure = true
+            };
+            
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Once();
+            mocks.ReplayAll();
+            
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001));
+
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+            
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    string errorReportText = lastErrorFileContent != null
+                                                 ? $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}"
+                                                 : "Er is geen foutrapport beschikbaar.";
+                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. {errorReportText}", msgs[4]);
+                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+                Assert.IsNull(calculation.Output);
+            }
+            mocks.VerifyAll(); // No observers notified
+        }
+        
+        [Test]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_InvalidSectionSpecificCalculation_LogErrorAndActivityStateFailedAndOutputNotSet)
+        })]
+        public void Run_InvalidSectionSpecificCalculation_LogErrorAndActivityStateFailedAndOutputNotSet(bool endInFailure,
+                                                                                                        string lastErrorFileContent)
+        {
+            // Setup
+            var sectionSpecificCalculator = new TestPipingCalculator
+            {
+                LastErrorFileContent = lastErrorFileContent,
+                EndInFailure = true
+            };
+            
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
+            mocks.ReplayAll();
+            
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001));
+
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+            
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                void Call() => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(8, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    string errorReportText = lastErrorFileContent != null
+                                                 ? $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}"
+                                                 : "Er is geen foutrapport beschikbaar.";
+                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. {errorReportText}", msgs[5]);
+                    StringAssert.StartsWith("De vak berekening is uitgevoerd op de tijdelijke locatie", msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+                Assert.IsNull(calculation.Output);
+            }
+            mocks.VerifyAll(); // No observers notified
+        }
     }
 }
