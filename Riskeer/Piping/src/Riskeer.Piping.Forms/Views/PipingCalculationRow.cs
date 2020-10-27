@@ -41,12 +41,23 @@ namespace Riskeer.Piping.Forms.Views
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
         /// <param name="calculationScenario">The <see cref="IPipingCalculationScenario{TPipingInput}"/> this row contains.</param>
+        /// <param name="assessmentDescription">The assessment description for the calculation scenario presented in the row.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
         internal PipingCalculationRow(IPipingCalculationScenario<PipingInput> calculationScenario,
+                                      string assessmentDescription,
                                       IObservablePropertyChangeHandler handler)
-            : base(calculationScenario, handler) {}
+            : base(calculationScenario, handler)
+        {
+            AssessmentDescription = assessmentDescription;
+        }
 
+        /// <summary>
+        /// Gets the assessment description for the calculation scenario presented in the row.
+        /// </summary>
+        public string AssessmentDescription { get; }
+        
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
