@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -81,7 +85,13 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         protected override void PerformCalculation()
         {
-            throw new System.NotImplementedException();
+            FailureMechanismSection section = failureMechanism.Sections.Single(
+                s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                    Math2D.ConvertPointsToLineSegments(s.Points)));
+            
+            service.Calculate(calculation, failureMechanism.GeneralInput,
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                section.Length);
         }
 
         protected override bool Validate()
