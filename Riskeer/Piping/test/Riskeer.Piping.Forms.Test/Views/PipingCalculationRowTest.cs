@@ -420,7 +420,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var calculation = new TestPipingCalculationScenario(hasOutput);
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation(), hasOutput);
 
             var row = new PipingCalculationRow(calculation, handler);
             calculation.Attach(calculationObserver);
