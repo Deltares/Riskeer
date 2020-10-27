@@ -25,8 +25,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -48,14 +46,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     [Apartment(ApartmentState.STA)]
     public class ProbabilisticPipingProfileSpecificOutputViewInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticPipingProfileSpecificOutputView));
         }
@@ -97,32 +93,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat doorsnede", viewName);
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            using (var view = new ProbabilisticPipingProfileSpecificOutputView(() => new TestGeneralResultFaultTreeIllustrationPoint()))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
         }
 
         [Test]
