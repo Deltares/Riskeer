@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         protected override bool Validate()
         {
-            throw new System.NotImplementedException();
+            return ProbabilisticPipingCalculationService.Validate(calculation, failureMechanism.GeneralInput, assessmentSection);
         }
     }
 }
