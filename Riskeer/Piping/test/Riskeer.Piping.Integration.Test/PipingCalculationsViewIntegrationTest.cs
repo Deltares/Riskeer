@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Views;
@@ -39,11 +40,11 @@ namespace Riskeer.Piping.Integration.Test
     public class PipingCalculationsViewIntegrationTest
     {
         private const int nameColumnIndex = 0;
-        private const int hydraulicBoundaryLocationsColumnIndex = 1;
-        private const int stochasticSoilModelsColumnIndex = 2;
-        private const int stochasticSoilProfilesColumnIndex = 3;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
-        private const int exitPointLColumnIndex = 8;
+        private const int hydraulicBoundaryLocationsColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
+        private const int exitPointLColumnIndex = 9;
 
         [Test]
         public void PipingCalculationsView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
@@ -79,7 +80,7 @@ namespace Riskeer.Piping.Integration.Test
                         SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var calculation2 = new SemiProbabilisticPipingCalculationScenario
+                var calculation2 = new ProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
