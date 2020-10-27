@@ -29,7 +29,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-ring calculations for closing structures.
+    /// Service that provides methods for performing Hydra-Ring calculations for closing structures.
     /// </summary>
     public class ClosingStructuresCalculationService : StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry,
         ClosingStructuresInput, ClosingStructure, GeneralClosingStructuresInput, StructuresClosureCalculationInput>

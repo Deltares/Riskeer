@@ -29,7 +29,7 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-ring calculations for stability point structures.
+    /// Service that provides methods for performing Hydra-Ring calculations for stability point structures.
     /// </summary>
     public class StabilityPointStructuresCalculationService : StructuresCalculationServiceBase<
         StabilityPointStructuresValidationRulesRegistry,

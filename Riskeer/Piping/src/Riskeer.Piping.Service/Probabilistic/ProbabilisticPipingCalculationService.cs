@@ -46,7 +46,7 @@ using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.Illustr
 namespace Riskeer.Piping.Service.Probabilistic
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-ring calculations for piping probabilistic.
+    /// Service that provides methods for performing Hydra-Ring calculations for piping probabilistic.
     /// </summary>
     public class ProbabilisticPipingCalculationService
     {
