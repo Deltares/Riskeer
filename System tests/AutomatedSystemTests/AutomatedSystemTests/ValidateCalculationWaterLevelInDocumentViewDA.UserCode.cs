@@ -23,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ValidateWaterLevelWaveHeightInDocumentView
+    public partial class ValidateCalculationWaterLevelInDocumentViewDA
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -34,7 +34,7 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Validate_WaterLevelOrWaveHeightNthRow(RepoItemInfo cellInfo)
+        public void ValidateValueWaterLevelInDocumentViewDA(RepoItemInfo cellInfo)
         {
             Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'cellInfo'.", cellInfo);
             
@@ -55,7 +55,6 @@ namespace AutomatedSystemTests
 			
 				Validate.AreEqual(currentValueDouble, expectedValueDouble);
 			}
-			
         }
 
     }

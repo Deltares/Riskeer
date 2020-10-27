@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="9f850752-ea2b-451f-9b30-164f5bceb80b"
+id="7c3eef7d-4675-4a50-82a1-6f7d0d153cac"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,42 +19,48 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
+	classname="SelectCalculationsToRunDA"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
 		<var
-		id="7b99103d-70be-4405-8ba9-5da015cbc768"
-		name="expectedValue">
+		id="89417124-6336-44ff-b495-637d4756e739"
+		name="rowIndex">
+		</var>
+		<var
+		id="03dde861-f997-4af1-899a-975f347c7dc0"
+		name="calculationMustBeChecked">
 		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
+		classname="SelectCalculationsToRunDA"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="CovertValueIntoCurrentCulture"
+		methodname="SelectCalculationsToAddInHydraulicBC_DA"
 		namespace="AutomatedSystemTests"
 		optional="False">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="ReturnVariable"
-				variable="expectedValue">
-				</binding>
 			</bindings>
 			<arguments
-			id="a7dd84f2-81ab-40c4-b449-2a01eadf0f1a">
+			id="19f9fc33-0da4-4ba7-a4f1-797a16bf1986">
 				<argument
-				argname="valueToConvert"
-				id="be193887-078b-4791-bf73-cb05e7f540b8"
-				variable="expectedValue">
+				argname="tableInfo"
+				id="f91befec-65c7-414b-9e20-3af92f432217">
 					<argvaluetype>
-						System.String
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
 					</argvaluetype>
 					<argvalue>
 					</argvalue>
+					<info
+					id="b032b126-789d-46aa-b7ab-ab1c08998b17"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+						</path>
+					</info>
 				</argument>
 			</arguments>
 		</userrecorditem>
@@ -74,7 +80,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.UserCode.cs
+		SelectCalculationsToRunDA.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

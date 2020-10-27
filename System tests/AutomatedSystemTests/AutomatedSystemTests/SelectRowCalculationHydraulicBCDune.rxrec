@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="41e70303-25bd-42fe-9275-c9f1baa62c5c"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="SelectRowCalculationHydraulicBCDune"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="84019c39-b4de-4883-a9fb-24647af15dd5">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="c8521886-54a9-407d-94d4-a646a9c0f68e"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+				</path>
+			</info>
+			<arguments
+			id="3cc3eca4-80e4-4484-bf2f-ef7b508cf2b5">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="915d8d1e-7b47-48ae-88bf-32a826a3cd34">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="c8521886-54a9-407d-94d4-a646a9c0f68e"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+				</path>
+			</info>
+			<arguments
+			id="ff46c298-b857-4dbf-a4fd-eaf0632bcd68">
+			</arguments>
+		</invokeactionrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		SelectRowCalculationHydraulicBCDune.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

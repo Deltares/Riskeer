@@ -69,28 +69,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
-			name="SelectRowCalculation"
-			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexRow"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTKWp"
 			id="01a8cff1-2dad-4f40-abf5-f73ee2e5c6f5"
@@ -412,6 +390,32 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="06df9752-b03b-495a-a66a-63626b750a44"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="f580991d-3a00-4325-af62-c76e31bc813a"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="06ec16c5-53f6-40ef-9e40-28a3cb2aafcb"
+			name="SelectRow">
+			</smartfoldernode>
+			<testmodule
 			id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
 			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
 			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
@@ -464,6 +468,31 @@
 					value="">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="084980e1-de98-427c-9bb6-b0d1323037ce"
+			name="StartCalculations_DA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="08e4a791-e60d-455f-a435-761a347bddcf"
@@ -574,28 +603,31 @@
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
 			name="ValidateFMsPresentInTrajects">
 			</smartfoldernode>
-			<testmodule
-			id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
-			name="SelectRowCalculation"
-			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
+			<smartfoldernode
+			id="0be2d029-2fa5-4eef-8113-34b470e4d1d6"
+			name="ValidateCalculationWaterLevelInDocumentViewDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="expectedCustomAssessmentDA"
 			id="0be4c0d3-4d42-46b5-9a6e-02fb775d70ae"
@@ -656,12 +688,6 @@
 					variablename="expectedDetailedAssessmentCellValue">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
 			</testmodule>
 			<testmodule
 			id="0e5e3fc2-5968-4a03-8394-20fe672155d0"
@@ -931,6 +957,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="122a30a6-5fe1-488f-ad77-06c363ff8825"
+			name="ClickOnStartSelectedCalculations">
+			</smartfoldernode>
 			<testmodule
 			id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
 			name="ValidateValueParameterForItemInTraject"
@@ -1101,6 +1131,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="153ff05d-1ab9-486e-9308-5cada7e6e3f0"
+			name="SelectRowCalculationHydraulicBCDune"
+			ref="41e70303-25bd-42fe-9275-c9f1baa62c5c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="155b05b8-d589-41f6-a2f8-c4c1aee3d85f"
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
@@ -1238,6 +1282,28 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="1749c088-f8ea-4448-923c-70868cc7eb58"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGABIType"
 			id="17559d94-eef1-443e-af59-9a748633df47"
@@ -1362,6 +1428,48 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="1945a39d-eed1-46d5-9edf-cdc344d1b50f"
+			name="GEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
 			name="CalculateNFormula1"
@@ -1537,6 +1645,34 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="1d347463-c7c4-479d-942f-170ee35f5e81"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha2"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha2"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
@@ -1724,6 +1860,48 @@
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="24a2d5c7-e466-4b82-b1d8-555faa0bb727"
+			name="SelectRowGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="24bfcdcd-8168-43d6-bcee-f74881c4ffe4"
 			name="CloseViewCentralPanelWithFocus"
@@ -1850,6 +2028,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="26779f69-8b0e-43c2-808f-c922f63bab34"
+			name="ValidateResultInDocumentView">
+			</smartfoldernode>
 			<smartfoldernode
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f"
 			name="DetailedAssessmentFMsGroup1_STPH">
@@ -2084,6 +2266,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="2ab24fd1-8990-4e7e-81a6-a0a0c615cf66"
+			name="ValidateCalculationWaterLevelInDocumentViewDA"
+			ref="5f11c431-c5f5-43ed-9e90-4eb9ec533e75"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="2ac88156-3f2b-4ea2-b988-2ea50e6cdd8a"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -2212,6 +2414,40 @@
 			id="2c9bd23e-8b91-4297-a68d-6b10f154ed3b"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
+			<testmodule
+			id="2cd56dfa-1aa5-466f-862f-49708e87aae0"
+			name="ValidateWaterLevelWaveHeightInDocumentView"
+			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTPH"
 			id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
@@ -2507,6 +2743,31 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="33529ce6-e12d-4786-ae4a-bfbb1c7ca1ef"
+			name="StartCalculations_DA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="3385736c-301d-49e3-a2c6-2b35a8899643"
 			name="DeleteFileIfExists"
@@ -2608,7 +2869,7 @@
 			<smartfoldernode
 			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-			name="ValidateResultsPresentInTableLeft">
+			name="ValidateResultsPresentInDocumentView">
 				<parameters>
 					<param
 					name="notCalculatedValue"
@@ -2741,7 +3002,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="37c431a5-f03b-4cc9-a737-a950832cd9bc"
-			name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
+			name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="logMessageConnectorSectionB"
@@ -2989,6 +3250,34 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="3db94313-7366-41e6-8847-b1989fb4f8b1"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha4"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha4"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			id="3eb30b78-64ef-4a56-96ce-0c4ccda12b32"
 			name="CustomAssessmentFMsGroup4_STBU">
@@ -3123,6 +3412,48 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="407f7ab6-c874-45e9-930d-9fe65ad40f24"
+			name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="40e1d535-2c5d-4849-95d9-daa0e2aefb1f"
 			name="ValidateDetailedAssessmentValueAtRowPerCategory"
@@ -3303,6 +3634,31 @@
 					value="Dijken en dammen - Grasbekleding erosie kruin en binnentalud">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="435753ca-94bd-462c-bf24-db7a546a9fe1"
+			name="SelectRowDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="43bf9430-c12d-4341-becb-63c33c73e03e"
@@ -3537,6 +3893,10 @@
 			name="SimpleAssessmentFMsGroup2">
 			</smartfoldernode>
 			<smartfoldernode
+			id="46a5a01c-d4e0-4f1f-9a02-9f17569b15ac"
+			name="ClickOnStartSelectedCalculations">
+			</smartfoldernode>
+			<smartfoldernode
 			id="4722f879-2e55-4a3f-b631-b1ba7550f6e4"
 			name="GetFailureContribution">
 			</smartfoldernode>
@@ -3565,6 +3925,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="4a01d30f-ae28-4241-8011-738b80e3dad7"
+			name="ValidateResultInDocumentView">
+			</smartfoldernode>
 			<testmodule
 			id="4ae7556e-4930-43f7-8794-8679450f77c8"
 			name="CalculateLinearTransformationOfValue"
@@ -3606,6 +3970,20 @@
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb"
 			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
 			</smartfoldernode>
+			<testmodule
+			id="4c2d91ab-3b1c-4f97-b621-12efb4178c09"
+			name="SelectRowCalculationHydraulicBCDune"
+			ref="41e70303-25bd-42fe-9275-c9f1baa62c5c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4ccb1c49-40a4-4112-a420-1d6f9810e732"
 			name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3"
@@ -3769,40 +4147,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="5089f1e1-4962-415a-a8d8-ad30c223db76"
-			name="ValidateWaterLevelWaveHeightInDocumentView"
-			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="indexRow"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="5099abec-ce77-41bd-bf6d-7a191f3d596c"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
 			ref="42cf05e3-77be-41b2-bb8e-2d6b14e70872"
@@ -3950,29 +4294,6 @@
 					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
-			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
-			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4825,17 +5146,17 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
-			name="ClickOnRunSelectedCalculations"
-			ref="907b89b7-6058-4333-a615-ff354007586c"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTBI"
 			id="5f34eb96-1a97-44fa-bc83-24c6462d5152"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
+			<testmodule
+			id="6026e788-c001-4adb-96e7-e5348b3c7bcc"
+			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
+			ref="a0fb1576-cc6f-43a8-9e64-da0db902668d"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="605db10e-3b81-4440-ab40-285bb6c6c78a"
 			name="CustomAssessmentFMsGroup3_GABI">
@@ -5002,6 +5323,31 @@
 			datasource="detailedAssessmentHTKW"
 			id="6328f616-711a-4f5c-92de-34ee4b839518"
 			name="ValidateDetailedAsssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
+			id="63427011-49e7-4515-a2fb-a3806b7706e9"
+			name="SelectRowDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="638def4b-9e2a-41be-bb18-2991948a1821"
@@ -5430,6 +5776,34 @@
 			name="ValidateAfterCalculationsHaveBeenInterrupted">
 			</smartfoldernode>
 			<testmodule
+			id="6bfc024d-08a9-4126-b24e-347ca2e47941"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha3"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha3"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="6d72256f-b4b1-4919-bd9d-facf09bded66"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -5565,6 +5939,48 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="70150b58-a6b1-47e1-a380-7c379d8007a5"
+			name="StartCalculationsGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="customAssessmentSTBU"
 			id="71289708-437a-4e75-bc9e-9e81ff0a6640"
 			name="ValidateCustomAsssessmentType">
@@ -5694,6 +6110,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="738075cb-f850-4b4a-912c-f76a19374b3e"
+			name="SelectRowDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<teardown
 			id="739dbdee-cb57-479e-9461-6d944c1505e4"
 			name="teardown">
@@ -5729,37 +6170,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="746599ea-5238-4b08-a392-ffbaa8024259"
+			name="ValidateCalculationWaterLevelInDocumentViewDA"
+			ref="5f11c431-c5f5-43ed-9e90-4eb9ec533e75"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTBI"
 			id="7489d122-ebfa-46e4-bc4e-7d20ade37334"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="74996d46-92c4-428d-aaab-3a416b7a7616"
-			name="SelectCalculationsAndIllustrationPoints"
-			ref="7654cb84-67f3-46ba-9397-46d52163b934"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="checkedCalculate"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
-					variablename="calculationMustBeChecked">
-					</var>
-					<var
-					dataname="checkedReadIllustrationPoints"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
-					variablename="IllustrationPointsMustBeChecked">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="74f05605-66de-4da9-acd5-7677f62b46bf"
 			name="CloseViewCentralPanelWithFocus"
@@ -5931,12 +6366,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -6056,6 +6485,10 @@
 			id="778ae4cc-be3c-48c8-9f60-777156c47788"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="782524b7-af6e-4a69-8a34-7e99e9b216ff"
+			name="SelectRow">
+			</smartfoldernode>
 			<testmodule
 			id="78644da0-3149-4609-aab9-e28c8ed84ca0"
 			name="SelectDetailedAssessmentForRowCategoryIIIv"
@@ -6186,6 +6619,26 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="7aaba89b-19d7-48a1-a32b-d21ef2c87393"
+			name="SelectCalculationsToRunDA"
+			ref="7c3eef7d-4675-4a50-82a1-6f7d0d153cac"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="89417124-6336-44ff-b495-637d4756e739"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="03dde861-f997-4af1-899a-975f347c7dc0"
+					variablename="calculationMustBeChecked">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="contributionsFMsTypeDijkFMCView"
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a"
@@ -6231,6 +6684,48 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="7b65b01d-9bbb-4d5d-8b57-eff0028d15be"
+			name="SelectRowGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="7bce6234-2364-4150-8bad-da21b372e27c"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIIv"
@@ -6380,6 +6875,48 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="7f57332b-864d-4697-8b05-0424bd22454b"
+			name="ValidateDetailedResultsInPropertiesPanelGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="7f597c8f-27ca-4da8-9bad-5c05ee6b19ff"
 			name="OpenResultView"
@@ -6521,11 +7058,61 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="8087a41a-a31e-4e26-83f3-badaf077a043"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha5"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha5"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentAGK"
 			id="80a4aab6-4ce9-47a8-a34b-7dcbdc628683"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
+			<testmodule
+			id="81e0e112-5c95-45a6-92ae-b7157e9a0afe"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentDAType"
 			id="827105da-2362-4c6c-86b6-2bd3f1159346"
@@ -6618,7 +7205,7 @@
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
-			name="ValidateResultsInPropertiesPanel">
+			name="ValidateDetailedResultsInPropertiesPanel">
 			</smartfoldernode>
 			<testmodule
 			id="85c62712-bbe5-489f-965e-90fd6852f168"
@@ -6874,6 +7461,48 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="8822f69b-5542-4bdd-aa71-3a57b5db0d9b"
+			name="SelectRowGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			id="88357d13-4b34-418f-9814-2201061ab692"
 			name="CustomAssessmentFMsGroup3_INN">
 				<parameters>
@@ -6949,6 +7578,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="8a483e8e-0257-4baa-b8ae-c4044aa7f497"
+			name="ValidateCalculationWaterLevelInDocumentViewDA"
+			ref="5f11c431-c5f5-43ed-9e90-4eb9ec533e75"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedValueWaterLevelOrWaveHeight"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8ab87b1e-169d-4d5c-8cdd-4fc27b76b0d7"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
 			ref="42cf05e3-77be-41b2-bb8e-2d6b14e70872"
@@ -6987,6 +7636,32 @@
 			id="8b8fa870-c170-4c55-b819-337a8696544e"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="8ba1dd94-b3c8-4a85-896f-966bc33cc632"
+			name="SelectCalculationsAndIllustrationPoints"
+			ref="7654cb84-67f3-46ba-9397-46d52163b934"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="checkedReadIllustrationPoints"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
+					variablename="IllustrationPointsMustBeChecked">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="8be31480-7d91-4a33-ad15-dd0c41722f7d"
 			name="InitializeDropDownMenu"
@@ -7184,6 +7859,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
 			id="8e097c52-9a8d-4843-9e3f-2e48b6743f40"
 			name="ValidateDetailedResultsInSingleCalculation">
 				<parameters>
@@ -7254,6 +7930,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="8f087af8-f16c-4333-bac4-b5c6073bc388"
+			name="ValidateResultInDocumentView">
+			</smartfoldernode>
 			<testmodule
 			id="8f405f70-d43b-47bd-bfda-277377531134"
 			name="InitializeDropDownMenu"
@@ -8215,6 +8895,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="9ecdc8f4-8b01-4cd6-b02f-0f97e1f70b07"
+			name="SelectRowCalculationHydraulicBCDune"
+			ref="41e70303-25bd-42fe-9275-c9f1baa62c5c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15"
 			name="ValidateRelevanceFMsTraject44_2InFailureMechanismsContributionView">
@@ -8290,6 +8984,20 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="a188acbe-2ca8-40c6-ac7c-56759dfd517e"
+			name="SelectRowCalculationHydraulicBCDune"
+			ref="41e70303-25bd-42fe-9275-c9f1baa62c5c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="tableCategoriesPrefixes"
@@ -8567,29 +9275,10 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			enabled="False"
-			id="a5e33595-5af9-404a-8190-52dda0225b0b"
-			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
-			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedValueWaterLevelOrWaveHeight"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
-					</var>
-				</missingdatabinding>
-			</testmodule>
+			<smartfoldernode
+			id="a58fe7c2-1ba9-46d5-a2e0-4fde702af2d7"
+			name="ValidationInPropertiesPanel">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="customAssessmentBSKW"
 			id="a62f19a6-916a-4eae-a94c-9f8d7e719c12"
@@ -8599,6 +9288,31 @@
 			datasource="detailedAssessmentSTBUType"
 			id="a6967a33-1477-4893-927e-d6030af4a6df"
 			name="ValidateDetailedAsssessmentType">
+			</smartfoldernode>
+			<smartfoldernode
+			id="a72a7b50-d23b-446f-901c-7127e12e5fcb"
+			name="ValidateCalculationWaterLevelInDocumentViewDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="a81c4715-e765-414a-93c8-ea76e6e28ab1"
@@ -8752,6 +9466,26 @@
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
 			<testmodule
+			id="ac449e02-6da8-4f5a-b344-61d7dc201abf"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="acbb6954-fb24-4617-beda-39c2079fc909"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
@@ -8782,6 +9516,12 @@
 			id="adfd004f-4c6b-44ef-86d2-3ee33f7984a2"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
+			<testmodule
+			id="ae429da7-da77-4d9d-b41e-17f3c0ab6e73"
+			name="ClickOnRunSelectedCalculations"
+			ref="907b89b7-6058-4333-a615-ff354007586c"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
@@ -8850,6 +9590,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="af77579b-2189-4ea1-8783-7a99bcd2c52b"
+			name="SelectRow">
+			</smartfoldernode>
 			<testmodule
 			id="afbc54a4-4fac-4160-916f-7857ed17fe46"
 			name="SetDetailedAssessmentForRowPerSection"
@@ -9125,6 +9869,31 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="b33615ff-4b02-4ae7-93dd-1f3c7abcfba9"
+			name="ValidateCalculationWaterLevelInDocumentViewDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0"
 			name="ValidateRelevanceFMsTraject44_2InFailureMechanismsContributionView">
@@ -9817,12 +10586,6 @@
 			name="teardown">
 			</teardown>
 			<testmodule
-			id="bfc69429-925a-47da-bf82-53a6a635d9ff"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="bfdb6bd2-c766-46a9-84a4-05512080c534"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -10004,6 +10767,40 @@
 					variablename="fmExpectedRelevance">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="c30d6081-fa90-42de-b799-0a90936c5b76"
+			name="ValidateWaterLevelWaveHeightInDocumentView"
+			ref="c93bb1b9-c14c-4a0a-ae72-fe034593361b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c353d39e-4ed3-401f-8ecd-cd18bca607d7"
@@ -10379,6 +11176,35 @@
 			id="c634f880-0187-4e4a-9eed-0c396c788f3f"
 			name="SimpleAssessmentFMsGroup1">
 			</smartfoldernode>
+			<smartfoldernode
+			id="c6e6bafe-613d-446b-8e63-009f96fcf636"
+			name="SelectRowDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="c723401b-ca9e-4c1f-8ca0-20c7adf36518"
+			name="SelectRow">
+			</smartfoldernode>
 			<testmodule
 			id="c79ab7cd-5a57-4b6f-89b3-9635985a531a"
 			name="ValidateCustomAssessmentTypeAtRow"
@@ -10620,6 +11446,48 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="cc8fd6c1-7ea1-4caf-a828-98550df72f20"
+			name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="detailedAssessmentSTMIType"
 			id="cdba0bb5-d55f-465e-a055-fca75eb90b3d"
@@ -11018,6 +11886,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
 			id="d481cf1c-96b1-4e05-a337-829e97cc3441"
 			name="ValidateAllResultsUsingCSVExportedFile">
 				<parameters>
@@ -11592,6 +12461,34 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="de7bcebd-1a14-45bb-918e-e757c30ca247"
+			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
+			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameAlpha6"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueAlpha6"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameAlpha1"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
+					variablename="nameOfParameter">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="de7dc17c-b111-43c8-9a13-4aa7aa4fe6e8"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -11639,6 +12536,31 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="df2f9c27-d999-4d57-9880-9b6a250db860"
+			name="ValidateDetailedHydraulicBoundaryConditionsDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script15a_MessagesLastCalculationsFinished"
 			errorbehavior="ContinueNextIteration"
@@ -11704,28 +12626,6 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
-			name="SelectRowCalculation"
-			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e147ecaf-e3ea-4716-b151-63dd6a828117"
@@ -12096,6 +12996,28 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="e6a57999-0399-4ba8-88e2-7ac9b2cbb71a"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e6c18649-1811-4b8f-a6ab-a27ae4889312"
 			name="CustomAssessmentFMsGroup1_STKWp">
@@ -12110,26 +13032,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="e705e23a-cb2e-4064-8471-8c16a13076e5"
-			name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView"
-			ref="b7ac941c-5b89-48cd-92dd-2974ba18eb21"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="notCalculatedValue"
-					datasourceid="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-					variableid="cfd6ab47-34a6-480e-82b3-0cb82ab6f500"
-					variablename="notExpectedValue">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="FMsInGroup1SimpleAssessment"
 			id="e756f312-1a93-4042-9200-8ee398806472"
@@ -12164,8 +13066,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script15b_LoopAllCalculationsFms"
+			errorbehavior="ContinueNextIteration"
 			id="e7735df6-061f-4299-a21a-37ee4eb36786"
+			maxrange="2"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -12321,6 +13227,48 @@
 			datasource="customAssessmentGABU"
 			id="e9e0fe4f-6dd2-478a-b8dd-a7c6f77a1a6c"
 			name="ValidateCustomAsssessmentType">
+			</smartfoldernode>
+			<smartfoldernode
+			id="ea5aeb4b-38e1-4bd0-9fe7-aa5eb4533511"
+			name="SelectRowGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="ea71d278-5c6a-4b77-827b-50c9d289c19b"
@@ -12645,6 +13593,48 @@
 			id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
 			name="teardown">
 			</teardown>
+			<smartfoldernode
+			id="f0818843-8156-4b9c-9947-71fc7349e58c"
+			name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
 			name="ConvertToCurrentCulture"
@@ -12735,6 +13725,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f2b89f9a-4fdc-4e8f-a729-1e682f98711f"
+			name="DA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="detailedAssessmentSTBIType"
 			id="f2d0096b-362f-4654-8f4b-52e8cae9663f"
@@ -12862,6 +13877,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f580991d-3a00-4325-af62-c76e31bc813a"
+			name="SaveProjectScript15a,b,c">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="script15\script15abc.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="FileToOpen"
 			errorbehavior="ContinueParent"
@@ -13221,6 +14246,48 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="fa388020-ce0a-4df7-bf08-f6ed50cfdc4f"
+			name="StartCalculationsGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="fa4a7b00-c471-465b-80d2-f01f64b85443"
 			name="GetValueParameterForItemInTraject"
@@ -13521,6 +14588,12 @@
 					variablename="substringItemName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fd4c7c01-0e7d-44cf-9f11-df6e1d56623d"
+			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
+			ref="a0fb1576-cc6f-43a8-9e64-da0db902668d"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="fd7a7a33-d181-4452-9b5a-cdf8fc0101a3"
@@ -14447,7 +15520,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="37c431a5-f03b-4cc9-a737-a950832cd9bc"
-						name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU)">
+						name="a)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
 							<smartfoldernode
 							id="0c083a22-60f2-4670-ae4c-5c16796e6423"
 							name="SelectCaseToRun">
@@ -14482,18 +15555,46 @@
 								<smartfoldernode
 								id="0903a8f5-5f75-4ab6-9af9-5a77cc0caa35"
 								name="SelectLocationsForCalculation">
-									<testmodule
-									id="74996d46-92c4-428d-aaab-3a416b7a7616"
-									name="SelectCalculationsAndIllustrationPoints">
-									</testmodule>
+									<smartfoldernode
+									id="1945a39d-eed1-46d5-9edf-cdc344d1b50f"
+									name="GEBU">
+										<testmodule
+										id="8ba1dd94-b3c8-4a85-896f-966bc33cc632"
+										name="SelectCalculationsAndIllustrationPoints">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f2b89f9a-4fdc-4e8f-a729-1e682f98711f"
+									name="DA">
+										<testmodule
+										id="7aaba89b-19d7-48a1-a32b-d21ef2c87393"
+										name="SelectCalculationsToRunDA">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="769950c3-8881-4bc9-9049-f6488ccc2275"
 								name="CarryOutCalculations">
-									<testmodule
-									id="13bc3335-3b6d-4faa-ab62-6600c39d3cc5"
-									name="ClickOnRunSelectedCalculations">
-									</testmodule>
+									<smartfoldernode
+									id="46a5a01c-d4e0-4f1f-9a02-9f17569b15ac"
+									name="ClickOnStartSelectedCalculations">
+										<smartfoldernode
+										id="70150b58-a6b1-47e1-a380-7c379d8007a5"
+										name="StartCalculationsGEBU">
+											<testmodule
+											id="13bc3335-3b6d-4faa-ab62-6600c39d3cc5"
+											name="ClickOnRunSelectedCalculations">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="084980e1-de98-427c-9bb6-b0d1323037ce"
+										name="StartCalculations_DA">
+											<testmodule
+											id="6026e788-c001-4adb-96e7-e5348b3c7bcc"
+											name="ClickOnRunSelectedCalculationsHydraulicBCDA">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
 									<testmodule
 									id="b3d27816-eb65-4a78-9175-21981a52319a"
 									name="PressCancelDialog">
@@ -14520,22 +15621,46 @@
 										<smartfoldernode
 										id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
 										name="ValidateFinishedCalculations">
-											<testmodule
-											id="c3b92e46-53a3-46ef-91e2-69ea648e0f03"
-											name="SelectRowCalculation">
-											</testmodule>
-											<testmodule
-											id="bfc69429-925a-47da-bf82-53a6a635d9ff"
-											name="CreateScreenshotDocumentView">
-											</testmodule>
-											<testmodule
-											id="a5e33595-5af9-404a-8190-52dda0225b0b"
-											name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
-											</testmodule>
-											<testmodule
-											id="d3ac74ba-c4a6-4369-a128-c992f3841830"
-											name="ValidateWaterLevelWaveHeightInDocumentView">
-											</testmodule>
+											<smartfoldernode
+											id="782524b7-af6e-4a69-8a34-7e99e9b216ff"
+											name="SelectRow">
+												<smartfoldernode
+												id="7b65b01d-9bbb-4d5d-8b57-eff0028d15be"
+												name="SelectRowGEBU">
+													<testmodule
+													id="c3b92e46-53a3-46ef-91e2-69ea648e0f03"
+													name="SelectRowCalculation">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="435753ca-94bd-462c-bf24-db7a546a9fe1"
+												name="SelectRowDA">
+													<testmodule
+													id="9ecdc8f4-8b01-4cd6-b02f-0f97e1f70b07"
+													name="SelectRowCalculationHydraulicBCDune">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
+											<smartfoldernode
+											id="8f087af8-f16c-4333-bac4-b5c6073bc388"
+											name="ValidateResultInDocumentView">
+												<smartfoldernode
+												id="cc8fd6c1-7ea1-4caf-a828-98550df72f20"
+												name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+													<testmodule
+													id="d3ac74ba-c4a6-4369-a128-c992f3841830"
+													name="ValidateWaterLevelWaveHeightInDocumentView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="0be2d029-2fa5-4eef-8113-34b470e4d1d6"
+												name="ValidateCalculationWaterLevelInDocumentViewDA">
+													<testmodule
+													id="8a483e8e-0257-4baa-b8ae-c4044aa7f497"
+													name="ValidateCalculationWaterLevelInDocumentViewDA">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
 											<testmodule
 											id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
 											name="CreateScreenShotPropertiesPanel">
@@ -14548,22 +15673,46 @@
 										<smartfoldernode
 										id="6e80f060-cb78-47ce-a16b-3425624471c4"
 										name="ValidateUnfinishedCalculations">
-											<testmodule
-											id="0173a6e0-e5c5-4905-8b6d-f4deedcd936b"
-											name="SelectRowCalculation">
-											</testmodule>
-											<testmodule
-											id="76ce316d-6ce7-47dd-8071-9f2312cee1d0"
-											name="CreateScreenshotDocumentView">
-											</testmodule>
-											<testmodule
-											id="532248d7-9e1e-4e0e-9d3d-bda5cdd68e37"
-											name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture">
-											</testmodule>
-											<testmodule
-											id="5089f1e1-4962-415a-a8d8-ad30c223db76"
-											name="ValidateWaterLevelWaveHeightInDocumentView">
-											</testmodule>
+											<smartfoldernode
+											id="06ec16c5-53f6-40ef-9e40-28a3cb2aafcb"
+											name="SelectRow">
+												<smartfoldernode
+												id="ea5aeb4b-38e1-4bd0-9fe7-aa5eb4533511"
+												name="SelectRowGEBU">
+													<testmodule
+													id="1749c088-f8ea-4448-923c-70868cc7eb58"
+													name="SelectRowCalculation">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="63427011-49e7-4515-a2fb-a3806b7706e9"
+												name="SelectRowDA">
+													<testmodule
+													id="153ff05d-1ab9-486e-9308-5cada7e6e3f0"
+													name="SelectRowCalculationHydraulicBCDune">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
+											<smartfoldernode
+											id="26779f69-8b0e-43c2-808f-c922f63bab34"
+											name="ValidateResultInDocumentView">
+												<smartfoldernode
+												id="407f7ab6-c874-45e9-930d-9fe65ad40f24"
+												name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+													<testmodule
+													id="c30d6081-fa90-42de-b799-0a90936c5b76"
+													name="ValidateWaterLevelWaveHeightInDocumentView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="a72a7b50-d23b-446f-901c-7127e12e5fcb"
+												name="ValidateCalculationWaterLevelInDocumentViewDA">
+													<testmodule
+													id="746599ea-5238-4b08-a392-ffbaa8024259"
+													name="ValidateCalculationWaterLevelInDocumentViewDA">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
 											<testmodule
 											id="3324b95d-4dfc-4ff1-8d22-1bcd4cc46b37"
 											name="CreateScreenShotPropertiesPanel">
@@ -14574,10 +15723,26 @@
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
-									<testmodule
-									id="5ef89907-419f-426a-b8f8-3678d6c5a3a5"
-									name="ClickOnRunSelectedCalculations">
-									</testmodule>
+									<smartfoldernode
+									id="122a30a6-5fe1-488f-ad77-06c363ff8825"
+									name="ClickOnStartSelectedCalculations">
+										<smartfoldernode
+										id="fa388020-ce0a-4df7-bf08-f6ed50cfdc4f"
+										name="StartCalculationsGEBU">
+											<testmodule
+											id="ae429da7-da77-4d9d-b41e-17f3c0ab6e73"
+											name="ClickOnRunSelectedCalculations">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="33529ce6-e12d-4786-ae4a-bfbb1c7ca1ef"
+										name="StartCalculations_DA">
+											<testmodule
+											id="fd4c7c01-0e7d-44cf-9f11-df6e1d56623d"
+											name="ClickOnRunSelectedCalculationsHydraulicBCDA">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
 									<testmodule
 									id="31ad3255-520a-4e6d-afff-76a2b442a8d5"
 									name="WaitUntilAllCalculationsHaveBeenCarriedOut">
@@ -14611,94 +15776,174 @@
 										</smartfoldernode>
 										<smartfoldernode
 										id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
-										name="ValidateResultsPresentInTableLeft">
-											<testmodule
-											id="e1373498-f3e1-4e9a-9cfa-aec23d6bee24"
-											name="SelectRowCalculation">
-											</testmodule>
-											<testmodule
-											id="0e1f2eaa-19a6-4fe6-8c34-e2119c0b5652"
-											name="CreateScreenshotDocumentView">
-											</testmodule>
-											<testmodule
-											id="e705e23a-cb2e-4064-8471-8c16a13076e5"
-											name="ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView">
-											</testmodule>
+										name="ValidateResultsPresentInDocumentView">
+											<smartfoldernode
+											id="af77579b-2189-4ea1-8783-7a99bcd2c52b"
+											name="SelectRow">
+												<smartfoldernode
+												id="8822f69b-5542-4bdd-aa71-3a57b5db0d9b"
+												name="SelectRowGEBU">
+													<testmodule
+													id="81e0e112-5c95-45a6-92ae-b7157e9a0afe"
+													name="SelectRowCalculation">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="738075cb-f850-4b4a-912c-f76a19374b3e"
+												name="SelectRowDA">
+													<testmodule
+													id="a188acbe-2ca8-40c6-ac7c-56759dfd517e"
+													name="SelectRowCalculationHydraulicBCDune">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
+											<smartfoldernode
+											id="4a01d30f-ae28-4241-8011-738b80e3dad7"
+											name="ValidateResultInDocumentView">
+												<smartfoldernode
+												id="f0818843-8156-4b9c-9947-71fc7349e58c"
+												name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
+													<testmodule
+													id="2cd56dfa-1aa5-466f-862f-49708e87aae0"
+													name="ValidateWaterLevelWaveHeightInDocumentView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="b33615ff-4b02-4ae7-93dd-1f3c7abcfba9"
+												name="ValidateCalculationWaterLevelInDocumentViewDA">
+													<testmodule
+													id="2ab24fd1-8990-4e7e-81a6-a0a0c615cf66"
+													name="ValidateCalculationWaterLevelInDocumentViewDA">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
 										</smartfoldernode>
 										<smartfoldernode
 										id="85c2da20-4b43-4fe2-85ea-05d83ea229f8"
-										name="ValidateResultsInPropertiesPanel">
-											<testmodule
-											id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
-											name="SelectRowCalculation">
-											</testmodule>
-											<testmodule
-											id="61717bd6-639e-4739-9e0a-020f5c4119cc"
-											name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
-											</testmodule>
+										name="ValidateDetailedResultsInPropertiesPanel">
 											<smartfoldernode
-											id="340e6795-be92-4d9f-ab6a-ffe254351956"
-											name="ValidateResultsIllustrationPoints">
-												<testmodule
-												id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
-												name="ExpandAlphasGroup">
-												</testmodule>
-												<testmodule
-												id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="fe7ab044-aca4-4084-a560-fe272cace2b4"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="aec74860-0172-4fec-8644-f1623c1e51fc"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="674ed633-77ee-4a1b-863c-b1c220b20238"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="71df948a-8310-4b21-80ae-c79c38db051d"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="1afe3633-1389-471f-b783-47ec95df5540"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="9320cf8e-6e3c-498f-b602-5695f054102f"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
+											id="c723401b-ca9e-4c1f-8ca0-20c7adf36518"
+											name="SelectRow">
+												<smartfoldernode
+												id="24a2d5c7-e466-4b82-b1d8-555faa0bb727"
+												name="SelectRowGEBU">
+													<testmodule
+													id="e6a57999-0399-4ba8-88e2-7ac9b2cbb71a"
+													name="SelectRowCalculation">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="c6e6bafe-613d-446b-8e63-009f96fcf636"
+												name="SelectRowDA">
+													<testmodule
+													id="4c2d91ab-3b1c-4f97-b621-12efb4178c09"
+													name="SelectRowCalculationHydraulicBCDune">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
+											<smartfoldernode
+											id="a58fe7c2-1ba9-46d5-a2e0-4fde702af2d7"
+											name="ValidationInPropertiesPanel">
+												<smartfoldernode
+												id="7f57332b-864d-4697-8b05-0424bd22454b"
+												name="ValidateDetailedResultsInPropertiesPanelGEBU">
+													<testmodule
+													id="61717bd6-639e-4739-9e0a-020f5c4119cc"
+													name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<smartfoldernode
+													id="340e6795-be92-4d9f-ab6a-ffe254351956"
+													name="ValidateResultsIllustrationPoints">
+														<testmodule
+														id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
+														name="ExpandAlphasGroup">
+														</testmodule>
+														<testmodule
+														id="c46f31cd-4b84-4046-aa3f-6b9a1d998733"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="fe7ab044-aca4-4084-a560-fe272cace2b4"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="d0c78556-3fcb-4911-83ab-744e6b6c797e"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="aec74860-0172-4fec-8644-f1623c1e51fc"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="9b4bfa8b-99df-4088-a3d8-3b190fd5faf7"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="674ed633-77ee-4a1b-863c-b1c220b20238"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="5cd70d31-6c65-4d4e-bb15-75bb0901b48d"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="38ee032d-6b69-47b6-9347-fbff54ffa28a"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="5dea791f-54d0-4810-b221-a9b7fdfdaf3b"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="71df948a-8310-4b21-80ae-c79c38db051d"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="1afe3633-1389-471f-b783-47ec95df5540"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="9320cf8e-6e3c-498f-b602-5695f054102f"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+														<testmodule
+														id="3ab996b9-7f70-4862-a81e-d757f3d9ad66"
+														name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+														</testmodule>
+													</smartfoldernode>
+												</smartfoldernode>
+												<smartfoldernode
+												id="df2f9c27-d999-4d57-9880-9b6a250db860"
+												name="ValidateDetailedHydraulicBoundaryConditionsDA">
+													<testmodule
+													id="ac449e02-6da8-4f5a-b344-61d7dc201abf"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<testmodule
+													id="1d347463-c7c4-479d-942f-170ee35f5e81"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<testmodule
+													id="6bfc024d-08a9-4126-b24e-347ca2e47941"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<testmodule
+													id="3db94313-7366-41e6-8847-b1989fb4f8b1"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<testmodule
+													id="8087a41a-a31e-4e26-83f3-badaf077a043"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+													<testmodule
+													id="de7bcebd-1a14-45bb-918e-e757c30ca247"
+													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
+													</testmodule>
+												</smartfoldernode>
 											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -14896,6 +16141,14 @@
 						<smartfoldernode
 						id="215bccb4-a1ec-47de-91c8-9f891c9a4fde"
 						name="c)WaveConditionsForDunes(DA)">
+							<smartfoldernode
+							id="f580991d-3a00-4325-af62-c76e31bc813a"
+							name="SaveProjectScript15a,b,c">
+								<testmodule
+								id="06df9752-b03b-495a-a66a-63626b750a44"
+								name="SaveAs">
+								</testmodule>
+							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="04cf2119-1584-4170-802a-2d350b597475"
@@ -19800,7 +21053,7 @@
 		</DataSource>
 		<DataSource
 		id="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-		lastknownrowcount="18"
+		lastknownrowcount="23"
 		name="script15_a_ExpectedResultsCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -21886,6 +23139,436 @@
 						0
 					</td>
 				</tr>
+				<tr>
+					<td>
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Iv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						7.40
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						Rekenwaarde Tp
+					</td>
+					<td>
+						16.05
+					</td>
+					<td>
+						Rekenwaarde d50
+					</td>
+					<td>
+						0.000219
+					</td>
+					<td>
+						Betrouwbaarheidsindex doelkans
+					</td>
+					<td>
+						4.78947
+					</td>
+					<td>
+						Betrouwbaarheidsindex berekende kans
+					</td>
+					<td>
+						4.78938
+					</td>
+					<td>
+						Rekenwaarde Hs
+					</td>
+					<td>
+						9.78
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						7.40
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.88
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						Rekenwaarde Tp
+					</td>
+					<td>
+						14.87
+					</td>
+					<td>
+						Rekenwaarde d50
+					</td>
+					<td>
+						0.000219
+					</td>
+					<td>
+						Betrouwbaarheidsindex doelkans
+					</td>
+					<td>
+						4.05485
+					</td>
+					<td>
+						Betrouwbaarheidsindex berekende kans
+					</td>
+					<td>
+						4.05500
+					</td>
+					<td>
+						Rekenwaarde Hs
+					</td>
+					<td>
+						8.85
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.88
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIIv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.88
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						Rekenwaarde Tp
+					</td>
+					<td>
+						14.87
+					</td>
+					<td>
+						Rekenwaarde d50
+					</td>
+					<td>
+						0.000219
+					</td>
+					<td>
+						Betrouwbaarheidsindex doelkans
+					</td>
+					<td>
+						4.05485
+					</td>
+					<td>
+						Betrouwbaarheidsindex berekende kans
+					</td>
+					<td>
+						4.05500
+					</td>
+					<td>
+						Rekenwaarde Hs
+					</td>
+					<td>
+						8.85
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.88
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IVv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.46
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						Rekenwaarde Tp
+					</td>
+					<td>
+						14.51
+					</td>
+					<td>
+						Rekenwaarde d50
+					</td>
+					<td>
+						0.000219
+					</td>
+					<td>
+						Betrouwbaarheidsindex doelkans
+					</td>
+					<td>
+						3.80234
+					</td>
+					<td>
+						Betrouwbaarheidsindex berekende kans
+					</td>
+					<td>
+						3.80281
+					</td>
+					<td>
+						Rekenwaarde Hs
+					</td>
+					<td>
+						8.56
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						5.46
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Vv
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						4.22
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						Rekenwaarde Tp
+					</td>
+					<td>
+						13.25
+					</td>
+					<td>
+						Rekenwaarde d50
+					</td>
+					<td>
+						0.000219
+					</td>
+					<td>
+						Betrouwbaarheidsindex doelkans
+					</td>
+					<td>
+						2.85527
+					</td>
+					<td>
+						Betrouwbaarheidsindex berekende kans
+					</td>
+					<td>
+						2.85617
+					</td>
+					<td>
+						Rekenwaarde Hs
+					</td>
+					<td>
+						7.56
+					</td>
+					<td>
+						Rekenwaarde waterstand [m+NAP]
+					</td>
+					<td>
+						4.22
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
@@ -23133,7 +24816,13 @@
 			id="06908862-b5db-4ca7-99ea-562da0210ef4">
 			</testcontainer>
 			<testcontainer
+			id="06ec16c5-53f6-40ef-9e40-28a3cb2aafcb">
+			</testcontainer>
+			<testcontainer
 			id="0844cea9-d97a-40ca-b4cf-3f0c73488c9c">
+			</testcontainer>
+			<testcontainer
+			id="084980e1-de98-427c-9bb6-b0d1323037ce">
 			</testcontainer>
 			<testcontainer
 			id="0903a8f5-5f75-4ab6-9af9-5a77cc0caa35">
@@ -23148,6 +24837,9 @@
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
 			</testcontainer>
 			<testcontainer
+			id="0be2d029-2fa5-4eef-8113-34b470e4d1d6">
+			</testcontainer>
+			<testcontainer
 			id="0c083a22-60f2-4670-ae4c-5c16796e6423">
 			</testcontainer>
 			<testcontainer
@@ -23155,6 +24847,12 @@
 			</testcontainer>
 			<testcontainer
 			id="11c52315-f52b-4972-a950-d9cb3e55b8ba">
+			</testcontainer>
+			<testcontainer
+			id="122a30a6-5fe1-488f-ad77-06c363ff8825">
+			</testcontainer>
+			<testcontainer
+			id="1945a39d-eed1-46d5-9edf-cdc344d1b50f">
 			</testcontainer>
 			<testcontainer
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
@@ -23166,13 +24864,22 @@
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
 			</testcontainer>
 			<testcontainer
+			id="24a2d5c7-e466-4b82-b1d8-555faa0bb727">
+			</testcontainer>
+			<testcontainer
 			id="255cbae4-6f2e-4e97-b4db-9655ae0b7122">
+			</testcontainer>
+			<testcontainer
+			id="26779f69-8b0e-43c2-808f-c922f63bab34">
 			</testcontainer>
 			<testcontainer
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
 			id="32b3d2aa-70bc-4991-a8f2-7d8fbcdbb994">
+			</testcontainer>
+			<testcontainer
+			id="33529ce6-e12d-4786-ae4a-bfbb1c7ca1ef">
 			</testcontainer>
 			<testcontainer
 			id="340e6795-be92-4d9f-ab6a-ffe254351956">
@@ -23193,7 +24900,13 @@
 			id="3eb30b78-64ef-4a56-96ce-0c4ccda12b32">
 			</testcontainer>
 			<testcontainer
+			id="407f7ab6-c874-45e9-930d-9fe65ad40f24">
+			</testcontainer>
+			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
+			</testcontainer>
+			<testcontainer
+			id="435753ca-94bd-462c-bf24-db7a546a9fe1">
 			</testcontainer>
 			<testcontainer
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
@@ -23202,7 +24915,13 @@
 			id="45d2f6ef-eb2f-4b9d-a62f-c65e74e99199">
 			</testcontainer>
 			<testcontainer
+			id="46a5a01c-d4e0-4f1f-9a02-9f17569b15ac">
+			</testcontainer>
+			<testcontainer
 			id="4722f879-2e55-4a3f-b631-b1ba7550f6e4">
+			</testcontainer>
+			<testcontainer
+			id="4a01d30f-ae28-4241-8011-738b80e3dad7">
 			</testcontainer>
 			<testcontainer
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
@@ -23241,6 +24960,9 @@
 			id="619a9725-5d5e-4078-8d52-cbf549c3f323">
 			</testcontainer>
 			<testcontainer
+			id="63427011-49e7-4515-a2fb-a3806b7706e9">
+			</testcontainer>
+			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
 			</testcontainer>
 			<testcontainer
@@ -23256,7 +24978,13 @@
 			id="6e80f060-cb78-47ce-a16b-3425624471c4">
 			</testcontainer>
 			<testcontainer
+			id="70150b58-a6b1-47e1-a380-7c379d8007a5">
+			</testcontainer>
+			<testcontainer
 			id="71289708-437a-4e75-bc9e-9e81ff0a6640">
+			</testcontainer>
+			<testcontainer
+			id="738075cb-f850-4b4a-912c-f76a19374b3e">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
@@ -23266,6 +24994,9 @@
 			</testcontainer>
 			<testcontainer
 			id="77116ac1-99e0-4980-bbc7-a47571455387">
+			</testcontainer>
+			<testcontainer
+			id="782524b7-af6e-4a69-8a34-7e99e9b216ff">
 			</testcontainer>
 			<testcontainer
 			id="78947188-1351-4994-baff-766da4b7d2e0">
@@ -23280,6 +25011,9 @@
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
 			</testcontainer>
 			<testcontainer
+			id="7b65b01d-9bbb-4d5d-8b57-eff0028d15be">
+			</testcontainer>
+			<testcontainer
 			id="7ddcf52d-b38d-4e51-82d8-2205317aac45">
 			</testcontainer>
 			<testcontainer
@@ -23289,10 +25023,16 @@
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee">
 			</testcontainer>
 			<testcontainer
+			id="7f57332b-864d-4697-8b05-0424bd22454b">
+			</testcontainer>
+			<testcontainer
 			id="85c2da20-4b43-4fe2-85ea-05d83ea229f8">
 			</testcontainer>
 			<testcontainer
 			id="87a0e03b-abc1-4296-980a-56ed1cbd73d8">
+			</testcontainer>
+			<testcontainer
+			id="8822f69b-5542-4bdd-aa71-3a57b5db0d9b">
 			</testcontainer>
 			<testcontainer
 			id="8c63949e-becf-47b7-b071-cf8264d3b52b">
@@ -23305,6 +25045,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8e160f16-5613-4821-9819-6120a4629211">
+			</testcontainer>
+			<testcontainer
+			id="8f087af8-f16c-4333-bac4-b5c6073bc388">
 			</testcontainer>
 			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
@@ -23328,7 +25071,13 @@
 			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f">
 			</testcontainer>
 			<testcontainer
+			id="a58fe7c2-1ba9-46d5-a2e0-4fde702af2d7">
+			</testcontainer>
+			<testcontainer
 			id="a6967a33-1477-4893-927e-d6030af4a6df">
+			</testcontainer>
+			<testcontainer
+			id="a72a7b50-d23b-446f-901c-7127e12e5fcb">
 			</testcontainer>
 			<testcontainer
 			id="a9476a5d-b871-4277-9188-1ebfe572836e">
@@ -23341,6 +25090,12 @@
 			</testcontainer>
 			<testcontainer
 			id="aedd5571-96f0-44fd-9a62-fa76607ec249">
+			</testcontainer>
+			<testcontainer
+			id="af77579b-2189-4ea1-8783-7a99bcd2c52b">
+			</testcontainer>
+			<testcontainer
+			id="b33615ff-4b02-4ae7-93dd-1f3c7abcfba9">
 			</testcontainer>
 			<testcontainer
 			id="b3886fdf-ba39-49e3-8f2e-fdec24393082">
@@ -23367,7 +25122,16 @@
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
 			</testcontainer>
 			<testcontainer
+			id="c6e6bafe-613d-446b-8e63-009f96fcf636">
+			</testcontainer>
+			<testcontainer
+			id="c723401b-ca9e-4c1f-8ca0-20c7adf36518">
+			</testcontainer>
+			<testcontainer
 			id="c9a01064-ecde-4068-ad48-42fc6d1640a2">
+			</testcontainer>
+			<testcontainer
+			id="cc8fd6c1-7ea1-4caf-a828-98550df72f20">
 			</testcontainer>
 			<testcontainer
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
@@ -23403,6 +25167,9 @@
 			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
 			</testcontainer>
 			<testcontainer
+			id="df2f9c27-d999-4d57-9880-9b6a250db860">
+			</testcontainer>
+			<testcontainer
 			id="df52fee7-7732-49dc-b801-6be1c59e8fb2">
 			</testcontainer>
 			<testcontainer
@@ -23418,16 +25185,31 @@
 			id="e8e551f8-aaf8-40b5-ad59-507a32ebfb66">
 			</testcontainer>
 			<testcontainer
+			id="ea5aeb4b-38e1-4bd0-9fe7-aa5eb4533511">
+			</testcontainer>
+			<testcontainer
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
 			</testcontainer>
 			<testcontainer
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
 			</testcontainer>
 			<testcontainer
+			id="f0818843-8156-4b9c-9947-71fc7349e58c">
+			</testcontainer>
+			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
+			id="f2b89f9a-4fdc-4e8f-a729-1e682f98711f">
+			</testcontainer>
+			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
+			</testcontainer>
+			<testcontainer
+			id="f580991d-3a00-4325-af62-c76e31bc813a">
+			</testcontainer>
+			<testcontainer
+			id="fa388020-ce0a-4df7-bf08-f6ed50cfdc4f">
 			</testcontainer>
 			<testcontainer
 			id="fbb2a28a-3275-45eb-99ac-4e94fcc817ec">

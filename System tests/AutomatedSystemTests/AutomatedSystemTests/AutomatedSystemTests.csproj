@@ -177,6 +177,18 @@
       <UserCode>true</UserCode>
       <id>443d8da9-77fd-404d-b4e8-8470675a6acc</id>
     </Compile>
+    <Compile Include="ClickOnRunSelectedCalculationsHydraulicBCDA.cs">
+      <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
+      <DependentUpon>ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b52b54f3-4179-424f-801b-b9b52d6b1672</id>
+    </Compile>
+    <Compile Include="ClickOnRunSelectedCalculationsHydraulicBCDA.UserCode.cs">
+      <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
+      <DependentUpon>ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>516989bc-37f5-4d53-8442-38a71ee85e4f</id>
+    </Compile>
     <Compile Include="ComparePlainTextFiles.cs">
       <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
@@ -188,18 +200,6 @@
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
-    </Compile>
-    <Compile Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.cs">
-      <BoundTo>afe71edd-6c53-4ff6-b655-f93726b80b35</BoundTo>
-      <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>3773b24c-25ae-4174-b494-451d981ae4ea</id>
-    </Compile>
-    <Compile Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.UserCode.cs">
-      <BoundTo>afe71edd-6c53-4ff6-b655-f93726b80b35</BoundTo>
-      <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>415a7e92-e277-4f06-9523-3ab35c41fb3e</id>
     </Compile>
     <Compile Include="CreateNameReferenceCSVFile.cs">
       <id>fbd3935f-9ecc-45c3-b24a-cc779921d937</id>
@@ -312,6 +312,18 @@
       <UserCode>true</UserCode>
       <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
     </Compile>
+    <Compile Include="SelectCalculationsToRunDA.cs">
+      <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
+      <DependentUpon>SelectCalculationsToRunDA.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>201c3634-b1bc-4183-89ae-da92cb5a96db</id>
+    </Compile>
+    <Compile Include="SelectCalculationsToRunDA.UserCode.cs">
+      <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
+      <DependentUpon>SelectCalculationsToRunDA.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>7fd00eb0-81b5-4ff0-8859-bd1d04dd7f2a</id>
+    </Compile>
     <Compile Include="SelecteSingleCaseInRange.cs">
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
       <DependentUpon>SelecteSingleCaseInRange.rxrec</DependentUpon>
@@ -372,6 +384,18 @@
       <UserCode>true</UserCode>
       <id>2e623771-4aa4-4081-9812-2277697511fa</id>
     </Compile>
+    <Compile Include="SelectRowCalculationHydraulicBCDune.cs">
+      <BoundTo>28d03374-35b2-44db-81cd-a402f27e8a66</BoundTo>
+      <DependentUpon>SelectRowCalculationHydraulicBCDune.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>cd0b5d07-fcf6-4b68-b1cc-11d09b65da47</id>
+    </Compile>
+    <Compile Include="SelectRowCalculationHydraulicBCDune.UserCode.cs">
+      <BoundTo>28d03374-35b2-44db-81cd-a402f27e8a66</BoundTo>
+      <DependentUpon>SelectRowCalculationHydraulicBCDune.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>877658b2-1b90-42d3-ad4f-db4fec0f0944</id>
+    </Compile>
     <Compile Include="SetDetailedAssessmentValueForRow.cs">
       <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
       <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
@@ -395,6 +419,18 @@
       <DependentUpon>StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>75cdb08c-9692-4282-8c6a-62e2452337a1</id>
+    </Compile>
+    <Compile Include="ValidateCalculationWaterLevelInDocumentViewDA.cs">
+      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
+      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a40a657d-cff0-4ae6-aef6-b8e070b759e9</id>
+    </Compile>
+    <Compile Include="ValidateCalculationWaterLevelInDocumentViewDA.UserCode.cs">
+      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
+      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>0ff1e861-1102-41de-9f2b-90d77af2f13f</id>
     </Compile>
     <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.cs">
       <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
@@ -1534,15 +1570,15 @@
       <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
       <recordtableid>907b89b7-6058-4333-a615-ff354007586c</recordtableid>
     </None>
+    <None Include="ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c4b5ba37-93b9-4977-a67f-31b2e221b26f</id>
+      <recordtableid>a0fb1576-cc6f-43a8-9e64-da0db902668d</recordtableid>
+    </None>
     <None Include="ComparePlainTextFiles.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
       <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
-    </None>
-    <None Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>afe71edd-6c53-4ff6-b655-f93726b80b35</id>
-      <recordtableid>9f850752-ea2b-451f-9b30-164f5bceb80b</recordtableid>
     </None>
     <None Include="CreateScreenshotDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1589,6 +1625,11 @@
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
       <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
     </None>
+    <None Include="SelectCalculationsToRunDA.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0cc48728-8442-42cf-af65-3ac14054b2d3</id>
+      <recordtableid>7c3eef7d-4675-4a50-82a1-6f7d0d153cac</recordtableid>
+    </None>
     <None Include="SelecteSingleCaseInRange.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
@@ -1614,6 +1655,11 @@
       <id>afcbcacc-5b0b-4d59-884d-84d57b286c4c</id>
       <recordtableid>5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3</recordtableid>
     </None>
+    <None Include="SelectRowCalculationHydraulicBCDune.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>28d03374-35b2-44db-81cd-a402f27e8a66</id>
+      <recordtableid>41e70303-25bd-42fe-9275-c9f1baa62c5c</recordtableid>
+    </None>
     <None Include="SetDetailedAssessmentValueForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
@@ -1623,6 +1669,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>af0febe3-a18a-480b-a52f-1a751996c9c0</id>
       <recordtableid>9c9a5824-8ab8-44a2-b76c-84bb3359d312</recordtableid>
+    </None>
+    <None Include="ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
+      <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
     </None>
     <None Include="ValidateCategoryBoundaryInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

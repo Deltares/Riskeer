@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class SelecteSingleCaseInRange
+    public partial class SelectCalculationsToRunDA
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,10 +33,23 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void SelectCase(string nameOfFolderWithRangeCases, string caseToselect)
+        public void SelectCalculationsToAddInHydraulicBC_DA(RepoItemInfo tableInfo)
         {
-            caseToselect = "1-11,14-16,19-23";
-        	TestSuite.Current.GetTestContainer(nameOfFolderWithRangeCases).DataContext.SetRange(DataRangeSet.Parse(caseToselect));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at Center when required.");
+            int index = Int32.Parse(rowIndex);
+            var row = tableInfo.FindAdapter<Table>().Rows[index+1];
+            var calculationCell = row.Children[1].As<Cell>();
+            ClickOnCheckboxCellIfNeeded(calculationCell, calculationMustBeChecked);
+        }
+        
+        public void ClickOnCheckboxCellIfNeeded(Cell cell, string expectedCheckedState)
+        {
+        	string currentState = cell.Element.GetAttributeValueText("AccessibleState");
+        	var currentlyChecked = currentState.Contains("Checked").ToString().ToLower();
+            if (currentlyChecked!=expectedCheckedState) {
+        		cell.Click();
+            }
+        
         }
 
     }

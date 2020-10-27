@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ConvertValueFromRanorexDataCultureToDoubleCurrentCulture recording.
+    ///The ClickOnRunSelectedCalculationsHydraulicBCDA recording.
     /// </summary>
-    [TestModule("9f850752-ea2b-451f-9b30-164f5bceb80b", ModuleType.Recording, 1)]
-    public partial class ConvertValueFromRanorexDataCultureToDoubleCurrentCulture : ITestModule
+    [TestModule("a0fb1576-cc6f-43a8-9e64-da0db902668d", ModuleType.Recording, 1)]
+    public partial class ClickOnRunSelectedCalculationsHydraulicBCDA : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ConvertValueFromRanorexDataCultureToDoubleCurrentCulture instance = new ConvertValueFromRanorexDataCultureToDoubleCurrentCulture();
+        static ClickOnRunSelectedCalculationsHydraulicBCDA instance = new ClickOnRunSelectedCalculationsHydraulicBCDA();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ConvertValueFromRanorexDataCultureToDoubleCurrentCulture()
+        public ClickOnRunSelectedCalculationsHydraulicBCDA()
         {
-            expectedValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ConvertValueFromRanorexDataCultureToDoubleCurrentCulture Instance
+        public static ClickOnRunSelectedCalculationsHydraulicBCDA Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _expectedValue;
-
-        /// <summary>
-        /// Gets or sets the value of variable expectedValue.
-        /// </summary>
-        [TestVariable("7b99103d-70be-4405-8ba9-5da015cbc768")]
-        public string expectedValue
-        {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
-        }
 
 #endregion
 
@@ -86,13 +73,15 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            expectedValue = CovertValueIntoCurrentCulture(expectedValue);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton.Click();
+            Delay.Milliseconds(0);
             
         }
 

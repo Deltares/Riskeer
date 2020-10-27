@@ -572,6 +572,64 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="5463a298-04f2-4ecb-81d1-9702c5733f45"
+				isrooted="True"
+				name="HydraulicBCDunes"
+				refimgid="cd926d0c-1ab7-41a3-93e7-6fb16b852681"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="b032b126-789d-46aa-b7ab-ab1c08998b17"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="row"
+						id="c8521886-54a9-407d-94d4-a646a9c0f68e"
+						name="GenericRowHydraulicBCDunes"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+						</item>
+						<item
+						capname="cell"
+						id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
+						name="CellCalculatedWaterLevelDA"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+						</basepath>
+					</folder>
+					<folder
+					capname="container"
+					id="230b72be-fa67-4526-86b5-ffc995407fe1"
+					isrooted="True"
+					name="CalculationButtonsDA"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="button,control,nativewindow"
+						capname="button"
+						id="c5d97332-76d8-4900-be29-cdffe99cbf99"
+						name="CalculateForSelectedButton"
+						refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
+						refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container[@caption='']/container[@controlname='DuneLocationCalculationsViewBase']/container[@controlname='ButtonGroupBox']/button[@controlname='CalculateForSelectedButton']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>

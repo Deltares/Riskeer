@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="5f11c431-c5f5-43ed-9e90-4eb9ec533e75"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateCalculationWaterLevelInDocumentViewDA"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+		<var
+		id="5d0e98e6-6465-4799-907c-9571b8b49d98"
+		name="expectedValue">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateCalculationWaterLevelInDocumentViewDA"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateValueWaterLevelInDocumentViewDA"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="2346c1b1-9227-40fa-9b9c-641009da2148">
+				<argument
+				argname="cellInfo"
+				id="08cf8d43-44da-4bfa-81f5-4fc12d742999">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="cab3a08c-d947-4418-a04b-1809375d814a">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
+				</path>
+			</info>
+		</loggingrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateCalculationWaterLevelInDocumentViewDA.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
