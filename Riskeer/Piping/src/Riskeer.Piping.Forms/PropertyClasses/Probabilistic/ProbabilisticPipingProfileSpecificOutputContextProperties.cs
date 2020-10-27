@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Gui.PropertyBag;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 
 namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
@@ -34,12 +36,26 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// Creates a new instance of <see cref="ProbabilisticPipingProfileSpecificOutputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingProfileSpecificOutputContextProperties(PartialProbabilisticPipingOutput data)
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ProbabilisticPipingProfileSpecificOutputContextProperties(PartialProbabilisticPipingOutput data,
+                                                                         PipingFailureMechanism failureMechanism,
+                                                                         IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = data;
