@@ -19,13 +19,48 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data.Probabilistic;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Piping.Service.Probabilistic
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    public class ProbabilisticPipingCalculationActivity {}
+    public class ProbabilisticPipingCalculationActivity : CalculatableActivity
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="ProbabilisticPipingCalculationActivity"/>.
+        /// </summary>
+        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> to perform.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
+        /// is <c>null</c>.</exception>
+        public ProbabilisticPipingCalculationActivity(ProbabilisticPipingCalculation calculation)
+            : base(calculation)
+        {
+            Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+        }
+        
+        protected override void OnCancel()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void OnFinish()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void PerformCalculation()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override bool Validate()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
