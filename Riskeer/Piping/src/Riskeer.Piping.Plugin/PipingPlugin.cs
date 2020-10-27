@@ -1003,7 +1003,7 @@ namespace Riskeer.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                             context.FailureMechanism.GeneralInput,
+                                                                                             context.FailureMechanism,
                                                                                              context.AssessmentSection));
         }
 
