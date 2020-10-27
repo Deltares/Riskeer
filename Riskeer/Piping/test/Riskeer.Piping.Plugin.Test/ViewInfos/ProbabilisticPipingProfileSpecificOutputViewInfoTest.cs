@@ -34,6 +34,7 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
@@ -76,7 +77,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new TestPipingFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             object viewData = info.GetViewData(context);
@@ -99,7 +100,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             IView view = info.CreateInstance(context);

@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
@@ -91,7 +92,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             Color color = info.ForeColor(context);
@@ -109,7 +110,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation, new TestPipingFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             Color color = info.ForeColor(context);

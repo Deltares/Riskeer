@@ -123,7 +123,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingProfileSpecificOutputContextProperties>
             {
-                CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputContextProperties(context.WrappedData.Output.ProfileSpecificOutput)
+                CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputContextProperties(context.WrappedData.Output.ProfileSpecificOutput, context.FailureMechanism, context.AssessmentSection)
             };
         }
 
@@ -1176,7 +1176,7 @@ namespace Riskeer.Piping.Plugin
 
             return new object[]
             {
-                new ProbabilisticPipingProfileSpecificOutputContext(calculation),
+                new ProbabilisticPipingProfileSpecificOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
                 new ProbabilisticPipingSectionSpecificOutputContext(calculation)
             };
         }
