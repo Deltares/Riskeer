@@ -584,7 +584,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             const int selectedRow = 0;
-            
+
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             PipingCalculationsView view = ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
@@ -615,7 +615,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             const int selectedRow = 1;
-            
+
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             PipingCalculationsView view = ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
@@ -991,9 +991,32 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
+        [Test]
+        public void CalculationsViewWithHydraulicLocation_ProbabilisticCalculationScenario_SelectableHydraulicLocationAlwaysReadonlyFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.IsFalse(dataGridView.Rows[1].ReadOnly);
+            var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.IsFalse(selectableHydraulicLocationCell.ReadOnly);
+
+            mocks.VerifyAll();
+        }
+
         [TestCase(true)]
         [TestCase(false)]
-        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        public void CalculationsViewWithHydraulicLocation_SemiProbabilisticCalculationScenario_SelectableHydraulicLocationReadonlyAsExpected(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1007,18 +1030,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
             calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
             calculation.InputParameters.NotifyObservers();
 
             // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
-
-            var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-            Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
+            var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.AreEqual(useAssessmentLevelManualInput, selectableHydraulicLocationCell.ReadOnly);
 
             mocks.VerifyAll();
         }
