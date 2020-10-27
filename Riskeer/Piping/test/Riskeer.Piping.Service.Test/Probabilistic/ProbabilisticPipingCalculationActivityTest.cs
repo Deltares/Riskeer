@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
@@ -35,28 +37,50 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             // Call
-            void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), null);
+            void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() =>  new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
         
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var calculation = new TestProbabilisticPipingCalculation();
             
             // Call
-            var activity = new ProbabilisticPipingCalculationActivity(calculation, new PipingFailureMechanism());
+            var activity = new ProbabilisticPipingCalculationActivity(calculation, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
+            mocks.VerifyAll();
         }
     }
 }
