@@ -86,6 +86,9 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="PipingCalculationRow.Calculation"/> of <paramref name="currentRow"/>
+        /// is of a type that is not supported.</exception>
         protected override object CreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
         {
             switch (currentRow.Calculation)
@@ -107,7 +110,7 @@ namespace Riskeer.Piping.Forms.Views
                         FailureMechanism,
                         AssessmentSection);
                 default:
-                    return null;
+                    throw new NotSupportedException();
             }
         }
 
@@ -121,9 +124,11 @@ namespace Riskeer.Piping.Forms.Views
             return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/> is of a type that is not supported.</exception>
         protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)
         {
-            var assessmentDescription = string.Empty;
+            string assessmentDescription;
 
             switch (calculation)
             {
@@ -133,6 +138,8 @@ namespace Riskeer.Piping.Forms.Views
                 case ProbabilisticPipingCalculationScenario _:
                     assessmentDescription = Resources.PipingCalculationsView_CreateRow_Assessment_description_probabilistic;
                     break;
+                default:
+                    throw new NotSupportedException();
             }
 
             return new PipingCalculationRow(calculation, assessmentDescription, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
