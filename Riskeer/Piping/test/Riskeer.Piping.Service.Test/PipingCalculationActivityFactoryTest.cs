@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
@@ -45,101 +46,6 @@ namespace Riskeer.Piping.Service.Test
     [TestFixture]
     public class PipingCalculationActivityFactoryTest
     {
-        [Test]
-        public void CreateSemiProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(null,
-                                                                                                                        new GeneralPipingInput(),
-                                                                                                                        assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            SemiProbabilisticPipingCalculation calculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
-                                                                                                                        null,
-                                                                                                                        assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalPipingInput", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            SemiProbabilisticPipingCalculation calculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
-
-            // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
-                                                                                                                        new GeneralPipingInput(),
-                                                                                                                        null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateSemiProbabilisticPipingCalculationActivity_WithValidCalculation_ReturnsActivityWithParametersSet()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                }
-            };
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var random = new Random(39);
-
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
-            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-
-            SemiProbabilisticPipingCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
-
-            var generalPipingInput = new GeneralPipingInput();
-
-            // Call
-            CalculatableActivity activity = PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
-                                                                                                                              generalPipingInput,
-                                                                                                                              assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<SemiProbabilisticPipingCalculationActivity>(activity);
-            AssertPipingCalculationActivity(activity, calculation, hydraulicBoundaryLocationCalculation);
-        }
-
         [Test]
         public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
@@ -345,5 +251,128 @@ namespace Riskeer.Piping.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, testFactory.LastCreatedSellmeijerCalculator.HRiver);
             }
         }
+
+        # region CreateSemiProbabilisticPipingCalculationActivity
+
+        [Test]
+        public void CreateSemiProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(null,
+                                                                                                             new GeneralPipingInput(),
+                                                                                                             new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(new SemiProbabilisticPipingCalculationScenario(),
+                                                                                                             null,
+                                                                                                             new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(new SemiProbabilisticPipingCalculationScenario(),
+                                                                                                             new GeneralPipingInput(),
+                                                                                                             null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSemiProbabilisticPipingCalculationActivity_WithValidCalculation_ReturnsActivityWithParametersSet()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                }
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var random = new Random(39);
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
+            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+
+            SemiProbabilisticPipingCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            var generalPipingInput = new GeneralPipingInput();
+
+            // Call
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
+                                                                                                                              generalPipingInput,
+                                                                                                                              assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<SemiProbabilisticPipingCalculationActivity>(activity);
+            AssertPipingCalculationActivity(activity, calculation, hydraulicBoundaryLocationCalculation);
+        }
+
+        # endregion
+
+        # region CreateProbabilisticPipingCalculationActivity
+
+        [Test]
+        public void CreateProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(null,
+                                                                                                         new PipingFailureMechanism(),
+                                                                                                         new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateProbabilisticPipingCalculationActivity_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(new ProbabilisticPipingCalculationScenario(),
+                                                                                                         null,
+                                                                                                         new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(new ProbabilisticPipingCalculationScenario(),
+                                                                                                         new PipingFailureMechanism(),
+                                                                                                         null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        # endregion
     }
 }
