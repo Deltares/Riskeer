@@ -35,6 +35,8 @@ namespace Riskeer.Piping.Service.Probabilistic
     {
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly ProbabilisticPipingCalculationService service;
+
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingCalculationActivity"/>.
         /// </summary>
@@ -56,15 +58,18 @@ namespace Riskeer.Piping.Service.Probabilistic
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+            
+            service = new ProbabilisticPipingCalculationService();
         }
         
         protected override void OnCancel()
         {
-            throw new System.NotImplementedException();
+            service.Cancel();
         }
 
         protected override void OnFinish()
