@@ -22,15 +22,10 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
-using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 {
@@ -63,7 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism() , null);
+            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
