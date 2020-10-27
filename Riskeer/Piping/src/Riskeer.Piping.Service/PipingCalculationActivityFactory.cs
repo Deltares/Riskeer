@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .Cast<IPipingCalculationScenario<PipingInput>>()
+                                   .Cast<IPipingCalculation<PipingInput>>()
                                    .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
                                    .ToArray();
         }
@@ -169,18 +169,18 @@ namespace Riskeer.Piping.Service
         /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/> belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <see cref="calculation"/> is of a type that is not supported.</exception>
-        private static CalculatableActivity CreateCalculationActivity(IPipingCalculationScenario<PipingInput> calculation,
+        private static CalculatableActivity CreateCalculationActivity(IPipingCalculation<PipingInput> calculation,
                                                                       PipingFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection)
         {
             switch (calculation)
             {
-                case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
-                    return CreateSemiProbabilisticPipingCalculationActivity(semiProbabilisticPipingCalculationScenario,
+                case SemiProbabilisticPipingCalculation semiProbabilisticPipingCalculation:
+                    return CreateSemiProbabilisticPipingCalculationActivity(semiProbabilisticPipingCalculation,
                                                                             failureMechanism.GeneralInput,
                                                                             assessmentSection);
-                case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
-                    return CreateProbabilisticPipingCalculationActivity(probabilisticPipingCalculationScenario,
+                case ProbabilisticPipingCalculation probabilisticPipingCalculation:
+                    return CreateProbabilisticPipingCalculationActivity(probabilisticPipingCalculation,
                                                                         failureMechanism,
                                                                         assessmentSection);
                 default:
