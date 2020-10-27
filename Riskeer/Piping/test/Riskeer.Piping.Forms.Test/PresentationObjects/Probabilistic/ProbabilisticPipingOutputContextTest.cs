@@ -70,13 +70,17 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario();
+            var failureMechanism = new TestPipingFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var context = new ProbabilisticPipingOutputContext(calculation, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var context = new ProbabilisticPipingOutputContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
     }
 }
