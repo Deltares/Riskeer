@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                   new GeneralPipingInput(),
+                                                                                                   new PipingFailureMechanism(),
                                                                                                    assessmentSection);
 
             // Assert
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivitiesForCalculationGroup_GeneralPipingInputNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForCalculationGroup_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalPipingInput", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -183,7 +183,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                   new GeneralPipingInput(),
+                                                                                                   new PipingFailureMechanism(),
                                                                                                    null);
 
             // Assert
@@ -205,11 +205,14 @@ namespace Riskeer.Piping.Service.Test
                     NormativeNorm = NormType.LowerLimit
                 }
             };
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
             });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var random = new Random(39);
 
@@ -231,11 +234,9 @@ namespace Riskeer.Piping.Service.Test
                 }
             };
 
-            var generalPipingInput = new GeneralPipingInput();
-
             // Call
             IEnumerable<CalculatableActivity> activities = PipingCalculationActivityFactory.CreateCalculationActivities(
-                calculations, generalPipingInput, assessmentSection);
+                calculations, pipingFailureMechanism, assessmentSection);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(SemiProbabilisticPipingCalculationActivity));
