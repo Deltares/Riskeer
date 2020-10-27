@@ -35,7 +35,9 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
@@ -1035,6 +1037,52 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
+        public void Calculate_CalculationValid_InputPropertiesCorrectlySentToCalculator()
+        {
+            // Setup
+            double sectionLength = new Random(21).NextDouble();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), sectionLength);
+
+                // Assert
+                PipingCalculationInput[] profileSpecificInputs = profileSpecificCalculator.ReceivedInputs.ToArray();
+                PipingCalculationInput[] sectionSpecificInputs = sectionSpecificCalculator.ReceivedInputs.ToArray();
+
+                Assert.AreEqual(1, profileSpecificInputs.Length);
+                Assert.AreEqual(1, sectionSpecificInputs.Length);
+
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, sectionLength, sectionSpecificInputs[0]);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_Always_LogStartAndEndOfCalculation()
         {
             // Setup
@@ -1141,10 +1189,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(new TestPipingCalculator());
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
@@ -1204,10 +1254,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(new TestPipingCalculator());
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
@@ -1268,10 +1320,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
@@ -1334,10 +1388,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
@@ -1401,10 +1457,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1458,11 +1516,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
-
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = false;
@@ -1515,10 +1574,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1572,10 +1633,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = false;
@@ -1627,10 +1690,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1688,10 +1753,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1748,10 +1815,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1809,10 +1878,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(profileSpecificCalculator);
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
                              .IgnoreArguments()
-                             .Return(sectionSpecificCalculator);
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -1871,7 +1942,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                              .Return(new TestPipingCalculator())
                              .Repeat.Twice();
             mocks.ReplayAll();
-            
+
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1929,8 +2000,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             }
 
             // Assert
-            Assert.IsTrue(profileSpecificCalculator.ReceivedInputs.All(input => input.PreprocessorSetting.RunPreprocessor));
-            Assert.IsTrue(sectionSpecificCalculator.ReceivedInputs.All(input => input.PreprocessorSetting.RunPreprocessor));
+            Assert.IsTrue(profileSpecificCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
+            Assert.IsTrue(sectionSpecificCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             mocks.VerifyAll();
         }
 
@@ -1978,8 +2049,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             }
 
             // Assert
-            Assert.IsFalse(profileSpecificCalculator.ReceivedInputs.Any(input => input.PreprocessorSetting.RunPreprocessor));
-            Assert.IsFalse(sectionSpecificCalculator.ReceivedInputs.Any(input => input.PreprocessorSetting.RunPreprocessor));
+            Assert.IsFalse(profileSpecificCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
+            Assert.IsFalse(sectionSpecificCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             mocks.VerifyAll();
         }
 
@@ -1991,7 +2062,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
-            
+
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
@@ -2005,11 +2076,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             var service = new ProbabilisticPipingCalculationService();
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 profileSpecificCalculator.CalculationFinishedHandler += (sender, args) => service.Cancel();
-                
+
                 // Call
                 service.Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
             }
@@ -2029,7 +2100,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
-            
+
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
@@ -2043,11 +2114,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             var service = new ProbabilisticPipingCalculationService();
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 sectionSpecificCalculator.CalculationFinishedHandler += (sender, args) => service.Cancel();
-                
+
                 // Call
                 service.Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
             }
@@ -2065,6 +2136,40 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                                                             validHlcdFilePath,
                                                             false,
                                                             string.Empty);
+        }
+
+        private static void AssertCalculatorInput(GeneralPipingInput generalInput, ProbabilisticPipingInput input, double sectionLength, PipingCalculationInput actualInput)
+        {
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, generalInput);
+            LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
+            VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(input);
+            LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
+            VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(input);
+            VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(input);
+
+            var expectedInput = new PipingCalculationInput(
+                1300001,
+                sectionLength,
+                generalInput.WaterVolumetricWeight,
+                input.PhreaticLevelExit.Mean, input.PhreaticLevelExit.StandardDeviation,
+                generalInput.WaterVolumetricWeight,
+                effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,
+                saturatedVolumicWeightOfCoverageLayer.Mean, saturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+                saturatedVolumicWeightOfCoverageLayer.Shift,
+                generalInput.UpliftModelFactor.Mean, generalInput.UpliftModelFactor.StandardDeviation,
+                input.DampingFactorExit.Mean, input.DampingFactorExit.StandardDeviation,
+                seepageLength.Mean, seepageLength.CoefficientOfVariation,
+                thicknessAquiferLayer.Mean, thicknessAquiferLayer.StandardDeviation,
+                generalInput.SandParticlesVolumicWeight,
+                generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
+                generalInput.BeddingAngle,
+                generalInput.WhitesDragCoefficient,
+                darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
+                diameterD70.Mean, diameterD70.CoefficientOfVariation,
+                generalInput.Gravity,
+                generalInput.CriticalHeaveGradient.Mean, generalInput.CriticalHeaveGradient.StandardDeviation);
+
+            HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
         }
 
         #endregion
