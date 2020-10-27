@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,6 +35,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -1018,6 +1020,37 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CreateSelectedItemFromCurrentRow_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.PublicCreateSelectedItemFromCurrentRow(new PipingCalculationRow(new TestPipingCalculationScenario(), string.Empty, handler));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateRow_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.PublicCreateRow(new TestPipingCalculationScenario());
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void CalculationsViewWithHydraulicLocation_SemiProbabilisticCalculationScenario_SelectableHydraulicLocationReadonlyAsExpected(bool useAssessmentLevelManualInput)
@@ -1316,6 +1349,22 @@ namespace Riskeer.Piping.Forms.Test.Views
         private static string GetFormattedProbabilityValue(double value)
         {
             return new RoundedDouble(2, value).ToString();
+        }
+
+        private class TestPipingCalculationsView : PipingCalculationsView
+        {
+            public TestPipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            public object PublicCreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
+            {
+                return CreateSelectedItemFromCurrentRow(currentRow);
+            }
+
+            public PipingCalculationRow PublicCreateRow(IPipingCalculationScenario<PipingInput> calculation)
+            {
+                return CreateRow(calculation);
+            }
         }
     }
 }
