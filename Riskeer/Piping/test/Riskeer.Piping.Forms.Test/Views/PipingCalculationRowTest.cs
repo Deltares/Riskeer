@@ -33,6 +33,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -69,7 +70,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dampingFactorExitMean = (RoundedDouble) 1.0;
             var phreaticLevelExitMean = (RoundedDouble) 2.0;
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -92,7 +93,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new PipingCalculationRow(calculation, handler);
 
             // Assert
-            Assert.IsInstanceOf<CalculationRow<SemiProbabilisticPipingCalculationScenario>>(row);
+            Assert.IsInstanceOf<CalculationRow<IPipingCalculationScenario<PipingInput>>>(row);
 
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
