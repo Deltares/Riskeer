@@ -53,6 +53,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
+            const string assessmentDescription = "Test";
+
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
@@ -88,13 +90,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
 
             // Call
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, assessmentDescription, handler);
 
             // Assert
             Assert.IsInstanceOf<CalculationRow<IPipingCalculationScenario<PipingInput>>>(row);
 
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
+            Assert.AreEqual(assessmentDescription, row.AssessmentDescription);
             Assert.AreSame(stochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(stochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
@@ -423,7 +426,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IPipingCalculationScenario<PipingInput> calculation =
                 PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation(), hasOutput);
 
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
 
@@ -460,7 +463,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     observable
                 });
 
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
 
             // Call
             void Call() => setProperty(row);
@@ -487,7 +490,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     observable
                 });
 
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
 
             // Call
             setProperty(row);
