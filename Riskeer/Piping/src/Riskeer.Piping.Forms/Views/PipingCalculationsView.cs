@@ -128,10 +128,10 @@ namespace Riskeer.Piping.Forms.Views
             switch (calculation)
             {
                 case SemiProbabilisticPipingCalculationScenario _:
-                    assessmentDescription = "Semi-probabilistisch";
+                    assessmentDescription = Resources.PipingCalculationsView_CreateRow_Assessment_description_semi_probabilistic;
                     break;
                 case ProbabilisticPipingCalculationScenario _:
-                    assessmentDescription = "Probabilistisch";
+                    assessmentDescription = Resources.PipingCalculationsView_CreateRow_Assessment_description_probabilistic;
                     break;
             }
 

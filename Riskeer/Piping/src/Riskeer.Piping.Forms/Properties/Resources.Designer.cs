@@ -345,6 +345,24 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probabilistisch.
+        /// </summary>
+        public static string PipingCalculationsView_CreateRow_Assessment_description_probabilistic {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_CreateRow_Assessment_description_probabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistisch.
+        /// </summary>
+        public static string PipingCalculationsView_CreateRow_Assessment_description_semi_probabilistic {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_CreateRow_Assessment_description_semi_probabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dempingsfactor bij uittredepunt
         ///[-].
         /// </summary>
