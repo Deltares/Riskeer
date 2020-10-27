@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var newProfile = new PipingStochasticSoilProfile(0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(newProfile);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
@@ -185,7 +185,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
@@ -195,7 +195,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
             var dampingFactorExitMean = (RoundedDouble) 2.3;
 
             // Call & Assert
@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
             var phreaticLevelExitMean = (RoundedDouble) 5.1;
 
             // Call & Assert
@@ -259,7 +259,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
+            var calculation = new TestPipingCalculationScenario();
             var entryPointL = (RoundedDouble) 0.1;
 
             // Call & Assert
@@ -383,17 +383,17 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         /// <summary>
-        /// Asserts that the output of a <see cref="SemiProbabilisticPipingCalculationScenario"/> remains
+        /// Asserts that the output of a <see cref="IPipingCalculationScenario{TPipingInput}"/> remains
         /// unaffected (and therefore no change notification occurring) when the input for
         /// that calculation has been changed using an instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
         /// <param name="setProperty">The function that changes a property of the <see cref="PipingCalculationRow"/>
         /// instance. This function should not throw exceptions.</param>
-        /// <param name="assertions">The additional assertions to be performed on the <see cref="SemiProbabilisticPipingCalculationScenario"/>
+        /// <param name="assertions">The additional assertions to be performed on the <see cref="IPipingCalculationScenario{TPipingInput}"/>
         /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
             Action<PipingCalculationRow> setProperty,
-            Action<SemiProbabilisticPipingCalculationScenario> assertions)
+            Action<IPipingCalculationScenario<PipingInput>> assertions)
         {
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
@@ -401,7 +401,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
             Action<PipingCalculationRow> setProperty,
-            Action<SemiProbabilisticPipingCalculationScenario> assertions,
+            Action<IPipingCalculationScenario<PipingInput>> assertions,
             bool hasOutput,
             bool expectUpdates)
         {
@@ -422,17 +422,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            SemiProbabilisticPipingOutput assignedOutput = null;
-
-            SemiProbabilisticPipingCalculationScenario calculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
-            if (hasOutput)
-            {
-                assignedOutput = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
-            }
-
-            calculation.Output = assignedOutput;
-
+            var calculation = new TestPipingCalculationScenario(hasOutput);
+            
             var row = new PipingCalculationRow(calculation, handler);
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
@@ -444,11 +435,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             assertions(calculation);
             if (expectUpdates)
             {
-                Assert.IsNull(calculation.Output);
+                Assert.IsFalse(calculation.HasOutput);
             }
             else
             {
-                Assert.AreSame(assignedOutput, calculation.Output);
+                Assert.AreEqual(hasOutput, calculation.HasOutput);
             }
 
             mockRepository.VerifyAll();
