@@ -123,7 +123,19 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)
         {
-            return new PipingCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            var assessmentDescription = string.Empty;
+
+            switch (calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario _:
+                    assessmentDescription = "Semi-probabilistisch";
+                    break;
+                case ProbabilisticPipingCalculationScenario _:
+                    assessmentDescription = "Probabilistisch";
+                    break;
+            }
+
+            return new PipingCalculationRow(calculation, assessmentDescription, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }
 
         protected override bool CanGenerateCalculations()
