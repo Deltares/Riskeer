@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -125,6 +126,46 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
 
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void GivenProbabilisticPipingCalculationActivity_WhenRanAndFinished_ThenOutputSetAndObserversNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator())
+                             .Repeat.Twice();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001));
+            
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
+                calculation, failureMechanism, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // When
+                activity.Run();
+                activity.Finish();
+
+                // Then
+                Assert.IsNotNull(calculation.Output);
+            }
             mocks.VerifyAll();
         }
 
