@@ -1083,7 +1083,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_CalculationValid_ReturnsOutput(bool calculateIllustrationPoints)
+        public void Calculate_CalculationValid_OutputSetOnCalculation(bool calculateIllustrationPoints)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1980,6 +1980,82 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             // Assert
             Assert.IsFalse(profileSpecificCalculator.ReceivedInputs.Any(input => input.PreprocessorSetting.RunPreprocessor));
             Assert.IsFalse(sectionSpecificCalculator.ReceivedInputs.Any(input => input.PreprocessorSetting.RunPreprocessor));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelAfterProfileSpecificCalculation_CancelsCalculatorAndOutputNotSet()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator();
+            
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
+            mocks.ReplayAll();
+
+            var service = new ProbabilisticPipingCalculationService();
+            
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                profileSpecificCalculator.CalculationFinishedHandler += (sender, args) => service.Cancel();
+                
+                // Call
+                service.Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+            }
+
+            // Assert
+            Assert.IsTrue(profileSpecificCalculator.IsCanceled);
+            Assert.IsTrue(sectionSpecificCalculator.IsCanceled);
+            Assert.IsNull(calculation.Output);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelAfterSectionSpecificCalculation_CancelsCalculatorAndOutputNotSet()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var profileSpecificCalculator = new TestPipingCalculator();
+            var sectionSpecificCalculator = new TestPipingCalculator();
+            
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(profileSpecificCalculator)
+                             .Repeat.Once();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(sectionSpecificCalculator)
+                             .Repeat.Once();
+            mocks.ReplayAll();
+
+            var service = new ProbabilisticPipingCalculationService();
+            
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                sectionSpecificCalculator.CalculationFinishedHandler += (sender, args) => service.Cancel();
+                
+                // Call
+                service.Calculate(calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+            }
+
+            // Assert
+            Assert.IsTrue(profileSpecificCalculator.IsCanceled);
+            Assert.IsTrue(sectionSpecificCalculator.IsCanceled);
+            Assert.IsNull(calculation.Output);
             mocks.VerifyAll();
         }
 
