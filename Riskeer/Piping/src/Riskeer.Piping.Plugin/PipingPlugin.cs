@@ -1016,7 +1016,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        #region PipingCalculationScenarioContext TreeNodeInfo
+        #region SemiProbabilisticPipingCalculationScenarioContext TreeNodeInfo
 
         private static object[] SemiProbabilisticPipingCalculationScenarioContextChildNodeObjects(SemiProbabilisticPipingCalculationScenarioContext context)
         {

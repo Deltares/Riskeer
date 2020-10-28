@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         }
 
         [TestFixture]
-        private class PipingCalculationScenarioContextEqualsTest
+        private class ProbabilisticPipingCalculationScenarioContextEqualsTest
             : EqualsTestFixture<ProbabilisticPipingCalculationScenarioContext, DerivedProbabilisticPipingCalculationScenarioContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
