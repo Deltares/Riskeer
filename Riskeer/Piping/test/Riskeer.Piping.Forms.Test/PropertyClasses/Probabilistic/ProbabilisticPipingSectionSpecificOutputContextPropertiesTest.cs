@@ -25,10 +25,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
@@ -50,42 +48,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingSectionSpecificOutputContextProperties(null,
-                                                                                         new ProbabilisticPipingCalculationScenario(),
-                                                                                         new TestPipingFailureMechanism(),
-                                                                                         new AssessmentSectionStub());
+            void Call() => new ProbabilisticPipingSectionSpecificOutputContextProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new ProbabilisticPipingSectionSpecificOutputContextProperties(new PartialProbabilisticPipingOutput(1.1, null),
-                                                                                         new ProbabilisticPipingCalculationScenario(),
-                                                                                         null,
-                                                                                         new AssessmentSectionStub());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new ProbabilisticPipingSectionSpecificOutputContextProperties(new PartialProbabilisticPipingOutput(1.1, null),
-                                                                                         new ProbabilisticPipingCalculationScenario(),
-                                                                                         new TestPipingFailureMechanism(),
-                                                                                         null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -99,10 +66,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput,
-                                                                                           new ProbabilisticPipingCalculationScenario(),
-                                                                                           new TestPipingFailureMechanism(),
-                                                                                           new AssessmentSectionStub());
+            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticPipingOutput>>(properties);
@@ -120,10 +84,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput,
-                                                                                           new ProbabilisticPipingCalculationScenario(),
-                                                                                           new TestPipingFailureMechanism(),
-                                                                                           new AssessmentSectionStub());
+            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -182,10 +143,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, null);
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput,
-                                                                                           new ProbabilisticPipingCalculationScenario(),
-                                                                                           new TestPipingFailureMechanism(),
-                                                                                           new AssessmentSectionStub());
+            var properties = new ProbabilisticPipingSectionSpecificOutputContextProperties(partialProbabilisticPipingOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

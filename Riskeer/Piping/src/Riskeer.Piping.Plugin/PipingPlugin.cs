@@ -128,6 +128,10 @@ namespace Riskeer.Piping.Plugin
                                                                                                           context.FailureMechanism,
                                                                                                           context.AssessmentSection)
             };
+            yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputContextProperties>
+            {
+                CreateInstance = context => new ProbabilisticPipingSectionSpecificOutputContextProperties(context.WrappedData.Output?.SectionSpecificOutput)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
