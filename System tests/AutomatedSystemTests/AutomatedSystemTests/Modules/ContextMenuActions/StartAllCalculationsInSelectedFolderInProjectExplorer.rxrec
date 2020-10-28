@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="StartAllCalculationsInSelectedFolderInProjectExplorer"
+	namespace="AutomatedSystemTests.Modules.ContextMenuActions">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<keysequenceitem
+		KeySequence="{Apps}"
+		duration="20ms"
+		enabled="True"
+		optional="False"
+		presstime="20ms"
+		searchpropertyid="92338f6f-f18d-45be-88ef-455f41c90c09">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</keysequenceitem>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="79;11"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="bf8dba71-35f1-44aa-ad95-41c12bc11e8d"
+		sx="201"
+		sy="658"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
+			sourcename="RepositoryEditor">
+				<path>
+					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
+				</path>
+			</info>
+		</mouseitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		StartAllCalculationsInSelectedFolderInProjectExplorer.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
