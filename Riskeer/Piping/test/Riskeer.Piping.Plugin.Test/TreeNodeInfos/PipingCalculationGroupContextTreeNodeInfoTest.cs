@@ -1202,6 +1202,49 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationGroupWithCalculationOfUnsupportedType_WhenClickOnValidateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSectionStub();
+                var failureMechanism = new TestPipingFailureMechanism();
+                var calculationGroup = new CalculationGroup
+                {
+                    Children =
+                    {
+                        new TestPipingCalculationScenario()
+                    }
+                };
+
+                var nodeData = new PipingCalculationGroupContext(calculationGroup,
+                                                                 null,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.Throws<NotSupportedException>(When);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
@@ -1320,6 +1363,51 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
                         Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
                     });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationGroupWithCalculationOfUnsupportedType_WhenClickOnCalculateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSectionStub();
+                var failureMechanism = new TestPipingFailureMechanism();
+                var calculationGroup = new CalculationGroup
+                {
+                    Children =
+                    {
+                        new TestPipingCalculationScenario()
+                    }
+                };
+
+                var nodeData = new PipingCalculationGroupContext(calculationGroup,
+                                                                 null,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.Throws<NotSupportedException>(When);
                 }
             }
         }
