@@ -129,18 +129,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNewTraject.cs">
-      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
-      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b601e2cd-3723-40b0-93b6-3cf860f81940</id>
-    </Compile>
-    <Compile Include="AddNewTraject.UserCode.cs">
-      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
-      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d9b326df-1ecb-46f0-993f-3e50f50a7c5d</id>
-    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <id>ebc10b1b-5a66-4375-b0da-63fa92c854e8</id>
     </Compile>
@@ -149,30 +137,6 @@
       <DependentUpon>AutomatedSystemTestsRepository.rxrep</DependentUpon>
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
-    </Compile>
-    <Compile Include="CaculateFullPathToCalculationItem.cs">
-      <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
-    </Compile>
-    <Compile Include="CalculateFullPathToHydraulicBCcalculation.cs">
-      <id>73ecd7bc-dfc1-425d-88b2-c8e4648b302c</id>
-    </Compile>
-    <Compile Include="CalculateFullPathToResultsFromFullPathToCalculation.cs">
-      <id>28d24385-74a6-4c21-9db4-4a8b749c843d</id>
-    </Compile>
-    <Compile Include="CalculateFullPathToSeparateCalculation.cs">
-      <id>644c39a2-3304-44b2-b5c9-bc754f49c61d</id>
-    </Compile>
-    <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
-      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
-      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>baec6999-9bb8-4ef5-990c-cdf55ac97b71</id>
-    </Compile>
-    <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.UserCode.cs">
-      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
-      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
     </Compile>
     <Compile Include="ClickOnRunSelectedCalculations.cs">
       <BoundTo>656b7e3b-fd9a-4148-9687-72c952815443</BoundTo>
@@ -333,29 +297,365 @@
       <UserCode>true</UserCode>
       <id>6277edbc-846c-4b09-b432-b40e7dac3a9b</id>
     </Compile>
-    <Compile Include="OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
-      <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
+    <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
+      <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateCategoryBoundary.cs">
+      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e6e89825-6bd5-445d-a2b3-c5c8a0cdc970</id>
+      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateCategoryBoundary.UserCode.cs">
+      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6217e391-5ede-44c5-97f8-aa4b0d6a63b0</id>
+      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateFullPathToHydraulicBCcalculation.cs">
+      <id>73ecd7bc-dfc1-425d-88b2-c8e4648b302c</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateFullPathToResultsFromFullPathToCalculation.cs">
+      <id>28d24385-74a6-4c21-9db4-4a8b749c843d</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateFullPathToSeparateCalculation.cs">
+      <id>644c39a2-3304-44b2-b5c9-bc754f49c61d</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateLinearTransformationOfValue.cs">
+      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>43ae55ab-ec99-4cf8-9ee6-34caaedcff7f</id>
+      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateLinearTransformationOfValue.UserCode.cs">
+      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
+      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula1.cs">
+      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d54d1b65-81ca-44d4-bb7c-8a76025cb31c</id>
+      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula1.UserCode.cs">
+      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2231b375-3e88-4466-a72f-6cf9094cc2e9</id>
+      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula2.cs">
+      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>0fbf7e07-8099-4b91-8ae9-b7ea745b0c14</id>
+      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula2.UserCode.cs">
+      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>51f92868-a462-4502-b78e-a6b9518b887e</id>
+      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula3.cs">
+      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>899b367f-19dd-4dac-8f51-0fa8ab77316e</id>
+      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateNFormula3.UserCode.cs">
+      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3508caa8-41c7-4a29-b095-c69ec2c6f45b</id>
+      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
+      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>baec6999-9bb8-4ef5-990c-cdf55ac97b71</id>
+      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.UserCode.cs">
+      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
+      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateValueParameterN.cs">
+      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e2f59482-763e-4220-96c2-427f4c4844ac</id>
+      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateValueParameterN.UserCode.cs">
+      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>09e7b9a2-edbd-4e89-b3bf-3fe10325a21d</id>
+      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\ConvertToCurrentCulture.cs">
+      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1cf1d3e6-256f-4da2-b7b4-f2957efaa3f1</id>
+      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\ConvertToCurrentCulture.UserCode.cs">
+      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>03891b57-02ef-4afe-8320-3b5cdb6942e6</id>
+      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\CopyFile.cs">
+      <DependentUpon>CopyFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>32da3003-c046-4193-bd31-0c76af533dcc</id>
+      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\CopyFile.UserCode.cs">
+      <DependentUpon>CopyFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
+      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\DeleteFileIfExists.cs">
+      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>13d1471b-c171-4e5c-8b2a-36342d392515</id>
+      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\DeleteFileIfExists.UserCode.cs">
+      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
+      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
+      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
+      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenChartCalculation.UserCode.cs">
+      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
+      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenResultView.cs">
+      <DependentUpon>OpenResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>00836c2b-b6ac-4f58-9ccd-c465659fe57e</id>
+      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenResultView.UserCode.cs">
+      <DependentUpon>OpenResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
+      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.cs">
+      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>936f9f55-9312-4d99-bf39-cceed680dfc4</id>
+      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.UserCode.cs">
+      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>074f00b5-2de5-46e6-b964-94133799ed97</id>
+      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>0ff3f10e-12e5-47ee-a89a-00e19d42aee6</id>
-    </Compile>
-    <Compile Include="OpenViewForCurrentlySelectedItemInProjectExplorer.UserCode.cs">
       <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.UserCode.cs">
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
+      <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
     </Compile>
-    <Compile Include="SelectCalculationsToRunDA.cs">
-      <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
+    <Compile Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.cs">
+      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2e48adb4-f574-43e0-a102-a28e1362443a</id>
+      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.UserCode.cs">
+      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6405f2fa-2507-4ad6-aa04-2391e49e503b</id>
+      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForGenericFM.cs">
+      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b40da7e8-2351-4979-96c6-d787a97662f6</id>
+      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenViewForGenericFM.UserCode.cs">
+      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
+      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Ribbon\AddNewTraject.cs">
+      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b601e2cd-3723-40b0-93b6-3cf860f81940</id>
+      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Ribbon\AddNewTraject.UserCode.cs">
+      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d9b326df-1ecb-46f0-993f-3e50f50a7c5d</id>
+      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Ribbon\OpenProject.cs">
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>46454a6a-f8b6-49ef-b3f8-a3f39bc673e5</id>
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Ribbon\OpenProject.UserCode.cs">
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationsAndIllustrationPoints.cs">
+      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f83ba396-52d2-4c92-993c-4b833f1a4a92</id>
+      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationsAndIllustrationPoints.UserCode.cs">
+      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>659285ce-19aa-4ef8-afb9-faf0a2f8271a</id>
+      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationsToRunDA.cs">
       <DependentUpon>SelectCalculationsToRunDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>201c3634-b1bc-4183-89ae-da92cb5a96db</id>
-    </Compile>
-    <Compile Include="SelectCalculationsToRunDA.UserCode.cs">
       <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationsToRunDA.UserCode.cs">
       <DependentUpon>SelectCalculationsToRunDA.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>7fd00eb0-81b5-4ff0-8859-bd1d04dd7f2a</id>
+      <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIIv.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>537e7005-1a96-4103-8da6-a93b6703d917</id>
+      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9babaafd-56ca-4c7f-9e74-f8af64de4a20</id>
+      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIv.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ef089740-dbad-4457-90bc-75934e8708dc</id>
+      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIv.UserCode.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>698e60d9-df8a-4833-86d9-4469f6752b24</id>
+      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIv.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>9d397744-8b7a-4896-870d-d450c554e1b5</id>
+      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIv.UserCode.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9179ea6f-7175-4abe-8f2f-2159d0e51578</id>
+      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIVv.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6035c599-bf03-4c91-bdb0-7249acb744ca</id>
+      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIVv.UserCode.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b12e0728-6011-495c-89e5-954cd939c6ab</id>
+      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryVv.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f873573f-2593-4d9d-86fe-6e0a1a8f4d66</id>
+      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryVv.UserCode.cs">
+      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>adf56cd6-e4b5-4961-beda-d115f87a305f</id>
+      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.cs">
+      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a40a657d-cff0-4ae6-aef6-b8e070b759e9</id>
+      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.UserCode.cs">
+      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>0ff1e861-1102-41de-9f2b-90d77af2f13f</id>
+      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCategoryBoundaryInDocumentView.cs">
+      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
+      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCategoryBoundaryInDocumentView.UserCode.cs">
+      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
+      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCategoryBoundaryInPropertiesPanel.cs">
+      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f617a859-903d-4326-a423-a5b02bf60a59</id>
+      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateCategoryBoundaryInPropertiesPanel.UserCode.cs">
+      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d7fac196-e1dd-4d34-ad29-fa17def25d19</id>
+      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateContributionInFailureMechanismContributionView.cs">
+      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>94088e4c-d4d7-471d-aa1e-b2a556b206f3</id>
+      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateContributionInFailureMechanismContributionView.UserCode.cs">
+      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
+      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
     </Compile>
     <Compile Include="SelecteSingleCaseInRange.cs">
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
@@ -392,18 +692,6 @@
       <DependentUpon>PressCancelDialog.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>3ee5481a-3806-4bd5-a9d9-97db758837fa</id>
-    </Compile>
-    <Compile Include="SelectCalculationsAndIllustrationPoints.cs">
-      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
-      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f83ba396-52d2-4c92-993c-4b833f1a4a92</id>
-    </Compile>
-    <Compile Include="SelectCalculationsAndIllustrationPoints.UserCode.cs">
-      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
-      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>659285ce-19aa-4ef8-afb9-faf0a2f8271a</id>
     </Compile>
     <Compile Include="SelectRowCalculation.cs">
       <BoundTo>afcbcacc-5b0b-4d59-884d-84d57b286c4c</BoundTo>
@@ -489,102 +777,6 @@
       <UserCode>true</UserCode>
       <id>b2be3309-72bf-4396-988b-5b88cd7cf647</id>
     </Compile>
-    <Compile Include="ValidateCalculationWaterLevelInDocumentViewDA.cs">
-      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
-      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a40a657d-cff0-4ae6-aef6-b8e070b759e9</id>
-    </Compile>
-    <Compile Include="ValidateCalculationWaterLevelInDocumentViewDA.UserCode.cs">
-      <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
-      <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>0ff1e861-1102-41de-9f2b-90d77af2f13f</id>
-    </Compile>
-    <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.cs">
-      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
-      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f617a859-903d-4326-a423-a5b02bf60a59</id>
-    </Compile>
-    <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.UserCode.cs">
-      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
-      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d7fac196-e1dd-4d34-ad29-fa17def25d19</id>
-    </Compile>
-    <Compile Include="CalculateCategoryBoundary.cs">
-      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
-      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e6e89825-6bd5-445d-a2b3-c5c8a0cdc970</id>
-    </Compile>
-    <Compile Include="CalculateCategoryBoundary.UserCode.cs">
-      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
-      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6217e391-5ede-44c5-97f8-aa4b0d6a63b0</id>
-    </Compile>
-    <Compile Include="CalculateLinearTransformationOfValue.cs">
-      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
-      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>43ae55ab-ec99-4cf8-9ee6-34caaedcff7f</id>
-    </Compile>
-    <Compile Include="CalculateLinearTransformationOfValue.UserCode.cs">
-      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
-      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
-    </Compile>
-    <Compile Include="CalculateNFormula1.cs">
-      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
-      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>d54d1b65-81ca-44d4-bb7c-8a76025cb31c</id>
-    </Compile>
-    <Compile Include="CalculateNFormula1.UserCode.cs">
-      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
-      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2231b375-3e88-4466-a72f-6cf9094cc2e9</id>
-    </Compile>
-    <Compile Include="CalculateNFormula2.cs">
-      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
-      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>0fbf7e07-8099-4b91-8ae9-b7ea745b0c14</id>
-    </Compile>
-    <Compile Include="CalculateNFormula2.UserCode.cs">
-      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
-      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>51f92868-a462-4502-b78e-a6b9518b887e</id>
-    </Compile>
-    <Compile Include="CalculateNFormula3.cs">
-      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
-      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>899b367f-19dd-4dac-8f51-0fa8ab77316e</id>
-    </Compile>
-    <Compile Include="CalculateNFormula3.UserCode.cs">
-      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
-      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>3508caa8-41c7-4a29-b095-c69ec2c6f45b</id>
-    </Compile>
-    <Compile Include="CalculateValueParameterN.cs">
-      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
-      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e2f59482-763e-4220-96c2-427f4c4844ac</id>
-    </Compile>
-    <Compile Include="CalculateValueParameterN.UserCode.cs">
-      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
-      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>09e7b9a2-edbd-4e89-b3bf-3fe10325a21d</id>
-    </Compile>
     <Compile Include="CloseAUT.cs">
       <BoundTo>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</BoundTo>
       <DependentUpon>CloseAUT.rxrec</DependentUpon>
@@ -609,30 +801,6 @@
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
     </Compile>
-    <Compile Include="ConvertToCurrentCulture.cs">
-      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
-      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>1cf1d3e6-256f-4da2-b7b4-f2957efaa3f1</id>
-    </Compile>
-    <Compile Include="ConvertToCurrentCulture.UserCode.cs">
-      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
-      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>03891b57-02ef-4afe-8320-3b5cdb6942e6</id>
-    </Compile>
-    <Compile Include="CopyFile.cs">
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>32da3003-c046-4193-bd31-0c76af533dcc</id>
-    </Compile>
-    <Compile Include="CopyFile.UserCode.cs">
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
-    </Compile>
     <Compile Include="CreateOutputFolder.cs">
       <BoundTo>171d5e60-a4ba-4594-80a1-966838bfcfcd</BoundTo>
       <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
@@ -644,18 +812,6 @@
       <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5fb4a01e-4152-4cb8-aef6-80b96d54ec65</id>
-    </Compile>
-    <Compile Include="DeleteFileIfExists.cs">
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>13d1471b-c171-4e5c-8b2a-36342d392515</id>
-    </Compile>
-    <Compile Include="DeleteFileIfExists.UserCode.cs">
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
     </Compile>
     <Compile Include="ExpandAllSubNodesCalculations.cs">
       <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
@@ -741,30 +897,6 @@
       <UserCode>true</UserCode>
       <id>f3d5c74c-a1ce-4c3f-8485-bffc34bbaa2e</id>
     </Compile>
-    <Compile Include="OpenViewForCategoryBoundaries.cs">
-      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
-      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>936f9f55-9312-4d99-bf39-cceed680dfc4</id>
-    </Compile>
-    <Compile Include="OpenViewForCategoryBoundaries.UserCode.cs">
-      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
-      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>074f00b5-2de5-46e6-b964-94133799ed97</id>
-    </Compile>
-    <Compile Include="OpenViewForGenericFM.cs">
-      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
-      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b40da7e8-2351-4979-96c6-d787a97662f6</id>
-    </Compile>
-    <Compile Include="OpenViewForGenericFM.UserCode.cs">
-      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
-      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
-    </Compile>
     <Compile Include="SelectDetailedAssessmentTypeForRow.cs">
       <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
       <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
@@ -776,66 +908,6 @@
       <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIIIv.cs">
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>537e7005-1a96-4103-8da6-a93b6703d917</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs">
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9babaafd-56ca-4c7f-9e74-f8af64de4a20</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIIv.cs">
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ef089740-dbad-4457-90bc-75934e8708dc</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIIv.UserCode.cs">
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>698e60d9-df8a-4833-86d9-4469f6752b24</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIv.cs">
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d397744-8b7a-4896-870d-d450c554e1b5</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIv.UserCode.cs">
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9179ea6f-7175-4abe-8f2f-2159d0e51578</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIVv.cs">
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6035c599-bf03-4c91-bdb0-7249acb744ca</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryIVv.UserCode.cs">
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b12e0728-6011-495c-89e5-954cd939c6ab</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryVv.cs">
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f873573f-2593-4d9d-86fe-6e0a1a8f4d66</id>
-    </Compile>
-    <Compile Include="SelectDetailedAssessmentForRowCategoryVv.UserCode.cs">
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>adf56cd6-e4b5-4961-beda-d115f87a305f</id>
     </Compile>
     <Compile Include="SelectItemBelow.cs">
       <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
@@ -884,42 +956,6 @@
       <DependentUpon>NewProject.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>58917d69-2f81-4b87-9767-540983f1b18d</id>
-    </Compile>
-    <Compile Include="OpenProject.cs">
-      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
-      <DependentUpon>OpenProject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>46454a6a-f8b6-49ef-b3f8-a3f39bc673e5</id>
-    </Compile>
-    <Compile Include="OpenProject.UserCode.cs">
-      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
-      <DependentUpon>OpenProject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
-    </Compile>
-    <Compile Include="OpenResultView.cs">
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>00836c2b-b6ac-4f58-9ccd-c465659fe57e</id>
-    </Compile>
-    <Compile Include="OpenResultView.UserCode.cs">
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
-    </Compile>
-    <Compile Include="OpenViewForFailureMechanismContribution.cs">
-      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
-      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2e48adb4-f574-43e0-a102-a28e1362443a</id>
-    </Compile>
-    <Compile Include="OpenViewForFailureMechanismContribution.UserCode.cs">
-      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
-      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6405f2fa-2507-4ad6-aa04-2391e49e503b</id>
     </Compile>
     <Compile Include="Program.cs">
       <id>fe704264-7ebd-4c5a-b96f-f5192c4d2944</id>
@@ -1092,18 +1128,6 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
-    <Compile Include="OpenChartCalculation.cs">
-      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
-    </Compile>
-    <Compile Include="OpenChartCalculation.UserCode.cs">
-      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
-    </Compile>
     <Compile Include="UpdateSubsurfaceSchematization.cs">
       <BoundTo>bea3f530-85c7-459c-a174-4593fea77c20</BoundTo>
       <DependentUpon>UpdateSubsurfaceSchematization.rxrec</DependentUpon>
@@ -1127,30 +1151,6 @@
       <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
-    </Compile>
-    <Compile Include="ValidateCategoryBoundaryInDocumentView.cs">
-      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
-      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
-    </Compile>
-    <Compile Include="ValidateCategoryBoundaryInDocumentView.UserCode.cs">
-      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
-      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
-    </Compile>
-    <Compile Include="ValidateContributionInFailureMechanismContributionView.cs">
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>94088e4c-d4d7-471d-aa1e-b2a556b206f3</id>
-    </Compile>
-    <Compile Include="ValidateContributionInFailureMechanismContributionView.UserCode.cs">
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
     </Compile>
     <Compile Include="ValidateContributionOfFmInProjectExplorer.cs">
       <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
@@ -1638,11 +1638,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
-    <None Include="AddNewTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7c43bc11-7959-43bd-bf48-f3a663df94a1</id>
-      <recordtableid>549fb022-bf32-480a-ae5e-d3f6e14aa501</recordtableid>
-    </None>
     <None Include="app.config">
       <id>26a72276-7a2e-4ee3-bb52-7e45071fe9ee</id>
     </None>
@@ -1660,11 +1655,6 @@
       <id>8b6648ca-2429-462f-8074-96184700bbed</id>
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
-    </None>
-    <None Include="CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
-      <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
     </None>
     <None Include="ClickOnRunSelectedCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1731,15 +1721,150 @@
       <id>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</id>
       <recordtableid>0e6a2e20-0223-4862-bd2e-af0df661ff0e</recordtableid>
     </None>
-    <None Include="OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
+    <None Include="Modules\Calculation\CalculateCategoryBoundary.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
+      <recordtableid>b235cebd-3495-47c7-96d9-f82c3092f4cb</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculateLinearTransformationOfValue.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
+      <recordtableid>ff1cb4d9-1388-49e6-bf2a-00ed354dca1e</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculateNFormula1.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</id>
+      <recordtableid>41b2435b-9741-4e36-b6b5-e09633ca92af</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculateNFormula2.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>cea2afaa-d763-48b0-8c0d-aa3f87780d37</id>
+      <recordtableid>7a5a313f-03e9-4259-a9ba-83be32da5355</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculateNFormula3.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>59d3b275-2ad2-49f7-81c7-3af9ffd72495</id>
+      <recordtableid>cd64e64b-746a-4846-8490-369760278039</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
+      <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\CalculateValueParameterN.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0eabce3a-8b80-466b-aa80-402c74d568d4</id>
+      <recordtableid>2fdf315c-3bbf-4b7a-b901-e88b144bf94e</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\ConvertToCurrentCulture.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5b5e7a94-d166-4447-a367-89316035642d</id>
+      <recordtableid>c1edbea9-a1e3-45d7-835b-452fd53ec06b</recordtableid>
+    </None>
+    <None Include="Modules\IO\CopyFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>fab570ab-705a-4266-9144-f9f477a53503</id>
+      <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
+    </None>
+    <None Include="Modules\IO\DeleteFileIfExists.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
+      <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
+      <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
+      <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenViewForCategoryBoundaries.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>05ef76dd-e062-4a45-852f-453e401adf67</id>
+      <recordtableid>ed363a67-11ee-4f0d-b3b8-1920b8a08550</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
       <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
     </None>
-    <None Include="SelectCalculationsToRunDA.rxrec">
+    <None Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1cb570ed-7031-4292-a572-3c04e9fbc24a</id>
+      <recordtableid>5e81345e-66bc-4e08-8ade-03d386d824fd</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenViewForGenericFM.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
+      <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
+    </None>
+    <None Include="Modules\Ribbon\AddNewTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7c43bc11-7959-43bd-bf48-f3a663df94a1</id>
+      <recordtableid>549fb022-bf32-480a-ae5e-d3f6e14aa501</recordtableid>
+    </None>
+    <None Include="Modules\Ribbon\OpenProject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
+      <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectCalculationsAndIllustrationPoints.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</id>
+      <recordtableid>7654cb84-67f3-46ba-9397-46d52163b934</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectCalculationsToRunDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0cc48728-8442-42cf-af65-3ac14054b2d3</id>
       <recordtableid>7c3eef7d-4675-4a50-82a1-6f7d0d153cac</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</id>
+      <recordtableid>a7eb8c7e-6846-46ff-b2ed-97d624f39d39</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a2165335-4b9d-47f7-a826-14947dcfd578</id>
+      <recordtableid>1d451e4f-5f11-43ce-8f5b-c4085d00c239</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</id>
+      <recordtableid>a0648a21-f406-4037-bd0a-c3edb3d869ff</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryIVv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>24111330-65d5-4670-9d7d-9af4307cb26a</id>
+      <recordtableid>a7ae0f4d-d417-4c7b-805b-8057f4e19677</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectDetailedAssessmentForRowCategoryVv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</id>
+      <recordtableid>f1d6edc7-4e95-46f4-a178-9742cb112be4</recordtableid>
+    </None>
+    <None Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
+      <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
+    </None>
+    <None Include="Modules\Validation\ValidateCategoryBoundaryInDocumentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
+      <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>
+    </None>
+    <None Include="Modules\Validation\ValidateCategoryBoundaryInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
+      <recordtableid>80ee3780-ce84-4fd2-bf57-10594c61bb9b</recordtableid>
+    </None>
+    <None Include="Modules\Validation\ValidateContributionInFailureMechanismContributionView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
+      <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
     </None>
     <None Include="SelecteSingleCaseInRange.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1755,11 +1880,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</id>
       <recordtableid>de80be27-ca55-476e-b824-e08916e3e0a3</recordtableid>
-    </None>
-    <None Include="SelectCalculationsAndIllustrationPoints.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</id>
-      <recordtableid>7654cb84-67f3-46ba-9397-46d52163b934</recordtableid>
     </None>
     <None Include="SelectRowCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1796,46 +1916,6 @@
       <id>4696e5ae-8be0-4ab1-adca-9943fa2b230d</id>
       <recordtableid>bbf874ea-d649-48f1-b9a6-08ca561100d3</recordtableid>
     </None>
-    <None Include="ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
-      <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
-    </None>
-    <None Include="ValidateCategoryBoundaryInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
-      <recordtableid>80ee3780-ce84-4fd2-bf57-10594c61bb9b</recordtableid>
-    </None>
-    <None Include="CalculateCategoryBoundary.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
-      <recordtableid>b235cebd-3495-47c7-96d9-f82c3092f4cb</recordtableid>
-    </None>
-    <None Include="CalculateLinearTransformationOfValue.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
-      <recordtableid>ff1cb4d9-1388-49e6-bf2a-00ed354dca1e</recordtableid>
-    </None>
-    <None Include="CalculateNFormula1.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</id>
-      <recordtableid>41b2435b-9741-4e36-b6b5-e09633ca92af</recordtableid>
-    </None>
-    <None Include="CalculateNFormula2.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>cea2afaa-d763-48b0-8c0d-aa3f87780d37</id>
-      <recordtableid>7a5a313f-03e9-4259-a9ba-83be32da5355</recordtableid>
-    </None>
-    <None Include="CalculateNFormula3.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>59d3b275-2ad2-49f7-81c7-3af9ffd72495</id>
-      <recordtableid>cd64e64b-746a-4846-8490-369760278039</recordtableid>
-    </None>
-    <None Include="CalculateValueParameterN.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0eabce3a-8b80-466b-aa80-402c74d568d4</id>
-      <recordtableid>2fdf315c-3bbf-4b7a-b901-e88b144bf94e</recordtableid>
-    </None>
     <None Include="CloseAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
@@ -1846,25 +1926,10 @@
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
     </None>
-    <None Include="ConvertToCurrentCulture.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5b5e7a94-d166-4447-a367-89316035642d</id>
-      <recordtableid>c1edbea9-a1e3-45d7-835b-452fd53ec06b</recordtableid>
-    </None>
-    <None Include="CopyFile.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>fab570ab-705a-4266-9144-f9f477a53503</id>
-      <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
-    </None>
     <None Include="CreateOutputFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>171d5e60-a4ba-4594-80a1-966838bfcfcd</id>
       <recordtableid>40b6ae98-0f6f-4015-b0b2-13ee7ced6f84</recordtableid>
-    </None>
-    <None Include="DeleteFileIfExists.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
-      <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
     </None>
     <None Include="ExpandAllSubNodesCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1901,45 +1966,10 @@
       <id>6e87cfa0-534f-4923-8621-fdf766c5ce6f</id>
       <recordtableid>ec62b093-3fff-4a7e-8468-0636f99e4153</recordtableid>
     </None>
-    <None Include="OpenViewForCategoryBoundaries.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>05ef76dd-e062-4a45-852f-453e401adf67</id>
-      <recordtableid>ed363a67-11ee-4f0d-b3b8-1920b8a08550</recordtableid>
-    </None>
-    <None Include="OpenViewForGenericFM.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
-      <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
-    </None>
     <None Include="SelectDetailedAssessmentTypeForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
       <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
-    </None>
-    <None Include="SelectDetailedAssessmentForRowCategoryIIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</id>
-      <recordtableid>a7eb8c7e-6846-46ff-b2ed-97d624f39d39</recordtableid>
-    </None>
-    <None Include="SelectDetailedAssessmentForRowCategoryIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a2165335-4b9d-47f7-a826-14947dcfd578</id>
-      <recordtableid>1d451e4f-5f11-43ce-8f5b-c4085d00c239</recordtableid>
-    </None>
-    <None Include="SelectDetailedAssessmentForRowCategoryIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</id>
-      <recordtableid>a0648a21-f406-4037-bd0a-c3edb3d869ff</recordtableid>
-    </None>
-    <None Include="SelectDetailedAssessmentForRowCategoryIVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>24111330-65d5-4670-9d7d-9af4307cb26a</id>
-      <recordtableid>a7ae0f4d-d417-4c7b-805b-8057f4e19677</recordtableid>
-    </None>
-    <None Include="SelectDetailedAssessmentForRowCategoryVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</id>
-      <recordtableid>f1d6edc7-4e95-46f4-a178-9742cb112be4</recordtableid>
     </None>
     <None Include="SelectItemBelow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1960,21 +1990,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>39b9d06d-71b7-4758-9b92-32814138b9d3</id>
       <recordtableid>f0658d7f-65e3-4f38-afe8-97fd942c1478</recordtableid>
-    </None>
-    <None Include="OpenProject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
-      <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
-    </None>
-    <None Include="OpenResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
-      <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
-    </None>
-    <None Include="OpenViewForFailureMechanismContribution.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>1cb570ed-7031-4292-a572-3c04e9fbc24a</id>
-      <recordtableid>5e81345e-66bc-4e08-8ade-03d386d824fd</recordtableid>
     </None>
     <None Include="SaveAs.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2046,11 +2061,6 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
-    <None Include="OpenChartCalculation.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
-      <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>
-    </None>
     <None Include="UpdateSubsurfaceSchematization.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bea3f530-85c7-459c-a174-4593fea77c20</id>
@@ -2060,16 +2070,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
-    </None>
-    <None Include="ValidateCategoryBoundaryInDocumentView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
-      <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>
-    </None>
-    <None Include="ValidateContributionInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
-      <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
     </None>
     <None Include="ValidateContributionOfFMInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2287,6 +2287,29 @@
       <Project>{CED4450F-858B-422D-89CE-DF083B491295}</Project>
       <Name>Ranorex Automation Helpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules">
+      <id>f43c4713-a0b7-4b45-9f19-8794d0498ce0</id>
+    </Folder>
+    <Folder Include="Modules\Calculation">
+      <id>694a7794-a673-4691-be56-f86c8a9f88bb</id>
+    </Folder>
+    <Folder Include="Modules\IO">
+      <id>ca0a786e-167b-417f-a79e-76aa6e5afe93</id>
+    </Folder>
+    <Folder Include="Modules\Selection">
+      <id>948493ad-9072-4c4e-b9e8-78a30a1f3449</id>
+    </Folder>
+    <Folder Include="Modules\OpenViews">
+      <id>7df97b20-1c35-4243-a0b3-c4947cc3b006</id>
+    </Folder>
+    <Folder Include="Modules\Ribbon">
+      <id>38509785-8e37-4d81-82ce-0f3a73e76bba</id>
+    </Folder>
+    <Folder Include="Modules\Validation">
+      <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>
+    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets">
   </Import>
