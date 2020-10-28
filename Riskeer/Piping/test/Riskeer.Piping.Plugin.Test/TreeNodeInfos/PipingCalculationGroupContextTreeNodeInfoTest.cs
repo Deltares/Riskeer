@@ -206,10 +206,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-            });
+            group.Children.Add(new TestPipingCalculationScenario(true));
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -343,10 +340,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
 
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-            });
+            group.Children.Add(new TestPipingCalculationScenario(true));
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -599,20 +593,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation)
+                        new TestPipingCalculationScenario()
                     }
                 };
 
@@ -736,18 +723,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(hydraulicBoundaryLocation)
+                        new TestPipingCalculationScenario()
                     }
                 };
 
@@ -784,9 +764,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                IPipingCalculationScenario<PipingInput> calculation = PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
+                TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+                IPipingCalculationScenario<PipingInput> calculation = new TestPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = pipingFailureMechanism.SurfaceLines.First()
+                    }
+                };
+
                 var group = new CalculationGroup
                 {
                     Children =
