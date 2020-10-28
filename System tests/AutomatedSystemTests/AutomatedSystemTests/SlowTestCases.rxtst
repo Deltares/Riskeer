@@ -486,14 +486,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="18a4396a-4c14-4cd7-9ac3-06b506260857"
@@ -3887,14 +3879,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="fa72f4b8-476b-4c3a-8776-04029833a4bd"

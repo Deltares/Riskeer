@@ -6044,14 +6044,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="720fc0d3-d812-4104-890f-5a60e986688c"
