@@ -63,6 +63,11 @@ namespace Riskeer.Piping.Data.Probabilistic
         public PartialProbabilisticPipingOutput ProfileSpecificOutput { get; private set; }
 
         /// <summary>
+        /// Gets an indicator whether the output contains illustration points.
+        /// </summary>
+        public bool HasIllustrationPoints => ProfileSpecificOutput.HasGeneralResult && SectionSpecificOutput.HasGeneralResult;
+
+        /// <summary>
         /// Clears the calculated illustration points.
         /// </summary>
         public void ClearIllustrationPoints()
