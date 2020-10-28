@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -41,11 +42,14 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -91,6 +95,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuPropertiesIndexNestedGroup = 21;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -1117,24 +1124,29 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
+                assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario validCalculation =
+                SemiProbabilisticPipingCalculationScenario validSemiProbabilisticCalculation =
                     SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
-                validCalculation.Name = "A";
-                SemiProbabilisticPipingCalculationScenario invalidCalculation =
+                SemiProbabilisticPipingCalculationScenario invalidSemiProbabilisticCalculation =
                     SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
-                invalidCalculation.Name = "B";
+                ProbabilisticPipingCalculationScenario validProbabilisticCalculation =
+                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+                ProbabilisticPipingCalculationScenario invalidProbabilisticCalculation =
+                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<ProbabilisticPipingCalculationScenario>();
 
                 var childGroup = new CalculationGroup();
-                childGroup.Children.Add(validCalculation);
+                childGroup.Children.Add(validSemiProbabilisticCalculation);
+                childGroup.Children.Add(invalidProbabilisticCalculation);
 
                 var emptyChildGroup = new CalculationGroup();
                 var group = new CalculationGroup();
@@ -1142,19 +1154,20 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 group.Children.Add(childGroup);
                 group.Children.Add(emptyChildGroup);
-                group.Children.Add(invalidCalculation);
+                group.Children.Add(validProbabilisticCalculation);
+                group.Children.Add(invalidSemiProbabilisticCalculation);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
+                                                                 failureMechanism,
                                                                  assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        null,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
+                                                                       failureMechanism,
                                                                        assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -1168,17 +1181,21 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(9, msgs.Length);
+                        Assert.AreEqual(18, msgs.Length);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[9]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[10]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[11]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[17]);
                     });
                 }
             }
@@ -1190,12 +1207,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
+                assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
@@ -1207,9 +1224,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 SemiProbabilisticPipingCalculationScenario calculationB =
                     SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
                 calculationB.Name = "B";
+                ProbabilisticPipingCalculationScenario calculationC =
+                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+                calculationC.Name = "C";
+                ProbabilisticPipingCalculationScenario calculationD =
+                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+                calculationD.Name = "D";
 
                 var childGroup = new CalculationGroup();
                 childGroup.Children.Add(calculationA);
+                childGroup.Children.Add(calculationC);
 
                 var emptyChildGroup = new CalculationGroup();
 
@@ -1219,44 +1243,55 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(childGroup);
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(calculationB);
+                group.Children.Add(calculationD);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
+                                                                 failureMechanism,
                                                                  assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        null,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
+                                                                       failureMechanism,
                                                                        assessmentSection);
 
+                var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                                 .IgnoreArguments()
+                                 .Return(new TestPipingCalculator())
+                                 .Repeat.Any();
+
+                mocks.ReplayAll();
+
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
-                    DialogBoxHandler = (name, wnd) =>
-                    {
-                        // Expect an activity dialog which is automatically closed
-                    };
-
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(12, msgs.Length);
+                        Assert.AreEqual(28, msgs.Length);
+
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
@@ -1264,12 +1299,26 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[6]);
+                        Assert.AreEqual("Uitvoeren van berekening 'C' is gestart.", msgs[6]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[10]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[11]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
+                        Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
+
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
+
+                        Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
+                        Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
                     });
                 }
             }

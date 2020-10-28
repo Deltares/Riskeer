@@ -67,6 +67,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearIndex = 7;
+        
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
@@ -716,6 +717,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                  .IgnoreArguments()
                                  .Return(new TestPipingCalculator())
                                  .Repeat.Any();
+                
                 mocks.ReplayAll();
 
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
