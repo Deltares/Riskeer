@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -45,6 +44,8 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -709,7 +710,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
@@ -718,16 +718,24 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
+                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                                 .IgnoreArguments()
+                                 .Return(new TestPipingCalculator())
+                                 .Repeat.Any();
+                mocks.ReplayAll();
+
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(24, msgs.Length);
+                        Assert.AreEqual(28, msgs.Length);
 
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
@@ -740,22 +748,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[10]);
-                        Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[11]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
+                        Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[12]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[13]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[14]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[15]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[16]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[17]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[18]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[19]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[20]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[21]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[22]);
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[23]);
+                        Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
+                        Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
                     });
                 }
             }
