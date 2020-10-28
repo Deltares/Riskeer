@@ -66,6 +66,7 @@ using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
+using Riskeer.Piping.Service.Probabilistic;
 using Riskeer.Piping.Service.SemiProbabilistic;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -751,6 +752,12 @@ namespace Riskeer.Piping.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
+        /// <summary>
+        /// Validates all calculations in <paramref name="context"/>.
+        /// </summary>
+        /// <param name="context">The context to validate the calculations from.</param>
+        /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="context"/>
+        /// is of a type that is not supported.</exception>
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculationScenario<PipingInput>>(),
@@ -758,11 +765,17 @@ namespace Riskeer.Piping.Plugin
                         context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
+        /// <summary>
+        /// Performs all calculations in <paramref name="context"/>.
+        /// </summary>
+        /// <param name="context">The context to perform the calculations from.</param>
+        /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="context"/>
+        /// is of a type that is not supported.</exception>
+        private void CalculateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData,
-                                                                                             failureMechanismContext.Parent));
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                             context.Parent));
         }
 
         #endregion
@@ -1003,6 +1016,12 @@ namespace Riskeer.Piping.Plugin
             parentGroupContext.NotifyObservers();
         }
 
+        /// <summary>
+        /// Validates all calculations in <paramref name="context"/>.
+        /// </summary>
+        /// <param name="context">The context to validate the calculations from.</param>
+        /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="context"/> is of
+        /// a type that is not supported.</exception>
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculationScenario<PipingInput>>(),
@@ -1010,12 +1029,19 @@ namespace Riskeer.Piping.Plugin
                         context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
+        /// <summary>
+        /// Performs all calculations in <paramref name="group"/>.
+        /// </summary>
+        /// <param name="group">The group to perform the calculations from.</param>
+        /// <param name="calculationGroupContext">The context to use during the calculations.</param>
+        /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="calculationGroupContext"/>
+        /// is of a type that is not supported.</exception>
+        private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext calculationGroupContext)
         {
             ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                             context.FailureMechanism,
-                                                                                             context.AssessmentSection));
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(calculationGroupContext.WrappedData,
+                                                                                             calculationGroupContext.FailureMechanism,
+                                                                                             calculationGroupContext.AssessmentSection));
         }
 
         #endregion
@@ -1239,15 +1265,34 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
+        /// <summary>
+        /// Validates the provided <paramref name="pipingCalculations"/>.
+        /// </summary>
+        /// <param name="pipingCalculations">The calculations to validate.</param>
+        /// <param name="generalPipingInput">The general input to use during the validation.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="pipingCalculations"/> belong to.</param>
+        /// <exception cref="NotSupportedException">Thrown when any of the provided calculations is of a type that is not supported.</exception>
         private static void ValidateAll(IEnumerable<IPipingCalculationScenario<PipingInput>> pipingCalculations,
                                         GeneralPipingInput generalPipingInput,
                                         IAssessmentSection assessmentSection)
         {
-            foreach (SemiProbabilisticPipingCalculationScenario calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculationScenario>())
+            foreach (IPipingCalculationScenario<PipingInput> calculation in pipingCalculations)
             {
-                SemiProbabilisticPipingCalculationService.Validate(calculation,
-                                                                   generalPipingInput,
-                                                                   GetNormativeAssessmentLevel(assessmentSection, calculation));
+                switch (calculation)
+                {
+                    case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                        SemiProbabilisticPipingCalculationService.Validate(semiProbabilisticPipingCalculationScenario,
+                                                                           generalPipingInput,
+                                                                           GetNormativeAssessmentLevel(assessmentSection, semiProbabilisticPipingCalculationScenario));
+                        break;
+                    case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                        ProbabilisticPipingCalculationService.Validate(probabilisticPipingCalculationScenario,
+                                                                       generalPipingInput,
+                                                                       assessmentSection);
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
         }
 
