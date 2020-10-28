@@ -38,7 +38,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="CopyFileTo"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>

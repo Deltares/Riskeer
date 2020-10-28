@@ -38,6 +38,5 @@ namespace AutomatedSystemTests.Modules.IO
         {
         	File.Copy(sourceFile, destinationFile);
         }
-
     }
 }

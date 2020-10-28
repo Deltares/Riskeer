@@ -728,7 +728,7 @@ lpD1H1rQQtFFFABRRRQAUUUUAf/Z
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.Ribbon"
+		namespace="AutomatedSystemTests.Modules.Ribbon"
 		optional="False">
 			<comment>
 			</comment>
@@ -1048,7 +1048,7 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Mouse_Click_ButtonNoIfConformationDialogAppears"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.Ribbon"
+		namespace="AutomatedSystemTests.Modules.Ribbon"
 		optional="False">
 			<comment>
 			</comment>

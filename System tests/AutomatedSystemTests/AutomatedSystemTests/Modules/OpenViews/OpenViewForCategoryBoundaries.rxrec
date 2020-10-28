@@ -50,7 +50,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ExpandNode"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.OpenViews"
+		namespace="AutomatedSystemTests.Modules.OpenViews"
 		optional="False">
 			<comment>
 			</comment>
@@ -81,7 +81,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="OpenCategoryBoundariesView"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.OpenViews"
+		namespace="AutomatedSystemTests.Modules.OpenViews"
 		optional="True">
 			<comment>
 			</comment>

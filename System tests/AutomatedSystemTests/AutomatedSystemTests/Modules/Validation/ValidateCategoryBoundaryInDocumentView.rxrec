@@ -94,7 +94,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_GenericCategoryBoundaryCellAlmostEqual"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation"
 		optional="False">
 			<comment>
 			</comment>

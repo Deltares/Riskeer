@@ -38,7 +38,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ValidateValueCellGivenPath"
-		namespace="AutomatedSystemTests.Modules.RecordingModules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation"
 		optional="False">
 			<comment>
 			</comment>
