@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -32,16 +33,20 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
@@ -150,7 +155,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabledAndTooltipSet()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearOutputDisabledAndTooltipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -186,7 +191,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
+        public void ContextMenuStrip_CalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -687,7 +692,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup()
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -730,9 +735,190 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
+        public void GivenInvalidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObserversAndLogMessageAdded()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new ProbabilisticPipingCalculationScenario();
+                var failureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new AssessmentSectionStub();
+                var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                                         new CalculationGroup(),
+                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
+
+                var mainWindow = mocks.DynamicMock<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                calculation.Attach(observer);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
+                    {
+                        Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                        string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        Assert.AreEqual(Level.Error, tupleArray[2].Item2);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[4]);
+                    });
+
+                    Assert.IsNull(calculation.Output);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenInvalidCalculation_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new ProbabilisticPipingCalculationScenario();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new AssessmentSectionStub();
+
+                var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                                         new CalculationGroup(),
+                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                         pipingFailureMechanism,
+                                                                                                         assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                calculation.Attach(observer);
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
+                    {
+                        Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                        string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        Assert.AreEqual(Level.Error, tupleArray[1].Item2);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObservers()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new AssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                ProbabilisticPipingCalculationScenario calculation =
+                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+
+                var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                                         new CalculationGroup(),
+                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
+
+                var mainWindow = mocks.DynamicMock<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                calculation.Attach(observer);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(action, messages =>
+                    {
+                        using (IEnumerator<string> msgs = messages.GetEnumerator())
+                        {
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
+                        }
+                    });
+                    Assert.IsNotNull(calculation.Output);
+                }
+            }
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenPipingCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenPipingCalculationOutputClearedAndNotified(bool confirm)
+        public void GivenCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationOutputClearedAndNotified(bool confirm)
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
