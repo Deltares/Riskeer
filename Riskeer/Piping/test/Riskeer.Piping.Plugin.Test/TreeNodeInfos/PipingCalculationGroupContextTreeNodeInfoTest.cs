@@ -721,13 +721,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+                IPipingCalculationScenario<PipingInput> calculation = new TestPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = pipingFailureMechanism.SurfaceLines.First()
+                    }
+                };
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        new TestPipingCalculationScenario()
+                        calculation
                     }
                 };
 
