@@ -1291,15 +1291,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario calculation1 =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
-                calculation1.Name = "A";
-                calculation1.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
+                var calculation1 = new TestPipingCalculationScenario(true);
                 calculation1.Attach(calculation1Observer);
-                SemiProbabilisticPipingCalculationScenario calculation2 =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
-                calculation2.Name = "B";
-                calculation2.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
+
+                var calculation2 = new TestPipingCalculationScenario(true);
                 calculation2.Attach(calculation2Observer);
 
                 var childGroup = new CalculationGroup();
@@ -1712,7 +1707,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -1744,15 +1739,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
-            PipingFailureMechanismSectionResult[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
-            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), calculation);
 
             // Call
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), calculation);
         }
 
         [Test]
