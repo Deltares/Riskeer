@@ -110,8 +110,8 @@ namespace AutomatedSystemTests.Modules.Selection
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(2));
             Delay.Duration(100, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Click(Location.CenterRight);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Click();
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
             Delay.Duration(100, false);

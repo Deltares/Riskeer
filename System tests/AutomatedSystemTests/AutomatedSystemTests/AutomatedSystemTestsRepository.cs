@@ -3104,7 +3104,7 @@ namespace AutomatedSystemTests
             /// Creates a new FailureMechanismResultView  folder.
             /// </summary>
             public FailureMechanismResultViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("FailureMechanismResultView", "container[@controlname='FailureMechanismResultView']", parentFolder, 30000, null, true, "9283a2f0-e106-4fff-973b-ee9186918301", "")
+                    base("FailureMechanismResultView", "container[@controlname='FailureMechanismResultView']", parentFolder, 10000, null, true, "9283a2f0-e106-4fff-973b-ee9186918301", "")
             {
                 _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder(this);
             }
@@ -3167,21 +3167,21 @@ namespace AutomatedSystemTests
             /// Creates a new TableDataGridView  folder.
             /// </summary>
             public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
+                    base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 10000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
             {
-                _simpleassessmenttyperownthInfo = new RepoItemInfo(this, "SimpleAssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Eenvoudige toets Row ']", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
-                _detailedasssessmenttyperownthInfo = new RepoItemInfo(this, "DetailedAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak Row ']", 30000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
-                _detailedassessmentvaluerownthInfo = new RepoItemInfo(this, "DetailedAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
-                _customasssessmenttyperownthInfo = new RepoItemInfo(this, "CustomAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]", 30000, null, "88678175-4929-4e0e-a802-3dbaab044649");
-                _customassessmentvaluerownthInfo = new RepoItemInfo(this, "CustomAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toets op maatfaalkans Row ']", 30000, null, "2a76c8ea-2ab5-4255-931e-89d10c2fcde3");
-                _detailedassessmentvaluecategoriesInfo = new RepoItemInfo(this, "DetailedAssessmentValueCategories", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 30000, null, "4dac1e41-a578-4792-8699-3ba59fb3fe9b");
-                _detailedassessmenttypecategoryivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Iv']", 30000, null, "adbd81b7-87e6-4348-9438-cf24fa3d31bc");
-                _detailedassessmenttypecategoryiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIv']", 30000, null, "fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35");
-                _detailedassessmenttypecategoryiiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIIv']", 30000, null, "54aaf95b-b50c-4527-b5d6-ce1519184540");
-                _detailedassessmenttypecategoryivvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IVv']", 30000, null, "46b0e398-5ea8-400e-9133-18443b9b3b69");
-                _detailedassessmenttypecategoryvvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Vv']", 30000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
-                _detailedassessmentvaluepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentValuePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 30000, null, "36bcd84c-e1a4-440b-9059-ef295de802e1");
-                _detailedassessmenttypepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentTypePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak']", 30000, null, "687f57df-4210-4716-b1bb-a24e81983e66");
+                _simpleassessmenttyperownthInfo = new RepoItemInfo(this, "SimpleAssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Eenvoudige toets Row ']", 10000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
+                _detailedasssessmenttyperownthInfo = new RepoItemInfo(this, "DetailedAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak Row ']", 10000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
+                _detailedassessmentvaluerownthInfo = new RepoItemInfo(this, "DetailedAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 10000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
+                _customasssessmenttyperownthInfo = new RepoItemInfo(this, "CustomAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]", 10000, null, "88678175-4929-4e0e-a802-3dbaab044649");
+                _customassessmentvaluerownthInfo = new RepoItemInfo(this, "CustomAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toets op maatfaalkans Row ']", 10000, null, "2a76c8ea-2ab5-4255-931e-89d10c2fcde3");
+                _detailedassessmentvaluecategoriesInfo = new RepoItemInfo(this, "DetailedAssessmentValueCategories", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 10000, null, "4dac1e41-a578-4792-8699-3ba59fb3fe9b");
+                _detailedassessmenttypecategoryivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Iv']", 10000, null, "adbd81b7-87e6-4348-9438-cf24fa3d31bc");
+                _detailedassessmenttypecategoryiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIv']", 10000, null, "fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35");
+                _detailedassessmenttypecategoryiiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIIv']", 10000, null, "54aaf95b-b50c-4527-b5d6-ce1519184540");
+                _detailedassessmenttypecategoryivvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IVv']", 10000, null, "46b0e398-5ea8-400e-9133-18443b9b3b69");
+                _detailedassessmenttypecategoryvvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Vv']", 10000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
+                _detailedassessmentvaluepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentValuePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 10000, null, "36bcd84c-e1a4-440b-9059-ef295de802e1");
+                _detailedassessmenttypepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentTypePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak']", 10000, null, "687f57df-4210-4716-b1bb-a24e81983e66");
             }
 
             /// <summary>
@@ -5273,7 +5273,7 @@ namespace AutomatedSystemTests
             public DropDownMenuItemListAppFolder(RepoGenBaseFolder parentFolder) :
                     base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
             {
-                _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 30000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
+                _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 5000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
                 _dropdownitemInfo = new RepoItemInfo(this, "DropDownItem", "listitem[@text=$DropDownItem]", 30000, null, "db738719-488e-425e-963f-e603572ec330");
             }
 
