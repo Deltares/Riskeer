@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -42,6 +43,8 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
@@ -62,6 +65,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         private const int contextMenuValidateIndex = 7;
         private const int contextMenuCalculateIndex = 8;
         private const int contextMenuClearIndex = 10;
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -522,9 +528,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -571,9 +575,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -633,9 +635,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                ProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -847,10 +847,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
+                assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
@@ -875,8 +877,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
 
-                mocks.ReplayAll();
-
                 plugin.Gui = gui;
 
                 calculation.Attach(observer);
@@ -886,13 +886,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     // Expect an activity dialog which is automatically closed
                 };
 
+                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                                 .IgnoreArguments()
+                                 .Return(new TestPipingCalculator())
+                                 .Repeat.Any();
+
+                mocks.ReplayAll();
+
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
+                    void When() => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessages(When, messages =>
                     {
                         using (IEnumerator<string> msgs = messages.GetEnumerator())
                         {
@@ -904,6 +913,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.IsTrue(msgs.MoveNext());
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());

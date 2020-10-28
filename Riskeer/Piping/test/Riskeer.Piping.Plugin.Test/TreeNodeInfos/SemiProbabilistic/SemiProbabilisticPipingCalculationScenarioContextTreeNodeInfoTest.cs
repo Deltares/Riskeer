@@ -551,9 +551,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                SemiProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out SemiProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -600,9 +598,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                SemiProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out SemiProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -662,9 +658,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                PipingSurfaceLine surfaceLine;
-                SemiProbabilisticPipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                CreateCalculationWithSurfaceLine(out SemiProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
                 calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -857,11 +851,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+                    void When() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
                     const int expectedValidationMessageCount = 5;
-                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(action, messages =>
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
                     {
                         Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                         string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -981,10 +975,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
+                    void When() => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessages(When, messages =>
                     {
                         using (IEnumerator<string> msgs = messages.GetEnumerator())
                         {
