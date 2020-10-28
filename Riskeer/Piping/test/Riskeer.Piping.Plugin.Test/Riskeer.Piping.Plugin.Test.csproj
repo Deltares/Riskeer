@@ -39,6 +39,7 @@
     <ProjectReference Include="..\..\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
     <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj" />
+    <ProjectReference Include="..\Riskeer.Piping.KernelWrapper.TestUtil\Riskeer.Piping.KernelWrapper.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>

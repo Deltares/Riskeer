@@ -55,6 +55,7 @@ using Riskeer.Piping.Forms;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -1323,6 +1324,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
+                using (new PipingSubCalculatorFactoryConfig())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {

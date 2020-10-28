@@ -49,6 +49,7 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -972,6 +973,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     // Expect an activity dialog which is automatically closed
                 };
 
+                using (new PipingSubCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
