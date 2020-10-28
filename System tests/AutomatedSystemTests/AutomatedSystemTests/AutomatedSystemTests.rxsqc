@@ -6,7 +6,7 @@
   },
   {
     "Enabled": "True",
-    "TestSuite": "kkdelavaca",
+    "TestSuite": "SlowTestCases",
     "RunConfig": "TestRun"
   }
 ]

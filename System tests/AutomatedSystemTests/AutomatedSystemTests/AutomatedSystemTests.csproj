@@ -1634,7 +1634,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="kkdelavaca.rxtst">
+    <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
