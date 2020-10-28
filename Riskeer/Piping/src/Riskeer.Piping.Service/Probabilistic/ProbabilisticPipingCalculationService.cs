@@ -373,7 +373,6 @@ namespace Riskeer.Piping.Service.Probabilistic
             var input = new PipingCalculationInput(
                 pipingInput.HydraulicBoundaryLocation.Id,
                 sectionLength,
-                generalInput.WaterVolumetricWeight,
                 pipingInput.PhreaticLevelExit.Mean, pipingInput.PhreaticLevelExit.StandardDeviation,
                 generalInput.WaterVolumetricWeight,
                 effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,
@@ -387,6 +386,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
                 generalInput.BeddingAngle,
                 generalInput.WhitesDragCoefficient,
+                generalInput.WaterKinematicViscosity,
                 darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
                 diameterD70.Mean, diameterD70.CoefficientOfVariation,
                 generalInput.Gravity,

@@ -421,7 +421,6 @@ namespace Riskeer.Piping.Integration.Test
             var expectedInput = new PipingCalculationInput(
                 1300001,
                 sectionLength,
-                generalInput.WaterVolumetricWeight,
                 input.PhreaticLevelExit.Mean, input.PhreaticLevelExit.StandardDeviation,
                 generalInput.WaterVolumetricWeight,
                 effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,
@@ -435,6 +434,7 @@ namespace Riskeer.Piping.Integration.Test
                 generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
                 generalInput.BeddingAngle,
                 generalInput.WhitesDragCoefficient,
+                generalInput.WaterKinematicViscosity,
                 darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
                 diameterD70.Mean, diameterD70.CoefficientOfVariation,
                 generalInput.Gravity,
