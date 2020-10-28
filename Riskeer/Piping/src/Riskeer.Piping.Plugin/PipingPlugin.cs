@@ -1033,7 +1033,7 @@ namespace Riskeer.Piping.Plugin
         /// Performs all calculations in <paramref name="group"/>.
         /// </summary>
         /// <param name="group">The group to perform the calculations from.</param>
-        /// <param name="calculationGroupContext">The context to use during the calculations.</param>
+        /// <param name="calculationGroupContext">The context containing additional data to use during the calculations.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="calculationGroupContext"/>
         /// is of a type that is not supported.</exception>
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext calculationGroupContext)
