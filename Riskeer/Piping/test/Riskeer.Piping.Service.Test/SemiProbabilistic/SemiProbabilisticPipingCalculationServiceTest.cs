@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
@@ -205,94 +203,26 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_WithSurfaceLineOneOutOfFourDitchPoints_LogsErrorAndReturnsFalse()
+        public void Validate_ValidData_SubCalculatorsValidated()
         {
             // Setup
-            IEnumerable<Point3D> geometry = testCalculation.InputParameters.SurfaceLine.Points;
-            const string surfaceLineName = "surfaceLineA";
-            var surfaceLineMissingCharacteristicPoint = new PipingSurfaceLine(surfaceLineName);
-            surfaceLineMissingCharacteristicPoint.SetGeometry(geometry);
-            surfaceLineMissingCharacteristicPoint.SetDitchDikeSideAt(geometry.ElementAt(2));
-
-            testCalculation.InputParameters.SurfaceLine = surfaceLineMissingCharacteristicPoint;
-            testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
-            testCalculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
+            using (new PipingSubCalculatorFactoryConfig())
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                string expected = $"De sloot in de hoogtegeometrie {surfaceLineName} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.";
-                Assert.AreEqual(expected, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-        }
+                var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
 
-        [Test]
-        public void Validate_StochasticSoilProfileBelowSurfaceLine_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var topLayer = new PipingSoilLayer(testSurfaceLineTopLevel - 1e-6)
-            {
-                IsAquifer = false,
-                BelowPhreaticLevel = new LogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 15,
-                    StandardDeviation = (RoundedDouble) 2,
-                    Shift = (RoundedDouble) 0
-                }
-            };
-            var bottomLayer = new PipingSoilLayer(2.0)
-            {
-                IsAquifer = true,
-                DiameterD70 = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 1e-4,
-                    CoefficientOfVariation = (RoundedDouble) 0
-                },
-                Permeability = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 1,
-                    CoefficientOfVariation = (RoundedDouble) 0.5
-                }
-            };
-            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(
-                0.0, new PipingSoilProfile(
-                    string.Empty, 0.0,
-                    new[]
-                    {
-                        topLayer,
-                        bottomLayer
-                    },
-                    SoilProfileType.SoilProfile1D));
 
-            var isValid = false;
-
-            // Call
-            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                                        new GeneralPipingInput(),
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Hoogtegeometrie ligt (deels) boven de ondergrondschematisatie.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
+                // Call
+                SemiProbabilisticPipingCalculationService.Validate(testCalculation,
+                                                                   new GeneralPipingInput(),
+                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                
+                // Assert
+                Assert.IsTrue(factory.LastCreatedHeaveCalculator.Validated);
+                Assert.IsTrue(factory.LastCreatedSellmeijerCalculator.Validated);
+                Assert.IsTrue(factory.LastCreatedUpliftCalculator.Validated);
+                Assert.IsTrue(factory.LastCreatedEffectiveThicknessCalculator.Validated);
+                Assert.IsTrue(factory.LastCreatedPipingProfilePropertyCalculator.Validated);
+            }
         }
 
         [Test]
