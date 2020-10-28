@@ -1195,9 +1195,20 @@ namespace Riskeer.Piping.Plugin
             CalculationContextOnNodeRemoved(parentNodeData, calculationContext.WrappedData);
         }
 
-        private static void ValidateProbabilistic(ProbabilisticPipingCalculationScenarioContext context) {}
+        private static void ValidateProbabilistic(ProbabilisticPipingCalculationScenarioContext context)
+        {
+            ProbabilisticPipingCalculationService.Validate(context.WrappedData,
+                                                           context.FailureMechanism.GeneralInput,
+                                                           context.AssessmentSection);
+        }
 
-        private static void CalculateProbabilistic(ProbabilisticPipingCalculationScenario calculation, ProbabilisticPipingCalculationScenarioContext context) {}
+        private void CalculateProbabilistic(ProbabilisticPipingCalculationScenario calculation, ProbabilisticPipingCalculationScenarioContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(calculation,
+                                                                                                                           context.FailureMechanism,
+                                                                                                                           context.AssessmentSection));
+        }
 
         #endregion
 
