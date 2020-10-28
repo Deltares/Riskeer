@@ -86,6 +86,8 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         protected override void PerformCalculation()
         {
+            calculation.ClearOutput();
+            
             FailureMechanismSection section = failureMechanism.Sections.Single(
                 s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                     Math2D.ConvertPointsToLineSegments(s.Points)));
