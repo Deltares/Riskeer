@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -67,7 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearIndex = 7;
-        
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
@@ -662,6 +663,39 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenClickOnValidateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSectionStub();
+                var failureMechanism = new TestPipingFailureMechanism();
+
+                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                    // Then
+                    Assert.Throws<NotSupportedException>(When);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
@@ -717,7 +751,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                  .IgnoreArguments()
                                  .Return(new TestPipingCalculator())
                                  .Repeat.Any();
-                
+
                 mocks.ReplayAll();
 
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -760,6 +794,41 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
                         Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
                     });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenClickOnCalculateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSectionStub();
+                var failureMechanism = new TestPipingFailureMechanism();
+
+                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // When
+                    void When() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Then
+                    Assert.Throws<NotSupportedException>(When);
                 }
             }
         }
