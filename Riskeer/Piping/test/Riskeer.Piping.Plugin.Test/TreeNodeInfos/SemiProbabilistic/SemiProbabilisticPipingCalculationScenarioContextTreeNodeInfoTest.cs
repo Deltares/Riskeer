@@ -184,7 +184,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabledAndTooltipSet()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearOutputDisabledAndTooltipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
+        public void ContextMenuStrip_CalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -721,7 +721,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup()
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -764,7 +764,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromSectionResult()
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -819,7 +819,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void GivenInvalidPipingCalculation_WhenCalculatingFromContextMenu_ThenPipingCalculationNotifiesObserversAndLogMessageAdded()
+        public void GivenInvalidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObserversAndLogMessageAdded()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -882,7 +882,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void GivenInvalidPipingCalculation_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
+        public void GivenInvalidCalculation_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -913,19 +913,28 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+                    void When() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
-                    // Then
                     const int expectedValidationMessageCount = 5;
-                    const int expectedStatusMessageCount = 2;
-                    const int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
-                    TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
+                    {
+                        Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                        string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        for (var i = 0; i < expectedValidationMessageCount; i++)
+                        {
+                            Assert.AreEqual(Level.Error, tupleArray[1 + i].Item2);
+                        }
+
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                    });
                 }
             }
         }
 
         [Test]
-        public void GivenValidPipingCalculation_WhenCalculatingFromContextMenu_ThenPipingCalculationNotifiesObservers()
+        public void GivenValidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObservers()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1001,7 +1010,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenPipingCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenPipingCalculationOutputClearedAndNotified(bool confirm)
+        public void GivenCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationOutputClearedAndNotified(bool confirm)
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
