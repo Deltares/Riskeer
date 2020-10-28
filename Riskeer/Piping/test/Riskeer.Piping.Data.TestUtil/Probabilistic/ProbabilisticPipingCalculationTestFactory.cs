@@ -64,5 +64,16 @@ namespace Riskeer.Piping.Data.TestUtil.Probabilistic
                 }
             };
         }
+
+        /// <summary>
+        /// Creates a probabilistic calculation with invalid input.
+        /// </summary>
+        /// <typeparam name="T">The type of probabilistic calculation to create.</typeparam>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
+        public static T CreateCalculationWithInvalidInput<T>()
+            where T : ProbabilisticPipingCalculation, new()
+        {
+            return new T();
+        }
     }
 }
