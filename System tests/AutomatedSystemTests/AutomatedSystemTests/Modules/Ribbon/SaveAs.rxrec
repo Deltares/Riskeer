@@ -638,7 +638,7 @@ naLgXumYbgcL
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Ribbon"
 		optional="False">
 			<comment>
 			</comment>

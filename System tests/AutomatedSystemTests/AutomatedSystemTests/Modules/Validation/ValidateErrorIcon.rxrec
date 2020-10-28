@@ -30,7 +30,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_GenericCellIcon"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Validation"
 		optional="False">
 			<comment>
 			</comment>

@@ -74,7 +74,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="SetRelevanceFM"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Set_Assign"
 		optional="False">
 			<comment>
 			</comment>

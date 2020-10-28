@@ -34,7 +34,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="SelectTreeItemInProjectExplorerGivenPath"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Selection"
 		optional="False">
 			<comment>
 			</comment>

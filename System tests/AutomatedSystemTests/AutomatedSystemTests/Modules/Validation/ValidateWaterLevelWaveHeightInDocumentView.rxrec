@@ -34,7 +34,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_WaterLevelOrWaveHeightNthRow"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Validation"
 		optional="False">
 			<comment>
 			</comment>

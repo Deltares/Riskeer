@@ -30,7 +30,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ExpandDamInPropertiesPanelMethod"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel"
 		optional="False">
 			<comment>
 			</comment>

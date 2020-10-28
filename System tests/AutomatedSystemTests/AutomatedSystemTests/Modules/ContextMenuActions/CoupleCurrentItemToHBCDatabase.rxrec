@@ -464,7 +464,7 @@ DPynBPXp+tFFFYVJNWLjG9z/2Q==
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.ContextMenuActions"
 		optional="False">
 			<comment>
 			</comment>

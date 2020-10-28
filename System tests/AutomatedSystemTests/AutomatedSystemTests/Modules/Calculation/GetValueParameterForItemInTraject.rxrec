@@ -92,7 +92,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Report_Log"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Calculation"
 		optional="False">
 			<comment>
 			</comment>

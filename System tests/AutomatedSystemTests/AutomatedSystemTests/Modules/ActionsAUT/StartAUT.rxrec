@@ -38,7 +38,7 @@ mode="Desktop">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ResolveAppPath"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.ActionsAUT"
 		optional="False">
 			<comment>
 			</comment>

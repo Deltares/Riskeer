@@ -74,7 +74,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_GenericParameterVisibleInProjectExplorer"
-		namespace="AutomatedSystemTests"
+		namespace="AutomatedSystemTests.Modules.Validation"
 		optional="False">
 			<comment>
 			</comment>
