@@ -130,11 +130,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario());
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario());
-
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             // Call
@@ -235,14 +231,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingCalculation1 = new SemiProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
-                var pipingCalculation2 = new SemiProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                var pipingCalculation1 = new TestPipingCalculationScenario(true);
+                var pipingCalculation2 = new TestPipingCalculationScenario(true);
 
                 var observer = mocks.StrictMock<IObserver>();
                 if (confirm)
@@ -306,14 +296,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HasCalculationWithOutput_ReturnsContextMenuWithCommonItems()
+        public void ContextMenuStrip_FailureMechanismHasCalculationWithOutput_ReturnsContextMenuWithCommonItems()
         {
             // Setup
             var failureMechanism = new TestPipingFailureMechanism();
-            var pipingCalculation = new SemiProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-            };
+            var pipingCalculation = new TestPipingCalculationScenario(true);
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -408,7 +395,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_PipingFailureMechanismNoOutput_ContextMenuItemClearAllOutputDisabled()
+        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_ContextMenuItemClearAllOutputDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -416,7 +403,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var data = mocks.StrictMock<PipingFailureMechanism>();
-                data.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
+                data.Stub(dm => dm.Calculations).Return(new[]
+                {
+                    new TestPipingCalculationScenario()
+                });
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanismContext = new PipingFailureMechanismContext(data, assessmentSection);
@@ -439,15 +429,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_PipingFailureMechanismWithOutput_ContextMenuItemClearAllOutputEnabled()
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithOutput_ContextMenuItemClearAllOutputEnabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingCalculation = new SemiProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                var pipingCalculation = new TestPipingCalculationScenario(true);
 
                 var failureMechanism = new PipingFailureMechanism();
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
