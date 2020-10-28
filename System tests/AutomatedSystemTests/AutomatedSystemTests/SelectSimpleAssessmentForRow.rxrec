@@ -26,6 +26,12 @@ mode="Global">
 		<var
 		id="d576037a-032a-4fa3-b9a8-9944503b34d3"
 		name="rowIndex">
+			0
+		</var>
+		<var
+		id="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+		name="textItemDropDownMenu">
+			NVT
 		</var>
 	</variables>
 	<recorditems>
@@ -69,6 +75,15 @@ mode="Global">
 			id="4710a562-0611-4688-b390-88bab902e3d7">
 			</arguments>
 		</invokeactionrecorditem>
+		<explicitdelayitem
+		duration="100ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -94,7 +109,7 @@ mode="Global">
 			</info>
 		</mouseitem>
 		<explicitdelayitem
-		duration="200ms"
+		duration="100ms"
 		enabled="True"
 		optional="False">
 			<comment>

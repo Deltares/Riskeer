@@ -41,7 +41,8 @@ namespace AutomatedSystemTests
         /// </summary>
         public SelectSimpleAssessmentForRow()
         {
-            rowIndex = "";
+            rowIndex = "0";
+            textItemDropDownMenu = "NVT";
         }
 
         /// <summary>
@@ -106,13 +107,16 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(2));
+            Delay.Duration(100, false);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(3));
             repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Click(Location.CenterRight);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 200ms.", new RecordItemIndex(3));
-            Delay.Duration(200, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
+            Delay.Duration(100, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(5));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();
             
         }
