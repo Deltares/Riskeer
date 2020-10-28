@@ -64,6 +64,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
+        public void Constructor_CalculationNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingProfileSpecificOutputContextProperties(new PartialProbabilisticPipingOutput(1.1, null),
+                                                                                         null,
+                                                                                         new TestPipingFailureMechanism(),
+                                                                                         new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
