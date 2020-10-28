@@ -59,32 +59,6 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void ShouldCalculate_HasOutputFalse_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation();
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsTrue(shouldCalculate);
-        }
-
-        [Test]
-        public void ShouldCalculate_HasOutputTrue_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation(true);
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsFalse(shouldCalculate);
-        }
-
-        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup

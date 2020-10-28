@@ -48,6 +48,8 @@ namespace Riskeer.Piping.Data.TestUtil
             this.hasOutput = hasOutput;
         }
 
+        public override bool ShouldCalculate => !HasOutput;
+        
         public override bool HasOutput => hasOutput;
 
         public override void ClearOutput()

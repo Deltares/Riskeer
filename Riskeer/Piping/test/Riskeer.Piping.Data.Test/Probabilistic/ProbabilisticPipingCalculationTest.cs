@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
@@ -41,6 +41,29 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             Assert.IsInstanceOf<ProbabilisticPipingInput>(calculation.InputParameters);
 
             Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculations))]
+        public void ShouldCalculate_Always_ReturnsExpectedValue(
+            bool shouldIllustrationPointsBeCalculated, ProbabilisticPipingOutput output,
+            bool expectedShouldCalculate)
+        {
+            // Setup
+            var calculation = new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                },
+                Output = output
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.AreEqual(expectedShouldCalculate, shouldCalculate);
         }
 
         [Test]
@@ -151,6 +174,54 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculations()
+        {
+            yield return new TestCaseData(true, null, true);
+            yield return new TestCaseData(false, null, true);
+
+            yield return new TestCaseData(
+                true, PipingTestDataGenerator.GetRandomProbabilisticPipingOutput(), false);
+
+            yield return new TestCaseData(
+                false, PipingTestDataGenerator.GetRandomProbabilisticPipingOutput(), true);
+
+            yield return new TestCaseData(
+                true, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
+                true);
+
+            yield return new TestCaseData(
+                true, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput()),
+                true);
+
+            yield return new TestCaseData(
+                true, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
+                true);
+
+            yield return new TestCaseData(
+                false, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
+                false);
+
+            yield return new TestCaseData(
+                false, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput()),
+                false);
+
+            yield return new TestCaseData(
+                false, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
+                false);
         }
 
         private static ProbabilisticPipingCalculation CreateRandomCalculationWithoutOutput()
