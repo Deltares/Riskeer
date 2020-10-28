@@ -1,0 +1,12 @@
+[
+  {
+    "Enabled": "True",
+    "TestSuite": "AutomatedSystemTests",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "kkdelavaca",
+    "RunConfig": "TestRun"
+  }
+]

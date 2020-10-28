@@ -210,6 +210,18 @@
       <UserCode>true</UserCode>
       <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
     </Compile>
+    <Compile Include="ConfirmActionInDialog.cs">
+      <BoundTo>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</BoundTo>
+      <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8ba6e358-37db-426a-a2bf-0cc2af53aea3</id>
+    </Compile>
+    <Compile Include="ConfirmActionInDialog.UserCode.cs">
+      <BoundTo>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</BoundTo>
+      <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>86c4b937-9777-45c9-893e-decc404f46d9</id>
+    </Compile>
     <Compile Include="CoupleCurrentItemToHBCDatabase.cs">
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
       <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
@@ -428,6 +440,30 @@
       <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
+    </Compile>
+    <Compile Include="SetNewHBCScenario.cs">
+      <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
+      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>4f50ceae-2e00-4653-906f-8f48d4665f8b</id>
+    </Compile>
+    <Compile Include="SetNewHBCScenario.UserCode.cs">
+      <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
+      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>8498d822-4b6c-4353-ad3a-d26e5a7eb878</id>
+    </Compile>
+    <Compile Include="SetValueTextParameterVisibleInPropertiesPanel.cs">
+      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
+      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d99590bc-4916-4398-a2ae-43db4bb37736</id>
+    </Compile>
+    <Compile Include="SetValueTextParameterVisibleInPropertiesPanel.UserCode.cs">
+      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
+      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>684974c1-e052-42ac-934d-c533e1eff729</id>
     </Compile>
     <Compile Include="StartAllCalculationsInSelectedFolderInProjectExplorer.cs">
       <BoundTo>af0febe3-a18a-480b-a52f-1a751996c9c0</BoundTo>
@@ -1598,6 +1634,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="kkdelavaca.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
+    </Content>
     <None Include="AddNewTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>7c43bc11-7959-43bd-bf48-f3a663df94a1</id>
@@ -1606,6 +1646,10 @@
     <None Include="app.config">
       <id>26a72276-7a2e-4ee3-bb52-7e45071fe9ee</id>
     </None>
+    <Content Include="AutomatedSystemTests.rxsqc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>b4156d92-844b-420e-b290-097107be97e0</id>
+    </Content>
     <None Include="AutomatedSystemTestsRepository.rximg">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <DependentUpon>AutomatedSystemTestsRepository.rxrep</DependentUpon>
@@ -1636,6 +1680,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
       <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
+    </None>
+    <None Include="ConfirmActionInDialog.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</id>
+      <recordtableid>e1edec81-14b1-41ff-bcc7-e1f75797dd7b</recordtableid>
     </None>
     <None Include="CoupleCurrentItemToHBCDatabase.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1726,6 +1775,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
       <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
+    </None>
+    <None Include="SetNewHBCScenario.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5bf29cac-081b-4772-a880-80a042909612</id>
+      <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>
+    </None>
+    <None Include="SetValueTextParameterVisibleInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</id>
+      <recordtableid>bfe17baf-1a87-4f9c-9a37-719c9b918b43</recordtableid>
     </None>
     <None Include="StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

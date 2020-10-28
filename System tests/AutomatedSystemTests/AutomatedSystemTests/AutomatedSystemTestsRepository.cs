@@ -30,7 +30,6 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.RiskeerMainWindowAppFolder _riskeermainwindow;
         AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder _contextmenu;
         AutomatedSystemTestsRepositoryFolders.ConfirmSaveProjectDialogWhenClosingAppFolder _confirmsaveprojectdialogwhenclosing;
-        AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder _opendialog;
         AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder _activityprogressdialog;
         AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder _opslaanals;
         AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder _dropdownmenuitemlist;
@@ -40,6 +39,8 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder _riskeer;
         AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder _bevestigen;
         AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder _selectitemdialog;
+        AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder _opendialog;
+        AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder _openfiledialog;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -60,7 +61,6 @@ namespace AutomatedSystemTests
             _riskeermainwindow = new AutomatedSystemTestsRepositoryFolders.RiskeerMainWindowAppFolder(this);
             _contextmenu = new AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder(this);
             _confirmsaveprojectdialogwhenclosing = new AutomatedSystemTestsRepositoryFolders.ConfirmSaveProjectDialogWhenClosingAppFolder(this);
-            _opendialog = new AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder(this);
             _activityprogressdialog = new AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder(this);
             _opslaanals = new AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder(this);
             _dropdownmenuitemlist = new AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder(this);
@@ -70,6 +70,8 @@ namespace AutomatedSystemTests
             _riskeer = new AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder(this);
             _bevestigen = new AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder(this);
             _selectitemdialog = new AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder(this);
+            _opendialog = new AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder(this);
+            _openfiledialog = new AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -453,15 +455,6 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The OpenDialog folder.
-        /// </summary>
-        [RepositoryFolder("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
-        public virtual AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder OpenDialog
-        {
-            get { return _opendialog; }
-        }
-
-        /// <summary>
         /// The ActivityProgressDialog folder.
         /// </summary>
         [RepositoryFolder("6992b395-923d-4913-be11-dc9d7fa075dc")]
@@ -540,6 +533,24 @@ namespace AutomatedSystemTests
         public virtual AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder SelectItemDialog
         {
             get { return _selectitemdialog; }
+        }
+
+        /// <summary>
+        /// The OpenDialog folder.
+        /// </summary>
+        [RepositoryFolder("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
+        public virtual AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder OpenDialog
+        {
+            get { return _opendialog; }
+        }
+
+        /// <summary>
+        /// The OpenFileDialog folder.
+        /// </summary>
+        [RepositoryFolder("b4994c0d-5167-43e4-8cf7-09a41072ae61")]
+        public virtual AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder OpenFileDialog
+        {
+            get { return _openfiledialog; }
         }
     }
 
@@ -1849,6 +1860,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewFolder _designwaterlevelcalculationsview;
             AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder _hydraulicbcdunes;
             RepoItemInfo _insidedocument_isfmrelevantcellInfo;
+            RepoItemInfo _btndialogInfo;
 
             /// <summary>
             /// Creates a new DocumentViewContainerUncached  folder.
@@ -1861,6 +1873,7 @@ namespace AutomatedSystemTests
                 _designwaterlevelcalculationsview = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewFolder(this);
                 _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder(this);
                 _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "db215a7f-7857-4f38-b16c-d96366f08703");
+                _btndialogInfo = new RepoItemInfo(this, "BtnDialog", "?/?/button[@controlname='btnDialog']", 30000, null, "cefba828-ea6b-4e9d-a97a-641324e9af42");
             }
 
             /// <summary>
@@ -1908,6 +1921,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _insidedocument_isfmrelevantcellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The BtnDialog item.
+            /// </summary>
+            [RepositoryItem("cefba828-ea6b-4e9d-a97a-641324e9af42")]
+            public virtual Ranorex.Button BtnDialog
+            {
+                get
+                {
+                    return _btndialogInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The BtnDialog item info.
+            /// </summary>
+            [RepositoryItemInfo("cefba828-ea6b-4e9d-a97a-641324e9af42")]
+            public virtual RepoItemInfo BtnDialogInfo
+            {
+                get
+                {
+                    return _btndialogInfo;
                 }
             }
 
@@ -4986,98 +5023,6 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The OpenDialogAppFolder folder.
-        /// </summary>
-        [RepositoryFolder("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
-        public partial class OpenDialogAppFolder : RepoGenBaseFolder
-        {
-            RepoItemInfo _filenamefieldInfo;
-            RepoItemInfo _buttonopenInfo;
-
-            /// <summary>
-            /// Creates a new OpenDialog  folder.
-            /// </summary>
-            public OpenDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("OpenDialog", "/form[@title='Openen']", parentFolder, 30000, null, true, "c507fecb-03d6-49f4-b5b8-7b6a4349c6de", "")
-            {
-                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", 30000, null, "6605374b-06f5-4614-99d7-445816f0207d");
-                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "cbbe1268-3660-4dd4-a308-278fbe50bc01");
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
-            public virtual Ranorex.Form Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The FileNameField item.
-            /// </summary>
-            [RepositoryItem("6605374b-06f5-4614-99d7-445816f0207d")]
-            public virtual Ranorex.Text FileNameField
-            {
-                get
-                {
-                    return _filenamefieldInfo.CreateAdapter<Ranorex.Text>(true);
-                }
-            }
-
-            /// <summary>
-            /// The FileNameField item info.
-            /// </summary>
-            [RepositoryItemInfo("6605374b-06f5-4614-99d7-445816f0207d")]
-            public virtual RepoItemInfo FileNameFieldInfo
-            {
-                get
-                {
-                    return _filenamefieldInfo;
-                }
-            }
-
-            /// <summary>
-            /// The ButtonOpen item.
-            /// </summary>
-            [RepositoryItem("cbbe1268-3660-4dd4-a308-278fbe50bc01")]
-            public virtual Ranorex.Button ButtonOpen
-            {
-                get
-                {
-                    return _buttonopenInfo.CreateAdapter<Ranorex.Button>(true);
-                }
-            }
-
-            /// <summary>
-            /// The ButtonOpen item info.
-            /// </summary>
-            [RepositoryItemInfo("cbbe1268-3660-4dd4-a308-278fbe50bc01")]
-            public virtual RepoItemInfo ButtonOpenInfo
-            {
-                get
-                {
-                    return _buttonopenInfo;
-                }
-            }
-        }
-
-        /// <summary>
         /// The ActivityProgressDialogAppFolder folder.
         /// </summary>
         [RepositoryFolder("6992b395-923d-4913-be11-dc9d7fa075dc")]
@@ -6081,6 +6026,190 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _buttonokInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The OpenDialogAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
+        public partial class OpenDialogAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _filenamefieldInfo;
+            RepoItemInfo _buttonopenInfo;
+
+            /// <summary>
+            /// Creates a new OpenDialog  folder.
+            /// </summary>
+            public OpenDialogAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("OpenDialog", "/form[@title='Openen']", parentFolder, 30000, null, true, "c507fecb-03d6-49f4-b5b8-7b6a4349c6de", "")
+            {
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", 30000, null, "6605374b-06f5-4614-99d7-445816f0207d");
+                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "cbbe1268-3660-4dd4-a308-278fbe50bc01");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("c507fecb-03d6-49f4-b5b8-7b6a4349c6de")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FileNameField item.
+            /// </summary>
+            [RepositoryItem("6605374b-06f5-4614-99d7-445816f0207d")]
+            public virtual Ranorex.Text FileNameField
+            {
+                get
+                {
+                    return _filenamefieldInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The FileNameField item info.
+            /// </summary>
+            [RepositoryItemInfo("6605374b-06f5-4614-99d7-445816f0207d")]
+            public virtual RepoItemInfo FileNameFieldInfo
+            {
+                get
+                {
+                    return _filenamefieldInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOpen item.
+            /// </summary>
+            [RepositoryItem("cbbe1268-3660-4dd4-a308-278fbe50bc01")]
+            public virtual Ranorex.Button ButtonOpen
+            {
+                get
+                {
+                    return _buttonopenInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOpen item info.
+            /// </summary>
+            [RepositoryItemInfo("cbbe1268-3660-4dd4-a308-278fbe50bc01")]
+            public virtual RepoItemInfo ButtonOpenInfo
+            {
+                get
+                {
+                    return _buttonopenInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The OpenFileDialogAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("b4994c0d-5167-43e4-8cf7-09a41072ae61")]
+        public partial class OpenFileDialogAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _buttonopenInfo;
+            RepoItemInfo _filenamefieldInfo;
+
+            /// <summary>
+            /// Creates a new OpenFileDialog  folder.
+            /// </summary>
+            public OpenFileDialogAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("OpenFileDialog", "/form[@title='Open File']", parentFolder, 30000, null, true, "b4994c0d-5167-43e4-8cf7-09a41072ae61", "")
+            {
+                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "1003af8e-9e10-4fa3-9036-19f31d7713b9");
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("b4994c0d-5167-43e4-8cf7-09a41072ae61")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("b4994c0d-5167-43e4-8cf7-09a41072ae61")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOpen item.
+            /// </summary>
+            [RepositoryItem("1003af8e-9e10-4fa3-9036-19f31d7713b9")]
+            public virtual Ranorex.Button ButtonOpen
+            {
+                get
+                {
+                    return _buttonopenInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOpen item info.
+            /// </summary>
+            [RepositoryItemInfo("1003af8e-9e10-4fa3-9036-19f31d7713b9")]
+            public virtual RepoItemInfo ButtonOpenInfo
+            {
+                get
+                {
+                    return _buttonopenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FileNameField item.
+            /// </summary>
+            [RepositoryItem("88a4a7e6-e1ab-4778-871a-63b4fc5f59ae")]
+            public virtual Ranorex.Text FileNameField
+            {
+                get
+                {
+                    return _filenamefieldInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The FileNameField item info.
+            /// </summary>
+            [RepositoryItemInfo("88a4a7e6-e1ab-4778-871a-63b4fc5f59ae")]
+            public virtual RepoItemInfo FileNameFieldInfo
+            {
+                get
+                {
+                    return _filenamefieldInfo;
                 }
             }
         }

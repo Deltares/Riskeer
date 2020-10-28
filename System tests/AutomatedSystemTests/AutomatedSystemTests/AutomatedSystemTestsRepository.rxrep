@@ -630,6 +630,16 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
 					</basepath>
 				</folder>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="cefba828-ea6b-4e9d-a97a-641324e9af42"
+				name="BtnDialog"
+				refimgid="4671213b-78f7-413f-a23f-eaa0dfa9ec72"
+				refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDialog']"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDialog']
+				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -1359,49 +1369,6 @@ FjcAAAAASUVORK5CYII=
 		</appfolder>
 		<appfolder
 		capname="form"
-		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
-		isrooted="True"
-		name="OpenDialog"
-		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
-		refpath="/form[@title='Openen']"
-		searchtimeout="30000ms"
-		usecache="True">
-			<item
-			addcaps="text,nativewindow"
-			capname="text"
-			id="6605374b-06f5-4614-99d7-445816f0207d"
-			name="FileNameField"
-			refimgid="7ddc0ddc-89a2-427a-a9a6-739f4d236898"
-			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
-			searchtimeout="30000ms">
-				/form[@title='Openen']/?/?/text[@controlid='1148']
-			</item>
-			<item
-			addcaps="button,nativewindow"
-			capname="button"
-			id="cbbe1268-3660-4dd4-a308-278fbe50bc01"
-			name="ButtonOpen"
-			refimgid="ddcb4a10-d905-4e3a-80e6-db0c94dc7fc6"
-			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
-			searchtimeout="30000ms">
-				/form[@title='Openen']/button[@text='&amp;Open']
-			</item>
-			<basepath>
-				/form[@title='Openen']
-			</basepath>
-			<icon>
-				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
-AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
-aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
-bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
-4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
-uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
-xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
-gg==
-			</icon>
-		</appfolder>
-		<appfolder
-		capname="form"
 		id="6992b395-923d-4913-be11-dc9d7fa075dc"
 		isrooted="True"
 		name="ActivityProgressDialog"
@@ -1865,6 +1832,93 @@ FjcAAAAASUVORK5CYII=
 jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABxSURBVDhPpY4BDsAgCAN5uk/jZ24Yu3QKivGS
 bmOBS+WlXkbqKa7AnpkYoUBVvzfC81YwHntpu5GAlwDPW0GmgSUUYIHhGd+hINMAuIJxyRhnZhKs
 GpRSWkA/PmsAAR3/BasGFrRwBSdMgsu4P5OR+gCK7Y8YG21ArQAAAABJRU5ErkJggg==
+			</icon>
+		</appfolder>
+		<appfolder
+		capname="form"
+		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
+		isrooted="True"
+		name="OpenDialog"
+		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
+		refpath="/form[@title='Openen']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="6605374b-06f5-4614-99d7-445816f0207d"
+			name="FileNameField"
+			refimgid="7ddc0ddc-89a2-427a-a9a6-739f4d236898"
+			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="cbbe1268-3660-4dd4-a308-278fbe50bc01"
+			name="ButtonOpen"
+			refimgid="ddcb4a10-d905-4e3a-80e6-db0c94dc7fc6"
+			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Openen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
+aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
+bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
+4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
+uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
+xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
+gg==
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="b4994c0d-5167-43e4-8cf7-09a41072ae61"
+		isrooted="True"
+		name="OpenFileDialog"
+		refimgid="de211477-5368-4a9b-be70-a4a8388097d0"
+		refpath="/form[@title='Open File']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="1003af8e-9e10-4fa3-9036-19f31d7713b9"
+			name="ButtonOpen"
+			refimgid="2cf87765-e788-495e-aebd-595b6f4af89b"
+			refpath="/form[@title='Open File']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Open File']/button[@text='&amp;Open']
+			</item>
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="88a4a7e6-e1ab-4778-871a-63b4fc5f59ae"
+			name="FileNameField"
+			refimgid="8e14b8b6-d6b8-473f-9a59-4ff87f2bbf41"
+			refpath="/form[@title='Open File']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open File']/?/?/text[@controlid='1148']
+			</item>
+			<basepath>
+				/form[@title='Open File']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
 			</icon>
 		</appfolder>
 		<basepath>

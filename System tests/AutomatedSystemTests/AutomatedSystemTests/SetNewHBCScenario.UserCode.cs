@@ -8,14 +8,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
-
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
@@ -23,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class SelectGenericItemInProjectExplorer
+    public partial class SetNewHBCScenario
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -35,7 +34,7 @@ namespace AutomatedSystemTests
         }
 
         public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
-        	{
+        {
         	var stepsPathItem = pathItem.Split('>').ToList();
         	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
         	// start up variable stepChild
