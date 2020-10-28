@@ -152,6 +152,22 @@ namespace Riskeer.Piping.Service.Test
             AssertProbabilisticPipingCalculationActivity(activity4, calculation4, hydraulicBoundaryLocation2);
         }
 
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new TestPipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculation());
+
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateCalculationActivities(
+                failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+        }
+
         #endregion
 
         #region CreateCalculationActivitiesForCalculationGroup
@@ -237,7 +253,7 @@ namespace Riskeer.Piping.Service.Test
             ProbabilisticPipingCalculation calculation4 =
                 ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(hydraulicBoundaryLocation2);
 
-            var calculations = new CalculationGroup
+            var calculationGroup = new CalculationGroup
             {
                 Children =
                 {
@@ -250,7 +266,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities = PipingCalculationActivityFactory.CreateCalculationActivities(
-                calculations, failureMechanism, assessmentSection);
+                calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(4, activities.Count());
@@ -270,6 +286,28 @@ namespace Riskeer.Piping.Service.Test
             CalculatableActivity activity4 = activities.ElementAt(3);
             Assert.IsInstanceOf<ProbabilisticPipingCalculationActivity>(activity4);
             AssertProbabilisticPipingCalculationActivity(activity4, calculation4, hydraulicBoundaryLocation2);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new TestPipingFailureMechanism();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new TestPipingCalculation()
+                }
+            };
+
+            // Call
+            void Call() => PipingCalculationActivityFactory.CreateCalculationActivities(
+                calculationGroup, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         #endregion
