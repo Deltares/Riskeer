@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -65,7 +66,9 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
@@ -521,8 +524,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
+            assessmentSection.Piping.SetSections(new[]
+            {
+                new FailureMechanismSection("Section", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            }, "path/to/sections");
+
             AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddMacroStabilityInwardsCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
@@ -548,6 +561,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                  {
                                      DesignWaterLevel = 2.0
                                  }).Repeat.Times(4);
+
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -555,6 +569,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
+
+                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestPipingCalculator());
 
                 calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -579,6 +601,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
+
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -697,6 +720,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
             pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
             pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
+            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
+        }
+
+        private static void AddProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            ProbabilisticPipingCalculationScenario pipingCalculationScenario =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
         }
 
