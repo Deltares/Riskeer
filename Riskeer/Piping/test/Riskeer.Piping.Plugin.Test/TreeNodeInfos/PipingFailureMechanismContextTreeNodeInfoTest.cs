@@ -664,7 +664,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenClickOnValidateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenValidatingAllFromContextMenu_ThenThrowsNotSupportedException()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -801,7 +801,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenClickOnCalculateAllItemOfContextMenuStrip_ThenThrowsNotSupportedException()
+        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenCalculatingAllFromContextMenu_ThenThrowsNotSupportedException()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())

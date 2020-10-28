@@ -68,6 +68,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -688,6 +689,52 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Then
                         Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
                         Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                    }
+                }
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenPipingCalculationOfUnsupportedType_WhenCalculatingAllFromContextMenu_ThenThrowsNotSupportedException()
+        {
+            // Given
+            string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = hydraulicBoundaryDatabaseFilePath
+                }
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            assessmentSection.Piping.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(assessmentSection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(assessmentSection, null, treeViewControl))
+                    {
+                        // When
+                        void When() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                        // Then
+                        Assert.Throws<NotSupportedException>(When);
                     }
                 }
 
