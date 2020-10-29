@@ -598,6 +598,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="21daf337-78d1-4703-962f-f5849e589cb5"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="21f9f699-8d9d-419d-b225-46caa116b373"
 			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
@@ -1052,6 +1056,20 @@
 					</var>
 				</missingdatavariablesbinding>
 			</testmodule>
+			<testmodule
+			id="39301a4c-e21a-439a-9d91-13c940f1db2c"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="3bddd021-9894-4e8d-a623-276cc2cf8a15"
@@ -1500,6 +1518,20 @@
 			name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
 			</smartfoldernode>
 			<testmodule
+			id="612bb17a-abad-4923-8fa0-f9d31990588a"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="61885be6-e6ff-4d8c-bc77-497c9520243e"
 			name="SelectRowCalculation"
 			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
@@ -1680,6 +1712,16 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
+			name="WaitSomeTime">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="2000">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="6f77c8b6-2852-4300-b22e-580ce3d58001"
 			name="SaveAs"
@@ -1833,6 +1875,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<setup
+			id="763f0853-5775-4f9a-8e62-69d6fefc43d6"
+			name="setup">
+			</setup>
 			<testmodule
 			id="779bb101-82d8-459f-8b6f-93e46f001dd0"
 			name="ValidateWaterLevelWaveHeightInDocumentView"
@@ -3238,6 +3284,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6"
+			name="script00_StartUpApplicationForFirstTime">
+			</testcase>
 			<smartfoldernode
 			id="d5cbba08-10b6-4a8d-96a9-c37c1170bdfd"
 			name="ClickOnStartSelectedCalculations">
@@ -3626,6 +3676,26 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="ee496c34-0bd1-4128-b6aa-55e789fa3c85"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ef4b6d54-a459-42ed-9a2b-6bf3ac8139ba"
 			name="CloseDocumentView">
@@ -3932,6 +4002,34 @@
 				<testcase
 				id="9ba180c1-dae9-430d-9429-ffc99b49d7de"
 				name="SlowTestCases">
+					<testcase
+					id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6"
+					name="script00_StartUpApplicationForFirstTime">
+						<setup
+						id="763f0853-5775-4f9a-8e62-69d6fefc43d6"
+						name="setup">
+							<testmodule
+							id="ee496c34-0bd1-4128-b6aa-55e789fa3c85"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
+						name="WaitSomeTime">
+							<testmodule
+							id="612bb17a-abad-4923-8fa0-f9d31990588a"
+							name="WaitForXMiliseconds">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="21daf337-78d1-4703-962f-f5849e589cb5"
+						name="teardown">
+							<testmodule
+							id="39301a4c-e21a-439a-9d91-13c940f1db2c"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="330d6ecb-e98b-4582-ba02-e70755cdb67e"
 					name="script15_CalculationHydraulicBoundaryConditions">
@@ -8238,6 +8336,9 @@
 			id="6da5505e-46cc-4771-a5a0-4ffe72afbfe6">
 			</testcontainer>
 			<testcontainer
+			id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1">
+			</testcontainer>
+			<testcontainer
 			id="712ce1e3-2d6f-4c93-b44e-a7d0f42e0288">
 			</testcontainer>
 			<testcontainer
@@ -8353,6 +8454,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d10234a4-e2c7-4afb-8ce0-9f16f00a5acd">
+			</testcontainer>
+			<testcontainer
+			id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6">
 			</testcontainer>
 			<testcontainer
 			id="d5cbba08-10b6-4a8d-96a9-c37c1170bdfd">
