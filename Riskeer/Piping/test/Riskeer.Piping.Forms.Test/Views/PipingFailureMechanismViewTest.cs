@@ -734,7 +734,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
             var calculationScenario =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    new TestHydraulicBoundaryLocation());
 
             calculationScenario.InputParameters.SurfaceLine = surfaceLineA;
 
@@ -858,7 +859,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
             var calculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    new TestHydraulicBoundaryLocation());
 
             calculation.InputParameters.SurfaceLine = surfaceLineA;
 

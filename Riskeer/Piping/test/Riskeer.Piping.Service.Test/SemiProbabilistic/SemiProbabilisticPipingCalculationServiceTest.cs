@@ -51,7 +51,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [SetUp]
         public void Setup()
         {
-            testCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(new TestHydraulicBoundaryLocation());
+            testCalculation = SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 

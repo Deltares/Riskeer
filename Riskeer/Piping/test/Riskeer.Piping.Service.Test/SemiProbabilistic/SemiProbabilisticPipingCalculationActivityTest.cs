@@ -110,8 +110,9 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            SemiProbabilisticPipingCalculation validPipingCalculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(new TestHydraulicBoundaryLocation());
+            var validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    new TestHydraulicBoundaryLocation());
 
             var activity = new SemiProbabilisticPipingCalculationActivity(validPipingCalculation,
                                                                           new GeneralPipingInput(),
@@ -144,8 +145,9 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            SemiProbabilisticPipingCalculation validPipingCalculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(new TestHydraulicBoundaryLocation());
+            var validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 

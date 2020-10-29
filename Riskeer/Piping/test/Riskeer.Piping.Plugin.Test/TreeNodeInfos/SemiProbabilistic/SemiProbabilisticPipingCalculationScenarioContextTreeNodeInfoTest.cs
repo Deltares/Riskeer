@@ -943,10 +943,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario calculation =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+                var calculationScenario =
+                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                        hydraulicBoundaryLocation);
 
-                var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
+                var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculationScenario,
                                                                                                              new CalculationGroup(),
                                                                                                              Enumerable.Empty<PipingSurfaceLine>(),
                                                                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -966,7 +967,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 
                 plugin.Gui = gui;
 
-                calculation.Attach(observer);
+                calculationScenario.Attach(observer);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -985,7 +986,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                         using (IEnumerator<string> msgs = messages.GetEnumerator())
                         {
                             Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gestart.", msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
@@ -995,10 +996,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gelukt.", msgs.Current);
                         }
                     });
-                    Assert.IsNotNull(calculation.Output);
+                    Assert.IsNotNull(calculationScenario.Output);
                 }
             }
         }
