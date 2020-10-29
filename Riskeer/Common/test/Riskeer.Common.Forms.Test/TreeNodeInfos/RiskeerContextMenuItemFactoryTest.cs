@@ -770,7 +770,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
 
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -812,7 +812,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             calculation.Expect(c => c.HasOutput).Return(hasOutput);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             if (hasOutput)

@@ -110,7 +110,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var invalidCastException = new InvalidCastException();
 
             reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Throw(invalidCastException);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).IgnoreArguments().Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -135,7 +134,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName).Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName);
             reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).Throw(invalidCastException);
             reader.Expect(r => r.Path).Return(path);
 

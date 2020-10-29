@@ -474,9 +474,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             distribution.Expect(d => d.Mean)
                         .SetPropertyAndIgnoreArgument()
                         .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            distribution.Stub(d => d.StandardDeviation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Repeat.Any();
             mocks.ReplayAll();
 
             const int mean = 5;
@@ -510,8 +507,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                         .SetPropertyAndIgnoreArgument()
                         .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
             distribution.Stub(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Repeat.Any();
+                        .SetPropertyAndIgnoreArgument();
             mocks.ReplayAll();
 
             const int standardDeviation = 5;
@@ -761,9 +757,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             distribution.Expect(d => d.Mean)
                         .SetPropertyAndIgnoreArgument()
                         .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            distribution.Stub(d => d.CoefficientOfVariation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Repeat.Any();
             mocks.ReplayAll();
 
             const int mean = 5;
@@ -797,8 +790,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                         .SetPropertyAndIgnoreArgument()
                         .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
             distribution.Stub(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Repeat.Any();
+                        .SetPropertyAndIgnoreArgument();
             mocks.ReplayAll();
 
             const int variationCoefficient = 5;

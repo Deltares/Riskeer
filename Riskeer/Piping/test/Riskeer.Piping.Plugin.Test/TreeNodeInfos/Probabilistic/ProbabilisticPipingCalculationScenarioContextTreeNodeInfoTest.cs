@@ -886,11 +886,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     // Expect an activity dialog which is automatically closed
                 };
 
-                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
                                  .IgnoreArguments()
-                                 .Return(new TestPipingCalculator())
-                                 .Repeat.Any();
+                                 .Return(new TestPipingCalculator());
 
                 mocks.ReplayAll();
 

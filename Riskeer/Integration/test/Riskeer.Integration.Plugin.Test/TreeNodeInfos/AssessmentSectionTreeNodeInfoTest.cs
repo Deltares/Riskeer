@@ -577,7 +577,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestPipingCalculator());
+                                 .Return(new TestPipingCalculator()).Repeat.Twice();
 
                 calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -585,7 +585,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestOvertoppingCalculator());
+                                 .Return(new TestOvertoppingCalculator()).Repeat.Once();
 
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -626,7 +626,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>()).Repeat.Once();
 
                 calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -635,7 +635,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>()).Repeat.Once();
 
                 calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -644,7 +644,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
+                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>()).Repeat.Once();
 
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>

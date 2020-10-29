@@ -709,7 +709,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 input.Expect(ci => ci.ForeshoreProfile).Return(null);
             }
 
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
