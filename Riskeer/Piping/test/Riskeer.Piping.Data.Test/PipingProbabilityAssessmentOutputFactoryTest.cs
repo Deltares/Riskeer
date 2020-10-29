@@ -43,7 +43,9 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(null, new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
+            void Call() => PipingProbabilityAssessmentOutputFactory.Create(null, new ProbabilisticPipingCalculationScenario(),
+                                                                           new PipingFailureMechanism(),
+                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,7 +62,10 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(), null, new PipingFailureMechanism(), assessmentSection);
+            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                           null,
+                                                                           new PipingFailureMechanism(),
+                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -77,7 +82,10 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(), new ProbabilisticPipingCalculationScenario(), null, assessmentSection);
+            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                           new ProbabilisticPipingCalculationScenario(),
+                                                                           null,
+                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -89,7 +97,10 @@ namespace Riskeer.Piping.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(), new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), null);
+            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                           new ProbabilisticPipingCalculationScenario(),
+                                                                           new PipingFailureMechanism(),
+                                                                           null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
