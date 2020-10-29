@@ -731,10 +731,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(assessmentSection, null, treeViewControl))
                     {
                         // When
-                        void When() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                        void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                         // Then
-                        Assert.Throws<NotSupportedException>(When);
+                        Assert.Throws<NotSupportedException>(Call);
                     }
                 }
 

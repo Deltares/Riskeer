@@ -1237,10 +1237,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    void When() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.Throws<NotSupportedException>(When);
+                    Assert.Throws<NotSupportedException>(Call);
                 }
             }
         }
@@ -1405,10 +1405,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    void When() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.Throws<NotSupportedException>(When);
+                    Assert.Throws<NotSupportedException>(Call);
                 }
             }
         }

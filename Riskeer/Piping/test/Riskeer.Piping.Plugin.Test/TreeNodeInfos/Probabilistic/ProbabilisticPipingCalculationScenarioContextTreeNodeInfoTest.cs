@@ -773,10 +773,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    void When() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+                    void Call() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                     {
                         Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                         string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -825,10 +825,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    void When() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+                    void Call() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(When, messages =>
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                     {
                         Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                         string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -897,10 +897,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
                     // When
-                    void When() => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
+                    void Call() => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(When, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         using (IEnumerator<string> msgs = messages.GetEnumerator())
                         {
