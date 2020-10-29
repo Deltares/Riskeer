@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -2143,16 +2143,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testcase
-			id="2816371b-4a95-48bd-9fd7-c7dacbff580e"
-			name="script18_Overige_(sterkte)parameters_specificeren">
-				<parameters>
-					<param
-					name="caseNumber"
-					value="18">
-					</param>
-				</parameters>
-			</testcase>
 			<testmodule
 			id="28168ca5-bff1-4689-8364-4bd0b21fb6b6"
 			name="GetValueParameterForItemInTraject"
@@ -2807,10 +2797,6 @@
 			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
 			type="Recording">
 			</testmodule>
-			<setup
-			id="32426798-ea8b-4e72-8483-5d19aa18c704"
-			name="setup">
-			</setup>
 			<testmodule
 			id="324f7fa8-a1fb-46b2-bae1-52e3d394a474"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIv"
@@ -4206,10 +4192,6 @@
 			id="4a01d30f-ae28-4241-8011-738b80e3dad7"
 			name="ValidateResultInDocumentView">
 			</smartfoldernode>
-			<smartfoldernode
-			id="4a4f5311-ac00-4bb5-a796-8f598d4b604c"
-			name="SelectInputOfCalculation_ToDo">
-			</smartfoldernode>
 			<testmodule
 			id="4ae7556e-4930-43f7-8794-8679450f77c8"
 			name="CalculateLinearTransformationOfValue"
@@ -4250,11 +4232,6 @@
 			<smartfoldernode
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb"
 			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
-			</smartfoldernode>
-			<smartfoldernode
-			datasource="script18ParametersToModifyInCalculations"
-			id="4c27903f-5dba-429e-9e21-d7f2ea1d4941"
-			name="ModifyParametersInSelectedCalculationInput_ToDo">
 			</smartfoldernode>
 			<testmodule
 			id="4c2d91ab-3b1c-4f97-b621-12efb4178c09"
@@ -5784,31 +5761,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="658f1ef3-39fb-48a1-b53d-9c5f30159a72"
-			name="ModifyDoubleValueParameter_ToDo">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="parameterType"
-								id="19801d59-c7e1-4127-8b92-0b6f8606dba2">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="Double">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
 			<testmodule
 			id="65b4c1f8-37be-4df1-a2de-fea645f72cba"
 			name="ExportCurrentItemToCSVFile"
@@ -6225,10 +6177,6 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
-			id="70ce6f28-cc50-46b4-8c9f-95ca8a24627c"
-			name="SaveConfigurationXMLFileForCalculation_ToDo">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="customAssessmentSTBU"
 			id="71289708-437a-4e75-bc9e-9e81ff0a6640"
 			name="ValidateCustomAsssessmentType">
@@ -6237,17 +6185,6 @@
 			datasource="outputRelevanceFMCView"
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
 			name="SaveProject">
-			</smartfoldernode>
-			<smartfoldernode
-			errorbehavior="ContinueParent"
-			id="7181e4da-a5d5-44d6-961c-cc4b3fa543ad"
-			name="OpenProject">
-				<parameters>
-					<param
-					name="fielNameToOpen"
-					value="X:\script18\Project_18.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="71df948a-8310-4b21-80ae-c79c38db051d"
@@ -8022,10 +7959,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<teardown
-			id="8d00f3e6-b5ee-46eb-b9d6-d04f1802402f"
-			name="teardown">
-			</teardown>
 			<testmodule
 			id="8d10a02c-74d5-4d91-b2e0-881127b65c2c"
 			name="SelectGenericItemInProjectExplorer"
@@ -9299,20 +9232,6 @@
 			id="a220e9d3-3388-4a68-b45b-6ab4a63711ed"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="a31d0cda-0012-4585-b181-ad25a9c9de77"
-			name="CloseAUT"
-			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
-					variablename="CloseAutProcessIDVar">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="outputDetailedAssessment"
 			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f"
@@ -10607,11 +10526,6 @@
 			datasource="script22_FMGroup1DetailedAssessment"
 			id="ba345d8a-cc0a-4b53-84c4-1528fe0d1fef"
 			name="FMsGroup1">
-			</smartfoldernode>
-			<smartfoldernode
-			datasource="N18CalculationsToModify"
-			id="bb32fc03-3f56-44d4-887e-f17c8b8a6281"
-			name="LoopCalculationsToModify_ToDo">
 			</smartfoldernode>
 			<smartfoldernode
 			id="bbc066fa-b5b2-4b7d-99bd-7df1666d347a"
@@ -12371,20 +12285,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="db364c1e-83b7-4099-8d33-7871024d2da8"
-			name="OpenProject"
-			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fielNameToOpen"
-					datasourceid="7181e4da-a5d5-44d6-961c-cc4b3fa543ad"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="dbb9993e-c3f2-4319-976b-613aefe81f69"
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
@@ -12636,10 +12536,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="de7fc7c3-374a-4eef-875f-08b02fca135b"
-			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
-			</smartfoldernode>
 			<testmodule
 			id="df245ae1-0b6f-4259-8d00-7de375de6e0c"
 			name="OpenResultView"
@@ -14140,28 +14036,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="f6b17e3a-5c38-4138-a42f-86acd507f440"
-			name="CreateOutputFolder"
-			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="2816371b-4a95-48bd-9fd7-c7dacbff580e"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="dd2ca099-2926-4cc4-93c9-5fc261368498"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="f75f5db6-79ee-4f5a-a6c0-a1d9f024e022"
 			name="InitializeDropDownMenu"
 			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
@@ -14252,26 +14126,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="f82725c1-afe3-4fb9-9421-e1061f11287b"
-			name="StartAUT"
-			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
-					variablename="StartAutProcessIDVar">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
-					variablename="AppPath">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="f865a291-2481-48ab-83d4-16bfbd98d537"
 			name="OpenDocumentViewForHydraulicBCItem">
@@ -14296,31 +14150,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="f89bc49b-5d3f-4a10-9ef5-c8755d483038"
-			name="ModifyDropDownMenuParameter_ToDo">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="parameterType"
-								id="19801d59-c7e1-4127-8b92-0b6f8606dba2">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="DropDown">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
 			<smartfoldernode
 			datasource="script15d_LocationsToCalculateWaterLevels"
 			id="f8fd7ce0-0f19-420b-8cc9-7dd3d2d16fef"
@@ -16764,66 +16593,6 @@
 						name="teardown">
 							<testmodule
 							id="2f77973f-cbf2-4687-abc8-1412c4c9cc07"
-							name="CloseAUT">
-							</testmodule>
-						</teardown>
-					</testcase>
-					<testcase
-					id="2816371b-4a95-48bd-9fd7-c7dacbff580e"
-					name="script18_Overige_(sterkte)parameters_specificeren">
-						<setup
-						id="32426798-ea8b-4e72-8483-5d19aa18c704"
-						name="setup">
-							<testmodule
-							id="f82725c1-afe3-4fb9-9421-e1061f11287b"
-							name="StartAUT">
-							</testmodule>
-							<testmodule
-							id="f6b17e3a-5c38-4138-a42f-86acd507f440"
-							name="CreateOutputFolder">
-							</testmodule>
-						</setup>
-						<smartfoldernode
-						id="7181e4da-a5d5-44d6-961c-cc4b3fa543ad"
-						name="OpenProject">
-							<testmodule
-							id="db364c1e-83b7-4099-8d33-7871024d2da8"
-							name="OpenProject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="bb32fc03-3f56-44d4-887e-f17c8b8a6281"
-						name="LoopCalculationsToModify_ToDo">
-							<smartfoldernode
-							id="4a4f5311-ac00-4bb5-a796-8f598d4b604c"
-							name="SelectInputOfCalculation_ToDo">
-							</smartfoldernode>
-							<smartfoldernode
-							id="4c27903f-5dba-429e-9e21-d7f2ea1d4941"
-							name="ModifyParametersInSelectedCalculationInput_ToDo">
-								<smartfoldernode
-								id="658f1ef3-39fb-48a1-b53d-9c5f30159a72"
-								name="ModifyDoubleValueParameter_ToDo">
-								</smartfoldernode>
-								<smartfoldernode
-								id="f89bc49b-5d3f-4a10-9ef5-c8755d483038"
-								name="ModifyDropDownMenuParameter_ToDo">
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="70ce6f28-cc50-46b4-8c9f-95ca8a24627c"
-							name="SaveConfigurationXMLFileForCalculation_ToDo">
-							</smartfoldernode>
-							<smartfoldernode
-							id="de7fc7c3-374a-4eef-875f-08b02fca135b"
-							name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
-							</smartfoldernode>
-						</smartfoldernode>
-						<teardown
-						id="8d00f3e6-b5ee-46eb-b9d6-d04f1802402f"
-						name="teardown">
-							<testmodule
-							id="a31d0cda-0012-4585-b181-ad25a9c9de77"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -26003,9 +25772,6 @@
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
 			</testcontainer>
 			<testcontainer
-			id="2816371b-4a95-48bd-9fd7-c7dacbff580e">
-			</testcontainer>
-			<testcontainer
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
@@ -26022,12 +25788,6 @@
 			</testcontainer>
 			<testcontainer
 			id="4722f879-2e55-4a3f-b631-b1ba7550f6e4">
-			</testcontainer>
-			<testcontainer
-			id="4a4f5311-ac00-4bb5-a796-8f598d4b604c">
-			</testcontainer>
-			<testcontainer
-			id="4c27903f-5dba-429e-9e21-d7f2ea1d4941">
 			</testcontainer>
 			<testcontainer
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
@@ -26061,15 +25821,6 @@
 			</testcontainer>
 			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
-			</testcontainer>
-			<testcontainer
-			id="658f1ef3-39fb-48a1-b53d-9c5f30159a72">
-			</testcontainer>
-			<testcontainer
-			id="70ce6f28-cc50-46b4-8c9f-95ca8a24627c">
-			</testcontainer>
-			<testcontainer
-			id="7181e4da-a5d5-44d6-961c-cc4b3fa543ad">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
@@ -26126,9 +25877,6 @@
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
-			id="bb32fc03-3f56-44d4-887e-f17c8b8a6281">
-			</testcontainer>
-			<testcontainer
 			id="bbc066fa-b5b2-4b7d-99bd-7df1666d347a">
 			</testcontainer>
 			<testcontainer
@@ -26159,9 +25907,6 @@
 			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
 			</testcontainer>
 			<testcontainer
-			id="de7fc7c3-374a-4eef-875f-08b02fca135b">
-			</testcontainer>
-			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
 			</testcontainer>
 			<testcontainer
@@ -26175,9 +25920,6 @@
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
-			</testcontainer>
-			<testcontainer
-			id="f89bc49b-5d3f-4a10-9ef5-c8755d483038">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">

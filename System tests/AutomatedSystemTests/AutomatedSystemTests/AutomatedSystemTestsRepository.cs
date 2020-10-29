@@ -4317,7 +4317,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("ebb0b0be-617b-4c07-a1f1-dd02286813f8")]
         public partial class MessagesDataGridViewFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.GenericRowFolder _genericrow;
+            AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder _genericmessagerow;
 
             /// <summary>
             /// Creates a new MessagesDataGridView  folder.
@@ -4325,7 +4325,7 @@ namespace AutomatedSystemTests
             public MessagesDataGridViewFolder(RepoGenBaseFolder parentFolder) :
                     base("MessagesDataGridView", "?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, true, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
             {
-                _genericrow = new AutomatedSystemTestsRepositoryFolders.GenericRowFolder(this);
+                _genericmessagerow = new AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder(this);
             }
 
             /// <summary>
@@ -4353,30 +4353,30 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericRow folder.
+            /// The GenericMessageRow folder.
             /// </summary>
             [RepositoryFolder("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-            public virtual AutomatedSystemTestsRepositoryFolders.GenericRowFolder GenericRow
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder GenericMessageRow
             {
-                get { return _genericrow; }
+                get { return _genericmessagerow; }
             }
         }
 
         /// <summary>
-        /// The GenericRowFolder folder.
+        /// The GenericMessageRowFolder folder.
         /// </summary>
         [RepositoryFolder("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-        public partial class GenericRowFolder : RepoGenBaseFolder
+        public partial class GenericMessageRowFolder : RepoGenBaseFolder
         {
             SelfInfoClass _selfInfo;
             GenericCellIconInfoClass _genericcelliconInfo;
             RepoItemInfo _genericcellmessageInfo;
 
             /// <summary>
-            /// Creates a new GenericRow  folder.
+            /// Creates a new GenericMessageRow  folder.
             /// </summary>
-            public GenericRowFolder(RepoGenBaseFolder parentFolder) :
-                    base("GenericRow", "row[@accessiblename='Row '+$indexRowMessage]", parentFolder, 30000, null, false, "d79a0edd-fbc5-415d-8701-852d3bf28406", "")
+            public GenericMessageRowFolder(RepoGenBaseFolder parentFolder) :
+                    base("GenericMessageRow", "row[@accessiblename='Row '+$indexRowMessage]", parentFolder, 30000, null, false, "d79a0edd-fbc5-415d-8701-852d3bf28406", "")
             {
                 _selfInfo = new SelfInfoClass(this);
                 _genericcelliconInfo = new GenericCellIconInfoClass(this);

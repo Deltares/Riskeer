@@ -8,5 +8,10 @@
     "Enabled": "True",
     "TestSuite": "SlowTestCases",
     "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "False",
+    "TestSuite": "WorkOnProgressDavid",
+    "RunConfig": "TestRun"
   }
 ]

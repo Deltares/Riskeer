@@ -378,6 +378,9 @@
       <id>09e7b9a2-edbd-4e89-b3bf-3fe10325a21d</id>
       <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\ConcatenateStrings.cs">
+      <id>a7f60192-3e84-4fc1-81fd-beda27b6510d</id>
+    </Compile>
     <Compile Include="Modules\Calculation\ConvertToCurrentCulture.cs">
       <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1637,6 +1640,10 @@
     <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
+    </Content>
+    <Content Include="WorkOnProgressDavid.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>6827c86e-753b-4849-9c40-0455c419adb9</id>
     </Content>
     <None Include="app.config">
       <id>26a72276-7a2e-4ee3-bb52-7e45071fe9ee</id>

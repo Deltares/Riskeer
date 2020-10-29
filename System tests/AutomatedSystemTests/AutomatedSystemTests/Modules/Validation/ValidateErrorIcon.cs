@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.Validation
 
             Init();
 
-            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIconInfo);
+            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericMessageRow.GenericCellIconInfo);
             Delay.Milliseconds(0);
             
         }
@@ -99,7 +99,7 @@ namespace AutomatedSystemTests.Modules.Validation
         /// DO NOT REFERENCE THIS CODE  - auto generated
         /// </summary>
         CompressedImage GenericCellIcon_ErrorIcon
-        { get { return repo.RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIconInfo.GetErrorIcon(new Rectangle(0, 1, 17, 15)); } }
+        { get { return repo.RiskeerMainWindow.MessagesDataGridView.GenericMessageRow.GenericCellIconInfo.GetErrorIcon(new Rectangle(0, 1, 17, 15)); } }
 
         /// <summary>
         /// DO NOT REFERENCE THIS CODE  - auto generated
