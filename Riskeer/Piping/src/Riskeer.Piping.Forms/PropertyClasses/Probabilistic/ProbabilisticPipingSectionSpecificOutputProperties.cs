@@ -92,9 +92,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                double reliability = ((PartialProbabilisticPipingOutput) Data).Reliability;
-                double probability = StatisticsConverter.ReliabilityToProbability(reliability);
-                return ProbabilityFormattingHelper.Format(probability);
+                double reliability = data.Reliability;
+                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(reliability));
             }
         }
 
@@ -105,7 +104,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                double reliability = ((PartialProbabilisticPipingOutput) Data).Reliability;
+                double reliability = data.Reliability;
                 return new RoundedDouble(5, reliability);
             }
         }

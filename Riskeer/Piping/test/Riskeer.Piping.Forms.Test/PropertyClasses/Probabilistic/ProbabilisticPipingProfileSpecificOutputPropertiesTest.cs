@@ -329,11 +329,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                                     failureMechanism,
                                                                                     assessmentSection);
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                                        failureMechanism.Contribution,
-                                                                                                                        5.0,
-                                                                                                                        output.Reliability);
-            
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = PipingProbabilityAssessmentOutputFactory.Create(output,
+                                                                                                                              calculation,
+                                                                                                                              failureMechanism,
+                                                                                                                              assessmentSection);
+
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.RequiredProbability), properties.RequiredProbability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);

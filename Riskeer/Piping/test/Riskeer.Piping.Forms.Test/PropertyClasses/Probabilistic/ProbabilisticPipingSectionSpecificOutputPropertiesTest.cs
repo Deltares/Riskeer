@@ -26,11 +26,10 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
@@ -157,6 +156,36 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = failureMechanism.SurfaceLines.First()
+                }
+            };
+
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+
+            // Call
+            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
+
+            // Assert
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = PipingProbabilityAssessmentOutputFactory.Create(output,
+                                                                                                                              calculation,
+                                                                                                                              failureMechanism,
+                                                                                                                              assessmentSection);
+
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
         }
     }
 }

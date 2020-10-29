@@ -64,34 +64,13 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void CreateInstance_WithContext_ExpectedProperties()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine(string.Empty)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-
-            var failureMechanism = new TestPipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "");
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
-                    SurfaceLine = surfaceLine
+                    SurfaceLine = failureMechanism.SurfaceLines.First()
                 },
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
