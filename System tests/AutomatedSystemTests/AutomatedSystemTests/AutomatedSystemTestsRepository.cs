@@ -4532,21 +4532,24 @@ namespace AutomatedSystemTests
         [RepositoryFolder("982924af-cebe-4e46-9281-476e566d6398")]
         public partial class ContextMenuAppFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _openenInfo;
-            RepoItemInfo _isrelevantInfo;
-            RepoItemInfo _sluitenInfo;
-            RepoItemInfo _allesuitklappenInfo;
-            RepoItemInfo _allesinklappenInfo;
-            RepoItemInfo _wisalleuitvoerInfo;
-            RepoItemInfo _allesvaliderenInfo;
             RepoItemInfo _allesberekenenInfo;
-            RepoItemInfo _eigenschappenInfo;
-            RepoItemInfo _importerenInfo;
-            RepoItemInfo _genereerscenariosInfo;
-            RepoItemInfo _bijwerkenInfo;
-            RepoItemInfo _exporterenInfo;
-            RepoItemInfo _koppelaandatabaseInfo;
+            RepoItemInfo _allesinklappenInfo;
+            RepoItemInfo _allesuitklappenInfo;
+            RepoItemInfo _allesvaliderenInfo;
             RepoItemInfo _berekenenInfo;
+            RepoItemInfo _bijwerkenInfo;
+            RepoItemInfo _eigenschappenInfo;
+            RepoItemInfo _exporterenInfo;
+            RepoItemInfo _genereerscenariosInfo;
+            RepoItemInfo _importerenInfo;
+            RepoItemInfo _isrelevantInfo;
+            RepoItemInfo _koppelaandatabaseInfo;
+            RepoItemInfo _openenInfo;
+            RepoItemInfo _sluitenInfo;
+            RepoItemInfo _verwijderenInfo;
+            RepoItemInfo _wisalleuitvoerInfo;
+            RepoItemInfo _wisillustratiepuntenInfo;
+            RepoItemInfo _wisuitvoerInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4554,21 +4557,24 @@ namespace AutomatedSystemTests
             public ContextMenuAppFolder(RepoGenBaseFolder parentFolder) :
                     base("ContextMenu", "/contextmenu[@processname='Riskeer']", parentFolder, 30000, null, true, "982924af-cebe-4e46-9281-476e566d6398", "")
             {
-                _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
-                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
-                _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
-                _allesuitklappenInfo = new RepoItemInfo(this, "AllesUitklappen", "menuitem[@text='Alles uitklappen']", 30000, null, "909957a0-8645-4c4e-9153-757dbd6962c4");
-                _allesinklappenInfo = new RepoItemInfo(this, "AllesInklappen", "menuitem[@text='Alles inklappen']", 30000, null, "297a672d-6c71-462e-ae55-f59073eacb0f");
-                _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
-                _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
                 _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
-                _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
-                _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
-                _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
-                _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
-                _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
-                _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
+                _allesinklappenInfo = new RepoItemInfo(this, "AllesInklappen", "menuitem[@text='Alles inklappen']", 30000, null, "297a672d-6c71-462e-ae55-f59073eacb0f");
+                _allesuitklappenInfo = new RepoItemInfo(this, "AllesUitklappen", "menuitem[@text='Alles uitklappen']", 30000, null, "909957a0-8645-4c4e-9153-757dbd6962c4");
+                _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
                 _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
+                _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
+                _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
+                _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
+                _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
+                _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
+                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
+                _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
+                _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
+                _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
+                _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
+                _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
+                _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
+                _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
             }
 
             /// <summary>
@@ -4592,174 +4598,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The Openen item.
-            /// </summary>
-            [RepositoryItem("3162063a-bd8d-4e48-b6ab-9725baa70e0e")]
-            public virtual Ranorex.MenuItem Openen
-            {
-                get
-                {
-                    return _openenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Openen item info.
-            /// </summary>
-            [RepositoryItemInfo("3162063a-bd8d-4e48-b6ab-9725baa70e0e")]
-            public virtual RepoItemInfo OpenenInfo
-            {
-                get
-                {
-                    return _openenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The IsRelevant item.
-            /// </summary>
-            [RepositoryItem("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual Ranorex.MenuItem IsRelevant
-            {
-                get
-                {
-                    return _isrelevantInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The IsRelevant item info.
-            /// </summary>
-            [RepositoryItemInfo("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual RepoItemInfo IsRelevantInfo
-            {
-                get
-                {
-                    return _isrelevantInfo;
-                }
-            }
-
-            /// <summary>
-            /// The Sluiten item.
-            /// </summary>
-            [RepositoryItem("7792c7fb-8afc-4635-86af-1263ee5b805f")]
-            public virtual Ranorex.MenuItem Sluiten
-            {
-                get
-                {
-                    return _sluitenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Sluiten item info.
-            /// </summary>
-            [RepositoryItemInfo("7792c7fb-8afc-4635-86af-1263ee5b805f")]
-            public virtual RepoItemInfo SluitenInfo
-            {
-                get
-                {
-                    return _sluitenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AllesUitklappen item.
-            /// </summary>
-            [RepositoryItem("909957a0-8645-4c4e-9153-757dbd6962c4")]
-            public virtual Ranorex.MenuItem AllesUitklappen
-            {
-                get
-                {
-                    return _allesuitklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AllesUitklappen item info.
-            /// </summary>
-            [RepositoryItemInfo("909957a0-8645-4c4e-9153-757dbd6962c4")]
-            public virtual RepoItemInfo AllesUitklappenInfo
-            {
-                get
-                {
-                    return _allesuitklappenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AllesInklappen item.
-            /// </summary>
-            [RepositoryItem("297a672d-6c71-462e-ae55-f59073eacb0f")]
-            public virtual Ranorex.MenuItem AllesInklappen
-            {
-                get
-                {
-                    return _allesinklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AllesInklappen item info.
-            /// </summary>
-            [RepositoryItemInfo("297a672d-6c71-462e-ae55-f59073eacb0f")]
-            public virtual RepoItemInfo AllesInklappenInfo
-            {
-                get
-                {
-                    return _allesinklappenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The WisAlleUitvoer item.
-            /// </summary>
-            [RepositoryItem("942ab870-bf62-4d88-8050-58255777c435")]
-            public virtual Ranorex.MenuItem WisAlleUitvoer
-            {
-                get
-                {
-                    return _wisalleuitvoerInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The WisAlleUitvoer item info.
-            /// </summary>
-            [RepositoryItemInfo("942ab870-bf62-4d88-8050-58255777c435")]
-            public virtual RepoItemInfo WisAlleUitvoerInfo
-            {
-                get
-                {
-                    return _wisalleuitvoerInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AllesValideren item.
-            /// </summary>
-            [RepositoryItem("5fb39361-566b-401d-8784-98249ec265aa")]
-            public virtual Ranorex.MenuItem AllesValideren
-            {
-                get
-                {
-                    return _allesvaliderenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AllesValideren item info.
-            /// </summary>
-            [RepositoryItemInfo("5fb39361-566b-401d-8784-98249ec265aa")]
-            public virtual RepoItemInfo AllesValiderenInfo
-            {
-                get
-                {
-                    return _allesvaliderenInfo;
                 }
             }
 
@@ -4788,74 +4626,98 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The Eigenschappen item.
+            /// The AllesInklappen item.
             /// </summary>
-            [RepositoryItem("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
-            public virtual Ranorex.MenuItem Eigenschappen
+            [RepositoryItem("297a672d-6c71-462e-ae55-f59073eacb0f")]
+            public virtual Ranorex.MenuItem AllesInklappen
             {
                 get
                 {
-                    return _eigenschappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _allesinklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The Eigenschappen item info.
+            /// The AllesInklappen item info.
             /// </summary>
-            [RepositoryItemInfo("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
-            public virtual RepoItemInfo EigenschappenInfo
+            [RepositoryItemInfo("297a672d-6c71-462e-ae55-f59073eacb0f")]
+            public virtual RepoItemInfo AllesInklappenInfo
             {
                 get
                 {
-                    return _eigenschappenInfo;
+                    return _allesinklappenInfo;
                 }
             }
 
             /// <summary>
-            /// The Importeren item.
+            /// The AllesUitklappen item.
             /// </summary>
-            [RepositoryItem("34965857-9328-4216-9d99-86afbd395e38")]
-            public virtual Ranorex.MenuItem Importeren
+            [RepositoryItem("909957a0-8645-4c4e-9153-757dbd6962c4")]
+            public virtual Ranorex.MenuItem AllesUitklappen
             {
                 get
                 {
-                    return _importerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _allesuitklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The Importeren item info.
+            /// The AllesUitklappen item info.
             /// </summary>
-            [RepositoryItemInfo("34965857-9328-4216-9d99-86afbd395e38")]
-            public virtual RepoItemInfo ImporterenInfo
+            [RepositoryItemInfo("909957a0-8645-4c4e-9153-757dbd6962c4")]
+            public virtual RepoItemInfo AllesUitklappenInfo
             {
                 get
                 {
-                    return _importerenInfo;
+                    return _allesuitklappenInfo;
                 }
             }
 
             /// <summary>
-            /// The GenereerScenarios item.
+            /// The AllesValideren item.
             /// </summary>
-            [RepositoryItem("17056c41-6629-4a0e-8ab2-93470db9fa27")]
-            public virtual Ranorex.MenuItem GenereerScenarios
+            [RepositoryItem("5fb39361-566b-401d-8784-98249ec265aa")]
+            public virtual Ranorex.MenuItem AllesValideren
             {
                 get
                 {
-                    return _genereerscenariosInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _allesvaliderenInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The GenereerScenarios item info.
+            /// The AllesValideren item info.
             /// </summary>
-            [RepositoryItemInfo("17056c41-6629-4a0e-8ab2-93470db9fa27")]
-            public virtual RepoItemInfo GenereerScenariosInfo
+            [RepositoryItemInfo("5fb39361-566b-401d-8784-98249ec265aa")]
+            public virtual RepoItemInfo AllesValiderenInfo
             {
                 get
                 {
-                    return _genereerscenariosInfo;
+                    return _allesvaliderenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Berekenen item.
+            /// </summary>
+            [RepositoryItem("8811db1f-3002-45fb-8742-158ef19d57b8")]
+            public virtual Ranorex.MenuItem Berekenen
+            {
+                get
+                {
+                    return _berekenenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Berekenen item info.
+            /// </summary>
+            [RepositoryItemInfo("8811db1f-3002-45fb-8742-158ef19d57b8")]
+            public virtual RepoItemInfo BerekenenInfo
+            {
+                get
+                {
+                    return _berekenenInfo;
                 }
             }
 
@@ -4884,6 +4746,30 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The Eigenschappen item.
+            /// </summary>
+            [RepositoryItem("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
+            public virtual Ranorex.MenuItem Eigenschappen
+            {
+                get
+                {
+                    return _eigenschappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Eigenschappen item info.
+            /// </summary>
+            [RepositoryItemInfo("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
+            public virtual RepoItemInfo EigenschappenInfo
+            {
+                get
+                {
+                    return _eigenschappenInfo;
+                }
+            }
+
+            /// <summary>
             /// The Exporteren item.
             /// </summary>
             [RepositoryItem("e6ff1b1d-e9cf-4680-b405-2a5432145390")]
@@ -4904,6 +4790,78 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _exporterenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenereerScenarios item.
+            /// </summary>
+            [RepositoryItem("17056c41-6629-4a0e-8ab2-93470db9fa27")]
+            public virtual Ranorex.MenuItem GenereerScenarios
+            {
+                get
+                {
+                    return _genereerscenariosInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenereerScenarios item info.
+            /// </summary>
+            [RepositoryItemInfo("17056c41-6629-4a0e-8ab2-93470db9fa27")]
+            public virtual RepoItemInfo GenereerScenariosInfo
+            {
+                get
+                {
+                    return _genereerscenariosInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Importeren item.
+            /// </summary>
+            [RepositoryItem("34965857-9328-4216-9d99-86afbd395e38")]
+            public virtual Ranorex.MenuItem Importeren
+            {
+                get
+                {
+                    return _importerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Importeren item info.
+            /// </summary>
+            [RepositoryItemInfo("34965857-9328-4216-9d99-86afbd395e38")]
+            public virtual RepoItemInfo ImporterenInfo
+            {
+                get
+                {
+                    return _importerenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The IsRelevant item.
+            /// </summary>
+            [RepositoryItem("561b2d91-62ad-4174-97e3-b9f7420df49a")]
+            public virtual Ranorex.MenuItem IsRelevant
+            {
+                get
+                {
+                    return _isrelevantInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The IsRelevant item info.
+            /// </summary>
+            [RepositoryItemInfo("561b2d91-62ad-4174-97e3-b9f7420df49a")]
+            public virtual RepoItemInfo IsRelevantInfo
+            {
+                get
+                {
+                    return _isrelevantInfo;
                 }
             }
 
@@ -4932,26 +4890,146 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The Berekenen item.
+            /// The Openen item.
             /// </summary>
-            [RepositoryItem("8811db1f-3002-45fb-8742-158ef19d57b8")]
-            public virtual Ranorex.MenuItem Berekenen
+            [RepositoryItem("3162063a-bd8d-4e48-b6ab-9725baa70e0e")]
+            public virtual Ranorex.MenuItem Openen
             {
                 get
                 {
-                    return _berekenenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _openenInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The Berekenen item info.
+            /// The Openen item info.
             /// </summary>
-            [RepositoryItemInfo("8811db1f-3002-45fb-8742-158ef19d57b8")]
-            public virtual RepoItemInfo BerekenenInfo
+            [RepositoryItemInfo("3162063a-bd8d-4e48-b6ab-9725baa70e0e")]
+            public virtual RepoItemInfo OpenenInfo
             {
                 get
                 {
-                    return _berekenenInfo;
+                    return _openenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Sluiten item.
+            /// </summary>
+            [RepositoryItem("7792c7fb-8afc-4635-86af-1263ee5b805f")]
+            public virtual Ranorex.MenuItem Sluiten
+            {
+                get
+                {
+                    return _sluitenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Sluiten item info.
+            /// </summary>
+            [RepositoryItemInfo("7792c7fb-8afc-4635-86af-1263ee5b805f")]
+            public virtual RepoItemInfo SluitenInfo
+            {
+                get
+                {
+                    return _sluitenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Verwijderen item.
+            /// </summary>
+            [RepositoryItem("f3c6379c-4119-4897-bc56-dd1655e8f7fb")]
+            public virtual Ranorex.MenuItem Verwijderen
+            {
+                get
+                {
+                    return _verwijderenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Verwijderen item info.
+            /// </summary>
+            [RepositoryItemInfo("f3c6379c-4119-4897-bc56-dd1655e8f7fb")]
+            public virtual RepoItemInfo VerwijderenInfo
+            {
+                get
+                {
+                    return _verwijderenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WisAlleUitvoer item.
+            /// </summary>
+            [RepositoryItem("942ab870-bf62-4d88-8050-58255777c435")]
+            public virtual Ranorex.MenuItem WisAlleUitvoer
+            {
+                get
+                {
+                    return _wisalleuitvoerInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WisAlleUitvoer item info.
+            /// </summary>
+            [RepositoryItemInfo("942ab870-bf62-4d88-8050-58255777c435")]
+            public virtual RepoItemInfo WisAlleUitvoerInfo
+            {
+                get
+                {
+                    return _wisalleuitvoerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WisIllustratiepunten item.
+            /// </summary>
+            [RepositoryItem("941588e4-0afe-43fe-aed2-f224958b70b7")]
+            public virtual Ranorex.MenuItem WisIllustratiepunten
+            {
+                get
+                {
+                    return _wisillustratiepuntenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WisIllustratiepunten item info.
+            /// </summary>
+            [RepositoryItemInfo("941588e4-0afe-43fe-aed2-f224958b70b7")]
+            public virtual RepoItemInfo WisIllustratiepuntenInfo
+            {
+                get
+                {
+                    return _wisillustratiepuntenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WisUitvoer item.
+            /// </summary>
+            [RepositoryItem("34b51270-6c61-4914-ad78-6119cf59670e")]
+            public virtual Ranorex.MenuItem WisUitvoer
+            {
+                get
+                {
+                    return _wisuitvoerInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WisUitvoer item info.
+            /// </summary>
+            [RepositoryItemInfo("34b51270-6c61-4914-ad78-6119cf59670e")]
+            public virtual RepoItemInfo WisUitvoerInfo
+            {
+                get
+                {
+                    return _wisuitvoerInfo;
                 }
             }
         }

@@ -26,7 +26,25 @@ namespace AutomatedSystemTests.Modules.Set_Assign
     [TestModule("3B9354D6-0537-452C-9857-667F5C0E7124", ModuleType.UserCode, 1)]
     public class SetRangeInSmartFolder : ITestModule
     {
-        /// <summary>
+        
+        string _nameOfSmartFolder = "";
+        [TestVariable("e27c2717-8089-484f-8051-57077da63c0b")]
+        public string nameOfSmartFolder
+        {
+        	get { return _nameOfSmartFolder; }
+        	set { _nameOfSmartFolder = value; }
+        }
+        
+        
+        string _rangeToBeSetInSmartFolder = "";
+        [TestVariable("cd1da467-8e84-488e-b503-621bd966f7be")]
+        public string rangeToBeSetInSmartFolder
+        {
+        	get { return _rangeToBeSetInSmartFolder; }
+        	set { _rangeToBeSetInSmartFolder = value; }
+        }
+        
+    	/// <summary>
         /// Constructs a new instance.
         /// </summary>
         public SetRangeInSmartFolder()
@@ -42,9 +60,11 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
-            Keyboard.DefaultKeyPressTime = 100;
-            Delay.SpeedFactor = 1.0;
+            Mouse.DefaultMoveTime = 0;
+            Keyboard.DefaultKeyPressTime = 0;
+            Delay.SpeedFactor = 0.0;
+            TestSuite.Current.GetTestContainer(nameOfSmartFolder).DataContext.SetRange(DataRangeSet.Parse(rangeToBeSetInSmartFolder));
+            
         }
     }
 }

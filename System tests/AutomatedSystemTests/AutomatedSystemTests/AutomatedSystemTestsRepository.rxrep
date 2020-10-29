@@ -1131,41 +1131,12 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
-			name="Openen"
-			refimgid="3909d8e4-daf2-4c63-bcbd-c09567400fad"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']"
+			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
+			name="AllesBerekenen"
+			refimgid="c5fd86c0-01fb-4e8f-a0ca-35bb01f08598"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
-			</item>
-			<item
-			addcaps="menuitem,accessible"
-			capname="menuitem"
-			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
-			name="IsRelevant"
-			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']
-			</item>
-			<item
-			addcaps="menuitem,wpfelement,wpfgroupelement"
-			capname="menuitem"
-			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
-			name="Sluiten"
-			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
-			</item>
-			<item
-			addcaps="menuitem,wpfelement,wpfgroupelement"
-			capname="menuitem"
-			id="909957a0-8645-4c4e-9153-757dbd6962c4"
-			name="AllesUitklappen"
-			refimgid="92c52544-154e-46aa-92e9-418e60b10aa6"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles uitklappen']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
 			</item>
 			<item
 			addcaps="menuitem,wpfelement,wpfgroupelement"
@@ -1177,14 +1148,13 @@ FjcAAAAASUVORK5CYII=
 				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles inklappen']
 			</item>
 			<item
-			addcaps="menuitem,accessible"
+			addcaps="menuitem,wpfelement,wpfgroupelement"
 			capname="menuitem"
-			id="942ab870-bf62-4d88-8050-58255777c435"
-			name="WisAlleUitvoer"
-			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']"
+			id="909957a0-8645-4c4e-9153-757dbd6962c4"
+			name="AllesUitklappen"
+			refimgid="92c52544-154e-46aa-92e9-418e60b10aa6"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles uitklappen']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1199,42 +1169,12 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
-			name="AllesBerekenen"
-			refimgid="c5fd86c0-01fb-4e8f-a0ca-35bb01f08598"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']"
+			id="8811db1f-3002-45fb-8742-158ef19d57b8"
+			name="Berekenen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
-			</item>
-			<item
-			addcaps="menuitem,accessible"
-			capname="menuitem"
-			id="e1da8f1b-1c8b-4e9c-b857-0e4571730d0f"
-			name="Eigenschappen"
-			refimgid="5ed48891-4069-497d-ba29-6873107a04f9"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']
-			</item>
-			<item
-			addcaps="menuitem,accessible"
-			capname="menuitem"
-			id="34965857-9328-4216-9d99-86afbd395e38"
-			name="Importeren"
-			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
-			</item>
-			<item
-			addcaps="menuitem,accessible"
-			capname="menuitem"
-			id="17056c41-6629-4a0e-8ab2-93470db9fa27"
-			name="GenereerScenarios"
-			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1249,12 +1189,52 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
+			id="e1da8f1b-1c8b-4e9c-b857-0e4571730d0f"
+			name="Eigenschappen"
+			refimgid="5ed48891-4069-497d-ba29-6873107a04f9"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
 			id="e6ff1b1d-e9cf-4680-b405-2a5432145390"
 			name="Exporteren"
 			refimgid="8e2d6d0d-4dbf-4acc-979b-6f4008e87869"
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="17056c41-6629-4a0e-8ab2-93470db9fa27"
+			name="GenereerScenarios"
+			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="34965857-9328-4216-9d99-86afbd395e38"
+			name="Importeren"
+			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
+			name="IsRelevant"
+			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1269,12 +1249,62 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="8811db1f-3002-45fb-8742-158ef19d57b8"
-			name="Berekenen"
-			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']"
+			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
+			name="Openen"
+			refimgid="3909d8e4-daf2-4c63-bcbd-c09567400fad"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
+			name="Sluiten"
+			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="f3c6379c-4119-4897-bc56-dd1655e8f7fb"
+			name="Verwijderen"
+			refimgid="6e2ec83e-6f27-45a8-b58c-743fa28aa8cd"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="942ab870-bf62-4d88-8050-58255777c435"
+			name="WisAlleUitvoer"
+			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="941588e4-0afe-43fe-aed2-f224958b70b7"
+			name="WisIllustratiepunten"
+			refimgid="fad2713a-9513-4e1a-96b1-a1db37690d19"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis illustratiepunten...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis illustratiepunten...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="34b51270-6c61-4914-ad78-6119cf59670e"
+			name="WisUitvoer"
+			refimgid="c27b49a6-45d7-4acf-b75a-9902052e55e9"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']

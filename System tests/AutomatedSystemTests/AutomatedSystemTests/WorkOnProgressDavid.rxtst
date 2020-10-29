@@ -157,7 +157,33 @@
 			<smartfoldernode
 			id="a5c4645a-bd96-4b2d-9e2a-65d41e3759db"
 			name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+				<parameters>
+					<param
+					name="nameOfSmartFolderToSpecifyRange"
+					value="ModifyParametersInSelectedCalculationInput_ToDo">
+					</param>
+				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="aa095c8b-987c-400a-914d-4f9eaf3be7c8"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfSmartFolderToSpecifyRange"
+					datasourceid="a5c4645a-bd96-4b2d-9e2a-65d41e3759db"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeParametersTochangeInInnerLoop"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b20fc9a4-baad-4dfd-8da8-ae1d3a9e1754"
 			name="ModifyDropDownMenuParameter_ToDo">
@@ -320,6 +346,10 @@
 							<smartfoldernode
 							id="a5c4645a-bd96-4b2d-9e2a-65d41e3759db"
 							name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+								<testmodule
+								id="aa095c8b-987c-400a-914d-4f9eaf3be7c8"
+								name="SetRangeInSmartFolder">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="50ebadfc-94ce-4492-b602-f172dfa46a7a"
@@ -391,6 +421,7 @@
 						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
+						1-10
 					</td>
 					<td>
 						script18\aangepast1STPH.xml
@@ -401,6 +432,7 @@
 						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
+						11-12
 					</td>
 					<td>
 						script18\aangepast2STPH.xml
@@ -411,6 +443,7 @@
 						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
 					</td>
 					<td>
+						13-65
 					</td>
 					<td>
 						script18\aangepast1STBI.xml
@@ -421,6 +454,7 @@
 						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
 					</td>
 					<td>
+						66-69
 					</td>
 					<td>
 						script18\aangepast2STBI.xml
@@ -431,6 +465,7 @@
 						GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
 					</td>
 					<td>
+						70-81
 					</td>
 					<td>
 						script18\aangepastGEKB.xml
@@ -470,7 +505,7 @@
 		</DataSource>
 		<DataSource
 		id="19801d59-c7e1-4127-8b92-0b6f8606dba2"
-		lastknownrowcount="81"
+		lastknownrowcount="87"
 		name="script18ParametersToModifyInCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -1806,6 +1841,102 @@
 					</td>
 					<td>
 						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						034-01_0175_9_AM_km0259
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						'Gemaal Schuddebeurs'
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						340
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/100
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel 4
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 					</td>
