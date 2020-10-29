@@ -505,7 +505,7 @@
 		</DataSource>
 		<DataSource
 		id="19801d59-c7e1-4127-8b92-0b6f8606dba2"
-		lastknownrowcount="87"
+		lastknownrowcount="139"
 		name="script18ParametersToModifyInCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -1879,6 +1879,70 @@
 				</tr>
 				<tr>
 					<td>
+						Schematisering sluitproces&gt;Aantal identieke doorstroomopeningen
+					</td>
+					<td>
+						Integer
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Kans op open staan
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Kans mislukken
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Faalkans herstel
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/10
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
 					</td>
 					<td>
@@ -1886,6 +1950,22 @@
 					</td>
 					<td>
 						340
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2
 					</td>
 					<td>
 						6
@@ -1917,7 +1997,7 @@
 						DropDown
 					</td>
 					<td>
-						profiel 4
+						profiel4
 					</td>
 					<td>
 						6
@@ -1927,7 +2007,583 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Caisson
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Hoogte [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.6
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						9.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Lage drempel
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-1.51
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-1.51
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-3
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						7.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.31
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10000001
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.03
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.11
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Verdronken koker
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.67
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						'Gemaal van Sasse'
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						MA_1_36-2_dk_00217
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Caisson
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.07
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Standaardafwijking
 					</td>
 					<td>
 						Double
@@ -1936,7 +2592,183 @@
 						2
 					</td>
 					<td>
-						6
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10000001
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.12
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.2
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5.5
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						6.5
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 					</td>
