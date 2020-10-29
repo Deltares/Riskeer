@@ -532,6 +532,7 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script22_FMGroup2ExpectedDetailedAssessment"
 			id="098e7f1f-298b-49fa-bbc5-ce28f6a16483"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
@@ -1559,22 +1560,22 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fmName"
-					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-					<var
 					dataname="trajectID"
-					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
+					datasourceid="72d4491b-c347-4805-9885-3b1077258730"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="72d4491b-c347-4805-9885-3b1077258730"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="trajectID"
-					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
@@ -1586,7 +1587,7 @@
 					</var>
 					<var
 					dataname="fmName"
-					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
 					</var>
@@ -2762,6 +2763,40 @@
 					dataname="DetailedAssessmentTypeItem"
 					datasourceid="8f09dde4-6bdf-41fe-a432-cb082e99426b"
 					variableid="42a6c217-926c-4a0e-9258-191123ad648d"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="31349fd2-6d78-407d-ad09-874c4d99e119"
+			name="ValidateDetailedAssessmentTypeAtRowCategoryVv"
+			ref="43df9f01-0547-4bb8-a36b-78e1d73ecc7b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="db036384-b6ef-4d7d-9831-8d2f948917d8"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="db036384-b6ef-4d7d-9831-8d2f948917d8"
 					variablename="expectedDetailedAssessmentCellType">
 					</var>
 				</missingdatabinding>
@@ -4952,6 +4987,40 @@
 			id="579f328c-4ee3-4938-bd03-4d50184c0129"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="581012e0-7234-4eef-832a-3179e90b7dad"
+			name="ValidateDetailedAssessmentTypeAtRowCategoryIIIv"
+			ref="395e8850-1508-4f0f-99b2-9269f620fabc"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="7d261963-c485-4379-afd5-d93d0d40c6b5"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="7d261963-c485-4379-afd5-d93d0d40c6b5"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="58a6b72e-26d9-47d1-87ab-f35fb84b127c"
 			name="SetRelevanceFMsTraject44_2InFailureMechanismsContributionView">
@@ -5845,6 +5914,40 @@
 			id="6a505784-be40-4796-b523-10bd77fb77ba"
 			name="MakeScreenshotOfProgressDialog">
 			</smartfoldernode>
+			<testmodule
+			id="6aa2ed4c-ecf1-43bd-acc4-86c4e844ff6b"
+			name="ValidateDetailedAssessmentTypeAtRowCategoryIv"
+			ref="4ffec84f-aea2-4bf2-96bd-d9f58048fcd6"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="03478f06-f8ce-4bcb-b1d0-84d1ce1e82f0"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="03478f06-f8ce-4bcb-b1d0-84d1ce1e82f0"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTKWL"
 			id="6aa9c4ab-df97-4ba7-b358-8f4376a2ad3d"
@@ -7211,6 +7314,40 @@
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
 			<testmodule
+			id="827a9c69-dde7-4fe9-b8da-d63f2ea2a277"
+			name="ValidateDetailedAssessmentValueAtRowPerCategory"
+			ref="e8d5931b-4e59-4070-ae4d-51a65c062ea7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="ExpectedDetailedAssessmentValuePerCategory"
+					datasourceid="174c91f1-fb54-4e46-860e-159d479e7ee9"
+					variableid="903942ed-bc73-4b42-a60b-842409679d97"
+					variablename="ExpectedDetailedAssessmentValuePerCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="174c91f1-fb54-4e46-860e-159d479e7ee9"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="ExpectedDetailedAssessmentValuePerCategory"
+					datasourceid="d1dfb716-7939-4d90-937b-44e0c4108068"
+					variableid="903942ed-bc73-4b42-a60b-842409679d97"
+					variablename="ExpectedDetailedAssessmentValuePerCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="d1dfb716-7939-4d90-937b-44e0c4108068"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="8323cfee-77f6-40bb-a59b-6cfa06e946ba"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -7712,6 +7849,40 @@
 					dataname="DetailedAssessmentTypeItem"
 					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
 					variableid="5f9740ff-8d23-4a68-9028-29ad1795735a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="8b991fe9-c5b0-4b67-bed8-f849e3859889"
+			name="ValidateDetailedAssessmentTypeAtRowCategoryIIv"
+			ref="d90761a4-7311-4462-be01-cf40cca191d7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="42a6c217-926c-4a0e-9258-191123ad648d"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="42a6c217-926c-4a0e-9258-191123ad648d"
 					variablename="expectedDetailedAssessmentCellType">
 					</var>
 				</missingdatabinding>
@@ -9462,6 +9633,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="ac4a8173-04ea-4e95-9717-469365f63f6a"
+			name="SelectDetailedAssessmentForRowCategoryVv"
+			ref="f1d6edc7-4e95-46f4-a178-9742cb112be4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="acbb6954-fb24-4617-beda-39c2079fc909"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
@@ -9565,6 +9770,40 @@
 			id="af77579b-2189-4ea1-8783-7a99bcd2c52b"
 			name="SelectRow">
 			</smartfoldernode>
+			<testmodule
+			id="af7b8d61-7515-4380-b7cd-b9d4a82f241c"
+			name="SelectDetailedAssessmentForRowCategoryIIv"
+			ref="1d451e4f-5f11-43ce-8f5b-c4085d00c239"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="afbc54a4-4fac-4160-916f-7857ed17fe46"
 			name="SetDetailedAssessmentForRowPerSection"
@@ -9757,40 +9996,6 @@
 			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
 			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="b262b4d5-d0e8-4f43-9897-f1461c88d2a7"
-			name="ValidateDetailedAssessmentValueAtRow"
-			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedDetailedAssessmentValue"
-					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
-					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
-					variablename="expectedDetailedAssessmentCellValue">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="c0cfd49a-fbf3-498c-b4cf-dba6fefb15b4"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="DetailedAssessment"
-					datasourceid="c0cfd49a-fbf3-498c-b4cf-dba6fefb15b4"
-					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
-					variablename="expectedDetailedAssessmentCellValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b28e3b48-240b-45d5-8fcc-970856b2290a"
@@ -10178,40 +10383,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="b6cae0d0-58d0-44b7-9008-62b0618d40f8"
-			name="SelectDetailedAssessmentTypeForRow"
-			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="DetailedAssessmentTypeItem"
-					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
-					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
-					variablename="textItemDropDownMenu">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="DetailedAssessmentTypeItem"
-					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
-					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
-					variablename="textItemDropDownMenu">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="b6d7848b-5e60-444a-99ff-919626a51940"
 			name="InitializeDropDownMenu"
 			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
@@ -10456,40 +10627,6 @@
 					</param>
 				</parameters>
 			</testcase>
-			<testmodule
-			id="bc19d970-0df5-4eaf-a55b-dba8f1694401"
-			name="ValidateDetailedAssessmentTypeAtRow"
-			ref="f90323b9-0faf-4e8d-ba0d-cddbcaec15a5"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="DetailedAssessmentTypeItem"
-					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
-					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
-					variablename="expectedDetailedAssessmentCellType">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="DetailedAssessmentTypeItem"
-					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
-					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
-					variablename="expectedDetailedAssessmentCellType">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="bc686d20-c903-4d0d-8324-375a875dce9d"
 			name="SelectGenericItemInProjectExplorer"
@@ -11128,9 +11265,9 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script22_FMGroup1DetailedAssessment"
+			datasource="script22_FMGroup2DetailedAssessment"
 			id="c5a7d308-ea31-4a28-8528-e49631f3796d"
-			name="FMsGroup1">
+			name="FMsGroup2">
 			</smartfoldernode>
 			<testmodule
 			id="c5ff47ab-b333-41e9-80e0-5965ebc7759f"
@@ -11204,7 +11341,7 @@
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="detailedAssessmentGroup1Type"
+			datasource="script22_FMGroup2DetailedAssessmentTypes"
 			id="c626a677-ac70-4d37-82be-33e2506645a2"
 			name="LoopRows">
 			</smartfoldernode>
@@ -11816,6 +11953,40 @@
 					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d3f32552-201f-4dfe-a8b5-3b5d4070fd44"
+			name="SelectDetailedAssessmentForRowCategoryIIIv"
+			ref="a7eb8c7e-6846-46ff-b2ed-97d624f39d39"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -12879,6 +13050,40 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="e66d2688-125a-45a2-a9be-0d6faa6ffb09"
+			name="SelectDetailedAssessmentForRowCategoryIv"
+			ref="a0648a21-f406-4037-bd0a-c3edb3d869ff"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e680c0ff-a1be-4b90-bace-43e573cf1610"
 			name="InitializeDropDownMenu">
@@ -13709,6 +13914,40 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="f3099d85-610c-4359-8ebe-69c90a8b2da8"
+			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
+			ref="42cf05e3-77be-41b2-bb8e-2d6b14e70872"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="5f9740ff-8d23-4a68-9028-29ad1795735a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="5f9740ff-8d23-4a68-9028-29ad1795735a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="f323eea0-2680-41e7-8bb7-cfa8a34b0c22"
 			name="InitializeDropDownMenu">
@@ -14866,6 +15105,40 @@
 					variablename="nameOfParameter">
 					</var>
 				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
+			id="fe7afca0-3ee4-42f1-8902-73f706797187"
+			name="SelectDetailedAssessmentForRowCategoryIVv"
+			ref="a7ae0f4d-d417-4c7b-805b-8057f4e19677"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentType"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="fed4c8d7-0412-4e73-85d7-a759cc54e482"
@@ -16863,16 +17136,16 @@
 										name="OpenResultView">
 										</testmodule>
 										<smartfoldernode
+										id="c36fa33a-d611-4124-8ff8-8656eca2278a"
+										name="ValidateDetailedAsssessmentValue">
+											<testmodule
+											id="fe2630c4-4151-4acf-a1a6-6264ca4cd36e"
+											name="ValidateDetailedAssessmentValueAtRow">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
 										id="74136e88-84af-4458-b11f-6b7e9c9263d6"
 										name="LoopRows">
-											<smartfoldernode
-											id="c36fa33a-d611-4124-8ff8-8656eca2278a"
-											name="ValidateDetailedAsssessmentValue">
-												<testmodule
-												id="fe2630c4-4151-4acf-a1a6-6264ca4cd36e"
-												name="ValidateDetailedAssessmentValueAtRow">
-												</testmodule>
-											</smartfoldernode>
 											<smartfoldernode
 											id="33aa27d1-6ac8-4363-89cb-1e950f4a0c4c"
 											name="LoopRowsSelectDetailedAssessmentType">
@@ -16901,36 +17174,68 @@
 								name="DetailedAssessmentFMsGroup2">
 									<smartfoldernode
 									id="c5a7d308-ea31-4a28-8528-e49631f3796d"
-									name="FMsGroup1">
+									name="FMsGroup2">
 										<testmodule
 										id="1c10e0ef-e604-4953-af22-601e898b9399"
 										name="OpenResultView">
 										</testmodule>
 										<smartfoldernode
+										id="098e7f1f-298b-49fa-bbc5-ce28f6a16483"
+										name="ValidateDetailedAsssessmentValue">
+											<testmodule
+											id="827a9c69-dde7-4fe9-b8da-d63f2ea2a277"
+											name="ValidateDetailedAssessmentValueAtRowPerCategory">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
 										id="c626a677-ac70-4d37-82be-33e2506645a2"
 										name="LoopRows">
-											<smartfoldernode
-											id="098e7f1f-298b-49fa-bbc5-ce28f6a16483"
-											name="ValidateDetailedAsssessmentValue">
-												<testmodule
-												id="b262b4d5-d0e8-4f43-9897-f1461c88d2a7"
-												name="ValidateDetailedAssessmentValueAtRow">
-												</testmodule>
-											</smartfoldernode>
 											<smartfoldernode
 											id="76908c37-25b8-49ab-bb4b-d782704e5284"
 											name="LoopRowsSelectDetailedAssessmentType">
 												<testmodule
-												id="b6cae0d0-58d0-44b7-9008-62b0618d40f8"
-												name="SelectDetailedAssessmentTypeForRow">
+												id="e66d2688-125a-45a2-a9be-0d6faa6ffb09"
+												name="SelectDetailedAssessmentForRowCategoryIv">
+												</testmodule>
+												<testmodule
+												id="af7b8d61-7515-4380-b7cd-b9d4a82f241c"
+												name="SelectDetailedAssessmentForRowCategoryIIv">
+												</testmodule>
+												<testmodule
+												id="d3f32552-201f-4dfe-a8b5-3b5d4070fd44"
+												name="SelectDetailedAssessmentForRowCategoryIIIv">
+												</testmodule>
+												<testmodule
+												id="fe7afca0-3ee4-42f1-8902-73f706797187"
+												name="SelectDetailedAssessmentForRowCategoryIVv">
+												</testmodule>
+												<testmodule
+												id="ac4a8173-04ea-4e95-9717-469365f63f6a"
+												name="SelectDetailedAssessmentForRowCategoryVv">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
 											id="1d46b506-30f0-45d1-acb6-71ad32fc4bdc"
 											name="ValidateDetailedAsssessmentType">
 												<testmodule
-												id="bc19d970-0df5-4eaf-a55b-dba8f1694401"
-												name="ValidateDetailedAssessmentTypeAtRow">
+												id="6aa2ed4c-ecf1-43bd-acc4-86c4e844ff6b"
+												name="ValidateDetailedAssessmentTypeAtRowCategoryIv">
+												</testmodule>
+												<testmodule
+												id="8b991fe9-c5b0-4b67-bed8-f849e3859889"
+												name="ValidateDetailedAssessmentTypeAtRowCategoryIIv">
+												</testmodule>
+												<testmodule
+												id="581012e0-7234-4eef-832a-3179e90b7dad"
+												name="ValidateDetailedAssessmentTypeAtRowCategoryIIIv">
+												</testmodule>
+												<testmodule
+												id="f3099d85-610c-4359-8ebe-69c90a8b2da8"
+												name="ValidateDetailedAssessmentTypeAtRowCategoryIVv">
+												</testmodule>
+												<testmodule
+												id="31349fd2-6d78-407d-ad09-874c4d99e119"
+												name="ValidateDetailedAssessmentTypeAtRowCategoryVv">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
@@ -24798,6 +25103,180 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="72d4491b-c347-4805-9885-3b1077258730"
+		lastknownrowcount="4"
+		name="script22_FMGroup2DetailedAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					trajectID
+				</column>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						trajectID
+					</th>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2 Groep 2
+					</td>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2 Groep 2
+					</td>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2 Groep 2
+					</td>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2 Groep 2
+					</td>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+		lastknownrowcount="4"
+		name="script22_FMGroup2DetailedAssessmentTypes"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					DetailedAssessmentType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						DetailedAssessmentType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						&lt;selecteer&gt;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						V
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						VN
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						NGO
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="174c91f1-fb54-4e46-860e-159d479e7ee9"
+		lastknownrowcount="4"
+		name="script22_FMGroup2ExpectedDetailedAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					ExpectedDetailedAssessmentValuePerCategory
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						ExpectedDetailedAssessmentValuePerCategory
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Iv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						IIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						IIIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						VIIv
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
 		includefile="Unchecked"
 		lastknownrowcount="11"
@@ -25485,9 +25964,6 @@
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
 			</testcontainer>
 			<testcontainer
-			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
-			</testcontainer>
-			<testcontainer
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
 			</testcontainer>
 			<testcontainer
@@ -25503,19 +25979,13 @@
 			id="095a933f-0351-4f44-914c-746ccae54ec0">
 			</testcontainer>
 			<testcontainer
+			id="098e7f1f-298b-49fa-bbc5-ce28f6a16483">
+			</testcontainer>
+			<testcontainer
 			id="0a0d9792-5b24-45f6-ae6d-dc982e3702be">
 			</testcontainer>
 			<testcontainer
-			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99">
-			</testcontainer>
-			<testcontainer
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
-			</testcontainer>
-			<testcontainer
-			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9">
-			</testcontainer>
-			<testcontainer
-			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
@@ -25524,13 +25994,10 @@
 			id="11c52315-f52b-4972-a950-d9cb3e55b8ba">
 			</testcontainer>
 			<testcontainer
+			id="1d46b506-30f0-45d1-acb6-71ad32fc4bdc">
+			</testcontainer>
+			<testcontainer
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
-			</testcontainer>
-			<testcontainer
-			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
-			</testcontainer>
-			<testcontainer
-			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
 			</testcontainer>
 			<testcontainer
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
@@ -25542,16 +26009,7 @@
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
-			id="33aa27d1-6ac8-4363-89cb-1e950f4a0c4c">
-			</testcontainer>
-			<testcontainer
-			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
-			</testcontainer>
-			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
-			</testcontainer>
-			<testcontainer
-			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
 			</testcontainer>
 			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
@@ -25563,16 +26021,10 @@
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
 			</testcontainer>
 			<testcontainer
-			id="466ac64f-9a07-4a8a-82b8-3af12a998abc">
-			</testcontainer>
-			<testcontainer
 			id="4722f879-2e55-4a3f-b631-b1ba7550f6e4">
 			</testcontainer>
 			<testcontainer
 			id="4a4f5311-ac00-4bb5-a796-8f598d4b604c">
-			</testcontainer>
-			<testcontainer
-			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
 			</testcontainer>
 			<testcontainer
 			id="4c27903f-5dba-429e-9e21-d7f2ea1d4941">
@@ -25596,13 +26048,10 @@
 			id="548bde8b-44b7-4508-aaf3-3824011d3029">
 			</testcontainer>
 			<testcontainer
+			id="54a1de82-5f5d-466a-bac2-82ad04d106b3">
+			</testcontainer>
+			<testcontainer
 			id="56686535-e9c1-4dee-937e-6edd48e15b86">
-			</testcontainer>
-			<testcontainer
-			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
-			</testcontainer>
-			<testcontainer
-			id="58a6b72e-26d9-47d1-87ab-f35fb84b127c">
 			</testcontainer>
 			<testcontainer
 			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9">
@@ -25620,25 +26069,13 @@
 			id="70ce6f28-cc50-46b4-8c9f-95ca8a24627c">
 			</testcontainer>
 			<testcontainer
-			id="716669cb-8d3f-4f98-a608-2311ffb07430">
-			</testcontainer>
-			<testcontainer
 			id="7181e4da-a5d5-44d6-961c-cc4b3fa543ad">
-			</testcontainer>
-			<testcontainer
-			id="72139e5e-316f-4a54-9d52-75f865439dd6">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
 			</testcontainer>
 			<testcontainer
-			id="74136e88-84af-4458-b11f-6b7e9c9263d6">
-			</testcontainer>
-			<testcontainer
-			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
-			</testcontainer>
-			<testcontainer
-			id="765c94c1-c358-44da-a7a3-1a3e08bc05ac">
+			id="76908c37-25b8-49ab-bb4b-d782704e5284">
 			</testcontainer>
 			<testcontainer
 			id="77116ac1-99e0-4980-bbc7-a47571455387">
@@ -25650,9 +26087,6 @@
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
 			</testcontainer>
 			<testcontainer
-			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1">
-			</testcontainer>
-			<testcontainer
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
 			</testcontainer>
 			<testcontainer
@@ -25662,37 +26096,16 @@
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee">
 			</testcontainer>
 			<testcontainer
-			id="885b0dbd-85dc-44b0-9c04-06b382fd2158">
-			</testcontainer>
-			<testcontainer
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
 			</testcontainer>
 			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
 			</testcontainer>
 			<testcontainer
-			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
-			</testcontainer>
-			<testcontainer
-			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a">
-			</testcontainer>
-			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
 			</testcontainer>
 			<testcontainer
 			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb">
-			</testcontainer>
-			<testcontainer
-			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
-			</testcontainer>
-			<testcontainer
-			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac">
-			</testcontainer>
-			<testcontainer
-			id="9edfe01c-c130-4792-b0ab-0c91a3270f15">
-			</testcontainer>
-			<testcontainer
-			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
 			</testcontainer>
 			<testcontainer
 			id="a19d64b1-9804-430e-b24d-b02b6bf6945a">
@@ -25710,16 +26123,7 @@
 			id="aedd5571-96f0-44fd-9a62-fa76607ec249">
 			</testcontainer>
 			<testcontainer
-			id="b2b23f0a-9437-40ac-afe9-06edfbb9c8cb">
-			</testcontainer>
-			<testcontainer
-			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
-			</testcontainer>
-			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
-			</testcontainer>
-			<testcontainer
-			id="ba345d8a-cc0a-4b53-84c4-1528fe0d1fef">
 			</testcontainer>
 			<testcontainer
 			id="bb32fc03-3f56-44d4-887e-f17c8b8a6281">
@@ -25734,34 +26138,19 @@
 			id="bf121a60-f853-42d9-97a2-42a7a3601c72">
 			</testcontainer>
 			<testcontainer
-			id="c13fce8d-93a7-44e9-8603-4f02531c48d4">
-			</testcontainer>
-			<testcontainer
-			id="c1adef3a-d31b-4c6f-8ad3-27e077f4bda0">
-			</testcontainer>
-			<testcontainer
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
 			</testcontainer>
 			<testcontainer
-			id="c36fa33a-d611-4124-8ff8-8656eca2278a">
+			id="c5a7d308-ea31-4a28-8528-e49631f3796d">
 			</testcontainer>
 			<testcontainer
-			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
+			id="c626a677-ac70-4d37-82be-33e2506645a2">
 			</testcontainer>
 			<testcontainer
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
-			id="d34200d9-5186-497e-9e06-4276b43682ad">
-			</testcontainer>
-			<testcontainer
-			id="d3a5f35e-8801-4c38-a81d-c55a85a2fdc5">
-			</testcontainer>
-			<testcontainer
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
-			</testcontainer>
-			<testcontainer
-			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
 			</testcontainer>
 			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
@@ -25773,16 +26162,7 @@
 			id="de7fc7c3-374a-4eef-875f-08b02fca135b">
 			</testcontainer>
 			<testcontainer
-			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
-			</testcontainer>
-			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
-			</testcontainer>
-			<testcontainer
-			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75">
-			</testcontainer>
-			<testcontainer
-			id="e756f312-1a93-4042-9200-8ee398806472">
 			</testcontainer>
 			<testcontainer
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
@@ -25795,9 +26175,6 @@
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
-			</testcontainer>
-			<testcontainer
-			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
 			</testcontainer>
 			<testcontainer
 			id="f89bc49b-5d3f-4a10-9ef5-c8755d483038">
