@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Validation
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateDetailedAssessmentTypeAtRowGroup3 recording.
+    ///The ValidateDetailedAssessmentTypeAtRowGroup4 recording.
     /// </summary>
     [TestModule("4bec016b-4d75-4a07-9bb2-a12badf2136b", ModuleType.Recording, 1)]
-    public partial class ValidateDetailedAssessmentTypeAtRowGroup3 : ITestModule
+    public partial class ValidateDetailedAssessmentTypeAtRowGroup4 : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateDetailedAssessmentTypeAtRowGroup3 instance = new ValidateDetailedAssessmentTypeAtRowGroup3();
+        static ValidateDetailedAssessmentTypeAtRowGroup4 instance = new ValidateDetailedAssessmentTypeAtRowGroup4();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateDetailedAssessmentTypeAtRowGroup3()
+        public ValidateDetailedAssessmentTypeAtRowGroup4()
         {
             expectedDetailedAssessmentCellType = "yourtext";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.Validation
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateDetailedAssessmentTypeAtRowGroup3 Instance
+        public static ValidateDetailedAssessmentTypeAtRowGroup4 Instance
         {
             get { return instance; }
         }

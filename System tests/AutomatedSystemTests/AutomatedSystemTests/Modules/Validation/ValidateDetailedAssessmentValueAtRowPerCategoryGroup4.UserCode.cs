@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Validation
 {
-    public partial class ValidateDetailedAssessmentValueAtRowPerCategoryGroup3
+    public partial class ValidateDetailedAssessmentValueAtRowPerCategoryGroup4
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

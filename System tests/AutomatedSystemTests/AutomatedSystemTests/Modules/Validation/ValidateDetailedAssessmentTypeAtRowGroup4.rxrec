@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ValidateDetailedAssessmentTypeAtRowGroup3"
+	classname="ValidateDetailedAssessmentTypeAtRowGroup4"
 	namespace="AutomatedSystemTests.Modules.Validation">
 	</codegen>
 	<variables>
@@ -73,7 +73,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ValidateDetailedAssessmentTypeAtRowGroup3.UserCode.cs
+		ValidateDetailedAssessmentTypeAtRowGroup4.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

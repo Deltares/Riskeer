@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Validation
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateDetailedAssessmentValueAtRowPerCategoryGroup3 recording.
+    ///The ValidateDetailedAssessmentValueAtRowPerCategoryGroup4 recording.
     /// </summary>
     [TestModule("d39d077e-c625-4d57-a6e7-a73a70d77e0d", ModuleType.Recording, 1)]
-    public partial class ValidateDetailedAssessmentValueAtRowPerCategoryGroup3 : ITestModule
+    public partial class ValidateDetailedAssessmentValueAtRowPerCategoryGroup4 : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateDetailedAssessmentValueAtRowPerCategoryGroup3 instance = new ValidateDetailedAssessmentValueAtRowPerCategoryGroup3();
+        static ValidateDetailedAssessmentValueAtRowPerCategoryGroup4 instance = new ValidateDetailedAssessmentValueAtRowPerCategoryGroup4();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateDetailedAssessmentValueAtRowPerCategoryGroup3()
+        public ValidateDetailedAssessmentValueAtRowPerCategoryGroup4()
         {
             expectedDetailedAssessmentValuePerCategory = "yourtext";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.Validation
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateDetailedAssessmentValueAtRowPerCategoryGroup3 Instance
+        public static ValidateDetailedAssessmentValueAtRowPerCategoryGroup4 Instance
         {
             get { return instance; }
         }
