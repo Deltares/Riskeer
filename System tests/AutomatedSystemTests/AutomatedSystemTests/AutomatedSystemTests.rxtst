@@ -1201,7 +1201,7 @@
 			<smartfoldernode
 			datasource="script21_FM_STBUTraject"
 			id="1ce4b4fb-84b9-4d0d-93dd-bb845c14dde5"
-			name="FMsGroup1And2">
+			name="STBU">
 			</smartfoldernode>
 			<testmodule
 			id="1d347463-c7c4-479d-942f-170ee35f5e81"
@@ -12336,7 +12336,7 @@
 								name="CustomAssessment_STBU">
 									<smartfoldernode
 									id="1ce4b4fb-84b9-4d0d-93dd-bb845c14dde5"
-									name="FMsGroup1And2">
+									name="STBU">
 										<testmodule
 										id="885fa926-f81e-40b2-9848-f036a6267b9a"
 										name="OpenResultView">
@@ -19152,7 +19152,7 @@
 						STBU
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaards
+						Dijken en dammen - Macrostabiliteit buitenwaarts
 					</td>
 					<td>
 						Traject 12-2 Overig
@@ -19394,7 +19394,7 @@
 						Faalkans
 					</td>
 					<td>
-						1/1234
+						1/12345
 					</td>
 				</tr>
 				<tr>
