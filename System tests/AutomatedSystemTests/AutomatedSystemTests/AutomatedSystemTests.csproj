@@ -222,18 +222,6 @@
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
       <BoundTo>75c56bbc-55ab-4649-abbf-6157d7ab6a40</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\InitializeDropDownMenu.cs">
-      <DependentUpon>InitializeDropDownMenu.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9a2e0ba7-c2df-4789-a68d-f288acde18ec</id>
-      <BoundTo>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\InitializeDropDownMenu.UserCode.cs">
-      <DependentUpon>InitializeDropDownMenu.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6277edbc-846c-4b09-b432-b40e7dac3a9b</id>
-      <BoundTo>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</BoundTo>
-    </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
       <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1697,11 +1685,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
-    </None>
-    <None Include="Modules\ActionsDocumentView\InitializeDropDownMenu.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b93d65f3-b57f-4c3d-8b35-8fa845923bbb</id>
-      <recordtableid>0e6a2e20-0223-4862-bd2e-af0df661ff0e</recordtableid>
     </None>
     <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
