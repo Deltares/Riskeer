@@ -933,6 +933,20 @@
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectID"
+					datasourceid="eb28a39f-ba9c-473b-9669-2b4db8270a01"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="eb28a39f-ba9c-473b-9669-2b4db8270a01"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="trajectID"
@@ -6394,6 +6408,20 @@
 			name="ValidateCustomAssessmentValue"
 			ref="da4d5264-71fa-4c55-ade2-9344716cd1cc"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="29cc7fca-cbc2-4619-98f8-377fcd211af0"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedCustomAssessmentValue"
+					datasourceid="29cc7fca-cbc2-4619-98f8-377fcd211af0"
+					variableid="0602758b-9931-4e34-a69f-4ebf0d921f1e"
+					variablename="expectedCustomAssessmentValueAtCell">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="expectedCustomAssessmentValue"
@@ -9279,6 +9307,20 @@
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="29cc7fca-cbc2-4619-98f8-377fcd211af0"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedCustomAssessmentType"
+					datasourceid="29cc7fca-cbc2-4619-98f8-377fcd211af0"
+					variableid="55436726-1ae4-499b-a008-467c0a220c26"
+					variablename="expectedCustomAssessmentCellType">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="rowIndex"
