@@ -40,7 +40,10 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingProfileSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(calculation)
+        public ProbabilisticPipingProfileSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation,
+                                                               PipingFailureMechanism failureMechanism,
+                                                               IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (failureMechanism == null)
             {

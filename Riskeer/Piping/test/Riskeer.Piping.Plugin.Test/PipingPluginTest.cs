@@ -130,12 +130,12 @@ namespace Riskeer.Piping.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ProbabilisticPipingProfileSpecificOutputContext),
-                    typeof(ProbabilisticPipingProfileSpecificOutputContextProperties));
+                    typeof(ProbabilisticPipingProfileSpecificOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ProbabilisticPipingSectionSpecificOutputContext),
-                    typeof(ProbabilisticPipingSectionSpecificOutputContextProperties));
+                    typeof(ProbabilisticPipingSectionSpecificOutputProperties));
             }
         }
 
