@@ -25,6 +25,8 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -76,14 +78,20 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new PipingFailureMechanism(), assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -100,13 +108,19 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<ProbabilisticPipingProfileSpecificOutputView>(view);
+
+            mocks.VerifyAll();
         }
 
         [TestFixture]

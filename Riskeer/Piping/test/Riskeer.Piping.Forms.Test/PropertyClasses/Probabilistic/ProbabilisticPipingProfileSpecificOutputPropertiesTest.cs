@@ -320,6 +320,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     SurfaceLine = failureMechanism.SurfaceLines.First()
                 }
             };
+
             PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call

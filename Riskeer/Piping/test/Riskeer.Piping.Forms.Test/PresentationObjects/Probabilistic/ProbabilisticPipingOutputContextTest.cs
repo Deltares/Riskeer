@@ -22,9 +22,10 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
 namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
@@ -35,30 +36,44 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         [Test]
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new ProbabilisticPipingOutputContext(null, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            void Call() => new ProbabilisticPipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("wrappedData", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), null, new AssessmentSectionStub());
+            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), null);
+            void Call() => new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,9 +84,12 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new ProbabilisticPipingCalculationScenario();
-            var failureMechanism = new TestPipingFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var context = new ProbabilisticPipingOutputContext(calculation, failureMechanism, assessmentSection);
@@ -81,6 +99,8 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+
+            mocks.VerifyAll();
         }
     }
 }

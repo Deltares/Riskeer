@@ -24,7 +24,9 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
@@ -89,31 +91,43 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var context = new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new ProbabilisticPipingOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
 
-            var context = new ProbabilisticPipingOutputContext(calculation, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var context = new ProbabilisticPipingOutputContext(calculation, new PipingFailureMechanism(), assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -132,11 +146,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = hasOutput ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput() : null
             };
-            var context = new ProbabilisticPipingOutputContext(calculation, new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new ProbabilisticPipingOutputContext(calculation, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -146,6 +165,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var profileSpecificOutputContext = children[0] as ProbabilisticPipingProfileSpecificOutputContext;
             Assert.AreSame(calculation, profileSpecificOutputContext.WrappedData);
+            Assert.AreSame(failureMechanism, profileSpecificOutputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, profileSpecificOutputContext.AssessmentSection);
 
             var sectionSpecificOutputContext = children[1] as ProbabilisticPipingSectionSpecificOutputContext;
             Assert.AreSame(calculation, sectionSpecificOutputContext.WrappedData);
