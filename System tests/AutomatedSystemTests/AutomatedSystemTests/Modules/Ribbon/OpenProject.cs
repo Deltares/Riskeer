@@ -92,9 +92,9 @@ namespace AutomatedSystemTests.Modules.Ribbon
 
             Init();
 
-            // Click on shortcut Open file
-            Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButton' at Center.", repo.RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButton.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            Keyboard.PrepareFocus(repo.RiskeerMainWindow.Self);
+            Keyboard.Press(System.Windows.Forms.Keys.O | System.Windows.Forms.Keys.Control, Keyboard.DefaultScanCode, Keyboard.DefaultKeyPressTime, 1, true);
             Delay.Milliseconds(0);
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();

@@ -110,6 +110,12 @@ namespace AutomatedSystemTests.Modules.OpenViews
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(3));
             
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new RecordItemIndex(4));
+            repo.RiskeerMainWindow.DocumentViewContainer.Self.Click();
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(5));
+            Delay.Duration(300, false);
+            
         }
 
 #region Image Feature Data
