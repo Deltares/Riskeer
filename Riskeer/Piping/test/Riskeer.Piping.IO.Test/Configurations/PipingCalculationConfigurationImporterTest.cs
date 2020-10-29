@@ -376,7 +376,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -408,7 +408,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -451,7 +451,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -522,7 +522,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -555,7 +555,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -610,7 +610,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 stochasticSoilProfile
             });
 
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
