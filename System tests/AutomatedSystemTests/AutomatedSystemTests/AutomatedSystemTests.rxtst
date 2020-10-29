@@ -532,6 +532,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="098e7f1f-298b-49fa-bbc5-ce28f6a16483"
+			name="ValidateDetailedAsssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
 			id="0a0d9792-5b24-45f6-ae6d-dc982e3702be"
 			name="RetrieveValuesFromNorm">
 				<parameters>
@@ -1548,6 +1552,46 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="1c10e0ef-e604-4953-af22-601e898b9399"
+			name="OpenResultView"
+			ref="14b19856-facd-4b69-82b3-b7f678560774"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fmName"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="trajectID"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15d_CalculationHydraulicBoundaryConditionsForClimateScenario"
 			id="1c215492-3303-4a97-955a-bc35b7d2a98c"
@@ -1655,6 +1699,10 @@
 					</var>
 				</missingdatavariablesbinding>
 			</testmodule>
+			<smartfoldernode
+			id="1d46b506-30f0-45d1-acb6-71ad32fc4bdc"
+			name="ValidateDetailedAsssessmentType">
+			</smartfoldernode>
 			<smartfoldernode
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
 			name="ValidateLengthEffectParameterN">
@@ -2824,6 +2872,12 @@
 			id="33aa27d1-6ac8-4363-89cb-1e950f4a0c4c"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="33b9b55e-e838-4b85-b602-fe6f64e4c587"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="33d3a639-2a33-4fd3-8aaa-beb9f3c87de4"
 			name="ValidateCustomAssessmentTypeAtRow"
@@ -4704,6 +4758,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="54a1de82-5f5d-466a-bac2-82ad04d106b3"
+			name="DetailedAssessmentFMsGroup2">
+			</smartfoldernode>
+			<smartfoldernode
 			id="558b6b46-1f2d-45ff-8488-1adcadb085aa"
 			name="InitializeDropDownMenu">
 				<parameters>
@@ -6433,6 +6491,10 @@
 			<smartfoldernode
 			id="765c94c1-c358-44da-a7a3-1a3e08bc05ac"
 			name="ValidateDetailedAsssessmentType">
+			</smartfoldernode>
+			<smartfoldernode
+			id="76908c37-25b8-49ab-bb4b-d782704e5284"
+			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
 			<smartfoldernode
 			id="769950c3-8881-4bc9-9049-f6488ccc2275"
@@ -9697,6 +9759,40 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="b262b4d5-d0e8-4f43-9897-f1461c88d2a7"
+			name="ValidateDetailedAssessmentValueAtRow"
+			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedDetailedAssessmentValue"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
+					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
+					variablename="expectedDetailedAssessmentCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c0cfd49a-fbf3-498c-b4cf-dba6fefb15b4"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessment"
+					datasourceid="c0cfd49a-fbf3-498c-b4cf-dba6fefb15b4"
+					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
+					variablename="expectedDetailedAssessmentCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="b28e3b48-240b-45d5-8fcc-970856b2290a"
 			name="SelectSimpleAssessmentForRow"
 			ref="e0d85a11-9622-402c-937d-fefa962c3394"
@@ -10082,6 +10178,40 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="b6cae0d0-58d0-44b7-9008-62b0618d40f8"
+			name="SelectDetailedAssessmentTypeForRow"
+			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="b6d7848b-5e60-444a-99ff-919626a51940"
 			name="InitializeDropDownMenu"
 			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
@@ -10326,6 +10456,40 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="bc19d970-0df5-4eaf-a55b-dba8f1694401"
+			name="ValidateDetailedAssessmentTypeAtRow"
+			ref="f90323b9-0faf-4e8d-ba0d-cddbcaec15a5"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessmentTypeItem"
+					datasourceid="18315e48-88a7-4a25-923f-57a582ef7128"
+					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="bc686d20-c903-4d0d-8324-375a875dce9d"
 			name="SelectGenericItemInProjectExplorer"
@@ -10963,6 +11127,11 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script22_FMGroup1DetailedAssessment"
+			id="c5a7d308-ea31-4a28-8528-e49631f3796d"
+			name="FMsGroup1">
+			</smartfoldernode>
 			<testmodule
 			id="c5ff47ab-b333-41e9-80e0-5965ebc7759f"
 			name="ExpandUntilFMInput"
@@ -11033,6 +11202,11 @@
 			datasource="detailedAssessmentGEBU"
 			id="c61eac59-975f-417e-8a0d-0eb9e8a53318"
 			name="ValidateDetailedAsssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="detailedAssessmentGroup1Type"
+			id="c626a677-ac70-4d37-82be-33e2506645a2"
+			name="LoopRows">
 			</smartfoldernode>
 			<smartfoldernode
 			id="c634f880-0187-4e4a-9eed-0c396c788f3f"
@@ -16718,6 +16892,50 @@
 										</smartfoldernode>
 										<testmodule
 										id="50978c1d-654b-4c27-93ba-548c2da0207b"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="54a1de82-5f5d-466a-bac2-82ad04d106b3"
+								name="DetailedAssessmentFMsGroup2">
+									<smartfoldernode
+									id="c5a7d308-ea31-4a28-8528-e49631f3796d"
+									name="FMsGroup1">
+										<testmodule
+										id="1c10e0ef-e604-4953-af22-601e898b9399"
+										name="OpenResultView">
+										</testmodule>
+										<smartfoldernode
+										id="c626a677-ac70-4d37-82be-33e2506645a2"
+										name="LoopRows">
+											<smartfoldernode
+											id="098e7f1f-298b-49fa-bbc5-ce28f6a16483"
+											name="ValidateDetailedAsssessmentValue">
+												<testmodule
+												id="b262b4d5-d0e8-4f43-9897-f1461c88d2a7"
+												name="ValidateDetailedAssessmentValueAtRow">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="76908c37-25b8-49ab-bb4b-d782704e5284"
+											name="LoopRowsSelectDetailedAssessmentType">
+												<testmodule
+												id="b6cae0d0-58d0-44b7-9008-62b0618d40f8"
+												name="SelectDetailedAssessmentTypeForRow">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="1d46b506-30f0-45d1-acb6-71ad32fc4bdc"
+											name="ValidateDetailedAsssessmentType">
+												<testmodule
+												id="bc19d970-0df5-4eaf-a55b-dba8f1694401"
+												name="ValidateDetailedAssessmentTypeAtRow">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<testmodule
+										id="33b9b55e-e838-4b85-b602-fe6f64e4c587"
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
