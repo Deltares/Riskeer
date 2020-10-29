@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         {
             // Setup
             SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
-            SemiProbabilisticPipingCalculation invalidPipingCalculation =
+            var invalidPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
             invalidPipingCalculation.Output = output;
 

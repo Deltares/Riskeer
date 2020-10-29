@@ -213,12 +213,16 @@ namespace Riskeer.Piping.Forms.Test.Views
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "test", 3.0, 4.0);
 
-            SemiProbabilisticPipingCalculationScenario calculationA =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation1);
+            var calculationA =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation1);
+            var calculationB =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation2);
+
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
-            SemiProbabilisticPipingCalculationScenario calculationB =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation2);
             calculationB.InputParameters.SurfaceLine = surfaceLineB;
+
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -622,12 +626,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                SemiProbabilisticPipingCalculationScenario calculationA =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
+                var calculationA =
+                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                        new TestHydraulicBoundaryLocation());
+                var calculationB =
+                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                        new TestHydraulicBoundaryLocation());
 
-                SemiProbabilisticPipingCalculationScenario calculationB =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
+                calculationA.InputParameters.SurfaceLine = surfaceLineA;
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
@@ -673,12 +679,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-            SemiProbabilisticPipingCalculationScenario calculationA =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
-            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+            var calculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    new TestHydraulicBoundaryLocation());
+            
+            calculationScenario.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             using (var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
@@ -696,8 +704,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // When
-                calculationA.InputParameters.SurfaceLine = surfaceLineB;
-                calculationA.InputParameters.NotifyObservers();
+                calculationScenario.InputParameters.SurfaceLine = surfaceLineB;
+                calculationScenario.InputParameters.NotifyObservers();
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
@@ -725,12 +733,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-            SemiProbabilisticPipingCalculationScenario calculationA =
+            var calculationScenario =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
-            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            calculationScenario.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             using (var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
@@ -748,8 +757,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // When
-                calculationA.Name = "new name";
-                calculationA.NotifyObservers();
+                calculationScenario.Name = "new name";
+                calculationScenario.NotifyObservers();
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
@@ -848,12 +857,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-            SemiProbabilisticPipingCalculationScenario calculationA =
+            var calculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(new TestHydraulicBoundaryLocation());
-            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            calculation.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
 
             var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -902,7 +912,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
                     calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
                     calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    calculationA.NotifyObservers();
+                    calculation.NotifyObservers();
 
                     // Then
                     MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,

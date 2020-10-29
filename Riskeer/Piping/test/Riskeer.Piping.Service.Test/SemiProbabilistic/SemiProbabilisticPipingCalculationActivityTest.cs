@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Run_InvalidPipingCalculation_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            SemiProbabilisticPipingCalculation invalidPipingCalculation =
+            var invalidPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<TestSemiProbabilisticPipingCalculation>();
 
             var activity = new SemiProbabilisticPipingCalculationActivity(invalidPipingCalculation,
