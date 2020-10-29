@@ -47,7 +47,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
-            SemiProbabilisticPipingCalculation invalidPipingCalculation =
+            var invalidPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
                     new TestHydraulicBoundaryLocation());
 
@@ -196,7 +196,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            SemiProbabilisticPipingCalculation validPipingCalculation =
+            var validPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
                     new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
@@ -232,7 +232,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            SemiProbabilisticPipingCalculation validPipingCalculation =
+            var validPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
                     new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;

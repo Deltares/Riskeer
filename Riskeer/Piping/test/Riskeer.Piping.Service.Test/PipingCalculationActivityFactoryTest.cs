@@ -384,8 +384,9 @@ namespace Riskeer.Piping.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
             hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            SemiProbabilisticPipingCalculation calculation =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(hydraulicBoundaryLocation);
+            var calculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    hydraulicBoundaryLocation);
 
             var generalPipingInput = new GeneralPipingInput();
 
