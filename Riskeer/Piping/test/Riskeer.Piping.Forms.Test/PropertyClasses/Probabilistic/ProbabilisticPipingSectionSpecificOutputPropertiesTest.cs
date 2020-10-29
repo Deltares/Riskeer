@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
@@ -59,32 +60,24 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var random = new Random(39);
-            double reliability = random.NextDouble();
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(partialProbabilisticPipingOutput);
+            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticPipingOutput>>(properties);
-            Assert.AreSame(partialProbabilisticPipingOutput, properties.Data);
+            Assert.AreSame(output, properties.Data);
         }
 
         [Test]
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var random = new Random(39);
-            double reliability = random.NextDouble();
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(partialProbabilisticPipingOutput);
+            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -137,13 +130,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var random = new Random(39);
-            double reliability = random.NextDouble();
-
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, null);
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(partialProbabilisticPipingOutput);
+            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

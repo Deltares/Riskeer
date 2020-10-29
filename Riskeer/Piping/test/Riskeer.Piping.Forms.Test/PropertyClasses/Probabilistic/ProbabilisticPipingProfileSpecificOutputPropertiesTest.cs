@@ -27,7 +27,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -132,7 +134,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var partialProbabilisticPipingOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -144,21 +146,21 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(partialProbabilisticPipingOutput,
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
                                                                                     calculation,
                                                                                     failureMechanism,
                                                                                     new AssessmentSectionStub());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticPipingOutput>>(properties);
-            Assert.AreSame(partialProbabilisticPipingOutput, properties.Data);
+            Assert.AreSame(output, properties.Data);
         }
 
         [Test]
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput partialProbabilisticPipingOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -170,7 +172,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(partialProbabilisticPipingOutput,
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
                                                                                     calculation,
                                                                                     failureMechanism,
                                                                                     new AssessmentSectionStub());
@@ -247,7 +249,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput partialProbabilisticPipingOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -259,7 +261,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(partialProbabilisticPipingOutput,
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
                                                                                     calculation,
                                                                                     failureMechanism,
                                                                                     new AssessmentSectionStub());
@@ -302,6 +304,40 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             "Veiligheidsfactor [-]",
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = failureMechanism.SurfaceLines.First()
+                }
+            };
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+
+            // Call
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
+                                                                                    calculation,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+            // Assert
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
+                                                                                                                        failureMechanism.Contribution,
+                                                                                                                        5.0,
+                                                                                                                        output.Reliability);
+            
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.RequiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
         }
     }
 }
