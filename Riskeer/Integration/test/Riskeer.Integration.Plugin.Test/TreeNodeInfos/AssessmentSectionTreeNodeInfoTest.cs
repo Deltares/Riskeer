@@ -773,9 +773,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static void AddProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            ProbabilisticPipingCalculationScenario pipingCalculationScenario =
-                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
-            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
+            assessmentSection.Piping.CalculationsGroup.Children.Add(
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation));
         }
 
         private static void AddMacroStabilityInwardsCalculationScenario(AssessmentSection assessmentSection,

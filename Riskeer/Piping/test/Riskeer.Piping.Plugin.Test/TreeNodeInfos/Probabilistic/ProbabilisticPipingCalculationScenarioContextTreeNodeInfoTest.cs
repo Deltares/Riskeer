@@ -858,8 +858,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     hydraulicBoundaryLocation
                 }, true);
 
-                ProbabilisticPipingCalculationScenario calculation =
-                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(hydraulicBoundaryLocation);
+                var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
 
                 var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                          new CalculationGroup(),
