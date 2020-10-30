@@ -362,6 +362,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script15a_LocationsToCalculateWaterLevels"
+			errorbehavior="ContinueNextIteration"
 			id="13aed99f-0e67-4adc-ae9c-c40b9aa9cf80"
 			name="SelectLocationsForCalculation">
 			</smartfoldernode>
@@ -1392,6 +1393,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script15a_AllRows"
+			errorbehavior="ContinueNextIteration"
 			id="4f4b1edc-cf10-44c1-b5ca-44faa21eb73a"
 			name="ValidateResultsPresentInDocumentView">
 				<parameters>

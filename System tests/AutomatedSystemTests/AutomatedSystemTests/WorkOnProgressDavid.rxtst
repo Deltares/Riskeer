@@ -476,6 +476,7 @@
 						BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
 					</td>
 					<td>
+						82-116
 					</td>
 					<td>
 						script18\aangepastBSKW.xml
@@ -486,6 +487,7 @@
 						HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
 					</td>
 					<td>
+						117-139
 					</td>
 					<td>
 						script18\aangepastHTKW.xml
@@ -505,7 +507,7 @@
 		</DataSource>
 		<DataSource
 		id="19801d59-c7e1-4127-8b92-0b6f8606dba2"
-		lastknownrowcount="139"
+		lastknownrowcount="191"
 		name="script18ParametersToModifyInCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -2141,7 +2143,7 @@
 						Double
 					</td>
 					<td>
-						-1.51
+						0.20
 					</td>
 					<td>
 						6
@@ -2769,6 +2771,838 @@
 					</td>
 					<td>
 						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Kunstwerk2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						MM_3_13a-1_vl07_00002
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						95
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Analysehoogte
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Faalkans herstel van gefaalde situatie
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/100
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Belastingschematisering
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Kwadratisch
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Verdronken koker
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aantal nivelleringen per jaar
+					</td>
+					<td>
+						Integer
+					</td>
+					<td>
+						15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Kans op aanvaring tweede
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/200
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Afstand onderkant wand
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Volumiek gewicht van water
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10.0
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Muur
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Hoogte
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.7
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						9.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						400001
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.1
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						6.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Bermbreedte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Bermbreedte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Afvoerco&#235;ffici&#235;nt&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.1
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						101
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.35
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Kritieke stroomsnelheid&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5.5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.31
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Binnenwaterstand bij constructief falen&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.31
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Binnenwaterstand bij constructief falen&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.22
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.25
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						25.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.21
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempel&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						8
 					</td>
 					<td>
 					</td>
