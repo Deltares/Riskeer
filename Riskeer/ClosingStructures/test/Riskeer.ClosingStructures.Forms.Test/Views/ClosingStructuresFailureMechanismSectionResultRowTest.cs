@@ -539,7 +539,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                DetailedAssessmentResult = detailedAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult
             };
 
             StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =

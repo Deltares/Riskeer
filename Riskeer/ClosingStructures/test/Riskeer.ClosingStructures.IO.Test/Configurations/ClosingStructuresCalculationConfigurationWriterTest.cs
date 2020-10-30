@@ -211,7 +211,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                     Mean = 4.3,
                     StandardDeviation = 0.2
                 },
-                Scenario = new ScenarioConfiguration()
+                Scenario = new ScenarioConfiguration
                 {
                     IsRelevant = true,
                     Contribution = 0.3
