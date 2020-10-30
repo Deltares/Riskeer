@@ -64,7 +64,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             TestSuite.Current.GetTestContainer(nameOfSmartFolder).DataContext.SetRange(DataRangeSet.Parse(rangeToBeSetInSmartFolder));
-            
         }
     }
 }

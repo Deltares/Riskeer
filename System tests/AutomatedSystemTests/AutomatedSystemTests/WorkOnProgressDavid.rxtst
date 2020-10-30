@@ -66,6 +66,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="3e1302a8-1bf2-4dda-95d7-43f243dd38b6"
 			name="SelectInputOfCalculation">
@@ -92,6 +98,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script18ParametersToModifyInCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="50ebadfc-94ce-4492-b602-f172dfa46a7a"
 			name="ModifyParametersInSelectedCalculationInput_ToDo">
 			</smartfoldernode>
@@ -131,13 +138,22 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="6b7dcd8f-1534-4769-823f-963b540354c6"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="77fe5305-0370-4462-a7f8-9ba266c5eece"
 			name="SaveConfigurationXMLFileForCalculation_ToDo">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="N18CalculationsToModify"
+			errorbehavior="ContinueNextIteration"
 			id="7ba66fd3-0e17-4a85-b3df-357f335bf24f"
+			maxrange="0"
+			minrange="0"
 			name="LoopCalculationsToModify_ToDo">
 				<parameters>
 					<param
@@ -146,6 +162,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="86f974e8-06f9-423c-8708-e37cc5d580a9"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="parameterType"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="92f64a7c-cec0-4938-b1a5-8958c91f0b09"
 			name="setup">
@@ -351,9 +393,17 @@
 								name="SetRangeInSmartFolder">
 								</testmodule>
 							</smartfoldernode>
+							<testmodule
+							id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
+							name="HideRanorexProgressDialog">
+							</testmodule>
 							<smartfoldernode
 							id="50ebadfc-94ce-4492-b602-f172dfa46a7a"
 							name="ModifyParametersInSelectedCalculationInput_ToDo">
+								<testmodule
+								id="86f974e8-06f9-423c-8708-e37cc5d580a9"
+								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								</testmodule>
 								<smartfoldernode
 								id="61c2df03-a382-4cca-8a70-abf34b38223e"
 								name="ModifyDoubleValueParameter_ToDo">
@@ -363,6 +413,10 @@
 								name="ModifyDropDownMenuParameter_ToDo">
 								</smartfoldernode>
 							</smartfoldernode>
+							<testmodule
+							id="6b7dcd8f-1534-4769-823f-963b540354c6"
+							name="ShowRanorexProgressDialog">
+							</testmodule>
 							<smartfoldernode
 							id="77fe5305-0370-4462-a7f8-9ba266c5eece"
 							name="SaveConfigurationXMLFileForCalculation_ToDo">
@@ -2618,7 +2672,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3114,7 +3168,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
