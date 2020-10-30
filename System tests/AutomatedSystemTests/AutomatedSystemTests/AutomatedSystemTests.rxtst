@@ -637,6 +637,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3And4DetailedAssessmentTypes"
+			errorbehavior="ContinueNextIteration"
 			id="11deb4af-0e82-45e2-9ba5-0d48b307fa21"
 			name="LoopRows">
 			</smartfoldernode>
@@ -5691,6 +5692,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup4WithDetailedAssessmentExpectedDetailedAssessment"
+			errorbehavior="ContinueNextIteration"
 			id="9394c311-ddbb-40e8-8bf9-8671ed2b409e"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
@@ -6006,7 +6008,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="9fc628e0-3635-46d4-8e09-dd66d791a3b0"
-			name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3"
+			name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup4"
 			ref="d39d077e-c625-4d57-a6e7-a73a70d77e0d"
 			type="Recording">
 				<databinding>
@@ -6845,7 +6847,7 @@
 			</testmodule>
 			<testmodule
 			id="b517f8dd-1c08-4365-a028-fce3f4452308"
-			name="ValidateDetailedAssessmentTypeAtRowGroup3"
+			name="ValidateDetailedAssessmentTypeAtRowGroup4"
 			ref="4bec016b-4d75-4a07-9bb2-a12badf2136b"
 			type="Recording">
 				<databinding>
@@ -12214,7 +12216,7 @@
 										name="ValidateDetailedAsssessmentValue">
 											<testmodule
 											id="9fc628e0-3635-46d4-8e09-dd66d791a3b0"
-											name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3">
+											name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup4">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -12233,7 +12235,7 @@
 											name="ValidateDetailedAsssessmentType">
 												<testmodule
 												id="b517f8dd-1c08-4365-a028-fce3f4452308"
-												name="ValidateDetailedAssessmentTypeAtRowGroup3">
+												name="ValidateDetailedAssessmentTypeAtRowGroup4">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
