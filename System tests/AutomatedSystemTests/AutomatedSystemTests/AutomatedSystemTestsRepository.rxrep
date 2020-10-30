@@ -572,6 +572,74 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="5463a298-04f2-4ecb-81d1-9702c5733f45"
+				isrooted="True"
+				name="HydraulicBCDunes"
+				refimgid="cd926d0c-1ab7-41a3-93e7-6fb16b852681"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="b032b126-789d-46aa-b7ab-ab1c08998b17"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="row"
+						id="c8521886-54a9-407d-94d4-a646a9c0f68e"
+						name="GenericRowHydraulicBCDunes"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+						</item>
+						<item
+						capname="cell"
+						id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
+						name="CellCalculatedWaterLevelDA"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+						</basepath>
+					</folder>
+					<folder
+					capname="container"
+					id="230b72be-fa67-4526-86b5-ffc995407fe1"
+					isrooted="True"
+					name="CalculationButtonsDA"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="button,control,nativewindow"
+						capname="button"
+						id="c5d97332-76d8-4900-be29-cdffe99cbf99"
+						name="CalculateForSelectedButton"
+						refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
+						refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container[@caption='']/container[@controlname='DuneLocationCalculationsViewBase']/container[@controlname='ButtonGroupBox']/button[@controlname='CalculateForSelectedButton']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
+					</basepath>
+				</folder>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="cefba828-ea6b-4e9d-a97a-641324e9af42"
+				name="BtnDialog"
+				refimgid="4671213b-78f7-413f-a23f-eaa0dfa9ec72"
+				refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDialog']"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDialog']
+				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -599,7 +667,7 @@ name="AutomatedSystemTestsRepository">
 				isrooted="True"
 				name="FailureMechanismResultView"
 				refimgid="7e319871-37f1-4b74-b100-c8695681a8e2"
-				searchtimeout="30000ms"
+				searchtimeout="10000ms"
 				usecache="True">
 					<folder
 					capname="table"
@@ -607,7 +675,7 @@ name="AutomatedSystemTestsRepository">
 					isrooted="True"
 					name="TableDataGridView"
 					refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
-					searchtimeout="30000ms"
+					searchtimeout="10000ms"
 					usecache="True">
 						<item
 						addcaps="cell,accessible"
@@ -615,7 +683,7 @@ name="AutomatedSystemTestsRepository">
 						id="78777803-f3ba-489a-8aa8-3ad795fbe569"
 						name="SimpleAssessmentTypeRowNth"
 						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Eenvoudige toets Row ']
 						</item>
 						<item
@@ -624,7 +692,7 @@ name="AutomatedSystemTestsRepository">
 						id="65e328b8-068a-4b37-a2d7-cb220911d1fe"
 						name="DetailedAsssessmentTypeRowNth"
 						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak Row ']
 						</item>
 						<item
@@ -633,7 +701,7 @@ name="AutomatedSystemTestsRepository">
 						id="a641d0c3-927e-4d5c-8c7f-5164b18f8462"
 						name="DetailedAssessmentValueRowNth"
 						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vakfaalkans Row ']
 						</item>
 						<item
@@ -642,7 +710,7 @@ name="AutomatedSystemTestsRepository">
 						id="88678175-4929-4e0e-a802-3dbaab044649"
 						name="CustomAsssessmentTypeRowNth"
 						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]
 						</item>
 						<item
@@ -651,7 +719,7 @@ name="AutomatedSystemTestsRepository">
 						id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
 						name="CustomAssessmentValueRowNth"
 						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
 						</item>
 						<item
@@ -660,7 +728,7 @@ name="AutomatedSystemTestsRepository">
 						id="4dac1e41-a578-4792-8699-3ba59fb3fe9b"
 						name="DetailedAssessmentValueCategories"
 						refimgid="d5e7cd57-012e-45dc-a780-ed3166ba405c"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
 						</item>
 						<item
@@ -669,7 +737,7 @@ name="AutomatedSystemTestsRepository">
 						id="adbd81b7-87e6-4348-9438-cf24fa3d31bc"
 						name="DetailedAssessmentTypeCategoryIv"
 						refimgid="39de783d-7558-4f5e-9fdb-05f8989ba096"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Iv']
 						</item>
 						<item
@@ -678,7 +746,7 @@ name="AutomatedSystemTestsRepository">
 						id="fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35"
 						name="DetailedAssessmentTypeCategoryIIv"
 						refimgid="2aa90b9d-fda2-459a-be90-da306a333eed"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIv']
 						</item>
 						<item
@@ -687,7 +755,7 @@ name="AutomatedSystemTestsRepository">
 						id="54aaf95b-b50c-4527-b5d6-ce1519184540"
 						name="DetailedAssessmentTypeCategoryIIIv"
 						refimgid="d0fa67ad-25dd-4ca8-8494-1a42898951ab"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIIv']
 						</item>
 						<item
@@ -696,7 +764,7 @@ name="AutomatedSystemTestsRepository">
 						id="46b0e398-5ea8-400e-9133-18443b9b3b69"
 						name="DetailedAssessmentTypeCategoryIVv"
 						refimgid="642ac44d-2681-4e71-9031-94963114ca9e"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IVv']
 						</item>
 						<item
@@ -705,7 +773,7 @@ name="AutomatedSystemTestsRepository">
 						id="54d174fe-ebc8-4465-a144-f91eb13fdcf6"
 						name="DetailedAssessmentTypeCategoryVv"
 						refimgid="12bba804-248e-47cb-a6c3-fb6f2cfd7206"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Vv']
 						</item>
 						<item
@@ -714,7 +782,7 @@ name="AutomatedSystemTestsRepository">
 						id="36bcd84c-e1a4-440b-9059-ef295de802e1"
 						name="DetailedAssessmentValuePerSection"
 						refimgid="d7e79c29-a957-4625-8c4e-34e7f02b5c5f"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
 						</item>
 						<item
@@ -723,7 +791,7 @@ name="AutomatedSystemTestsRepository">
 						id="687f57df-4210-4716-b1bb-a24e81983e66"
 						name="DetailedAssessmentTypePerSection"
 						refimgid="ee631e46-3cea-46d3-9674-172b07516265"
-						searchtimeout="30000ms">
+						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
 						</item>
 						<basepath>
@@ -977,7 +1045,7 @@ name="AutomatedSystemTestsRepository">
 				capname="row"
 				id="d79a0edd-fbc5-415d-8701-852d3bf28406"
 				isrooted="True"
-				name="GenericRow"
+				name="GenericMessageRow"
 				refimgid="d5377a2d-9d5a-4d81-928b-0ed2747fc681"
 				searchtimeout="30000ms"
 				usecache="False">
@@ -1063,41 +1131,12 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
-			name="Openen"
-			refimgid="3909d8e4-daf2-4c63-bcbd-c09567400fad"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']"
+			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
+			name="AllesBerekenen"
+			refimgid="c5fd86c0-01fb-4e8f-a0ca-35bb01f08598"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
-			</item>
-			<item
-			addcaps="menuitem,accessible"
-			capname="menuitem"
-			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
-			name="IsRelevant"
-			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']
-			</item>
-			<item
-			addcaps="menuitem,wpfelement,wpfgroupelement"
-			capname="menuitem"
-			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
-			name="Sluiten"
-			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
-			</item>
-			<item
-			addcaps="menuitem,wpfelement,wpfgroupelement"
-			capname="menuitem"
-			id="909957a0-8645-4c4e-9153-757dbd6962c4"
-			name="AllesUitklappen"
-			refimgid="92c52544-154e-46aa-92e9-418e60b10aa6"
-			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles uitklappen']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
 			</item>
 			<item
 			addcaps="menuitem,wpfelement,wpfgroupelement"
@@ -1109,14 +1148,13 @@ FjcAAAAASUVORK5CYII=
 				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles inklappen']
 			</item>
 			<item
-			addcaps="menuitem,accessible"
+			addcaps="menuitem,wpfelement,wpfgroupelement"
 			capname="menuitem"
-			id="942ab870-bf62-4d88-8050-58255777c435"
-			name="WisAlleUitvoer"
-			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']"
+			id="909957a0-8645-4c4e-9153-757dbd6962c4"
+			name="AllesUitklappen"
+			refimgid="92c52544-154e-46aa-92e9-418e60b10aa6"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles uitklappen']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1131,12 +1169,22 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
-			name="AllesBerekenen"
-			refimgid="c5fd86c0-01fb-4e8f-a0ca-35bb01f08598"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']"
+			id="8811db1f-3002-45fb-8742-158ef19d57b8"
+			name="Berekenen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="8d25a5c5-e67d-4b4c-93a4-f94323bb7d79"
+			name="Bijwerken"
+			refimgid="701155c2-8867-4559-802c-2d50303a6619"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1151,12 +1199,12 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="34965857-9328-4216-9d99-86afbd395e38"
-			name="Importeren"
-			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
+			id="e6ff1b1d-e9cf-4680-b405-2a5432145390"
+			name="Exporteren"
+			refimgid="8e2d6d0d-4dbf-4acc-979b-6f4008e87869"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1171,12 +1219,92 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
-			id="8d25a5c5-e67d-4b4c-93a4-f94323bb7d79"
-			name="Bijwerken"
-			refimgid="701155c2-8867-4559-802c-2d50303a6619"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']"
+			id="34965857-9328-4216-9d99-86afbd395e38"
+			name="Importeren"
+			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
+			name="IsRelevant"
+			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="b67d9db7-c97a-44ee-9cc6-3cac1b3aa092"
+			name="KoppelAanDatabase"
+			refimgid="36ae6201-95fe-41df-af4a-3ce021058f07"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Koppel aan database...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Koppel aan database...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
+			name="Openen"
+			refimgid="3909d8e4-daf2-4c63-bcbd-c09567400fad"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
+			name="Sluiten"
+			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="f3c6379c-4119-4897-bc56-dd1655e8f7fb"
+			name="Verwijderen"
+			refimgid="6e2ec83e-6f27-45a8-b58c-743fa28aa8cd"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="942ab870-bf62-4d88-8050-58255777c435"
+			name="WisAlleUitvoer"
+			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="941588e4-0afe-43fe-aed2-f224958b70b7"
+			name="WisIllustratiepunten"
+			refimgid="fad2713a-9513-4e1a-96b1-a1db37690d19"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis illustratiepunten...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis illustratiepunten...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="34b51270-6c61-4914-ad78-6119cf59670e"
+			name="WisUitvoer"
+			refimgid="c27b49a6-45d7-4acf-b75a-9902052e55e9"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
@@ -1271,53 +1399,10 @@ FjcAAAAASUVORK5CYII=
 		</appfolder>
 		<appfolder
 		capname="form"
-		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
-		isrooted="True"
-		name="OpenDialog"
-		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
-		refpath="/form[@title='Openen']"
-		searchtimeout="30000ms"
-		usecache="True">
-			<item
-			addcaps="text,nativewindow"
-			capname="text"
-			id="6605374b-06f5-4614-99d7-445816f0207d"
-			name="FileNameField"
-			refimgid="7ddc0ddc-89a2-427a-a9a6-739f4d236898"
-			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
-			searchtimeout="30000ms">
-				/form[@title='Openen']/?/?/text[@controlid='1148']
-			</item>
-			<item
-			addcaps="button,nativewindow"
-			capname="button"
-			id="cbbe1268-3660-4dd4-a308-278fbe50bc01"
-			name="ButtonOpen"
-			refimgid="ddcb4a10-d905-4e3a-80e6-db0c94dc7fc6"
-			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
-			searchtimeout="30000ms">
-				/form[@title='Openen']/button[@text='&amp;Open']
-			</item>
-			<basepath>
-				/form[@title='Openen']
-			</basepath>
-			<icon>
-				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
-AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
-aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
-bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
-4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
-uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
-xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
-gg==
-			</icon>
-		</appfolder>
-		<appfolder
-		capname="form"
 		id="6992b395-923d-4913-be11-dc9d7fa075dc"
 		isrooted="True"
 		name="ActivityProgressDialog"
-		refimgid="a2fbb6e9-16e1-4504-9257-bb6d67b367c8"
+		refimgid="0c9fa366-3792-4ebc-bea4-66980cf5fc8b"
 		refpath="/form[@controlname='ActivityProgressDialog']"
 		searchtimeout="30000ms"
 		usecache="True">
@@ -1339,6 +1424,16 @@ gg==
 			refpath="/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']"
 			searchtimeout="30000ms">
 				/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
+			</item>
+			<item
+			addcaps="text,control,nativewindow"
+			capname="text"
+			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
+			name="LabelActivityProgressText"
+			refimgid="746c79e5-beba-443e-bbd7-a96d590e9951"
+			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']"
+			searchtimeout="30000ms">
+				/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']
 			</item>
 			<item
 			addcaps="text,control,nativewindow"
@@ -1431,7 +1526,7 @@ QmCC
 			id="81ebade6-6648-4b3b-a974-22ccbf15c7dc"
 			name="GenericDropDownItem"
 			refimgid="12cca8c5-4c6c-4abc-b493-f41674b8275f"
-			searchtimeout="30000ms">
+			searchtimeout="5000ms">
 				/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 			</item>
 			<item
@@ -1719,6 +1814,131 @@ XrLp0EM2aG+RntUiB+ZT6fxfIsRPbYnQgbXhGFYAAAAASUVORK5CYII=
 			</item>
 			<basepath>
 				/form[@title='Bevestigen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="0d9a64ec-2e31-4550-883e-f86cf1e08e29"
+		isrooted="True"
+		name="SelectItemDialog"
+		refpath="/form[@controlname='SelectItemDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="listitem,checkable"
+			capname="listitem"
+			id="ab9a410e-84e4-4d83-aeb5-0574bad1c88e"
+			name="OptionCSV"
+			refimgid="3113f491-1c50-469b-96d1-c48c1ada2ac3"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectItemDialog']/list/listitem[@text&lt;'*.csv)']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="60eebdf2-2a5e-4a38-a8bb-e4c684bad433"
+			name="ButtonOk"
+			refimgid="c0523d75-7808-4f55-b7d9-84e30c80abca"
+			refpath="/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']
+			</item>
+			<basepath>
+				/form[@controlname='SelectItemDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABxSURBVDhPpY4BDsAgCAN5uk/jZ24Yu3QKivGS
+bmOBS+WlXkbqKa7AnpkYoUBVvzfC81YwHntpu5GAlwDPW0GmgSUUYIHhGd+hINMAuIJxyRhnZhKs
+GpRSWkA/PmsAAR3/BasGFrRwBSdMgsu4P5OR+gCK7Y8YG21ArQAAAABJRU5ErkJggg==
+			</icon>
+		</appfolder>
+		<appfolder
+		capname="form"
+		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
+		isrooted="True"
+		name="OpenDialog"
+		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
+		refpath="/form[@title='Openen']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="6605374b-06f5-4614-99d7-445816f0207d"
+			name="FileNameField"
+			refimgid="7ddc0ddc-89a2-427a-a9a6-739f4d236898"
+			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="cbbe1268-3660-4dd4-a308-278fbe50bc01"
+			name="ButtonOpen"
+			refimgid="ddcb4a10-d905-4e3a-80e6-db0c94dc7fc6"
+			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Openen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
+aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
+bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
+4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
+uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
+xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
+gg==
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="b4994c0d-5167-43e4-8cf7-09a41072ae61"
+		isrooted="True"
+		name="OpenFileDialog"
+		refimgid="de211477-5368-4a9b-be70-a4a8388097d0"
+		refpath="/form[@title='Open File']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="1003af8e-9e10-4fa3-9036-19f31d7713b9"
+			name="ButtonOpen"
+			refimgid="2cf87765-e788-495e-aebd-595b6f4af89b"
+			refpath="/form[@title='Open File']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Open File']/button[@text='&amp;Open']
+			</item>
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="88a4a7e6-e1ab-4778-871a-63b4fc5f59ae"
+			name="FileNameField"
+			refimgid="8e14b8b6-d6b8-473f-9a59-4ff87f2bbf41"
+			refpath="/form[@title='Open File']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open File']/?/?/text[@controlid='1148']
+			</item>
+			<basepath>
+				/form[@title='Open File']
 			</basepath>
 			<icon>
 				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx

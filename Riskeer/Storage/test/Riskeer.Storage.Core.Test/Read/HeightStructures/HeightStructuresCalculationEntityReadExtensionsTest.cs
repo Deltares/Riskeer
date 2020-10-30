@@ -179,7 +179,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var structureEntity = new HeightStructureEntity();
             var entity = new HeightStructuresCalculationEntity
             {
-                HeightStructureEntity = structureEntity,
+                HeightStructureEntity = structureEntity
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -199,7 +199,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new HeightStructuresCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity,
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();

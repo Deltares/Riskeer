@@ -697,7 +697,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.StabilityPointStructures,
-                calculation.InputParameters,
+                calculation.InputParameters
             }, affectedObjects);
         }
 

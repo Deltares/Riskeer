@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateSurfaceLineInProjectExplorer"
+	namespace="AutomatedSystemTests.Modules.Validation">
+	</codegen>
+	<variables>
+		<var
+		id="26fbca10-aacc-45e7-b769-190d617a619f"
+		name="expectedSurfaceLineName">
+		</var>
+	</variables>
+	<recorditems>
+		<validationitem
+		action="AttributeEqual"
+		duration="100ms"
+		enabled="True"
+		optional="False"
+		searchpropertyid="bc053379-0e4d-4ccc-979e-7f9fe8138e1e">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="MatchValue"
+				variable="expectedSurfaceLineName">
+				</binding>
+			</bindings>
+			<info
+			id="bd9f4f52-e7e2-4811-828d-534fed0d25e2"
+			sourcename="ElementTree">
+				<element
+				capabilities="accessible, accessibletreeitem"
+				dontcache="False"
+				enabled="True"
+				flavor="msaa"
+				hasfocus="False"
+				index="0"
+				prefcap="treeitem"
+				rect="141,384,62,18"
+				role="treeitem"
+				snapElem=""
+				valid="True"
+				visible="True">
+					<attribute
+					name="checked"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="expanded"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="selected"
+					type="System.Boolean">
+						True
+					</attribute>
+					<attribute
+					name="text"
+					type="System.String">
+						12_2_00100
+					</attribute>
+					<attribute
+					name="accessiblename"
+					type="System.String">
+						12_2_00100
+					</attribute>
+					<attribute
+					name="accessiblerole"
+					type="System.Windows.Forms.AccessibleRole, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						OutlineItem
+					</attribute>
+					<attribute
+					name="accessiblestate"
+					type="System.Windows.Forms.AccessibleStates, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						Selected, Focusable, Selectable
+					</attribute>
+					<attribute
+					name="accessiblevalue"
+					type="System.String">
+						5
+					</attribute>
+				</element>
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']//treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[@accessiblename='12_2_00100']
+				</path>
+			</info>
+			<helperscreenshot
+			guid="8b80377c-3b3d-4ac9-9a95-fa31896808b0">
+				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
+			</helperscreenshot>
+			<matchname>
+				Text
+			</matchname>
+			<matchvalue>
+				12_2_00100
+			</matchvalue>
+		</validationitem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="9da4c213-e16b-40ae-882c-b0ee67885665">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="bd9f4f52-e7e2-4811-828d-534fed0d25e2"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[$index]
+				</path>
+			</info>
+		</loggingrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateSurfaceLineInProjectExplorer.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

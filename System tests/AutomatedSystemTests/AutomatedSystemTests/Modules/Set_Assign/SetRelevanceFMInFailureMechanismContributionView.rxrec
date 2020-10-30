@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="126d009c-618d-402d-8d3d-fa9ecc02bef7"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="SetRelevanceFMInFailureMechanismContributionView"
+	namespace="AutomatedSystemTests.Modules.Set_Assign">
+	</codegen>
+	<variables>
+		<var
+		id="42b39611-e5ad-41f4-aa05-4779bcb10c5b"
+		name="isFMExpectedRelevant">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		autogenmethod="True"
+		classname="SetRelevanceFMInFailureMechanismContributionView"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="SetRelevanceInView"
+		namespace="RiskeerSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="a4f1164f-6e43-4d79-8856-59041ebbfbb7">
+				<argument
+				argname="cellInfo"
+				id="f9f5eecc-8682-4236-b518-fbee154adb94">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="59990c0d-401e-4dff-8f8b-b423839ef7c6"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="expectedRelevance"
+				id="61d243fa-f023-4d0d-b07c-874c195b202f"
+				variable="isFMExpectedRelevant">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		SetRelevanceFMInFailureMechanismContributionView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

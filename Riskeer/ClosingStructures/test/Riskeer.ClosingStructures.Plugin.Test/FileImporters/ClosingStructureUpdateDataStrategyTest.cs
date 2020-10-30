@@ -672,7 +672,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             {
                 failureMechanism.ClosingStructures,
                 structure,
-                calculation.InputParameters,
+                calculation.InputParameters
             }, affectedObjects);
         }
 
@@ -725,7 +725,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.ClosingStructures,
-                calculation.InputParameters,
+                calculation.InputParameters
             }, affectedObjects);
         }
 

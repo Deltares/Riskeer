@@ -239,7 +239,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = penetrationLength,
+                    PenetrationLength = penetrationLength
                 });
 
             // Call

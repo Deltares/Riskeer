@@ -256,7 +256,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData,
+                CloseForData = CloseCalculationsViewForData
             };
         }
 

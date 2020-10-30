@@ -544,7 +544,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                DetailedAssessmentResult = detailedAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult
             };
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =

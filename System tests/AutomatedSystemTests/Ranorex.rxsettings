@@ -7,7 +7,7 @@ rxversion="9.3">
 		True
 	</adapter.defaultuseensurevisible>
 	<adapter.functionexecutiontimeout>
-		5000ms
+		60000ms
 	</adapter.functionexecutiontimeout>
 	<imaging.defaultfindoptions>
 		1;None;0,0,0,0;True;10000000;0ms
