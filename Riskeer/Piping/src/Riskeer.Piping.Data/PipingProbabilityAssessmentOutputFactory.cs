@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Factory for creating <see cref="ProbabilityAssessmentOutput"/> for
-    /// grass cover erosion inwards.
+    /// piping.
     /// </summary>
     public static class PipingProbabilityAssessmentOutputFactory
     {
@@ -74,7 +74,6 @@ namespace Riskeer.Piping.Data
                                                              GetSectionLength(calculation, failureMechanism),
                                                              output.Reliability);
         }
-
 
         private static double GetSectionLength(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism)
         {

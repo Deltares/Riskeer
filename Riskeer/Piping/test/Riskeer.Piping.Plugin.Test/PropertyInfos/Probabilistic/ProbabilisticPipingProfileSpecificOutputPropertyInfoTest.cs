@@ -20,17 +20,14 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
-using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
 {

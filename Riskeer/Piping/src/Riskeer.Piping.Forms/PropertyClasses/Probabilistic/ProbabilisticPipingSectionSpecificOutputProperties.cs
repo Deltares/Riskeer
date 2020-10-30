@@ -38,7 +38,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 {
     /// <summary>
-    /// ViewModel of profile specific <see cref="PartialProbabilisticPipingOutput"/> for properties panel.
+    /// ViewModel of section specific <see cref="PartialProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
     public class ProbabilisticPipingSectionSpecificOutputProperties : ObjectProperties<PartialProbabilisticPipingOutput>
     {
@@ -92,8 +92,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                double reliability = data.Reliability;
-                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(reliability));
+                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(data.Reliability));
             }
         }
 
@@ -104,8 +103,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                double reliability = data.Reliability;
-                return new RoundedDouble(5, reliability);
+                return new RoundedDouble(5, data.Reliability);
             }
         }
 

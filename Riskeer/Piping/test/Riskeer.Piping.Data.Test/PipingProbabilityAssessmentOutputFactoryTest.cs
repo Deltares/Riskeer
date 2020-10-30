@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void Create_WithData_ReturnsProbabilityAssessmentInput()
+        public void Create_WithData_ReturnsProbabilityAssessmentOutput()
         {
             // Setup
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
