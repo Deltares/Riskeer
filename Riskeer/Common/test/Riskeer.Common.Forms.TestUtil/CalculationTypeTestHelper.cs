@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 {
                     new TestCaseData(CalculationType.Hydraulic, RiskeerFormsResources.HydraulicCalculationIcon),
                     new TestCaseData(CalculationType.Probabilistic, RiskeerFormsResources.ProbabilisticCalculationIcon),
-                    new TestCaseData(CalculationType.SemiProbabilistic, RiskeerFormsResources.SemiProbabilisticCalculationIcon),
+                    new TestCaseData(CalculationType.SemiProbabilistic, RiskeerFormsResources.SemiProbabilisticCalculationIcon)
                 };
             }
         }
