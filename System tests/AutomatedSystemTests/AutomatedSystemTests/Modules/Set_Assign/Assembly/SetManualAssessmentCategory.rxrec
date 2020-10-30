@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="a7eb8c7e-6846-46ff-b2ed-97d624f39d39"
+id="97f68751-6390-4dac-92f9-cba8feac75de"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,8 +19,8 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectDetailedAssessmentForRowCategoryIIIv"
-	namespace="AutomatedSystemTests.Modules.Selection.Assembly">
+	classname="SetManualAssessmentCategory"
+	namespace="AutomatedSystemTests.Modules.Set_Assign.Assembly">
 	</codegen>
 	<variables>
 	</variables>
@@ -35,10 +35,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="54aaf95b-b50c-4527-b5d6-ce1519184540"
-			sourcename="ItemRecorderEditor">
+			id="ed649f60-c755-4736-a5ae-f0e2e37cb7df"
+			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[6]
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
 				</path>
 			</info>
 			<arguments
@@ -62,10 +62,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="54aaf95b-b50c-4527-b5d6-ce1519184540"
-			sourcename="ItemRecorderEditor">
+			id="ed649f60-c755-4736-a5ae-f0e2e37cb7df"
+			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[6]
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
 				</path>
 			</info>
 		</mouseitem>
@@ -109,7 +109,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs
+		SetManualAssessmentCategory.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

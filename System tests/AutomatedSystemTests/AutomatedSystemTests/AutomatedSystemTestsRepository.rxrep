@@ -794,6 +794,33 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
 						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="f2bdbb83-2aeb-4e83-941e-0f050ec7cd59"
+						name="ManualAssessmentCheckbox"
+						refimgid="b46c7af8-2afc-4f3e-a087-bc1a4342b3c0"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Overschrijftoetsoordeel']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="e9d0837b-e5cb-4508-98b5-969509fe5459"
+						name="ManualAssessmentProbability"
+						refimgid="9de06033-118b-4cb0-b892-d8d4ba07a7c9"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<item
+						addcaps="combobox,control,nativewindow"
+						capname="cell"
+						id="ed649f60-c755-4736-a5ae-f0e2e37cb7df"
+						name="ManualAssessmentCategory"
+						refimgid="8fdb0378-b350-43ef-9d97-28b858f41157"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>

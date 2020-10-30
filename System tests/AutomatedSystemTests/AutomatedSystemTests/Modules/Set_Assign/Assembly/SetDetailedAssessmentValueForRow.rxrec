@@ -74,7 +74,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Set_value_DetailedAsssessmentTypeRowNth"
-		namespace="AutomatedSystemTests.Modules.Set_Assign"
+		namespace="AutomatedSystemTests.Modules.Set_Assign.Assembly"
 		optional="False">
 			<comment>
 			</comment>

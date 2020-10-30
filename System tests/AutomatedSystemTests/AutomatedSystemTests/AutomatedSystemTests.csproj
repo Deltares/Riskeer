@@ -816,6 +816,18 @@
       <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
       <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
     </Compile>
+    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.cs">
+      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
+      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b1d00206-2e02-4f3f-a592-4006df0414fb</id>
+    </Compile>
+    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.UserCode.cs">
+      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
+      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>77733967-26c1-4e31-9143-327d4a7865c9</id>
+    </Compile>
     <Compile Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.cs">
       <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -983,6 +995,30 @@
       <UserCode>true</UserCode>
       <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
       <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.cs">
+      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
+      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a4cb3394-efdb-4d64-a31f-9789d4512a37</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.UserCode.cs">
+      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
+      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>790834ac-4b5c-423c-bf00-8226c624f76a</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.cs">
+      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
+      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>22637067-3bb0-41f4-a038-1acd89730907</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.UserCode.cs">
+      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
+      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>dd2f233e-0eec-4b6f-b2e1-0990a7a28c9d</id>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetNewHBCScenario.cs">
       <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
@@ -1905,6 +1941,11 @@
       <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
       <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
     </None>
+    <None Include="Modules\Selection\Assembly\SelectManualAssessment.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e73590a3-2dd0-4529-a4ae-7751bcea43a8</id>
+      <recordtableid>5b015ee3-50ff-44a4-90b6-4b97670bff51</recordtableid>
+    </None>
     <None Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
@@ -1974,6 +2015,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
       <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
+    </None>
+    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>98a0c5e5-1218-4100-83f1-b8f30614e51d</id>
+      <recordtableid>97f68751-6390-4dac-92f9-cba8feac75de</recordtableid>
+    </None>
+    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>8669304c-d156-4ba1-82cd-5042b2515286</id>
+      <recordtableid>60536bb5-15fa-40e4-91d6-e5131d3e52c2</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetNewHBCScenario.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

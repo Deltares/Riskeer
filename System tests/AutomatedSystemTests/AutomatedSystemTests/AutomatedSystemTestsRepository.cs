@@ -3162,6 +3162,9 @@ namespace AutomatedSystemTests
             RepoItemInfo _detailedassessmenttypecategoryvvInfo;
             RepoItemInfo _detailedassessmentvaluepersectionInfo;
             RepoItemInfo _detailedassessmenttypepersectionInfo;
+            RepoItemInfo _manualassessmentcheckboxInfo;
+            RepoItemInfo _manualassessmentprobabilityInfo;
+            RepoItemInfo _manualassessmentcategoryInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -3182,6 +3185,9 @@ namespace AutomatedSystemTests
                 _detailedassessmenttypecategoryvvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Vv']", 10000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
                 _detailedassessmentvaluepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentValuePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 10000, null, "36bcd84c-e1a4-440b-9059-ef295de802e1");
                 _detailedassessmenttypepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentTypePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak']", 10000, null, "687f57df-4210-4716-b1bb-a24e81983e66");
+                _manualassessmentcheckboxInfo = new RepoItemInfo(this, "ManualAssessmentCheckbox", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Overschrijftoetsoordeel']", 10000, null, "f2bdbb83-2aeb-4e83-941e-0f050ec7cd59");
+                _manualassessmentprobabilityInfo = new RepoItemInfo(this, "ManualAssessmentProbability", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "e9d0837b-e5cb-4508-98b5-969509fe5459");
+                _manualassessmentcategoryInfo = new RepoItemInfo(this, "ManualAssessmentCategory", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "ed649f60-c755-4736-a5ae-f0e2e37cb7df");
             }
 
             /// <summary>
@@ -3517,6 +3523,78 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _detailedassessmenttypepersectionInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCheckbox item.
+            /// </summary>
+            [RepositoryItem("f2bdbb83-2aeb-4e83-941e-0f050ec7cd59")]
+            public virtual Ranorex.Cell ManualAssessmentCheckbox
+            {
+                get
+                {
+                    return _manualassessmentcheckboxInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCheckbox item info.
+            /// </summary>
+            [RepositoryItemInfo("f2bdbb83-2aeb-4e83-941e-0f050ec7cd59")]
+            public virtual RepoItemInfo ManualAssessmentCheckboxInfo
+            {
+                get
+                {
+                    return _manualassessmentcheckboxInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentProbability item.
+            /// </summary>
+            [RepositoryItem("e9d0837b-e5cb-4508-98b5-969509fe5459")]
+            public virtual Ranorex.Cell ManualAssessmentProbability
+            {
+                get
+                {
+                    return _manualassessmentprobabilityInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentProbability item info.
+            /// </summary>
+            [RepositoryItemInfo("e9d0837b-e5cb-4508-98b5-969509fe5459")]
+            public virtual RepoItemInfo ManualAssessmentProbabilityInfo
+            {
+                get
+                {
+                    return _manualassessmentprobabilityInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCategory item.
+            /// </summary>
+            [RepositoryItem("ed649f60-c755-4736-a5ae-f0e2e37cb7df")]
+            public virtual Ranorex.Cell ManualAssessmentCategory
+            {
+                get
+                {
+                    return _manualassessmentcategoryInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCategory item info.
+            /// </summary>
+            [RepositoryItemInfo("ed649f60-c755-4736-a5ae-f0e2e37cb7df")]
+            public virtual RepoItemInfo ManualAssessmentCategoryInfo
+            {
+                get
+                {
+                    return _manualassessmentcategoryInfo;
                 }
             }
         }
