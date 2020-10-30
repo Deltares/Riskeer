@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -54,7 +55,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
+        public void Constructor_OutputNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -224,6 +225,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
+            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticPipingProfileSpecificOutputProperties.AlphaValues));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Invloedscoëfficiënten [-]",
@@ -231,6 +234,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticPipingProfileSpecificOutputProperties.Durations));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Tijdsduren [uur]",
@@ -238,6 +243,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
+            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
+                nameof(ProbabilisticPipingProfileSpecificOutputProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
