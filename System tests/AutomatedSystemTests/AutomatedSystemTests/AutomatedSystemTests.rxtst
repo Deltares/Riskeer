@@ -4684,6 +4684,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="73055bb2-13c5-4667-9a1e-821a23b3dee3"
+			name="ManualOverride">
+			</smartfoldernode>
 			<testmodule
 			id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
 			name="CloseAUT"
@@ -12468,6 +12472,10 @@
 												name="ValidateDetailedAssessmentTypeAtRow">
 												</testmodule>
 											</smartfoldernode>
+											<smartfoldernode
+											id="73055bb2-13c5-4667-9a1e-821a23b3dee3"
+											name="ManualOverride">
+											</smartfoldernode>
 										</smartfoldernode>
 										<testmodule
 										id="50978c1d-654b-4c27-93ba-548c2da0207b"
@@ -14891,6 +14899,9 @@
 				</column>
 				<column>
 					DetailedAssessmentTypeItem
+				</column>
+				<column>
+					manualProbability
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -21661,6 +21672,9 @@
 			</testcontainer>
 			<testcontainer
 			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			</testcontainer>
+			<testcontainer
+			id="73055bb2-13c5-4667-9a1e-821a23b3dee3">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">

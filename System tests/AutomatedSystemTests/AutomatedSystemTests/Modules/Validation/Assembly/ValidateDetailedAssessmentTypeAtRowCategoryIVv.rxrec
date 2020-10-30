@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="42cf05e3-77be-41b2-bb8e-2d6b14e70872"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
+	namespace="AutomatedSystemTests.Modules.Validation.Assembly">
+	</codegen>
+	<variables>
+		<var
+		id="5f9740ff-8d23-4a68-9028-29ad1795735a"
+		name="expectedDetailedAssessmentCellType">
+			yourtext
+		</var>
+	</variables>
+	<recorditems>
+		<validationitem
+		action="AttributeEqual"
+		enabled="True"
+		optional="False"
+		searchpropertyid="0a9baa52-2c58-4d84-8bc0-46621b6079df">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="MatchValue"
+				variable="expectedDetailedAssessmentCellType">
+				</binding>
+			</bindings>
+			<info
+			id="46b0e398-5ea8-400e-9133-18443b9b3b69"
+			sourcename="ItemRecorderEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IVv']
+				</path>
+			</info>
+			<matchname>
+				AccessibleValue
+			</matchname>
+			<matchvalue>
+				yourtext
+			</matchvalue>
+		</validationitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateDetailedAssessmentTypeAtRowCategoryIVv.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
