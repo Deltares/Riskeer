@@ -108,8 +108,8 @@ namespace AutomatedSystemTests.Modules.Selection
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype' at .98;.5.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(2));
             repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype.Click(".98;.5");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Riskeer.TrajectType' at Center.", repo.Riskeer.TrajectTypeInfo, new RecordItemIndex(3));
-            repo.Riskeer.TrajectType.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuInRowPropertiesPanel.TrajectType' at Center.", repo.DropDownMenuInRowPropertiesPanel.TrajectTypeInfo, new RecordItemIndex(3));
+            repo.DropDownMenuInRowPropertiesPanel.TrajectType.Click();
             
             Click_ButtonOK_If_Shown(repo.Bevestigen.ButtonOKInfo);
             

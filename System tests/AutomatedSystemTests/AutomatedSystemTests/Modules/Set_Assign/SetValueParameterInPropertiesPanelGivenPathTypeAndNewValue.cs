@@ -7,6 +7,7 @@
  * To change this template use Tools > Options > Coding > Edit standard headers.
  */
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Threading;
 using WinForms = System.Windows.Forms;
 using Ranorex;
 using Ranorex.Core;
+using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Set_Assign
@@ -82,17 +84,20 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         
         public void SetDoubleParameterInPropertiesPanel(Ranorex.Row row, string newValue)
         {
-        	
+        	//Convert string number from fixed culture of tables in Ranorex to double
+        	// and then back to string using current culture
+        	System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
+        	fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+        	fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+        	newValue = Double.Parse(newValue, fixedDataSourceCulture).ToString(currentCulture);
+        	// Assign converted value
+        	row.Element.SetAttributeValue("AccessibleValue", newValue);
         }
         
         public void SetTextParameterInPropertiesPanel(Ranorex.Row row, string newValue)
         {
-        	
-        }
-        
-        public void SetDropDownParameterInPropertiesPanel(Ranorex.Row row, string newValue)
-        {
-        	
+        	row.Element.SetAttributeValue("AccessibleValue", newValue);
         }
         
     	/// <summary>
@@ -117,14 +122,20 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            
-            
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
-            
-            
             Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToElementInPropertiesPanel);
             
-            
+            switch (typeParameter) {
+            	case "Text":
+            		SetTextParameterInPropertiesPanel(row, newValueForParameter);
+            		break;
+            	case "Double":
+					SetDoubleParameterInPropertiesPanel(row, newValueForParameter);
+					break;
+            	default:
+            		Report.Log(ReportLevel.Error, "Type of parameter " + typeParameter + " not implemented!");
+            		break;
+            }
         }
     }
 }

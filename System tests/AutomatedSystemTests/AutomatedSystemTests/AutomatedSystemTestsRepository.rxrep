@@ -640,6 +640,16 @@ name="AutomatedSystemTestsRepository">
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDialog']
 				</item>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="3bf645bc-b589-440e-9827-e97c895e810b"
+				name="DropDownButtonInRowPropertiesPanel"
+				refimgid="6f7ad4dd-b075-485c-a461-fcea0b706d12"
+				refpath="/form[@automationid='RiskeerMainWindow']/list/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDropDown']"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDropDown']
+				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -1790,7 +1800,7 @@ TkSuQmCC
 		capname="form"
 		id="0ac12703-7585-4db4-95bd-26378ea2b64c"
 		isrooted="True"
-		name="Riskeer"
+		name="DropDownMenuInRowPropertiesPanel"
 		refpath="/form[@title='']"
 		searchtimeout="30000ms"
 		usecache="True">
@@ -1803,6 +1813,65 @@ TkSuQmCC
 			searchtimeout="30000ms">
 				/form[@title='']/?/?/listitem[@accessiblename=$trajectType]
 			</item>
+			<item
+			addcaps="listitem,accessible"
+			capname="listitem"
+			id="001be49f-dfc8-4169-a3ea-ad5c16d74180"
+			name="GenericItemInDropDownMenuOfRowItemInPropertiesPanel"
+			refimgid="61eab022-0797-4a27-81ba-f4302c287004"
+			searchtimeout="30000ms">
+				/form[@title='']/?/?/listitem[@accessiblename=$itemInDropDownMenu]
+			</item>
+			<item
+			addcaps="listitem,accessible"
+			capname="listitem"
+			id="305868f1-a0ce-42be-bf9d-0b7a19fde0bd"
+			name="Kwadratisch"
+			refimgid="cace5cfb-833d-4b69-8ca1-3e6ce4ebd23b"
+			refpath="/form[@title='']/list/listitem[@accessiblename='Kwadratisch']"
+			searchtimeout="30000ms">
+				/form[@title='']/?/?/listitem[@accessiblename='Kwadratisch']
+			</item>
+			<item
+			addcaps="listitem,accessible"
+			capname="listitem"
+			id="d90fdc74-1a95-47ba-a0b1-8ac170c81ddb"
+			name="YM2122Dk0007278Km"
+			refimgid="7eb70f0a-ae3b-48fd-b80d-15b4e0fb6d38"
+			refpath="/form[@title='']/list/list/listitem[@accessiblename>'YM_2_12-2_dk_00072 (7,8 k']"
+			searchtimeout="30000ms">
+				/form[@title='']/list[@controlname='currentControl']/?/?/listitem[@accessiblename&gt;'YM_2_12-2_dk_00072 (7,8 k']
+			</item>
+			<item
+			addcaps="listitem,accessible"
+			capname="listitem"
+			id="3dbdbccc-71a1-4ebb-b3c1-7ada9d8d78b1"
+			name="YM2122Dk0003524Km"
+			refimgid="7364c680-8724-4915-8eff-abd1a8b8f87e"
+			refpath="/form[@title='']/list[@controlname='currentControl']/list[@accessiblerole='List']/listitem[@accessiblename='YM_2_12-2_dk_00035 (2,4 km)']"
+			searchtimeout="30000ms">
+				/form[@title='']/list[@controlname='currentControl']/?/?/listitem[@accessiblename&gt;'YM_2_12-2_dk_00035 (2,4 k']
+			</item>
+			<folder
+			capname="list"
+			id="9b460c01-d201-4d71-85d1-108e27c4b272"
+			isrooted="True"
+			name="List"
+			refimgid="78baae01-7910-4bc3-be06-fba51e05ac52"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="listitem,accessible"
+				capname="listitem"
+				id="532ede54-3f03-4afe-896f-36f3614c200b"
+				name="genericItemInDropDownList"
+				searchtimeout="30000ms">
+					/form[@title='']/?/?/list[@accessiblerole='List']/listitem[@accessiblename~$newValueForParameter]
+				</item>
+				<basepath>
+					/form[@title='']/?/?/list[@accessiblerole='List']
+				</basepath>
+			</folder>
 			<basepath>
 				/form[@title='']
 			</basepath>
@@ -2085,6 +2154,18 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="121a4097-5300-41ca-96ae-24fe4605dd20"
 		name="substringSubSubItemName">
+		</var>
+		<var
+		id="cf8e51a0-a8fb-4932-89eb-88707e8e53cb"
+		name="itemInDropDownMenu">
+		</var>
+		<var
+		id="d3f8e98c-052e-4dbf-84ca-9ec77e91cb0b"
+		name="locationName">
+		</var>
+		<var
+		id="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+		name="newValueForParameter">
 		</var>
 	</variables>
 </repository>
