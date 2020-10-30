@@ -221,7 +221,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         private void InflowModelTypeChanged(object sender, EventArgs e)
         {
-            UpdateDataGridViewDataSource(false);
+            UpdateDataGridViewDataSource();
         }
 
         #region Update combo box list items

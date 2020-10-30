@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modulegroupdoc>
+  <testsuiteentryhierarchy>
+    <flatlistofchildren>
+      <modulegroups
+      name="AutomatedSystemTests"
+      id="0a837813-91bf-462e-916f-1f19b25e9ab6"/>
+    </flatlistofchildren>
+    <childhierarchy>
+      <modulegroups
+      name="AutomatedSystemTests"
+      id="0a837813-91bf-462e-916f-1f19b25e9ab6"/>
+    </childhierarchy>
+  </testsuiteentryhierarchy>
+</modulegroupdoc>

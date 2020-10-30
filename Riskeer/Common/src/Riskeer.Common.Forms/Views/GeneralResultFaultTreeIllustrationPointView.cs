@@ -68,6 +68,7 @@ namespace Riskeer.Common.Forms.Views
 
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
             illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;
+            Name = "GeneralResultFaultTreeIllustrationPointViewName";
         }
 
         public object Selection { get; private set; }

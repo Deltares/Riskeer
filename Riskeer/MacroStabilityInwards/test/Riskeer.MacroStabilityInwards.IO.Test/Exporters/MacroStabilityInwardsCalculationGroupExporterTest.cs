@@ -573,7 +573,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     // Assert
                     TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
                     {
-                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsTrue(exportResult);
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
@@ -626,7 +626,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
                     {
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
-                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name)));
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
@@ -678,7 +678,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     // Assert
                     TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
                     {
-                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsTrue(exportResult);
                     Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation1.Name}.{fileExtension}")));

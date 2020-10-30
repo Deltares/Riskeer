@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using log4net.Config;
 
-[assembly: XmlConfigurator(Watch = true)]
 [assembly: AssemblyTitle("Riskeer")]
 [assembly: AssemblyProduct("Riskeer")]

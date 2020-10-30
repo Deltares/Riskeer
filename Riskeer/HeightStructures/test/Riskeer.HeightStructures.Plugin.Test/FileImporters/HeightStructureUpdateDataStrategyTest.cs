@@ -671,7 +671,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             {
                 failureMechanism.HeightStructures,
                 structure,
-                calculation.InputParameters,
+                calculation.InputParameters
             }, affectedObjects);
         }
 
@@ -724,7 +724,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
-                calculation.InputParameters,
+                calculation.InputParameters
             }, affectedObjects);
         }
 

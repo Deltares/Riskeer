@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<report
+	progress="">
+	<activity
+		result="Success"
+		duration="4.64s"
+		durationms="4637"
+		type="root"
+		rid="2dcfab469e733e0"
+		totalerrorcount="0"
+		totalwarningcount="1"
+		totalsuccesstestcasecount="0"
+		totalfailedtestcasecount="0"
+		totalblockedtestcasecount="0"
+		childsuccesscount="0"
+		childfailedcount="0"
+		childblockedcount="0"
+		totalsuccesscount="0"
+		totalfailedcount="0"
+		totalblockedcount="0"
+		totalmaintenancemodecount="0"
+		user="rodriqu_dd"
+		rxversion="9.3.3.0"
+		host="L02273"
+		osversion="Windows 10 64bit"
+		runtimeversion="4.0.30319.42000"
+		procarch="32bit"
+		oslanguage="en-US"
+		dtnlanguage="en-GB"
+		screenresolution="3840x1080"
+		timestamp="29/10/2020 12:39:55"
+		timestampiso="2020-10-29T11:39:55"
+		endtime="29/10/2020 12:39:59"
+		timeoutfactor="1"
+		runid=""
+		sutversion="">
+		<detail>
+			Ranorex Testscript
+		</detail>
+		<item
+			timeRelativeToTestSuiteStartTime="00:00.037"
+			timeRelativeToTestModuleStartTime="00:00.037"
+			timeWallClock="12:39:55"
+			time="00:00.037"
+			level="Warn"
+			category="Automation">
+			<message>
+				The apartment state of the current thread is not set to STA. Please make sure that all threads accessing Ranorex methods have their apartment state set to STA.
+			</message>
+			<metainfo
+				loglvl="Warn">
+			</metainfo>
+		</item>
+	</activity>
+</report>

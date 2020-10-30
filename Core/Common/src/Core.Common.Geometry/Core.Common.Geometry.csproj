@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -11,19 +11,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics">
       <Version>3.19.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MathNet.Spatial">
       <Version>0.3.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="NetTopologySuite">
       <Version>1.14.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="GeoAPI">
+      <Version>1.7.4</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-3.19.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.3.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-1.14.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgGeoAPI)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GeoAPI-1.7.4\*&quot;" />
+  </Target>
 </Project>

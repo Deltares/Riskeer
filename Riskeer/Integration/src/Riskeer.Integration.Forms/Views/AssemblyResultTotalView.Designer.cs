@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.refreshAssemblyResultsButton = new System.Windows.Forms.Button();
+            this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
             this.assemblyResultTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.totalResultLabel = new System.Windows.Forms.Label();
@@ -225,7 +225,7 @@ namespace Riskeer.Integration.Forms.Views
         #endregion
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button refreshAssemblyResultsButton;
+        private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox assemblyResultGroupBox;
         private System.Windows.Forms.TableLayoutPanel assemblyResultTableLayoutPanel;
         private System.Windows.Forms.Label totalResultLabel;

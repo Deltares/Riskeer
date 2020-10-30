@@ -64,11 +64,11 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_GetGeneralResultFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResultFaultTreeIllustrationPointView(null);
+            void Call() => new GeneralResultFaultTreeIllustrationPointView(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("getGeneralResultFunc", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getGeneralResultFunc", exception.ParamName);
         }
 
         [Test]
@@ -82,6 +82,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreEqual("GeneralResultFaultTreeIllustrationPointViewName", view.Name);
 
                 Assert.AreEqual(1, view.Controls.Count);
 

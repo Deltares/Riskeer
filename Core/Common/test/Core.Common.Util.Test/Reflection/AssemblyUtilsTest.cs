@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 
@@ -34,11 +33,11 @@ namespace Core.Common.Util.Test.Reflection
         public void GetAssemblyInfo_AssemblyNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyUtils.GetAssemblyInfo(null);
+            void Call() => AssemblyUtils.GetAssemblyInfo(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual(paramName, "assembly");
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assembly", exception.ParamName);
         }
 
         [Test]
@@ -63,14 +62,14 @@ namespace Core.Common.Util.Test.Reflection
         public void GetAssemblyInfo_ForThisTestProjectAssembly_ReturnAssemblyInfoWithExpectedValues()
         {
             // Setup
-            Assembly assembly = Assembly.GetAssembly(GetType());
+            var assembly = System.Reflection.Assembly.GetAssembly(GetType());
 
             // Call
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
 
             // Assert
             Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2020", assemblyInfo.Copyright);
+            Assert.AreEqual("Copyright Â© Deltares 2020", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
             StringAssert.StartsWith("20.1.1", assemblyInfo.Version);
@@ -80,7 +79,7 @@ namespace Core.Common.Util.Test.Reflection
         public void GetExecutingAssemblyInfo_ReturnAssemblyInfoForAssemblyUtilsAssembly()
         {
             // Setup
-            Assembly assembly = Assembly.GetAssembly(typeof(AssemblyUtils));
+            var assembly = System.Reflection.Assembly.GetAssembly(typeof(AssemblyUtils));
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
 
             // Call
@@ -112,15 +111,15 @@ namespace Core.Common.Util.Test.Reflection
         public void GetTypeByName_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyUtils.GetTypeByName(null);
+            void Call() => AssemblyUtils.GetTypeByName(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("name", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
-        public void GetTypeByName_ForNonexistingClass_ReturnNull()
+        public void GetTypeByName_ForNonExistingClass_ReturnNull()
         {
             // Call
             Type returnedType = AssemblyUtils.GetTypeByName("I.Dont.Exist");
@@ -133,11 +132,11 @@ namespace Core.Common.Util.Test.Reflection
         public void GetAssemblyResourceStream_AssemblyNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyUtils.GetAssemblyResourceStream(null, "nice.txt");
+            void Call() => AssemblyUtils.GetAssemblyResourceStream(null, "nice.txt");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assembly", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assembly", exception.ParamName);
         }
 
         [Test]
@@ -154,25 +153,19 @@ namespace Core.Common.Util.Test.Reflection
         }
 
         [Test]
-        public void GetAssemblyResourceStream_ForNonexistingEmbeddedResource_ThrowArgumentException()
+        public void GetAssemblyResourceStream_ForNonExistingEmbeddedResource_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, "I do not exist.txt");
+            void Call() => AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, "I do not exist.txt");
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
-        private class MockedAssemblyWithoutLocation : Assembly
+        private class MockedAssemblyWithoutLocation : System.Reflection.Assembly
         {
-            public override string Location
-            {
-                get
-                {
-                    return "";
-                }
-            }
+            public override string Location => "";
         }
     }
 }

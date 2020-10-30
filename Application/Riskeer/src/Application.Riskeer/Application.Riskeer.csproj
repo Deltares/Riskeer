@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Riskeer.ico</ApplicationIcon>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -25,78 +26,30 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Demo\Riskeer\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Assembly\Core.Common.Assembly.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -109,15 +62,39 @@
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon">
       <Version>3.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.109.2</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Data.SQLite.EF6">
       <Version>1.0.109</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgFluent_Ribbon)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Fluent-3.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-2.0.8\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net45\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\x64\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net45\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\x86\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.109\*&quot;" />
+  </Target>
+  <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
+  <!-- Make all references non-private, so they won't be copied to the output folder. -->
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
+  </Target>
 </Project>

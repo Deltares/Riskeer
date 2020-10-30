@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.refreshAssemblyResultsButton = new System.Windows.Forms.Button();
+            this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Forms.Views
         #endregion
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button refreshAssemblyResultsButton;
+        private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox buttonGroupBox;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ErrorProvider warningProvider;
