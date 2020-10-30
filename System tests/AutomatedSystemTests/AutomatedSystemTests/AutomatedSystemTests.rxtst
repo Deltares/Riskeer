@@ -1199,6 +1199,40 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="1cc90c67-ee12-4ffa-b2cd-eaf57d826777"
+			name="ValidateCustomAssessmentTypeAtRow"
+			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="8e06b845-f322-4fe6-8fdd-147dc21f8aa9"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedCustomAssessmentType"
+					datasourceid="8e06b845-f322-4fe6-8fdd-147dc21f8aa9"
+					variableid="55436726-1ae4-499b-a008-467c0a220c26"
+					variablename="expectedCustomAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="5c3a5e65-4bf7-4299-94c1-59bb63d9d3bf"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedCustomAssessmentType"
+					datasourceid="5c3a5e65-4bf7-4299-94c1-59bb63d9d3bf"
+					variableid="55436726-1ae4-499b-a008-467c0a220c26"
+					variablename="expectedCustomAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script21_FM_STBUTraject"
 			id="1ce4b4fb-84b9-4d0d-93dd-bb845c14dde5"
@@ -1456,6 +1490,16 @@
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script21_FMGroup3ExpectedCustomAssessmentInput"
+			id="241c6b25-774d-44ac-8722-80abf5bc1485"
+			name="ValidateCustomAssessmentInput">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script21_FMGroup3CustomAssessmentTraject"
+			id="24298481-ab64-4e27-9e95-b137d871829f"
+			name="FMsGroup3">
+			</smartfoldernode>
 			<smartfoldernode
 			id="24a2d5c7-e466-4b82-b1d8-555faa0bb727"
 			name="SelectRowGEBU">
@@ -3713,6 +3757,52 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="5e85a7ff-af51-46bb-ab46-281ccd3995b7"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="5f203ea9-0790-4f9f-a255-8a50205c165a"
+			name="OpenResultView"
+			ref="14b19856-facd-4b69-82b3-b7f678560774"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fmName"
+					datasourceid="4fb5eca3-9e9d-4c06-9976-d9ba1a221e41"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="4fb5eca3-9e9d-4c06-9976-d9ba1a221e41"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="trajectID"
+					datasourceid="eb28a39f-ba9c-473b-9669-2b4db8270a01"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="eb28a39f-ba9c-473b-9669-2b4db8270a01"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="6026e788-c001-4adb-96e7-e5348b3c7bcc"
 			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
 			ref="a0fb1576-cc6f-43a8-9e64-da0db902668d"
@@ -4043,6 +4133,40 @@
 					variablename="nameOfParameter">
 					</var>
 				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
+			id="677e04ec-9156-4ccf-8d40-b19eb6545f15"
+			name="ValidateCustomAssessmentTypeAtRow"
+			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="customAssessmentType"
+					datasourceid="20056d69-c1f3-4b9e-b64e-de1edf3e9a00"
+					variableid="55436726-1ae4-499b-a008-467c0a220c26"
+					variablename="expectedCustomAssessmentCellType">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="20056d69-c1f3-4b9e-b64e-de1edf3e9a00"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7663612d-e622-4495-bde1-bf29c40ad5ab"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="customAssessmentType"
+					datasourceid="7663612d-e622-4495-bde1-bf29c40ad5ab"
+					variableid="55436726-1ae4-499b-a008-467c0a220c26"
+					variablename="expectedCustomAssessmentCellType">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6902f33a-ab0e-47e0-997e-2d42ef7e91b2"
@@ -5307,6 +5431,10 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
+			id="884cc0ab-8a9f-4894-b1f9-0a59e07d3065"
+			name="LoopRowsSelectCustomAssessmentType">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="simpleAssessmentGroup2"
 			id="885b0dbd-85dc-44b0-9c04-06b382fd2158"
 			name="LoopRows">
@@ -5364,6 +5492,40 @@
 					variablename="substringTrajectName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="88b371c9-6874-48ba-ae55-e6cacef4b06f"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="customAssessmentType"
+					datasourceid="20056d69-c1f3-4b9e-b64e-de1edf3e9a00"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="20056d69-c1f3-4b9e-b64e-de1edf3e9a00"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7663612d-e622-4495-bde1-bf29c40ad5ab"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="customAssessmentType"
+					datasourceid="7663612d-e622-4495-bde1-bf29c40ad5ab"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8a483e8e-0257-4baa-b8ae-c4044aa7f497"
@@ -5796,6 +5958,10 @@
 			id="97acd6fa-06ba-465a-8122-28b064224d31"
 			name="ValidateCustomAssessment">
 			</smartfoldernode>
+			<smartfoldernode
+			id="97fdd56d-de66-47c4-820d-968e0b8f300d"
+			name="ValidateCustomAssessment">
+			</smartfoldernode>
 			<testmodule
 			id="98217c5a-f9f6-48b6-83c0-be402c429503"
 			name="SelectTrajectType"
@@ -5926,6 +6092,11 @@
 			errorbehavior="ContinueParent"
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
 			name="OpenRelevanceProject">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script21_FMGroup3CustomAssessment"
+			id="9ce4768a-7ae5-419a-8f55-7bf0522266ee"
+			name="LoopRows">
 			</smartfoldernode>
 			<testmodule
 			id="9dc886de-ec48-4c16-a449-a9fb33da2637"
@@ -8278,6 +8449,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d"
+			name="CustomAssessmentFMsGroup3">
+			</smartfoldernode>
 			<smartfoldernode
 			id="dc49a1cf-9a7f-4d5b-bd4c-d44aa18e22d7"
 			name="MakeScreenshotOfDocumentView">
@@ -12389,6 +12564,50 @@
 										</smartfoldernode>
 										<testmodule
 										id="85cf6289-1584-487f-9f9d-8d090c852643"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d"
+								name="CustomAssessmentFMsGroup3">
+									<smartfoldernode
+									id="24298481-ab64-4e27-9e95-b137d871829f"
+									name="FMsGroup3">
+										<testmodule
+										id="5f203ea9-0790-4f9f-a255-8a50205c165a"
+										name="OpenResultView">
+										</testmodule>
+										<smartfoldernode
+										id="241c6b25-774d-44ac-8722-80abf5bc1485"
+										name="ValidateCustomAssessmentInput">
+											<testmodule
+											id="1cc90c67-ee12-4ffa-b2cd-eaf57d826777"
+											name="ValidateCustomAssessmentTypeAtRow">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="9ce4768a-7ae5-419a-8f55-7bf0522266ee"
+										name="LoopRows">
+											<smartfoldernode
+											id="884cc0ab-8a9f-4894-b1f9-0a59e07d3065"
+											name="LoopRowsSelectCustomAssessmentType">
+												<testmodule
+												id="88b371c9-6874-48ba-ae55-e6cacef4b06f"
+												name="SetCustomAssessmentAtRow">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="97fdd56d-de66-47c4-820d-968e0b8f300d"
+											name="ValidateCustomAssessment">
+												<testmodule
+												id="677e04ec-9156-4ccf-8d40-b19eb6545f15"
+												name="ValidateCustomAssessmentTypeAtRow">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<testmodule
+										id="5e85a7ff-af51-46bb-ab46-281ccd3995b7"
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
@@ -19634,6 +19853,172 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="20056d69-c1f3-4b9e-b64e-de1edf3e9a00"
+		lastknownrowcount="8"
+		name="script21_FMGroup3CustomAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					customAssessmentType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						customAssessmentType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						&lt;selecteer&gt;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Iv (FV)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						IIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						IIIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						IVv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						Vv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						VIIv (NGO)
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="4fb5eca3-9e9d-4c06-9976-d9ba1a221e41"
+		lastknownrowcount="4"
+		name="script21_FMGroup3CustomAssessmentTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					fmName
+				</column>
+				<column>
+					trajectID
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmLabel
+					</th>
+					<th>
+						fmName
+					</th>
+					<th>
+						trajectID
+					</th>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						Traject 12-2 Overig
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						Traject 12-2 Overig
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						Traject 12-2 Overig
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						Traject 12-2 Overig
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="72d4491b-c347-4805-9885-3b1077258730"
 		lastknownrowcount="4"
 		name="script21_FMGroup3DetailedAssessment"
@@ -19687,6 +20072,96 @@
 					</td>
 					<td>
 						Duinwaterkering - Duinafslag
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="8e06b845-f322-4fe6-8fdd-147dc21f8aa9"
+		lastknownrowcount="8"
+		name="script21_FMGroup3ExpectedCustomAssessmentInput"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					expectedCustomAssessmentType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						expectedCustomAssessmentType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						&lt;selecteer&gt;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						Iv (FV)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						IIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						IIIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						IVv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						8
+					</td>
+					<td>
+						Vv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						9
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						10
+					</td>
+					<td>
+						VIIv (NGO)
 					</td>
 				</tr>
 			</table>
@@ -20617,6 +21092,12 @@
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
 			</testcontainer>
 			<testcontainer
+			id="241c6b25-774d-44ac-8722-80abf5bc1485">
+			</testcontainer>
+			<testcontainer
+			id="24298481-ab64-4e27-9e95-b137d871829f">
+			</testcontainer>
+			<testcontainer
 			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
@@ -20755,6 +21236,9 @@
 			id="82ffc294-04aa-4665-85ca-aa4836c82cc2">
 			</testcontainer>
 			<testcontainer
+			id="884cc0ab-8a9f-4894-b1f9-0a59e07d3065">
+			</testcontainer>
+			<testcontainer
 			id="885b0dbd-85dc-44b0-9c04-06b382fd2158">
 			</testcontainer>
 			<testcontainer
@@ -20776,6 +21260,9 @@
 			id="97acd6fa-06ba-465a-8122-28b064224d31">
 			</testcontainer>
 			<testcontainer
+			id="97fdd56d-de66-47c4-820d-968e0b8f300d">
+			</testcontainer>
+			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
 			</testcontainer>
 			<testcontainer
@@ -20783,6 +21270,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
+			</testcontainer>
+			<testcontainer
+			id="9ce4768a-7ae5-419a-8f55-7bf0522266ee">
 			</testcontainer>
 			<testcontainer
 			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac">
@@ -20876,6 +21366,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
+			</testcontainer>
+			<testcontainer
+			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d">
 			</testcontainer>
 			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
