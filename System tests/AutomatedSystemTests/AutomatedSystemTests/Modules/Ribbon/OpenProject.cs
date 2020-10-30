@@ -86,19 +86,17 @@ namespace AutomatedSystemTests.Modules.Ribbon
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
             Keyboard.PrepareFocus(repo.RiskeerMainWindow.Self);
             Keyboard.Press(System.Windows.Forms.Keys.O | System.Windows.Forms.Keys.Control, Keyboard.DefaultScanCode, Keyboard.DefaultKeyPressTime, 1, true);
-            Delay.Milliseconds(0);
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(2));
             
@@ -107,19 +105,16 @@ namespace AutomatedSystemTests.Modules.Ribbon
             // Assign file name to open
             Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(4));
             repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
-            Delay.Milliseconds(0);
             
             // Click on open button
             Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(5));
             repo.OpenDialog.ButtonOpen.Click();
-            Delay.Milliseconds(0);
             
             // Wait time (300ms) so that dialog is started up
             Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(6));
             Delay.Duration(300, false);
             
             Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
-            Delay.Milliseconds(0);
             
             // Wait time (300ms) so that dialog is started up
             Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(8));
