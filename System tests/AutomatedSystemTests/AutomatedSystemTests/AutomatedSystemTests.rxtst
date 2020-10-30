@@ -1371,6 +1371,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0"
+			name="ManualOverride">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="simpleAssessmentGroup1"
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
 			name="LoopRows">
@@ -1618,6 +1622,28 @@
 					variablename="substringTrajectName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="26405822-1004-4c5c-8989-6e04a7c7d5f4"
+			name="SelectManualAssessment"
+			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="26779f69-8b0e-43c2-808f-c922f63bab34"
@@ -2834,6 +2860,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="43383af6-a246-4f73-824c-8246a6a9a0b2"
+			name="ManualOverride">
+			</smartfoldernode>
+			<smartfoldernode
 			id="435753ca-94bd-462c-bf24-db7a546a9fe1"
 			name="SelectRowDA">
 				<conditiongroup
@@ -3266,6 +3296,28 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="530f0c5a-43ea-4f55-9615-51729ffea2fd"
+			name="SelectManualAssessment"
+			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="5328d042-0c00-4277-af0a-8c5ec2f49435"
@@ -3797,6 +3849,40 @@
 					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
 					variableid="3f59ffa1-9268-4020-89db-834b5121cca0"
 					variablename="categorySuffix">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="5d6090b0-0f3c-4d43-9c27-1448bcbf4a40"
+			name="SetManualAssessmentCategory"
+			ref="97f68751-6390-4dac-92f9-cba8feac75de"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualAssessmentCategory"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualCategory"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4570,6 +4656,40 @@
 			id="6e80f060-cb78-47ce-a16b-3425624471c4"
 			name="ValidateUnfinishedCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="6eacc37f-1eb4-4112-a2bf-52e25fc91f35"
+			name="SetManualAssessmentCategory"
+			ref="97f68751-6390-4dac-92f9-cba8feac75de"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualAssessmentCategory"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualCategory"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
 			name="ValidateTextMesage"
@@ -12684,6 +12804,18 @@
 												name="ValidateDetailedAssessmentTypeAtRowCategoryVv">
 												</testmodule>
 											</smartfoldernode>
+											<smartfoldernode
+											id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0"
+											name="ManualOverride">
+												<testmodule
+												id="26405822-1004-4c5c-8989-6e04a7c7d5f4"
+												name="SelectManualAssessment">
+												</testmodule>
+												<testmodule
+												id="6eacc37f-1eb4-4112-a2bf-52e25fc91f35"
+												name="SetManualAssessmentCategory">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<testmodule
 										id="33b9b55e-e838-4b85-b602-fe6f64e4c587"
@@ -12726,6 +12858,18 @@
 												<testmodule
 												id="b517f8dd-1c08-4365-a028-fce3f4452308"
 												name="ValidateDetailedAssessmentTypeAtRowGroup4">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="43383af6-a246-4f73-824c-8246a6a9a0b2"
+											name="ManualOverride">
+												<testmodule
+												id="530f0c5a-43ea-4f55-9615-51729ffea2fd"
+												name="SelectManualAssessment">
+												</testmodule>
+												<testmodule
+												id="5d6090b0-0f3c-4d43-9c27-1448bcbf4a40"
+												name="SetManualAssessmentCategory">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
@@ -20171,6 +20315,9 @@
 				<column>
 					DetailedAssessmentType
 				</column>
+				<column>
+					manualAssessmentCategory
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -20182,6 +20329,9 @@
 					<th>
 						DetailedAssessmentType
 					</th>
+					<th>
+						manualAssessmentCategory
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -20189,6 +20339,9 @@
 					</td>
 					<td>
 						&lt;selecteer&gt;
+					</td>
+					<td>
+						IIv
 					</td>
 				</tr>
 				<tr>
@@ -20198,6 +20351,9 @@
 					<td>
 						V
 					</td>
+					<td>
+						Vv
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -20206,6 +20362,9 @@
 					<td>
 						VN
 					</td>
+					<td>
+						NVT
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -20213,6 +20372,9 @@
 					</td>
 					<td>
 						NGO
+					</td>
+					<td>
+						Iv
 					</td>
 				</tr>
 			</table>
@@ -21692,6 +21854,9 @@
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
 			</testcontainer>
 			<testcontainer
+			id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0">
+			</testcontainer>
+			<testcontainer
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
 			</testcontainer>
 			<testcontainer
@@ -21738,6 +21903,9 @@
 			</testcontainer>
 			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
+			</testcontainer>
+			<testcontainer
+			id="43383af6-a246-4f73-824c-8246a6a9a0b2">
 			</testcontainer>
 			<testcontainer
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
