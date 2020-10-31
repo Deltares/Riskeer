@@ -1062,6 +1062,16 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Faalkansbijdrage [%]']
 					</item>
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="886ec40d-3348-40d3-b6f5-3e5f73116927"
+					name="HydraulischeBelastingenlocatie"
+					refimgid="40b1645c-24f9-4c53-b26c-440534e0f238"
+					refpath="/form[@automationid='RiskeerMainWindow']/list/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/table/row[@accessiblename>'Hydraulische belastingenl']"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;'Hydraulische belastingenl']
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
 					</basepath>
@@ -1820,7 +1830,7 @@ TkSuQmCC
 			name="GenericItemInDropDownMenuOfRowItemInPropertiesPanel"
 			refimgid="61eab022-0797-4a27-81ba-f4302c287004"
 			searchtimeout="30000ms">
-				/form[@title='']/?/?/listitem[@accessiblename=$itemInDropDownMenu]
+				/form[@title='']/?/?/listitem[@accessiblename&gt;$itemInDropDownMenu]
 			</item>
 			<item
 			addcaps="listitem,accessible"
@@ -1831,26 +1841,6 @@ TkSuQmCC
 			refpath="/form[@title='']/list/listitem[@accessiblename='Kwadratisch']"
 			searchtimeout="30000ms">
 				/form[@title='']/?/?/listitem[@accessiblename='Kwadratisch']
-			</item>
-			<item
-			addcaps="listitem,accessible"
-			capname="listitem"
-			id="d90fdc74-1a95-47ba-a0b1-8ac170c81ddb"
-			name="YM2122Dk0007278Km"
-			refimgid="7eb70f0a-ae3b-48fd-b80d-15b4e0fb6d38"
-			refpath="/form[@title='']/list/list/listitem[@accessiblename>'YM_2_12-2_dk_00072 (7,8 k']"
-			searchtimeout="30000ms">
-				/form[@title='']/list[@controlname='currentControl']/?/?/listitem[@accessiblename&gt;'YM_2_12-2_dk_00072 (7,8 k']
-			</item>
-			<item
-			addcaps="listitem,accessible"
-			capname="listitem"
-			id="3dbdbccc-71a1-4ebb-b3c1-7ada9d8d78b1"
-			name="YM2122Dk0003524Km"
-			refimgid="7364c680-8724-4915-8eff-abd1a8b8f87e"
-			refpath="/form[@title='']/list[@controlname='currentControl']/list[@accessiblerole='List']/listitem[@accessiblename='YM_2_12-2_dk_00035 (2,4 km)']"
-			searchtimeout="30000ms">
-				/form[@title='']/list[@controlname='currentControl']/?/?/listitem[@accessiblename&gt;'YM_2_12-2_dk_00035 (2,4 k']
 			</item>
 			<folder
 			capname="list"
@@ -1865,6 +1855,7 @@ TkSuQmCC
 				capname="listitem"
 				id="532ede54-3f03-4afe-896f-36f3614c200b"
 				name="genericItemInDropDownList"
+				refimgid="62433fd8-be69-462a-b9e9-57408fa79415"
 				searchtimeout="30000ms">
 					/form[@title='']/?/?/list[@accessiblerole='List']/listitem[@accessiblename~$newValueForParameter]
 				</item>
@@ -2166,6 +2157,10 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
 		name="newValueForParameter">
+		</var>
+		<var
+		id="973b7938-8c88-411b-81f4-2d7160c01d81"
+		name="newValue">
 		</var>
 	</variables>
 </repository>

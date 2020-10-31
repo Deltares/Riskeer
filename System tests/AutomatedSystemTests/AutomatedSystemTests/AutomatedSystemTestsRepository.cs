@@ -425,6 +425,18 @@ namespace AutomatedSystemTests
             set { _newValueForParameter = value; }
         }
 
+        string _newValue = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable newValue.
+        /// </summary>
+        [TestVariable("973b7938-8c88-411b-81f4-2d7160c01d81")]
+        public string newValue
+        {
+            get { return _newValue; }
+            set { _newValue = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -4242,6 +4254,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _contributionpercentageInfo;
             RepoItemInfo _trajecttypeInfo;
             RepoItemInfo _faalkansbijdragepercentInfo;
+            RepoItemInfo _hydraulischebelastingenlocatieInfo;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -4256,6 +4269,7 @@ namespace AutomatedSystemTests
                 _contributionpercentageInfo = new RepoItemInfo(this, "ContributionPercentage", "row[@accessiblename>'Aandeel']", 30000, null, "863390a3-2d56-4c70-826d-86c4fb70b44f");
                 _trajecttypeInfo = new RepoItemInfo(this, "Trajecttype", "row[@accessiblename='Trajecttype']", 30000, null, "c93d6b35-2159-4c88-a103-599b6efcb316");
                 _faalkansbijdragepercentInfo = new RepoItemInfo(this, "FaalkansbijdragePercent", "row[@accessiblename='Faalkansbijdrage [%]']", 30000, null, "104dcdca-9c98-4ba3-b553-7e2e25c29d6a");
+                _hydraulischebelastingenlocatieInfo = new RepoItemInfo(this, "HydraulischeBelastingenlocatie", "row[@accessiblename>'Hydraulische belastingenl']", 30000, null, "886ec40d-3348-40d3-b6f5-3e5f73116927");
             }
 
             /// <summary>
@@ -4447,6 +4461,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _faalkansbijdragepercentInfo;
+                }
+            }
+
+            /// <summary>
+            /// The HydraulischeBelastingenlocatie item.
+            /// </summary>
+            [RepositoryItem("886ec40d-3348-40d3-b6f5-3e5f73116927")]
+            public virtual Ranorex.Row HydraulischeBelastingenlocatie
+            {
+                get
+                {
+                    return _hydraulischebelastingenlocatieInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The HydraulischeBelastingenlocatie item info.
+            /// </summary>
+            [RepositoryItemInfo("886ec40d-3348-40d3-b6f5-3e5f73116927")]
+            public virtual RepoItemInfo HydraulischeBelastingenlocatieInfo
+            {
+                get
+                {
+                    return _hydraulischebelastingenlocatieInfo;
                 }
             }
         }
@@ -6034,8 +6072,6 @@ namespace AutomatedSystemTests
             RepoItemInfo _trajecttypeInfo;
             RepoItemInfo _genericitemindropdownmenuofrowiteminpropertiespanelInfo;
             RepoItemInfo _kwadratischInfo;
-            RepoItemInfo _ym2122dk0007278kmInfo;
-            RepoItemInfo _ym2122dk0003524kmInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuInRowPropertiesPanel  folder.
@@ -6045,10 +6081,8 @@ namespace AutomatedSystemTests
             {
                 _list = new AutomatedSystemTestsRepositoryFolders.ListFolder(this);
                 _trajecttypeInfo = new RepoItemInfo(this, "TrajectType", "?/?/listitem[@accessiblename=$trajectType]", 30000, null, "52dd6943-e863-46c3-87ed-cfb8d3a558a3");
-                _genericitemindropdownmenuofrowiteminpropertiespanelInfo = new RepoItemInfo(this, "GenericItemInDropDownMenuOfRowItemInPropertiesPanel", "?/?/listitem[@accessiblename=$itemInDropDownMenu]", 30000, null, "001be49f-dfc8-4169-a3ea-ad5c16d74180");
+                _genericitemindropdownmenuofrowiteminpropertiespanelInfo = new RepoItemInfo(this, "GenericItemInDropDownMenuOfRowItemInPropertiesPanel", "?/?/listitem[@accessiblename>$itemInDropDownMenu]", 30000, null, "001be49f-dfc8-4169-a3ea-ad5c16d74180");
                 _kwadratischInfo = new RepoItemInfo(this, "Kwadratisch", "?/?/listitem[@accessiblename='Kwadratisch']", 30000, null, "305868f1-a0ce-42be-bf9d-0b7a19fde0bd");
-                _ym2122dk0007278kmInfo = new RepoItemInfo(this, "YM2122Dk0007278Km", "list[@controlname='currentControl']/?/?/listitem[@accessiblename>'YM_2_12-2_dk_00072 (7,8 k']", 30000, null, "d90fdc74-1a95-47ba-a0b1-8ac170c81ddb");
-                _ym2122dk0003524kmInfo = new RepoItemInfo(this, "YM2122Dk0003524Km", "list[@controlname='currentControl']/?/?/listitem[@accessiblename>'YM_2_12-2_dk_00035 (2,4 k']", 30000, null, "3dbdbccc-71a1-4ebb-b3c1-7ada9d8d78b1");
             }
 
             /// <summary>
@@ -6144,54 +6178,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _kwadratischInfo;
-                }
-            }
-
-            /// <summary>
-            /// The YM2122Dk0007278Km item.
-            /// </summary>
-            [RepositoryItem("d90fdc74-1a95-47ba-a0b1-8ac170c81ddb")]
-            public virtual Ranorex.ListItem YM2122Dk0007278Km
-            {
-                get
-                {
-                    return _ym2122dk0007278kmInfo.CreateAdapter<Ranorex.ListItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The YM2122Dk0007278Km item info.
-            /// </summary>
-            [RepositoryItemInfo("d90fdc74-1a95-47ba-a0b1-8ac170c81ddb")]
-            public virtual RepoItemInfo YM2122Dk0007278KmInfo
-            {
-                get
-                {
-                    return _ym2122dk0007278kmInfo;
-                }
-            }
-
-            /// <summary>
-            /// The YM2122Dk0003524Km item.
-            /// </summary>
-            [RepositoryItem("3dbdbccc-71a1-4ebb-b3c1-7ada9d8d78b1")]
-            public virtual Ranorex.ListItem YM2122Dk0003524Km
-            {
-                get
-                {
-                    return _ym2122dk0003524kmInfo.CreateAdapter<Ranorex.ListItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The YM2122Dk0003524Km item info.
-            /// </summary>
-            [RepositoryItemInfo("3dbdbccc-71a1-4ebb-b3c1-7ada9d8d78b1")]
-            public virtual RepoItemInfo YM2122Dk0003524KmInfo
-            {
-                get
-                {
-                    return _ym2122dk0003524kmInfo;
                 }
             }
 

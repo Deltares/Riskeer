@@ -103,6 +103,31 @@
 			name="ModifyParametersInSelectedCalculationInput_ToDo">
 			</smartfoldernode>
 			<smartfoldernode
+			id="592cbeb7-d6f9-408b-a899-09390e764f88"
+			name="SelectListItemFromDropDownMenuInPropertiesPanel">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="parameterType"
+								id="19801d59-c7e1-4127-8b92-0b6f8606dba2">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="5c68fcb8-4ef4-4268-8a33-9ff8282b1237"
 			name="OpenProject">
@@ -127,8 +152,8 @@
 			datasource="N18CalculationsToModify"
 			errorbehavior="ContinueNextIteration"
 			id="7ba66fd3-0e17-4a85-b3df-357f335bf24f"
-			maxrange="1"
-			minrange="1"
+			maxrange="7"
+			minrange="7"
 			name="LoopCalculationsToModify_ToDo">
 				<parameters>
 					<param
@@ -171,6 +196,26 @@
 			id="9b855997-d3fa-4905-b185-8f945d8a56a6"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
 			</smartfoldernode>
+			<testmodule
+			id="a455cb8d-2d1f-4e99-8869-01082a8c2b8a"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a5c4645a-bd96-4b2d-9e2a-65d41e3759db"
 			name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
@@ -354,6 +399,14 @@
 								id="86f974e8-06f9-423c-8708-e37cc5d580a9"
 								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
 								</testmodule>
+								<smartfoldernode
+								id="592cbeb7-d6f9-408b-a899-09390e764f88"
+								name="SelectListItemFromDropDownMenuInPropertiesPanel">
+									<testmodule
+									id="a455cb8d-2d1f-4e99-8869-01082a8c2b8a"
+									name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 							<testmodule
 							id="6b7dcd8f-1534-4769-823f-963b540354c6"
@@ -549,7 +602,7 @@
 						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						YM_2_12-2_dk_00012
@@ -566,7 +619,7 @@
 						Schematisatie&gt;Profielschematisatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						12_2_14300
@@ -615,7 +668,7 @@
 						Schematisatie&gt;Stochastisch ondergrondmodel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						12008_Piping
@@ -632,7 +685,7 @@
 						Schematisatie&gt;Ondergrondschematisatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						Segment_12008_1D6
@@ -746,7 +799,7 @@
 						Schematisatie&gt;Profielschematisatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						12_2_18400
@@ -763,7 +816,7 @@
 						Schematisatie&gt;Stochastisch ondergrondmodel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						12009_Stability
@@ -780,7 +833,7 @@
 						Schematisatie&gt;Ondergrondschematisatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						12_2_18400_Segment_12009_1D2
@@ -1676,7 +1729,7 @@
 						Schematisatie&gt;Dijkprofiel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						profiel005
@@ -1875,7 +1928,7 @@
 						Algemeen&gt;Hydraulische belastingenlocatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						034-01_0175_9_AM_km0259
@@ -1892,7 +1945,7 @@
 						Algemeen&gt;Kunstwerk
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						'Gemaal Schuddebeurs'
@@ -1902,6 +1955,22 @@
 					</td>
 					<td>
 						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.11
+					</td>
+					<td>
+						6
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -2022,7 +2091,7 @@
 						Voorland en (haven)dam&gt;Voorlandprofiel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						profiel4
@@ -2280,7 +2349,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering komberging&gt;Kombergend oppervlak&gt;Standaardafwijking
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -2360,22 +2429,6 @@
 				</tr>
 				<tr>
 					<td>
-						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
-					</td>
-					<td>
-						Double
-					</td>
-					<td>
-						1.11
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						Uitvoer&gt;Illustratiepunten inlezen
 					</td>
 					<td>
@@ -2445,7 +2498,7 @@
 						Algemeen&gt;Kunstwerk
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						'Gemaal van Sasse'
@@ -2462,7 +2515,7 @@
 						Algemeen&gt;Hydraulische belastingenlocatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						MA_1_36-2_dk_00217
@@ -2511,7 +2564,7 @@
 						Voorland en (haven)dam&gt;Voorlandprofiel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						profiel4
@@ -2820,7 +2873,7 @@
 						Algemeen&gt;Kunstwerk
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						Kunstwerk2
@@ -2837,7 +2890,7 @@
 						Algemeen&gt;Hydraulische belastingenlocatie
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						MM_3_13a-1_vl07_00002
@@ -2886,7 +2939,7 @@
 						Voorland en (haven)dam&gt;Voorlandprofiel
 					</td>
 					<td>
-						Text
+						DropDown
 					</td>
 					<td>
 						profiel4
@@ -3386,7 +3439,7 @@
 				</tr>
 				<tr>
 					<td>
-						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Standaardafwijking
+						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3530,7 +3583,7 @@
 				</tr>
 				<tr>
 					<td>
-						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Standaardafwijking
+						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3562,7 +3615,7 @@
 				</tr>
 				<tr>
 					<td>
-						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Standaardafwijking
+						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3594,7 +3647,7 @@
 				</tr>
 				<tr>
 					<td>
-						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Standaardafwijking
+						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3672,6 +3725,9 @@
 			</testcontainer>
 			<testcontainer
 			id="50ebadfc-94ce-4492-b602-f172dfa46a7a">
+			</testcontainer>
+			<testcontainer
+			id="592cbeb7-d6f9-408b-a899-09390e764f88">
 			</testcontainer>
 			<testcontainer
 			id="5c68fcb8-4ef4-4268-8a33-9ff8282b1237">

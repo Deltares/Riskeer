@@ -888,6 +888,18 @@
       <id>d3468ae5-9acf-4bda-aca4-fb58202c73e0</id>
       <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
     </Compile>
+    <Compile Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.cs">
+      <BoundTo>f00c07a7-1332-49f0-bc26-77f534093d31</BoundTo>
+      <DependentUpon>SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2f259844-ab8f-4004-91bb-c527c0e9bcdd</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.UserCode.cs">
+      <BoundTo>f00c07a7-1332-49f0-bc26-77f534093d31</BoundTo>
+      <DependentUpon>SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>848deeb7-38df-45f9-ba57-519bb7b6ad90</id>
+    </Compile>
     <Compile Include="Modules\Selection\SelectRootProject.cs">
       <DependentUpon>SelectRootProject.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1979,6 +1991,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1fec213e-fd25-4c96-8055-5d4dad952155</id>
       <recordtableid>12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>f00c07a7-1332-49f0-bc26-77f534093d31</id>
+      <recordtableid>feb22e37-85f1-4e45-95cc-1cebb52e7292</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectRootProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
