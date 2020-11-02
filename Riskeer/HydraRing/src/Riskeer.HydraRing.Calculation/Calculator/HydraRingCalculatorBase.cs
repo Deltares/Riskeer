@@ -103,10 +103,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// Gets the parsers that are executed on the output file(s) of Hydra-Ring.
         /// </summary>
         /// <returns>The parsers to execute.</returns>
-        protected virtual IEnumerable<IHydraRingFileParser> GetParsers()
-        {
-            yield break;
-        }
+        protected abstract IEnumerable<IHydraRingFileParser> GetParsers();
 
         /// <summary>
         /// Sets the values on the output parameters of the calculation.
