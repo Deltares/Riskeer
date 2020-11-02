@@ -105,7 +105,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            const int layerCount = 1;
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
