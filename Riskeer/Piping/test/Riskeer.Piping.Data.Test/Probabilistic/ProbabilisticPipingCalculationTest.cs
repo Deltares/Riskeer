@@ -45,20 +45,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
         [Test]
         [TestCaseSource(nameof(GetCalculations))]
-        public void ShouldCalculate_Always_ReturnsExpectedValue(
-            bool shouldIllustrationPointsBeCalculated, ProbabilisticPipingOutput output,
-            bool expectedShouldCalculate)
+        public void ShouldCalculate_Always_ReturnsExpectedValue(ProbabilisticPipingCalculation calculation, bool expectedShouldCalculate)
         {
-            // Setup
-            var calculation = new TestProbabilisticPipingCalculation
-            {
-                InputParameters =
-                {
-                    ShouldProfileSpecificIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
-                },
-                Output = output
-            };
-
             // Call
             bool shouldCalculate = calculation.ShouldCalculate;
 
@@ -178,50 +166,72 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
         private static IEnumerable<TestCaseData> GetCalculations()
         {
-            yield return new TestCaseData(true, null, true);
-            yield return new TestCaseData(false, null, true);
-
-            yield return new TestCaseData(
-                true, PipingTestDataGenerator.GetRandomProbabilisticPipingOutput(), false);
-
-            yield return new TestCaseData(
-                false, PipingTestDataGenerator.GetRandomProbabilisticPipingOutput(), true);
-
-            yield return new TestCaseData(
-                true, new ProbabilisticPipingOutput(
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation(), true)
+                .SetName("WithoutOutput");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+            }, true).SetName("WithOutputButShouldNotHaveIllustrationPoints");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = true,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = true
+                },
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+            }, false).SetName("WithOutputAndIllustrationPoints");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = false,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = true
+                },
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+            }, true).SetName("WithOutputAndPartialIllustrationPoints1");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = true,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = false
+                },
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+            }, true).SetName("WithOutputAndPartialIllustrationPoints2");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = true,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = false
+                },
+                Output = new ProbabilisticPipingOutput(
                     PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
-                true);
-
-            yield return new TestCaseData(
-                true, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null))
+            }, false).SetName("WithOutputAndPartialIllustrationPoints3");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = false,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = true
+                },
+                Output = new ProbabilisticPipingOutput(
                     PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput()),
-                true);
-
-            yield return new TestCaseData(
-                true, new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
+            }, false).SetName("WithOutputAndPartialIllustrationPoints4");
+            yield return new TestCaseData(new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = false,
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = false
+                },
+                Output = new ProbabilisticPipingOutput(
                     PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
-                true);
-
-            yield return new TestCaseData(
-                false, new ProbabilisticPipingOutput(
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
-                false);
-
-            yield return new TestCaseData(
-                false, new ProbabilisticPipingOutput(
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput()),
-                false);
-
-            yield return new TestCaseData(
-                false, new ProbabilisticPipingOutput(
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null)),
-                false);
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null))
+            }, false).SetName("WithOutputWithoutIllustrationPoints");
         }
 
         private static ProbabilisticPipingCalculation CreateRandomCalculationWithoutOutput()

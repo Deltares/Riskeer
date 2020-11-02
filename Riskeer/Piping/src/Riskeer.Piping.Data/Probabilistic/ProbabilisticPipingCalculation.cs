@@ -32,7 +32,8 @@ namespace Riskeer.Piping.Data.Probabilistic
         protected ProbabilisticPipingCalculation() : base(new ProbabilisticPipingInput()) {}
 
         public override bool ShouldCalculate =>
-            !HasOutput || InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated != Output.HasIllustrationPoints;
+            !HasOutput || InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated != Output.ProfileSpecificOutput.HasGeneralResult
+                       || InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated != Output.SectionSpecificOutput.HasGeneralResult;
 
         public override bool HasOutput => Output != null;
 
