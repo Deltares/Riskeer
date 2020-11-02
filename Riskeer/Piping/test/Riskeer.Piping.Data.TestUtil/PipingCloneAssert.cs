@@ -113,6 +113,7 @@ namespace Riskeer.Piping.Data.TestUtil
         {
             AreClones((PipingInput) original, clone);
             Assert.AreEqual(original.ShouldProfileSpecificIllustrationPointsBeCalculated, clone.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(original.ShouldSectionSpecificIllustrationPointsBeCalculated, clone.ShouldSectionSpecificIllustrationPointsBeCalculated);
         }
 
         /// <summary>
