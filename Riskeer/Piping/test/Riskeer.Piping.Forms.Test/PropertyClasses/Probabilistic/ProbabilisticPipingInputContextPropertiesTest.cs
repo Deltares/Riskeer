@@ -439,6 +439,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
                 new TestHydraulicBoundaryLocation());
+            calculation.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First();
 
             ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
@@ -498,8 +499,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreSame(inputParameters.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
-            FailureMechanismSection expectedSection = failureMechanism.Sections.First(s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                                                                                          Math2D.ConvertPointsToLineSegments(s.Points)));
+            FailureMechanismSection expectedSection = failureMechanism.Sections.First(
+                s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                    Math2D.ConvertPointsToLineSegments(s.Points)));
 
             Assert.AreEqual(expectedSection.Name, properties.SectionName);
             Assert.AreEqual(expectedSection.Length, properties.SectionLength, properties.SectionLength.GetAccuracy());
@@ -590,6 +592,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     StandardDeviation = (RoundedDouble) 0.22
                 });
 
+            var random = new Random(21);
+            var shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+            var shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+
             // When
             properties.SurfaceLine = surfaceLine;
             properties.EntryPointL = (RoundedDouble) entryPointL;
@@ -600,8 +606,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
             properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
             properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
-            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
-            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
 
             // Then
             Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
@@ -614,8 +620,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
 
-            Assert.AreEqual(properties.ShouldProfileSpecificIllustrationPointsBeCalculated, inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
-            Assert.AreEqual(properties.ShouldSectionSpecificIllustrationPointsBeCalculated, inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(shouldProfileSpecificIllustrationPointsBeCalculated, inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(shouldSectionSpecificIllustrationPointsBeCalculated, inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
         }
@@ -735,22 +741,56 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void ShouldProfileSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculationScenario();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var handler = mocks.StrictMock<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
 
-            // Call & Assert
-            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldProfileSpecificIllustrationPointsBeCalculated = true,
-                                                            calculation);
+            var context = new ProbabilisticPipingInputContext(new ProbabilisticPipingInput(), new ProbabilisticPipingCalculationScenario(),
+                                                              Enumerable.Empty<PipingSurfaceLine>(), Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              new PipingFailureMechanism(), assessmentSection);
+            context.Attach(observer);
+
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            var random = new Random(21);
+            bool shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+
+            // Call
+            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ShouldSectionSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculationScenario();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var handler = mocks.StrictMock<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
 
-            // Call & Assert
-            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldSectionSpecificIllustrationPointsBeCalculated = true,
-                                                            calculation);
+            var context = new ProbabilisticPipingInputContext(new ProbabilisticPipingInput(), new ProbabilisticPipingCalculationScenario(),
+                                                              Enumerable.Empty<PipingSurfaceLine>(), Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              new PipingFailureMechanism(), assessmentSection);
+            context.Attach(observer);
+
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            var random = new Random(21);
+            bool shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+
+            // Call
+            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]

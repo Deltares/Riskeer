@@ -445,7 +445,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get => data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
@@ -458,7 +459,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get => data.WrappedData.ShouldSectionSpecificIllustrationPointsBeCalculated;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldSectionSpecificIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldSectionSpecificIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
