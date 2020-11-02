@@ -747,19 +747,19 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
                                  .IgnoreArguments()
                                  .Return(new TestPipingCalculator());
 
                 mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
 
                 using (new PipingSubCalculatorFactoryConfig())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

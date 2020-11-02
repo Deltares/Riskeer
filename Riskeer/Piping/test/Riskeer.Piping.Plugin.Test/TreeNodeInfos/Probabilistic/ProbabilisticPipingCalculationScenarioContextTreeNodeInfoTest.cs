@@ -877,6 +877,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
+                                 .IgnoreArguments()
+                                 .Return(new TestPipingCalculator());
+
+                mocks.ReplayAll();
+
                 plugin.Gui = gui;
 
                 calculation.Attach(observer);
@@ -885,14 +892,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 {
                     // Expect an activity dialog which is automatically closed
                 };
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
-                                 .IgnoreArguments()
-                                 .Return(new TestPipingCalculator());
-
-                mocks.ReplayAll();
-
+                
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
