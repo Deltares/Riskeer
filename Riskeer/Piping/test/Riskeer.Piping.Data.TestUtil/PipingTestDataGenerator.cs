@@ -473,7 +473,7 @@ namespace Riskeer.Piping.Data.TestUtil
             SetRandomDataToPipingInput((PipingInput) input);
 
             var random = new Random(21);
-            input.ShouldIllustrationPointsBeCalculated = random.NextBoolean();
+            input.ShouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
         }
 
         /// <summary>

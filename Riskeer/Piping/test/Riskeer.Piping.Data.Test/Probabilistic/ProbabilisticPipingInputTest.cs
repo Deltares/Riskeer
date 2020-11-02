@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             Assert.IsInstanceOf<PipingInput>(inputParameters);
-            Assert.IsFalse(inputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsFalse(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
         }
 
         [Test]

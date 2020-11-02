@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Data.TestUtil
         public static void AreClones(ProbabilisticPipingInput original, ProbabilisticPipingInput clone)
         {
             AreClones((PipingInput) original, clone);
-            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(original.ShouldProfileSpecificIllustrationPointsBeCalculated, clone.ShouldProfileSpecificIllustrationPointsBeCalculated);
         }
 
         /// <summary>

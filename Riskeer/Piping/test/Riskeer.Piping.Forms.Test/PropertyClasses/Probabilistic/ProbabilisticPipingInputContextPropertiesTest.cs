@@ -518,7 +518,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreEqual("-", properties.SectionName);
             Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
-            Assert.AreEqual(inputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
         }
@@ -743,7 +743,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             properties.ShouldIllustrationPointsBeCalculated = newBoolean;
 
             // Assert
-            Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
         }
 

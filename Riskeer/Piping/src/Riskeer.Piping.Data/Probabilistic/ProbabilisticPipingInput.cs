@@ -27,8 +27,8 @@ namespace Riskeer.Piping.Data.Probabilistic
     public class ProbabilisticPipingInput : PipingInput
     {
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated.
+        /// Gets or sets if the illustration points should be calculated for profile specific output.
         /// </summary>
-        public bool ShouldIllustrationPointsBeCalculated { get; set; }
+        public bool ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
     }
 }

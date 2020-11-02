@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             {
                 InputParameters =
                 {
-                    ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
                 },
                 Output = output
             };

@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
             try
             {
-                generalResult = calculation.InputParameters.ShouldIllustrationPointsBeCalculated
+                generalResult = calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated
                                     ? ConvertIllustrationPointsResult(profileSpecificCalculator.IllustrationPointsResult,
                                                                       profileSpecificCalculator.IllustrationPointsParserErrorMessage)
                                     : null;
@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
             try
             {
-                generalResult = calculation.InputParameters.ShouldIllustrationPointsBeCalculated
+                generalResult = calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated
                                     ? ConvertIllustrationPointsResult(sectionSpecificCalculator.IllustrationPointsResult,
                                                                       sectionSpecificCalculator.IllustrationPointsParserErrorMessage)
                                     : null;

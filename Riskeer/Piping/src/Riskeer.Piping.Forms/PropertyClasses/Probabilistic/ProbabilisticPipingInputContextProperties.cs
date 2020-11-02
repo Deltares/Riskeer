@@ -113,11 +113,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
+                return data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated = value;
                 data.NotifyObservers();
             }
         }
