@@ -448,7 +448,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldProfileSpecificIllustrationPointsBeCalculated = value, propertyChangeHandler);
             }
         }
-        
+
         [PropertyOrder(shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SectionSpecificCalculation), 5, numberOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]

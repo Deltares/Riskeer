@@ -500,7 +500,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             FailureMechanismSection expectedSection = failureMechanism.Sections.First(s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                                                                                           Math2D.ConvertPointsToLineSegments(s.Points)));
-            
+
             Assert.AreEqual(expectedSection.Name, properties.SectionName);
             Assert.AreEqual(expectedSection.Length, properties.SectionLength, properties.SectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
@@ -508,7 +508,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_CalculationNotInSection_ReturnExpectedValues()
         {
@@ -736,7 +736,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario();
-            
+
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldProfileSpecificIllustrationPointsBeCalculated = true,
                                                             calculation);
@@ -747,7 +747,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario();
-            
+
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldSectionSpecificIllustrationPointsBeCalculated = true,
                                                             calculation);
