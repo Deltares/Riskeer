@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -892,7 +891,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 {
                     // Expect an activity dialog which is automatically closed
                 };
-                
+
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationScenarioContext, null, treeViewControl))
                 {
@@ -902,23 +901,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     // Then
                     TestHelper.AssertLogMessages(Call, messages =>
                     {
-                        using (IEnumerator<string> msgs = messages.GetEnumerator())
-                        {
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
-                        }
+                        string[] msgs = messages.ToArray();
+
+                        Assert.AreEqual(8, msgs.Length);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[7]);
                     });
                     Assert.IsNotNull(calculation.Output);
                 }
