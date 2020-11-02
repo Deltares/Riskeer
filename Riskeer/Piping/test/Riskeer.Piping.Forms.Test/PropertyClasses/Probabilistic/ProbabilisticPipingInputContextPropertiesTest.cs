@@ -44,6 +44,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 using Riskeer.Piping.Forms.UITypeEditors;
@@ -427,7 +428,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -435,37 +436,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
-            PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(
-                0.0, new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
-                {
-                    new PipingSoilLayer(random.NextDouble())
-                    {
-                        IsAquifer = true
-                    }
-                }, SoilProfileType.SoilProfile1D)
-            );
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
-            {
-                stochasticSoilProfile
-            });
-
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var calculation = new ProbabilisticPipingCalculationScenario
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    SurfaceLine = surfaceLine,
-                    StochasticSoilModel = stochasticSoilModel,
-                    StochasticSoilProfile = stochasticSoilProfile
-                }
-            };
-
-            var failureMechanism = new PipingFailureMechanism();
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                new TestHydraulicBoundaryLocation());
 
             ProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
@@ -519,16 +492,51 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
-            Assert.AreSame(surfaceLine, properties.SurfaceLine);
-            Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
-            Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
+            Assert.AreSame(inputParameters.SurfaceLine, properties.SurfaceLine);
+            Assert.AreSame(inputParameters.StochasticSoilProfile, properties.StochasticSoilProfile);
+            Assert.AreSame(inputParameters.StochasticSoilModel, properties.StochasticSoilModel);
 
-            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(inputParameters.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
-            Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
+            FailureMechanismSection expectedSection = failureMechanism.Sections.First(s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                                                                                          Math2D.ConvertPointsToLineSegments(s.Points)));
+            
+            Assert.AreEqual(expectedSection.Name, properties.SectionName);
+            Assert.AreEqual(expectedSection.Length, properties.SectionLength, properties.SectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Constructor_CalculationNotInSection_ReturnExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                new TestHydraulicBoundaryLocation());
+
+            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
+
+            var context = new ProbabilisticPipingInputContext(inputParameters,
+                                                              calculation,
+                                                              Enumerable.Empty<PipingSurfaceLine>(),
+                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              failureMechanism,
+                                                              assessmentSection);
+
+            // Call
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            // Assert
+            Assert.AreEqual("-", properties.SectionName);
+            Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }
@@ -631,7 +639,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel,
+                                                            calculation);
         }
 
         [Test]
