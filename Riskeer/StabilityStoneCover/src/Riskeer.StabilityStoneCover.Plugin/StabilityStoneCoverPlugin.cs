@@ -464,7 +464,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAllInCalculationGroup,
                                                           EnableValidateAndCalculateMenuItemForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAllInCalculationGroup, EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(nodeData,
+                                                         CalculateAllInCalculationGroup,
+                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -569,11 +571,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                         context.FailureMechanism,
                                                                                                         context.AssessmentSection));
         }

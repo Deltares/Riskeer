@@ -558,7 +558,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -681,10 +680,10 @@ namespace Riskeer.ClosingStructures.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(ClosingStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                                      context.FailureMechanism,
                                                                                                                      context.AssessmentSection));
         }

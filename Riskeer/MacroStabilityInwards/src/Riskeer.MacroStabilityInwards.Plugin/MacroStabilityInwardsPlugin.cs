@@ -779,7 +779,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                        nodeData,
                        ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
@@ -866,11 +865,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(MacroStabilityInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                            context.AssessmentSection));
         }
 
         #endregion

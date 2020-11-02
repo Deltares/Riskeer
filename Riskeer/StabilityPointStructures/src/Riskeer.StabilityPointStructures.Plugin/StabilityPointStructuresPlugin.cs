@@ -330,7 +330,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
         {
-            
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
             if (o is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
@@ -564,7 +563,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -690,10 +688,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                         context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                                             context.FailureMechanism,
                                                                                                                             context.AssessmentSection));
         }

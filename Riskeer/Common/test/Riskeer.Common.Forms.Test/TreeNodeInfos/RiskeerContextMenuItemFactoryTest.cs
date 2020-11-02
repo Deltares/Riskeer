@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
-            
+
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var counter = 0;
@@ -1156,7 +1156,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1183,7 +1183,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1216,7 +1216,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1238,7 +1238,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1269,7 +1269,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, context => counter++, context => null);
 
             // Call
             toolStripItem.PerformClick();

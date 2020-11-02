@@ -1260,7 +1260,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1305,7 +1305,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1364,7 +1364,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1412,7 +1412,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

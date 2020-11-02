@@ -106,7 +106,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a calculation group.
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of the calculation group context.</typeparam>
-        /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
@@ -114,9 +113,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationGroupContext>(
-            CalculationGroup calculationGroup,
             TCalculationGroupContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationGroupContext> calculateAllAction,
+            Action<TCalculationGroupContext> calculateAllAction,
             Func<TCalculationGroupContext, string> enableMenuItemFunction)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
@@ -124,7 +122,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 Resources.Calculate_All,
                 Resources.CalculationGroup_Calculate_All_ToolTip,
                 Resources.CalculateAllIcon,
-                (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
+                (o, args) => calculateAllAction(calculationGroupContext));
 
             if (!calculationGroupContext.WrappedData.GetCalculations().Any())
             {

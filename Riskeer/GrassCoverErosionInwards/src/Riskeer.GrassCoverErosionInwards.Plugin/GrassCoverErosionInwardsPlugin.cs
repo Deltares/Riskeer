@@ -708,7 +708,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -834,7 +833,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                         context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,

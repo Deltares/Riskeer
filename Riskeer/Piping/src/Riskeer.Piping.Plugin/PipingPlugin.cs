@@ -877,7 +877,6 @@ namespace Riskeer.Piping.Plugin
                        nodeData,
                        ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
@@ -1030,13 +1029,12 @@ namespace Riskeer.Piping.Plugin
         }
 
         /// <summary>
-        /// Performs all calculations in <paramref name="group"/>.
+        /// Performs all calculations in the calculation group wrapped by <paramref name="calculationGroupContext"/>.
         /// </summary>
-        /// <param name="group">The group to perform the calculations from.</param>
-        /// <param name="calculationGroupContext">The context containing additional data to use during the calculations.</param>
+        /// <param name="calculationGroupContext">The context that wraps the calculation group.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="calculationGroupContext"/>
         /// is of a type that is not supported.</exception>
-        private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext calculationGroupContext)
+        private void CalculateAllInCalculationGroup(PipingCalculationGroupContext calculationGroupContext)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(calculationGroupContext.WrappedData,

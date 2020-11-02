@@ -562,7 +562,6 @@ namespace Riskeer.HeightStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -687,11 +686,13 @@ namespace Riskeer.HeightStructures.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, HeightStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(HeightStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism, context.AssessmentSection));
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                       context.FailureMechanism,
+                                                                                       context.AssessmentSection));
         }
 
         #endregion

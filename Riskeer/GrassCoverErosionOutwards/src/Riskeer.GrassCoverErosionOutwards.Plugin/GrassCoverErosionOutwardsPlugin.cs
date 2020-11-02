@@ -771,7 +771,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        nodeData,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -884,12 +883,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
-                    group, context.FailureMechanism, context.AssessmentSection));
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(context.WrappedData,
+                                                                                                              context.FailureMechanism,
+                                                                                                              context.AssessmentSection));
         }
 
         #endregion

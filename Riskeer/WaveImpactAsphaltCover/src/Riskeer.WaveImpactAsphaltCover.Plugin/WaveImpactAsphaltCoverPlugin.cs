@@ -466,7 +466,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAllInCalculationGroup,
                                                           EnableValidateAndCalculateMenuItemForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAllInCalculationGroup, EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(nodeData,
+                                                         CalculateAllInCalculationGroup,
+                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -570,11 +572,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                            context.FailureMechanism,
                                                                                                            context.AssessmentSection));
         }

@@ -93,7 +93,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs all calculations in a calculation group.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
-        /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
@@ -101,13 +100,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
-            CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationContext> calculateAllAction,
+            Action<TCalculationContext> calculateAllAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, calculateAllAction, enableMenuItemFunction));
             return this;
         }
 
