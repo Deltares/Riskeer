@@ -3239,6 +3239,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _manualassessmentcheckboxInfo;
             RepoItemInfo _manualassessmentprobabilityInfo;
             RepoItemInfo _manualassessmentcategoryInfo;
+            RepoItemInfo _columnrightInfo;
+            RepoItemInfo _columnleftInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -3262,6 +3264,8 @@ namespace AutomatedSystemTests
                 _manualassessmentcheckboxInfo = new RepoItemInfo(this, "ManualAssessmentCheckbox", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Overschrijftoetsoordeel']", 10000, null, "f2bdbb83-2aeb-4e83-941e-0f050ec7cd59");
                 _manualassessmentprobabilityInfo = new RepoItemInfo(this, "ManualAssessmentProbability", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "e9d0837b-e5cb-4508-98b5-969509fe5459");
                 _manualassessmentcategoryInfo = new RepoItemInfo(this, "ManualAssessmentCategory", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "ed649f60-c755-4736-a5ae-f0e2e37cb7df");
+                _columnrightInfo = new RepoItemInfo(this, "ColumnRight", "scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']", 30000, null, "32ff498f-1f94-4edb-9de3-cef6d06fd6ad");
+                _columnleftInfo = new RepoItemInfo(this, "ColumnLeft", "scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']", 30000, null, "8e303747-33b8-48ef-8baf-17410d0292dc");
             }
 
             /// <summary>
@@ -3669,6 +3673,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _manualassessmentcategoryInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ColumnRight item.
+            /// </summary>
+            [RepositoryItem("32ff498f-1f94-4edb-9de3-cef6d06fd6ad")]
+            public virtual Ranorex.Button ColumnRight
+            {
+                get
+                {
+                    return _columnrightInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ColumnRight item info.
+            /// </summary>
+            [RepositoryItemInfo("32ff498f-1f94-4edb-9de3-cef6d06fd6ad")]
+            public virtual RepoItemInfo ColumnRightInfo
+            {
+                get
+                {
+                    return _columnrightInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ColumnLeft item.
+            /// </summary>
+            [RepositoryItem("8e303747-33b8-48ef-8baf-17410d0292dc")]
+            public virtual Ranorex.Button ColumnLeft
+            {
+                get
+                {
+                    return _columnleftInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ColumnLeft item info.
+            /// </summary>
+            [RepositoryItemInfo("8e303747-33b8-48ef-8baf-17410d0292dc")]
+            public virtual RepoItemInfo ColumnLeftInfo
+            {
+                get
+                {
+                    return _columnleftInfo;
                 }
             }
         }
@@ -4728,6 +4780,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _wisalleuitvoerInfo;
             RepoItemInfo _wisillustratiepuntenInfo;
             RepoItemInfo _wisuitvoerInfo;
+            RepoItemInfo _pagerightInfo;
+            RepoItemInfo _pageleftInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4753,6 +4807,8 @@ namespace AutomatedSystemTests
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
+                _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
+                _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
             }
 
             /// <summary>
@@ -5208,6 +5264,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _wisuitvoerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item.
+            /// </summary>
+            [RepositoryItem("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual Ranorex.MenuItem PageRight
+            {
+                get
+                {
+                    return _pagerightInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item info.
+            /// </summary>
+            [RepositoryItemInfo("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual RepoItemInfo PageRightInfo
+            {
+                get
+                {
+                    return _pagerightInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item.
+            /// </summary>
+            [RepositoryItem("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual Ranorex.MenuItem PageLeft
+            {
+                get
+                {
+                    return _pageleftInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item info.
+            /// </summary>
+            [RepositoryItemInfo("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual RepoItemInfo PageLeftInfo
+            {
+                get
+                {
+                    return _pageleftInfo;
                 }
             }
         }

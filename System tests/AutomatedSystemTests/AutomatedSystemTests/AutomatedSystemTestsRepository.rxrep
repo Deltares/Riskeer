@@ -830,6 +830,26 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
 						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="32ff498f-1f94-4edb-9de3-cef6d06fd6ad"
+						name="ColumnRight"
+						refimgid="421f3d5c-1450-41c9-847d-0bc97f067c1b"
+						refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']
+						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="8e303747-33b8-48ef-8baf-17410d0292dc"
+						name="ColumnLeft"
+						refimgid="1c2085e3-641d-48b4-bbd7-51575a0f4d91"
+						refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
@@ -1351,6 +1371,26 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="9a3b24c9-61e7-4c4f-abc9-d5ba71939147"
+			name="PageRight"
+			refimgid="37b93589-1162-4e88-9a34-ac9c6eb48dab"
+			refpath="/contextmenu[@processname='Riskeer']/contextmenu/menuitem[@accessiblename='Page Right']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/?/?/menuitem[@accessiblename='Page Right']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="69713320-a880-4f24-86d8-5042b7dac3c0"
+			name="PageLeft"
+			refimgid="dda114a9-6597-433b-be8c-147599765503"
+			refpath="/contextmenu[@processname='Riskeer']/contextmenu/menuitem[@accessiblename='Page Left']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/?/?/menuitem[@accessiblename='Page Left']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']

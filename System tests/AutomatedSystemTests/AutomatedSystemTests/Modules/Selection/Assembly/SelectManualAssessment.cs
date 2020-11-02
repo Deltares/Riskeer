@@ -89,8 +89,28 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnRight' at 10;8.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnRightInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnRight.Click(System.Windows.Forms.MouseButtons.Right, "10;8");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.PageRight' at 49;7.", repo.ContextMenu.PageRightInfo, new RecordItemIndex(1));
+            repo.ContextMenu.PageRight.Click("49;7");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(2));
             repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox.Click();
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='True') on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(3));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, "AccessibleValue", "True");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnLeft' at 10;7.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnLeftInfo, new RecordItemIndex(4));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ColumnLeft.Click(System.Windows.Forms.MouseButtons.Right, "10;7");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.PageLeft' at 30;7.", repo.ContextMenu.PageLeftInfo, new RecordItemIndex(5));
+            repo.ContextMenu.PageLeft.Click("30;7");
             Delay.Milliseconds(0);
             
         }
