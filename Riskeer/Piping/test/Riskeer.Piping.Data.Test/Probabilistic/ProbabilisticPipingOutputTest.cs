@@ -75,48 +75,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void HasIllustrationPoints_OutputWithGeneralResult_ReturnsTrue()
-        {
-            // Setup
-            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            
-            var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
-            
-            // Call
-            bool hasIllustrationPoints = output.HasIllustrationPoints;
-            
-            // Assert
-            Assert.IsTrue(hasIllustrationPoints);
-        }
-
-        [Test]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        [TestCase(false, false)]
-        public void HasIllustrationPoints_PartialOutputWithoutGeneralResult_ReturnsFalse(bool sectionSpecificHasGeneralResult,
-                                                                                                 bool profileSpecificHasGeneralResult)
-        {
-            // Setup
-            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(
-                profileSpecificHasGeneralResult
-                    ? new TestGeneralResultFaultTreeIllustrationPoint()
-                    : null);
-            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(
-                sectionSpecificHasGeneralResult
-                    ? new TestGeneralResultFaultTreeIllustrationPoint()
-                    : null);
-            
-            var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
-            
-            // Call
-            bool hasIllustrationPoints = output.HasIllustrationPoints;
-            
-            // Assert
-            Assert.IsFalse(hasIllustrationPoints);
-        }
-
-        [Test]
         public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResultAndOtherOutputIsNotAffected()
         {
             // Setup
