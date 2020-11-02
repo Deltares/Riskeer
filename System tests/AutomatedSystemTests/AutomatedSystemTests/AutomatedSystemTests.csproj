@@ -246,6 +246,9 @@
       <id>ebdb82ae-c816-411d-913b-a426c58ab31e</id>
       <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAllRowItemsInPropertiesPanel.cs">
+      <id>9a4c4116-ea50-4483-9928-f57623ba3542</id>
+    </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAlphasGroup.cs">
       <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -368,6 +371,9 @@
     </Compile>
     <Compile Include="Modules\Calculation\ConcatenateStrings.cs">
       <id>a7f60192-3e84-4fc1-81fd-beda27b6510d</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\ConvertPropertiesPanelToString.cs">
+      <id>5b6bfbff-8cf5-48ec-9ff8-df2fe271f89f</id>
     </Compile>
     <Compile Include="Modules\Calculation\ConvertToCurrentCulture.cs">
       <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>

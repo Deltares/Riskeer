@@ -139,7 +139,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         {
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 1.0;
+            Delay.SpeedFactor = 0.0;
             
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;

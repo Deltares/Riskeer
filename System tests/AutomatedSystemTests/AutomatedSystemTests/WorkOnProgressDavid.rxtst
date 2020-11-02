@@ -2,6 +2,12 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			id="0233f019-e3c3-44b9-9702-a5a927d513c3"
+			name="ConvertPropertiesPanelToString"
+			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
+			type="UserCode">
+			</testmodule>
 			<testcase
 			id="03516193-c159-43bc-8599-7d2a7b5f7875"
 			name="script18_Overige_(sterkte)parameters_specificeren">
@@ -95,15 +101,51 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="23a4378b-e6ce-4e0b-bb6f-674f35400d21"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
 			name="HideRanorexProgressDialog"
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<teardown
+			id="34f7a4f4-edf0-4bb8-8529-27239f9db0ac"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="3e1302a8-1bf2-4dda-95d7-43f243dd38b6"
 			name="SelectInputOfCalculation">
 			</smartfoldernode>
+			<smartfoldernode
+			id="4145f572-f5fd-4641-bf22-a729bb74a212"
+			name="DuplicateCalculation">
+			</smartfoldernode>
+			<testmodule
+			id="4442784e-4785-4118-a764-a69983cb304f"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationPressRightKey"
+					datasourceid="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4dce9e7b-2754-45f6-82fd-9673f23bf397"
 			name="StartAUT"
@@ -124,6 +166,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="4ec44d85-626e-4b20-b6c5-47f18b24e2b1"
+			name="ValidateCopyOfCalculation">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script18ParametersToModifyInCalculations"
 			errorbehavior="ContinueNextIteration"
@@ -172,6 +218,26 @@
 			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
 			type="UserCode">
 			</testmodule>
+			<testmodule
+			id="74cceb79-c627-4af3-a01d-d9f033253c3a"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="77fe5305-0370-4462-a7f8-9ba266c5eece"
 			name="SaveConfigurationXMLFileForCalculation_ToDo">
@@ -190,6 +256,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testcase
+			id="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
+			name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
+			</testcase>
 			<testmodule
 			id="86f974e8-06f9-423c-8708-e37cc5d580a9"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -216,6 +286,14 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<setup
+			id="8d192fcd-cdb2-492a-880e-e3f7b2283e88"
+			name="setup">
+			</setup>
+			<smartfoldernode
+			id="912d98e6-5a9a-4cb7-b45a-302ba284881e"
+			name="a)DuplicationOfCalculations">
+			</smartfoldernode>
 			<setup
 			id="92f64a7c-cec0-4938-b1a5-8958c91f0b09"
 			name="setup">
@@ -269,6 +347,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="a962f501-dc86-4f91-aae5-606e3bbcf1bc"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="aa095c8b-987c-400a-914d-4f9eaf3be7c8"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -307,6 +391,20 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<smartfoldernode
+			id="b964a574-b2b1-4601-a4fd-20edacda10a1"
+			name="b)ExportingAndImportingCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
+			name="ConvertPropertiesPanelToString">
+				<parameters>
+					<param
+					name="durationPressRightKey"
+					value="150">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="cafb6dfa-b0aa-48a1-ad04-3e74b66502c3"
 			name="CloseAUT"
@@ -397,6 +495,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="f298578a-5e42-44e8-840c-8c8fca87e3f1"
+			name="OpenProject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="f59122b2-1af8-4433-bc1f-22a4da488ea3"
 			name="CreateFullPathToInput">
 				<parameters>
@@ -406,6 +508,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="f713c85e-c5a4-406c-be12-7939a322dd14"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="03516193-c159-43bc-8599-7d2a7b5f7875"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -514,6 +630,66 @@
 						name="teardown">
 							<testmodule
 							id="cafb6dfa-b0aa-48a1-ad04-3e74b66502c3"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
+					name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
+						<setup
+						id="8d192fcd-cdb2-492a-880e-e3f7b2283e88"
+						name="setup">
+							<testmodule
+							id="74cceb79-c627-4af3-a01d-d9f033253c3a"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="f713c85e-c5a4-406c-be12-7939a322dd14"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="912d98e6-5a9a-4cb7-b45a-302ba284881e"
+						name="a)DuplicationOfCalculations">
+							<smartfoldernode
+							id="f298578a-5e42-44e8-840c-8c8fca87e3f1"
+							name="OpenProject">
+							</smartfoldernode>
+							<smartfoldernode
+							id="4145f572-f5fd-4641-bf22-a729bb74a212"
+							name="DuplicateCalculation">
+							</smartfoldernode>
+							<smartfoldernode
+							id="4ec44d85-626e-4b20-b6c5-47f18b24e2b1"
+							name="ValidateCopyOfCalculation">
+								<smartfoldernode
+								id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
+								name="ConvertPropertiesPanelToString">
+									<testmodule
+									id="a962f501-dc86-4f91-aae5-606e3bbcf1bc"
+									name="HideRanorexProgressDialog">
+									</testmodule>
+									<testmodule
+									id="4442784e-4785-4118-a764-a69983cb304f"
+									name="ExpandAllRowItemsInPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="0233f019-e3c3-44b9-9702-a5a927d513c3"
+									name="ConvertPropertiesPanelToString">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="b964a574-b2b1-4601-a4fd-20edacda10a1"
+						name="b)ExportingAndImportingCalculation">
+						</smartfoldernode>
+						<teardown
+						id="34f7a4f4-edf0-4bb8-8529-27239f9db0ac"
+						name="teardown">
+							<testmodule
+							id="23a4378b-e6ce-4e0b-bb6f-674f35400d21"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -3835,6 +4011,30 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="4145f572-f5fd-4641-bf22-a729bb74a212">
+			</testcontainer>
+			<testcontainer
+			id="4ec44d85-626e-4b20-b6c5-47f18b24e2b1">
+			</testcontainer>
+			<testcontainer
+			id="7fea90cf-52f4-4fb1-916e-cc6a478acb35">
+			</testcontainer>
+			<testcontainer
+			id="912d98e6-5a9a-4cb7-b45a-302ba284881e">
+			</testcontainer>
+			<testcontainer
+			id="b964a574-b2b1-4601-a4fd-20edacda10a1">
+			</testcontainer>
+			<testcontainer
+			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c">
+			</testcontainer>
+			<testcontainer
+			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
+			</testcontainer>
+			<testcontainer
+			id="f298578a-5e42-44e8-840c-8c8fca87e3f1">
+			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>
