@@ -220,7 +220,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
@@ -228,9 +227,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
             TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction,
+            Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
@@ -239,7 +237,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
-                (o, args) => calculateAction(calculation, calculationContext));
+                (o, args) => calculateAction(calculationContext));
 
             SetStateWithEnableFunction(calculationContext, enableMenuItemFunction, menuItem);
             return menuItem;

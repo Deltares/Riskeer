@@ -153,7 +153,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
@@ -161,14 +160,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
             TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction,
+            Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TCalculation, TCalculationContext>(
+                                                 calculationContext, calculateAction, enableMenuItemFunction));
             return this;
         }
 
