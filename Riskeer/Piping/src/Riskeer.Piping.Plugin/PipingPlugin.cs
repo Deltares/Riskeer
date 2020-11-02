@@ -588,7 +588,7 @@ namespace Riskeer.Piping.Plugin
             if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
             {
                 calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                            .OfType<IPipingCalculationScenario<PipingInput>>();
+                                                            .Cast<IPipingCalculationScenario<PipingInput>>();
             }
 
             var failureMechanism = o as PipingFailureMechanism;
@@ -608,7 +608,7 @@ namespace Riskeer.Piping.Plugin
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
-                                               .OfType<IPipingCalculationScenario<PipingInput>>();
+                                               .Cast<IPipingCalculationScenario<PipingInput>>();
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
@@ -760,7 +760,7 @@ namespace Riskeer.Piping.Plugin
         /// is of a type that is not supported.</exception>
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculationScenario<PipingInput>>(),
+            ValidateAll(context.WrappedData.Calculations.Cast<IPipingCalculationScenario<PipingInput>>(),
                         context.WrappedData.GeneralInput,
                         context.Parent);
         }
@@ -836,7 +836,7 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
             IPipingCalculationScenario<PipingInput>[] calculations = nodeData.WrappedData.GetCalculations()
-                                                                             .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                             .Cast<IPipingCalculationScenario<PipingInput>>()
                                                                              .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
@@ -1023,7 +1023,7 @@ namespace Riskeer.Piping.Plugin
         /// a type that is not supported.</exception>
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculationScenario<PipingInput>>(),
+            ValidateAll(context.WrappedData.GetCalculations().Cast<IPipingCalculationScenario<PipingInput>>(),
                         context.FailureMechanism.GeneralInput,
                         context.AssessmentSection);
         }
