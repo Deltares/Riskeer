@@ -563,6 +563,31 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb"
+			name="SelectListItemFromDropDownMenuInPropertiesPanel">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="parameterType"
+								id="19801d59-c7e1-4127-8b92-0b6f8606dba2">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="tableFMsToValidateTrajectLength"
 			id="1010c180-4323-4c5d-a8f2-a1541376c852"
 			name="CompareTrajectLengthInFMs">
@@ -1459,6 +1484,26 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="2225bf5e-d9ee-4100-89bb-4767fcb99a1c"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
@@ -1609,6 +1654,40 @@
 			id="255cbae4-6f2e-4e97-b4db-9655ae0b7122"
 			name="CancelCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="256c1bb8-2535-464d-8251-e5ddffef2882"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameReferenceConfigurationXMLFile"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCurrentFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="2632f48c-8a60-4589-bf96-cebeb8cc6a2c"
 			name="OpenViewForFailureMechanismContribution"
@@ -2157,6 +2236,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="309d665f-5b2e-43df-9472-0faae45c7fd0"
+			name="SelectInputOfCalculation">
+			</smartfoldernode>
 			<testmodule
 			id="31349fd2-6d78-407d-ad09-874c4d99e119"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryVv"
@@ -2358,6 +2441,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
@@ -2580,6 +2677,20 @@
 					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
 					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
 					variablename="destinationFileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3fcc9b4a-69bb-4e75-b76e-6e010eac74cc"
+			name="ExportConfigurationSelectedCalculationToXMLFile"
+			ref="f9bf6401-43a0-4383-984d-457c6eee59b7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="56347b29-0010-4e17-9350-df3326ef24fd"
+					variablename="fileNameToSave">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3126,6 +3237,26 @@
 			ref="bbf874ea-d649-48f1-b9a6-08ca561100d3"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="4890bb24-ea21-47da-8c8b-7e5885590194"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="4a01d30f-ae28-4241-8011-738b80e3dad7"
 			name="ValidateResultInDocumentView">
@@ -3227,6 +3358,12 @@
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script18ParametersToModifyInCalculations"
+			errorbehavior="ContinueNextIteration"
+			id="4ee89ccd-4875-4f75-a76d-af0c47729751"
+			name="ModifyParametersInSelectedCalculationInput_ToDo">
+			</smartfoldernode>
 			<testmodule
 			id="4fc34da7-8967-44a9-b8b3-3e2c1190f3bf"
 			name="ValidateRowDoesNotExistInPropertiesPanel"
@@ -4123,6 +4260,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="622bed72-4898-4d20-b9a5-d40c869cdd75"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToCalculationInput"
+					datasourceid="b47f226a-dc7a-4cfe-8207-9232909de566"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="62a061e2-b27d-4bf0-be54-21b827e9904f"
 			name="SetManualAssessmentCategory"
 			ref="97f68751-6390-4dac-92f9-cba8feac75de"
@@ -4766,6 +4917,10 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<teardown
+			id="710136e9-de8e-48b2-b63c-c91e105501bc"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
@@ -5307,6 +5462,34 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="7ce7baba-e4b7-4601-a6d6-30a99de82942"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationToModify"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="b1ba515e-b23b-4caa-afee-d8886ab86cea"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
 			errorbehavior="ContinueNextIteration"
@@ -5471,6 +5654,20 @@
 				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
+			id="80b3e677-2281-402a-998a-84e8a67feb17"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fielNameToOpen"
+					datasourceid="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="81e0e112-5c95-45a6-92ae-b7157e9a0afe"
 			name="SelectRowCalculation"
 			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
@@ -5532,6 +5729,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
+			name="setup">
+			</setup>
 			<smartfoldernode
 			id="82ffc294-04aa-4665-85ca-aa4836c82cc2"
 			name="CustomAssessmentFMsGroup1And2">
@@ -6155,6 +6356,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="93224d6a-18ee-438b-902b-7b10fa9aaaaa"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
 			name="SetRelevanceFMsTraject44_2InProjectExplorer">
@@ -6334,6 +6541,17 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			errorbehavior="ContinueParent"
+			id="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="fielNameToOpen"
+					value="X:\script18\Project_18.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
 			name="setup">
@@ -6363,6 +6581,28 @@
 					variablename="messageToBeLogged">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="9b3d512c-b4c6-4f52-8239-cb93302de0fb"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="dd2ca099-2926-4cc4-93c9-5fc261368498"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
@@ -6663,6 +6903,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="a3af9ada-71f3-4fd8-a9ce-27e8dc263809"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="a42057e3-eca0-4eed-8a1e-b9408652464a"
 			name="CalculatePathInPropertiesPanelOfBoundaryCategory"
 			ref="6fcd729a-b24a-42d7-8636-f8d75a283109"
@@ -6839,6 +7085,32 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="ac40b569-d594-4c1f-9f2f-7c20a6a1cf80"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="substringInput"
+					datasourceid="da864375-f0d3-4c16-b053-43b24f070f2b"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathToCalculationInput"
+					datasourceid="b47f226a-dc7a-4cfe-8207-9232909de566"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationToModify"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="ac449e02-6da8-4f5a-b344-61d7dc201abf"
@@ -7334,6 +7606,20 @@
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script18CalculationsToModify"
+			errorbehavior="ContinueNextIteration"
+			id="b47f226a-dc7a-4cfe-8207-9232909de566"
+			maxrange="0"
+			minrange="0"
+			name="LoopCalculationsToModify_ToDo">
+				<parameters>
+					<param
+					name="fullPathToCalculationInput"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="b517f8dd-1c08-4365-a028-fce3f4452308"
 			name="ValidateDetailedAssessmentTypeAtRowGroup4"
@@ -7741,6 +8027,32 @@
 			id="c1adef3a-d31b-4c6f-8ad3-27e077f4bda0"
 			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
 			</smartfoldernode>
+			<testmodule
+			id="c26734e2-e4cf-4603-8adc-abaa0e9f3ab7"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="parameterType"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="c2827979-50a8-479f-a070-38134ba75683"
 			name="ValidateAfterAllCalculationsHaveFinished">
@@ -8172,6 +8484,26 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfSmartFolderToSpecifyRange"
+					datasourceid="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeParametersTochangeInInnerLoop"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="cc470262-311b-415e-afad-5aa5ba3bf243"
 			name="ValidateSurfaceLineInProjectExplorer"
 			ref="2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3"
@@ -8244,6 +8576,16 @@
 						</rightvalue>
 					</condition>
 				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+			name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+				<parameters>
+					<param
+					name="nameOfSmartFolderToSpecifyRange"
+					value="ModifyParametersInSelectedCalculationInput_ToDo">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableNValueInFMsForTraject12_2"
@@ -8773,6 +9115,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="da864375-f0d3-4c16-b053-43b24f070f2b"
+			name="CreateFullPathToInput">
+				<parameters>
+					<param
+					name="substringInput"
+					value=">Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="da95823a-60ee-4a9b-834e-335833763e80"
 			name="OpenViewForFailureMechanismContribution"
@@ -8795,6 +9147,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="daf19c59-fc9a-4c83-9494-713840ef72af"
+			name="SaveConfigurationXMLFileForCalculation_ToDo">
+			</smartfoldernode>
 			<smartfoldernode
 			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d"
 			name="CustomAssessmentFMsGroup3">
@@ -9148,6 +9504,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testcase
+			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+			name="script18_Overige_(sterkte)parameters_specificeren">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="18">
+					</param>
+				</parameters>
+			</testcase>
 			<testmodule
 			id="e29fde56-1512-449b-aa66-e9d8d9478983"
 			name="SetDetailedAssessmentForRowPerSection"
@@ -10060,6 +10426,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
+			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+			</smartfoldernode>
 			<smartfoldernode
 			id="f865a291-2481-48ab-83d4-16bfbd98d537"
 			name="OpenDocumentViewForHydraulicBCItem">
@@ -12366,6 +12736,110 @@
 						name="teardown">
 							<testmodule
 							id="2f77973f-cbf2-4687-abc8-1412c4c9cc07"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+					name="script18_Overige_(sterkte)parameters_specificeren">
+						<setup
+						id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
+						name="setup">
+							<testmodule
+							id="2225bf5e-d9ee-4100-89bb-4767fcb99a1c"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="9b3d512c-b4c6-4f52-8239-cb93302de0fb"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+						name="OpenProject">
+							<testmodule
+							id="80b3e677-2281-402a-998a-84e8a67feb17"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="b47f226a-dc7a-4cfe-8207-9232909de566"
+						name="LoopCalculationsToModify_ToDo">
+							<smartfoldernode
+							id="da864375-f0d3-4c16-b053-43b24f070f2b"
+							name="CreateFullPathToInput">
+								<testmodule
+								id="ac40b569-d594-4c1f-9f2f-7c20a6a1cf80"
+								name="ConcatenateStrings">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="309d665f-5b2e-43df-9472-0faae45c7fd0"
+							name="SelectInputOfCalculation">
+								<testmodule
+								id="622bed72-4898-4d20-b9a5-d40c869cdd75"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+							name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+								<testmodule
+								id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
+								name="SetRangeInSmartFolder">
+								</testmodule>
+							</smartfoldernode>
+							<testmodule
+							id="93224d6a-18ee-438b-902b-7b10fa9aaaaa"
+							name="HideRanorexProgressDialog">
+							</testmodule>
+							<smartfoldernode
+							id="4ee89ccd-4875-4f75-a76d-af0c47729751"
+							name="ModifyParametersInSelectedCalculationInput_ToDo">
+								<testmodule
+								id="c26734e2-e4cf-4603-8adc-abaa0e9f3ab7"
+								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								</testmodule>
+								<smartfoldernode
+								id="0f591fb3-1f88-4c0d-98ef-55748ba995cb"
+								name="SelectListItemFromDropDownMenuInPropertiesPanel">
+									<testmodule
+									id="4890bb24-ea21-47da-8c8b-7e5885590194"
+									name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<testmodule
+							id="a3af9ada-71f3-4fd8-a9ce-27e8dc263809"
+							name="ShowRanorexProgressDialog">
+							</testmodule>
+							<smartfoldernode
+							id="daf19c59-fc9a-4c83-9494-713840ef72af"
+							name="SaveConfigurationXMLFileForCalculation_ToDo">
+								<testmodule
+								id="7ce7baba-e4b7-4601-a6d6-30a99de82942"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="3fcc9b4a-69bb-4e75-b76e-6e010eac74cc"
+								name="ExportConfigurationSelectedCalculationToXMLFile">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
+							name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+								<testmodule
+								id="256c1bb8-2535-464d-8251-e5ddffef2882"
+								name="ComparePlainTextFiles">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="710136e9-de8e-48b2-b63c-c91e105501bc"
+						name="teardown">
+							<testmodule
+							id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -15997,7 +16471,7 @@
 		<DataSource
 		id="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 		lastknownrowcount="8"
-		name="N18CalculationsToModify"
+		name="script18CalculationsToModify"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -16007,7 +16481,10 @@
 					rangeParametersTochangeInInnerLoop
 				</column>
 				<column>
-					nameCalculationConfigurationXMLFileToExport
+					nameCreatedConfigurationXMLFileToExport
+				</column>
+				<column>
+					nameReferenceConfigurationXMLFile
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -16021,7 +16498,10 @@
 						rangeParametersTochangeInInnerLoop
 					</th>
 					<th>
-						nameCalculationConfigurationXMLFileToExport
+						nameCreatedConfigurationXMLFileToExport
+					</th>
+					<th>
+						nameReferenceConfigurationXMLFile
 					</th>
 				</tr>
 				<tr>
@@ -16029,9 +16509,13 @@
 						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
+						1-10
 					</td>
 					<td>
-						script18\aangepast1STPH.xml
+						script18\createdConfiguration1STPH.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STPH.xml
 					</td>
 				</tr>
 				<tr>
@@ -16039,19 +16523,13 @@
 						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
+						11-12
 					</td>
 					<td>
-						script18\aangepast2STPH.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;12_2_00100 12_2_00100_Segment_12004_1D1
+						script18\createdConfiguration2STPH.xml
 					</td>
 					<td>
-					</td>
-					<td>
-						script18\aangepast1STBI.xml
+						X:\script18\referenceConfiguration2STPH.xml
 					</td>
 				</tr>
 				<tr>
@@ -16059,9 +16537,27 @@
 						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
 					</td>
 					<td>
+						13-65
 					</td>
 					<td>
-						script18\aangepast2STBI.xml
+						script18\createdConfiguration1STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STBI.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
+					</td>
+					<td>
+						66-69
+					</td>
+					<td>
+						script18\createdConfiguration2STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STBI.xml
 					</td>
 				</tr>
 				<tr>
@@ -16069,9 +16565,13 @@
 						GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
 					</td>
 					<td>
+						70-81
 					</td>
 					<td>
-						script18\aangepastGEKB.xml
+						script18\createdConfigurationGEKB.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationGEKB.xml
 					</td>
 				</tr>
 				<tr>
@@ -16079,9 +16579,13 @@
 						BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
 					</td>
 					<td>
+						82-116
 					</td>
 					<td>
-						script18\aangepastBSKW.xml
+						script18\createdConfigurationBSKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationBSKW.xml
 					</td>
 				</tr>
 				<tr>
@@ -16089,9 +16593,13 @@
 						HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
 					</td>
 					<td>
+						117-139
 					</td>
 					<td>
-						script18\aangepastHTKW.xml
+						script18\createdConfigurationHTKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationHTKW.xml
 					</td>
 				</tr>
 				<tr>
@@ -16099,9 +16607,13 @@
 						STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
 					</td>
 					<td>
+						140-191
 					</td>
 					<td>
-						script18\aangepastSTKWp.xml
+						script18\createdConfigurationSTKWp.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationSTKWp.xml
 					</td>
 				</tr>
 			</table>
@@ -21827,6 +22339,9 @@
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
+			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb">
+			</testcontainer>
+			<testcontainer
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
@@ -21881,6 +22396,9 @@
 			id="2a0492fd-1126-4943-aac9-d7c0fe05044c">
 			</testcontainer>
 			<testcontainer
+			id="309d665f-5b2e-43df-9472-0faae45c7fd0">
+			</testcontainer>
+			<testcontainer
 			id="317c41b1-22fc-4686-b9bb-9d840ec3d1f6">
 			</testcontainer>
 			<testcontainer
@@ -21927,6 +22445,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4d492061-048f-4be2-ab20-d63a8870b77a">
+			</testcontainer>
+			<testcontainer
+			id="4ee89ccd-4875-4f75-a76d-af0c47729751">
 			</testcontainer>
 			<testcontainer
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
@@ -22058,6 +22579,9 @@
 			id="97fdd56d-de66-47c4-820d-968e0b8f300d">
 			</testcontainer>
 			<testcontainer
+			id="9a5c4808-2611-4724-8a6d-65f24e608a1c">
+			</testcontainer>
+			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
 			</testcontainer>
 			<testcontainer
@@ -22109,6 +22633,9 @@
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
 			</testcontainer>
 			<testcontainer
+			id="b47f226a-dc7a-4cfe-8207-9232909de566">
+			</testcontainer>
+			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
@@ -22148,6 +22675,9 @@
 			id="c7aa0781-b102-4705-92d4-de781e658f70">
 			</testcontainer>
 			<testcontainer
+			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">
+			</testcontainer>
+			<testcontainer
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
@@ -22166,6 +22696,12 @@
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
 			</testcontainer>
 			<testcontainer
+			id="da864375-f0d3-4c16-b053-43b24f070f2b">
+			</testcontainer>
+			<testcontainer
+			id="daf19c59-fc9a-4c83-9494-713840ef72af">
+			</testcontainer>
+			<testcontainer
 			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d">
 			</testcontainer>
 			<testcontainer
@@ -22179,6 +22715,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
+			</testcontainer>
+			<testcontainer
+			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038">
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
@@ -22209,6 +22748,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
+			</testcontainer>
+			<testcontainer
+			id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee">
 			</testcontainer>
 			<testcontainer
 			id="fd8d4063-c02c-4fb9-80f1-49dc99eddc50">
