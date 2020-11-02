@@ -943,8 +943,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        nodeData,
                        Validate,
                        EnableValidateAndCalculateMenuItemForCalculation)
-                   .AddPerformCalculationItem(
-                       calculation,
+                   .AddPerformCalculationItem<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                        nodeData,
                        Calculate,
                        EnableValidateAndCalculateMenuItemForCalculation)
@@ -978,11 +977,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                           failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
-        private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                               GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
+                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(context.WrappedData,
                                                                                                                                          context.FailureMechanism,
                                                                                                                                          context.AssessmentSection));
         }

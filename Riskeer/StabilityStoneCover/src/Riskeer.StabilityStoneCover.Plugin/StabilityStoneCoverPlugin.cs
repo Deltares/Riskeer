@@ -628,7 +628,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddValidateCalculationItem(nodeData,
                                                Validate,
                                                EnableValidateAndCalculateMenuItemForCalculation)
-                   .AddPerformCalculationItem(calculation, nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                   .AddPerformCalculationItem<StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverWaveConditionsCalculationContext>(
+                       nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
                    .AddSeparator()
                    .AddClearCalculationOutputItem(calculation)
                    .AddDeleteItem()
@@ -657,12 +658,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                           assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
-        private void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation,
-                               StabilityStoneCoverWaveConditionsCalculationContext context)
+        private void Calculate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
-                                                 calculation,
+                                                 context.WrappedData,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection));
         }

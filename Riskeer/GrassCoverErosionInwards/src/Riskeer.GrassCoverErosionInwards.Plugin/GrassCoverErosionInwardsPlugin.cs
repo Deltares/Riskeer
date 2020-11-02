@@ -883,8 +883,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -911,10 +910,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
         }
 
-        private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationScenarioContext context)
+        private void Calculate(GrassCoverErosionInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                           context.FailureMechanism,
                                                                                                                           context.AssessmentSection));
         }

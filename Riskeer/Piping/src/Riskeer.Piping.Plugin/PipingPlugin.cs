@@ -125,9 +125,9 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingProfileSpecificOutputProperties>
             {
                 CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputProperties(context.WrappedData.Output?.ProfileSpecificOutput,
-                                                                                                          context.WrappedData,
-                                                                                                          context.FailureMechanism,
-                                                                                                          context.AssessmentSection)
+                                                                                                   context.WrappedData,
+                                                                                                   context.FailureMechanism,
+                                                                                                   context.AssessmentSection)
             };
             yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputProperties>
             {
@@ -1095,8 +1095,7 @@ namespace Riskeer.Piping.Plugin
                           .AddValidateCalculationItem(
                               nodeData,
                               ValidateSemiProbabilistic)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<SemiProbabilisticPipingCalculationScenario, SemiProbabilisticPipingCalculationScenarioContext>(
                               nodeData,
                               CalculateSemiProbabilistic)
                           .AddSeparator()
@@ -1122,11 +1121,10 @@ namespace Riskeer.Piping.Plugin
                                                                GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculationScenario calculation,
-                                                SemiProbabilisticPipingCalculationScenarioContext context)
+        private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation,
+                                             PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(context.WrappedData,
                                                                                                                                context.FailureMechanism.GeneralInput,
                                                                                                                                context.AssessmentSection));
         }
@@ -1173,8 +1171,7 @@ namespace Riskeer.Piping.Plugin
                           .AddValidateCalculationItem(
                               nodeData,
                               ValidateProbabilistic)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<ProbabilisticPipingCalculationScenario, ProbabilisticPipingCalculationScenarioContext>(
                               nodeData,
                               CalculateProbabilistic)
                           .AddSeparator()
@@ -1200,10 +1197,10 @@ namespace Riskeer.Piping.Plugin
                                                            context.AssessmentSection);
         }
 
-        private void CalculateProbabilistic(ProbabilisticPipingCalculationScenario calculation, ProbabilisticPipingCalculationScenarioContext context)
+        private void CalculateProbabilistic(ProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(calculation,
+                                             PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(context.WrappedData,
                                                                                                                            context.FailureMechanism,
                                                                                                                            context.AssessmentSection));
         }

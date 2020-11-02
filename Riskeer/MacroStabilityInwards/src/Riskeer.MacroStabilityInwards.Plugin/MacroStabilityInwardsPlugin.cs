@@ -900,7 +900,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            MacroStabilityInwardsCalculation calculation = nodeData.WrappedData;
+            MacroStabilityInwardsCalculationScenario calculation = nodeData.WrappedData;
 
             return builder.AddExportItem()
                           .AddSeparator()
@@ -911,8 +911,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .AddValidateCalculationItem(
                               nodeData,
                               Validate)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsCalculationScenarioContext>(
                               nodeData,
                               Calculate)
                           .AddSeparator()
@@ -943,11 +942,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             MacroStabilityInwardsCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
+        private void Calculate(MacroStabilityInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
+                                                                                          context.AssessmentSection));
         }
 
         #endregion

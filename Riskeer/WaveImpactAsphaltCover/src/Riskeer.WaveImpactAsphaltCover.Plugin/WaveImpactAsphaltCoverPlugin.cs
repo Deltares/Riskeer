@@ -628,7 +628,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddValidateCalculationItem(nodeData,
                                                       Validate,
                                                       EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(calculation, nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
+                              nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -657,11 +658,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                           assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
-        private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                               WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                                       context.FailureMechanism,
                                                                                                                                       context.AssessmentSection));
         }

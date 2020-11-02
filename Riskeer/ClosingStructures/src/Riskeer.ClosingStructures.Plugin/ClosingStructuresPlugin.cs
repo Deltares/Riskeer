@@ -729,8 +729,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -756,10 +755,10 @@ namespace Riskeer.ClosingStructures.Plugin
             ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationScenarioContext context)
+        private void Calculate(ClosingStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                    context.FailureMechanism,
                                                                                                                    context.AssessmentSection));
         }

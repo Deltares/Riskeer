@@ -735,8 +735,7 @@ namespace Riskeer.HeightStructures.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -762,11 +761,13 @@ namespace Riskeer.HeightStructures.Plugin
             HeightStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationScenarioContext context)
+        private void Calculate(HeightStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism, context.AssessmentSection));
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
+                                                                                     context.FailureMechanism,
+                                                                                     context.AssessmentSection));
         }
 
         private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationScenarioContext context, object parentData)

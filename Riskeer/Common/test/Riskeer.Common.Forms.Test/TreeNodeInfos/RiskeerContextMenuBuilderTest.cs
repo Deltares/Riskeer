@@ -1055,7 +1055,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(
+                    calculationContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1102,7 +1103,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "No valid data";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(
+                    calculationContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
