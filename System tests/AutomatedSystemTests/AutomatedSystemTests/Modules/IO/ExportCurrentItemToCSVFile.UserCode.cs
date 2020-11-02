@@ -21,7 +21,7 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ContextMenuActions
+namespace AutomatedSystemTests.Modules.IO
 {
     public partial class ExportCurrentItemToCSVFile
     {

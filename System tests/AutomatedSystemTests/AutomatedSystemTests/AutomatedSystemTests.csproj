@@ -432,18 +432,6 @@
       <id>8ae21ef3-342a-4c9c-a7ac-809ad8717eba</id>
       <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ExportCurrentItemToCSVFile.cs">
-      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f992eacb-d775-435f-8834-84e18ce4782c</id>
-      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ContextMenuActions\ExportCurrentItemToCSVFile.UserCode.cs">
-      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>1458cd92-3504-4445-97f3-eb30ac8b9761</id>
-      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
-    </Compile>
     <Compile Include="Modules\ContextMenuActions\GenerateCalculations.cs">
       <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -575,6 +563,30 @@
       <UserCode>true</UserCode>
       <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
       <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.cs">
+      <BoundTo>78d67fc9-2020-4f9d-a4a2-ea62e2c2965a</BoundTo>
+      <DependentUpon>ExportConfigurationSelectedCalculationToXMLFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b46af813-86a8-48ed-9a2e-5d3508a128d5</id>
+    </Compile>
+    <Compile Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.UserCode.cs">
+      <BoundTo>78d67fc9-2020-4f9d-a4a2-ea62e2c2965a</BoundTo>
+      <DependentUpon>ExportConfigurationSelectedCalculationToXMLFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>a727823e-f104-42d1-9380-2f957b8dbe49</id>
+    </Compile>
+    <Compile Include="Modules\IO\ExportCurrentItemToCSVFile.cs">
+      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f992eacb-d775-435f-8834-84e18ce4782c</id>
+      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\ExportCurrentItemToCSVFile.UserCode.cs">
+      <DependentUpon>ExportCurrentItemToCSVFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>1458cd92-3504-4445-97f3-eb30ac8b9761</id>
+      <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
     </Compile>
     <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
       <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
@@ -1802,11 +1814,6 @@
       <id>59490521-b0d6-4832-b342-9035761334e8</id>
       <recordtableid>a2bd227a-e006-4e77-9c0d-21fc549d097c</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ExportCurrentItemToCSVFile.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d5a0a829-3c74-4406-9514-acc72b31ac0a</id>
-      <recordtableid>82c65bc9-8451-45bb-867d-b7d4559e95d9</recordtableid>
-    </None>
     <None Include="Modules\ContextMenuActions\GenerateCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
@@ -1861,6 +1868,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
       <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
+    </None>
+    <None Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>78d67fc9-2020-4f9d-a4a2-ea62e2c2965a</id>
+      <recordtableid>f9bf6401-43a0-4383-984d-457c6eee59b7</recordtableid>
+    </None>
+    <None Include="Modules\IO\ExportCurrentItemToCSVFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d5a0a829-3c74-4406-9514-acc72b31ac0a</id>
+      <recordtableid>82c65bc9-8451-45bb-867d-b7d4559e95d9</recordtableid>
     </None>
     <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

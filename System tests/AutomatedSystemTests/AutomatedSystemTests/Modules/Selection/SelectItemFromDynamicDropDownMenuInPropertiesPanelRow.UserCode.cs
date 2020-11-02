@@ -46,21 +46,30 @@ namespace AutomatedSystemTests.Modules.Selection
         			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
         			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
         			stepRow = searchList[indexStepRow];
-        			// Select (and expand) the item
-        			stepRow.Focus();
-        			stepRow.Select();
+        			// if step is intermediate
         			if (i != stepsPathItem.Count - 1)
         				{
-        					stepRow.PressKeys("{Right}");
-        				}
-        			
+        			         var stateStepRow = stepRow.Element.GetAttributeValueText("AccessibleState");
+        			         // if intermediate step is collapsed
+        			         if (stateStepRow.Contains("Collapsed")) {
+        			             // Select and expand the intermediate item
+        			             Report.Log(ReportLevel.Info, "was collapsed");
+        			             stepRow.Focus();
+        			             stepRow.Select();
+        			             stepRow.PressKeys("{Right}");
+        			             }
+        			     } else {
+        			    // Select the final item
+        			    stepRow.Focus();
+        			    stepRow.Select();
+        			     }
         			// Update the minimum index administration (only search forward)
         			minimumIndex += 1 + indexStepRow;
         			}
         	return stepRow;
         	}
         
-        public void MergedUserCodeMethod(RepoItemInfo listitemInfo, string pathToRowItemInPropertiesPanel)
+        public void SelectItemFromDynamicDropDownMenuInRowPropertiesPanel(RepoItemInfo listitemInfo, string pathToRowItemInPropertiesPanel)
         {
             
         	AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;

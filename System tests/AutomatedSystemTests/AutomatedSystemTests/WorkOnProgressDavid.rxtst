@@ -67,6 +67,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="1d3b416f-f2d6-4c08-a349-a0a4abdb38b7"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationToModify"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="b1ba515e-b23b-4caa-afee-d8886ab86cea"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
 			name="HideRanorexProgressDialog"
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
@@ -149,11 +177,11 @@
 			name="SaveConfigurationXMLFileForCalculation_ToDo">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="N18CalculationsToModify"
+			datasource="script18CalculationsToModify"
 			errorbehavior="ContinueNextIteration"
 			id="7ba66fd3-0e17-4a85-b3df-357f335bf24f"
-			maxrange="7"
-			minrange="7"
+			maxrange="0"
+			minrange="0"
 			name="LoopCalculationsToModify_ToDo">
 				<parameters>
 					<param
@@ -196,6 +224,20 @@
 			id="9b855997-d3fa-4905-b185-8f945d8a56a6"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
 			</smartfoldernode>
+			<testmodule
+			id="a20e3d1e-8d16-4a51-9e5f-966bea2c887b"
+			name="ExportConfigurationSelectedCalculationToXMLFile"
+			ref="f9bf6401-43a0-4383-984d-457c6eee59b7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="56347b29-0010-4e17-9350-df3326ef24fd"
+					variablename="fileNameToSave">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a455cb8d-2d1f-4e99-8869-01082a8c2b8a"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
@@ -252,7 +294,7 @@
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
-			VideoRecordingMode="Off"
+			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
 			enabletracingscreenshots="True"
 			id="b6ec5115-70d1-4088-a555-08556609361b"
@@ -320,6 +362,40 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="e0e5dabb-2372-43e2-a007-75bf8d571b89"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameReferenceConfigurationXMLFile"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCurrentFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="f59122b2-1af8-4433-bc1f-22a4da488ea3"
 			name="CreateFullPathToInput">
@@ -415,10 +491,22 @@
 							<smartfoldernode
 							id="77fe5305-0370-4462-a7f8-9ba266c5eece"
 							name="SaveConfigurationXMLFileForCalculation_ToDo">
+								<testmodule
+								id="1d3b416f-f2d6-4c08-a349-a0a4abdb38b7"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="a20e3d1e-8d16-4a51-9e5f-966bea2c887b"
+								name="ExportConfigurationSelectedCalculationToXMLFile">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="9b855997-d3fa-4905-b185-8f945d8a56a6"
 							name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+								<testmodule
+								id="e0e5dabb-2372-43e2-a007-75bf8d571b89"
+								name="ComparePlainTextFiles">
+								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -438,7 +526,7 @@
 		<DataSource
 		id="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 		lastknownrowcount="8"
-		name="N18CalculationsToModify"
+		name="script18CalculationsToModify"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -448,7 +536,10 @@
 					rangeParametersTochangeInInnerLoop
 				</column>
 				<column>
-					nameCalculationConfigurationXMLFileToExport
+					nameCreatedConfigurationXMLFileToExport
+				</column>
+				<column>
+					nameReferenceConfigurationXMLFile
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -462,7 +553,10 @@
 						rangeParametersTochangeInInnerLoop
 					</th>
 					<th>
-						nameCalculationConfigurationXMLFileToExport
+						nameCreatedConfigurationXMLFileToExport
+					</th>
+					<th>
+						nameReferenceConfigurationXMLFile
 					</th>
 				</tr>
 				<tr>
@@ -473,7 +567,10 @@
 						1-10
 					</td>
 					<td>
-						script18\aangepast1STPH.xml
+						script18\createdConfiguration1STPH.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STPH.xml
 					</td>
 				</tr>
 				<tr>
@@ -484,7 +581,10 @@
 						11-12
 					</td>
 					<td>
-						script18\aangepast2STPH.xml
+						script18\createdConfiguration2STPH.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STPH.xml
 					</td>
 				</tr>
 				<tr>
@@ -495,7 +595,10 @@
 						13-65
 					</td>
 					<td>
-						script18\aangepast1STBI.xml
+						script18\createdConfiguration1STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STBI.xml
 					</td>
 				</tr>
 				<tr>
@@ -506,7 +609,10 @@
 						66-69
 					</td>
 					<td>
-						script18\aangepast2STBI.xml
+						script18\createdConfiguration2STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STBI.xml
 					</td>
 				</tr>
 				<tr>
@@ -517,7 +623,10 @@
 						70-81
 					</td>
 					<td>
-						script18\aangepastGEKB.xml
+						script18\createdConfigurationGEKB.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationGEKB.xml
 					</td>
 				</tr>
 				<tr>
@@ -528,7 +637,10 @@
 						82-116
 					</td>
 					<td>
-						script18\aangepastBSKW.xml
+						script18\createdConfigurationBSKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationBSKW.xml
 					</td>
 				</tr>
 				<tr>
@@ -539,7 +651,10 @@
 						117-139
 					</td>
 					<td>
-						script18\aangepastHTKW.xml
+						script18\createdConfigurationHTKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationHTKW.xml
 					</td>
 				</tr>
 				<tr>
@@ -550,7 +665,10 @@
 						140-191
 					</td>
 					<td>
-						script18\aangepastSTKWp.xml
+						script18\createdConfigurationSTKWp.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationSTKWp.xml
 					</td>
 				</tr>
 			</table>
@@ -961,13 +1079,13 @@
 				</tr>
 				<tr>
 					<td>
-						Hydraulische gegevens&gt;Waterspanningen&gt;PL 1 initi&#235;le hoogte onder binnenkruin [m+NAP]
+						Hydraulische gegevens&gt;Waterspanningen&gt;Corrigeer PL 3 en PL 4 voor opbarsten
 					</td>
 					<td>
-						Double
+						Text
 					</td>
 					<td>
-						0.81
+						False
 					</td>
 					<td>
 						3
@@ -1299,7 +1417,7 @@
 				</tr>
 				<tr>
 					<td>
-						Instellingen&gt;Minimale glijvlakdiepte [m]
+						Instellingen&gt;Minimale glijvlaklengte [m]
 					</td>
 					<td>
 						Double
@@ -1882,7 +2000,7 @@
 						Text
 					</td>
 					<td>
-						False
+						True
 					</td>
 					<td>
 						5
@@ -2046,7 +2164,7 @@
 						Double
 					</td>
 					<td>
-						340
+						345
 					</td>
 					<td>
 						6
@@ -2195,6 +2313,55 @@
 					</td>
 					<td>
 						0.06
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Verdronken koker
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.67
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
 					</td>
 					<td>
 						6
@@ -2413,7 +2580,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -2442,55 +2609,6 @@
 					</td>
 					<td>
 						DropDown
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Schematisering instromend debiet/volume&gt;Instroommodel
-					</td>
-					<td>
-						Text
-					</td>
-					<td>
-						Verdronken koker
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						DropDown
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
-					</td>
-					<td>
-						Double
-					</td>
-					<td>
-						1.67
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
-					</td>
-					<td>
-						Double
-					</td>
-					<td>
-						0.01
-					</td>
-					<td>
-						6
-					</td>
-					<td>
 					</td>
 				</tr>
 				<tr>
@@ -2601,7 +2719,7 @@
 						Text
 					</td>
 					<td>
-						True
+						False
 					</td>
 					<td>
 						7
@@ -2741,7 +2859,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3247,7 +3365,7 @@
 				</tr>
 				<tr>
 					<td>
-						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Standaardafwijking
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double
@@ -3391,7 +3509,7 @@
 				</tr>
 				<tr>
 					<td>
-						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Standaardafwijking
+						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Variatieco&#235;ffici&#235;nt
 					</td>
 					<td>
 						Double

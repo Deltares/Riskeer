@@ -208,9 +208,8 @@ name="AutomatedSystemTestsRepository">
 				id="ffacadc8-ed6b-4a13-8ba6-ce183b1e9509"
 				name="HydraulischeBelastingen"
 				refimgid="984357d5-1648-434f-a4c2-baa3e3f73645"
-				refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem[@accessiblename='Traject 6-6 (GEBU)']/treeitem[@accessiblename='Hydraulische belastingen']"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/?/?/treeitem[@accessiblename='Traject 6-6 (GEBU)']/treeitem[@accessiblename='Hydraulische belastingen']
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']

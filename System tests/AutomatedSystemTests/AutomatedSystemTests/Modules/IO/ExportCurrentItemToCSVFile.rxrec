@@ -20,7 +20,7 @@ mode="Global">
 	</useDefaultItemLogging>
 	<codegen
 	classname="ExportCurrentItemToCSVFile"
-	namespace="AutomatedSystemTests.Modules.ContextMenuActions">
+	namespace="AutomatedSystemTests.Modules.IO">
 	</codegen>
 	<variables>
 		<var
@@ -1578,7 +1578,7 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests.Modules.ContextMenuActions"
+		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>
@@ -1593,7 +1593,7 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="finishCreatingFileName"
-		namespace="AutomatedSystemTests.Modules.ContextMenuActions"
+		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>

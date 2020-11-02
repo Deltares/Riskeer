@@ -105,7 +105,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Report.Log(ReportLevel.Info, "User", newValueForParameter, new RecordItemIndex(0));
             
-            MergedUserCodeMethod(repo.DropDownMenuInRowPropertiesPanel.List.genericItemInDropDownListInfo, pathToItemInPropertiesPanel);
+            SelectItemFromDynamicDropDownMenuInRowPropertiesPanel(repo.DropDownMenuInRowPropertiesPanel.List.genericItemInDropDownListInfo, pathToItemInPropertiesPanel);
             
         }
 

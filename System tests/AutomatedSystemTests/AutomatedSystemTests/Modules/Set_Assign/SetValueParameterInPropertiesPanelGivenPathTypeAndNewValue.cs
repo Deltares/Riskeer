@@ -67,14 +67,26 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
         			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
         			stepRow = searchList[indexStepRow];
-        			// Select (and expand) the item
-        			stepRow.Focus();
-        			stepRow.Select();
+
+        			// if step is intermediate
         			if (i != stepsPathItem.Count - 1)
         				{
-        					stepRow.PressKeys("{Right}");
-        				}
-        			
+        			         var stateStepRow = stepRow.Element.GetAttributeValueText("AccessibleState");
+        			         // if intermediate step is collapsed
+        			         if (stateStepRow.Contains("Collapsed")) {
+        			             // Select and expand the intermediate item
+        			             Report.Log(ReportLevel.Info, "was collapsed");
+        			             stepRow.Focus();
+        			             stepRow.Select();
+        			             stepRow.PressKeys("{Right}");
+        			             }
+        			     } 
+        			     else
+        			     {
+        			    // Select the final item
+        			    stepRow.Focus();
+        			    stepRow.Select();
+        			     }
         			// Update the minimum index administration (only search forward)
         			minimumIndex += 1 + indexStepRow;
         			}
@@ -100,53 +112,12 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         	row.Element.SetAttributeValue("AccessibleValue", newValue);
         }
         
-        public void OpenDropDownMenuParameterInPropertiesPanel(Ranorex.Row row, string newValueForParameter) //, RepoItemInfo itemToSelectInfo)
+        public void SetDynamicDropDownParameterInPropertiesPanel(Ranorex.Row row, string newValueForParameter, RepoItemInfo listItemInfo)
         {
-			//AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-			row.Click();
-			
-			//var itemToSelectInfo = myRepository.DropDownMenuInRowPropertiesPanel.List.genericItemInDropDownListInfo;
-			
-			//row.Click(".98;.5");
-            //itemToSelectInfo.FindAdapter<ListItem>().Focus();
-            //itemToSelectInfo.FindAdapter<ListItem>().Click(); 
-			//var childrenList = myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children;
-			//var listAccessibleNames = new List<string>();
-			
-			//foreach (var ch in childrenList) {
-			//	listAccessibleNames.Add(ch.Element.GetAttributeValueText("AccessibleName"));
-			//}
-			//var accName1 = myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children[1].Element.GetAttributeValueText("AccessibleName");
-			//newValueForParameter = newValue;
-			//itemToSelectInfo.FindAdapter<ListItem>().Focus();
-			//itemToSelectInfo.FindAdapter<ListItem>().Click();
-			
-			
-			//myRepository.DropDownMenuInRowPropertiesPanel.List.YM2122Dk0003524KmInfo;
-			//var indexToClick = listAccessibleNames.IndexOf(listAccessibleNames.FirstOrDefault(it => it.Contains(newValue)));
-			
-			//row.Click(".98;.5");
-			//myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children[indexToClick].As<ListItem>().Focus();
-			//row.Click(".98;.5");
-			//myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children[indexToClick].As<ListItem>().Select();
-			//row.PressKeys("{Return}");
-			
-			//var childToSelect = childrenList[indexToClick];
-			
-			//var nameToSelect = childToSelect.Element.GetAttributeValueText("AccessibleName");
-			//childToSelect.EnsureVisible();
-			//childToSelect.Click();
-			
-			//var listItems = myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children.Select(it => it.Element.GetAttributeValueText("AccessibleName"));
-			
-			//myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children.FirstOrDefault(it => it.Element.GetAttributeValueText("AccessibleName").Contains(newValue)).EnsureVisible();
-			//myRepository.DropDownMenuInRowPropertiesPanel.List.Self.Children.FirstOrDefault(it => it.Element.GetAttributeValueText("AccessibleName").Contains(newValue)).Click();
-			//itemToChoose.Focus();
-			//itemToChoose.Click();
-			//var itemToChoose = listItems.FirstOrDefault(it => it.ToString().Contains(newValue));
-            //itemToChoose.Focus();
-            //itemToChoose.Click();
-            //row.Element.SetAttributeValue("AccessibleValue", nameToSelect);
+            row.Click();
+            row.Click(".98;.5");
+            listItemInfo.FindAdapter<ListItem>().Focus();
+            listItemInfo.FindAdapter<ListItem>().Click();
         }
 
         
@@ -180,12 +151,12 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             		SetTextParameterInPropertiesPanel(row, newValueForParameter);
             		break;
             	case "Double":
-					SetDoubleParameterInPropertiesPanel(row, newValueForParameter);
-					break;
-				case "DropDown":
-					// Specific module
-					//OpenDropDownMenuParameterInPropertiesPanel(row, newValueForParameter); //, myRepository.DropDownMenuInRowPropertiesPanel.List.genericItemInDropDownListInfo);
-					break;
+            		SetDoubleParameterInPropertiesPanel(row, newValueForParameter);
+            		break;
+            	case "DropDown":
+            		//RepoItemInfo listItemInfo = new RepoItemInfo(myRepository.DropDownMenuInRowPropertiesPanel.List, "genericItemInDropDownList", "listitem[@accessiblename~" + newValueForParameter + "]", 30000, null);
+            		//SetDynamicDropDownParameterInPropertiesPanel(row, newValueForParameter, listItemInfo);
+            		break;
             	default:
             		Report.Log(ReportLevel.Error, "Type of parameter " + typeParameter + " not implemented!");
             		break;

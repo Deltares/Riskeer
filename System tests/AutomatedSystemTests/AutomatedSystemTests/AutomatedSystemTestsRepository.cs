@@ -741,7 +741,7 @@ namespace AutomatedSystemTests
                     base("ProjectExplorer", ".//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _projectrootnode = new AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder(this);
-                _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 6-6 (GEBU)']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
+                _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
             }
 
             /// <summary>

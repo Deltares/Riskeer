@@ -52,16 +52,21 @@ namespace AutomatedSystemTests.Modules.Selection
         				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
         				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
         			}
-        			stepChild.Focus();
+        			//
         			if (i != stepsPathItem.Count - 1)
         				{
-        				stepChild.Expand();
-        				}
-        			else {
-        				stepChild.Click(Location.CenterLeft);
-        			}
-        			// Update the children
-        			children = stepChild.Children;
+        				// Update the children
+        				children = stepChild.Children;
+        				// Expand if intermediate node is collased
+        			    var stateIntermediateChild = stepChild.Element.GetAttributeValueText("AccessibleState");
+        			    if (stateIntermediateChild.Contains("Collapsed")) {
+        			        stepChild.Focus();
+        			        stepChild.Expand();
+        			         }
+        				} else {
+        				// child is last one in path
+        			    stepChild.Click(Location.CenterLeft);
+        			     }
         			}
         	return;
         }

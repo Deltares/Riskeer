@@ -53,7 +53,7 @@ mode="Global">
 		classname="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="MergedUserCodeMethod"
+		methodname="SelectItemFromDynamicDropDownMenuInRowPropertiesPanel"
 		namespace="AutomatedSystemTests.Modules.Selection"
 		optional="False">
 			<comment>
