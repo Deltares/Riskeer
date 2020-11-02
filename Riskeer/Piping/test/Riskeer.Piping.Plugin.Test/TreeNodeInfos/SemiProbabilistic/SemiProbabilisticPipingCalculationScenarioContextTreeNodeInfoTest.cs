@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -983,21 +982,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     // Then
                     TestHelper.AssertLogMessages(Call, messages =>
                     {
-                        using (IEnumerator<string> msgs = messages.GetEnumerator())
-                        {
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gestart.", msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
-                            Assert.IsTrue(msgs.MoveNext());
-                            Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gelukt.", msgs.Current);
-                        }
+                        string[] msgs = messages.ToArray();
+
+                        Assert.AreEqual(6, msgs.Length);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gelukt.", msgs[5]);
                     });
                     Assert.IsNotNull(calculationScenario.Output);
                 }
