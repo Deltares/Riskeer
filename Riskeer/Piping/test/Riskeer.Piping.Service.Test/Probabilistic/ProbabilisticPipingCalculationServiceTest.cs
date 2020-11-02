@@ -1129,9 +1129,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Calculate_CalculationValid_OutputSetOnCalculation(bool calculateIllustrationPoints)
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void Calculate_CalculationValid_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
+                                                                      bool shouldSectionSpecificIllustrationPointsBeCalculated)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1150,7 +1153,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = calculateIllustrationPoints;
+            calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1164,8 +1168,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.IsFalse(double.IsNaN(profileSpecificOutput.Reliability));
                 Assert.IsFalse(double.IsNaN(sectionSpecificOutput.Reliability));
 
-                Assert.AreEqual(calculateIllustrationPoints, profileSpecificOutput.HasGeneralResult);
-                Assert.AreEqual(calculateIllustrationPoints, sectionSpecificOutput.HasGeneralResult);
+                Assert.AreEqual(shouldProfileSpecificIllustrationPointsBeCalculated, profileSpecificOutput.HasGeneralResult);
+                Assert.AreEqual(shouldSectionSpecificIllustrationPointsBeCalculated, sectionSpecificOutput.HasGeneralResult);
             }
 
             mocks.VerifyAll();
@@ -1466,6 +1470,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1525,6 +1530,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1583,6 +1589,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1642,6 +1649,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1699,6 +1707,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1762,6 +1771,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1824,6 +1834,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1887,6 +1898,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
