@@ -1026,9 +1026,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var view = new TestPipingCalculationsView(new CalculationGroup(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
             void Call() => view.PublicCreateSelectedItemFromCurrentRow(new PipingCalculationRow(new TestPipingCalculationScenario(), string.Empty, handler));
@@ -1042,13 +1043,18 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CreateRow_UnsupportedCalculationType_ThrowsNotSupportedException()
         {
             // Setup
-            var view = new TestPipingCalculationsView(new CalculationGroup(), new TestPipingFailureMechanism(), new AssessmentSectionStub());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
             void Call() => view.PublicCreateRow(new TestPipingCalculationScenario());
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
         }
 
         [TestCase(true)]
