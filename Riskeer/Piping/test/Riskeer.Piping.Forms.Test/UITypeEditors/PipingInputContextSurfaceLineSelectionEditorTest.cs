@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
@@ -42,15 +41,17 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
+            var hasSurfaceLineProperty = mockRepository.Stub<IHasSurfaceLineProperty>();
 
-            var properties = new TestHasSurfaceLineProperty(new PipingSurfaceLine("1"), new[]
+            hasSurfaceLineProperty.Stub(hslp => hslp.SurfaceLine).Return(new PipingSurfaceLine("1"));
+            hasSurfaceLineProperty.Stub(hslp => hslp.GetAvailableSurfaceLines()).Return(new[]
             {
                 new PipingSurfaceLine("2")
             });
 
-            var editor = new PipingInputContextSurfaceLineSelectionEditor<TestHasSurfaceLineProperty>();
+            var editor = new PipingInputContextSurfaceLineSelectionEditor<IHasSurfaceLineProperty>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasSurfaceLineProperty);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
@@ -75,16 +76,18 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-
+            var hasSurfaceLineProperty = mockRepository.Stub<IHasSurfaceLineProperty>();
             var surfaceLine = new PipingSurfaceLine(string.Empty);
-            var properties = new TestHasSurfaceLineProperty(surfaceLine, new[]
+
+            hasSurfaceLineProperty.Stub(hslp => hslp.SurfaceLine).Return(surfaceLine);
+            hasSurfaceLineProperty.Stub(hslp => hslp.GetAvailableSurfaceLines()).Return(new[]
             {
                 surfaceLine
             });
 
-            var editor = new PipingInputContextSurfaceLineSelectionEditor<TestHasSurfaceLineProperty>();
+            var editor = new PipingInputContextSurfaceLineSelectionEditor<IHasSurfaceLineProperty>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasSurfaceLineProperty);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
@@ -99,28 +102,6 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             Assert.AreSame(surfaceLine, result);
 
             mockRepository.VerifyAll();
-        }
-
-        private class TestHasSurfaceLineProperty : IHasSurfaceLineProperty
-        {
-            private readonly IEnumerable<PipingSurfaceLine> availableSurfaceLines;
-
-            public event EventHandler<EventArgs> RefreshRequired;
-
-            public TestHasSurfaceLineProperty(PipingSurfaceLine surfaceLine, IEnumerable<PipingSurfaceLine> availableSurfaceLines)
-            {
-                this.availableSurfaceLines = availableSurfaceLines;
-                SurfaceLine = surfaceLine;
-            }
-
-            public object Data { get; set; }
-
-            public PipingSurfaceLine SurfaceLine { get; }
-
-            public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
-            {
-                return availableSurfaceLines;
-            }
         }
     }
 }

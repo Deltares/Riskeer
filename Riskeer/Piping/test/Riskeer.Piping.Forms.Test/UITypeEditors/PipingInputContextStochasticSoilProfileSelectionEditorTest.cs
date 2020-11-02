@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
@@ -43,16 +42,19 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
+            var hasStochasticSoilProfile = mockRepository.Stub<IHasStochasticSoilProfile>();
 
-            var properties = new TestHasStochasticSoilProfileProperty(new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
-                                                                      new[]
-                                                                      {
-                                                                          new PipingStochasticSoilProfile(0.9, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                                                                      });
+            hasStochasticSoilProfile.Stub(hssp => hssp.StochasticSoilProfile).Return(
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
+            hasStochasticSoilProfile.Stub(hssp => hssp.GetAvailableStochasticSoilProfiles()).Return(
+                new[]
+                {
+                    new PipingStochasticSoilProfile(0.9, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                });
 
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<TestHasStochasticSoilProfileProperty>();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<IHasStochasticSoilProfile>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasStochasticSoilProfile);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
@@ -77,18 +79,19 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-
+            var hasStochasticSoilProfile = mockRepository.Stub<IHasStochasticSoilProfile>();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            var properties = new TestHasStochasticSoilProfileProperty(stochasticSoilProfile,
-                                                                      new[]
-                                                                      {
-                                                                          stochasticSoilProfile
-                                                                      });
+            hasStochasticSoilProfile.Stub(hssp => hssp.StochasticSoilProfile).Return(stochasticSoilProfile);
+            hasStochasticSoilProfile.Stub(hssp => hssp.GetAvailableStochasticSoilProfiles()).Return(
+                new[]
+                {
+                    stochasticSoilProfile
+                });
 
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<TestHasStochasticSoilProfileProperty>();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<IHasStochasticSoilProfile>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasStochasticSoilProfile);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
@@ -103,28 +106,6 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             Assert.AreSame(stochasticSoilProfile, result);
 
             mockRepository.VerifyAll();
-        }
-
-        private class TestHasStochasticSoilProfileProperty : IHasStochasticSoilProfile
-        {
-            private readonly IEnumerable<PipingStochasticSoilProfile> availableStochasticSoilProfiles;
-
-            public event EventHandler<EventArgs> RefreshRequired;
-
-            public TestHasStochasticSoilProfileProperty(PipingStochasticSoilProfile stochasticSoilProfile, IEnumerable<PipingStochasticSoilProfile> availableStochasticSoilProfiles)
-            {
-                this.availableStochasticSoilProfiles = availableStochasticSoilProfiles;
-                StochasticSoilProfile = stochasticSoilProfile;
-            }
-
-            public object Data { get; set; }
-
-            public PipingStochasticSoilProfile StochasticSoilProfile { get; }
-
-            public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
-            {
-                return availableStochasticSoilProfiles;
-            }
         }
     }
 }
