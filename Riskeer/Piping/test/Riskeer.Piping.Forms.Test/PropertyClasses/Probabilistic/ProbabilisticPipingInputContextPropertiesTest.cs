@@ -75,7 +75,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedSectionNamePropertyIndex = 15;
         private const int expectedSectionLengthPropertyIndex = 16;
 
-        private const int expectedShouldCalculateIllustrationPointsPropertyIndex = 17;
+        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 17;
+        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 18;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -215,12 +216,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(18, dynamicProperties.Count);
+            Assert.AreEqual(19, dynamicProperties.Count);
 
-            const string hydraulicDataCategory = "\t\t\tHydraulische gegevens";
-            const string schematizationCategory = "\t\tSchematisatie";
-            const string sectionInformationCategory = "\tVakinformatie";
-            const string outputCategory = "Uitvoer";
+            const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
+            const string schematizationCategory = "\t\t\tSchematisatie";
+            const string sectionInformationCategory = "\t\tVakinformatie";
+            const string profileSpecificCategory = "\tSterkte berekening doorsnede";
+            const string sectionSpecificCategory = "Sterkte berekening vak";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -347,10 +349,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "De totale lengte van het vak in meters (afgerond).",
                 true);
 
-            PropertyDescriptor shouldCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldCalculateIllustrationPointsPropertyIndex];
+            PropertyDescriptor shouldProfileSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                shouldCalculateIllustrationPointsProperty,
-                outputCategory,
+                shouldProfileSpecificCalculateIllustrationPointsProperty,
+                profileSpecificCategory,
+                "Illustratiepunten inlezen",
+                "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+
+            PropertyDescriptor shouldSectionSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                shouldSectionSpecificCalculateIllustrationPointsProperty,
+                sectionSpecificCategory,
                 "Illustratiepunten inlezen",
                 "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
@@ -396,7 +405,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            const string schematizationCategory = "\t\tSchematisatie";
+            const string schematizationCategory = "\t\t\tSchematisatie";
 
             PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -518,7 +527,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreEqual("-", properties.SectionName);
             Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
-            Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
         }
@@ -582,7 +592,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
             properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
             properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
-            properties.ShouldIllustrationPointsBeCalculated = true;
+            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
             // Then
             Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
@@ -595,9 +606,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
 
-            Assert.AreEqual("Section", properties.SectionName);
-            Assert.AreEqual(5.12, properties.SectionLength, properties.SectionLength.GetAccuracy());
-            Assert.AreEqual(true, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(properties.ShouldProfileSpecificIllustrationPointsBeCalculated, inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(properties.ShouldSectionSpecificIllustrationPointsBeCalculated, inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
         }
@@ -713,38 +723,25 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void SetShouldIllustrationPointsBeCalculated_ValueChanged_UpdateDataAndNotifyObservers()
+        public void ShouldProfileSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
         {
             // Setup
-            var random = new Random(21);
-            bool newBoolean = random.NextBoolean();
-
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
             var calculation = new ProbabilisticPipingCalculationScenario();
-            var failureMechanism = new PipingFailureMechanism();
-            var inputContext = new ProbabilisticPipingInputContext(calculation.InputParameters,
-                                                                   calculation,
-                                                                   Enumerable.Empty<PipingSurfaceLine>(),
-                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                   failureMechanism,
-                                                                   assessmentSection);
-            inputContext.Attach(observer);
+            
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldProfileSpecificIllustrationPointsBeCalculated = true,
+                                                            calculation);
+        }
 
-            var properties = new ProbabilisticPipingInputContextProperties(inputContext, handler);
-
-            // Call
-            properties.ShouldIllustrationPointsBeCalculated = newBoolean;
-
-            // Assert
-            Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
-            mockRepository.VerifyAll();
+        [Test]
+        public void ShouldSectionSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario();
+            
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ShouldSectionSpecificIllustrationPointsBeCalculated = true,
+                                                            calculation);
         }
 
         [Test]
