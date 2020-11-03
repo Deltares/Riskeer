@@ -309,6 +309,9 @@
       <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
       <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation.cs">
+      <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CalculateNFormula1.cs">
       <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -425,6 +428,18 @@
       <UserCode>true</UserCode>
       <id>79a6a4d1-4e9c-4369-9783-f1a62eb698b6</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\DuplicateCalculation.cs">
+      <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
+      <DependentUpon>DuplicateCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8e15e985-6045-4848-a90f-6d55c46c8909</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\DuplicateCalculation.UserCode.cs">
+      <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
+      <DependentUpon>DuplicateCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>56d2a824-41ce-44b4-8fe1-9603946b4136</id>
     </Compile>
     <Compile Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.cs">
       <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
@@ -1814,6 +1829,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>58bb17f9-0f73-4d80-84ed-fec70eb3207f</id>
       <recordtableid>354b1a8c-c247-4b13-920b-24ee0b2b997d</recordtableid>
+    </None>
+    <None Include="Modules\ContextMenuActions\DuplicateCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>eef58afc-1dbf-443d-ab20-627186db7d7a</id>
+      <recordtableid>be163e36-1d54-4e23-8859-2e6b0da85302</recordtableid>
     </None>
     <None Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

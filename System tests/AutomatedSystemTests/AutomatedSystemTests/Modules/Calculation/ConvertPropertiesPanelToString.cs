@@ -26,12 +26,12 @@ namespace AutomatedSystemTests.Modules.Calculation
     [TestModule("3732FDC4-E20C-44E8-981C-20E1D75C4FC1", ModuleType.UserCode, 1)]
     public class ConvertPropertiesPanelToString : ITestModule
     {
-    string _convertedPropertiesPanelToString = "";
+    string _stringifiedPropertiesPanel = "";
     [TestVariable("1a56d401-7ad8-4220-bea4-fe5914a1314c")]
-    public string convertedPropertiesPanelToString
+    public string stringifiedPropertiesPanel
     {
-        get { return _convertedPropertiesPanelToString; }
-        set { _convertedPropertiesPanelToString = value; }
+        get { return _stringifiedPropertiesPanel; }
+        set { _stringifiedPropertiesPanel = value; }
     }
     
         /// <summary>
@@ -58,7 +58,15 @@ namespace AutomatedSystemTests.Modules.Calculation
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
             
             var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
+            stringifiedPropertiesPanel = "";
+            int index = 0;
+            foreach (Ranorex.Row row in allRows) {
+                stringifiedPropertiesPanel += "[" + index.ToString() + ", " + row.Element.GetAttributeValueText("AccessibleName") + ", " + row.Element.GetAttributeValueText("AccessibleValue") + "];";
+                index++;
+            }
+            stringifiedPropertiesPanel = stringifiedPropertiesPanel.Remove(stringifiedPropertiesPanel.Length - 1);
             
+            Report.Log(ReportLevel.Info, stringifiedPropertiesPanel);
         }
     }
 }

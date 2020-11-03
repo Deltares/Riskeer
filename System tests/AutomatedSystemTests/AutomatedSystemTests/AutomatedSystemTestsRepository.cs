@@ -4782,6 +4782,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _wisuitvoerInfo;
             RepoItemInfo _pagerightInfo;
             RepoItemInfo _pageleftInfo;
+            RepoItemInfo _duplicerenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4809,6 +4810,7 @@ namespace AutomatedSystemTests
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
                 _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
+                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
             }
 
             /// <summary>
@@ -5312,6 +5314,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _pageleftInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Dupliceren item.
+            /// </summary>
+            [RepositoryItem("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual Ranorex.MenuItem Dupliceren
+            {
+                get
+                {
+                    return _duplicerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Dupliceren item info.
+            /// </summary>
+            [RepositoryItemInfo("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual RepoItemInfo DuplicerenInfo
+            {
+                get
+                {
+                    return _duplicerenInfo;
                 }
             }
         }

@@ -1392,6 +1392,16 @@ FjcAAAAASUVORK5CYII=
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/?/?/menuitem[@accessiblename='Page Left']
 			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="75209dc1-5b20-4d57-8ce9-8ec71c26bb9e"
+			name="Dupliceren"
+			refimgid="b5df8c96-3b41-4141-a76c-5e773bef3912"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']
+			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
 			</basepath>
