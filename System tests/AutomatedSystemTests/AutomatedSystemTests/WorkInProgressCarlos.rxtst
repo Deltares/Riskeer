@@ -3,6 +3,16 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
+			id="02ffd3d9-e65b-492c-803f-dbaefec459bc"
+			name="ValidateTrajectCategoryBoundaryRow"
+			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="0ea64a10-b851-483d-b6e7-191ec235dd62"
+			name="ChangeBoundaries">
+			</smartfoldernode>
+			<testmodule
 			id="2014eed3-0d67-4462-b5d6-097a95f953fb"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -35,6 +45,10 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<smartfoldernode
+			id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
 			<teardown
 			id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
 			name="teardown">
@@ -92,6 +106,10 @@
 					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			id="d1b62e06-c970-4653-b06d-bfcaa80c2eea"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="d9bd01df-f9b4-4c7c-b752-f69506000b9e"
 			name="AddNewTraject"
@@ -181,6 +199,22 @@
 							name="OpenTrajectNormenView">
 							</testmodule>
 						</smartfoldernode>
+						<smartfoldernode
+						id="d1b62e06-c970-4653-b06d-bfcaa80c2eea"
+						name="ValidateCategoryBoundaries">
+							<testmodule
+							id="02ffd3d9-e65b-492c-803f-dbaefec459bc"
+							name="ValidateTrajectCategoryBoundaryRow">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="0ea64a10-b851-483d-b6e7-191ec235dd62"
+						name="ChangeBoundaries">
+						</smartfoldernode>
+						<smartfoldernode
+						id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
+						name="ValidateCategoryBoundaries">
+						</smartfoldernode>
 						<teardown
 						id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
 						name="teardown">
@@ -201,10 +235,19 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0ea64a10-b851-483d-b6e7-191ec235dd62">
+			</testcontainer>
+			<testcontainer
+			id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef">
+			</testcontainer>
+			<testcontainer
 			id="aad03c00-36c7-448c-b5cc-a6fe1dfbb1b6">
 			</testcontainer>
 			<testcontainer
 			id="c59b68aa-1950-43de-b6c6-a5fba481e285">
+			</testcontainer>
+			<testcontainer
+			id="d1b62e06-c970-4653-b06d-bfcaa80c2eea">
 			</testcontainer>
 			<testcontainer
 			id="e676dbfb-ce44-43a9-87c7-e6ccee716c68">

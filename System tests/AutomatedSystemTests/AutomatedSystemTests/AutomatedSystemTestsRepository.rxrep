@@ -681,6 +681,55 @@ name="AutomatedSystemTestsRepository">
 				</item>
 				<folder
 				capname="container"
+				id="8754e3af-098b-4256-bdd8-b33b982fc584"
+				isrooted="True"
+				name="AssessmentSectionAssemblyCategoriesView"
+				searchtimeout="30000ms"
+				usecache="True">
+					<folder
+					capname="table"
+					id="bfe86bd7-3a1c-48ae-90c4-30c51f5b0814"
+					isrooted="True"
+					name="TableDataGridView"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="abed330f-4524-4539-b710-116c85ef9a22"
+						name="BoundaryCategoryCell"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Categorie Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="0bb11898-6dc4-4f30-86b1-6ec16b0e30d9"
+						name="LowerBoundaryCell"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Ondergrens']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="8652405a-ea4c-4a05-9e58-51f10e585c40"
+						name="UpperBoundaryCell"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Bovengrens']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
 				id="9283a2f0-e106-4fff-973b-ee9186918301"
 				isrooted="True"
 				name="FailureMechanismResultView"

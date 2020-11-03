@@ -1629,6 +1629,18 @@
       <id>667f306e-b119-4562-85e4-7686b58596f8</id>
       <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.cs">
+      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>538b5cdf-ee87-4989-9e96-ab8f67ac38eb</id>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.UserCode.cs">
+      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e480f7ab-ab0e-4794-85f7-46af326cc416</id>
+    </Compile>
     <Compile Include="Modules\Validation\ValidateValueParameterForItemInTraject.cs">
       <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -2340,6 +2352,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>2bfa17c2-7838-466c-b4bf-98098cb57bba</id>
       <recordtableid>be67159d-b95e-4ab7-8583-e9482fd3475d</recordtableid>
+    </None>
+    <None Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ded229a1-d08c-49e0-b019-134612fde1b4</id>
+      <recordtableid>66405087-b5ac-48fb-9dfc-5a5fb68148b4</recordtableid>
     </None>
     <None Include="Modules\Validation\ValidateValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
