@@ -171,7 +171,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
-            string expectedMessage = $"An illustration point containing a Hydra ring data type of {hydraRingIllustrationPointData.GetType()} is not supported.";
+            string expectedMessage = $"An illustration point containing a Hydra-Ring data type of {hydraRingIllustrationPointData.GetType()} is not supported.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             string expectedMessageInnerException = $"Cannot convert {hydraRingIllustrationPointData.GetType()}.";
@@ -204,7 +204,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             Assert.IsNull(illustrationPointNode);
 
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
-            string expectedMessage = $"An illustration point containing a Hydra ring data type of {typeof(TestHydraRingIllustrationPointData)} is not supported.";
+            string expectedMessage = $"An illustration point containing a Hydra-Ring data type of {typeof(TestHydraRingIllustrationPointData)} is not supported.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             string expectedMessageInnerException = $"Cannot convert {typeof(TestHydraRingIllustrationPointData)}.";

@@ -64,7 +64,7 @@ namespace Riskeer.Common.Service.IllustrationPoints
             }
             catch (NotSupportedException e)
             {
-                string errorMessage = "An illustration point containing a Hydra ring data type of " +
+                string errorMessage = "An illustration point containing a Hydra-Ring data type of " +
                                       $"{hydraRingIllustrationPointTreeNode.Data.GetType()} is not supported.";
                 throw new IllustrationPointConversionException(errorMessage, e);
             }
