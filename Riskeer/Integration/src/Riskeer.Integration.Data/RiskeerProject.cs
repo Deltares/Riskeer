@@ -97,9 +97,9 @@ namespace Riskeer.Integration.Data
                 return false;
             }
 
-            return string.Equals(Name, otherProject.Name) &&
-                   string.Equals(Description, otherProject.Description) &&
-                   AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
+            return string.Equals(Name, otherProject.Name)
+                   && string.Equals(Description, otherProject.Description)
+                   && AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
         }
     }
 }

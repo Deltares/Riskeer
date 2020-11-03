@@ -100,8 +100,8 @@ namespace Riskeer.MacroStabilityInwards.Forms
                 return Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>();
             }
 
-            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
-                                                                    stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
+            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any()
+                                                                    && stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
                                       .ToList();
         }
 

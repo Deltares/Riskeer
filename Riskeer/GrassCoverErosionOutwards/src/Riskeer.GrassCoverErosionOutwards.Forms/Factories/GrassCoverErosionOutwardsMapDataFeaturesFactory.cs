@@ -53,8 +53,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
                 calculations.Where(calculation =>
-                                       calculation.InputParameters.ForeshoreProfile != null &&
-                                       calculation.InputParameters.HydraulicBoundaryLocation != null);
+                                       calculation.InputParameters.ForeshoreProfile != null
+                                       && calculation.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

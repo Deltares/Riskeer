@@ -112,8 +112,8 @@ namespace Riskeer.Piping.Forms
                 return Enumerable.Empty<PipingStochasticSoilModel>();
             }
 
-            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
-                                                                    stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
+            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any()
+                                                                    && stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
                                       .ToList();
         }
 

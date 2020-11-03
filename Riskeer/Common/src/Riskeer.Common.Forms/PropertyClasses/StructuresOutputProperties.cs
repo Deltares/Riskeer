@@ -183,13 +183,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.HasGeneralResult &&
-                   (
-                       propertyName.Equals(nameof(WindDirection))
+            return data.HasGeneralResult
+                   && (propertyName.Equals(nameof(WindDirection))
                        || propertyName.Equals(nameof(AlphaValues))
                        || propertyName.Equals(nameof(Durations))
-                       || propertyName.Equals(nameof(IllustrationPoints))
-                   );
+                       || propertyName.Equals(nameof(IllustrationPoints)));
         }
 
         /// <summary>

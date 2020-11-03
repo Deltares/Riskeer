@@ -595,8 +595,9 @@ namespace Core.Common.Controls.TreeView
             treeNode.ForeColor = treeNodeInfo.ForeColor?.Invoke(treeNode.Tag) ?? Color.FromKnownColor(KnownColor.ControlText);
             SetTreeNodeImageKey(treeNode, treeNodeInfo);
 
-            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
-                treeNodeInfo.CheckedState != null)
+            if (treeNodeInfo.CanCheck != null
+                && treeNodeInfo.CanCheck(treeNode.Tag)
+                && treeNodeInfo.CheckedState != null)
             {
                 TreeNodeCheckedState treeNodeCheckedState = treeNodeInfo.CheckedState(treeNode.Tag);
                 if (!IsCheckedStateUpToDate(treeNode, treeNodeCheckedState))

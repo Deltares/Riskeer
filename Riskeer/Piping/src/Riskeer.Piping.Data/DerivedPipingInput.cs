@@ -364,8 +364,8 @@ namespace Riskeer.Piping.Data
 
         private static bool AreShiftAndDeviationEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution)
         {
-            return currentLayerDistribution.StandardDeviation == baseLayerDistribution.StandardDeviation &&
-                   currentLayerDistribution.Shift == baseLayerDistribution.Shift;
+            return currentLayerDistribution.StandardDeviation == baseLayerDistribution.StandardDeviation
+                   && currentLayerDistribution.Shift == baseLayerDistribution.Shift;
         }
 
         private static bool AreCoefficientEqual(VariationCoefficientLogNormalDistribution currentLayerDistribution,

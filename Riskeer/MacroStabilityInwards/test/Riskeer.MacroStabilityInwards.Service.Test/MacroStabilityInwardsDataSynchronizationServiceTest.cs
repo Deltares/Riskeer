@@ -148,8 +148,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations
                                           .Cast<MacroStabilityInwardsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
-                                                    !c.HasOutput));
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
+                                                    && !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
                                            affectedItems);

@@ -130,8 +130,8 @@ namespace Core.Common.Gui.Forms
 
         private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            checkBoxDefault.Checked = listBox.SelectedItem != null &&
-                                      listBox.SelectedItem.ToString() == DefaultViewName;
+            checkBoxDefault.Checked = listBox.SelectedItem != null
+                                      && listBox.SelectedItem.ToString() == DefaultViewName;
         }
 
         private void CheckBoxDefaultCheckedChanged(object sender, EventArgs e)

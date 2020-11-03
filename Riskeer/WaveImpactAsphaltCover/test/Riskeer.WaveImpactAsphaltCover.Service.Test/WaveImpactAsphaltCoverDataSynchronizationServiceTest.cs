@@ -122,8 +122,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
-                                                    !c.HasOutput));
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
+                                                    && !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
                                            affectedItems);

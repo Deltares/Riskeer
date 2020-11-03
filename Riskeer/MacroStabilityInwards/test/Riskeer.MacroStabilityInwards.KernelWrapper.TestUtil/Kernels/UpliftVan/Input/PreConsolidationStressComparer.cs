@@ -48,10 +48,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 return 0;
             }
-            if (Math.Abs(x.StressValue - y.StressValue) < 1e-6 &&
-                x.Name == y.Name &&
-                Math.Abs(x.X - y.X) < 1e-6 &&
-                Math.Abs(x.Z - y.Z) < 1e-6)
+
+            if (Math.Abs(x.StressValue - y.StressValue) < 1e-6
+                && x.Name == y.Name
+                && Math.Abs(x.X - y.X) < 1e-6
+                && Math.Abs(x.Z - y.Z) < 1e-6)
             {
                 return 0;
             }

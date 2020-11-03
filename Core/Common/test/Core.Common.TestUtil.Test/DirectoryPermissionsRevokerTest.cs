@@ -220,10 +220,9 @@ namespace Core.Common.TestUtil.Test
             DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
             AuthorizationRuleCollection rules = directorySecurity.GetAccessRules(true, false, typeof(SecurityIdentifier));
 
-            FileSystemAccessRule fileSystemAccessRule = rules.OfType<FileSystemAccessRule>()
-                                                             .FirstOrDefault(fs => fs.FileSystemRights.HasFlag(supportedFileSystemRights) &&
-                                                                                   fs.AccessControlType == AccessControlType.Deny);
-            return fileSystemAccessRule;
+            return rules.OfType<FileSystemAccessRule>()
+                        .FirstOrDefault(fs => fs.FileSystemRights.HasFlag(supportedFileSystemRights)
+                                              && fs.AccessControlType == AccessControlType.Deny);
         }
 
         #endregion
