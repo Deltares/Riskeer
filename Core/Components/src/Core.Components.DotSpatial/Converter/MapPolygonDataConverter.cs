@@ -102,8 +102,8 @@ namespace Core.Components.DotSpatial.Converter
 
         private static bool FirstPointEqualsLastPoint(IEnumerable<Point2D> pointCollection)
         {
-            return pointCollection.First().X.Equals(pointCollection.Last().X) ||
-                   pointCollection.First().Y.Equals(pointCollection.Last().Y);
+            return pointCollection.First().X.Equals(pointCollection.Last().X)
+                   || pointCollection.First().Y.Equals(pointCollection.Last().Y);
         }
 
         private static Color GetStrokeColor(PolygonStyle style)

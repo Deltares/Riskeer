@@ -298,14 +298,14 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks ||
-                        calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
+                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks
+                        || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
                     {
                         AssertCalculationLogs(msgs, waterLevels, "blokken", 1);
                     }
 
-                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns ||
-                        calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
+                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns
+                        || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
                     {
                         int countStart = calculationType != StabilityStoneCoverWaveConditionsCalculationType.Columns
                                              ? expectedMessageCount / 2

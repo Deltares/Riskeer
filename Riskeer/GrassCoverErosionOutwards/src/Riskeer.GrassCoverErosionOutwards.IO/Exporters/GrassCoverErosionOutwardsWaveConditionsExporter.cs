@@ -60,28 +60,28 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
             {
                 GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
 
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
                             calculation.Name, calculation.InputParameters, calculation.Output.WaveRunUpOutput, CoverType.GrassWaveRunUp));
                 }
 
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
                             calculation.Name, calculation.InputParameters, calculation.Output.WaveImpactOutput, CoverType.GrassWaveImpact));
                 }
 
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(

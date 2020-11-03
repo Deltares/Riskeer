@@ -136,7 +136,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region Output Settings
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings),
-            outputSettingsCategoryIndex, totalNrOfCategories)]
+                           outputSettingsCategoryIndex, totalNrOfCategories)]
         public override bool ShouldIllustrationPointsBeCalculated
         {
             get
@@ -155,8 +155,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             // Note: A default initialized calculation doesn't have InflowModelType initialized to any of these 2 values.
-            if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert ||
-                data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
+            if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert
+                || data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
             {
                 if (propertyName == nameof(DrainCoefficient))
                 {
@@ -175,8 +175,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
 
             // Note: A default initialized calculation doesn't have LoadSchematizationType initialized to any of these 2 values.
-            if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear ||
-                data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
+            if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear
+                || data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
             {
                 if (propertyName == nameof(ConstructiveStrengthLinearLoadModel))
                 {
@@ -227,7 +227,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region General data
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
-            generalCategoryIndex, totalNrOfCategories)]
+                           generalCategoryIndex, totalNrOfCategories)]
         public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -241,7 +241,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
-            generalCategoryIndex, totalNrOfCategories)]
+                           generalCategoryIndex, totalNrOfCategories)]
         public override StabilityPointStructure Structure
         {
             get
@@ -255,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
-            generalCategoryIndex, totalNrOfCategories)]
+                           generalCategoryIndex, totalNrOfCategories)]
         public override Point2D StructureLocation
         {
             get
@@ -272,7 +272,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(volumicWeightWaterPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
-            hydraulicLoadsCategoryIndex, totalNrOfCategories)]
+                           hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_Description))]
         public RoundedDouble VolumicWeightWater
@@ -290,7 +290,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
-            hydraulicLoadsCategoryIndex, totalNrOfCategories)]
+                           hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
         public NormalDistributionProperties InsideWaterLevelFailureConstruction
@@ -309,7 +309,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(bankWidthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
-            hydraulicLoadsCategoryIndex, totalNrOfCategories)]
+                           hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_BankWidth_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_BankWidth_Description))]
         public NormalDistributionProperties BankWidth
@@ -328,7 +328,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(verticalDistancePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
-            hydraulicLoadsCategoryIndex, totalNrOfCategories)]
+                           hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VerticalDistance_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VerticalDistance_Description))]
         public RoundedDouble VerticalDistance
@@ -351,7 +351,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(loadSchematizationTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
-            constructiveFailureCategoryIndex, totalNrOfCategories)]
+                           constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.LoadSchematizationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_Description))]
         public LoadSchematizationType LoadSchematizationType
@@ -370,7 +370,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
-            constructiveFailureCategoryIndex, totalNrOfCategories)]
+                           constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
@@ -390,7 +390,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
-            constructiveFailureCategoryIndex, totalNrOfCategories)]
+                           constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
@@ -409,7 +409,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(evaluationLevelPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
-            constructiveFailureCategoryIndex, totalNrOfCategories)]
+                           constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Evaluation_Level_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_Description))]
         public RoundedDouble EvaluationLevel
@@ -428,7 +428,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
-            constructiveFailureCategoryIndex, totalNrOfCategories)]
+                           constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_Description))]
         public double FailureProbabilityRepairClosure
@@ -451,7 +451,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_Description))]
         public StabilityPointStructureInflowModelType InflowModelType
@@ -468,7 +468,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override NormalDistributionProperties WidthFlowApertures
         {
             get
@@ -480,7 +480,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
         public NormalDistributionProperties LevelCrestStructure
@@ -499,7 +499,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
         public NormalDistributionProperties InsideWaterLevel
@@ -518,7 +518,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
         public NormalDistributionProperties ThresholdHeightOpenWeir
@@ -538,7 +538,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(areaFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_Description))]
         public LogNormalDistributionProperties AreaFlowApertures
@@ -558,7 +558,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
         public NormalDistributionProperties DrainCoefficient
@@ -574,7 +574,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_Description))]
         public RoundedDouble FactorStormDurationOpenStructure
@@ -590,7 +590,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override RoundedDouble StructureNormalOrientation
         {
             get
@@ -604,7 +604,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
-            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
+                           schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
@@ -621,7 +621,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructionInstability),
-            constructiveInstabilityCategoryIndex, totalNrOfCategories)]
+                           constructiveInstabilityCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
@@ -641,7 +641,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructionInstability),
-            constructiveInstabilityCategoryIndex, totalNrOfCategories)]
+                           constructiveInstabilityCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
@@ -664,7 +664,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(failureCollisionEnergyPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_Description))]
         public VariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
@@ -683,7 +683,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(shipMassPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipMass_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipMass_Description))]
         public VariationCoefficientNormalDistributionProperties ShipMass
@@ -702,7 +702,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(shipVelocityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipVelocity_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipVelocity_Description))]
         public VariationCoefficientNormalDistributionProperties ShipVelocity
@@ -721,7 +721,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(levellingCountPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LevellingCount_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LevellingCount_Description))]
         public int LevellingCount
@@ -740,7 +740,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_Description))]
         public double ProbabilityCollisionSecondaryStructure
@@ -758,7 +758,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
-            collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
+                           collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
         public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
@@ -779,7 +779,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region Ground erosion
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
-            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
+                           schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
@@ -789,7 +789,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
-            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
+                           schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -799,7 +799,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
-            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
+                           schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override double FailureProbabilityStructureWithErosion
         {
             get
@@ -817,7 +817,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region Storage structure
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure),
-            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
+                           schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
@@ -827,7 +827,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure),
-            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
+                           schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -841,7 +841,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region Foreshore profile
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
-            foreshoreCategoryIndex, totalNrOfCategories)]
+                           foreshoreCategoryIndex, totalNrOfCategories)]
         public override ForeshoreProfile ForeshoreProfile
         {
             get
@@ -857,7 +857,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
-            foreshoreCategoryIndex, totalNrOfCategories)]
+                           foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseBreakWaterProperties UseBreakWater
         {
             get
@@ -869,7 +869,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
-            foreshoreCategoryIndex, totalNrOfCategories)]
+                           foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseForeshoreProperties UseForeshore
         {
             get

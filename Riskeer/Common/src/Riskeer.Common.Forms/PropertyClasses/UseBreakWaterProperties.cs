@@ -134,9 +134,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data == null ||
-                   !propertyName.Equals(nameof(UseBreakWater)) &&
-                   !UseBreakWater;
+            return data == null
+                   || !propertyName.Equals(nameof(UseBreakWater))
+                   && !UseBreakWater;
         }
 
         public override string ToString()

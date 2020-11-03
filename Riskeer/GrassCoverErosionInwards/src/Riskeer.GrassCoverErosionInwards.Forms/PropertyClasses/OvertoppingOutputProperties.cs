@@ -229,10 +229,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName.Equals(nameof(WindDirection)) ||
-                propertyName.Equals(nameof(AlphaValues)) ||
-                propertyName.Equals(nameof(Durations)) ||
-                propertyName.Equals(nameof(IllustrationPoints)))
+            if (propertyName.Equals(nameof(WindDirection))
+                || propertyName.Equals(nameof(AlphaValues))
+                || propertyName.Equals(nameof(Durations))
+                || propertyName.Equals(nameof(IllustrationPoints)))
             {
                 return data.HasGeneralResult;
             }

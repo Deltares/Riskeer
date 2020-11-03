@@ -224,8 +224,8 @@ namespace Riskeer.Piping.Data
             {
                 FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
 
-                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible ||
-                    failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
+                    || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
                 {
                     return calculator.AssembleCombined(simpleAssembly);
                 }

@@ -183,8 +183,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.Calculate();
 
             // Assert
-            LogMessage[] errorMessages = kernel.CalculationMessages.Where(m => m.MessageType == LogMessageType.Error ||
-                                                                               m.MessageType == LogMessageType.FatalError).ToArray();
+            LogMessage[] errorMessages = kernel.CalculationMessages.Where(m => m.MessageType == LogMessageType.Error
+                                                                               || m.MessageType == LogMessageType.FatalError).ToArray();
             Assert.AreEqual(0, errorMessages.Length);
 
             Assert.IsFalse(double.IsNaN(kernel.FactorOfStability));
@@ -249,7 +249,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            
+
             Assert.AreEqual(0.8, kernelModel.PreprocessingModel.SearchAreaConditions.MaxSpacingBetweenBoundaries);
             Assert.IsTrue(kernelModel.PreprocessingModel.SearchAreaConditions.OnlyAbovePleistoceen);
 

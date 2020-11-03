@@ -62,10 +62,10 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             return data.HasGeneralResult &&
                    (
-                       propertyName.Equals(nameof(WindDirection)) ||
-                       propertyName.Equals(nameof(AlphaValues)) ||
-                       propertyName.Equals(nameof(Durations)) ||
-                       propertyName.Equals(nameof(IllustrationPoints))
+                       propertyName.Equals(nameof(WindDirection))
+                       || propertyName.Equals(nameof(AlphaValues))
+                       || propertyName.Equals(nameof(Durations))
+                       || propertyName.Equals(nameof(IllustrationPoints))
                    );
         }
 
