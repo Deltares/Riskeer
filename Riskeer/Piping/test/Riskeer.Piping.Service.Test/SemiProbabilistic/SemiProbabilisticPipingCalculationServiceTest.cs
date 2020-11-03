@@ -56,6 +56,68 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
+        private static void AssertSubCalculatorInputs(PipingInput input, GeneralPipingInput generalPipingInput, RoundedDouble expectedAssessmentLevel)
+        {
+            var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+            HeaveCalculatorStub heaveCalculator = testFactory.LastCreatedHeaveCalculator;
+            UpliftCalculatorStub upliftCalculator = testFactory.LastCreatedUpliftCalculator;
+            SellmeijerCalculatorStub sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
+
+            RoundedDouble expectedThicknessCoverageLayerDesignValue = PipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue();
+            double thicknessCoverageLayerAccuracy = DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy();
+            RoundedDouble expectedPhreaticLevelExitDesignValue = PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
+            double phreaticLevelExitDesignAccuracy = input.PhreaticLevelExit.GetAccuracy();
+            double expectedPiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, expectedAssessmentLevel).Value;
+            RoundedDouble expectedDampingFactorExitDesignValue = PipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
+            double dampingFactorExitAccuracy = input.DampingFactorExit.GetAccuracy();
+
+            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, heaveCalculator.DTotal, thicknessCoverageLayerAccuracy);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(PipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(), heaveCalculator.Ich);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedPiezometricHeadExit, heaveCalculator.PhiExit);
+            Assert.AreEqual(expectedDampingFactorExitDesignValue, heaveCalculator.RExit, dampingFactorExitAccuracy);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedAssessmentLevel, upliftCalculator.HRiver);
+            Assert.AreEqual(PipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalPipingInput).GetDesignValue(), upliftCalculator.ModelFactorUplift);
+            Assert.AreEqual(expectedPiezometricHeadExit, upliftCalculator.PhiExit);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedDampingFactorExitDesignValue, upliftCalculator.RExit, dampingFactorExitAccuracy);
+            Assert.AreEqual(generalPipingInput.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
+
+            RoundedDouble effectiveThickness = PipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue();
+            RoundedDouble saturatedVolumicWeight = PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
+            RoundedDouble expectedEffectiveStress = effectiveThickness * (saturatedVolumicWeight - generalPipingInput.WaterVolumetricWeight);
+            Assert.AreEqual(expectedEffectiveStress, upliftCalculator.EffectiveStress, expectedEffectiveStress.GetAccuracy());
+
+            Assert.AreEqual(PipingDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
+                            sellmeijerCalculator.SeepageLength,
+                            DerivedPipingInput.GetSeepageLength(input).GetAccuracy());
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, sellmeijerCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedAssessmentLevel, sellmeijerCalculator.HRiver);
+            Assert.AreEqual(generalPipingInput.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
+            Assert.AreEqual(PipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(), sellmeijerCalculator.ModelFactorPiping);
+            Assert.AreEqual(generalPipingInput.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
+            Assert.AreEqual(generalPipingInput.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
+            Assert.AreEqual(generalPipingInput.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
+            Assert.AreEqual(generalPipingInput.BeddingAngle, sellmeijerCalculator.BeddingAngle);
+            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, sellmeijerCalculator.DTotal, thicknessCoverageLayerAccuracy);
+            Assert.AreEqual(PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
+                            sellmeijerCalculator.D70,
+                            DerivedPipingInput.GetDiameterD70(input).GetAccuracy());
+            Assert.AreEqual(generalPipingInput.MeanDiameter70, sellmeijerCalculator.D70Mean);
+            Assert.AreEqual(PipingDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
+                            sellmeijerCalculator.DAquifer,
+                            DerivedPipingInput.GetThicknessAquiferLayer(input).GetAccuracy());
+            Assert.AreEqual(PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
+                            sellmeijerCalculator.DarcyPermeability,
+                            DerivedPipingInput.GetDarcyPermeability(input).GetAccuracy());
+            Assert.AreEqual(generalPipingInput.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
+            Assert.AreEqual(generalPipingInput.Gravity, sellmeijerCalculator.Gravity);
+        }
+
+        #region Validate
+
         [Test]
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
@@ -83,7 +145,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_Always_LogStartAndEndOfValidation()
+        public void Validate_Always_LogsStartAndEndOfValidation()
         {
             // Call
             void Call() => SemiProbabilisticPipingCalculationService.Validate(testCalculation,
@@ -119,7 +181,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
+        public void Validate_InvalidCalculationInput_LogsMessagesAndReturnsFalse()
         {
             // Setup
             var calculation = new TestSemiProbabilisticPipingCalculation();
@@ -148,7 +210,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_NormativeAssessmentLevelNotCalculated_LogsErrorAndReturnsFalse()
+        public void Validate_NormativeAssessmentLevelNotCalculated_LogsMessagesAndReturnsFalse()
         {
             // Setup
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
@@ -177,7 +239,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void Validate_InvalidManualAssessmentLevel_LogsErrorAndReturnsFalse(double assessmentLevel)
+        public void Validate_InvalidManualAssessmentLevel_LogsMessagesAndReturnsFalse(double assessmentLevel)
         {
             // Setup
             testCalculation.InputParameters.UseAssessmentLevelManualInput = true;
@@ -211,12 +273,11 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             {
                 var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
 
-
                 // Call
                 SemiProbabilisticPipingCalculationService.Validate(testCalculation,
                                                                    new GeneralPipingInput(),
                                                                    AssessmentSectionTestHelper.GetTestAssessmentLevel());
-                
+
                 // Assert
                 Assert.IsTrue(factory.LastCreatedHeaveCalculator.Validated);
                 Assert.IsTrue(factory.LastCreatedSellmeijerCalculator.Validated);
@@ -227,7 +288,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_WithoutAquiferLayer_LogsErrorAndReturnsFalse()
+        public void Validate_WithoutAquiferLayer_LogsMessagesAndReturnsFalse()
         {
             // Setup
             var aquitardLayer = new PipingSoilLayer(2.0)
@@ -266,7 +327,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
+        public void Validate_WithoutAquitardLayer_LogsMessagesAndReturnsTrue()
         {
             // Setup
             var aquiferLayer = new PipingSoilLayer(10.56)
@@ -313,7 +374,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
+        public void Validate_WithoutCoverageLayer_LogsMessagesAndReturnsTrue()
         {
             // Setup
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
@@ -365,7 +426,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_MultipleCoverageLayer_LogsWarningAndReturnsTrue()
+        public void Validate_MultipleCoverageLayer_LogsMessageAndReturnsTrue()
         {
             // Setup
             var random = new Random(21);
@@ -442,7 +503,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void Validate_IncompleteDiameterD70Definition_LogsErrorAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
+        public void Validate_IncompleteDiameterD70Definition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -508,7 +569,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [Test]
         [TestCase(6.2e-5)]
         [TestCase(5.1e-3)]
-        public void Validate_InvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
+        public void Validate_InvalidDiameterD70Value_LogsMessageAndReturnsTrue(double diameter70Value)
         {
             // Setup
             var random = new Random(21);
@@ -569,7 +630,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void Validate_IncompletePermeabilityDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
+        public void Validate_IncompletePermeabilityDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -637,7 +698,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         [TestCase(false, true, true)]
         [TestCase(true, false, true)]
         [TestCase(true, true, false)]
-        public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
+        public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             var random = new Random(21);
@@ -703,7 +764,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsErrorAndReturnsFalse()
+        public void Validate_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsMessageAndReturnsFalse()
         {
             // Setup
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -763,7 +824,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsErrorOnlyForIncompleteDefinition()
+        public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsMessageOnlyForIncompleteDefinition()
         {
             // Setup
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -830,6 +891,39 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             });
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validate_CompleteInput_InputSetOnSubCalculators(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
+            SemiProbabilisticPipingInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+
+            var generalPipingInput = new GeneralPipingInput();
+
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                // Call
+                SemiProbabilisticPipingCalculationService.Validate(testCalculation,
+                                                                   generalPipingInput,
+                                                                   normativeAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? input.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+                AssertSubCalculatorInputs(input, generalPipingInput, expectedAssessmentLevel);
+            }
+        }
+
+        #endregion
+
+        #region Calculate
+
         [Test]
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
@@ -857,7 +951,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Calculate_ErrorWhileCalculating_LogErrorMessageAndThrowException()
+        public void Calculate_ErrorWhileCalculating_LogMessageAndThrowsException()
         {
             // Setup
             using (new PipingSubCalculatorFactoryConfig())
@@ -904,7 +998,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Calculate_ValidPipingCalculation_LogStartAndEndOfCalculation()
+        public void Calculate_ValidPipingCalculation_LogsStartAndEndOfCalculation()
         {
             // Call
             void Call()
@@ -975,35 +1069,6 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Validate_CompleteInput_InputSetOnSubCalculators(bool useAssessmentLevelManualInput)
-        {
-            // Setup
-            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
-            SemiProbabilisticPipingInput input = testCalculation.InputParameters;
-
-            input.AssessmentLevel = (RoundedDouble) 2.2;
-
-            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
-
-            var generalPipingInput = new GeneralPipingInput();
-
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                // Call
-                SemiProbabilisticPipingCalculationService.Validate(testCalculation,
-                                                                   generalPipingInput,
-                                                                   normativeAssessmentLevel);
-
-                // Assert
-                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
-                                                            ? input.AssessmentLevel
-                                                            : normativeAssessmentLevel;
-                AssertSubCalculatorInputs(input, generalPipingInput, expectedAssessmentLevel);
-            }
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
         public void Calculate_CompleteInput_InputSetOnSubCalculators(bool useAssessmentLevelManualInput)
         {
             // Setup
@@ -1029,64 +1094,6 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             }
         }
 
-        private static void AssertSubCalculatorInputs(PipingInput input, GeneralPipingInput generalPipingInput, RoundedDouble expectedAssessmentLevel)
-        {
-            var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-            HeaveCalculatorStub heaveCalculator = testFactory.LastCreatedHeaveCalculator;
-            UpliftCalculatorStub upliftCalculator = testFactory.LastCreatedUpliftCalculator;
-            SellmeijerCalculatorStub sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
-
-            RoundedDouble expectedThicknessCoverageLayerDesignValue = PipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue();
-            double thicknessCoverageLayerAccuracy = DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy();
-            RoundedDouble expectedPhreaticLevelExitDesignValue = PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
-            double phreaticLevelExitDesignAccuracy = input.PhreaticLevelExit.GetAccuracy();
-            double expectedPiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, expectedAssessmentLevel).Value;
-            RoundedDouble expectedDampingFactorExitDesignValue = PipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
-            double dampingFactorExitAccuracy = input.DampingFactorExit.GetAccuracy();
-
-            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, heaveCalculator.DTotal, thicknessCoverageLayerAccuracy);
-            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.HExit, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(PipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(), heaveCalculator.Ich);
-            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(expectedPiezometricHeadExit, heaveCalculator.PhiExit);
-            Assert.AreEqual(expectedDampingFactorExitDesignValue, heaveCalculator.RExit, dampingFactorExitAccuracy);
-            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.HExit, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(expectedAssessmentLevel, upliftCalculator.HRiver);
-            Assert.AreEqual(PipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalPipingInput).GetDesignValue(), upliftCalculator.ModelFactorUplift);
-            Assert.AreEqual(expectedPiezometricHeadExit, upliftCalculator.PhiExit);
-            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(expectedDampingFactorExitDesignValue, upliftCalculator.RExit, dampingFactorExitAccuracy);
-            Assert.AreEqual(generalPipingInput.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
-
-            RoundedDouble effectiveThickness = PipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue();
-            RoundedDouble saturatedVolumicWeight = PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
-            RoundedDouble expectedEffectiveStress = effectiveThickness * (saturatedVolumicWeight - generalPipingInput.WaterVolumetricWeight);
-            Assert.AreEqual(expectedEffectiveStress, upliftCalculator.EffectiveStress, expectedEffectiveStress.GetAccuracy());
-
-            Assert.AreEqual(PipingDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
-                            sellmeijerCalculator.SeepageLength,
-                            DerivedPipingInput.GetSeepageLength(input).GetAccuracy());
-            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, sellmeijerCalculator.HExit, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(expectedAssessmentLevel, sellmeijerCalculator.HRiver);
-            Assert.AreEqual(generalPipingInput.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
-            Assert.AreEqual(PipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(), sellmeijerCalculator.ModelFactorPiping);
-            Assert.AreEqual(generalPipingInput.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
-            Assert.AreEqual(generalPipingInput.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
-            Assert.AreEqual(generalPipingInput.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
-            Assert.AreEqual(generalPipingInput.BeddingAngle, sellmeijerCalculator.BeddingAngle);
-            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, sellmeijerCalculator.DTotal, thicknessCoverageLayerAccuracy);
-            Assert.AreEqual(PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
-                            sellmeijerCalculator.D70,
-                            DerivedPipingInput.GetDiameterD70(input).GetAccuracy());
-            Assert.AreEqual(generalPipingInput.MeanDiameter70, sellmeijerCalculator.D70Mean);
-            Assert.AreEqual(PipingDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
-                            sellmeijerCalculator.DAquifer,
-                            DerivedPipingInput.GetThicknessAquiferLayer(input).GetAccuracy());
-            Assert.AreEqual(PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
-                            sellmeijerCalculator.DarcyPermeability,
-                            DerivedPipingInput.GetDarcyPermeability(input).GetAccuracy());
-            Assert.AreEqual(generalPipingInput.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
-            Assert.AreEqual(generalPipingInput.Gravity, sellmeijerCalculator.Gravity);
-        }
+        #endregion
     }
 }

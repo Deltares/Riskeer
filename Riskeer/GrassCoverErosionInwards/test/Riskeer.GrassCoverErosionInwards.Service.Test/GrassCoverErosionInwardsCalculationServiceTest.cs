@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
-        public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnFalse()
+        public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
+        public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -134,7 +134,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsMessageAndReturnFalse()
+        public void Validate_InvalidPreprocessorDirectory_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -180,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnFalse()
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -223,7 +223,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -263,7 +263,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_NoDikeProfile_LogsMessageAndReturnFalse()
+        public void Validate_NoDikeProfile_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -307,7 +307,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void Validate_ValidInputAndInvalidBreakWaterHeight_LogsMessageAndReturnFalse(double breakWaterHeight)
+        public void Validate_ValidInputAndInvalidBreakWaterHeight_LogsMessageAndReturnsFalse(double breakWaterHeight)
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -342,7 +342,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_ValidInputAndInvalidOrientation_LogsMessageAndReturnFalse()
+        public void Validate_ValidInputAndInvalidOrientation_LogsMessageAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -391,7 +391,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Validate_ValidInputAndInvalidDikeHeight_LogsMessageAndReturnFalse(double dikeHeight)
+        public void Validate_ValidInputAndInvalidDikeHeight_LogsMessageAndReturnsFalse(double dikeHeight)
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();

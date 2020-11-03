@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_Always_LogStartAndEndOfValidation()
+        public void Validate_Always_LogsStartAndEndOfValidation()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -143,7 +143,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnFalse()
+        public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
+        public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -205,7 +205,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsMessageAndReturnFalse()
+        public void Validate_InvalidPreprocessorDirectory_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -238,7 +238,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnFalse()
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -270,7 +270,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
+        public void Validate_InvalidCalculationInput_LogsMessagesAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -333,7 +333,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_WithoutAquiferLayer_LogsErrorAndReturnsFalse()
+        public void Validate_WithoutAquiferLayer_LogsMessagesAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -378,7 +378,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
+        public void Validate_WithoutAquitardLayer_LogsMessagesAndReturnsTrue()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -431,7 +431,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
+        public void Validate_WithoutCoverageLayer_LogsMessagesAndReturnsTrue()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -489,7 +489,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_MultipleCoverageLayer_LogsWarningAndReturnsTrue()
+        public void Validate_MultipleCoverageLayer_LogsMessageAndReturnsTrue()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -572,7 +572,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void Validate_IncompleteDiameterD70Definition_LogsErrorAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
+        public void Validate_IncompleteDiameterD70Definition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -644,7 +644,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [Test]
         [TestCase(6.2e-5)]
         [TestCase(5.1e-3)]
-        public void Validate_InvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
+        public void Validate_InvalidDiameterD70Value_LogsMessageAndReturnsTrue(double diameter70Value)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -711,7 +711,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void Validate_IncompletePermeabilityDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
+        public void Validate_IncompletePermeabilityDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -785,7 +785,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, true, true)]
         [TestCase(true, false, true)]
         [TestCase(true, true, false)]
-        public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
+        public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -857,7 +857,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsErrorAndReturnsFalse()
+        public void Validate_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -923,7 +923,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsErrorOnlyForIncompleteDefinition()
+        public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsMessageOnlyForIncompleteDefinition()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1083,7 +1083,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_Always_LogStartAndEndOfCalculation()
+        public void Calculate_Always_LogsStartAndEndOfCalculation()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1176,7 +1176,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1240,7 +1240,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1306,7 +1306,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1373,7 +1373,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1442,7 +1442,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButProfileSpecificGeneralResultNull_IllustrationPointsNotSetAndLogs()
+        public void Calculate_ValidInputButProfileSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1561,7 +1561,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButSectionSpecificGeneralResultNull_IllustrationPointsNotSetAndLogs()
+        public void Calculate_ValidInputButSectionSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1680,7 +1680,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButProfileSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButProfileSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1744,7 +1744,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ProfileSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1807,7 +1807,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButSectionSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButSectionSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1871,7 +1871,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_SectionSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
