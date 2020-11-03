@@ -9,8 +9,8 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="stringPPOriginal"
-					datasourceid="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
+					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
 					variablename="stringifiedPropertiesPanel">
 					</var>
@@ -34,6 +34,32 @@
 			datasource="script27aGroup1CalculationsToCopyAndValidate"
 			id="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 			name="LoopFMs">
+				<parameters>
+					<param
+					name="stringifiedPropertiesPanelOriginalCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelOriginalCalculationResult"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyCalculationResult"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationResult"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="098a343f-7c7e-4b10-af47-0b1a58c75974"
@@ -46,6 +72,26 @@
 					datasourceid="7ba66fd3-0e17-4a85-b3df-357f335bf24f"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="0a5cd7f3-f070-4a8f-b85e-c9e3b27d1df3"
+			name="ValidateStringsPropertiesPanelAreEqual"
+			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
+					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
+					variablename="string1PropertiesPanel">
+					</var>
+					<var
+					dataname="stringifiedPropertiesPanelCopyCalculationInput"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
+					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
+					variablename="string2PropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -161,6 +207,10 @@
 					name="suffixItem"
 					value=">Invoer">
 					</param>
+					<param
+					name="WaitTime"
+					value="300">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<testmodule
@@ -171,19 +221,11 @@
 			</testmodule>
 			<smartfoldernode
 			id="34943f88-8ade-4e84-9831-d0a34e08c454"
-			name="ConvertPropertiesPanelOfCopyItemToString">
+			name="ConvertPropertiesPanelOfInputCopyItemToString">
 				<parameters>
 					<param
 					name="durationPressRightKey"
 					value="150">
-					</param>
-					<param
-					name="stringPPOriginal"
-					value="">
-					</param>
-					<param
-					name="stringPPCopy"
-					value="">
 					</param>
 					<param
 					name="fullPathToItem"
@@ -229,6 +271,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="380d0edc-a379-499a-883e-b4200e58292c"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="WaitTime"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="3e1302a8-1bf2-4dda-95d7-43f243dd38b6"
 			name="SelectInputOfCalculation">
@@ -237,6 +293,20 @@
 			id="4145f572-f5fd-4641-bf22-a729bb74a212"
 			name="DuplicateCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="420c775f-34cf-4f85-961b-177f5dfd74c0"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="WaitTime"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4442784e-4785-4118-a764-a69983cb304f"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -401,6 +471,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="872f521e-1070-4643-ab40-c35d3b231507"
+			name="ValidateInputsAreEqual">
+			</smartfoldernode>
 			<setup
 			id="8d192fcd-cdb2-492a-880e-e3f7b2283e88"
 			name="setup">
@@ -548,8 +622,8 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="stringPPOriginal"
-					datasourceid="34943f88-8ade-4e84-9831-d0a34e08c454"
+					dataname="stringifiedPropertiesPanelCopyCalculationInput"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
 					variablename="stringifiedPropertiesPanel">
 					</var>
@@ -584,19 +658,11 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
-			name="ConvertPropertiesPanelOfOriginalItemToString">
+			name="ConvertPropertiesPanelOfInputOriginalItemToString">
 				<parameters>
 					<param
 					name="durationPressRightKey"
 					value="150">
-					</param>
-					<param
-					name="stringPPOriginal"
-					value="">
-					</param>
-					<param
-					name="stringPPCopy"
-					value="">
 					</param>
 					<param
 					name="fullPathToItem"
@@ -945,7 +1011,7 @@
 										name="Input">
 											<smartfoldernode
 											id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
-											name="ConvertPropertiesPanelOfOriginalItemToString">
+											name="ConvertPropertiesPanelOfInputOriginalItemToString">
 												<testmodule
 												id="a8a8f323-5507-48e7-a0b8-a8f38df0970d"
 												name="ConcatenateStrings">
@@ -959,13 +1025,17 @@
 												name="ExpandAllRowItemsInPropertiesPanel">
 												</testmodule>
 												<testmodule
+												id="420c775f-34cf-4f85-961b-177f5dfd74c0"
+												name="WaitForXMiliseconds">
+												</testmodule>
+												<testmodule
 												id="0233f019-e3c3-44b9-9702-a5a927d513c3"
 												name="ConvertPropertiesPanelToString">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
 											id="34943f88-8ade-4e84-9831-d0a34e08c454"
-											name="ConvertPropertiesPanelOfCopyItemToString">
+											name="ConvertPropertiesPanelOfInputCopyItemToString">
 												<testmodule
 												id="37167084-ba2f-4ae5-a186-e34e485aa991"
 												name="CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation">
@@ -983,8 +1053,20 @@
 												name="ExpandAllRowItemsInPropertiesPanel">
 												</testmodule>
 												<testmodule
+												id="380d0edc-a379-499a-883e-b4200e58292c"
+												name="WaitForXMiliseconds">
+												</testmodule>
+												<testmodule
 												id="ae7640f4-81bd-433e-a94c-5100875ffd05"
 												name="ConvertPropertiesPanelToString">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="872f521e-1070-4643-ab40-c35d3b231507"
+											name="ValidateInputsAreEqual">
+												<testmodule
+												id="0a5cd7f3-f070-4a8f-b85e-c9e3b27d1df3"
+												name="ValidateStringsPropertiesPanelAreEqual">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
@@ -4389,6 +4471,9 @@
 			</testcontainer>
 			<testcontainer
 			id="86b9482a-db18-4106-9512-2ef2cd5970ac">
+			</testcontainer>
+			<testcontainer
+			id="872f521e-1070-4643-ab40-c35d3b231507">
 			</testcontainer>
 			<testcontainer
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e">

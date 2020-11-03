@@ -61,7 +61,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             stringifiedPropertiesPanel = "";
             int index = 0;
             foreach (Ranorex.Row row in allRows) {
-                stringifiedPropertiesPanel += "[" + index.ToString() + ", " + row.Element.GetAttributeValueText("AccessibleName") + ", " + row.Element.GetAttributeValueText("AccessibleValue") + "];";
+                stringifiedPropertiesPanel += "[" + index.ToString() + ";" + row.Element.GetAttributeValueText("AccessibleName") + ";" + row.Element.GetAttributeValueText("AccessibleValue") + "];";
                 index++;
             }
             stringifiedPropertiesPanel = stringifiedPropertiesPanel.Remove(stringifiedPropertiesPanel.Length - 1);
