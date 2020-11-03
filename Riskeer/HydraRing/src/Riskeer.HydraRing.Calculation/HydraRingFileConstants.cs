@@ -29,7 +29,7 @@ namespace Riskeer.HydraRing.Calculation
         /// <summary>
         /// The version of Hydra-Ring.
         /// </summary>
-        internal const string HydraRingVersionNumber = "19.1.1.9292";
+        internal const string HydraRingVersionNumber = "20.1.0.10064";
         
         /// <summary>
         /// The file name of the file containing the output of a calculation.
