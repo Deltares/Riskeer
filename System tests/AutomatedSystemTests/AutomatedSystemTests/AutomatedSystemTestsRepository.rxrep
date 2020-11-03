@@ -698,7 +698,7 @@ name="AutomatedSystemTestsRepository">
 						capname="cell"
 						id="abed330f-4524-4539-b710-116c85ef9a22"
 						name="BoundaryCategoryCell"
-						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
 						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Categorie Row ']
 						</item>
@@ -707,7 +707,7 @@ name="AutomatedSystemTestsRepository">
 						capname="cell"
 						id="0bb11898-6dc4-4f30-86b1-6ec16b0e30d9"
 						name="LowerBoundaryCell"
-						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						refimgid="349d2e28-2522-44e2-9741-1756981d6d2a"
 						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Ondergrens']
 						</item>
@@ -716,7 +716,7 @@ name="AutomatedSystemTestsRepository">
 						capname="cell"
 						id="8652405a-ea4c-4a05-9e58-51f10e585c40"
 						name="UpperBoundaryCell"
-						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						refimgid="59515b59-f286-43c1-944b-d68f6108a822"
 						searchtimeout="10000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Bovengrens']
 						</item>

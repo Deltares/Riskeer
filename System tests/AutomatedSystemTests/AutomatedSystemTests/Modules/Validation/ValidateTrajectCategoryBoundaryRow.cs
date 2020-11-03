@@ -41,6 +41,9 @@ namespace AutomatedSystemTests.Modules.Validation
         /// </summary>
         public ValidateTrajectCategoryBoundaryRow()
         {
+            boundaryCategory = "";
+            lowerBoundary = "";
+            upperBoundary = "";
         }
 
         /// <summary>
@@ -52,6 +55,52 @@ namespace AutomatedSystemTests.Modules.Validation
         }
 
 #region Variables
+
+        string _boundaryCategory;
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryCategory.
+        /// </summary>
+        [TestVariable("2aecbb51-4591-4020-8e95-7baef9b5785f")]
+        public string boundaryCategory
+        {
+            get { return _boundaryCategory; }
+            set { _boundaryCategory = value; }
+        }
+
+        string _lowerBoundary;
+
+        /// <summary>
+        /// Gets or sets the value of variable lowerBoundary.
+        /// </summary>
+        [TestVariable("d8decb24-a4e0-497c-9560-6d46ba0f86bf")]
+        public string lowerBoundary
+        {
+            get { return _lowerBoundary; }
+            set { _lowerBoundary = value; }
+        }
+
+        string _upperBoundary;
+
+        /// <summary>
+        /// Gets or sets the value of variable upperBoundary.
+        /// </summary>
+        [TestVariable("2b917f66-d746-47f0-9d83-ee93bf18074c")]
+        public string upperBoundary
+        {
+            get { return _upperBoundary; }
+            set { _upperBoundary = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable rowIndex.
+        /// </summary>
+        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
+        public string rowIndex
+        {
+            get { return repo.rowIndex; }
+            set { repo.rowIndex = value; }
+        }
 
 #endregion
 
@@ -79,6 +128,15 @@ namespace AutomatedSystemTests.Modules.Validation
 
             Init();
 
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.BoundaryCategoryCellInfo, boundaryCategory);
+            Delay.Milliseconds(0);
+            
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.LowerBoundaryCellInfo, lowerBoundary);
+            Delay.Milliseconds(0);
+            
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.UpperBoundaryCellInfo, upperBoundary);
+            Delay.Milliseconds(0);
+            
         }
 
 #region Image Feature Data

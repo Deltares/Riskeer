@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
@@ -31,6 +32,23 @@ namespace AutomatedSystemTests.Modules.Validation
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void CompareValuesCultureInvariant(RepoItemInfo cellInfo, string expectedValue)
+        {
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            expectedValue = expectedValue.Replace(" ", String.Empty).Replace(".", String.Empty);
+        	Report.Log(ReportLevel.Info, "Info", expectedValue, cellInfo);
+        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='" + expectedValue.ToString() + "') on item 'cellInfo'.", cellInfo);
+        	string foundValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<String>("AccessibleValue");
+        	foundValue = foundValue.Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
+            Validate.AreEqual(foundValue, expectedValue);
+        }
+
+        public void CompareValuesCultureInvariant()
+        {
+            // TODO: Replace the following line with your code implementation.
+            throw new NotImplementedException();
         }
 
     }

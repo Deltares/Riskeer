@@ -7,6 +7,32 @@
 			name="ValidateTrajectCategoryBoundaryRow"
 			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="upperBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="0ea64a10-b851-483d-b6e7-191ec235dd62"
@@ -107,6 +133,7 @@
 				</parameters>
 			</testcase>
 			<smartfoldernode
+			datasource="script07_ExpectedBoundaryCategories"
 			id="d1b62e06-c970-4653-b06d-bfcaa80c2eea"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
@@ -229,6 +256,114 @@
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
+		<DataSource
+		id="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+		lastknownrowcount="5"
+		name="script07_ExpectedBoundaryCategories"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					boundaryCategory
+				</column>
+				<column>
+					lowerBoundary
+				</column>
+				<column>
+					upperBoundary
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						boundaryCategory
+					</th>
+					<th>
+						lowerBoundary
+					</th>
+					<th>
+						upperBoundary
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						A+
+					</td>
+					<td>
+						1/Oneindig
+					</td>
+					<td>
+						1/90000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						A
+					</td>
+					<td>
+						1/90000
+					</td>
+					<td>
+						1/3000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						B
+					</td>
+					<td>
+						1/3000
+					</td>
+					<td>
+						1/1000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						C
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						1/33
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						D
+					</td>
+					<td>
+						1/33
+					</td>
+					<td>
+						1/1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
