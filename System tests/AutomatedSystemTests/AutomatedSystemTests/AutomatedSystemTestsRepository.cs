@@ -36,7 +36,7 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.DialogNewTrajectAppFolder _dialognewtraject;
         AutomatedSystemTestsRepositoryFolders.OpenenAppFolder _openen;
         AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder _dialoggeneratecalculations;
-        AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder _riskeer;
+        AutomatedSystemTestsRepositoryFolders.DropDownMenuInRowPropertiesPanelAppFolder _dropdownmenuinrowpropertiespanel;
         AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder _bevestigen;
         AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder _selectitemdialog;
         AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder _opendialog;
@@ -67,7 +67,7 @@ namespace AutomatedSystemTests
             _dialognewtraject = new AutomatedSystemTestsRepositoryFolders.DialogNewTrajectAppFolder(this);
             _openen = new AutomatedSystemTestsRepositoryFolders.OpenenAppFolder(this);
             _dialoggeneratecalculations = new AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder(this);
-            _riskeer = new AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder(this);
+            _dropdownmenuinrowpropertiespanel = new AutomatedSystemTestsRepositoryFolders.DropDownMenuInRowPropertiesPanelAppFolder(this);
             _bevestigen = new AutomatedSystemTestsRepositoryFolders.BevestigenAppFolder(this);
             _selectitemdialog = new AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder(this);
             _opendialog = new AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder(this);
@@ -389,6 +389,54 @@ namespace AutomatedSystemTests
             set { _substringSubSubItemName = value; }
         }
 
+        string _itemInDropDownMenu = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable itemInDropDownMenu.
+        /// </summary>
+        [TestVariable("cf8e51a0-a8fb-4932-89eb-88707e8e53cb")]
+        public string itemInDropDownMenu
+        {
+            get { return _itemInDropDownMenu; }
+            set { _itemInDropDownMenu = value; }
+        }
+
+        string _locationName = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable locationName.
+        /// </summary>
+        [TestVariable("d3f8e98c-052e-4dbf-84ca-9ec77e91cb0b")]
+        public string locationName
+        {
+            get { return _locationName; }
+            set { _locationName = value; }
+        }
+
+        string _newValueForParameter = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable newValueForParameter.
+        /// </summary>
+        [TestVariable("3ed76e3f-c80c-42a1-9230-37334bd6b5c8")]
+        public string newValueForParameter
+        {
+            get { return _newValueForParameter; }
+            set { _newValueForParameter = value; }
+        }
+
+        string _newValue = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable newValue.
+        /// </summary>
+        [TestVariable("973b7938-8c88-411b-81f4-2d7160c01d81")]
+        public string newValue
+        {
+            get { return _newValue; }
+            set { _newValue = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -509,12 +557,12 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The Riskeer folder.
+        /// The DropDownMenuInRowPropertiesPanel folder.
         /// </summary>
         [RepositoryFolder("0ac12703-7585-4db4-95bd-26378ea2b64c")]
-        public virtual AutomatedSystemTestsRepositoryFolders.RiskeerAppFolder Riskeer
+        public virtual AutomatedSystemTestsRepositoryFolders.DropDownMenuInRowPropertiesPanelAppFolder DropDownMenuInRowPropertiesPanel
         {
-            get { return _riskeer; }
+            get { return _dropdownmenuinrowpropertiespanel; }
         }
 
         /// <summary>
@@ -693,7 +741,7 @@ namespace AutomatedSystemTests
                     base("ProjectExplorer", ".//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _projectrootnode = new AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder(this);
-                _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 6-6 (GEBU)']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
+                _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
             }
 
             /// <summary>
@@ -1861,6 +1909,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder _hydraulicbcdunes;
             RepoItemInfo _insidedocument_isfmrelevantcellInfo;
             RepoItemInfo _btndialogInfo;
+            RepoItemInfo _dropdownbuttoninrowpropertiespanelInfo;
 
             /// <summary>
             /// Creates a new DocumentViewContainerUncached  folder.
@@ -1874,6 +1923,7 @@ namespace AutomatedSystemTests
                 _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder(this);
                 _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "db215a7f-7857-4f38-b16c-d96366f08703");
                 _btndialogInfo = new RepoItemInfo(this, "BtnDialog", "?/?/button[@controlname='btnDialog']", 30000, null, "cefba828-ea6b-4e9d-a97a-641324e9af42");
+                _dropdownbuttoninrowpropertiespanelInfo = new RepoItemInfo(this, "DropDownButtonInRowPropertiesPanel", "?/?/button[@controlname='btnDropDown']", 30000, null, "3bf645bc-b589-440e-9827-e97c895e810b");
             }
 
             /// <summary>
@@ -1945,6 +1995,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _btndialogInfo;
+                }
+            }
+
+            /// <summary>
+            /// The DropDownButtonInRowPropertiesPanel item.
+            /// </summary>
+            [RepositoryItem("3bf645bc-b589-440e-9827-e97c895e810b")]
+            public virtual Ranorex.Button DropDownButtonInRowPropertiesPanel
+            {
+                get
+                {
+                    return _dropdownbuttoninrowpropertiespanelInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The DropDownButtonInRowPropertiesPanel item info.
+            /// </summary>
+            [RepositoryItemInfo("3bf645bc-b589-440e-9827-e97c895e810b")]
+            public virtual RepoItemInfo DropDownButtonInRowPropertiesPanelInfo
+            {
+                get
+                {
+                    return _dropdownbuttoninrowpropertiespanelInfo;
                 }
             }
 
@@ -3162,6 +3236,11 @@ namespace AutomatedSystemTests
             RepoItemInfo _detailedassessmenttypecategoryvvInfo;
             RepoItemInfo _detailedassessmentvaluepersectionInfo;
             RepoItemInfo _detailedassessmenttypepersectionInfo;
+            RepoItemInfo _manualassessmentcheckboxInfo;
+            RepoItemInfo _manualassessmentprobabilityInfo;
+            RepoItemInfo _manualassessmentcategoryInfo;
+            RepoItemInfo _columnrightInfo;
+            RepoItemInfo _columnleftInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -3182,6 +3261,11 @@ namespace AutomatedSystemTests
                 _detailedassessmenttypecategoryvvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Vv']", 10000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
                 _detailedassessmentvaluepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentValuePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 10000, null, "36bcd84c-e1a4-440b-9059-ef295de802e1");
                 _detailedassessmenttypepersectionInfo = new RepoItemInfo(this, "DetailedAssessmentTypePerSection", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak']", 10000, null, "687f57df-4210-4716-b1bb-a24e81983e66");
+                _manualassessmentcheckboxInfo = new RepoItemInfo(this, "ManualAssessmentCheckbox", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Overschrijftoetsoordeel']", 10000, null, "f2bdbb83-2aeb-4e83-941e-0f050ec7cd59");
+                _manualassessmentprobabilityInfo = new RepoItemInfo(this, "ManualAssessmentProbability", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "e9d0837b-e5cb-4508-98b5-969509fe5459");
+                _manualassessmentcategoryInfo = new RepoItemInfo(this, "ManualAssessmentCategory", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelhandmatig']", 30000, null, "ed649f60-c755-4736-a5ae-f0e2e37cb7df");
+                _columnrightInfo = new RepoItemInfo(this, "ColumnRight", "scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']", 30000, null, "32ff498f-1f94-4edb-9de3-cef6d06fd6ad");
+                _columnleftInfo = new RepoItemInfo(this, "ColumnLeft", "scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']", 30000, null, "8e303747-33b8-48ef-8baf-17410d0292dc");
             }
 
             /// <summary>
@@ -3517,6 +3601,126 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _detailedassessmenttypepersectionInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCheckbox item.
+            /// </summary>
+            [RepositoryItem("f2bdbb83-2aeb-4e83-941e-0f050ec7cd59")]
+            public virtual Ranorex.Cell ManualAssessmentCheckbox
+            {
+                get
+                {
+                    return _manualassessmentcheckboxInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCheckbox item info.
+            /// </summary>
+            [RepositoryItemInfo("f2bdbb83-2aeb-4e83-941e-0f050ec7cd59")]
+            public virtual RepoItemInfo ManualAssessmentCheckboxInfo
+            {
+                get
+                {
+                    return _manualassessmentcheckboxInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentProbability item.
+            /// </summary>
+            [RepositoryItem("e9d0837b-e5cb-4508-98b5-969509fe5459")]
+            public virtual Ranorex.Cell ManualAssessmentProbability
+            {
+                get
+                {
+                    return _manualassessmentprobabilityInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentProbability item info.
+            /// </summary>
+            [RepositoryItemInfo("e9d0837b-e5cb-4508-98b5-969509fe5459")]
+            public virtual RepoItemInfo ManualAssessmentProbabilityInfo
+            {
+                get
+                {
+                    return _manualassessmentprobabilityInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCategory item.
+            /// </summary>
+            [RepositoryItem("ed649f60-c755-4736-a5ae-f0e2e37cb7df")]
+            public virtual Ranorex.Cell ManualAssessmentCategory
+            {
+                get
+                {
+                    return _manualassessmentcategoryInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ManualAssessmentCategory item info.
+            /// </summary>
+            [RepositoryItemInfo("ed649f60-c755-4736-a5ae-f0e2e37cb7df")]
+            public virtual RepoItemInfo ManualAssessmentCategoryInfo
+            {
+                get
+                {
+                    return _manualassessmentcategoryInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ColumnRight item.
+            /// </summary>
+            [RepositoryItem("32ff498f-1f94-4edb-9de3-cef6d06fd6ad")]
+            public virtual Ranorex.Button ColumnRight
+            {
+                get
+                {
+                    return _columnrightInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ColumnRight item info.
+            /// </summary>
+            [RepositoryItemInfo("32ff498f-1f94-4edb-9de3-cef6d06fd6ad")]
+            public virtual RepoItemInfo ColumnRightInfo
+            {
+                get
+                {
+                    return _columnrightInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ColumnLeft item.
+            /// </summary>
+            [RepositoryItem("8e303747-33b8-48ef-8baf-17410d0292dc")]
+            public virtual Ranorex.Button ColumnLeft
+            {
+                get
+                {
+                    return _columnleftInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ColumnLeft item info.
+            /// </summary>
+            [RepositoryItemInfo("8e303747-33b8-48ef-8baf-17410d0292dc")]
+            public virtual RepoItemInfo ColumnLeftInfo
+            {
+                get
+                {
+                    return _columnleftInfo;
                 }
             }
         }
@@ -4102,6 +4306,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _contributionpercentageInfo;
             RepoItemInfo _trajecttypeInfo;
             RepoItemInfo _faalkansbijdragepercentInfo;
+            RepoItemInfo _hydraulischebelastingenlocatieInfo;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -4116,6 +4321,7 @@ namespace AutomatedSystemTests
                 _contributionpercentageInfo = new RepoItemInfo(this, "ContributionPercentage", "row[@accessiblename>'Aandeel']", 30000, null, "863390a3-2d56-4c70-826d-86c4fb70b44f");
                 _trajecttypeInfo = new RepoItemInfo(this, "Trajecttype", "row[@accessiblename='Trajecttype']", 30000, null, "c93d6b35-2159-4c88-a103-599b6efcb316");
                 _faalkansbijdragepercentInfo = new RepoItemInfo(this, "FaalkansbijdragePercent", "row[@accessiblename='Faalkansbijdrage [%]']", 30000, null, "104dcdca-9c98-4ba3-b553-7e2e25c29d6a");
+                _hydraulischebelastingenlocatieInfo = new RepoItemInfo(this, "HydraulischeBelastingenlocatie", "row[@accessiblename>'Hydraulische belastingenl']", 30000, null, "886ec40d-3348-40d3-b6f5-3e5f73116927");
             }
 
             /// <summary>
@@ -4307,6 +4513,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _faalkansbijdragepercentInfo;
+                }
+            }
+
+            /// <summary>
+            /// The HydraulischeBelastingenlocatie item.
+            /// </summary>
+            [RepositoryItem("886ec40d-3348-40d3-b6f5-3e5f73116927")]
+            public virtual Ranorex.Row HydraulischeBelastingenlocatie
+            {
+                get
+                {
+                    return _hydraulischebelastingenlocatieInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The HydraulischeBelastingenlocatie item info.
+            /// </summary>
+            [RepositoryItemInfo("886ec40d-3348-40d3-b6f5-3e5f73116927")]
+            public virtual RepoItemInfo HydraulischeBelastingenlocatieInfo
+            {
+                get
+                {
+                    return _hydraulischebelastingenlocatieInfo;
                 }
             }
         }
@@ -4550,6 +4780,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _wisalleuitvoerInfo;
             RepoItemInfo _wisillustratiepuntenInfo;
             RepoItemInfo _wisuitvoerInfo;
+            RepoItemInfo _pagerightInfo;
+            RepoItemInfo _pageleftInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4575,6 +4807,8 @@ namespace AutomatedSystemTests
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
+                _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
+                _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
             }
 
             /// <summary>
@@ -5030,6 +5264,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _wisuitvoerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item.
+            /// </summary>
+            [RepositoryItem("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual Ranorex.MenuItem PageRight
+            {
+                get
+                {
+                    return _pagerightInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item info.
+            /// </summary>
+            [RepositoryItemInfo("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual RepoItemInfo PageRightInfo
+            {
+                get
+                {
+                    return _pagerightInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item.
+            /// </summary>
+            [RepositoryItem("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual Ranorex.MenuItem PageLeft
+            {
+                get
+                {
+                    return _pageleftInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item info.
+            /// </summary>
+            [RepositoryItemInfo("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual RepoItemInfo PageLeftInfo
+            {
+                get
+                {
+                    return _pageleftInfo;
                 }
             }
         }
@@ -5885,20 +6167,26 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The RiskeerAppFolder folder.
+        /// The DropDownMenuInRowPropertiesPanelAppFolder folder.
         /// </summary>
         [RepositoryFolder("0ac12703-7585-4db4-95bd-26378ea2b64c")]
-        public partial class RiskeerAppFolder : RepoGenBaseFolder
+        public partial class DropDownMenuInRowPropertiesPanelAppFolder : RepoGenBaseFolder
         {
+            AutomatedSystemTestsRepositoryFolders.ListFolder _list;
             RepoItemInfo _trajecttypeInfo;
+            RepoItemInfo _genericitemindropdownmenuofrowiteminpropertiespanelInfo;
+            RepoItemInfo _kwadratischInfo;
 
             /// <summary>
-            /// Creates a new Riskeer  folder.
+            /// Creates a new DropDownMenuInRowPropertiesPanel  folder.
             /// </summary>
-            public RiskeerAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("Riskeer", "/form[@title='']", parentFolder, 30000, null, true, "0ac12703-7585-4db4-95bd-26378ea2b64c", "")
+            public DropDownMenuInRowPropertiesPanelAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("DropDownMenuInRowPropertiesPanel", "/form[@title='']", parentFolder, 30000, null, true, "0ac12703-7585-4db4-95bd-26378ea2b64c", "")
             {
+                _list = new AutomatedSystemTestsRepositoryFolders.ListFolder(this);
                 _trajecttypeInfo = new RepoItemInfo(this, "TrajectType", "?/?/listitem[@accessiblename=$trajectType]", 30000, null, "52dd6943-e863-46c3-87ed-cfb8d3a558a3");
+                _genericitemindropdownmenuofrowiteminpropertiespanelInfo = new RepoItemInfo(this, "GenericItemInDropDownMenuOfRowItemInPropertiesPanel", "?/?/listitem[@accessiblename>$itemInDropDownMenu]", 30000, null, "001be49f-dfc8-4169-a3ea-ad5c16d74180");
+                _kwadratischInfo = new RepoItemInfo(this, "Kwadratisch", "?/?/listitem[@accessiblename='Kwadratisch']", 30000, null, "305868f1-a0ce-42be-bf9d-0b7a19fde0bd");
             }
 
             /// <summary>
@@ -5946,6 +6234,129 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _trajecttypeInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInDropDownMenuOfRowItemInPropertiesPanel item.
+            /// </summary>
+            [RepositoryItem("001be49f-dfc8-4169-a3ea-ad5c16d74180")]
+            public virtual Ranorex.ListItem GenericItemInDropDownMenuOfRowItemInPropertiesPanel
+            {
+                get
+                {
+                    return _genericitemindropdownmenuofrowiteminpropertiespanelInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInDropDownMenuOfRowItemInPropertiesPanel item info.
+            /// </summary>
+            [RepositoryItemInfo("001be49f-dfc8-4169-a3ea-ad5c16d74180")]
+            public virtual RepoItemInfo GenericItemInDropDownMenuOfRowItemInPropertiesPanelInfo
+            {
+                get
+                {
+                    return _genericitemindropdownmenuofrowiteminpropertiespanelInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Kwadratisch item.
+            /// </summary>
+            [RepositoryItem("305868f1-a0ce-42be-bf9d-0b7a19fde0bd")]
+            public virtual Ranorex.ListItem Kwadratisch
+            {
+                get
+                {
+                    return _kwadratischInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Kwadratisch item info.
+            /// </summary>
+            [RepositoryItemInfo("305868f1-a0ce-42be-bf9d-0b7a19fde0bd")]
+            public virtual RepoItemInfo KwadratischInfo
+            {
+                get
+                {
+                    return _kwadratischInfo;
+                }
+            }
+
+            /// <summary>
+            /// The List folder.
+            /// </summary>
+            [RepositoryFolder("9b460c01-d201-4d71-85d1-108e27c4b272")]
+            public virtual AutomatedSystemTestsRepositoryFolders.ListFolder List
+            {
+                get { return _list; }
+            }
+        }
+
+        /// <summary>
+        /// The ListFolder folder.
+        /// </summary>
+        [RepositoryFolder("9b460c01-d201-4d71-85d1-108e27c4b272")]
+        public partial class ListFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _genericitemindropdownlistInfo;
+
+            /// <summary>
+            /// Creates a new List  folder.
+            /// </summary>
+            public ListFolder(RepoGenBaseFolder parentFolder) :
+                    base("List", "?/?/list[@accessiblerole='List']", parentFolder, 30000, null, false, "9b460c01-d201-4d71-85d1-108e27c4b272", "")
+            {
+                _genericitemindropdownlistInfo = new RepoItemInfo(this, "genericItemInDropDownList", "listitem[@accessiblename~$newValueForParameter]", 30000, null, "532ede54-3f03-4afe-896f-36f3614c200b");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("9b460c01-d201-4d71-85d1-108e27c4b272")]
+            public virtual Ranorex.List Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.List>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("9b460c01-d201-4d71-85d1-108e27c4b272")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The genericItemInDropDownList item.
+            /// </summary>
+            [RepositoryItem("532ede54-3f03-4afe-896f-36f3614c200b")]
+            public virtual Ranorex.ListItem genericItemInDropDownList
+            {
+                get
+                {
+                    return _genericitemindropdownlistInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The genericItemInDropDownList item info.
+            /// </summary>
+            [RepositoryItemInfo("532ede54-3f03-4afe-896f-36f3614c200b")]
+            public virtual RepoItemInfo genericItemInDropDownListInfo
+            {
+                get
+                {
+                    return _genericitemindropdownlistInfo;
                 }
             }
         }

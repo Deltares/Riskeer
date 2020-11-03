@@ -300,40 +300,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="0743bf71-df44-4706-8e1b-6cecaf6cb919"
-			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
-			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="nameParameterInPropertiesPanel"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="nameParameterToValidate"
-					datasourceid="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="0844cea9-d97a-40ca-b4cf-3f0c73488c9c"
 			name="ValidationInPropertiesPanel">
@@ -444,28 +410,6 @@
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
 			name="ValidateFMsPresentInTrajects">
 			</smartfoldernode>
-			<testmodule
-			id="0bdbb0df-eeef-474c-b0cb-dbd544b96614"
-			name="SelectRowCalculation"
-			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="0be2d029-2fa5-4eef-8113-34b470e4d1d6"
 			name="ValidateCalculationWaterLevelInDocumentViewDA">
@@ -618,6 +562,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb"
+			name="SelectListItemFromDropDownMenuInPropertiesPanel">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="parameterType"
+								id="19801d59-c7e1-4127-8b92-0b6f8606dba2">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableFMsToValidateTrajectLength"
 			id="1010c180-4323-4c5d-a8f2-a1541376c852"
@@ -1368,12 +1337,6 @@
 			id="1d46b506-30f0-45d1-acb6-71ad32fc4bdc"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="1cba2ac6-831a-453a-ac2e-4bc1fa43f421"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
 			name="ValidateLengthEffectParameterN">
@@ -1432,6 +1395,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0"
+			name="ManualOverride">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="simpleAssessmentGroup1"
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
@@ -1517,6 +1484,26 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="2225bf5e-d9ee-4100-89bb-4767fcb99a1c"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
@@ -1668,6 +1655,40 @@
 			name="CancelCalculations">
 			</smartfoldernode>
 			<testmodule
+			id="256c1bb8-2535-464d-8251-e5ddffef2882"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameReferenceConfigurationXMLFile"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCurrentFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="2632f48c-8a60-4589-bf96-cebeb8cc6a2c"
 			name="OpenViewForFailureMechanismContribution"
 			ref="5e81345e-66bc-4e08-8ade-03d386d824fd"
@@ -1680,6 +1701,28 @@
 					variablename="substringTrajectName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="26405822-1004-4c5c-8989-6e04a7c7d5f4"
+			name="SelectManualAssessment"
+			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="26779f69-8b0e-43c2-808f-c922f63bab34"
@@ -1704,34 +1747,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="2708816f-ae4a-4f43-8d9e-c1fa626e32e1"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha13"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha13"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
@@ -1993,23 +2008,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="2ae8e517-1240-4f14-8185-9ef74ee82a65"
-			name="InitializeDropDownMenu"
-			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
-			type="Recording">
-				<description>
-					<![CDATA[Initialize drop-down menu by opening it the first time]]>
-				</description>
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="ed21966b-1ee4-410c-b7e2-e97ade5a2859"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="2b7ec1a0-f759-4687-8092-17a7870deb8e"
 			name="RunAgainCalculation">
@@ -2238,6 +2236,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="309d665f-5b2e-43df-9472-0faae45c7fd0"
+			name="SelectInputOfCalculation">
+			</smartfoldernode>
 			<testmodule
 			id="31349fd2-6d78-407d-ad09-874c4d99e119"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryVv"
@@ -2439,6 +2441,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15a_AllRows"
 			id="3599b10f-855e-4f5e-a349-e23ffdaa5b33"
@@ -2661,6 +2677,20 @@
 					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
 					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
 					variablename="destinationFileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3fcc9b4a-69bb-4e75-b76e-6e010eac74cc"
+			name="ExportConfigurationSelectedCalculationToXMLFile"
+			ref="f9bf6401-43a0-4383-984d-457c6eee59b7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameCreatedConfigurationXMLFileToExport"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="56347b29-0010-4e17-9350-df3326ef24fd"
+					variablename="fileNameToSave">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2941,6 +2971,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="43383af6-a246-4f73-824c-8246a6a9a0b2"
+			name="ManualOverride">
+			</smartfoldernode>
+			<smartfoldernode
 			id="435753ca-94bd-462c-bf24-db7a546a9fe1"
 			name="SelectRowDA">
 				<conditiongroup
@@ -3203,6 +3237,26 @@
 			ref="bbf874ea-d649-48f1-b9a6-08ca561100d3"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="4890bb24-ea21-47da-8c8b-7e5885590194"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="4a01d30f-ae28-4241-8011-738b80e3dad7"
 			name="ValidateResultInDocumentView">
@@ -3304,6 +3358,12 @@
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script18ParametersToModifyInCalculations"
+			errorbehavior="ContinueNextIteration"
+			id="4ee89ccd-4875-4f75-a76d-af0c47729751"
+			name="ModifyParametersInSelectedCalculationInput_ToDo">
+			</smartfoldernode>
 			<testmodule
 			id="4fc34da7-8967-44a9-b8b3-3e2c1190f3bf"
 			name="ValidateRowDoesNotExistInPropertiesPanel"
@@ -3373,6 +3433,28 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="530f0c5a-43ea-4f55-9615-51729ffea2fd"
+			name="SelectManualAssessment"
+			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="5328d042-0c00-4277-af0a-8c5ec2f49435"
@@ -3643,47 +3725,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			id="593b774b-e83d-4dd4-afab-27e2ec1aaf62"
-			name="InitializeDropDownMenu">
-				<parameters>
-					<param
-					name="rowIndex"
-					value="0">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="milisecondsToWait"
-					datasourceid="77116ac1-99e0-4980-bbc7-a47571455387"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="5a57d066-a011-462b-8619-9e0ed2d74fd4"
-			name="InitializeDropDownMenu"
-			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
-			type="Recording">
-				<description>
-					<![CDATA[Initialize drop-down menu by opening it the first time]]>
-				</description>
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="caf14a47-fe3c-4635-a598-6cf990300502"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
 			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef"
 			name="Custom_Assessment">
 			</smartfoldernode>
@@ -3949,6 +3990,40 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="5d6090b0-0f3c-4d43-9c27-1448bcbf4a40"
+			name="SetManualAssessmentCategory"
+			ref="97f68751-6390-4dac-92f9-cba8feac75de"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualAssessmentCategory"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualCategory"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
 			name="ValidateValueParameterForItemInTraject"
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
@@ -4092,6 +4167,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="60ec75a3-8ce2-4a1f-872a-443db0330f35"
+			name="ManualProbability">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="fmLabel"
+								id="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="61717bd6-639e-4739-9e0a-020f5c4119cc"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
@@ -4158,6 +4258,40 @@
 					variablename="pathToItemToOpenView">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="622bed72-4898-4d20-b9a5-d40c869cdd75"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToCalculationInput"
+					datasourceid="b47f226a-dc7a-4cfe-8207-9232909de566"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="62a061e2-b27d-4bf0-be54-21b827e9904f"
+			name="SetManualAssessmentCategory"
+			ref="97f68751-6390-4dac-92f9-cba8feac75de"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualCategory"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="62bcf81e-2dea-4d4b-bb32-bc50cb233b18"
@@ -4568,10 +4702,6 @@
 			id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
 			name="ValidateAfterCalculationsHaveBeenInterrupted">
 			</smartfoldernode>
-			<smartfoldernode
-			id="6bb40052-1d65-44aa-baae-f9b02a6cf9fd"
-			name="ValidateAfterCalculationsHaveBeenInterrupted">
-			</smartfoldernode>
 			<testmodule
 			id="6bfc024d-08a9-4126-b24e-347ca2e47941"
 			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
@@ -4658,11 +4788,59 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="6e55b147-0f46-4799-b334-ff765b57e10e"
+			name="SelectManualAssessment"
+			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15a_ExpectedUnfinished_Calculations"
 			id="6e80f060-cb78-47ce-a16b-3425624471c4"
 			name="ValidateUnfinishedCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="6eacc37f-1eb4-4112-a2bf-52e25fc91f35"
+			name="SetManualAssessmentCategory"
+			ref="97f68751-6390-4dac-92f9-cba8feac75de"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualAssessmentCategory"
+					datasourceid="7044f9e8-2ff2-4376-8de3-2c730078f69b"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualCategory"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="6ebba1a4-06c3-483a-8e34-e70015e4986c"
 			name="ValidateTextMesage"
@@ -4739,6 +4917,10 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<teardown
+			id="710136e9-de8e-48b2-b63c-c91e105501bc"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
@@ -4836,6 +5018,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="73055bb2-13c5-4667-9a1e-821a23b3dee3"
+			name="ManualOverride">
+			</smartfoldernode>
 			<testmodule
 			id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
 			name="CloseAUT"
@@ -5027,16 +5213,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="769950c3-8881-4bc9-9049-f6488ccc2275"
-			name="CarryOutCalculations">
-				<parameters>
-					<param
-					name="calculationIndexToStopAt"
-					value="2 van">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="76ef22ad-3dd6-46a3-99bc-865b3e6ab8f4"
 			name="CreateScreenShotPropertiesPanel"
@@ -5053,38 +5229,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="776f0312-7f7c-4671-b067-6952762419f2"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="normItemName"
-					datasourceid="0a0d9792-5b24-45f6-ae6d-dc982e3702be"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="normOfTraject"
-					datasourceid="78947188-1351-4994-baff-766da4b7d2e0"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="normOfTrajectName"
-					datasourceid="0a0d9792-5b24-45f6-ae6d-dc982e3702be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="776f0312-7f7c-4671-b067-6952762419f2"
 			name="GetValueParameterForItemInTraject"
@@ -5318,6 +5462,34 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="7ce7baba-e4b7-4601-a6d6-30a99de82942"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationToModify"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPath"
+					datasourceid="b1ba515e-b23b-4caa-afee-d8886ab86cea"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemToOpenView">
+					</var>
+					<var
+					dataname="pathToAllCalculationsItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
 			errorbehavior="ContinueNextIteration"
@@ -5482,6 +5654,20 @@
 				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
+			id="80b3e677-2281-402a-998a-84e8a67feb17"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fielNameToOpen"
+					datasourceid="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="81e0e112-5c95-45a6-92ae-b7157e9a0afe"
 			name="SelectRowCalculation"
 			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
@@ -5543,6 +5729,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
+			name="setup">
+			</setup>
 			<smartfoldernode
 			id="82ffc294-04aa-4665-85ca-aa4836c82cc2"
 			name="CustomAssessmentFMsGroup1And2">
@@ -6088,44 +6278,10 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="8f405f70-d43b-47bd-bfda-277377531134"
-			name="InitializeDropDownMenu"
-			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
-			type="Recording">
-				<description>
-					<![CDATA[Initialize drop-down menu by opening it the first time]]>
-				</description>
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="f323eea0-2680-41e7-8bb7-cfa8a34b0c22"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="8f087af8-f16c-4333-bac4-b5c6073bc388"
 			name="ValidateResultInDocumentView">
 			</smartfoldernode>
-			<testmodule
-			id="8f8a8e09-1c8f-4785-aaf2-e06962996703"
-			name="InitializeDropDownMenu"
-			ref="0e6a2e20-0223-4862-bd2e-af0df661ff0e"
-			type="Recording">
-				<description>
-					<![CDATA[Initialize drop-down menu by opening it the first time]]>
-				</description>
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="9b34e912-1d3c-4d7c-be80-605d021ce98c"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
 			name="ReadTrajectLength">
@@ -6199,6 +6355,12 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="93224d6a-18ee-438b-902b-7b10fa9aaaaa"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
 			</testmodule>
 			<smartfoldernode
 			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
@@ -6379,6 +6541,17 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			errorbehavior="ContinueParent"
+			id="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="fielNameToOpen"
+					value="X:\script18\Project_18.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
 			name="setup">
@@ -6410,24 +6583,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="9b218b5f-8d85-4795-a786-88d4b4aa24fa"
-			name="SetDetailedAssessmentValueForRow"
-			ref="8ba1a78d-5071-4845-bc94-8ab1fa70f8c1"
+			id="9b3d512c-b4c6-4f52-8239-cb93302de0fb"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="rowIndex"
-					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="FailureProbabilityToAssign"
-					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
-					variableid="3d41c7f7-4aea-4ded-b952-9a31e437e726"
-					variablename="assessmentValueToAssign">
+					dataname="caseNumber"
+					datasourceid="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="dd2ca099-2926-4cc4-93c9-5fc261368498"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
@@ -6546,30 +6721,6 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			id="9e5fabec-fcb1-431f-aca6-10c52b1b9a7e"
-			name="InitializeDropDownMenu">
-				<parameters>
-					<param
-					name="rowIndex"
-					value="0">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="9e8d7efb-b9de-41e0-990b-2938c84a8ede"
-			name="ExpandAlphasGroup"
-			ref="8ffa45e8-2152-4d07-9590-20154379e184"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlphasGroupInPropertiesPanel"
-					datasourceid="340e6795-be92-4d9f-ab6a-ffe254351956"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15"
 			name="ValidateRelevanceFMsTraject44_2InFailureMechanismsContributionView">
 				<parameters>
@@ -6641,16 +6792,6 @@
 			datasource="tableCategoriesPrefixes"
 			id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
 			name="LoopCategories(I_VI)">
-			</smartfoldernode>
-			<smartfoldernode
-			id="a2005197-982d-45f1-b791-c1e9ed229a61"
-			name="InitializeDropDownMenu">
-				<parameters>
-					<param
-					name="rowIndex"
-					value="0">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
@@ -6762,6 +6903,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="a3af9ada-71f3-4fd8-a9ce-27e8dc263809"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="a42057e3-eca0-4eed-8a1e-b9408652464a"
 			name="CalculatePathInPropertiesPanelOfBoundaryCategory"
 			ref="6fcd729a-b24a-42d7-8636-f8d75a283109"
@@ -6806,29 +6953,6 @@
 					variablename="indexRowMessage">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="a5e33595-5af9-404a-8190-52dda0225b0b"
-			name="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture"
-			ref="9f850752-ea2b-451f-9b30-164f5bceb80b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedValueWaterLevelOrWaveHeight"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
-					variableid="7b99103d-70be-4405-8ba9-5da015cbc768"
-					variablename="expectedValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="a58fe7c2-1ba9-46d5-a2e0-4fde702af2d7"
@@ -6961,6 +7085,32 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="ac40b569-d594-4c1f-9f2f-7c20a6a1cf80"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="substringInput"
+					datasourceid="da864375-f0d3-4c16-b053-43b24f070f2b"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathToCalculationInput"
+					datasourceid="b47f226a-dc7a-4cfe-8207-9232909de566"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationToModify"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="ac449e02-6da8-4f5a-b344-61d7dc201abf"
@@ -7456,6 +7606,20 @@
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script18CalculationsToModify"
+			errorbehavior="ContinueNextIteration"
+			id="b47f226a-dc7a-4cfe-8207-9232909de566"
+			maxrange="0"
+			minrange="0"
+			name="LoopCalculationsToModify_ToDo">
+				<parameters>
+					<param
+					name="fullPathToCalculationInput"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="b517f8dd-1c08-4365-a028-fce3f4452308"
 			name="ValidateDetailedAssessmentTypeAtRowGroup4"
@@ -7803,12 +7967,6 @@
 			name="teardown">
 			</teardown>
 			<testmodule
-			id="bfc69429-925a-47da-bf82-53a6a635d9ff"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="bfdb6bd2-c766-46a9-84a4-05512080c534"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -7869,10 +8027,32 @@
 			id="c1adef3a-d31b-4c6f-8ad3-27e077f4bda0"
 			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
 			</smartfoldernode>
-			<smartfoldernode
-			id="c2827979-50a8-479f-a070-38134ba75683"
-			name="ValidateAfterAllCalculationsHaveFinished">
-			</smartfoldernode>
+			<testmodule
+			id="c26734e2-e4cf-4603-8adc-abaa0e9f3ab7"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="parameterType"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="c2827979-50a8-479f-a070-38134ba75683"
 			name="ValidateAfterAllCalculationsHaveFinished">
@@ -8255,10 +8435,6 @@
 			id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
 			name="ValidateFinishedCalculations">
 			</smartfoldernode>
-			<smartfoldernode
-			id="c9a01064-ecde-4068-ad48-42fc6d1640a2"
-			name="ValidateFinishedCalculations">
-			</smartfoldernode>
 			<testmodule
 			id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
 			name="ValidateSourcePathSurfaceLines"
@@ -8307,16 +8483,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="caf14a47-fe3c-4635-a598-6cf990300502"
-			name="InitializeDropDownMenu">
-				<parameters>
-					<param
-					name="rowIndex"
-					value="0">
-					</param>
-				</parameters>
-			</smartfoldernode>
+			<testmodule
+			id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfSmartFolderToSpecifyRange"
+					datasourceid="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeParametersTochangeInInnerLoop"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="cc470262-311b-415e-afad-5aa5ba3bf243"
 			name="ValidateSurfaceLineInProjectExplorer"
@@ -8390,6 +8576,16 @@
 						</rightvalue>
 					</condition>
 				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+			name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+				<parameters>
+					<param
+					name="nameOfSmartFolderToSpecifyRange"
+					value="ModifyParametersInSelectedCalculationInput_ToDo">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableNValueInFMsForTraject12_2"
@@ -8708,6 +8904,34 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d58d78f0-e0b4-4c96-8132-e8c0e259e5da"
+			name="SetManualAssessmentProbability"
+			ref="60536bb5-15fa-40e4-91d6-e5131d3e52c2"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="manualProbability"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="9b25c646-6bc7-483f-80be-8629325295a3"
+					variablename="manualAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="manualProbability"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="ce927eca-be65-4318-9592-be61b0287989"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="d5b53eb4-b138-4c8d-9f51-644ab631b55f"
 			name="DeleteFileIfExists"
 			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
@@ -8891,6 +9115,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="da864375-f0d3-4c16-b053-43b24f070f2b"
+			name="CreateFullPathToInput">
+				<parameters>
+					<param
+					name="substringInput"
+					value=">Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="da95823a-60ee-4a9b-834e-335833763e80"
 			name="OpenViewForFailureMechanismContribution"
@@ -8913,6 +9147,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="daf19c59-fc9a-4c83-9494-713840ef72af"
+			name="SaveConfigurationXMLFileForCalculation_ToDo">
+			</smartfoldernode>
 			<smartfoldernode
 			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d"
 			name="CustomAssessmentFMsGroup3">
@@ -9266,6 +9504,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testcase
+			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+			name="script18_Overige_(sterkte)parameters_specificeren">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="18">
+					</param>
+				</parameters>
+			</testcase>
 			<testmodule
 			id="e29fde56-1512-449b-aa66-e9d8d9478983"
 			name="SetDetailedAssessmentForRowPerSection"
@@ -9436,17 +9684,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="script15b_LoopAllCalculationsFms"
-			id="e7735df6-061f-4299-a21a-37ee4eb36786"
-			name="LoopFMs">
-				<parameters>
-					<param
-					name="progressToStopAt"
-					value="2 van">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="e66d2688-125a-45a2-a9be-0d6faa6ffb09"
 			name="SelectDetailedAssessmentForRowCategoryIv"
@@ -9920,16 +10157,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<smartfoldernode
-			id="f323eea0-2680-41e7-8bb7-cfa8a34b0c22"
-			name="InitializeDropDownMenu">
-				<parameters>
-					<param
-					name="rowIndex"
-					value="0">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="f307516e-84d2-4d50-b9a0-477e0a6bd9e3"
 			name="OpenResultView"
@@ -10199,6 +10426,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
+			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+			</smartfoldernode>
 			<smartfoldernode
 			id="f865a291-2481-48ab-83d4-16bfbd98d537"
 			name="OpenDocumentViewForHydraulicBCItem">
@@ -10782,6 +11013,31 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="fe3d5bf6-1dc1-42a4-b585-52eeac744fd3"
+			name="ManualCategory">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="fmLabel"
+								id="ddb39ab6-1a0b-4ee8-a5df-eca711a60bed">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="fe47f240-eb04-43d0-bcf0-19bd316466ec"
 			name="GetValueParameterForItemInTraject"
@@ -12485,6 +12741,110 @@
 						</teardown>
 					</testcase>
 					<testcase
+					id="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+					name="script18_Overige_(sterkte)parameters_specificeren">
+						<setup
+						id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
+						name="setup">
+							<testmodule
+							id="2225bf5e-d9ee-4100-89bb-4767fcb99a1c"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="9b3d512c-b4c6-4f52-8239-cb93302de0fb"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="9a5c4808-2611-4724-8a6d-65f24e608a1c"
+						name="OpenProject">
+							<testmodule
+							id="80b3e677-2281-402a-998a-84e8a67feb17"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="b47f226a-dc7a-4cfe-8207-9232909de566"
+						name="LoopCalculationsToModify_ToDo">
+							<smartfoldernode
+							id="da864375-f0d3-4c16-b053-43b24f070f2b"
+							name="CreateFullPathToInput">
+								<testmodule
+								id="ac40b569-d594-4c1f-9f2f-7c20a6a1cf80"
+								name="ConcatenateStrings">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="309d665f-5b2e-43df-9472-0faae45c7fd0"
+							name="SelectInputOfCalculation">
+								<testmodule
+								id="622bed72-4898-4d20-b9a5-d40c869cdd75"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
+							name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+								<testmodule
+								id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
+								name="SetRangeInSmartFolder">
+								</testmodule>
+							</smartfoldernode>
+							<testmodule
+							id="93224d6a-18ee-438b-902b-7b10fa9aaaaa"
+							name="HideRanorexProgressDialog">
+							</testmodule>
+							<smartfoldernode
+							id="4ee89ccd-4875-4f75-a76d-af0c47729751"
+							name="ModifyParametersInSelectedCalculationInput_ToDo">
+								<testmodule
+								id="c26734e2-e4cf-4603-8adc-abaa0e9f3ab7"
+								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								</testmodule>
+								<smartfoldernode
+								id="0f591fb3-1f88-4c0d-98ef-55748ba995cb"
+								name="SelectListItemFromDropDownMenuInPropertiesPanel">
+									<testmodule
+									id="4890bb24-ea21-47da-8c8b-7e5885590194"
+									name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<testmodule
+							id="a3af9ada-71f3-4fd8-a9ce-27e8dc263809"
+							name="ShowRanorexProgressDialog">
+							</testmodule>
+							<smartfoldernode
+							id="daf19c59-fc9a-4c83-9494-713840ef72af"
+							name="SaveConfigurationXMLFileForCalculation_ToDo">
+								<testmodule
+								id="7ce7baba-e4b7-4601-a6d6-30a99de82942"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="3fcc9b4a-69bb-4e75-b76e-6e010eac74cc"
+								name="ExportConfigurationSelectedCalculationToXMLFile">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
+							name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+								<testmodule
+								id="256c1bb8-2535-464d-8251-e5ddffef2882"
+								name="ComparePlainTextFiles">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="710136e9-de8e-48b2-b63c-c91e105501bc"
+						name="teardown">
+							<testmodule
+							id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
 					id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
 					name="script21_Toetsresultaten_importeren_en_registreren">
 						<setup
@@ -12818,6 +13178,30 @@
 												name="ValidateDetailedAssessmentTypeAtRow">
 												</testmodule>
 											</smartfoldernode>
+											<smartfoldernode
+											id="73055bb2-13c5-4667-9a1e-821a23b3dee3"
+											name="ManualOverride">
+												<testmodule
+												id="6e55b147-0f46-4799-b334-ff765b57e10e"
+												name="SelectManualAssessment">
+												</testmodule>
+												<smartfoldernode
+												id="60ec75a3-8ce2-4a1f-872a-443db0330f35"
+												name="ManualProbability">
+													<testmodule
+													id="d58d78f0-e0b4-4c96-8132-e8c0e259e5da"
+													name="SetManualAssessmentProbability">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="fe3d5bf6-1dc1-42a4-b585-52eeac744fd3"
+												name="ManualCategory">
+													<testmodule
+													id="62a061e2-b27d-4bf0-be54-21b827e9904f"
+													name="SetManualAssessmentCategory">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
 										</smartfoldernode>
 										<testmodule
 										id="50978c1d-654b-4c27-93ba-548c2da0207b"
@@ -12894,6 +13278,18 @@
 												name="ValidateDetailedAssessmentTypeAtRowCategoryVv">
 												</testmodule>
 											</smartfoldernode>
+											<smartfoldernode
+											id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0"
+											name="ManualOverride">
+												<testmodule
+												id="26405822-1004-4c5c-8989-6e04a7c7d5f4"
+												name="SelectManualAssessment">
+												</testmodule>
+												<testmodule
+												id="6eacc37f-1eb4-4112-a2bf-52e25fc91f35"
+												name="SetManualAssessmentCategory">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<testmodule
 										id="33b9b55e-e838-4b85-b602-fe6f64e4c587"
@@ -12936,6 +13332,18 @@
 												<testmodule
 												id="b517f8dd-1c08-4365-a028-fce3f4452308"
 												name="ValidateDetailedAssessmentTypeAtRowGroup4">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="43383af6-a246-4f73-824c-8246a6a9a0b2"
+											name="ManualOverride">
+												<testmodule
+												id="530f0c5a-43ea-4f55-9615-51729ffea2fd"
+												name="SelectManualAssessment">
+												</testmodule>
+												<testmodule
+												id="5d6090b0-0f3c-4d43-9c27-1448bcbf4a40"
+												name="SetManualAssessmentCategory">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
@@ -15242,6 +15650,12 @@
 				<column>
 					DetailedAssessmentTypeItem
 				</column>
+				<column>
+					manualProbability
+				</column>
+				<column>
+					manualCategory
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -16050,118 +16464,6 @@
 				<tr>
 					<td>
 						b)Total overview of the assessment results
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="98954b81-b124-437f-a61b-ce1b9a4d8b67"
-		lastknownrowcount="8"
-		name="N18CalculationsToModify"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathToCalculationToModify
-				</column>
-				<column>
-					rangeParametersTochangeInInnerLoop
-				</column>
-				<column>
-					nameCalculationConfigurationXMLFileToExport
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathToCalculationToModify
-					</th>
-					<th>
-						rangeParametersTochangeInInnerLoop
-					</th>
-					<th>
-						nameCalculationConfigurationXMLFileToExport
-					</th>
-				</tr>
-				<tr>
-					<td>
-						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepast1STPH.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepast2STPH.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;12_2_00100 12_2_00100_Segment_12004_1D1
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepast1STBI.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepast2STBI.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepastGEKB.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepastBSKW.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepastHTKW.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
-					</td>
-					<td>
-					</td>
-					<td>
-						script18\aangepastSTKWp.xml
 					</td>
 				</tr>
 			</table>
@@ -19680,8 +19982,158 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+		lastknownrowcount="8"
+		name="script18CalculationsToModify"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathToCalculationToModify
+				</column>
+				<column>
+					rangeParametersTochangeInInnerLoop
+				</column>
+				<column>
+					nameCreatedConfigurationXMLFileToExport
+				</column>
+				<column>
+					nameReferenceConfigurationXMLFile
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathToCalculationToModify
+					</th>
+					<th>
+						rangeParametersTochangeInInnerLoop
+					</th>
+					<th>
+						nameCreatedConfigurationXMLFileToExport
+					</th>
+					<th>
+						nameReferenceConfigurationXMLFile
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						1-10
+					</td>
+					<td>
+						script18\createdConfiguration1STPH.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STPH.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STPH&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						11-12
+					</td>
+					<td>
+						script18\createdConfiguration2STPH.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STPH.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
+					</td>
+					<td>
+						13-65
+					</td>
+					<td>
+						script18\createdConfiguration1STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STBI.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
+					</td>
+					<td>
+						66-69
+					</td>
+					<td>
+						script18\createdConfiguration2STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STBI.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
+					</td>
+					<td>
+						70-81
+					</td>
+					<td>
+						script18\createdConfigurationGEKB.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationGEKB.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
+					</td>
+					<td>
+						82-116
+					</td>
+					<td>
+						script18\createdConfigurationBSKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationBSKW.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
+					</td>
+					<td>
+						117-139
+					</td>
+					<td>
+						script18\createdConfigurationHTKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationHTKW.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
+					</td>
+					<td>
+						140-191
+					</td>
+					<td>
+						script18\createdConfigurationSTKWp.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationSTKWp.xml
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="19801d59-c7e1-4127-8b92-0b6f8606dba2"
-		lastknownrowcount="0"
+		lastknownrowcount="191"
 		name="script18ParametersToModifyInCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -19693,6 +20145,12 @@
 				</column>
 				<column>
 					newValueOfParameter
+				</column>
+				<column>
+					indexCalculationModification
+				</column>
+				<column>
+					Remark
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -19708,6 +20166,3125 @@
 					<th>
 						newValueOfParameter
 					</th>
+					<th>
+						indexCalculationModification
+					</th>
+					<th>
+						Remark
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						YM_2_12-2_dk_00012
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Profielschematisatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						12_2_14300
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Intredepunt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.5
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Uittredepunt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						50.99
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Stochastisch ondergrondmodel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						12008_Piping
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Ondergrondschematisatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Segment_12008_1D6
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Binnendijkse waterstand&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Binnendijkse waterstand&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Dempingsfactor&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.8
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Dempingsfactor&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.08
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Handmatig waterstand
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterstand [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.4
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Profielschematisatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						12_2_18400
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Stochastisch ondergrondmodel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						12009_Stability
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Ondergrondschematisatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						12_2_18400_Segment_12009_1D2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Dijk/bodem materiaal
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Zand dijk op klei (geval 2A)
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Gemiddeld hoog water
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Drainage&gt;Aanwezig
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Drainage&gt;X [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Drainage&gt;Z [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;PL 1 initi&#235;le hoogte onder buitenkruin [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.81
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;PL 1 initi&#235;le hoogte onder binnenkruin [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.81
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Corrigeer PL 3 en PL 4 voor opbarsten
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Leklengte buitenwaarts PL 3 [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Leklengte binnenwaarts PL 3 [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Leklengte buitenwaarts PL 4 [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Leklengte binnenwaarts PL 4 [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Stijghoogte PL 2 buitenwaarts [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.71
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Stijghoogte PL 2 binnenwaarts [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.71
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Polderpeil [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-6.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Offsets PL 1&gt;Gebruik default waarden
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder buitenkruin [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder binnenkruin [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder insteek binnenberm [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Dagelijkse omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder teen dijk binnenwaarts [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Polderpeil [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-6.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Offsets PL 1&gt;Gebruik default waarden
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder buitenkruin [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder binnenkruin [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder insteek binnenberm [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Offsets PL 1&gt;PL 1 offset onder teen dijk binnenwaarts [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterspanningen&gt;Extreme omstandigheden&gt;Indringingslengte [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Minimale glijvlakdiepte [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Minimale glijvlaklengte [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						3.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Maximale lamelbreedte [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Zonering glijvlak&gt;Methode
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Handmatig
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Zonering glijvlak&gt;Zoneringsgrens links
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Zonering glijvlak&gt;Zoneringsgrens rechts
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						20
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Bepaling grid
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Handmatig
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Bepaling tangentlijnen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Gespecificeerd
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Tangentlijn Z-boven [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-10
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Tangentlijn Z-onder [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-20
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Aantal tangentlijnen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;X links [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;X rechts [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;Z boven [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;Z onder [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;Aantal horizontale punten
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Linker grid&gt;Aantal verticale punten
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;X links [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						40
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;X rechts [m]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						50
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;Z boven [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;Z onder [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;Aantal horizontale punten
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Rechter grid&gt;Aantal verticale punten
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Handmatig waterstand
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Waterstand [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.0
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Zonering glijvlak&gt;Bepaling
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instellingen&gt;Rekengrids&gt;Verplaats grid
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dijkprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel005
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						45.01
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dijkhoogte [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						6.01
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Sterkte berekening&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						HBN bij norm
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Overslagdebiet bij norm
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Type
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Caisson
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Hoogte [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.5
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						DropDown, change back to false after automatic change caused by new profile
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Toetseisen&gt;Kritiek overslagdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Toetseisen&gt;Kritiek overslagdebiet&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						034-01_0175_9_AM_km0259
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						'Gemaal Schuddebeurs'
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.11
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Aantal identieke doorstroomopeningen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Kans op open staan
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.001
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Kans mislukken
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.001
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering sluitproces&gt;Faalkans herstel
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.1
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						345
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Caisson
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Hoogte [m+NAP]
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.6
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						9.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Verdronken koker
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.67
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Lage drempel
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-1.51
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.20
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-3
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						7.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.31
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10000001
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10.01
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.03
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						'Gemaal van Sasse'
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						MA_1_36-2_dk_00217
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.001
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Caisson
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.07
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Breedte van doorstroomopening&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10000001
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.12
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.2
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.2
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5.5
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						6.5
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Modelinstellingen&gt;Modelfactor overloopdebiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.11
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Kunstwerk
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						Kunstwerk2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Algemeen&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						MM_3_13a-1_vl07_00002
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Ori&#235;ntatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						95
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Faalkans gegeven erosie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.001
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Analysehoogte
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Factor voor stormduur
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Faalkans herstel van gefaalde situatie
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Belastingschematisering
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Kwadratisch
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Instroommodel
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Verdronken koker
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aantal nivelleringen per jaar
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						Integer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Kans op aanvaring tweede
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.005
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Afstand onderkant wand
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Volumiek gewicht van water
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						10.0
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Type
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						Muur
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Dam&gt;Hoogte
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.7
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						9.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Stroomvoerende breedte bodembescherming&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						400001
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Kombergend oppervlak&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering bodembescherming&gt;Kritiek instromend debiet&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.1
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						2.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering komberging&gt;Toegestane peilverhoging komberging&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Stormduur&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						6.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Doorstroomoppervlak&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.02
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Bermbreedte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Bermbreedte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.01
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Bezwijken waterkerende constructie-onderdelen&gt;Kwadratische belastingschematisering&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Afvoerco&#235;ffici&#235;nt&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						1.1
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						101
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Bezwijkwaarde aanvaarenergie&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.35
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Kritieke stroomsnelheid&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5.5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.31
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Binnenwaterstand&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Binnenwaterstand bij constructief falen&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.31
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen op constructie&gt;Binnenwaterstand bij constructief falen&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Kerende hoogte&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.06
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						51
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Massa van het schip&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.22
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Aanvaring tweede keermiddel&gt;Aanvaarsnelheid&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.25
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						25.2
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Instabiliteit constructie en grondlichaam&gt;Kwadratische belastingschematisering stabiliteit&gt;Variatieco&#235;ffici&#235;nt
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.15
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempelhoogte&gt;Verwachtingswaarde
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						-0.21
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisering instromend debiet/volume&gt;Drempel&gt;Standaardafwijking
+					</td>
+					<td>
+						Double
+					</td>
+					<td>
+						0.11
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						DropDown
+					</td>
 				</tr>
 			</table>
 		</DataSource>
@@ -20375,6 +23952,9 @@
 				<column>
 					DetailedAssessmentType
 				</column>
+				<column>
+					manualAssessmentCategory
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -20386,6 +23966,9 @@
 					<th>
 						DetailedAssessmentType
 					</th>
+					<th>
+						manualAssessmentCategory
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -20393,6 +23976,9 @@
 					</td>
 					<td>
 						&lt;selecteer&gt;
+					</td>
+					<td>
+						IIv
 					</td>
 				</tr>
 				<tr>
@@ -20402,6 +23988,9 @@
 					<td>
 						V
 					</td>
+					<td>
+						Vv
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -20410,6 +23999,9 @@
 					<td>
 						VN
 					</td>
+					<td>
+						NVT
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -20417,6 +24009,9 @@
 					</td>
 					<td>
 						NGO
+					</td>
+					<td>
+						Iv
 					</td>
 				</tr>
 			</table>
@@ -21869,6 +25464,9 @@
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
+			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb">
+			</testcontainer>
+			<testcontainer
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
@@ -21896,6 +25494,9 @@
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
 			</testcontainer>
 			<testcontainer
+			id="1ef688fb-b35c-4d4f-a3c2-679ec32bd1f0">
+			</testcontainer>
+			<testcontainer
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
 			</testcontainer>
 			<testcontainer
@@ -21918,6 +25519,9 @@
 			</testcontainer>
 			<testcontainer
 			id="2a0492fd-1126-4943-aac9-d7c0fe05044c">
+			</testcontainer>
+			<testcontainer
+			id="309d665f-5b2e-43df-9472-0faae45c7fd0">
 			</testcontainer>
 			<testcontainer
 			id="317c41b1-22fc-4686-b9bb-9d840ec3d1f6">
@@ -21944,6 +25548,9 @@
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
 			</testcontainer>
 			<testcontainer
+			id="43383af6-a246-4f73-824c-8246a6a9a0b2">
+			</testcontainer>
+			<testcontainer
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
 			</testcontainer>
 			<testcontainer
@@ -21963,6 +25570,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4d492061-048f-4be2-ab20-d63a8870b77a">
+			</testcontainer>
+			<testcontainer
+			id="4ee89ccd-4875-4f75-a76d-af0c47729751">
 			</testcontainer>
 			<testcontainer
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
@@ -22001,6 +25611,9 @@
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
 			</testcontainer>
 			<testcontainer
+			id="60ec75a3-8ce2-4a1f-872a-443db0330f35">
+			</testcontainer>
+			<testcontainer
 			id="6428996c-df6f-4e9f-bf88-a6c53b3fc325">
 			</testcontainer>
 			<testcontainer
@@ -22011,6 +25624,9 @@
 			</testcontainer>
 			<testcontainer
 			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			</testcontainer>
+			<testcontainer
+			id="73055bb2-13c5-4667-9a1e-821a23b3dee3">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
@@ -22044,9 +25660,6 @@
 			</testcontainer>
 			<testcontainer
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
-			</testcontainer>
-			<testcontainer
-			id="7ddcf52d-b38d-4e51-82d8-2205317aac45">
 			</testcontainer>
 			<testcontainer
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
@@ -22089,6 +25702,9 @@
 			</testcontainer>
 			<testcontainer
 			id="97fdd56d-de66-47c4-820d-968e0b8f300d">
+			</testcontainer>
+			<testcontainer
+			id="9a5c4808-2611-4724-8a6d-65f24e608a1c">
 			</testcontainer>
 			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
@@ -22142,6 +25758,9 @@
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
 			</testcontainer>
 			<testcontainer
+			id="b47f226a-dc7a-4cfe-8207-9232909de566">
+			</testcontainer>
+			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
@@ -22181,6 +25800,9 @@
 			id="c7aa0781-b102-4705-92d4-de781e658f70">
 			</testcontainer>
 			<testcontainer
+			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">
+			</testcontainer>
+			<testcontainer
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
@@ -22199,6 +25821,12 @@
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
 			</testcontainer>
 			<testcontainer
+			id="da864375-f0d3-4c16-b053-43b24f070f2b">
+			</testcontainer>
+			<testcontainer
+			id="daf19c59-fc9a-4c83-9494-713840ef72af">
+			</testcontainer>
+			<testcontainer
 			id="dbabafba-80dc-42d0-8ea9-75a9bdebe84d">
 			</testcontainer>
 			<testcontainer
@@ -22212,6 +25840,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
+			</testcontainer>
+			<testcontainer
+			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038">
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
@@ -22244,10 +25875,16 @@
 			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
 			</testcontainer>
 			<testcontainer
+			id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee">
+			</testcontainer>
+			<testcontainer
 			id="fd8d4063-c02c-4fb9-80f1-49dc99eddc50">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
+			</testcontainer>
+			<testcontainer
+			id="fe3d5bf6-1dc1-42a4-b585-52eeac744fd3">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

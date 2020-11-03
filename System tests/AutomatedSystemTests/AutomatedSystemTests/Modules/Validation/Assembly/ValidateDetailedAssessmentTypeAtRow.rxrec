@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="f90323b9-0faf-4e8d-ba0d-cddbcaec15a5"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateDetailedAssessmentTypeAtRow"
+	namespace="AutomatedSystemTests.Modules.Validation.Assembly">
+	</codegen>
+	<variables>
+		<var
+		id="8099b7cd-452a-42e6-8a28-9c7c1869088a"
+		name="expectedDetailedAssessmentCellType">
+		</var>
+	</variables>
+	<recorditems>
+		<validationitem
+		action="AttributeEqual"
+		enabled="True"
+		optional="False"
+		searchpropertyid="227f0770-f85b-425a-a65e-9f8e1cec2c59">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="MatchValue"
+				variable="expectedDetailedAssessmentCellType">
+				</binding>
+			</bindings>
+			<info
+			id="65e328b8-068a-4b37-a2d7-cb220911d1fe"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]
+				</path>
+			</info>
+			<matchname>
+				AccessibleValue
+			</matchname>
+			<matchvalue>
+				yourValue
+			</matchvalue>
+		</validationitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateDetailedAssessmentTypeAtRow.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
