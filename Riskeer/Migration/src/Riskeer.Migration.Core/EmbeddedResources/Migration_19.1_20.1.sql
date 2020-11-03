@@ -385,10 +385,48 @@ INSERT INTO MacroStabilityInwardsStochasticSoilProfileEntity SELECT * FROM [SOUR
 INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
-INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
-INSERT INTO PipingCalculationOutputEntity(
-	[PipingCalculationOutputEntityId],
-	[PipingCalculationEntityId],
+INSERT INTO SemiProbabilisticPipingCalculationEntity(
+    [SemiProbabilisticPipingCalculationEntityId],
+    [CalculationGroupEntityId],
+    [SurfaceLineEntityId],
+    [PipingStochasticSoilProfileEntityId],
+    [HydraulicLocationEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [EntryPointL],
+    [ExitPointL],
+    [PhreaticLevelExitMean],
+    [PhreaticLevelExitStandardDeviation],
+    [DampingFactorExitMean],
+    [DampingFactorExitStandardDeviation],
+    [RelevantForScenario],
+    [ScenarioContribution],
+    [AssessmentLevel],
+    [UseAssessmentLevelManualInput])
+SELECT
+    [PipingCalculationEntityId],
+    [CalculationGroupEntityId],
+    [SurfaceLineEntityId],
+    [PipingStochasticSoilProfileEntityId],
+    [HydraulicLocationEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [EntryPointL],
+    [ExitPointL],
+    [PhreaticLevelExitMean],
+    [PhreaticLevelExitStandardDeviation],
+    [DampingFactorExitMean],
+    [DampingFactorExitStandardDeviation],
+    [RelevantForScenario],
+    [ScenarioContribution],
+    [AssessmentLevel],
+    [UseAssessmentLevelManualInput]
+FROM [SOURCEPROJECT].PipingCalculationEntity;
+INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
+	[SemiProbabilisticPipingCalculationOutputEntityId],
+	[SemiProbabilisticPipingCalculationEntityId],
 	[Order],
 	[HeaveFactorOfSafety],
 	[UpliftFactorOfSafety],
