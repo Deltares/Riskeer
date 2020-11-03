@@ -30,14 +30,14 @@ using Riskeer.Piping.Service.Properties;
 namespace Riskeer.Piping.Service
 {
     /// <summary>
-    ///  Helper class for validating the input of a <see cref="IPipingCalculation{TPipingInput}"/>.
+    /// Helper class for validating the input of a <see cref="IPipingCalculation{TPipingInput}"/>.
     /// </summary>
     public static class PipingCalculationValidationHelper
     {
         /// <summary>
         /// Gets validation warnings for the given <paramref name="input"/>. 
         /// </summary>
-        /// <param name="input">The <see cref="PipingInput"/> to get the warning for.</param>
+        /// <param name="input">The <see cref="PipingInput"/> to get the warnings for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of validation warnings.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         public static IEnumerable<string> GetValidationWarnings(PipingInput input)
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Service
 
                 warnings.AddRange(GetMultipleAquiferLayersWarning(input, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(input, surfaceLineLevel));
-                warnings.AddRange(GetDiameter70Warnings(input));
+                warnings.AddRange(GetDiameter70Warning(input));
                 warnings.AddRange(GetThicknessCoverageLayerWarnings(input));
             }
 
@@ -66,8 +66,7 @@ namespace Riskeer.Piping.Service
         /// Gets validation errors for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="PipingInput"/> to validate.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> used
-        /// in the validation.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> used in the validation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of validation errors.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<string> GetValidationErrors(PipingInput input, GeneralPipingInput generalInput)
@@ -86,12 +85,7 @@ namespace Riskeer.Piping.Service
 
             IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(input);
             validationResults.AddRange(coreValidationError);
-
-            if (double.IsNaN(input.EntryPointL))
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
-            }
-
+            
             if (!coreValidationError.Any())
             {
                 validationResults.AddRange(ValidateSoilLayers(input, generalInput));
@@ -121,7 +115,7 @@ namespace Riskeer.Piping.Service
             return warnings;
         }
 
-        private static IEnumerable<string> GetDiameter70Warnings(PipingInput input)
+        private static IEnumerable<string> GetDiameter70Warning(PipingInput input)
         {
             var warnings = new List<string>();
 
@@ -163,9 +157,9 @@ namespace Riskeer.Piping.Service
 
         private static bool IsSurfaceLineProfileDefinitionComplete(PipingInput input)
         {
-            return input.SurfaceLine != null &&
-                   input.StochasticSoilProfile != null &&
-                   !double.IsNaN(input.ExitPointL);
+            return input.SurfaceLine != null
+                   && input.StochasticSoilProfile != null
+                   && !double.IsNaN(input.ExitPointL);
         }
 
         private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput input)
@@ -184,6 +178,11 @@ namespace Riskeer.Piping.Service
             if (double.IsNaN(input.ExitPointL))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
+            }
+            
+            if (double.IsNaN(input.EntryPointL))
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
             }
 
             return validationResults;
