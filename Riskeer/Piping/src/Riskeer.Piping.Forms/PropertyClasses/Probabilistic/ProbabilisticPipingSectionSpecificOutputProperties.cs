@@ -45,8 +45,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingSectionSpecificOutputProperties"/>.
         /// </summary>
-        /// <param name="output">The instance to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown <paramref name="output"/> is <c>null</c>.</exception>
+        /// <param name="output">The output to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public ProbabilisticPipingSectionSpecificOutputProperties(PartialProbabilisticPipingOutput output)
         {
             if (output == null)

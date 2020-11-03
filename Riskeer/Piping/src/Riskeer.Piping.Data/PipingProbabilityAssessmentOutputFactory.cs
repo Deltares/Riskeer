@@ -30,8 +30,7 @@ using Riskeer.Piping.Data.Probabilistic;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Factory for creating <see cref="ProbabilityAssessmentOutput"/> for
-    /// piping.
+    /// Factory for creating <see cref="ProbabilityAssessmentOutput"/> for piping.
     /// </summary>
     public static class PipingProbabilityAssessmentOutputFactory
     {
