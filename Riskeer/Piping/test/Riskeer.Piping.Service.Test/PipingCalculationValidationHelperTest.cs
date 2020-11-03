@@ -43,8 +43,7 @@ namespace Riskeer.Piping.Service.Test
         [SetUp]
         public void SetUp()
         {
-            calculation = PipingCalculationTestFactory.CreateCalculationWithValidInput(
-                new TestHydraulicBoundaryLocation());
+            calculation = PipingCalculationTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
@@ -99,7 +98,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationWarnings_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
+        public void GetValidationWarnings_WithoutAquitardLayer_ReturnsMessages()
         {
             // Setup
             var aquiferLayer = new PipingSoilLayer(10.56)
@@ -135,7 +134,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationWarnings_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
+        public void GetValidationWarnings_WithoutCoverageLayer_ReturnsMessages()
         {
             // Setup
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
@@ -176,7 +175,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationWarnings_MultipleCoverageLayer_LogsWarningAndReturnsTrue()
+        public void GetValidationWarnings_MultipleCoverageLayers_ReturnsMessage()
         {
             // Setup
             var random = new Random(21);
@@ -242,7 +241,7 @@ namespace Riskeer.Piping.Service.Test
         [Test]
         [TestCase(6.2e-5)]
         [TestCase(5.1e-3)]
-        public void GetValidationWarnings_InvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
+        public void GetValidationWarnings_InvalidDiameterD70Value_ReturnsMessage(double diameter70Value)
         {
             // Setup
             var random = new Random(21);
@@ -312,7 +311,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_InvalidCalculationInput_ReturnsErrorMessages()
+        public void GetValidationErrors_InvalidCalculationInput_ReturnsMessages()
         {
             // Call
             IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(
@@ -327,7 +326,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_WithoutAquiferLayer_ReturnsErrorMessages()
+        public void GetValidationErrors_WithoutAquiferLayer_ReturnsMessages()
         {
             // Setup
             var aquitardLayer = new PipingSoilLayer(2.0)
@@ -357,7 +356,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void GetValidationErrors_IncompleteDiameterD70Definition_ReturnsErrorMessages(bool meanSet, bool coefficientOfVariationSet)
+        public void GetValidationErrors_IncompleteDiameterD70Definition_ReturnsMessage(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -414,7 +413,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, false)]
         [TestCase(false, true)]
         [TestCase(true, false)]
-        public void GetValidationErrors_IncompletePermeabilityDefinition_ReturnsErrorMessage(bool meanSet, bool coefficientOfVariationSet)
+        public void GetValidationErrors_IncompletePermeabilityDefinition_ReturnsMessage(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
             var random = new Random(21);
@@ -472,7 +471,7 @@ namespace Riskeer.Piping.Service.Test
         [TestCase(false, true, true)]
         [TestCase(true, false, true)]
         [TestCase(true, true, false)]
-        public void GetValidationErrors_IncompleteSaturatedVolumicWeightDefinition_ReturnsErrorMessage(bool meanSet, bool deviationSet, bool shiftSet)
+        public void GetValidationErrors_IncompleteSaturatedVolumicWeightDefinition_ReturnsMessage(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             var random = new Random(21);
@@ -529,7 +528,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_ReturnsErrorMessage()
+        public void GetValidationErrors_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_ReturnsMessage()
         {
             // Setup
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -578,7 +577,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_ReturnsErrorMessage()
+        public void GetValidationErrors_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_ReturnsMessage()
         {
             // Setup
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)

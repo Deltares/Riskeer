@@ -489,7 +489,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_MultipleCoverageLayer_LogsMessageAndReturnsTrue()
+        public void Validate_MultipleCoverageLayers_LogsMessageAndReturnsTrue()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

@@ -426,7 +426,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_MultipleCoverageLayer_LogsMessageAndReturnsTrue()
+        public void Validate_MultipleCoverageLayers_LogsMessageAndReturnsTrue()
         {
             // Setup
             var random = new Random(21);
