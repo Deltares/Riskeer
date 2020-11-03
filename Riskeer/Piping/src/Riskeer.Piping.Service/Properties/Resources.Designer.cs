@@ -234,10 +234,10 @@ namespace Riskeer.Piping.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
-        internal static string PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2 {
+        internal static string PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2 {
             get {
-                return ResourceManager.GetString("PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoi" +
-                        "nts_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2", resourceCulture);
+                return ResourceManager.GetString("PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoin" +
+                        "ts_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2", resourceCulture);
             }
         }
         

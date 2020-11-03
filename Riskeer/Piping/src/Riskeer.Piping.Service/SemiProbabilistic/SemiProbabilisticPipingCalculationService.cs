@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> for which to validate the values.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from used during the validation.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the validation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> to base the input for the calculation upon.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from use during the calculation.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the calculation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
         /// <exception cref="PipingCalculatorException">Thrown when an unexpected error occurred during the calculation.</exception>

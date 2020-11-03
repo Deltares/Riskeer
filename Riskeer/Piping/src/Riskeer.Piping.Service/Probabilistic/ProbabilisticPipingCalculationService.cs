@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> for which to validate the values.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from used during the validation.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the validation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="ProbabilisticPipingCalculation"/> instances.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <param name="sectionLength">The length of the section the calculation belongs to.</param>
@@ -226,7 +226,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
             catch (ArgumentException e)
             {
-                log.WarnFormat(Resources.PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2,
+                log.WarnFormat(Resources.PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_ProfileSpecific, e.Message);
             }
 
@@ -271,7 +271,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
             catch (ArgumentException e)
             {
-                log.WarnFormat(Resources.PipingProbabailisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_overtopping_with_ErrorMessage_2,
+                log.WarnFormat(Resources.PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_SectionSpecific, e.Message);
             }
 
