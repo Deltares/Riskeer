@@ -45,7 +45,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         public void Read_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new PipingCalculationEntity();
+            var entity = new SemiProbabilisticPipingCalculationEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -58,14 +58,15 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         [Test]
         [TestCase(true, false, 0.98, "haha", "hihi", 0.0, 3.4, 5.8, 123)]
         [TestCase(false, true, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
-        public void Read_ValidEntity_ReturnPipingCalculationScenario(bool isRelevant, bool useAssessmentLevelManualInput, double contribution,
-                                                                     string name, string comments, double entryPoint, double exitPoint,
-                                                                     double assessmentLevel, int seed)
+        public void Read_ValidEntity_ReturnSemiProbabilisticPipingCalculationScenario(
+            bool isRelevant, bool useAssessmentLevelManualInput, double contribution,
+            string name, string comments, double entryPoint, double exitPoint,
+            double assessmentLevel, int seed)
         {
             // Setup
             var random = new Random(seed);
 
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(isRelevant),
                 ScenarioContribution = contribution.ToNaNAsNull(),
@@ -120,7 +121,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 new Point3D(4, 5, 6)
             });
             var surfaceLineEntity = new SurfaceLineEntity();
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
@@ -156,7 +157,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 PointsXml = new Point3DCollectionXmlSerializer().ToXml(points)
             };
 
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
@@ -180,7 +181,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicLocationEntity = new HydraulicLocationEntity();
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
                 EntryPointL = 1,
@@ -205,7 +206,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         {
             // Setup
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
                 EntryPointL = 1,
@@ -236,7 +237,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 StochasticSoilModelEntity = stochasticSoilModelEntity
             };
 
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
@@ -288,7 +289,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             };
             stochasticSoilProfileEntity.StochasticSoilModelEntity = stochasticSoilModelEntity;
 
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
@@ -307,17 +308,17 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         }
 
         [Test]
-        public void Read_EntityWithPipingCalculationOutputEntity_CalculationWithPipingOutput()
+        public void Read_EntityWithSemiProbabilisticPipingCalculationOutputEntity_CalculationWithSemiProbabilisticPipingOutput()
         {
             // Setup
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingCalculationOutputEntities =
+                SemiProbabilisticPipingCalculationOutputEntities =
                 {
-                    new PipingCalculationOutputEntity()
+                    new SemiProbabilisticPipingCalculationOutputEntity()
                 }
             };
 

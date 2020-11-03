@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((PipingCalculationOutputEntity) null).Read();
+            void Call() => ((SemiProbabilisticPipingCalculationOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -42,10 +42,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnPipingOutput()
+        public void Read_ValidEntity_ReturnSemiProbabilisticPipingOutput()
         {
             // Setup
-            var entity = new PipingCalculationOutputEntity
+            var entity = new SemiProbabilisticPipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = 9.8,
                 UpliftFactorOfSafety = 3.2,
@@ -72,10 +72,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
         }
 
         [Test]
-        public void Read_ValidEntityWithNullParameterValues_ReturnPipingOutput()
+        public void Read_ValidEntityWithNullParameterValues_ReturnSemiProbabilisticPipingOutput()
         {
             // Setup
-            var entity = new PipingCalculationOutputEntity
+            var entity = new SemiProbabilisticPipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = null,
                 UpliftFactorOfSafety = null,

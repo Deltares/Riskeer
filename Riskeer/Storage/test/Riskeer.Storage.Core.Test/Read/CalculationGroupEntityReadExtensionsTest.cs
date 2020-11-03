@@ -50,11 +50,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(null);
+            void Call() => entity.ReadAsPipingCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -136,21 +136,21 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingCalculationGroup_EntityWithChildPipingCalculations_CreateCalculationGroupWithChildCalculations()
+        public void ReadAsPipingCalculationGroup_EntityWithChildSemiProbabilisticPipingCalculations_CreateCalculationGroupWithChildCalculations()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                PipingCalculationEntities =
+                SemiProbabilisticPipingCalculationEntities =
                 {
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 1,
                         Name = "2",
                         DampingFactorExitMean = 2
                     },
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 0,
                         Name = "1",
@@ -176,21 +176,21 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingCalculationGroup_EntityWithChildPipingCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        public void ReadAsPipingCalculationGroup_EntityWithChildSemiProbabilisticPipingCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                PipingCalculationEntities =
+                SemiProbabilisticPipingCalculationEntities =
                 {
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 0,
                         Name = "calculation1",
                         DampingFactorExitMean = 1
                     },
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 2,
                         Name = "calculation2",

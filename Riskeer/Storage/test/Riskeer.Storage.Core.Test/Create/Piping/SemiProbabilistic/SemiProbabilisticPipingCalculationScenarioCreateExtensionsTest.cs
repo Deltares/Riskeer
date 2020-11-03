@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, order);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, order);
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.RelevantForScenario);
@@ -118,7 +118,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             Assert.AreEqual(input.AssessmentLevel.ToNaNAsNull(), entity.AssessmentLevel);
 
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(0, entity.PipingCalculationEntityId);
+            Assert.AreEqual(0, entity.SemiProbabilisticPipingCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
 
             Assert.IsNull(entity.SurfaceLineEntity);
@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var registry = new PersistenceRegistry();
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(name, entity.Name);
@@ -177,7 +177,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             };
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             Assert.AreSame(surfaceLineEntity, entity.SurfaceLineEntity);
@@ -201,7 +201,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             };
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             };
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             PipingStochasticSoilProfileEntity expectedStochasticSoilProfileEntity = soilModelEntity.PipingStochasticSoilProfileEntities.First();
@@ -253,10 +253,10 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             };
 
             // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
+            SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            PipingCalculationOutputEntity outputEntity = entity.PipingCalculationOutputEntities.FirstOrDefault();
+            SemiProbabilisticPipingCalculationOutputEntity outputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
 
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety);

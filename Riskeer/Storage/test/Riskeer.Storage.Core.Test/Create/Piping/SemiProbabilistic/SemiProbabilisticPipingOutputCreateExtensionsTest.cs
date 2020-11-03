@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             });
 
             // Call
-            PipingCalculationOutputEntity entity = pipingOutput.Create();
+            SemiProbabilisticPipingCalculationOutputEntity entity = pipingOutput.Create();
 
             // Assert
             Assert.AreEqual(pipingOutput.HeaveFactorOfSafety, entity.HeaveFactorOfSafety);
@@ -79,7 +79,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             var pipingOutput = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
 
             // Call
-            PipingCalculationOutputEntity entity = pipingOutput.Create();
+            SemiProbabilisticPipingCalculationOutputEntity entity = pipingOutput.Create();
 
             // Assert
             Assert.IsNull(entity.HeaveFactorOfSafety);

@@ -187,13 +187,13 @@ namespace Riskeer.Storage.Core.Test.Create
             CalculationGroupEntity entity = group.Create(registry, 0);
 
             // Assert
-            PipingCalculationEntity[] childCalculationEntities = entity.PipingCalculationEntities.ToArray();
+            SemiProbabilisticPipingCalculationEntity[] childCalculationEntities = entity.SemiProbabilisticPipingCalculationEntities.ToArray();
             Assert.AreEqual(2, childCalculationEntities.Length);
 
-            PipingCalculationEntity childEntity1 = childCalculationEntities[0];
+            SemiProbabilisticPipingCalculationEntity childEntity1 = childCalculationEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
             Assert.AreEqual(0, childEntity1.Order);
-            PipingCalculationEntity childEntity2 = childCalculationEntities[1];
+            SemiProbabilisticPipingCalculationEntity childEntity2 = childCalculationEntities[1];
             Assert.AreEqual("B", childEntity2.Name);
             Assert.AreEqual(1, childEntity2.Order);
         }
@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
-            PipingCalculationEntity[] childCalculationEntities = entity.PipingCalculationEntities.ToArray();
+            SemiProbabilisticPipingCalculationEntity[] childCalculationEntities = entity.SemiProbabilisticPipingCalculationEntities.ToArray();
             Assert.AreEqual(2, childGroupEntities.Length);
             Assert.AreEqual(2, childCalculationEntities.Length);
 
@@ -241,7 +241,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
-            PipingCalculationEntity childEntity2 = childCalculationEntities[0];
+            SemiProbabilisticPipingCalculationEntity childEntity2 = childCalculationEntities[0];
             Assert.AreEqual("B", childEntity2.Name);
             Assert.AreEqual(1, childEntity2.Order);
 
@@ -250,7 +250,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
-            PipingCalculationEntity childEntity4 = childCalculationEntities[1];
+            SemiProbabilisticPipingCalculationEntity childEntity4 = childCalculationEntities[1];
             Assert.AreEqual("D", childEntity4.Name);
             Assert.AreEqual(3, childEntity4.Order);
         }

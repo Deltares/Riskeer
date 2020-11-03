@@ -47,11 +47,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            void Call() => failureMechanism.Create(null);
 
             // Assert
-            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("registry", parameterName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -263,11 +263,12 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(calculationGroup.Name, childGroupEntity.Name);
             Assert.AreEqual(0, childGroupEntity.Order);
 
-            PipingCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.PipingCalculationEntities
-                                                                  .OrderBy(ce => ce.Order)
-                                                                  .ToArray();
+            SemiProbabilisticPipingCalculationEntity[] calculationEntities = entity.CalculationGroupEntity
+                                                                                   .SemiProbabilisticPipingCalculationEntities
+                                                                                   .OrderBy(ce => ce.Order)
+                                                                                   .ToArray();
             Assert.AreEqual(1, calculationEntities.Length);
-            PipingCalculationEntity calculationEntity = calculationEntities[0];
+            SemiProbabilisticPipingCalculationEntity calculationEntity = calculationEntities[0];
             Assert.AreEqual(calculation.Name, calculationEntity.Name);
             Assert.AreEqual(1, calculationEntity.Order);
         }
