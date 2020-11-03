@@ -30,20 +30,18 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingCalculationOutputEntity
+    public class ProbabilisticPipingCalculationOutput
     {
-        public long PipingCalculationOutputEntityId { get; set; }
-        public long PipingCalculationEntityId { get; set; }
+        public long ProbabilisticPipingCalculationOutputEntityId { get; set; }
+        public long ProbabilisticPipingCalculationEntityId { get; set; }
+        public long? ProfileSpecificGeneralResultFaultTreeIllustrationPointEntityId { get; set; }
+        public long? SectionSpecificGeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public int Order { get; set; }
-        public double? HeaveFactorOfSafety { get; set; }
-        public double? UpliftFactorOfSafety { get; set; }
-        public double? SellmeijerFactorOfSafety { get; set; }
-        public double? UpliftEffectiveStress { get; set; }
-        public double? HeaveGradient { get; set; }
-        public double? SellmeijerCreepCoefficient { get; set; }
-        public double? SellmeijerCriticalFall { get; set; }
-        public double? SellmeijerReducedFall { get; set; }
+        public double? ProfileSpecificReliability { get; set; }
+        public double? SectionSpecificReliability { get; set; }
 
-        public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
+        public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
+        public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity1 { get; set; }
+        public virtual ProbabilisticPipingCalculationEntity ProbabilisticPipingCalculationEntity { get; set; }
     }
 }

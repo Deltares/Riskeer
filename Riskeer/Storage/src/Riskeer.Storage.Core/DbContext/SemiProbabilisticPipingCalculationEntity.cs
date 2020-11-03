@@ -33,15 +33,15 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingCalculationEntity
+    public class SemiProbabilisticPipingCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PipingCalculationEntity()
+        public SemiProbabilisticPipingCalculationEntity()
         {
-            PipingCalculationOutputEntities = new HashSet<PipingCalculationOutputEntity>();
+            SemiProbabilisticPipingCalculationOutputEntities = new HashSet<SemiProbabilisticPipingCalculationOutputEntity>();
         }
 
-        public long PipingCalculationEntityId { get; set; }
+        public long SemiProbabilisticPipingCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? SurfaceLineEntityId { get; set; }
         public long? PipingStochasticSoilProfileEntityId { get; set; }
@@ -62,10 +62,10 @@ namespace Riskeer.Storage.Core.DbContext
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
         public virtual PipingStochasticSoilProfileEntity PipingStochasticSoilProfileEntity { get; set; }
+        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
+        public virtual ICollection<SemiProbabilisticPipingCalculationOutputEntity> SemiProbabilisticPipingCalculationOutputEntities { get; set; }
     }
 }

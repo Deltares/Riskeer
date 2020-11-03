@@ -45,7 +45,8 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
-            PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+            ProbabilisticPipingCalculationEntities = new HashSet<ProbabilisticPipingCalculationEntity>();
+            SemiProbabilisticPipingCalculationEntities = new HashSet<SemiProbabilisticPipingCalculationEntity>();
             StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
             StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities = new HashSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity>();
@@ -80,7 +81,10 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<MacroStabilityInwardsCalculationEntity> MacroStabilityInwardsCalculationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        public virtual ICollection<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }

@@ -28,33 +28,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingStochasticSoilProfileEntity
+    public class SemiProbabilisticPipingCalculationOutputEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PipingStochasticSoilProfileEntity()
-        {
-            ProbabilisticPipingCalculationEntities = new HashSet<ProbabilisticPipingCalculationEntity>();
-            SemiProbabilisticPipingCalculationEntities = new HashSet<SemiProbabilisticPipingCalculationEntity>();
-        }
-
-        public long PipingStochasticSoilProfileEntityId { get; set; }
-        public long PipingSoilProfileEntityId { get; set; }
-        public long StochasticSoilModelEntityId { get; set; }
-        public double Probability { get; set; }
+        public long SemiProbabilisticPipingCalculationOutputEntityId { get; set; }
+        public long SemiProbabilisticPipingCalculationEntityId { get; set; }
         public int Order { get; set; }
+        public double? HeaveFactorOfSafety { get; set; }
+        public double? UpliftFactorOfSafety { get; set; }
+        public double? SellmeijerFactorOfSafety { get; set; }
+        public double? UpliftEffectiveStress { get; set; }
+        public double? HeaveGradient { get; set; }
+        public double? SellmeijerCreepCoefficient { get; set; }
+        public double? SellmeijerCriticalFall { get; set; }
+        public double? SellmeijerReducedFall { get; set; }
 
-        public virtual PipingSoilProfileEntity PipingSoilProfileEntity { get; set; }
-        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
+        public virtual SemiProbabilisticPipingCalculationEntity SemiProbabilisticPipingCalculationEntity { get; set; }
     }
 }

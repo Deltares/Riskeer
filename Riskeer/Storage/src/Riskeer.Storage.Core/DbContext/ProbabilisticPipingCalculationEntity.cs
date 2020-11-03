@@ -33,28 +33,39 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingStochasticSoilProfileEntity
+    public class ProbabilisticPipingCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PipingStochasticSoilProfileEntity()
+        public ProbabilisticPipingCalculationEntity()
         {
-            ProbabilisticPipingCalculationEntities = new HashSet<ProbabilisticPipingCalculationEntity>();
-            SemiProbabilisticPipingCalculationEntities = new HashSet<SemiProbabilisticPipingCalculationEntity>();
+            ProbabilisticPipingCalculationOutputs = new HashSet<ProbabilisticPipingCalculationOutput>();
         }
 
-        public long PipingStochasticSoilProfileEntityId { get; set; }
-        public long PipingSoilProfileEntityId { get; set; }
-        public long StochasticSoilModelEntityId { get; set; }
-        public double Probability { get; set; }
+        public long ProbabilisticPipingCalculationEntityId { get; set; }
+        public long CalculationGroupEntityId { get; set; }
+        public long? SurfaceLineEntityId { get; set; }
+        public long? PipingStochasticSoilProfileEntityId { get; set; }
+        public long? HydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
+        public string Name { get; set; }
+        public string Comments { get; set; }
+        public double? EntryPointL { get; set; }
+        public double? ExitPointL { get; set; }
+        public double? PhreaticLevelExitMean { get; set; }
+        public double? PhreaticLevelExitStandardDeviation { get; set; }
+        public double? DampingFactorExitMean { get; set; }
+        public double? DampingFactorStandardDeviation { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double? ScenarioContribution { get; set; }
+        public byte ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
+        public byte ShouldSectionSpecificIllustrationPointsBeCalculated { get; set; }
 
-        public virtual PipingSoilProfileEntity PipingSoilProfileEntity { get; set; }
-        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+        public virtual PipingStochasticSoilProfileEntity PipingStochasticSoilProfileEntity { get; set; }
+        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
+        public virtual ICollection<ProbabilisticPipingCalculationOutput> ProbabilisticPipingCalculationOutputs { get; set; }
     }
 }
