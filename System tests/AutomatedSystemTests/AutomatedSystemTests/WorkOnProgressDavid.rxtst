@@ -440,6 +440,12 @@
 			<testcase
 			id="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
 			name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="27">
+					</param>
+				</parameters>
 			</testcase>
 			<smartfoldernode
 			id="86b9482a-db18-4106-9512-2ef2cd5970ac"
@@ -834,6 +840,14 @@
 			name="CreateOutputFolder"
 			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="caseNumber"
