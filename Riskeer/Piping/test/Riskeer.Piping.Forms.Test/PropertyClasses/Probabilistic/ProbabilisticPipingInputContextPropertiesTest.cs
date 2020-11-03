@@ -73,11 +73,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedDiameter70PropertyIndex = 13;
         private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int expectedSectionNamePropertyIndex = 15;
-        private const int expectedSectionLengthPropertyIndex = 16;
-
-        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 17;
-        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 18;
+        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 15;
+        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 16;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -217,11 +214,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
 
-            const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
-            const string schematizationCategory = "\t\t\tSchematisatie";
-            const string sectionInformationCategory = "\t\tVakinformatie";
+            const string hydraulicDataCategory = "\t\t\tHydraulische gegevens";
+            const string schematizationCategory = "\t\tSchematisatie";
             const string profileSpecificCategory = "\tSterkte berekening doorsnede";
             const string sectionSpecificCategory = "Sterkte berekening vak";
 
@@ -334,22 +330,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
 
-            PropertyDescriptor sectionNameProperty = dynamicProperties[expectedSectionNamePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                sectionNameProperty,
-                sectionInformationCategory,
-                "Vaknaam",
-                "De naam van het vak.",
-                true);
-
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[expectedSectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                sectionLengthProperty,
-                sectionInformationCategory,
-                "Lengte* [m]",
-                "De totale lengte van het vak in meters (afgerond).",
-                true);
-
             PropertyDescriptor shouldProfileSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shouldProfileSpecificCalculateIllustrationPointsProperty,
@@ -406,7 +386,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            const string schematizationCategory = "\t\t\tSchematisatie";
+            const string schematizationCategory = "\t\tSchematisatie";
 
             PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -499,46 +479,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreSame(inputParameters.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
-            FailureMechanismSection expectedSection = failureMechanism.Sections.First(
-                s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                    Math2D.ConvertPointsToLineSegments(s.Points)));
-
-            Assert.AreEqual(expectedSection.Name, properties.SectionName);
-            Assert.AreEqual(expectedSection.Length, properties.SectionLength, properties.SectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_CalculationNotInSection_ReturnExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
-                new TestHydraulicBoundaryLocation());
-
-            ProbabilisticPipingInput inputParameters = calculation.InputParameters;
-
-            var context = new ProbabilisticPipingInputContext(inputParameters,
-                                                              calculation,
-                                                              Enumerable.Empty<PipingSurfaceLine>(),
-                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                              failureMechanism,
-                                                              assessmentSection);
-
-            // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Assert
-            Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }
