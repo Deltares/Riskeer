@@ -150,6 +150,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
