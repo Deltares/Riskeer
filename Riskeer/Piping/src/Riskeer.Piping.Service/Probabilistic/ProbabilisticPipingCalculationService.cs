@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         }
 
         /// <summary>
-        /// Performs a structures calculation based on the supplied <see cref="ProbabilisticPipingCalculation"/> and sets <see cref="ProbabilisticPipingCalculation.Output"/>
+        /// Performs a piping calculation based on the supplied <see cref="ProbabilisticPipingCalculation"/> and sets <see cref="ProbabilisticPipingCalculation.Output"/>
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> that holds all the information required to perform the calculation.</param>
@@ -162,7 +162,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
 
             HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings);
-            
+
             profileSpecificCalculator = HydraRingCalculatorFactory.Instance.CreatePipingCalculator(
                 hydraRingCalculationSettings);
             sectionSpecificCalculator = HydraRingCalculatorFactory.Instance.CreatePipingCalculator(
@@ -202,7 +202,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <summary>
         /// Performs a profile specific calculation.
         /// </summary>
-        /// <param name="calculation">The calculation containing the input for the section specific calculation.</param>
+        /// <param name="calculation">The calculation containing the input for the profile specific calculation.</param>
         /// <param name="generalInput">The general piping calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>

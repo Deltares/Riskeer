@@ -69,11 +69,11 @@ namespace Riskeer.Piping.Service.Probabilistic
             this.assessmentSection = assessmentSection;
 
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
-            
+
             service = new ProbabilisticPipingCalculationService();
             service.OnProgressChanged += UpdateProgressText;
         }
-        
+
         protected override void OnCancel()
         {
             service.Cancel();
@@ -87,14 +87,14 @@ namespace Riskeer.Piping.Service.Probabilistic
         protected override void PerformCalculation()
         {
             calculation.ClearOutput();
-            
+
             FailureMechanismSection section = failureMechanism.Sections.Single(
                 s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                     Math2D.ConvertPointsToLineSegments(s.Points)));
-            
+
             service.Calculate(calculation, failureMechanism.GeneralInput,
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
-                section.Length);
+                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                              section.Length);
         }
 
         protected override bool Validate()
