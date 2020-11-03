@@ -90,21 +90,13 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             CalculationServiceHelper.LogValidationBegin();
 
-            CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
+            LogAnyWarnings(calculation);
 
-            string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
-            CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
-            if (hydraulicBoundaryDatabaseMessages.Any())
-            {
-                CalculationServiceHelper.LogValidationEnd();
-                return false;
-            }
-
-            string[] messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
-            CalculationServiceHelper.LogMessagesAsError(messages);
+            bool hasErrors = LogAnyErrors(calculation, generalInput, assessmentSection);
 
             CalculationServiceHelper.LogValidationEnd();
-            return !messages.Any();
+
+            return !hasErrors;
         }
 
         /// <summary>
@@ -417,6 +409,32 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
 
             return null;
+        }
+
+        private static void LogAnyWarnings(ProbabilisticPipingCalculation calculation)
+        {
+            CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
+        }
+
+        private static bool LogAnyErrors(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection)
+        {
+            string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
+
+            if (messages.Any())
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
+            messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
+
+            if (messages.Any())
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
+            return false;
         }
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
