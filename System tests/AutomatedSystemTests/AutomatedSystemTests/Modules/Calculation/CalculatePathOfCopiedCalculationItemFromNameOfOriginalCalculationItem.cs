@@ -24,7 +24,7 @@ namespace AutomatedSystemTests.Modules.Calculation
     /// Description of CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation.
     /// </summary>
     [TestModule("59C93BDA-2F66-419C-8C73-506536AC6587", ModuleType.UserCode, 1)]
-    public class CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation : ITestModule
+    public class CalculatePathOfCopiedCalculationItemFromNameOfOriginalCalculationItem : ITestModule
     {
         
         string _pathOriginalCalculation = "";
@@ -54,7 +54,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation()
+        public CalculatePathOfCopiedCalculationItemFromNameOfOriginalCalculationItem()
         {
             // Do not delete - a parameterless constructor is required!
         }

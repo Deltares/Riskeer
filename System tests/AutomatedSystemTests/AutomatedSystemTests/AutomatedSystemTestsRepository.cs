@@ -733,6 +733,7 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder _projectrootnode;
             RepoItemInfo _hydraulischebelastingenInfo;
+            RepoItemInfo _kopievan12202500segment120041d1Info;
 
             /// <summary>
             /// Creates a new ProjectExplorer  folder.
@@ -742,6 +743,7 @@ namespace AutomatedSystemTests
             {
                 _projectrootnode = new AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder(this);
                 _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
+                _kopievan12202500segment120041d1Info = new RepoItemInfo(this, "KopieVan12202500Segment120041D1", ".//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']", 30000, null, "1bc4c7ac-b74a-4de0-a833-0787988276a2");
             }
 
             /// <summary>
@@ -789,6 +791,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _hydraulischebelastingenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The KopieVan12202500Segment120041D1 item.
+            /// </summary>
+            [RepositoryItem("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
+            public virtual Ranorex.TreeItem KopieVan12202500Segment120041D1
+            {
+                get
+                {
+                    return _kopievan12202500segment120041d1Info.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The KopieVan12202500Segment120041D1 item info.
+            /// </summary>
+            [RepositoryItemInfo("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
+            public virtual RepoItemInfo KopieVan12202500Segment120041D1Info
+            {
+                get
+                {
+                    return _kopievan12202500segment120041d1Info;
                 }
             }
 
@@ -4989,6 +5015,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _pagerightInfo;
             RepoItemInfo _pageleftInfo;
             RepoItemInfo _duplicerenInfo;
+            RepoItemInfo _maptoevoegenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -5017,6 +5044,7 @@ namespace AutomatedSystemTests
                 _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
                 _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
+                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
             }
 
             /// <summary>
@@ -5544,6 +5572,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _duplicerenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The MapToevoegen item.
+            /// </summary>
+            [RepositoryItem("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual Ranorex.MenuItem MapToevoegen
+            {
+                get
+                {
+                    return _maptoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual RepoItemInfo MapToevoegenInfo
+            {
+                get
+                {
+                    return _maptoevoegenInfo;
                 }
             }
         }

@@ -220,6 +220,16 @@ name="AutomatedSystemTestsRepository">
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']
 				</item>
+				<item
+				addcaps="treeitem,accessible,accessibletreeitem"
+				capname="treeitem"
+				id="1bc4c7ac-b74a-4de0-a833-0787988276a2"
+				name="KopieVan12202500Segment120041D1"
+				refimgid="350d9228-5be4-4f87-a1df-c3e8ec1ea29f"
+				refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename&gt;'Kopie van 12_2_02500 Segm']
+				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</basepath>
@@ -1459,6 +1469,16 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="bb08d163-934b-43d2-b55e-ba2f9cd39c14"
+			name="MapToevoegen"
+			refimgid="2d7e56dd-3a4b-4f0c-82bc-aed498fcb835"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map toevoegen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map toevoegen']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']

@@ -69,10 +69,10 @@ namespace AutomatedSystemTests.Modules.Validation
                     var elements1 = list1[idx].Split(';');
                     var elements2 = list2[idx].Split(';');
                     if (elements1[1]==elements2[1]) {
-                        Validate.AreEqual(elements1[2], elements2[2], "Validating values for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0} Actual: {1}");
+                        Validate.AreEqual(elements1[2], elements2[2], "Validating values for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
                     } else {
                         // Will give an error showing different Accessible names
-                        Validate.AreEqual(elements1[1], elements2[1], "Validating parameter names for row= " + elements1[0] + ", Accessible Name = " + elements1[1] + ". Expected: {0} Actual: {1}");
+                        Validate.AreEqual(elements1[1], elements2[1], "Validating parameter names for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
                     }
                 }
         }

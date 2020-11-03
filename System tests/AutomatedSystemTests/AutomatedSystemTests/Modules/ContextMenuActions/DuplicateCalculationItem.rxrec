@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="DuplicateCalculation"
+	classname="DuplicateCalculationItem"
 	namespace="AutomatedSystemTests.Modules.ContextMenuActions">
 	</codegen>
 	<variables>

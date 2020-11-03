@@ -20,38 +20,64 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ContextMenuActions
+namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The DuplicateCalculation recording.
+    ///The DragAndDropItemOntoAnotherItem recording.
     /// </summary>
-    [TestModule("be163e36-1d54-4e23-8859-2e6b0da85302", ModuleType.Recording, 1)]
-    public partial class DuplicateCalculation : ITestModule
+    [TestModule("909ea538-c662-4239-a56a-672c6d28b694", ModuleType.Recording, 1)]
+    public partial class DragAndDropItemOntoAnotherItem : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static DuplicateCalculation instance = new DuplicateCalculation();
+        static DragAndDropItemOntoAnotherItem instance = new DragAndDropItemOntoAnotherItem();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public DuplicateCalculation()
+        public DragAndDropItemOntoAnotherItem()
         {
+            pathItemToMove = "";
+            pathItemDestination = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static DuplicateCalculation Instance
+        public static DragAndDropItemOntoAnotherItem Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _pathItemToMove;
+
+        /// <summary>
+        /// Gets or sets the value of variable pathItemToMove.
+        /// </summary>
+        [TestVariable("0b446edc-7bfd-4e53-b683-8c3dd2b46bb3")]
+        public string pathItemToMove
+        {
+            get { return _pathItemToMove; }
+            set { _pathItemToMove = value; }
+        }
+
+        string _pathItemDestination;
+
+        /// <summary>
+        /// Gets or sets the value of variable pathItemDestination.
+        /// </summary>
+        [TestVariable("f21e4405-5055-47d1-a985-93bb7d25200f")]
+        public string pathItemDestination
+        {
+            get { return _pathItemDestination; }
+            set { _pathItemDestination = value; }
+        }
 
 #endregion
 
@@ -79,12 +105,7 @@ namespace AutomatedSystemTests.Modules.ContextMenuActions
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Dupliceren' at Center.", repo.ContextMenu.DuplicerenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Dupliceren.Click();
+            DragAndDropProjectExplorerItemOntoAnotherOne(pathItemToMove, pathItemDestination, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
             Delay.Milliseconds(0);
             
         }
