@@ -494,6 +494,7 @@ namespace Riskeer.Piping.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
