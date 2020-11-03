@@ -48,6 +48,15 @@ name="AutomatedSystemTestsRepository">
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
 						capname="treeitem"
+						id="b5de4289-6f05-447d-a40a-c6f33536af15"
+						name="Normen"
+						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
+						</item>
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
 						id="79c86dc7-8eee-48b2-b0af-b29632b7c092"
 						name="Faalkansbegroting"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"

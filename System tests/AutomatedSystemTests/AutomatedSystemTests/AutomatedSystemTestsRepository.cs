@@ -861,6 +861,7 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
             AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder _genericitemintrajectwithsubstringinname;
+            RepoItemInfo _normenInfo;
             RepoItemInfo _faalkansbegrotingInfo;
             RepoItemInfo _genericitemintrajectInfo;
             RepoItemInfo _copy_of_genericitemintrajectInfo;
@@ -873,6 +874,7 @@ namespace AutomatedSystemTests
             {
                 _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
                 _genericitemintrajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder(this);
+                _normenInfo = new RepoItemInfo(this, "Normen", "treeitem[@accessiblename='Normen']", 30000, null, "b5de4289-6f05-447d-a40a-c6f33536af15");
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
                 _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
                 _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
@@ -899,6 +901,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Normen item.
+            /// </summary>
+            [RepositoryItem("b5de4289-6f05-447d-a40a-c6f33536af15")]
+            public virtual Ranorex.TreeItem Normen
+            {
+                get
+                {
+                    return _normenInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Normen item info.
+            /// </summary>
+            [RepositoryItemInfo("b5de4289-6f05-447d-a40a-c6f33536af15")]
+            public virtual RepoItemInfo NormenInfo
+            {
+                get
+                {
+                    return _normenInfo;
                 }
             }
 

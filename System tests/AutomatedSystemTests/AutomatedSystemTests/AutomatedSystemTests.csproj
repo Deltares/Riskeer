@@ -633,6 +633,18 @@
       <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
       <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
     </Compile>
+    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.cs">
+      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
+      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8bb3a675-9518-43f9-8afc-1f55df6b7f99</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.UserCode.cs">
+      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
+      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>76073981-10bf-481e-a09d-25dcf225d501</id>
+    </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.cs">
       <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1918,6 +1930,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
       <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenTrajectNormenView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b4220af5-04f9-4914-8581-74fabf79ebbf</id>
+      <recordtableid>d4189ba6-04e4-4c32-a503-2b635376521a</recordtableid>
     </None>
     <None Include="Modules\OpenViews\OpenViewForCategoryBoundaries.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

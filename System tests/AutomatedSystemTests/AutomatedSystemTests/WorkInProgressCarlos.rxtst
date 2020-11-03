@@ -2,6 +2,20 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			id="2014eed3-0d67-4462-b5d6-097a95f953fb"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="c59b68aa-1950-43de-b6c6-a5fba481e285"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -21,11 +35,121 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<teardown
+			id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
+			name="teardown">
+			</teardown>
+			<testmodule
+			id="8bba801e-97c8-4849-a11c-8d798833b9af"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppPath"
+					datasourceid="c59b68aa-1950-43de-b6c6-a5fba481e285"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+					<var
+					dataname="AppProcessID"
+					datasourceid="c59b68aa-1950-43de-b6c6-a5fba481e285"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="aad03c00-36c7-448c-b5cc-a6fe1dfbb1b6"
+			name="PrepareRiskeer">
+			</smartfoldernode>
+			<testmodule
+			id="ac82371d-7179-4e57-ac2f-767b6820cc70"
+			name="OpenTrajectNormenView"
+			ref="d4189ba6-04e4-4c32-a503-2b635376521a"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testcase
 			id="c59b68aa-1950-43de-b6c6-a5fba481e285"
 			name="WorkInProgressCarlos"
 			reportlevel="Info;20">
+				<parameters>
+					<param
+					name="AppPath"
+					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="AppProcessID"
+					value="">
+					</param>
+				</parameters>
 			</testcase>
+			<testmodule
+			id="d9bd01df-f9b4-4c7c-b752-f69506000b9e"
+			name="AddNewTraject"
+			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="NormType"
+					datasourceid="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testcase
+			id="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+			name="script07_Toetseis_op_trajectniveau_bepalen">
+				<parameters>
+					<param
+					name="TrajectName"
+					value="12-2">
+					</param>
+					<param
+					name="NormType"
+					value="SignallingValue">
+					</param>
+					<param
+					name="SignallingValue"
+					value="">
+					</param>
+					<param
+					name="LowLimitValue"
+					value="">
+					</param>
+				</parameters>
+			</testcase>
+			<setup
+			id="feeac0e5-9e7a-4da9-9c8c-02622495e987"
+			name="setup">
+			</setup>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -34,6 +158,38 @@
 				<testcase
 				id="c59b68aa-1950-43de-b6c6-a5fba481e285"
 				name="WorkInProgressCarlos">
+					<testcase
+					id="e676dbfb-ce44-43a9-87c7-e6ccee716c68"
+					name="script07_Toetseis_op_trajectniveau_bepalen">
+						<setup
+						id="feeac0e5-9e7a-4da9-9c8c-02622495e987"
+						name="setup">
+							<testmodule
+							id="8bba801e-97c8-4849-a11c-8d798833b9af"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="aad03c00-36c7-448c-b5cc-a6fe1dfbb1b6"
+						name="PrepareRiskeer">
+							<testmodule
+							id="d9bd01df-f9b4-4c7c-b752-f69506000b9e"
+							name="AddNewTraject">
+							</testmodule>
+							<testmodule
+							id="ac82371d-7179-4e57-ac2f-767b6820cc70"
+							name="OpenTrajectNormenView">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
+						name="teardown">
+							<testmodule
+							id="2014eed3-0d67-4462-b5d6-097a95f953fb"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -45,10 +201,19 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="aad03c00-36c7-448c-b5cc-a6fe1dfbb1b6">
+			</testcontainer>
+			<testcontainer
 			id="c59b68aa-1950-43de-b6c6-a5fba481e285">
+			</testcontainer>
+			<testcontainer
+			id="e676dbfb-ce44-43a9-87c7-e6ccee716c68">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>
+		<reference>
+			Ranorex Automation Helpers.dll
+		</reference>
 	</references>
 </testsuitedoc>
