@@ -29,20 +29,21 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="SemiProbabilisticPipingCalculationScenario"/>
-    /// based on the <see cref="PipingCalculationEntity"/>.
+    /// based on the <see cref="SemiProbabilisticPipingCalculationEntity"/>.
     /// </summary>
     internal static class SemiProbabilisticPipingCalculationEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="PipingCalculationEntity"/> and use the information to
+        /// Read the <see cref="SemiProbabilisticPipingCalculationEntity"/> and use the information to
         /// construct a <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingCalculationEntity"/> to create
+        /// <param name="entity">The <see cref="SemiProbabilisticPipingCalculationEntity"/> to create
         /// <see cref="SemiProbabilisticPipingCalculationScenario"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector)
+        public static SemiProbabilisticPipingCalculationScenario Read(this SemiProbabilisticPipingCalculationEntity entity,
+                                                                      ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -65,16 +66,18 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
             return calculation;
         }
 
-        private static void ReadCalculationOutputs(SemiProbabilisticPipingCalculationScenario calculation, PipingCalculationEntity entity)
+        private static void ReadCalculationOutputs(SemiProbabilisticPipingCalculationScenario calculation,
+                                                   SemiProbabilisticPipingCalculationEntity entity)
         {
-            PipingCalculationOutputEntity calculationOutputEntity = entity.PipingCalculationOutputEntities.FirstOrDefault();
+            SemiProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
             if (calculationOutputEntity != null)
             {
                 calculation.Output = calculationOutputEntity.Read();
             }
         }
 
-        private static void ReadInputParameters(SemiProbabilisticPipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(SemiProbabilisticPipingInput inputParameters, SemiProbabilisticPipingCalculationEntity entity,
+                                                ReadConversionCollector collector)
         {
             if (entity.SurfaceLineEntity != null)
             {

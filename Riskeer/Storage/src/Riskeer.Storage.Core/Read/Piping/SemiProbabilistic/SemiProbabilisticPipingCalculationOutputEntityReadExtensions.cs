@@ -27,20 +27,20 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="SemiProbabilisticPipingOutput"/>
-    /// based on the <see cref="PipingCalculationOutputEntity"/>.
+    /// based on the <see cref="SemiProbabilisticPipingCalculationOutputEntity"/>.
     /// </summary>
     internal static class SemiProbabilisticPipingCalculationOutputEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="PipingCalculationOutputEntity"/> and use the information to
+        /// Read the <see cref="SemiProbabilisticPipingCalculationOutputEntity"/> and use the information to
         /// construct a <see cref="SemiProbabilisticPipingOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> to create
+        /// <param name="entity">The <see cref="SemiProbabilisticPipingCalculationOutputEntity"/> to create
         /// <see cref="SemiProbabilisticPipingOutput"/> for.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingOutput Read(this PipingCalculationOutputEntity entity)
+        public static SemiProbabilisticPipingOutput Read(this SemiProbabilisticPipingCalculationOutputEntity entity)
         {
             if (entity == null)
             {

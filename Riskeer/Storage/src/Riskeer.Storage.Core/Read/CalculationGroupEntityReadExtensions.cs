@@ -64,14 +64,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as PipingCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is SemiProbabilisticPipingCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -408,7 +406,7 @@ namespace Riskeer.Storage.Core.Read
                 sortedList.Add(groupEntity.Order, groupEntity);
             }
 
-            foreach (PipingCalculationEntity calculationEntity in entity.PipingCalculationEntities)
+            foreach (SemiProbabilisticPipingCalculationEntity calculationEntity in entity.SemiProbabilisticPipingCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
