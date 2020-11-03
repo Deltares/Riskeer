@@ -117,7 +117,7 @@ namespace Core.Common.Base.Test.Service
         [TestCase(ActivityState.Canceled, "Uitvoeren van berekening is geannuleerd.")]
         [TestCase(ActivityState.Skipped, "Uitvoeren van berekening is reeds voltooid.")]
         [TestCase(ActivityState.Executed, "Uitvoeren van berekening is gelukt.")]
-        public void LogState_ActivityWithSpecificState_MessageIsSendToLog(ActivityState state, string message)
+        public void LogState_ActivityWithSpecificState_MessageIsSentToLog(ActivityState state, string message)
         {
             // Setup
             var activity = new SimpleActivity(false, false, false, state);

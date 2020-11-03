@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Integration.Test
         }
 
         [Test]
-        public void GivenProbabilisticPipingCalculationActivity_WhenRanAndFinished_ThenOutputSetAndObserversNotified()
+        public void GivenProbabilisticPipingCalculationActivity_WhenRunAndFinished_ThenOutputSetAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -357,7 +357,7 @@ namespace Riskeer.Piping.Integration.Test
         }
 
         [Test]
-        public void Run_ValidCalculation_InputPropertiesCorrectlySendToService()
+        public void Run_ValidCalculation_InputPropertiesCorrectlySentToService()
         {
             // Setup
             var mocks = new MockRepository();

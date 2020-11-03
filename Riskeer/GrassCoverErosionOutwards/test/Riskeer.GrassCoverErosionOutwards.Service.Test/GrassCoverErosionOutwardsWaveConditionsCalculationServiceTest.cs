@@ -388,7 +388,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]
-        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator(BreakWaterType breakWaterType)
+        public void Calculate_Always_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
