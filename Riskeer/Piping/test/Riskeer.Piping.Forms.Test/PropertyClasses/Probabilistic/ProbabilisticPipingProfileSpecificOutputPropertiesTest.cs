@@ -28,9 +28,11 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -346,14 +348,36 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
-            
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.IllustrationPoints));
 
-            int nrOfExpectedTopLevelIllustrationPoints = output.GeneralResult.TopLevelIllustrationPoints.Count();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = output.GeneralResult;
+
+            Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
+
+            int nrOfExpectedStochasts = generalResult.Stochasts.Count();
+            Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
+            Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
+            Stochast expectedStochast = generalResult.Stochasts.First();
+            Assert.AreEqual(expectedStochast.Alpha, properties.AlphaValues[0].Alpha);
+            Assert.AreEqual(expectedStochast.Duration, properties.Durations[0].Duration);
+
+            int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
             Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
 
-            CollectionAssert.AreEqual(output.GeneralResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
+            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
+        }
+
+        [Test]
+        public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
+        {
+            // Setup
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
+            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
+
+            // Call
+            TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
+
+            // Assert
+            Assert.IsEmpty(illustrationPoints);
         }
     }
 }
