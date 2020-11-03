@@ -15,7 +15,7 @@
     "RunConfig": "TestRun"
   },
   {
-    "Enabled": "True",
+    "Enabled": "False",
     "TestSuite": "WorkInProgressCarlos",
     "RunConfig": "TestRun"
   }
