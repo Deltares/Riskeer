@@ -26,27 +26,27 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
 {
     /// <summary>
-    /// Extension methods for <see cref="SemiProbabilisticPipingOutput"/> related to creating a <see cref="PipingCalculationOutputEntity"/>.
+    /// Extension methods for <see cref="SemiProbabilisticPipingOutput"/> related to creating a <see cref="SemiProbabilisticPipingCalculationOutputEntity"/>.
     /// </summary>
     internal static class SemiProbabilisticPipingOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingCalculationOutputEntity"/> based on the information
+        /// Creates a <see cref="SemiProbabilisticPipingCalculationOutputEntity"/> based on the information
         /// of the <see cref="SemiProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="output">The calculation output for piping failure mechanism to 
         /// create a database entity for.</param>
-        /// <returns>A new <see cref="PipingCalculationOutputEntity"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        public static PipingCalculationOutputEntity Create(this SemiProbabilisticPipingOutput output)
+        public static SemiProbabilisticPipingCalculationOutputEntity Create(this SemiProbabilisticPipingOutput output)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            var entity = new PipingCalculationOutputEntity
+            var entity = new SemiProbabilisticPipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = output.HeaveFactorOfSafety.ToNaNAsNull(),
                 SellmeijerFactorOfSafety = output.SellmeijerFactorOfSafety.ToNaNAsNull(),

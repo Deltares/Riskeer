@@ -85,7 +85,7 @@ namespace Riskeer.Storage.Core.Create
 
                 if (calculationBase is SemiProbabilisticPipingCalculationScenario childPipingCalculation)
                 {
-                    entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
+                    entity.SemiProbabilisticPipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
                 }
 
                 if (calculationBase is MacroStabilityInwardsCalculationScenario childMacroStabilityInwardsCalculation)

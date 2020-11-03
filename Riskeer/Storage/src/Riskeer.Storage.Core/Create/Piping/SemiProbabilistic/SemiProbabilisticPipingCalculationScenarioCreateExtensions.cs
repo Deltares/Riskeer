@@ -28,26 +28,28 @@ namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
 {
     /// <summary>
     /// Extension methods for <see cref="SemiProbabilisticPipingCalculationScenario"/> related to creating
-    /// a <see cref="PipingCalculationEntity"/>.
+    /// a <see cref="SemiProbabilisticPipingCalculationEntity"/>.
     /// </summary>
     internal static class SemiProbabilisticPipingCalculationScenarioCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingCalculationEntity"/> based on the information of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
+        /// Creates a <see cref="SemiProbabilisticPipingCalculationEntity"/> based on the information
+        /// of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         /// <param name="calculation">The piping calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
-        /// <returns>A new <see cref="PipingCalculationEntity"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        public static PipingCalculationEntity Create(this SemiProbabilisticPipingCalculationScenario calculation, PersistenceRegistry registry, int order)
+        public static SemiProbabilisticPipingCalculationEntity Create(this SemiProbabilisticPipingCalculationScenario calculation,
+                                                                      PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = new PipingCalculationEntity
+            var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
                 ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
@@ -61,7 +63,9 @@ namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
             return entity;
         }
 
-        private static void SetInputParametersToEntity(PipingCalculationEntity entity, SemiProbabilisticPipingInput inputParameters, PersistenceRegistry registry)
+        private static void SetInputParametersToEntity(SemiProbabilisticPipingCalculationEntity entity,
+                                                       SemiProbabilisticPipingInput inputParameters,
+                                                       PersistenceRegistry registry)
         {
             if (inputParameters.SurfaceLine != null)
             {
@@ -85,7 +89,9 @@ namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
             entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.ToNaNAsNull();
         }
 
-        private static void SetHydraulicBoundaryLocationInputToEntity(PipingCalculationEntity entity, SemiProbabilisticPipingInput inputParameters, PersistenceRegistry registry)
+        private static void SetHydraulicBoundaryLocationInputToEntity(SemiProbabilisticPipingCalculationEntity entity,
+                                                                      SemiProbabilisticPipingInput inputParameters,
+                                                                      PersistenceRegistry registry)
         {
             entity.UseAssessmentLevelManualInput = Convert.ToByte(inputParameters.UseAssessmentLevelManualInput);
             entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
@@ -96,11 +102,11 @@ namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
             }
         }
 
-        private static void AddEntityForPipingOutput(PipingCalculationEntity entity, SemiProbabilisticPipingOutput output)
+        private static void AddEntityForPipingOutput(SemiProbabilisticPipingCalculationEntity entity, SemiProbabilisticPipingOutput output)
         {
             if (output != null)
             {
-                entity.PipingCalculationOutputEntities.Add(output.Create());
+                entity.SemiProbabilisticPipingCalculationOutputEntities.Add(output.Create());
             }
         }
     }
