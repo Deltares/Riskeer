@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Validate_Always_LogStartAndEndOfValidatingInputs()
+        public void Validate_Always_LogStartAndEndOfValidation()
         {
             // Call
             void Call() => SemiProbabilisticPipingCalculationService.Validate(testCalculation,

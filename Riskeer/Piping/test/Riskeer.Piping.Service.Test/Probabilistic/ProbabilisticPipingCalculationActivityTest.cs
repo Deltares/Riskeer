@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), null, assessmentSection);
 
@@ -55,13 +55,13 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() =>  new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), new PipingFailureMechanism(), null);
+            void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -69,9 +69,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var calculation = new TestProbabilisticPipingCalculation();
-            
+
             // Call
             var activity = new ProbabilisticPipingCalculationActivity(calculation, new PipingFailureMechanism(), assessmentSection);
 

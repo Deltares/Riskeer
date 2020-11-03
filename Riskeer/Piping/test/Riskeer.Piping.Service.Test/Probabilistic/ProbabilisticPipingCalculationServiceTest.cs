@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_Always_LogStartAndEndOfValidatingInputs()
+        public void Validate_Always_LogStartAndEndOfValidation()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
