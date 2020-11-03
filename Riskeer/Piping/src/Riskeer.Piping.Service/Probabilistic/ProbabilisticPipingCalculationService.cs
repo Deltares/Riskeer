@@ -420,7 +420,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         {
             string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
 
-            if (messages.Any())
+            if (messages.Length > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(messages);
                 return true;
@@ -428,7 +428,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
 
-            if (messages.Any())
+            if (messages.Length > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(messages);
                 return true;

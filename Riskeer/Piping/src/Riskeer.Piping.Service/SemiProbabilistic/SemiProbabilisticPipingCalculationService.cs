@@ -66,27 +66,13 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
             CalculationServiceHelper.LogValidationBegin();
 
-            CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
+            LogAnyWarnings(calculation);
 
-            string[] inputValidationResults = ValidateInput(calculation.InputParameters, generalInput, normativeAssessmentLevel).ToArray();
-
-            if (inputValidationResults.Length > 0)
-            {
-                CalculationServiceHelper.LogMessagesAsError(inputValidationResults);
-                CalculationServiceHelper.LogValidationEnd();
-                return false;
-            }
-
-            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters,
-                                                                                      generalInput,
-                                                                                      normativeAssessmentLevel),
-                                                                  PipingSubCalculatorFactory.Instance).Validate();
-
-            CalculationServiceHelper.LogMessagesAsError(validationResults.ToArray());
+            bool hasErrors = LogAnyErrors(calculation, generalInput, normativeAssessmentLevel);
 
             CalculationServiceHelper.LogValidationEnd();
 
-            return validationResults.Count == 0;
+            return !hasErrors;
         }
 
         /// <summary>
@@ -145,6 +131,33 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             {
                 CalculationServiceHelper.LogCalculationEnd();
             }
+        }
+
+        private static void LogAnyWarnings(SemiProbabilisticPipingCalculation calculation)
+        {
+            CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
+        }
+
+        private static bool LogAnyErrors(SemiProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, RoundedDouble normativeAssessmentLevel)
+        {
+            string[] messages = ValidateInput(calculation.InputParameters, generalInput, normativeAssessmentLevel).ToArray();
+
+            if (messages.Length > 0)
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
+            messages = new PipingCalculator(CreateInputFromData(calculation.InputParameters, generalInput, normativeAssessmentLevel),
+                                            PipingSubCalculatorFactory.Instance).Validate().ToArray();
+
+            if (messages.Length > 0)
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
+            return false;
         }
 
         private static List<string> ValidateInput(SemiProbabilisticPipingInput input, GeneralPipingInput generalInput, RoundedDouble normativeAssessmentLevel)
