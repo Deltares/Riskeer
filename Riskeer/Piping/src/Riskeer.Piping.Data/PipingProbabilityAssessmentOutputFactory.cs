@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Data
                                                               .Sections
                                                               .First(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
 
-            return failureMechanismSection?.Length ?? double.NaN;
+            return failureMechanismSection.Length;
         }
     }
 }

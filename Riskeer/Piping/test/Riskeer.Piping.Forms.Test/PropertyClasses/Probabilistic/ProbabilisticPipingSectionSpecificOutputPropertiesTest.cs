@@ -193,6 +193,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
+            
+            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
+                nameof(ProbabilisticPipingProfileSpecificOutputProperties.IllustrationPoints));
+
+            int nrOfExpectedTopLevelIllustrationPoints = output.GeneralResult.TopLevelIllustrationPoints.Count();
+            Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
+
+            CollectionAssert.AreEqual(output.GeneralResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
         }
     }
 }

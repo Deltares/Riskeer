@@ -21,9 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
@@ -43,9 +45,12 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(null, new ProbabilisticPipingCalculationScenario(),
-                                                                           new PipingFailureMechanism(),
-                                                                           assessmentSection);
+            void Call()
+            {
+                PipingProbabilityAssessmentOutputFactory.Create(null, new ProbabilisticPipingCalculationScenario(),
+                                                                new PipingFailureMechanism(),
+                                                                assessmentSection);
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -62,10 +67,13 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                                                                           null,
-                                                                           new PipingFailureMechanism(),
-                                                                           assessmentSection);
+            void Call()
+            {
+                PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                null,
+                                                                new PipingFailureMechanism(),
+                                                                assessmentSection);
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,10 +90,13 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                                                                           new ProbabilisticPipingCalculationScenario(),
-                                                                           null,
-                                                                           assessmentSection);
+            void Call()
+            {
+                PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                new ProbabilisticPipingCalculationScenario(),
+                                                                null,
+                                                                assessmentSection);
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -97,10 +108,13 @@ namespace Riskeer.Piping.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                                                                           new ProbabilisticPipingCalculationScenario(),
-                                                                           new PipingFailureMechanism(),
-                                                                           null);
+            void Call()
+            {
+                PipingProbabilityAssessmentOutputFactory.Create(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                                new ProbabilisticPipingCalculationScenario(),
+                                                                new PipingFailureMechanism(),
+                                                                null);
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -134,7 +148,7 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
                                                                                                               failureMechanism.Contribution,
-                                                                                                              5.0,
+                                                                                                              GetSectionLength(calculation, failureMechanism),
                                                                                                               output.Reliability);
 
             Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
@@ -142,6 +156,15 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual(expectedProbabilityOutput.Probability, probabilityOutput.Probability);
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.FactorOfSafety, probabilityOutput.FactorOfSafety);
+        }
+
+        private static double GetSectionLength(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism)
+        {
+            FailureMechanismSection failureMechanismSection = failureMechanism
+                                                              .Sections
+                                                              .First(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
+
+            return failureMechanismSection.Length;
         }
     }
 }
