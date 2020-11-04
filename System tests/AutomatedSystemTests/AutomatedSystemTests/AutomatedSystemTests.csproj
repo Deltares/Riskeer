@@ -1765,6 +1765,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>2e98b015-ed94-4385-aa49-4cb36d7f2c62</id>
     </Content>
+    <Content Include="WorkInProgressSylvia.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>55f842ba-2cc9-4ba2-b80f-75e4bdbb75e7</id>
+    </Content>
     <Content Include="WorkOnProgressDavid.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>6827c86e-753b-4849-9c40-0455c419adb9</id>
