@@ -144,19 +144,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.Mean);
             Assert.AreEqual(generalInput.UpliftModelFactor.StandardDeviation, properties.UpliftModelFactor.StandardDeviation);
-            Assert.AreEqual(PipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalInput).GetDesignValue(),
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalInput).GetDesignValue(),
                             properties.UpliftModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.Mean);
             Assert.AreEqual(generalInput.SellmeijerModelFactor.StandardDeviation, properties.SellmeijerModelFactor.StandardDeviation);
-            Assert.AreEqual(PipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalInput).GetDesignValue(),
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalInput).GetDesignValue(),
                             properties.SellmeijerModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
             Assert.AreEqual(generalInput.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
             Assert.AreEqual(generalInput.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
-            Assert.AreEqual(PipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalInput).GetDesignValue(),
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalInput).GetDesignValue(),
                             properties.CriticalHeaveGradient.DesignValue);
 
             Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);

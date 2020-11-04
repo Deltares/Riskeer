@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
+                    SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
             }
         }
 
@@ -418,7 +418,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(data.GeneralInput));
+                    SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(data.GeneralInput));
             }
         }
 
@@ -433,7 +433,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(data.GeneralInput));
+                    SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(data.GeneralInput));
             }
         }
 

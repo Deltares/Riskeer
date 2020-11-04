@@ -25,9 +25,9 @@ using Riskeer.Common.Data.Probabilistics;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Factory for creating design variables based on distributions for piping.
+    /// Factory for creating design variables based on distributions for semi-probabilistic piping calculations.
     /// </summary>
-    public static class PipingDesignVariableFactory
+    public static class SemiProbabilisticPipingDesignVariableFactory
     {
         #region General parameters
 
