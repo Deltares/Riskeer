@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class ProbabilisticPipingCalculationOutput
+    public class ProbabilisticPipingCalculationOutputEntity
     {
         public long ProbabilisticPipingCalculationOutputEntityId { get; set; }
         public long ProbabilisticPipingCalculationEntityId { get; set; }

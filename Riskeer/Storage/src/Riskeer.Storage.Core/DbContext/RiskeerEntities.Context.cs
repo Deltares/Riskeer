@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<PipingStructureFailureMechanismMetaEntity> PipingStructureFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<PipingStructureSectionResultEntity> PipingStructureSectionResultEntities { get; set; }
         public virtual DbSet<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
-        public virtual DbSet<ProbabilisticPipingCalculationOutput> ProbabilisticPipingCalculationOutputs { get; set; }
+        public virtual DbSet<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities { get; set; }
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
         public virtual DbSet<SemiProbabilisticPipingCalculationOutputEntity> SemiProbabilisticPipingCalculationOutputEntities { get; set; }

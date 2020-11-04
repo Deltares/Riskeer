@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProbabilisticPipingCalculationEntity()
         {
-            ProbabilisticPipingCalculationOutputs = new HashSet<ProbabilisticPipingCalculationOutput>();
+            ProbabilisticPipingCalculationOutputEntities = new HashSet<ProbabilisticPipingCalculationOutputEntity>();
         }
 
         public long ProbabilisticPipingCalculationEntityId { get; set; }
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? PhreaticLevelExitMean { get; set; }
         public double? PhreaticLevelExitStandardDeviation { get; set; }
         public double? DampingFactorExitMean { get; set; }
-        public double? DampingFactorStandardDeviation { get; set; }
+        public double? DampingFactorExitStandardDeviation { get; set; }
         public byte RelevantForScenario { get; set; }
         public double? ScenarioContribution { get; set; }
         public byte ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
@@ -66,6 +66,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProbabilisticPipingCalculationOutput> ProbabilisticPipingCalculationOutputs { get; set; }
+        public virtual ICollection<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities { get; set; }
     }
 }

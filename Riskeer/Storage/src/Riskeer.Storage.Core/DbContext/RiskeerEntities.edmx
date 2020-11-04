@@ -1117,13 +1117,13 @@
           <Property Name="PhreaticLevelExitMean" Type="real" />
           <Property Name="PhreaticLevelExitStandardDeviation" Type="real" />
           <Property Name="DampingFactorExitMean" Type="real" />
-          <Property Name="DampingFactorStandardDeviation" Type="real" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="real" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
           <Property Name="ScenarioContribution" Type="real" />
           <Property Name="ShouldProfileSpecificIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="ShouldSectionSpecificIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProbabilisticPipingCalculationOutput">
+        <EntityType Name="ProbabilisticPipingCalculationOutputEntity">
           <Key>
             <PropertyRef Name="ProbabilisticPipingCalculationOutputEntityId" />
           </Key>
@@ -3008,38 +3008,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_0_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_0_0">
           <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
-          <End Role="ProbabilisticPipingCalculationOutput" Type="Self.ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Role="ProbabilisticPipingCalculationOutputEntity" Type="Self.ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
               <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="SectionSpecificGeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_1_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_1_0">
           <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
-          <End Role="ProbabilisticPipingCalculationOutput" Type="Self.ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Role="ProbabilisticPipingCalculationOutputEntity" Type="Self.ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
               <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="ProfileSpecificGeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_2_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_2_0">
           <End Role="ProbabilisticPipingCalculationEntity" Type="Self.ProbabilisticPipingCalculationEntity" Multiplicity="1" />
-          <End Role="ProbabilisticPipingCalculationOutput" Type="Self.ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Role="ProbabilisticPipingCalculationOutputEntity" Type="Self.ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProbabilisticPipingCalculationEntity">
               <PropertyRef Name="ProbabilisticPipingCalculationEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="ProbabilisticPipingCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3550,7 +3550,7 @@
           <EntitySet Name="PipingStructureFailureMechanismMetaEntity" EntityType="Self.PipingStructureFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="PipingStructureSectionResultEntity" EntityType="Self.PipingStructureSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="ProbabilisticPipingCalculationEntity" EntityType="Self.ProbabilisticPipingCalculationEntity" store:Type="Tables" />
-          <EntitySet Name="ProbabilisticPipingCalculationOutput" EntityType="Self.ProbabilisticPipingCalculationOutput" store:Type="Tables" />
+          <EntitySet Name="ProbabilisticPipingCalculationOutputEntity" EntityType="Self.ProbabilisticPipingCalculationOutputEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="SemiProbabilisticPipingCalculationEntity" EntityType="Self.SemiProbabilisticPipingCalculationEntity" store:Type="Tables" />
           <EntitySet Name="SemiProbabilisticPipingCalculationOutputEntity" EntityType="Self.SemiProbabilisticPipingCalculationOutputEntity" store:Type="Tables" />
@@ -4050,17 +4050,17 @@
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
             <End Role="ProbabilisticPipingCalculationEntity" EntitySet="ProbabilisticPipingCalculationEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_0_0" Association="Self.FK_ProbabilisticPipingCalculationOutput_0_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_0_0" Association="Self.FK_ProbabilisticPipingCalculationOutputEntity_0_0">
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutput" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_1_0" Association="Self.FK_ProbabilisticPipingCalculationOutput_1_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_1_0" Association="Self.FK_ProbabilisticPipingCalculationOutputEntity_1_0">
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutput" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_2_0" Association="Self.FK_ProbabilisticPipingCalculationOutput_2_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_2_0" Association="Self.FK_ProbabilisticPipingCalculationOutputEntity_2_0">
             <End Role="ProbabilisticPipingCalculationEntity" EntitySet="ProbabilisticPipingCalculationEntity" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutput" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_SemiProbabilisticPipingCalculationEntity_0_0" Association="Self.FK_SemiProbabilisticPipingCalculationEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
@@ -4280,7 +4280,7 @@
           <EntitySet Name="PipingStructureFailureMechanismMetaEntities" EntityType="RiskeerEntitiesModel.PipingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="PipingStructureSectionResultEntities" EntityType="RiskeerEntitiesModel.PipingStructureSectionResultEntity" />
           <EntitySet Name="ProbabilisticPipingCalculationEntities" EntityType="RiskeerEntitiesModel.ProbabilisticPipingCalculationEntity" />
-          <EntitySet Name="ProbabilisticPipingCalculationOutputs" EntityType="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutput" />
+          <EntitySet Name="ProbabilisticPipingCalculationOutputEntities" EntityType="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutputEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RiskeerEntitiesModel.ProjectEntity" />
           <EntitySet Name="SemiProbabilisticPipingCalculationEntities" EntityType="RiskeerEntitiesModel.SemiProbabilisticPipingCalculationEntity" />
           <EntitySet Name="SemiProbabilisticPipingCalculationOutputEntities" EntityType="RiskeerEntitiesModel.SemiProbabilisticPipingCalculationOutputEntity" />
@@ -4668,13 +4668,13 @@
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
             <End Role="HeightStructuresOutputEntity" EntitySet="HeightStructuresOutputEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_0_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_0_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_0_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_0_0">
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutputs" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_1_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_1_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_1_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_1_0">
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutputs" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_1_0" Association="RiskeerEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0">
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
@@ -4860,9 +4860,9 @@
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
             <End Role="ProbabilisticPipingCalculationEntity" EntitySet="ProbabilisticPipingCalculationEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutput_2_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_2_0">
+          <AssociationSet Name="FK_ProbabilisticPipingCalculationOutputEntity_2_0" Association="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_2_0">
             <End Role="ProbabilisticPipingCalculationEntity" EntitySet="ProbabilisticPipingCalculationEntities" />
-            <End Role="ProbabilisticPipingCalculationOutput" EntitySet="ProbabilisticPipingCalculationOutputs" />
+            <End Role="ProbabilisticPipingCalculationOutputEntity" EntitySet="ProbabilisticPipingCalculationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_SemiProbabilisticPipingCalculationEntity_0_0" Association="RiskeerEntitiesModel.FK_SemiProbabilisticPipingCalculationEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -5360,8 +5360,8 @@
           <NavigationProperty Name="GrassCoverErosionInwardsOutputEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="GrassCoverErosionInwardsOutputEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsOvertoppingRateOutputEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="GrassCoverErosionInwardsOvertoppingRateOutputEntity" />
           <NavigationProperty Name="HeightStructuresOutputEntities" Relationship="RiskeerEntitiesModel.FK_HeightStructuresOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="HeightStructuresOutputEntity" />
-          <NavigationProperty Name="ProbabilisticPipingCalculationOutputs" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_0_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="ProbabilisticPipingCalculationOutput" />
-          <NavigationProperty Name="ProbabilisticPipingCalculationOutputs1" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="ProbabilisticPipingCalculationOutput" />
+          <NavigationProperty Name="ProbabilisticPipingCalculationOutputEntities" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_0_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="ProbabilisticPipingCalculationOutputEntity" />
+          <NavigationProperty Name="ProbabilisticPipingCalculationOutputEntities1" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="ProbabilisticPipingCalculationOutputEntity" />
           <NavigationProperty Name="StabilityPointStructuresOutputEntities" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="StabilityPointStructuresOutputEntity" />
           <NavigationProperty Name="TopLevelFaultTreeIllustrationPointEntities" Relationship="RiskeerEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_0_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="TopLevelFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="StochastEntities" Relationship="RiskeerEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="StochastEntity" />
@@ -6229,7 +6229,7 @@
           <Property Name="PhreaticLevelExitMean" Type="Double" />
           <Property Name="PhreaticLevelExitStandardDeviation" Type="Double" />
           <Property Name="DampingFactorExitMean" Type="Double" />
-          <Property Name="DampingFactorStandardDeviation" Type="Double" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="Double" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
           <Property Name="ScenarioContribution" Type="Double" />
           <Property Name="ShouldProfileSpecificIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
@@ -6238,9 +6238,9 @@
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationEntity_2_0" FromRole="ProbabilisticPipingCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="PipingStochasticSoilProfileEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationEntity_1_0" FromRole="ProbabilisticPipingCalculationEntity" ToRole="PipingStochasticSoilProfileEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationEntity_0_0" FromRole="ProbabilisticPipingCalculationEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="ProbabilisticPipingCalculationOutputs" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_2_0" FromRole="ProbabilisticPipingCalculationEntity" ToRole="ProbabilisticPipingCalculationOutput" />
+          <NavigationProperty Name="ProbabilisticPipingCalculationOutputEntities" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_2_0" FromRole="ProbabilisticPipingCalculationEntity" ToRole="ProbabilisticPipingCalculationOutputEntity" />
         </EntityType>
-        <EntityType Name="ProbabilisticPipingCalculationOutput">
+        <EntityType Name="ProbabilisticPipingCalculationOutputEntity">
           <Key>
             <PropertyRef Name="ProbabilisticPipingCalculationOutputEntityId" />
           </Key>
@@ -6251,9 +6251,9 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="ProfileSpecificReliability" Type="Double" />
           <Property Name="SectionSpecificReliability" Type="Double" />
-          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_0_0" FromRole="ProbabilisticPipingCalculationOutput" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
-          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity1" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_1_0" FromRole="ProbabilisticPipingCalculationOutput" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
-          <NavigationProperty Name="ProbabilisticPipingCalculationEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutput_2_0" FromRole="ProbabilisticPipingCalculationOutput" ToRole="ProbabilisticPipingCalculationEntity" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_0_0" FromRole="ProbabilisticPipingCalculationOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity1" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_1_0" FromRole="ProbabilisticPipingCalculationOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="ProbabilisticPipingCalculationEntity" Relationship="RiskeerEntitiesModel.FK_ProbabilisticPipingCalculationOutputEntity_2_0" FromRole="ProbabilisticPipingCalculationOutputEntity" ToRole="ProbabilisticPipingCalculationEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -7848,26 +7848,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_0_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_0_0">
           <End Type="RiskeerEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
-          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutput" Role="ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutputEntity" Role="ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
               <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="SectionSpecificGeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_1_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_1_0">
           <End Type="RiskeerEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
-          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutput" Role="ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutputEntity" Role="ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
               <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="ProfileSpecificGeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8424,14 +8424,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProbabilisticPipingCalculationOutput_2_0">
+        <Association Name="FK_ProbabilisticPipingCalculationOutputEntity_2_0">
           <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationEntity" Role="ProbabilisticPipingCalculationEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutput" Role="ProbabilisticPipingCalculationOutput" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutputEntity" Role="ProbabilisticPipingCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProbabilisticPipingCalculationEntity">
               <PropertyRef Name="ProbabilisticPipingCalculationEntityId" />
             </Principal>
-            <Dependent Role="ProbabilisticPipingCalculationOutput">
+            <Dependent Role="ProbabilisticPipingCalculationOutputEntity">
               <PropertyRef Name="ProbabilisticPipingCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -9687,7 +9687,7 @@
                 <ScalarProperty Name="ShouldProfileSpecificIllustrationPointsBeCalculated" ColumnName="ShouldProfileSpecificIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
                 <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
-                <ScalarProperty Name="DampingFactorStandardDeviation" ColumnName="DampingFactorStandardDeviation" />
+                <ScalarProperty Name="DampingFactorExitStandardDeviation" ColumnName="DampingFactorExitStandardDeviation" />
                 <ScalarProperty Name="DampingFactorExitMean" ColumnName="DampingFactorExitMean" />
                 <ScalarProperty Name="PhreaticLevelExitStandardDeviation" ColumnName="PhreaticLevelExitStandardDeviation" />
                 <ScalarProperty Name="PhreaticLevelExitMean" ColumnName="PhreaticLevelExitMean" />
@@ -9704,9 +9704,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProbabilisticPipingCalculationOutputs">
-            <EntityTypeMapping TypeName="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutput">
-              <MappingFragment StoreEntitySet="ProbabilisticPipingCalculationOutput">
+          <EntitySetMapping Name="ProbabilisticPipingCalculationOutputEntities">
+            <EntityTypeMapping TypeName="RiskeerEntitiesModel.ProbabilisticPipingCalculationOutputEntity">
+              <MappingFragment StoreEntitySet="ProbabilisticPipingCalculationOutputEntity">
                 <ScalarProperty Name="SectionSpecificReliability" ColumnName="SectionSpecificReliability" />
                 <ScalarProperty Name="ProfileSpecificReliability" ColumnName="ProfileSpecificReliability" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
