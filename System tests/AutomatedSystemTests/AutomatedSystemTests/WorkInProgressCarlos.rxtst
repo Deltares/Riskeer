@@ -37,8 +37,27 @@
 			<smartfoldernode
 			id="0ea64a10-b851-483d-b6e7-191ec235dd62"
 			name="ChangeBoundaries">
+				<parameters>
+					<param
+					name="valueToSetParameterForItemInTraject"
+					value="1/4000">
+					</param>
+					<param
+					name="substringTrajectName"
+					value="Traject 12-2">
+					</param>
+					<param
+					name="substringNameItemInTraject"
+					value="Normen">
+					</param>
+					<param
+					name="nameOfParameterInPropertiesPanel"
+					value="Signaleringswaarde [1/jaar]">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="2014eed3-0d67-4462-b5d6-097a95f953fb"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -49,6 +68,38 @@
 					datasourceid="c59b68aa-1950-43de-b6c6-a5fba481e285"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3e76f4c1-f4cf-4d04-977d-93939f266a73"
+			name="SetValueParameterForItemInTraject"
+			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="valueToSetParameterForItemInTraject"
+					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
+					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringNameItemInTraject"
+					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="nameOfParameterInPropertiesPanel"
+					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -137,6 +188,12 @@
 			id="d1b62e06-c970-4653-b06d-bfcaa80c2eea"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
+			<testmodule
+			id="d7566500-3599-4dcb-889e-baea665bdac4"
+			name="ConfirmActionInDialog"
+			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="d9bd01df-f9b4-4c7c-b752-f69506000b9e"
 			name="AddNewTraject"
@@ -237,6 +294,14 @@
 						<smartfoldernode
 						id="0ea64a10-b851-483d-b6e7-191ec235dd62"
 						name="ChangeBoundaries">
+							<testmodule
+							id="3e76f4c1-f4cf-4d04-977d-93939f266a73"
+							name="SetValueParameterForItemInTraject">
+							</testmodule>
+							<testmodule
+							id="d7566500-3599-4dcb-889e-baea665bdac4"
+							name="ConfirmActionInDialog">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
