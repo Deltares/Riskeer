@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Properties;
@@ -189,12 +190,14 @@ namespace Riskeer.Piping.Service
             }
             else
             {
-                if (double.IsNaN(PipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue()))
+                VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(input);
+                if (double.IsNaN(darcyPermeability.Mean) || double.IsNaN(darcyPermeability.CoefficientOfVariation))
                 {
                     yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability;
                 }
 
-                if (double.IsNaN(PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue()))
+                VariationCoefficientLogNormalDistribution diameter70 = DerivedPipingInput.GetDiameterD70(input);
+                if (double.IsNaN(diameter70.Mean) || double.IsNaN(diameter70.CoefficientOfVariation))
                 {
                     yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70;
                 }
