@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -70,9 +72,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int diameter70PropertyIndex = 13;
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 15;
-        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 16;
-        private const int numberOfCategories = 4;
+        private const int sectionNamePropertyIndex = 15;
+        private const int sectionLengthPropertyIndex = 16;
+
+        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 17;
+        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 18;
+        private const int numberOfCategories = 5;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -151,6 +156,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailablePipingSurfaceLines;
+        }
+
+        private FailureMechanismSection GetSection()
+        {
+            return data.FailureMechanism
+                       .Sections
+                       .FirstOrDefault(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
         }
 
         #region Hydraulic data
@@ -392,10 +404,40 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         #endregion
 
+        #region Section information
+
+        [PropertyOrder(sectionNamePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, numberOfCategories)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
+        public string SectionName
+        {
+            get
+            {
+                FailureMechanismSection failureMechanismSection = GetSection();
+                return failureMechanismSection == null ? "-" : failureMechanismSection.Name;
+            }
+        }
+
+        [PropertyOrder(sectionLengthPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, numberOfCategories)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_Description))]
+        public RoundedDouble SectionLength
+        {
+            get
+            {
+                FailureMechanismSection failureMechanismSection = GetSection();
+                return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
+            }
+        }
+
+        #endregion
+
         #region Illustration points
 
         [PropertyOrder(shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ProfileSpecificCalculation), 3, numberOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ProfileSpecificCalculation), 4, numberOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldProfileSpecificIllustrationPointsBeCalculated
@@ -409,7 +451,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [PropertyOrder(shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SectionSpecificCalculation), 4, numberOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SectionSpecificCalculation), 5, numberOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldSectionSpecificIllustrationPointsBeCalculated
