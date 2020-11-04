@@ -36,20 +36,13 @@ namespace AutomatedSystemTests.Modules.Validation
 
         public void CompareValuesCultureInvariant(RepoItemInfo cellInfo, string expectedValue)
         {
-            Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating AttributeEqual (AccessibleValue=$expectedValue) on item 'cellInfo'.", cellInfo);
-            var currentValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
-            if (currentValue==expectedValue) {
-            	Validate.AttributeEqual(cellInfo, "AccessibleValue", expectedValue);
-            }
-            else {
-            	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            	Report.Log(ReportLevel.Info, "Validation", "Value found: " + currentValue + " is not equal to expected value: " + expectedValue + "\r\nEvaluating whether they are almost (within 0.01%) equal...");
-            	var expectedDouble = 1.0/(Double.Parse(expectedValue.Substring(2,expectedValue.Length-2), currentCulture));
-            	var currentDouble = 1.0/(Double.Parse(currentValue.Substring(2,currentValue.Length-2), currentCulture));
-            	var deviation = Math.Abs(100.0*(expectedDouble - currentDouble) / expectedDouble);
-            	Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
-            	Validate.IsTrue(deviation<0.01);
-            }
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            expectedValue = expectedValue.Replace(" ", String.Empty).Replace(".", String.Empty);
+        	Report.Log(ReportLevel.Info, "Info", expectedValue, cellInfo);
+        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='" + expectedValue.ToString() + "') on item 'cellInfo'.", cellInfo);
+        	string foundValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<String>("AccessibleValue");
+        	foundValue = foundValue.Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
+            Validate.AreEqual(foundValue, expectedValue);
         }
     }
 }
