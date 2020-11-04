@@ -60,23 +60,8 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
             
             Ranorex.Row currentRow = propertiesPanelAdapter.As<Table>().Rows.ToList()[0];
-            bool mustContinue = true;
-            int numberIterations = 0;
             currentRow.Focus();
-            currentRow.PressKeys("{Right 150}");
-            //int numberOfRows = 
-            //while (mustContinue) {
-                //numberIterations++;
-                //currentRow.PressKeys("{Right}", Duration.Zero);
-                //propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
-                //if (currentRow.Element.GetAttributeValueText("AccessibleState").Contains("Focused")) {
-                //    mustContinue = false;
-                //}
-                //if (numberIterations==150) {
-                //    mustContinue = false;
-                //}
-                //Report.Log(ReportLevel.Info, "Iterations = " + numberIterations.ToString());
-            //}
+            currentRow.PressKeys("{Right " + durationPressRightKey + "}");
         }
     }
 }

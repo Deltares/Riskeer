@@ -6576,14 +6576,6 @@
 					variablename="manualAssessmentValue">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="manualProbability"
-					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
-					variableid="ce927eca-be65-4318-9592-be61b0287989"
-					variablename="expectedCustomAssessmentValue">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="f11594e3-a8b2-4605-88fa-1210eeb37959"

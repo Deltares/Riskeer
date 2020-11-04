@@ -24,37 +24,37 @@ namespace AutomatedSystemTests.Modules.Calculation
     /// Description of CalculateNameOfCopiedCalculationFromNameOfOriginalCalculation.
     /// </summary>
     [TestModule("59C93BDA-2F66-419C-8C73-506536AC6587", ModuleType.UserCode, 1)]
-    public class CalculatePathOfCopiedCalculationItemFromNameOfOriginalCalculationItem : ITestModule
+    public class InsertPreffixInLastStepOfPath : ITestModule
     {
         
-        string _pathOriginalCalculation = "";
+        string _originalPathItem = "";
         [TestVariable("49ba6196-e160-44ef-82e0-97affcff7e03")]
-        public string pathOriginalCalculation
+        public string originalPathItem
         {
-            get { return _pathOriginalCalculation; }
-            set { _pathOriginalCalculation = value; }
+            get { return _originalPathItem; }
+            set { _originalPathItem = value; }
         }
         
-        string _pathCopyCalculation = "";
+        string _finalPathItem = "";
         [TestVariable("eb85040d-f099-45ee-8f59-9e8180d4b6cf")]
-        public string pathCopyCalculation
+        public string finalPathItem
         {
-            get { return _pathCopyCalculation; }
-            set { _pathCopyCalculation = value; }
+            get { return _finalPathItem; }
+            set { _finalPathItem = value; }
         }
         
-        string _preffixCopyCalculation = "";
+        string _preffixToInsert = "";
         [TestVariable("2fc04d49-bfb1-41ea-99e2-6181637f22cb")]
-        public string preffixCopyCalculation
+        public string preffixToInsert
         {
-            get { return _preffixCopyCalculation; }
-            set { _preffixCopyCalculation = value; }
+            get { return _preffixToInsert; }
+            set { _preffixToInsert = value; }
         }
         
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CalculatePathOfCopiedCalculationItemFromNameOfOriginalCalculationItem()
+        public InsertPreffixInLastStepOfPath()
         {
             // Do not delete - a parameterless constructor is required!
         }
@@ -71,10 +71,10 @@ namespace AutomatedSystemTests.Modules.Calculation
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
-            int idx = pathOriginalCalculation.LastIndexOf('>');
+            int indexToInsertPreffix = originalPathItem.LastIndexOf('>');
             
-            pathCopyCalculation = pathOriginalCalculation.Substring(0, idx+1) + preffixCopyCalculation + pathOriginalCalculation.Substring(idx + 1);
-            
+            finalPathItem = originalPathItem.Substring(0, indexToInsertPreffix+1) + preffixToInsert + originalPathItem.Substring(indexToInsertPreffix + 1);
+            Report.Log(ReportLevel.Info, "CalculatePathOfCopiedCalculationItemFromNameOfOriginalCalculationItem:::  pathOriginalCalculation: " + originalPathItem + " pathCopyCalculation: " + finalPathItem);
         }
     }
 }

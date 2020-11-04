@@ -76,6 +76,9 @@ namespace AutomatedSystemTests.Modules.Calculation
             Delay.SpeedFactor = 0.0;
             
             concatenatedString = string1 + string2;
+            
+            
+            Report.Log(ReportLevel.Info, "ConcatenateStrings::  string1:" + string1 + " string2: " + string2 + " concatenatedString: " + concatenatedString);
         }
     }
 }
