@@ -163,16 +163,17 @@ namespace Riskeer.Piping.Service
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
 
-            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
             double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
 
-            validationResults.AddRange(ValidateAquiferLayers(input, pipingSoilProfile, surfaceLevel));
-            validationResults.AddRange(ValidateCoverageLayers(input, generalInput, pipingSoilProfile, surfaceLevel));
+            validationResults.AddRange(ValidateAquiferLayers(input, surfaceLevel));
+            validationResults.AddRange(ValidateCoverageLayers(input, generalInput, surfaceLevel));
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input, double surfaceLevel)
         {
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+
             if (!pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).Any())
             {
                 yield return Resources.PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine;
@@ -194,8 +195,10 @@ namespace Riskeer.Piping.Service
         }
 
         private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, GeneralPipingInput generalInput,
-                                                                  PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+                                                                  double surfaceLevel)
         {
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+
             if (pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any())
             {
                 LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
@@ -206,11 +209,10 @@ namespace Riskeer.Piping.Service
                     {
                         yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight;
                     }
-                }
-
-                if (PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue() < generalInput.WaterVolumetricWeight)
-                {
-                    yield return Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
+                    else if (PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue() < generalInput.WaterVolumetricWeight)
+                    {
+                        yield return Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
+                    }
                 }
             }
         }
