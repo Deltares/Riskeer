@@ -177,7 +177,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
             validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input));
-            validationResults.AddRange(ValidateCoverageLayers(input, generalInput));
+
+            if (!validationResults.Any())
+            {
+                validationResults.AddRange(ValidateCoverageLayers(input, generalInput));
+            }
 
             return validationResults;
         }
