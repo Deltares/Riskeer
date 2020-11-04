@@ -191,13 +191,13 @@ namespace Riskeer.Piping.Service
             else
             {
                 VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(input);
-                if (double.IsNaN(darcyPermeability.Mean) || double.IsNaN(darcyPermeability.CoefficientOfVariation))
+                if (IsInvalidDistributionValue(darcyPermeability.Mean) || IsInvalidDistributionValue(darcyPermeability.CoefficientOfVariation))
                 {
                     yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability;
                 }
 
                 VariationCoefficientLogNormalDistribution diameter70 = DerivedPipingInput.GetDiameterD70(input);
-                if (double.IsNaN(diameter70.Mean) || double.IsNaN(diameter70.CoefficientOfVariation))
+                if (IsInvalidDistributionValue(diameter70.Mean) || IsInvalidDistributionValue(diameter70.CoefficientOfVariation))
                 {
                     yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70;
                 }
@@ -209,18 +209,26 @@ namespace Riskeer.Piping.Service
         {
             if (pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any())
             {
-                RoundedDouble saturatedVolumicWeightOfCoverageLayer =
-                    PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
-
-                if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
+                LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
+                if (!double.IsNaN(thicknessCoverageLayer.Mean))
                 {
-                    yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight;
+                    LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
+                    if (IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.Mean) || IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.StandardDeviation))
+                    {
+                        yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight;
+                    }
                 }
-                else if (saturatedVolumicWeightOfCoverageLayer < generalInput.WaterVolumetricWeight)
+
+                if (PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue() < generalInput.WaterVolumetricWeight)
                 {
                     yield return Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
                 }
             }
+        }
+
+        private static bool IsInvalidDistributionValue(RoundedDouble value)
+        {
+            return double.IsNaN(value) || double.IsInfinity(value);
         }
     }
 }
