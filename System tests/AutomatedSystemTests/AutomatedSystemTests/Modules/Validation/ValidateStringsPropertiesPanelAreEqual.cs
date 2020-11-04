@@ -43,6 +43,16 @@ namespace AutomatedSystemTests.Modules.Validation
             set { _string2PropertiesPanel = value; }
         }
         
+        
+        string _maximumNumberOfRowsToValidate = "";
+        [TestVariable("232d6741-c204-4ddb-9432-b4a4f1a7038f")]
+        public string maximumNumberOfRowsToValidate
+        {
+            get { return _maximumNumberOfRowsToValidate; }
+            set { _maximumNumberOfRowsToValidate = value; }
+        }
+        
+        
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
@@ -65,7 +75,11 @@ namespace AutomatedSystemTests.Modules.Validation
             
                 var list1 = string1PropertiesPanel.Substring(1,string1PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
                 var list2 = string2PropertiesPanel.Substring(1,string2PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
-                for (int idx = 0; idx < list1.Length; idx++) {
+                int maxIndex = Math.Min(list1.Length, list2.Length);
+                if (maximumNumberOfRowsToValidate!="") {
+                    maxIndex = Math.Min(maxIndex, Int32.Parse(maximumNumberOfRowsToValidate));
+                }
+                for (int idx = 0; idx < maxIndex; idx++) {
                     var elements1 = list1[idx].Split(';');
                     var elements2 = list2[idx].Split(';');
                     if (elements1[1]==elements2[1]) {

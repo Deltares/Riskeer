@@ -59,8 +59,8 @@ namespace AutomatedSystemTests.Modules.Selection
         				children = stepChild.Children;
         				// Expand if intermediate node is collased
         			    var stateIntermediateChild = stepChild.Element.GetAttributeValueText("AccessibleState");
+        			    stepChild.Focus();
         			    if (stateIntermediateChild.Contains("Collapsed")) {
-        			        stepChild.Focus();
         			        stepChild.Expand();
         			         }
         				} else {

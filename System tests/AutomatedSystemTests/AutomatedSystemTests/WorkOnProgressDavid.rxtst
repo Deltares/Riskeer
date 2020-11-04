@@ -67,6 +67,8 @@
 			<smartfoldernode
 			datasource="script27aGroup1CalculationsToCopyAndValidate"
 			id="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
+			maxrange="5"
+			minrange="5"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -154,6 +156,12 @@
 					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
 					variablename="string2PropertiesPanel">
+					</var>
+					<var
+					dataname="maxRowsToValidate"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
+					variablename="maximumNumberOfRowsToValidate">
 					</var>
 				</databinding>
 			</testmodule>
@@ -375,32 +383,13 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="28e579c8-9895-4400-9724-88037f53f328"
-			name="LogMessage"
-			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToCopiedCalculation"
-					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script27a_ItemsToValidateInCalculation"
+			errorbehavior="ContinueNextIteration"
 			id="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 			maxrange="1"
 			minrange="1"
 			name="LoopItemsToValidateInCalculation">
-				<parameters>
-					<param
-					name="waitTimeUntilReadingPropertiesPanelContent"
-					value="300">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
@@ -429,16 +418,22 @@
 			name="teardown">
 			</teardown>
 			<testmodule
-			id="371d0c49-d884-4e86-909e-e1620625b58d"
-			name="LogMessage"
-			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
-			type="Recording">
+			id="355dd6ff-92be-4804-bd73-04284b6c9a16"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
 				<databinding>
 					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
+					dataname="rowsOfItemsToCompare"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+					<var
+					dataname="smartFolderToSetRange"
+					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
 			</testmodule>
@@ -450,14 +445,14 @@
 				<databinding>
 					<var
 					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="waitTime"
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
 					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
@@ -550,14 +545,14 @@
 				<databinding>
 					<var
 					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="waitTime"
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
 					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
@@ -864,6 +859,12 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="8461a883-fa43-4f6f-a49d-e05c65708bb0"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="85f12fad-dc5b-418a-90d6-796c4fcbf439"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -871,15 +872,15 @@
 				<databinding>
 					<var
 					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="waitTime"
-					datasourceid="9e2ca6b0-b53f-480b-aabd-d0512e5f3996"
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
 					</var>
@@ -937,20 +938,6 @@
 			id="8d192fcd-cdb2-492a-880e-e3f7b2283e88"
 			name="setup">
 			</setup>
-			<testmodule
-			id="8fad0808-34fa-484f-b55f-e13f3f18d718"
-			name="LogMessage"
-			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
-					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e"
 			name="a)DuplicationOfCalculations">
@@ -1026,6 +1013,12 @@
 					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
 					variablename="string2PropertiesPanel">
+					</var>
+					<var
+					dataname="maxRowsToValidate"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
+					variablename="maximumNumberOfRowsToValidate">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1329,6 +1322,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="da5fff66-2225-4c1b-9c49-23928d144375"
+			name="SetRangeOfItemsToValidate">
+				<parameters>
+					<param
+					name="smartFolderToSetRange"
+					value="LoopItemsToValidateInCalculation">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="e0e5dabb-2372-43e2-a007-75bf8d571b89"
 			name="ComparePlainTextFiles"
@@ -1671,10 +1674,6 @@
 								<smartfoldernode
 								id="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 								name="LoopFMs">
-									<testmodule
-									id="a962f501-dc86-4f91-aae5-606e3bbcf1bc"
-									name="HideRanorexProgressDialog">
-									</testmodule>
 									<smartfoldernode
 									id="d2ea990a-8b51-400c-a28e-0f1e7a2fc116"
 									name="CalculatePathToOriginalCalculation">
@@ -1779,19 +1778,19 @@
 									id="4ec44d85-626e-4b20-b6c5-47f18b24e2b1"
 									name="ValidateCopiesOfCalculation">
 										<smartfoldernode
+										id="da5fff66-2225-4c1b-9c49-23928d144375"
+										name="SetRangeOfItemsToValidate">
+											<testmodule
+											id="355dd6ff-92be-4804-bd73-04284b6c9a16"
+											name="SetRangeInSmartFolder">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
 										id="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 										name="LoopItemsToValidateInCalculation">
 											<testmodule
-											id="371d0c49-d884-4e86-909e-e1620625b58d"
-											name="LogMessage">
-											</testmodule>
-											<testmodule
-											id="28e579c8-9895-4400-9724-88037f53f328"
-											name="LogMessage">
-											</testmodule>
-											<testmodule
-											id="8fad0808-34fa-484f-b55f-e13f3f18d718"
-											name="LogMessage">
+											id="a962f501-dc86-4f91-aae5-606e3bbcf1bc"
+											name="HideRanorexProgressDialog">
 											</testmodule>
 											<smartfoldernode
 											id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
@@ -1865,6 +1864,10 @@
 												name="ConvertPropertiesPanelToString">
 												</testmodule>
 											</smartfoldernode>
+											<testmodule
+											id="8461a883-fa43-4f6f-a49d-e05c65708bb0"
+											name="ShowRanorexProgressDialog">
+											</testmodule>
 											<smartfoldernode
 											id="872f521e-1070-4643-ab40-c35d3b231507"
 											name="ValidateParametersAreEqualInCopyCalculation">
@@ -5213,7 +5216,7 @@
 		</DataSource>
 		<DataSource
 		id="7d0ad035-5052-4901-bc91-913ef3498490"
-		lastknownrowcount="2"
+		lastknownrowcount="14"
 		name="script27a_ItemsToValidateInCalculation"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5225,6 +5228,12 @@
 				</column>
 				<column>
 					durationToExpandAllParametersInItem
+				</column>
+				<column>
+					waitTimeUntilReadingPropertiesPanelContent
+				</column>
+				<column>
+					maxRowsToValidate
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5240,6 +5249,12 @@
 					<th>
 						durationToExpandAllParametersInItem
 					</th>
+					<th>
+						waitTimeUntilReadingPropertiesPanelContent
+					</th>
+					<th>
+						maxRowsToValidate
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -5250,6 +5265,11 @@
 					</td>
 					<td>
 						150
+					</td>
+					<td>
+						100
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -5262,12 +5282,212 @@
 					<td>
 						50
 					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						&gt;Invoer
+					</td>
+					<td>
+						50
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						2800
+					</td>
+					<td>
+						1000
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						&gt;Invoer
+					</td>
+					<td>
+						150
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						5000
+					</td>
+					<td>
+						2500
+					</td>
+					<td>
+						400
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						&gt;Invoer
+					</td>
+					<td>
+						150
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						5000
+					</td>
+					<td>
+						2500
+					</td>
+					<td>
+						400
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						&gt;Invoer
+					</td>
+					<td>
+						150
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						5000
+					</td>
+					<td>
+						2500
+					</td>
+					<td>
+						400
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						&gt;Invoer
+					</td>
+					<td>
+						500
+					</td>
+					<td>
+						500
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						100
+					</td>
+					<td>
+					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-		lastknownrowcount="1"
+		lastknownrowcount="6"
 		name="script27aGroup1CalculationsToCopyAndValidate"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5279,6 +5499,9 @@
 				</column>
 				<column>
 					nameOriginalCalculation
+				</column>
+				<column>
+					rowsOfItemsToCompare
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5294,6 +5517,9 @@
 					<th>
 						nameOriginalCalculation
 					</th>
+					<th>
+						rowsOfItemsToCompare
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -5304,6 +5530,79 @@
 					</td>
 					<td>
 						12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						1-2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						12-2 GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+					</td>
+					<td>
+						profiel001
+					</td>
+					<td>
+						3-6
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						34-1 BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+					</td>
+					<td>
+						'Amersluis'
+					</td>
+					<td>
+						8
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						36-2 HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+					</td>
+					<td>
+						'Keersluis Cuijk'
+					</td>
+					<td>
+						9-10
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						44-2 STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+					</td>
+					<td>
+						Kunstwerk1
+					</td>
+					<td>
+						11-12
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						41-1 STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+					</td>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D2
+					</td>
+					<td>
+						13-14
 					</td>
 				</tr>
 			</table>
@@ -5375,6 +5674,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d2ea990a-8b51-400c-a28e-0f1e7a2fc116">
+			</testcontainer>
+			<testcontainer
+			id="da5fff66-2225-4c1b-9c49-23928d144375">
 			</testcontainer>
 			<testcontainer
 			id="f298578a-5e42-44e8-840c-8c8fca87e3f1">
