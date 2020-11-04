@@ -190,6 +190,11 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script07_ExpectedBoundaryCategories"
+			id="0a57be93-765c-4c1d-b82b-41fa47b1de47"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1"
 			name="LoopFMsGeneralFormula">
@@ -931,6 +936,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="3a4f0450-6e8c-4dbe-b171-24e3b1381f2b"
+			name="OpenTrajectNormenView"
+			ref="d4189ba6-04e4-4c32-a503-2b635376521a"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="3fc0ec68-494f-438a-a685-cbf0ae2420f3"
 			name="CopyFile"
 			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
@@ -1062,6 +1081,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<teardown
+			id="4241c2f1-b584-4ef4-b9cd-cd73257d6e88"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="tableFMsFormulaGroup1N"
 			id="42425944-15c7-418b-b5cd-a582e15b80df"
@@ -1671,6 +1694,38 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="60a3b7d4-cec8-4db1-9c0a-fde0e86eb428"
+			name="SetValueWithKeyPressParameterForItemInTraject"
+			ref="e550d732-7780-4b40-a989-f787f458a7c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="ItemInTraject"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="Parameter"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="Value"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="60e53209-a978-4c5a-817e-3b4685b8922b"
 			name="OpenViewForCategoryBoundaries"
 			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
@@ -1690,6 +1745,11 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script07_updated_norm"
+			id="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+			name="ChangeBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="622bed72-4898-4d20-b9a5-d40c869cdd75"
 			name="SelectGenericItemInProjectExplorer"
@@ -1727,6 +1787,38 @@
 					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
 					variableid="d88257d3-e0b0-4347-a7ac-d38c9b08e655"
 					variablename="lengthParameter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="62f8c8fc-2bc9-4ea0-8355-6bd2b04decab"
+			name="AddNewTraject"
+			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="NormType"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+					variablename="lowLimitValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1840,6 +1932,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testcase
+			id="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+			name="script07_Toetseis_op_trajectniveau_bepalen">
+				<parameters>
+					<param
+					name="TrajectName"
+					value="12-2">
+					</param>
+					<param
+					name="NormType"
+					value="SignallingValue">
+					</param>
+					<param
+					name="SignallingValue"
+					value="">
+					</param>
+					<param
+					name="LowLimitValue"
+					value="">
+					</param>
+				</parameters>
+			</testcase>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
 			name="setup">
@@ -1943,6 +2057,26 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="73385f1b-35d1-439f-b431-4a488b071a75"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2224,6 +2358,10 @@
 			id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="85368837-2aad-4048-bd53-0143d14c5b6b"
+			name="PrepareRiskeer">
+			</smartfoldernode>
 			<testmodule
 			id="85c62712-bbe5-489f-965e-90fd6852f168"
 			name="AddNewTraject"
@@ -2438,6 +2576,20 @@
 					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="99933d10-cd8e-4060-bf31-6e443cff42cd"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2803,6 +2955,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="b64fe96d-bcf6-4fe7-a4ad-fd8942bdebe5"
+			name="ConfirmActionInDialog"
+			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsToAdjustValueDeltaL"
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
@@ -3036,6 +3194,11 @@
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
 			name="ValidateChartsInCalculations">
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script07_Validate_updated_category_boundaries"
+			id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="c3744923-020e-4304-b830-2ea9ca446b46"
 			name="GetValueParameterForItemInTraject"
@@ -3214,6 +3377,64 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="c9dc0d50-524d-4cfc-b583-f0fe8fec7d84"
+			name="ValidateTrajectCategoryBoundaryRow"
+			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="upperBoundary"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="upperBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="ca88852d-a16f-4e5f-b5cf-b4e3f894a961"
 			name="CreateOutputFolder"
 			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
@@ -3384,6 +3605,38 @@
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
 			name="ControlFailureMechanismContributions">
 			</smartfoldernode>
+			<testmodule
+			id="d4fdbaef-a964-4fee-8868-6aa7f2717011"
+			name="ValidateTrajectCategoryBoundaryRow"
+			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="upperBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="d5b53eb4-b138-4c8d-9f51-644ab631b55f"
 			name="DeleteFileIfExists"
@@ -3931,6 +4184,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<setup
+			id="f68dc210-0b6e-4557-b08f-7eb65f81a5d3"
+			name="setup">
+			</setup>
 			<testmodule
 			id="f7762215-f00a-4666-b637-54e2d1b83e96"
 			name="DeleteFileIfExists"
@@ -4382,6 +4639,66 @@
 						name="teardown">
 							<testmodule
 							id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					name="script07_Toetseis_op_trajectniveau_bepalen">
+						<setup
+						id="f68dc210-0b6e-4557-b08f-7eb65f81a5d3"
+						name="setup">
+							<testmodule
+							id="73385f1b-35d1-439f-b431-4a488b071a75"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="85368837-2aad-4048-bd53-0143d14c5b6b"
+						name="PrepareRiskeer">
+							<testmodule
+							id="62f8c8fc-2bc9-4ea0-8355-6bd2b04decab"
+							name="AddNewTraject">
+							</testmodule>
+							<testmodule
+							id="3a4f0450-6e8c-4dbe-b171-24e3b1381f2b"
+							name="OpenTrajectNormenView">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="0a57be93-765c-4c1d-b82b-41fa47b1de47"
+						name="ValidateCategoryBoundaries">
+							<testmodule
+							id="d4fdbaef-a964-4fee-8868-6aa7f2717011"
+							name="ValidateTrajectCategoryBoundaryRow">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+						name="ChangeBoundaries">
+							<testmodule
+							id="60a3b7d4-cec8-4db1-9c0a-fde0e86eb428"
+							name="SetValueWithKeyPressParameterForItemInTraject">
+							</testmodule>
+							<testmodule
+							id="b64fe96d-bcf6-4fe7-a4ad-fd8942bdebe5"
+							name="ConfirmActionInDialog">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6"
+						name="ValidateCategoryBoundaries">
+							<testmodule
+							id="c9dc0d50-524d-4cfc-b583-f0fe8fec7d84"
+							name="ValidateTrajectCategoryBoundaryRow">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="4241c2f1-b584-4ef4-b9cd-cd73257d6e88"
+						name="teardown">
+							<testmodule
+							id="99933d10-cd8e-4060-bf31-6e443cff42cd"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -16894,6 +17211,288 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+		lastknownrowcount="5"
+		name="script07_ExpectedBoundaryCategories"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					boundaryCategory
+				</column>
+				<column>
+					lowerBoundary
+				</column>
+				<column>
+					upperBoundary
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						boundaryCategory
+					</th>
+					<th>
+						lowerBoundary
+					</th>
+					<th>
+						upperBoundary
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						A+
+					</td>
+					<td>
+						1/Oneindig
+					</td>
+					<td>
+						1/90000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						A
+					</td>
+					<td>
+						1/90000
+					</td>
+					<td>
+						1/3000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						B
+					</td>
+					<td>
+						1/3000
+					</td>
+					<td>
+						1/1000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						C
+					</td>
+					<td>
+						1/1000
+					</td>
+					<td>
+						1/33
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						D
+					</td>
+					<td>
+						1/33
+					</td>
+					<td>
+						1/1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f3332522-21a5-4685-b856-9b552b60b138"
+		lastknownrowcount="2"
+		name="script07_updated_norm"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					TrajectName
+				</column>
+				<column>
+					ItemInTraject
+				</column>
+				<column>
+					Parameter
+				</column>
+				<column>
+					Value
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						TrajectName
+					</th>
+					<th>
+						ItemInTraject
+					</th>
+					<th>
+						Parameter
+					</th>
+					<th>
+						Value
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2
+					</td>
+					<td>
+						Normen
+					</td>
+					<td>
+						Signaleringswaarde [1/jaar]
+					</td>
+					<td>
+						1/4000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2
+					</td>
+					<td>
+						Normen
+					</td>
+					<td>
+						Ondergrens [1/jaar]
+					</td>
+					<td>
+						1/2000
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="2c040547-7753-46ad-bc7f-2af8c503e644"
+		lastknownrowcount="5"
+		name="script07_Validate_updated_category_boundaries"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					boundaryCategory
+				</column>
+				<column>
+					lowerBoundary
+				</column>
+				<column>
+					upperBoundary
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						boundaryCategory
+					</th>
+					<th>
+						lowerBoundary
+					</th>
+					<th>
+						upperBoundary
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						A+
+					</td>
+					<td>
+						1/Oneindig
+					</td>
+					<td>
+						1/120000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						A
+					</td>
+					<td>
+						1/120000
+					</td>
+					<td>
+						1/4000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						B
+					</td>
+					<td>
+						1/4000
+					</td>
+					<td>
+						1/2000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						C
+					</td>
+					<td>
+						1/2000
+					</td>
+					<td>
+						1/67
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						D
+					</td>
+					<td>
+						1/67
+					</td>
+					<td>
+						1/1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -16919,6 +17518,9 @@
 			</testcontainer>
 			<testcontainer
 			id="0a0d9792-5b24-45f6-ae6d-dc982e3702be">
+			</testcontainer>
+			<testcontainer
+			id="0a57be93-765c-4c1d-b82b-41fa47b1de47">
 			</testcontainer>
 			<testcontainer
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
@@ -16984,7 +17586,13 @@
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
 			</testcontainer>
 			<testcontainer
+			id="61a3c232-ceec-4a8c-a03b-c97ff03911f2">
+			</testcontainer>
+			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
@@ -17003,6 +17611,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
+			</testcontainer>
+			<testcontainer
+			id="85368837-2aad-4048-bd53-0143d14c5b6b">
 			</testcontainer>
 			<testcontainer
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
@@ -17045,6 +17656,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
+			</testcontainer>
+			<testcontainer
+			id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6">
 			</testcontainer>
 			<testcontainer
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">

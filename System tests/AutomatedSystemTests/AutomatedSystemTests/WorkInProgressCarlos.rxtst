@@ -40,7 +40,6 @@
 			name="ChangeBoundaries">
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="2014eed3-0d67-4462-b5d6-097a95f953fb"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -73,7 +72,66 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<testmodule
+			id="6e7c85a4-dcf0-49d5-a14d-2a108660935c"
+			name="ValidateTrajectCategoryBoundaryRow"
+			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="upperBoundary"
+					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="upperBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
+					variablename="upperBoundary">
+					</var>
+					<var
+					dataname="lowerBoundary"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
+					variablename="lowerBoundary">
+					</var>
+					<var
+					dataname="boundaryCategory"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
+					variablename="boundaryCategory">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
+			datasource="script07_Validate_updated_category_boundaries"
 			id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
@@ -289,6 +347,10 @@
 						<smartfoldernode
 						id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
 						name="ValidateCategoryBoundaries">
+							<testmodule
+							id="6e7c85a4-dcf0-49d5-a14d-2a108660935c"
+							name="ValidateTrajectCategoryBoundaryRow">
+							</testmodule>
 						</smartfoldernode>
 						<teardown
 						id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
@@ -474,6 +536,114 @@
 					</td>
 					<td>
 						1/2000
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="2c040547-7753-46ad-bc7f-2af8c503e644"
+		lastknownrowcount="5"
+		name="script07_Validate_updated_category_boundaries"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					boundaryCategory
+				</column>
+				<column>
+					lowerBoundary
+				</column>
+				<column>
+					upperBoundary
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						boundaryCategory
+					</th>
+					<th>
+						lowerBoundary
+					</th>
+					<th>
+						upperBoundary
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						A+
+					</td>
+					<td>
+						1/Oneindig
+					</td>
+					<td>
+						1/120000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						A
+					</td>
+					<td>
+						1/120000
+					</td>
+					<td>
+						1/4000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						B
+					</td>
+					<td>
+						1/4000
+					</td>
+					<td>
+						1/2000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						C
+					</td>
+					<td>
+						1/2000
+					</td>
+					<td>
+						1/67
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						D
+					</td>
+					<td>
+						1/67
+					</td>
+					<td>
+						1/1
 					</td>
 				</tr>
 			</table>
