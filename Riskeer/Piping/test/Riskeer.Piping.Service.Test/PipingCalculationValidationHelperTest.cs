@@ -244,13 +244,13 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             var surfaceLine = new PipingSurfaceLine(string.Empty);
-            
+
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.3),
                 new Point3D(1.0, 0, 3.3)
             });
-            
+
             var profile = new PipingSoilProfile(string.Empty, 0, new[]
             {
                 new PipingSoilLayer(4.3)
@@ -275,56 +275,6 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             Assert.AreEqual(1, messages.Count());
             const string expectedMessage = "Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden.";
-            Assert.AreEqual(expectedMessage, messages.ElementAt(0));
-        }
-
-        [Test]
-        [TestCase(6.2e-5)]
-        [TestCase(5.1e-3)]
-        public void GetValidationWarnings_InvalidDiameterD70Value_ReturnsMessage(double diameter70Value)
-        {
-            // Setup
-            var random = new Random(21);
-            var coverageLayerInvalidD70 = new PipingSoilLayer(5.0)
-            {
-                IsAquifer = true,
-                Permeability = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 1,
-                    CoefficientOfVariation = (RoundedDouble) 0.5
-                },
-                DiameterD70 = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) diameter70Value,
-                    CoefficientOfVariation = (RoundedDouble) 0
-                }
-            };
-            var validLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
-            {
-                IsAquifer = false,
-                BelowPhreaticLevel = new LogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(15.0, 999.999),
-                    StandardDeviation = random.NextRoundedDouble(1e-6, 5.0),
-                    Shift = random.NextRoundedDouble(1e-6, 10)
-                }
-            };
-            var profile = new PipingSoilProfile(string.Empty, 0.0,
-                                                new[]
-                                                {
-                                                    validLayer,
-                                                    coverageLayerInvalidD70
-                                                },
-                                                SoilProfileType.SoilProfile1D);
-
-            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-
-            // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
-
-            // Assert
-            Assert.AreEqual(1, messages.Count());
-            var expectedMessage = $"Rekenwaarde voor d70 ({new RoundedDouble(6, diameter70Value)} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.";
             Assert.AreEqual(expectedMessage, messages.ElementAt(0));
         }
 

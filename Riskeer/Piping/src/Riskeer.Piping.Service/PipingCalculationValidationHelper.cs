@@ -56,7 +56,6 @@ namespace Riskeer.Piping.Service
 
                 warnings.AddRange(GetMultipleAquiferLayersWarning(input, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(input, surfaceLineLevel));
-                warnings.AddRange(GetDiameter70Warning(input));
                 warnings.AddRange(GetThicknessCoverageLayerWarnings(input));
             }
 
@@ -105,16 +104,6 @@ namespace Riskeer.Piping.Service
             if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(input).Mean))
             {
                 yield return Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer;
-            }
-        }
-
-        private static IEnumerable<string> GetDiameter70Warning(PipingInput input)
-        {
-            RoundedDouble diameter70Value = PipingDesignVariableFactory.GetDiameter70(input).GetDesignValue();
-
-            if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
-            {
-                yield return string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value);
             }
         }
 

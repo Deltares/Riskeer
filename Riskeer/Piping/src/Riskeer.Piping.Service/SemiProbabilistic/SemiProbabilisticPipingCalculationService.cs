@@ -136,6 +136,15 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         private static void LogAnyWarnings(SemiProbabilisticPipingCalculation calculation)
         {
             CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
+
+            RoundedDouble diameter70Value = PipingDesignVariableFactory.GetDiameter70(calculation.InputParameters).GetDesignValue();
+            if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
+            {
+                CalculationServiceHelper.LogMessagesAsWarning(new[]
+                {
+                    string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value)
+                });
+            }
         }
 
         private static bool LogAnyErrors(SemiProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, RoundedDouble normativeAssessmentLevel)
