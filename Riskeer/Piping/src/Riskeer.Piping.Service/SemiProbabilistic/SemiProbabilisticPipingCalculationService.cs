@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
@@ -175,6 +177,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
             validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input, generalInput));
+            validationResults.AddRange(ValidateCoverageLayers(input, generalInput));
 
             return validationResults;
         }
@@ -217,6 +220,25 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             }
 
             return validationResult;
+        }
+
+        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, GeneralPipingInput generalInput)
+        {
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+
+            if (pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any())
+            {
+                LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
+                if (!double.IsNaN(thicknessCoverageLayer.Mean))
+                {
+                    RoundedDouble saturatedVolumicWeightOfCoverageLayer = PipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
+                    if (!double.IsNaN(saturatedVolumicWeightOfCoverageLayer) && saturatedVolumicWeightOfCoverageLayer < generalInput.WaterVolumetricWeight)
+                    {
+                        yield return Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
+                    }
+                }
+            }
         }
 
         private static PipingCalculatorInput CreateInputFromData(SemiProbabilisticPipingInput input,
