@@ -3,6 +3,10 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testcase
+			id="2bda335f-100a-4567-980c-f88f4dc971ad"
+			name="script29_Gegevens_tonen_op_kaart">
+			</testcase>
+			<testcase
 			id="3ce49607-89e3-4ba1-94db-ef56475075d6"
 			name="WorkInProgressSylvia"
 			reportlevel="Info;20">
@@ -34,6 +38,10 @@
 				<testcase
 				id="3ce49607-89e3-4ba1-94db-ef56475075d6"
 				name="WorkInProgressSylvia">
+					<testcase
+					id="2bda335f-100a-4567-980c-f88f4dc971ad"
+					name="script29_Gegevens_tonen_op_kaart">
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -44,6 +52,9 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="2bda335f-100a-4567-980c-f88f4dc971ad">
+			</testcontainer>
 			<testcontainer
 			id="3ce49607-89e3-4ba1-94db-ef56475075d6">
 			</testcontainer>
