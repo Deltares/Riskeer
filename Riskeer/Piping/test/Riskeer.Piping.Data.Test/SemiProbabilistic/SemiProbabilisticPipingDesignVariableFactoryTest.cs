@@ -27,10 +27,10 @@ using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingDesignVariableFactoryTest
+    public class SemiProbabilisticPipingDesignVariableFactoryTest
     {
         private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
         {
