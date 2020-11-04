@@ -176,7 +176,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             var validationResults = new List<string>();
 
             validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
-            validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input, generalInput));
+            validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input));
             validationResults.AddRange(ValidateCoverageLayers(input, generalInput));
 
             return validationResults;
