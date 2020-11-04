@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
@@ -235,6 +236,45 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             Assert.AreEqual(1, messages.Count());
             const string expectedMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
+            Assert.AreEqual(expectedMessage, messages.ElementAt(0));
+        }
+
+        [Test]
+        public void GetValidationWarnings_MultipleAquiferLayers_ReturnsMessage()
+        {
+            // Setup
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 3.3),
+                new Point3D(1.0, 0, 3.3)
+            });
+            
+            var profile = new PipingSoilProfile(string.Empty, 0, new[]
+            {
+                new PipingSoilLayer(4.3)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(3.3)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            }, SoilProfileType.SoilProfile1D);
+
+            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
+
+            // Call
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters);
+
+            // Assert
+            Assert.AreEqual(1, messages.Count());
+            const string expectedMessage = "Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden.";
             Assert.AreEqual(expectedMessage, messages.ElementAt(0));
         }
 
