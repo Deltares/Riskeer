@@ -502,54 +502,6 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_ReturnsMessage()
-        {
-            // Setup
-            var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
-            {
-                IsAquifer = false,
-                BelowPhreaticLevel = new LogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 9.81,
-                    StandardDeviation = (RoundedDouble) 2,
-                    Shift = (RoundedDouble) 0
-                }
-            };
-            var validLayer = new PipingSoilLayer(5.0)
-            {
-                IsAquifer = true,
-                Permeability = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 1,
-                    CoefficientOfVariation = (RoundedDouble) 0.5
-                },
-                DiameterD70 = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) 0.0002,
-                    CoefficientOfVariation = (RoundedDouble) 0
-                }
-            };
-            var profile = new PipingSoilProfile(string.Empty, 0.0,
-                                                new[]
-                                                {
-                                                    coverageLayerInvalidSaturatedVolumicWeight,
-                                                    validLayer
-                                                },
-                                                SoilProfileType.SoilProfile1D);
-
-            calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-
-            // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
-
-            // Assert
-            Assert.AreEqual(1, messages.Count());
-            Assert.AreEqual(
-                "Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.",
-                messages.ElementAt(0));
-        }
-
-        [Test]
         public void GetValidationErrors_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_ReturnsMessage()
         {
             // Setup
