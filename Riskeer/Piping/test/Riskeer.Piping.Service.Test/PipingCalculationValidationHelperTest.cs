@@ -282,7 +282,7 @@ namespace Riskeer.Piping.Service.Test
         public void GetValidationErrors_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationValidationHelper.GetValidationErrors(null, new GeneralPipingInput());
+            void Call() => PipingCalculationValidationHelper.GetValidationErrors(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -290,22 +290,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void GetValidationErrors_GeneralInputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => PipingCalculationValidationHelper.GetValidationErrors(new TestPipingInput(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("generalInput", exception.ParamName);
-        }
-
-        [Test]
         public void GetValidationErrors_InvalidCalculationInput_ReturnsMessages()
         {
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(
-                new TestPipingInput(), new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(new TestPipingInput());
 
             // Assert
             Assert.AreEqual(4, messages.Count());
@@ -333,8 +321,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                                 new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(2, messages.Count());
@@ -391,8 +378,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                                 new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -448,8 +434,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                                 new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -509,8 +494,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                                 new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -556,8 +540,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters,
-                                                                                                 new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(1, messages.Count());
@@ -616,7 +599,7 @@ namespace Riskeer.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters, new GeneralPipingInput());
+            IEnumerable<string> messages = PipingCalculationValidationHelper.GetValidationErrors(calculation.InputParameters);
 
             // Assert
             Assert.AreEqual(1, messages.Count());

@@ -66,19 +66,13 @@ namespace Riskeer.Piping.Service
         /// Gets validation errors for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="PipingInput"/> to validate.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> used in the validation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of validation errors.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<string> GetValidationErrors(PipingInput input, GeneralPipingInput generalInput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        public static IEnumerable<string> GetValidationErrors(PipingInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
-            }
-
-            if (generalInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalInput));
             }
 
             var errors = new List<string>(ValidateCoreSurfaceLineAndSoilProfileProperties(input));
