@@ -6642,6 +6642,12 @@
 				<column>
 					CustomAssessmentTypeItem
 				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -7301,12 +7307,6 @@
 				</column>
 				<column>
 					DetailedAssessmentTypeItem
-				</column>
-				<column>
-					FailureProbabilityToAssign
-				</column>
-				<column>
-					ExpectedFailureProbability
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>

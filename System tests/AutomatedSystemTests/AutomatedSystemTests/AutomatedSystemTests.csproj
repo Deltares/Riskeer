@@ -1197,6 +1197,18 @@
       <id>684974c1-e052-42ac-934d-c533e1eff729</id>
       <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
     </Compile>
+    <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.cs">
+      <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
+      <DependentUpon>SetValueWithKeyPressParameterForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2574214e-57c2-4420-b6e1-7172dd0f24c7</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.UserCode.cs">
+      <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
+      <DependentUpon>SetValueWithKeyPressParameterForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9c0432ee-2a9c-4603-b986-7d7f080add11</id>
+    </Compile>
     <Compile Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -2199,6 +2211,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</id>
       <recordtableid>bfe17baf-1a87-4f9c-9a37-719c9b918b43</recordtableid>
+    </None>
+    <None Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>3caad1c0-140c-4fb4-acc6-81005770fc34</id>
+      <recordtableid>e550d732-7780-4b40-a989-f787f458a7c7</recordtableid>
     </None>
     <None Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

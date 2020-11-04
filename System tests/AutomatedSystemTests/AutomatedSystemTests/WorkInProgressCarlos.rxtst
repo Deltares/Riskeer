@@ -35,26 +35,9 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script07_updated_norm"
 			id="0ea64a10-b851-483d-b6e7-191ec235dd62"
 			name="ChangeBoundaries">
-				<parameters>
-					<param
-					name="valueToSetParameterForItemInTraject"
-					value="1/4000">
-					</param>
-					<param
-					name="substringTrajectName"
-					value="Traject 12-2">
-					</param>
-					<param
-					name="substringNameItemInTraject"
-					value="Normen">
-					</param>
-					<param
-					name="nameOfParameterInPropertiesPanel"
-					value="Signaleringswaarde [1/jaar]">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			enabled="False"
@@ -68,38 +51,6 @@
 					datasourceid="c59b68aa-1950-43de-b6c6-a5fba481e285"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="3e76f4c1-f4cf-4d04-977d-93939f266a73"
-			name="SetValueParameterForItemInTraject"
-			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="valueToSetParameterForItemInTraject"
-					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-					<var
-					dataname="substringTrajectName"
-					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="substringNameItemInTraject"
-					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameterInPropertiesPanel"
-					datasourceid="0ea64a10-b851-483d-b6e7-191ec235dd62"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -126,6 +77,38 @@
 			id="7c6e42e0-adf1-4947-b8f6-178676dfc9ef"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
+			<testmodule
+			id="866118fa-8e34-45f4-a568-5bcf7edf2ff5"
+			name="SetValueWithKeyPressParameterForItemInTraject"
+			ref="e550d732-7780-4b40-a989-f787f458a7c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="ItemInTraject"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="Parameter"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="Value"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="8b86e631-cd2c-43a8-945c-235f3cf3dcab"
 			name="teardown">
@@ -295,8 +278,8 @@
 						id="0ea64a10-b851-483d-b6e7-191ec235dd62"
 						name="ChangeBoundaries">
 							<testmodule
-							id="3e76f4c1-f4cf-4d04-977d-93939f266a73"
-							name="SetValueParameterForItemInTraject">
+							id="866118fa-8e34-45f4-a568-5bcf7edf2ff5"
+							name="SetValueWithKeyPressParameterForItemInTraject">
 							</testmodule>
 							<testmodule
 							id="d7566500-3599-4dcb-889e-baea665bdac4"
@@ -425,6 +408,72 @@
 					</td>
 					<td>
 						1/1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f3332522-21a5-4685-b856-9b552b60b138"
+		lastknownrowcount="2"
+		name="script07_updated_norm"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					TrajectName
+				</column>
+				<column>
+					ItemInTraject
+				</column>
+				<column>
+					Parameter
+				</column>
+				<column>
+					Value
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						TrajectName
+					</th>
+					<th>
+						ItemInTraject
+					</th>
+					<th>
+						Parameter
+					</th>
+					<th>
+						Value
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2
+					</td>
+					<td>
+						Normen
+					</td>
+					<td>
+						Signaleringswaarde [1/jaar]
+					</td>
+					<td>
+						1/4000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 12-2
+					</td>
+					<td>
+						Normen
+					</td>
+					<td>
+						Ondergrens [1/jaar]
+					</td>
+					<td>
+						1/2000
 					</td>
 				</tr>
 			</table>
