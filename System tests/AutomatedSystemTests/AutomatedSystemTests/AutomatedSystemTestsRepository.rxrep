@@ -1480,6 +1480,16 @@ FjcAAAAASUVORK5CYII=
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map toevoegen']
 			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="ca583eef-300b-420e-8edd-95c3ffd4cb61"
+			name="MapLeegmaken"
+			refimgid="e2a50059-4e0f-4da1-a1dc-efe693277193"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map leegmaken...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map leegmaken...']
+			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
 			</basepath>

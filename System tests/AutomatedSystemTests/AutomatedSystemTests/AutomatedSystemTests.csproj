@@ -324,6 +324,9 @@
       <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
       <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateStructureProjectExplorerNode.cs">
+      <id>08459172-91f3-4d84-9fdd-8a5ddf452e1e</id>
+    </Compile>
     <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
       <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
     </Compile>
@@ -467,6 +470,18 @@
       <DependentUpon>DuplicateCalculationItem.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>56d2a824-41ce-44b4-8fe1-9603946b4136</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\EmptySelectedFolder.cs">
+      <BoundTo>7389de91-22c0-4018-bba0-2d8c8c1ec357</BoundTo>
+      <DependentUpon>EmptySelectedFolder.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>80e241fb-7b20-4d3d-aac0-93b9ef242fbf</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\EmptySelectedFolder.UserCode.cs">
+      <BoundTo>7389de91-22c0-4018-bba0-2d8c8c1ec357</BoundTo>
+      <DependentUpon>EmptySelectedFolder.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>a6501606-bb8a-4073-ac8b-32b3a0a327c2</id>
     </Compile>
     <Compile Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.cs">
       <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
@@ -635,6 +650,18 @@
       <UserCode>true</UserCode>
       <id>1458cd92-3504-4445-97f3-eb30ac8b9761</id>
       <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\ImportConfigurationCalculationsFromXMLFile.cs">
+      <BoundTo>fb360840-4623-47a1-a936-f62b3f14df39</BoundTo>
+      <DependentUpon>ImportConfigurationCalculationsFromXMLFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>016a9a21-6f65-4125-a445-36bba5ee52ca</id>
+    </Compile>
+    <Compile Include="Modules\IO\ImportConfigurationCalculationsFromXMLFile.UserCode.cs">
+      <BoundTo>fb360840-4623-47a1-a936-f62b3f14df39</BoundTo>
+      <DependentUpon>ImportConfigurationCalculationsFromXMLFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>0af6a9a8-a1b3-4412-b6da-39ff4d85fb92</id>
     </Compile>
     <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
       <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
@@ -1919,6 +1946,11 @@
       <id>eef58afc-1dbf-443d-ab20-627186db7d7a</id>
       <recordtableid>be163e36-1d54-4e23-8859-2e6b0da85302</recordtableid>
     </None>
+    <None Include="Modules\ContextMenuActions\EmptySelectedFolder.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7389de91-22c0-4018-bba0-2d8c8c1ec357</id>
+      <recordtableid>f942f297-31be-4e47-a62e-d6cf657dcbdf</recordtableid>
+    </None>
     <None Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>59490521-b0d6-4832-b342-9035761334e8</id>
@@ -1988,6 +2020,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d5a0a829-3c74-4406-9514-acc72b31ac0a</id>
       <recordtableid>82c65bc9-8451-45bb-867d-b7d4559e95d9</recordtableid>
+    </None>
+    <None Include="Modules\IO\ImportConfigurationCalculationsFromXMLFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>fb360840-4623-47a1-a936-f62b3f14df39</id>
+      <recordtableid>65d26ded-850f-4a04-a479-9d3870513676</recordtableid>
     </None>
     <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
