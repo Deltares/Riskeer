@@ -23,6 +23,7 @@ using System;
 using System.Data;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Gui.ClipBoard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -455,10 +456,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
-                IDataObject actualDataObject = Clipboard.GetDataObject();
-                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
-                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
-                Assert.AreEqual("\t00:00:00\tmessage", actualContent);
+                Assert.AreEqual("\t00:00:00\tmessage", ClipboardProvider.Clipboard.GetText());
             }
         }
 

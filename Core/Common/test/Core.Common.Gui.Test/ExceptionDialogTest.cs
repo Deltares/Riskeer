@@ -22,6 +22,7 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Gui.ClipBoard;
 using Core.Common.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -247,7 +248,7 @@ namespace Core.Common.Gui.Test
                 button.Click();
 
                 // Assert
-                Assert.AreEqual(exception.ToString(), Clipboard.GetText());
+                Assert.AreEqual(exception.ToString(), ClipboardProvider.Clipboard.GetText());
             }
         }
 

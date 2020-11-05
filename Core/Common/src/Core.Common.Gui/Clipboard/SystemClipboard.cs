@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows;
+using System.Windows.Forms;
 
 namespace Core.Common.Gui.ClipBoard
 {
@@ -32,12 +32,7 @@ namespace Core.Common.Gui.ClipBoard
         {
             Clipboard.SetDataObject(data, copy);
         }
-
-        public object GetDataObject()
-        {
-            return Clipboard.GetDataObject();
-        }
-
+        
         public string GetText()
         {
             return Clipboard.GetText();

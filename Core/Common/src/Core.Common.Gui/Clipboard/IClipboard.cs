@@ -36,13 +36,6 @@ namespace Core.Common.Gui.ClipBoard
         void SetDataObject(object data, bool copy = false);
 
         /// <summary>
-        /// Retrieves the data that is currently on the clipboard.
-        /// </summary>
-        /// <returns>The <see cref="object" /> that is on the clipboard, or <c>null</c> if the clipboard
-        /// does not contain any data.</returns>
-        object GetDataObject();
-
-        /// <summary>
         /// Retrieves the textual data that is currently on the clipboard.
         /// </summary>
         /// <returns>The textual data that is on the clipboard, or <c>null</c> if the clipboard does not
