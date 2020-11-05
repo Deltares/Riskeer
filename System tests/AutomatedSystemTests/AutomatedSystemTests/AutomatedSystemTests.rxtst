@@ -3514,7 +3514,7 @@
 				<parameters>
 					<param
 					name="nameOfSmartFolderToSpecifyRange"
-					value="ModifyParametersInSelectedCalculationInput_ToDo">
+					value="ModifyParametersInSelectedCalculationInput">
 					</param>
 				</parameters>
 			</smartfoldernode>
