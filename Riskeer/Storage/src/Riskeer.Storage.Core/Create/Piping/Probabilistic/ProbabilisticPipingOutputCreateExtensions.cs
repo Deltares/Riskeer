@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
@@ -30,6 +32,29 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
     /// </summary>
     internal static class ProbabilisticPipingOutputCreateExtensions
     {
-        
+        /// <summary>
+        /// Creates a <see cref="ProbabilisticPipingCalculationOutputEntity"/> based on the information
+        /// of the <see cref="ProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <param name="output">The calculation output for piping failure mechanism to 
+        /// create a database entity for.</param>
+        /// <returns>A new <see cref="ProbabilisticPipingCalculationOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        public static ProbabilisticPipingCalculationOutputEntity Create(this ProbabilisticPipingOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return new ProbabilisticPipingCalculationOutputEntity
+            {
+                ProfileSpecificReliability = output.ProfileSpecificOutput.Reliability.ToNaNAsNull(),
+                SectionSpecificReliability = output.SectionSpecificOutput.Reliability.ToNaNAsNull(),
+                GeneralResultFaultTreeIllustrationPointEntity = output.ProfileSpecificOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity(),
+                GeneralResultFaultTreeIllustrationPointEntity1 = output.SectionSpecificOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
+            };
+        }
     }
 }
