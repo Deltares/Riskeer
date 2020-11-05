@@ -164,7 +164,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                                                                 .Sections
                                                                 .Where(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points))).ToArray();
 
-            return sections.Count() > 1 ? null : sections.First();
+            return sections.Count() == 1 ? sections.First() : null;
         }
 
         #region Hydraulic data
