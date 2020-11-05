@@ -26,7 +26,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using Core.Common.Gui.ClipBoard;
+using Core.Common.Gui.Clipboard1;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 

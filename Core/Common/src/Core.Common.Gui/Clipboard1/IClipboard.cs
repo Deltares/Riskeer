@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Core.Common.Gui.ClipBoard
+namespace Core.Common.Gui.Clipboard1
 {
     /// <summary>
     /// Interface representing the clipboard.

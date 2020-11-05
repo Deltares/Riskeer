@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Core.Common.Gui.ClipBoard
+namespace Core.Common.Gui.Clipboard1
 {
     /// <summary>
     /// Implementation of <see cref="IClipboard"/> based on the system <see cref="Clipboard"/>.

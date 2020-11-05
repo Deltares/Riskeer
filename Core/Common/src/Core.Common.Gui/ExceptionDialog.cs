@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Core.Common.Gui.ClipBoard;
+using Core.Common.Gui.Clipboard1;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Properties;
 

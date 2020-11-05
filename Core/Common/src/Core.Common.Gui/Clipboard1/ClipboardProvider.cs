@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Common.Gui.ClipBoard
+namespace Core.Common.Gui.Clipboard1
 {
     /// <summary>
     /// Provides the <see cref="IClipboard"/> to be used for copy/paste actions.

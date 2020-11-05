@@ -21,7 +21,7 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Gui.ClipBoard;
+using Core.Common.Gui.Clipboard1;
 
 namespace Core.Common.Gui.TestUtil.Clipboard
 {
