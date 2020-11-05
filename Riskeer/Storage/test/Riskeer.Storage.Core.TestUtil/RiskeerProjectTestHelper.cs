@@ -54,6 +54,7 @@ using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -999,7 +1000,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 {
                     new SemiProbabilisticPipingCalculationScenario
                     {
-                        Name = "With HydraulicBoundaryLocation",
+                        Name = "Semi-Probabilistic with HydraulicBoundaryLocation",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
@@ -1030,7 +1031,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     new SemiProbabilisticPipingCalculationScenario
                     {
-                        Name = "Manual input",
+                        Name = "Semi-Probabilistic with manual input",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
@@ -1059,6 +1060,39 @@ namespace Riskeer.Storage.Core.TestUtil
                             AssessmentLevel = (RoundedDouble) 6.0
                         },
                         Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+                    },
+                    new ProbabilisticPipingCalculationScenario
+                    {
+                        Name = "Probabilistic with HydraulicBoundaryLocation",
+                        IsRelevant = true,
+                        Contribution = (RoundedDouble) 1.0,
+                        Comments =
+                        {
+                            Body = "Calculation with hydraulic boundary location and output"
+                        },
+                        InputParameters =
+                        {
+                            SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
+                            StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
+                                                                          .StochasticSoilProfiles.First(),
+                            EntryPointL = (RoundedDouble) 1.0,
+                            ExitPointL = (RoundedDouble) 2.0,
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
+                            },
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 3.3,
+                                StandardDeviation = (RoundedDouble) 4.4
+                            },
+                            ShouldProfileSpecificIllustrationPointsBeCalculated = true,
+                            ShouldSectionSpecificIllustrationPointsBeCalculated = true
+                        },
+                        Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
                     }
                 }
             });
@@ -1094,6 +1128,39 @@ namespace Riskeer.Storage.Core.TestUtil
                         Mean = (RoundedDouble) 14.14,
                         StandardDeviation = (RoundedDouble) 15.15
                     }
+                },
+                Output = null
+            });
+            pipingCalculationGroup.Children.Add(new ProbabilisticPipingCalculationScenario
+            {
+                Name = "D",
+                IsRelevant = false,
+                Contribution = (RoundedDouble) 0.5,
+                Comments =
+                {
+                    Body = "Another great comment"
+                },
+                InputParameters =
+                {
+                    SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
+                    StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
+                                                                  .StochasticSoilProfiles.Skip(1).First(),
+                    EntryPointL = (RoundedDouble) 0.3,
+                    ExitPointL = (RoundedDouble) 2.3,
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 12.12,
+                        StandardDeviation = (RoundedDouble) 13.13
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 14.14,
+                        StandardDeviation = (RoundedDouble) 15.15
+                    },
+                    ShouldProfileSpecificIllustrationPointsBeCalculated = false,
+                    ShouldSectionSpecificIllustrationPointsBeCalculated = false
                 },
                 Output = null
             });
