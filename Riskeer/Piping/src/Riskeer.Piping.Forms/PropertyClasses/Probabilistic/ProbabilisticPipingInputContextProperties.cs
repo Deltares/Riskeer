@@ -158,11 +158,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return data.AvailablePipingSurfaceLines;
         }
 
-        private FailureMechanismSection GetSection()
+        private FailureMechanismSection GetCorrespondingSection()
         {
-            return data.FailureMechanism
-                       .Sections
-                       .FirstOrDefault(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
+            IEnumerable<FailureMechanismSection> sections = data.FailureMechanism
+                                                                .Sections
+                                                                .Where(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points))).ToArray();
+
+            return sections.Count() > 1 ? null : sections.First();
         }
 
         #region Hydraulic data
@@ -414,7 +416,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetSection();
+                FailureMechanismSection failureMechanismSection = GetCorrespondingSection();
                 return failureMechanismSection == null ? "-" : failureMechanismSection.Name;
             }
         }
@@ -427,7 +429,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetSection();
+                FailureMechanismSection failureMechanismSection = GetCorrespondingSection();
                 return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
             }
         }

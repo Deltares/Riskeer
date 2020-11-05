@@ -544,6 +544,63 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
+        public void Calculation_InMultipleSections_ReturnExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                new FailureMechanismSection("Section1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(0.5, 0.0)
+                }),
+                new FailureMechanismSection("Section2", new[]
+                {
+                    new Point2D(0.5, 0.0),
+                    new Point2D(1.0, 0.0)
+                })
+            }, "path/to/sections");
+
+            var surfaceLine = new PipingSurfaceLine(string.Empty)
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.5, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 0.0),
+                new Point3D(0.5, 0.0, 0.0)
+            });
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
+                                                              Enumerable.Empty<PipingSurfaceLine>(),
+                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              failureMechanism, assessmentSection);
+
+            // Call
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            // Assert
+            Assert.AreEqual("-", properties.SectionName);
+            Assert.AreEqual(0.0, properties.SectionLength);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
