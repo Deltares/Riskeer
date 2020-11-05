@@ -123,7 +123,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
 
             Assert.IsNull(entity.SurfaceLineEntity);
             Assert.IsNull(entity.PipingStochasticSoilProfileEntity);
-            Assert.IsNull(entity.HydraulicLocationEntityId);
+            Assert.IsNull(entity.HydraulicLocationEntity);
+            CollectionAssert.IsEmpty(entity.SemiProbabilisticPipingCalculationOutputEntities);
         }
 
         [Test]
@@ -256,7 +257,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             SemiProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            SemiProbabilisticPipingCalculationOutputEntity outputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
+            SemiProbabilisticPipingCalculationOutputEntity outputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.SingleOrDefault();
 
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety);

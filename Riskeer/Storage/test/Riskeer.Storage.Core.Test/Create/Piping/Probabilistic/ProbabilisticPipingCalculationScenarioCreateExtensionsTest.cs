@@ -35,6 +35,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.Create.Piping.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
 {
@@ -54,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
-        
+
         [Test]
         [TestCase(true, 0.0, "A", "<Comments>", 2.2, 0.0, 123, 827364, true, true)]
         [TestCase(false, 1.0, null, null, double.NaN, double.NaN, 980754, 231, false, false)]
@@ -116,14 +117,15 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
 
             Assert.AreEqual(Convert.ToByte(calculateProfileIllustrationPoints), entity.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.AreEqual(Convert.ToByte(calculateSectionIllustrationPoints), entity.ShouldSectionSpecificIllustrationPointsBeCalculated);
-            
+
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.ProbabilisticPipingCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
 
             Assert.IsNull(entity.SurfaceLineEntity);
             Assert.IsNull(entity.PipingStochasticSoilProfileEntity);
-            Assert.IsNull(entity.HydraulicLocationEntityId);
+            Assert.IsNull(entity.HydraulicLocationEntity);
+            CollectionAssert.IsEmpty(entity.ProbabilisticPipingCalculationOutputEntities);
         }
 
         [Test]
@@ -238,6 +240,31 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             PipingStochasticSoilProfileEntity expectedStochasticSoilProfileEntity = soilModelEntity.PipingStochasticSoilProfileEntities.First();
             Assert.AreSame(expectedStochasticSoilProfileEntity, entity.PipingStochasticSoilProfileEntity);
             Assert.IsTrue(registry.Contains(soilModel));
+        }
+
+        [Test]
+        public void Create_HasCalculationOutput_EntityHasPipingCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = output
+            };
+
+            // Call
+            ProbabilisticPipingCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            ProbabilisticPipingCalculationOutputEntity outputEntity = entity.ProbabilisticPipingCalculationOutputEntities.SingleOrDefault();
+
+            Assert.IsNotNull(outputEntity);
+            Assert.AreEqual(output.ProfileSpecificOutput.Reliability, outputEntity.ProfileSpecificReliability);
+            Assert.AreEqual(output.SectionSpecificOutput.Reliability, outputEntity.SectionSpecificReliability);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.ProfileSpecificOutput.GeneralResult, outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.SectionSpecificOutput.GeneralResult, outputEntity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
             {
                 throw new ArgumentNullException(nameof(registry));
             }
-            
+
             var entity = new ProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
@@ -58,10 +58,11 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
                 Order = order
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);
+            AddEntityForPipingOutput(entity, calculation.Output);
 
             return entity;
         }
-        
+
         private static void SetInputParametersToEntity(ProbabilisticPipingCalculationEntity entity,
                                                        ProbabilisticPipingInput inputParameters,
                                                        PersistenceRegistry registry)
@@ -92,6 +93,14 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
 
             entity.ShouldProfileSpecificIllustrationPointsBeCalculated = Convert.ToByte(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
             entity.ShouldSectionSpecificIllustrationPointsBeCalculated = Convert.ToByte(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
+        }
+
+        private static void AddEntityForPipingOutput(ProbabilisticPipingCalculationEntity entity, ProbabilisticPipingOutput output)
+        {
+            if (output != null)
+            {
+                entity.ProbabilisticPipingCalculationOutputEntities.Add(output.Create());
+            }
         }
     }
 }
