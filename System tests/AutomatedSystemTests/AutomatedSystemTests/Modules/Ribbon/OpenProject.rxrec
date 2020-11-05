@@ -29,6 +29,30 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="UpperCenter"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="22de41c4-bad3-4776-9923-f62d51e9fd62"
+		sx="0"
+		sy="0"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="d918d6a6-a4c6-4c01-a295-0360a81bad96"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']
+				</path>
+			</info>
+		</mouseitem>
 		<keyitem
 		action="Press"
 		data="O, Control"

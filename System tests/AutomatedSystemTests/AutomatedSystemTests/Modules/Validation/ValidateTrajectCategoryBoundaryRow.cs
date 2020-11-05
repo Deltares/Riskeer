@@ -20,38 +20,77 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection.Assembly
+namespace AutomatedSystemTests.Modules.Validation
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectManualAssessment recording.
+    ///The ValidateTrajectCategoryBoundaryRow recording.
     /// </summary>
-    [TestModule("5b015ee3-50ff-44a4-90b6-4b97670bff51", ModuleType.Recording, 1)]
-    public partial class SelectManualAssessment : ITestModule
+    [TestModule("66405087-b5ac-48fb-9dfc-5a5fb68148b4", ModuleType.Recording, 1)]
+    public partial class ValidateTrajectCategoryBoundaryRow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectManualAssessment instance = new SelectManualAssessment();
+        static ValidateTrajectCategoryBoundaryRow instance = new ValidateTrajectCategoryBoundaryRow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectManualAssessment()
+        public ValidateTrajectCategoryBoundaryRow()
         {
+            boundaryCategory = "";
+            lowerBoundary = "";
+            upperBoundary = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectManualAssessment Instance
+        public static ValidateTrajectCategoryBoundaryRow Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _boundaryCategory;
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryCategory.
+        /// </summary>
+        [TestVariable("2aecbb51-4591-4020-8e95-7baef9b5785f")]
+        public string boundaryCategory
+        {
+            get { return _boundaryCategory; }
+            set { _boundaryCategory = value; }
+        }
+
+        string _lowerBoundary;
+
+        /// <summary>
+        /// Gets or sets the value of variable lowerBoundary.
+        /// </summary>
+        [TestVariable("d8decb24-a4e0-497c-9560-6d46ba0f86bf")]
+        public string lowerBoundary
+        {
+            get { return _lowerBoundary; }
+            set { _lowerBoundary = value; }
+        }
+
+        string _upperBoundary;
+
+        /// <summary>
+        /// Gets or sets the value of variable upperBoundary.
+        /// </summary>
+        [TestVariable("2b917f66-d746-47f0-9d83-ee93bf18074c")]
+        public string upperBoundary
+        {
+            get { return _upperBoundary; }
+            set { _upperBoundary = value; }
+        }
 
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
@@ -89,12 +128,13 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to 'True' on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox.Element.SetAttributeValue("AccessibleValue", "True");
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.BoundaryCategoryCellInfo, boundaryCategory);
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='True') on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, "AccessibleValue", "True");
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.LowerBoundaryCellInfo, lowerBoundary);
+            Delay.Milliseconds(0);
+            
+            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.UpperBoundaryCellInfo, upperBoundary);
             Delay.Milliseconds(0);
             
         }

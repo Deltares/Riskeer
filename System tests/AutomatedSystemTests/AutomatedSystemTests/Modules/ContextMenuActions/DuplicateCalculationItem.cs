@@ -20,48 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection.Assembly
+namespace AutomatedSystemTests.Modules.ContextMenuActions
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectManualAssessment recording.
+    ///The DuplicateCalculationItem recording.
     /// </summary>
-    [TestModule("5b015ee3-50ff-44a4-90b6-4b97670bff51", ModuleType.Recording, 1)]
-    public partial class SelectManualAssessment : ITestModule
+    [TestModule("be163e36-1d54-4e23-8859-2e6b0da85302", ModuleType.Recording, 1)]
+    public partial class DuplicateCalculationItem : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectManualAssessment instance = new SelectManualAssessment();
+        static DuplicateCalculationItem instance = new DuplicateCalculationItem();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectManualAssessment()
+        public DuplicateCalculationItem()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectManualAssessment Instance
+        public static DuplicateCalculationItem Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        /// <summary>
-        /// Gets or sets the value of variable rowIndex.
-        /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
-        {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
-        }
 
 #endregion
 
@@ -83,19 +73,17 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to 'True' on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox.Element.SetAttributeValue("AccessibleValue", "True");
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='True') on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, "AccessibleValue", "True");
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Dupliceren' at Center.", repo.ContextMenu.DuplicerenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Dupliceren.Click();
             
         }
 

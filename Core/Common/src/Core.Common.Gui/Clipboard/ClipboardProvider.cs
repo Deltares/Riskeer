@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,10 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-[assembly: AssemblyTitle("Core.Common.Gui")]
-[assembly: AssemblyProduct("Core.Common.Gui")]
-[assembly: InternalsVisibleTo("Core.Common.Gui.Test")]
-[assembly: InternalsVisibleTo("Core.Common.Gui.TestUtil")]
+namespace Core.Common.Gui.Clipboard
+{
+    /// <summary>
+    /// Provides the <see cref="IClipboard"/> to be used for copy/paste actions.
+    /// </summary>
+    public static class ClipboardProvider
+    {
+        /// <summary>
+        /// Gets the clipboard instance to be used.
+        /// </summary>
+        public static IClipboard Clipboard { get; internal set; } = new SystemClipboard();
+    }
+}

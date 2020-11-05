@@ -733,6 +733,7 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder _projectrootnode;
             RepoItemInfo _hydraulischebelastingenInfo;
+            RepoItemInfo _kopievan12202500segment120041d1Info;
 
             /// <summary>
             /// Creates a new ProjectExplorer  folder.
@@ -742,6 +743,7 @@ namespace AutomatedSystemTests
             {
                 _projectrootnode = new AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder(this);
                 _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
+                _kopievan12202500segment120041d1Info = new RepoItemInfo(this, "KopieVan12202500Segment120041D1", ".//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']", 30000, null, "1bc4c7ac-b74a-4de0-a833-0787988276a2");
             }
 
             /// <summary>
@@ -789,6 +791,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _hydraulischebelastingenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The KopieVan12202500Segment120041D1 item.
+            /// </summary>
+            [RepositoryItem("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
+            public virtual Ranorex.TreeItem KopieVan12202500Segment120041D1
+            {
+                get
+                {
+                    return _kopievan12202500segment120041d1Info.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The KopieVan12202500Segment120041D1 item info.
+            /// </summary>
+            [RepositoryItemInfo("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
+            public virtual RepoItemInfo KopieVan12202500Segment120041D1Info
+            {
+                get
+                {
+                    return _kopievan12202500segment120041d1Info;
                 }
             }
 
@@ -861,6 +887,7 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
             AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder _genericitemintrajectwithsubstringinname;
+            RepoItemInfo _normenInfo;
             RepoItemInfo _faalkansbegrotingInfo;
             RepoItemInfo _genericitemintrajectInfo;
             RepoItemInfo _copy_of_genericitemintrajectInfo;
@@ -873,6 +900,7 @@ namespace AutomatedSystemTests
             {
                 _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
                 _genericitemintrajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder(this);
+                _normenInfo = new RepoItemInfo(this, "Normen", "treeitem[@accessiblename='Normen']", 30000, null, "b5de4289-6f05-447d-a40a-c6f33536af15");
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
                 _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
                 _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
@@ -899,6 +927,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Normen item.
+            /// </summary>
+            [RepositoryItem("b5de4289-6f05-447d-a40a-c6f33536af15")]
+            public virtual Ranorex.TreeItem Normen
+            {
+                get
+                {
+                    return _normenInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Normen item info.
+            /// </summary>
+            [RepositoryItemInfo("b5de4289-6f05-447d-a40a-c6f33536af15")]
+            public virtual RepoItemInfo NormenInfo
+            {
+                get
+                {
+                    return _normenInfo;
                 }
             }
 
@@ -3073,6 +3125,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
         public partial class DocumentViewContainerFolder : RepoGenBaseFolder
         {
+            AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder _assessmentsectionassemblycategoriesview;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder _failuremechanismresultview;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder1 _failuremechanismscontributionview;
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewCachedFolder _designwaterlevelcalculationsviewcached;
@@ -3084,6 +3137,7 @@ namespace AutomatedSystemTests
             public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
                     base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
             {
+                _assessmentsectionassemblycategoriesview = new AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder(this);
                 _failuremechanismresultview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder(this);
                 _failuremechanismscontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder1(this);
                 _designwaterlevelcalculationsviewcached = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewCachedFolder(this);
@@ -3139,6 +3193,15 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The AssessmentSectionAssemblyCategoriesView folder.
+            /// </summary>
+            [RepositoryFolder("8754e3af-098b-4256-bdd8-b33b982fc584")]
+            public virtual AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder AssessmentSectionAssemblyCategoriesView
+            {
+                get { return _assessmentsectionassemblycategoriesview; }
+            }
+
+            /// <summary>
             /// The FailureMechanismResultView folder.
             /// </summary>
             [RepositoryFolder("9283a2f0-e106-4fff-973b-ee9186918301")]
@@ -3167,12 +3230,181 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
+        /// The AssessmentSectionAssemblyCategoriesViewFolder folder.
+        /// </summary>
+        [RepositoryFolder("8754e3af-098b-4256-bdd8-b33b982fc584")]
+        public partial class AssessmentSectionAssemblyCategoriesViewFolder : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder _tabledatagridview;
+
+            /// <summary>
+            /// Creates a new AssessmentSectionAssemblyCategoriesView  folder.
+            /// </summary>
+            public AssessmentSectionAssemblyCategoriesViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("AssessmentSectionAssemblyCategoriesView", "container[@controlname='AssessmentSectionAssemblyCategoriesView']", parentFolder, 30000, null, true, "8754e3af-098b-4256-bdd8-b33b982fc584", "")
+            {
+                _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder(this);
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("8754e3af-098b-4256-bdd8-b33b982fc584")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("8754e3af-098b-4256-bdd8-b33b982fc584")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TableDataGridView folder.
+            /// </summary>
+            [RepositoryFolder("bfe86bd7-3a1c-48ae-90c4-30c51f5b0814")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder TableDataGridView
+            {
+                get { return _tabledatagridview; }
+            }
+        }
+
+        /// <summary>
+        /// The TableDataGridViewFolder folder.
+        /// </summary>
+        [RepositoryFolder("bfe86bd7-3a1c-48ae-90c4-30c51f5b0814")]
+        public partial class TableDataGridViewFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _boundarycategorycellInfo;
+            RepoItemInfo _lowerboundarycellInfo;
+            RepoItemInfo _upperboundarycellInfo;
+
+            /// <summary>
+            /// Creates a new TableDataGridView  folder.
+            /// </summary>
+            public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("TableDataGridView", "container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "bfe86bd7-3a1c-48ae-90c4-30c51f5b0814", "")
+            {
+                _boundarycategorycellInfo = new RepoItemInfo(this, "BoundaryCategoryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Categorie Row ']", 10000, null, "abed330f-4524-4539-b710-116c85ef9a22");
+                _lowerboundarycellInfo = new RepoItemInfo(this, "LowerBoundaryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Ondergrens']", 10000, null, "0bb11898-6dc4-4f30-86b1-6ec16b0e30d9");
+                _upperboundarycellInfo = new RepoItemInfo(this, "UpperBoundaryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Bovengrens']", 10000, null, "8652405a-ea4c-4a05-9e58-51f10e585c40");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("bfe86bd7-3a1c-48ae-90c4-30c51f5b0814")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("bfe86bd7-3a1c-48ae-90c4-30c51f5b0814")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The BoundaryCategoryCell item.
+            /// </summary>
+            [RepositoryItem("abed330f-4524-4539-b710-116c85ef9a22")]
+            public virtual Ranorex.Cell BoundaryCategoryCell
+            {
+                get
+                {
+                    return _boundarycategorycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The BoundaryCategoryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("abed330f-4524-4539-b710-116c85ef9a22")]
+            public virtual RepoItemInfo BoundaryCategoryCellInfo
+            {
+                get
+                {
+                    return _boundarycategorycellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The LowerBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("0bb11898-6dc4-4f30-86b1-6ec16b0e30d9")]
+            public virtual Ranorex.Cell LowerBoundaryCell
+            {
+                get
+                {
+                    return _lowerboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The LowerBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("0bb11898-6dc4-4f30-86b1-6ec16b0e30d9")]
+            public virtual RepoItemInfo LowerBoundaryCellInfo
+            {
+                get
+                {
+                    return _lowerboundarycellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The UpperBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("8652405a-ea4c-4a05-9e58-51f10e585c40")]
+            public virtual Ranorex.Cell UpperBoundaryCell
+            {
+                get
+                {
+                    return _upperboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The UpperBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("8652405a-ea4c-4a05-9e58-51f10e585c40")]
+            public virtual RepoItemInfo UpperBoundaryCellInfo
+            {
+                get
+                {
+                    return _upperboundarycellInfo;
+                }
+            }
+        }
+
+        /// <summary>
         /// The FailureMechanismResultViewFolder folder.
         /// </summary>
         [RepositoryFolder("9283a2f0-e106-4fff-973b-ee9186918301")]
         public partial class FailureMechanismResultViewFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder _tabledatagridview;
+            AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder1 _tabledatagridview;
 
             /// <summary>
             /// Creates a new FailureMechanismResultView  folder.
@@ -3180,7 +3412,7 @@ namespace AutomatedSystemTests
             public FailureMechanismResultViewFolder(RepoGenBaseFolder parentFolder) :
                     base("FailureMechanismResultView", "container[@controlname='FailureMechanismResultView']", parentFolder, 10000, null, true, "9283a2f0-e106-4fff-973b-ee9186918301", "")
             {
-                _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder(this);
+                _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder1(this);
             }
 
             /// <summary>
@@ -3211,17 +3443,17 @@ namespace AutomatedSystemTests
             /// The TableDataGridView folder.
             /// </summary>
             [RepositoryFolder("6eb41290-65e9-4393-9e14-584a8ed6c564")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder TableDataGridView
+            public virtual AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder1 TableDataGridView
             {
                 get { return _tabledatagridview; }
             }
         }
 
         /// <summary>
-        /// The TableDataGridViewFolder folder.
+        /// The TableDataGridViewFolder1 folder.
         /// </summary>
         [RepositoryFolder("6eb41290-65e9-4393-9e14-584a8ed6c564")]
-        public partial class TableDataGridViewFolder : RepoGenBaseFolder
+        public partial class TableDataGridViewFolder1 : RepoGenBaseFolder
         {
             RepoItemInfo _simpleassessmenttyperownthInfo;
             RepoItemInfo _detailedasssessmenttyperownthInfo;
@@ -3245,7 +3477,7 @@ namespace AutomatedSystemTests
             /// <summary>
             /// Creates a new TableDataGridView  folder.
             /// </summary>
-            public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
+            public TableDataGridViewFolder1(RepoGenBaseFolder parentFolder) :
                     base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 10000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
             {
                 _simpleassessmenttyperownthInfo = new RepoItemInfo(this, "SimpleAssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Eenvoudige toets Row ']", 10000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
@@ -4782,6 +5014,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _wisuitvoerInfo;
             RepoItemInfo _pagerightInfo;
             RepoItemInfo _pageleftInfo;
+            RepoItemInfo _duplicerenInfo;
+            RepoItemInfo _maptoevoegenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -4809,6 +5043,8 @@ namespace AutomatedSystemTests
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
                 _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
+                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
+                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
             }
 
             /// <summary>
@@ -5312,6 +5548,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _pageleftInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Dupliceren item.
+            /// </summary>
+            [RepositoryItem("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual Ranorex.MenuItem Dupliceren
+            {
+                get
+                {
+                    return _duplicerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Dupliceren item info.
+            /// </summary>
+            [RepositoryItemInfo("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual RepoItemInfo DuplicerenInfo
+            {
+                get
+                {
+                    return _duplicerenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The MapToevoegen item.
+            /// </summary>
+            [RepositoryItem("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual Ranorex.MenuItem MapToevoegen
+            {
+                get
+                {
+                    return _maptoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual RepoItemInfo MapToevoegenInfo
+            {
+                get
+                {
+                    return _maptoevoegenInfo;
                 }
             }
         }

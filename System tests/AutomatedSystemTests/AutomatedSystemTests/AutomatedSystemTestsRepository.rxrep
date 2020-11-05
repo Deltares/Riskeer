@@ -48,6 +48,15 @@ name="AutomatedSystemTestsRepository">
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
 						capname="treeitem"
+						id="b5de4289-6f05-447d-a40a-c6f33536af15"
+						name="Normen"
+						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
+						</item>
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
 						id="79c86dc7-8eee-48b2-b0af-b29632b7c092"
 						name="Faalkansbegroting"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
@@ -210,6 +219,16 @@ name="AutomatedSystemTestsRepository">
 				refimgid="984357d5-1648-434f-a4c2-baa3e3f73645"
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']
+				</item>
+				<item
+				addcaps="treeitem,accessible,accessibletreeitem"
+				capname="treeitem"
+				id="1bc4c7ac-b74a-4de0-a833-0787988276a2"
+				name="KopieVan12202500Segment120041D1"
+				refimgid="350d9228-5be4-4f87-a1df-c3e8ec1ea29f"
+				refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename&gt;'Kopie van 12_2_02500 Segm']
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
@@ -670,6 +689,55 @@ name="AutomatedSystemTestsRepository">
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
 				</item>
+				<folder
+				capname="container"
+				id="8754e3af-098b-4256-bdd8-b33b982fc584"
+				isrooted="True"
+				name="AssessmentSectionAssemblyCategoriesView"
+				searchtimeout="30000ms"
+				usecache="True">
+					<folder
+					capname="table"
+					id="bfe86bd7-3a1c-48ae-90c4-30c51f5b0814"
+					isrooted="True"
+					name="TableDataGridView"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="abed330f-4524-4539-b710-116c85ef9a22"
+						name="BoundaryCategoryCell"
+						refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Categorie Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="0bb11898-6dc4-4f30-86b1-6ec16b0e30d9"
+						name="LowerBoundaryCell"
+						refimgid="349d2e28-2522-44e2-9741-1756981d6d2a"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Ondergrens']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="8652405a-ea4c-4a05-9e58-51f10e585c40"
+						name="UpperBoundaryCell"
+						refimgid="59515b59-f286-43c1-944b-d68f6108a822"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Bovengrens']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']
+					</basepath>
+				</folder>
 				<folder
 				capname="container"
 				id="9283a2f0-e106-4fff-973b-ee9186918301"
@@ -1391,6 +1459,26 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/contextmenu/menuitem[@accessiblename='Page Left']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/?/?/menuitem[@accessiblename='Page Left']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="75209dc1-5b20-4d57-8ce9-8ec71c26bb9e"
+			name="Dupliceren"
+			refimgid="b5df8c96-3b41-4141-a76c-5e773bef3912"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="bb08d163-934b-43d2-b55e-ba2f9cd39c14"
+			name="MapToevoegen"
+			refimgid="2d7e56dd-3a4b-4f0c-82bc-aed498fcb835"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map toevoegen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map toevoegen']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']

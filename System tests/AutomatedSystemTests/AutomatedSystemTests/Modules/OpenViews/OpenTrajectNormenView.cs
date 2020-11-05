@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection.Assembly
+namespace AutomatedSystemTests.Modules.OpenViews
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectManualAssessment recording.
+    ///The OpenTrajectNormenView recording.
     /// </summary>
-    [TestModule("5b015ee3-50ff-44a4-90b6-4b97670bff51", ModuleType.Recording, 1)]
-    public partial class SelectManualAssessment : ITestModule
+    [TestModule("d4189ba6-04e4-4c32-a503-2b635376521a", ModuleType.Recording, 1)]
+    public partial class OpenTrajectNormenView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectManualAssessment instance = new SelectManualAssessment();
+        static OpenTrajectNormenView instance = new OpenTrajectNormenView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectManualAssessment()
+        public OpenTrajectNormenView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectManualAssessment Instance
+        public static OpenTrajectNormenView Instance
         {
             get { return instance; }
         }
@@ -54,13 +54,13 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable rowIndex.
+        /// Gets or sets the value of variable substringTrajectName.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
+        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
+        public string substringTrajectName
         {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
         }
 
 #endregion
@@ -89,12 +89,12 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to 'True' on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox.Element.SetAttributeValue("AccessibleValue", "True");
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Normen'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.NormenInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Normen.Focus();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='True') on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, "AccessibleValue", "True");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Normen' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.NormenInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Normen.DoubleClick();
             Delay.Milliseconds(0);
             
         }

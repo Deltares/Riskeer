@@ -26,6 +26,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Core.Common.Gui.Clipboard;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 
@@ -347,7 +348,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void ButtonCopyClick(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
+            ClipboardProvider.Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
         }
 
         private void ButtonShowDetailsClick(object sender, EventArgs e)

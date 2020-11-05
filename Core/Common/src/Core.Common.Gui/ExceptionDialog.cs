@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Core.Common.Gui.Clipboard;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Properties;
 
@@ -98,7 +99,7 @@ namespace Core.Common.Gui
 
         private void ButtonCopyTextToClipboardClick(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject(exceptionTextBox.Text, true);
+            ClipboardProvider.Clipboard.SetDataObject(exceptionTextBox.Text, true);
         }
 
         private void ButtonOpenLogClick(object sender, EventArgs e)

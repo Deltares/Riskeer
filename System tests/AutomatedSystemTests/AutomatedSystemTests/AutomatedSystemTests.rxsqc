@@ -13,5 +13,15 @@
     "Enabled": "False",
     "TestSuite": "WorkOnProgressDavid",
     "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "False",
+    "TestSuite": "WorkInProgressCarlos",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "WorkInProgressSylvia",
+    "RunConfig": "TestRun"
   }
 ]

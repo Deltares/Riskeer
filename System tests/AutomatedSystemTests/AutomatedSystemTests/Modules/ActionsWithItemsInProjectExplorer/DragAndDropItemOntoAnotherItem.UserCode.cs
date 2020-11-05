@@ -21,9 +21,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Selection
+namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
 {
-    public partial class SelectGenericItemInProjectExplorer
+    public partial class DragAndDropItemOntoAnotherItem
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -34,7 +34,8 @@ namespace AutomatedSystemTests.Modules.Selection
             // Your recording specific initialization code goes here.
         }
 
-        public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
+        
+        public Ranorex.TreeItem GetTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
         	{
         	var stepsPathItem = pathItem.Split('>').ToList();
         	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
@@ -59,21 +60,37 @@ namespace AutomatedSystemTests.Modules.Selection
         				children = stepChild.Children;
         				// Expand if intermediate node is collased
         			    var stateIntermediateChild = stepChild.Element.GetAttributeValueText("AccessibleState");
-        			    stepChild.Focus();
         			    if (stateIntermediateChild.Contains("Collapsed")) {
+        			        stepChild.Focus();
         			        stepChild.Expand();
         			         }
         				} else {
         				// child is last one in path
-        			    stepChild.Click(Location.CenterLeft);
+        				stepChild.Focus();
+        				stepChild.Select();
+        				//stepChild.Click(Location.CenterLeft);
         			     }
         			}
-        	return;
+        	return stepChild;
         }
-        
+
         private string NameOfTreeItem(object treeItemInfo)
         {
         	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
         }
+
+        public void DragAndDropProjectExplorerItemOntoAnotherOne(string pathItemToMove, string pathItemDestination, RepoItemInfo rootNodeInfo)
+        {
+            TreeItem treeitemToMove = GetTreeItemInProjectExplorerGivenPath(pathItemToMove, rootNodeInfo);
+            TreeItem treeItemDestination = GetTreeItemInProjectExplorerGivenPath(pathItemDestination, rootNodeInfo);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Down item 'treeitemToMove' at Center.");
+            treeitemToMove.MoveTo();
+            Mouse.ButtonDown(System.Windows.Forms.MouseButtons.Left);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Up item 'treeItemDestination' at Center.");
+            treeItemDestination.MoveTo();
+            Mouse.ButtonUp(System.Windows.Forms.MouseButtons.Left);
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,10 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Windows.Forms;
+using FormsClipboard = System.Windows.Forms.Clipboard;
 
-[assembly: AssemblyTitle("Core.Common.Gui")]
-[assembly: AssemblyProduct("Core.Common.Gui")]
-[assembly: InternalsVisibleTo("Core.Common.Gui.Test")]
-[assembly: InternalsVisibleTo("Core.Common.Gui.TestUtil")]
+namespace Core.Common.Gui.Clipboard
+{
+    /// <summary>
+    /// Implementation of <see cref="IClipboard"/> based on the system <see cref="Clipboard"/>.
+    /// </summary>
+    internal class SystemClipboard : IClipboard
+    {
+        public void SetDataObject(object data, bool copy = false)
+        {
+            FormsClipboard.SetDataObject(data, copy);
+        }
+
+        public IDataObject GetDataObject()
+        {
+            return FormsClipboard.GetDataObject();
+        }
+
+        public string GetText()
+        {
+            return FormsClipboard.GetText();
+        }
+    }
+}

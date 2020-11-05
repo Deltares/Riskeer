@@ -273,6 +273,18 @@
       <id>17ee7347-5af6-4c2b-a0e4-e521e0a3abe4</id>
       <BoundTo>1d602183-ef23-4399-b12f-eaa317121dbb</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.cs">
+      <BoundTo>1a2c2ff6-3175-4621-8731-c6b45579fc0c</BoundTo>
+      <DependentUpon>DragAndDropItemOntoAnotherItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>5669914c-8446-4347-b7d6-a3f910e55372</id>
+    </Compile>
+    <Compile Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.UserCode.cs">
+      <BoundTo>1a2c2ff6-3175-4621-8731-c6b45579fc0c</BoundTo>
+      <DependentUpon>DragAndDropItemOntoAnotherItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>65c9686d-2b9f-44a5-8fef-58d1ebc57446</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
@@ -297,6 +309,9 @@
     <Compile Include="Modules\Calculation\CalculateFullPathToSeparateCalculation.cs">
       <id>644c39a2-3304-44b2-b5c9-bc754f49c61d</id>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateIfProjectMustBeOpened.cs">
+      <id>84f5a953-0273-4457-9412-83e9501458de</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CalculateLinearTransformationOfValue.cs">
       <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -308,6 +323,9 @@
       <UserCode>true</UserCode>
       <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
       <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
+      <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
     </Compile>
     <Compile Include="Modules\Calculation\CalculateNFormula1.cs">
       <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
@@ -414,6 +432,18 @@
       <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
       <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
     </Compile>
+    <Compile Include="Modules\ContextMenuActions\AddCalculationFolder.cs">
+      <BoundTo>9441f05b-a115-4956-80b5-b0c4190b783c</BoundTo>
+      <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e5aafb0d-a4b7-49ce-925c-254981319763</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\AddCalculationFolder.UserCode.cs">
+      <BoundTo>9441f05b-a115-4956-80b5-b0c4190b783c</BoundTo>
+      <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>8e242905-1c47-454c-b60d-03ec3266db48</id>
+    </Compile>
     <Compile Include="Modules\ContextMenuActions\CoupleCurrentItemToHBCDatabase.cs">
       <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -425,6 +455,18 @@
       <UserCode>true</UserCode>
       <id>79a6a4d1-4e9c-4369-9783-f1a62eb698b6</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\DuplicateCalculationItem.cs">
+      <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
+      <DependentUpon>DuplicateCalculationItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8e15e985-6045-4848-a90f-6d55c46c8909</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\DuplicateCalculationItem.UserCode.cs">
+      <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
+      <DependentUpon>DuplicateCalculationItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>56d2a824-41ce-44b4-8fe1-9603946b4136</id>
     </Compile>
     <Compile Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.cs">
       <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
@@ -617,6 +659,18 @@
       <UserCode>true</UserCode>
       <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
       <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.cs">
+      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
+      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8bb3a675-9518-43f9-8afc-1f55df6b7f99</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.UserCode.cs">
+      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
+      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>76073981-10bf-481e-a09d-25dcf225d501</id>
     </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.cs">
       <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
@@ -1146,6 +1200,18 @@
       <id>684974c1-e052-42ac-934d-c533e1eff729</id>
       <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
     </Compile>
+    <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.cs">
+      <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
+      <DependentUpon>SetValueWithKeyPressParameterForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2574214e-57c2-4420-b6e1-7172dd0f24c7</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.UserCode.cs">
+      <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
+      <DependentUpon>SetValueWithKeyPressParameterForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9c0432ee-2a9c-4603-b986-7d7f080add11</id>
+    </Compile>
     <Compile Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1524,6 +1590,9 @@
       <id>53492640-8a16-4a84-8839-03b44cbcfc43</id>
       <BoundTo>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\ValidateStringsPropertiesPanelAreEqual.cs">
+      <id>007488a8-5d59-42df-8824-32336f400f51</id>
+    </Compile>
     <Compile Include="Modules\Validation\ValidateSubsurfaceSchematizationContributionInPropertiesPanel.cs">
       <DependentUpon>ValidateSubsurfaceSchematizationContributionInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1601,6 +1670,18 @@
       <UserCode>true</UserCode>
       <id>667f306e-b119-4562-85e4-7686b58596f8</id>
       <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.cs">
+      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>538b5cdf-ee87-4989-9e96-ab8f67ac38eb</id>
+    </Compile>
+    <Compile Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.UserCode.cs">
+      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e480f7ab-ab0e-4794-85f7-46af326cc416</id>
     </Compile>
     <Compile Include="Modules\Validation\ValidateValueParameterForItemInTraject.cs">
       <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
@@ -1683,6 +1764,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
+    <Content Include="WorkInProgressCarlos.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>2e98b015-ed94-4385-aa49-4cb36d7f2c62</id>
+    </Content>
+    <Content Include="WorkInProgressSylvia.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>55f842ba-2cc9-4ba2-b80f-75e4bdbb75e7</id>
+    </Content>
     <Content Include="WorkOnProgressDavid.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>6827c86e-753b-4849-9c40-0455c419adb9</id>
@@ -1760,6 +1849,11 @@
       <id>1d602183-ef23-4399-b12f-eaa317121dbb</id>
       <recordtableid>6e208fe1-d9b3-477a-8c12-d78d705a4908</recordtableid>
     </None>
+    <None Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1a2c2ff6-3175-4621-8731-c6b45579fc0c</id>
+      <recordtableid>909ea538-c662-4239-a56a-672c6d28b694</recordtableid>
+    </None>
     <None Include="Modules\Calculation\CalculateCategoryBoundary.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
@@ -1810,10 +1904,20 @@
       <id>0be59255-8483-4bd6-b789-9bb7d1340977</id>
       <recordtableid>3b08b464-43f7-4e4b-9c47-143e9b31807c</recordtableid>
     </None>
+    <None Include="Modules\ContextMenuActions\AddCalculationFolder.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9441f05b-a115-4956-80b5-b0c4190b783c</id>
+      <recordtableid>c09a9669-9b00-4ab5-9134-5658e1a585ac</recordtableid>
+    </None>
     <None Include="Modules\ContextMenuActions\CoupleCurrentItemToHBCDatabase.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>58bb17f9-0f73-4d80-84ed-fec70eb3207f</id>
       <recordtableid>354b1a8c-c247-4b13-920b-24ee0b2b997d</recordtableid>
+    </None>
+    <None Include="Modules\ContextMenuActions\DuplicateCalculationItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>eef58afc-1dbf-443d-ab20-627186db7d7a</id>
+      <recordtableid>be163e36-1d54-4e23-8859-2e6b0da85302</recordtableid>
     </None>
     <None Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1894,6 +1998,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
       <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\OpenTrajectNormenView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b4220af5-04f9-4914-8581-74fabf79ebbf</id>
+      <recordtableid>d4189ba6-04e4-4c32-a503-2b635376521a</recordtableid>
     </None>
     <None Include="Modules\OpenViews\OpenViewForCategoryBoundaries.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2110,6 +2219,11 @@
       <id>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</id>
       <recordtableid>bfe17baf-1a87-4f9c-9a37-719c9b918b43</recordtableid>
     </None>
+    <None Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>3caad1c0-140c-4fb4-acc6-81005770fc34</id>
+      <recordtableid>e550d732-7780-4b40-a989-f787f458a7c7</recordtableid>
+    </None>
     <None Include="Modules\Validation\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
@@ -2300,6 +2414,11 @@
       <id>2bfa17c2-7838-466c-b4bf-98098cb57bba</id>
       <recordtableid>be67159d-b95e-4ab7-8583-e9482fd3475d</recordtableid>
     </None>
+    <None Include="Modules\Validation\ValidateTrajectCategoryBoundaryRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ded229a1-d08c-49e0-b019-134612fde1b4</id>
+      <recordtableid>66405087-b5ac-48fb-9dfc-5a5fb68148b4</recordtableid>
+    </None>
     <None Include="Modules\Validation\ValidateValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
@@ -2374,6 +2493,9 @@
     </Folder>
     <Folder Include="Modules\ActionsAUT">
       <id>fd796af8-d347-4324-8853-5db562391e81</id>
+    </Folder>
+    <Folder Include="Modules\ActionsWithItemsInProjectExplorer">
+      <id>fcb74411-cb5d-493b-a16c-dc59aed3884f</id>
     </Folder>
     <Folder Include="Modules\SettingsTestSuite">
       <id>70adccec-360c-4240-9723-fdc7d4f728df</id>

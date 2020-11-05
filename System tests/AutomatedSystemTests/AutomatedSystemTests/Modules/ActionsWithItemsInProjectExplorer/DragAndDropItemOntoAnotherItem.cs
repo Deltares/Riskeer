@@ -20,47 +20,63 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection.Assembly
+namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectManualAssessment recording.
+    ///The DragAndDropItemOntoAnotherItem recording.
     /// </summary>
-    [TestModule("5b015ee3-50ff-44a4-90b6-4b97670bff51", ModuleType.Recording, 1)]
-    public partial class SelectManualAssessment : ITestModule
+    [TestModule("909ea538-c662-4239-a56a-672c6d28b694", ModuleType.Recording, 1)]
+    public partial class DragAndDropItemOntoAnotherItem : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectManualAssessment instance = new SelectManualAssessment();
+        static DragAndDropItemOntoAnotherItem instance = new DragAndDropItemOntoAnotherItem();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectManualAssessment()
+        public DragAndDropItemOntoAnotherItem()
         {
+            pathItemToMove = "";
+            pathItemDestination = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectManualAssessment Instance
+        public static DragAndDropItemOntoAnotherItem Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _pathItemToMove;
+
         /// <summary>
-        /// Gets or sets the value of variable rowIndex.
+        /// Gets or sets the value of variable pathItemToMove.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
+        [TestVariable("0b446edc-7bfd-4e53-b683-8c3dd2b46bb3")]
+        public string pathItemToMove
         {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return _pathItemToMove; }
+            set { _pathItemToMove = value; }
+        }
+
+        string _pathItemDestination;
+
+        /// <summary>
+        /// Gets or sets the value of variable pathItemDestination.
+        /// </summary>
+        [TestVariable("f21e4405-5055-47d1-a985-93bb7d25200f")]
+        public string pathItemDestination
+        {
+            get { return _pathItemDestination; }
+            set { _pathItemDestination = value; }
         }
 
 #endregion
@@ -89,12 +105,7 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to 'True' on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox.Element.SetAttributeValue("AccessibleValue", "True");
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='True') on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckbox'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.ManualAssessmentCheckboxInfo, "AccessibleValue", "True");
+            DragAndDropProjectExplorerItemOntoAnotherOne(pathItemToMove, pathItemDestination, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
             Delay.Milliseconds(0);
             
         }

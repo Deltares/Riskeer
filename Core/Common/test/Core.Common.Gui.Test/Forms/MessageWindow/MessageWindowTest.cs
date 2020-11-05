@@ -21,8 +21,9 @@
 
 using System;
 using System.Data;
-using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Gui.Clipboard;
+using Core.Common.Gui.TestUtil.Clipboard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -436,11 +437,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void ButtonCopy_Click_CopiesContentToClipboard()
         {
             // Setup
             using (var form = new Form())
+            using (new ClipboardConfig())
             using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
@@ -455,7 +456,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
-                IDataObject actualDataObject = Clipboard.GetDataObject();
+                IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
                 Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
                 var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
                 Assert.AreEqual("\t00:00:00\tmessage", actualContent);

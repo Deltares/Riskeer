@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Gui.Clipboard;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.TestUtil.Clipboard;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -232,11 +233,11 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // Don't remove: test will hang otherwise due to copy to clipboard
         public void GivenExceptionDialog_WhenCopyToClipboardClicked_ThenExceptionTextCopiedToClipboard()
         {
             // Setup
             var exception = new Exception("Test");
+            using (new ClipboardConfig())
             using (var dialog = new ExceptionDialog(new UserControl(), null, exception))
             {
                 dialog.Show();
@@ -247,7 +248,7 @@ namespace Core.Common.Gui.Test
                 button.Click();
 
                 // Assert
-                Assert.AreEqual(exception.ToString(), Clipboard.GetText());
+                Assert.AreEqual(exception.ToString(), ClipboardProvider.Clipboard.GetText());
             }
         }
 
