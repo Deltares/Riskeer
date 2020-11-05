@@ -16,6 +16,25 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="028f647d-b044-42a6-8bda-40b5344474e0"
+			name="ConvertPropertiesPanelToString"
+			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
+					variablename="stringifiedPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="02a1c940-9b30-46ee-88c1-1a30c689b340"
+			name="ValidateCopiesOfCalculation">
+			</smartfoldernode>
 			<testcase
 			id="03516193-c159-43bc-8599-7d2a7b5f7875"
 			name="script18_Overige_(sterkte)parameters_specificeren">
@@ -130,6 +149,26 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="082414c3-1eb2-4d0f-9753-b24043da15d6"
+			name="DragAndDropItemOntoAnotherItem"
+			ref="909ea538-c662-4239-a56a-672c6d28b694"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToNewFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="f21e4405-5055-47d1-a985-93bb7d25200f"
+					variablename="pathItemDestination">
+					</var>
+					<var
+					dataname="pathToCopiedCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="0b446edc-7bfd-4e53-b683-8c3dd2b46bb3"
+					variablename="pathItemToMove">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="098a343f-7c7e-4b10-af47-0b1a58c75974"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -166,6 +205,32 @@
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
 					variablename="maximumNumberOfRowsToValidate">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="0c3cc3e2-bc72-40c3-a53e-bcd43d7a32d5"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="intermediatePath"
+					datasourceid="406bfe81-eea4-4689-926c-7be5a524d13d"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="nameOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
 					</var>
 				</databinding>
 			</testmodule>
@@ -311,6 +376,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="1a137edd-90c9-4410-98a2-1ddf110599e7"
+			name="CalculatePathToCopyOfCalculation">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+					<param
+					name="intermediatePath2"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="1c4a33a7-8393-48b4-bede-5e2d234cc3bf"
 			name="SelectGenericItemInProjectExplorer"
@@ -411,6 +490,120 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="23b40567-a15b-424c-af4a-17d11210ffdf"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediatePath2"
+					datasourceid="985e3648-3fd1-4265-a069-595098a49c20"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="intermediatePath"
+					datasourceid="985e3648-3fd1-4265-a069-595098a49c20"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePath"
+					datasourceid="66b023f0-e275-414d-941c-0e26d17d53aa"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script27a_ItemsToValidateInCalculation"
+			errorbehavior="ContinueNextIteration"
+			id="249bc7fc-a5e8-423d-90b6-12d864629bff"
+			maxrange="1"
+			minrange="1"
+			name="LoopItemsToValidateInCalculation">
+			</smartfoldernode>
+			<testmodule
+			id="25a9ef1c-3273-45fc-8e79-45b676f77b4c"
+			name="InsertPreffixInLastStepOfPath"
+			ref="59c93bda-2f66-419c-8c73-506536ac6587"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="49ba6196-e160-44ef-82e0-97affcff7e03"
+					variablename="originalPathItem">
+					</var>
+					<var
+					dataname="pathToCopiedCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="preffixCopyOfCalculation"
+					datasourceid="34943f88-8ade-4e84-9831-d0a34e08c454"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixCopyCalculation">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+					<var
+					dataname="pathDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="2763deea-d9ac-4ef3-b757-e2c5889510ce"
+			name="AddCalculationFolder"
+			ref="c09a9669-9b00-4ab5-9134-5658e1a585ac"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="2c5ae058-b0c9-4314-af1d-0babe4bcabda"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationToExpandAllParametersInItem"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script27a_ItemsToValidateInCalculation"
 			errorbehavior="ContinueNextIteration"
@@ -420,11 +613,55 @@
 			name="LoopItemsToValidateInCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="2f5c8e2b-f107-4e4a-b946-e2a67925ebfe"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNewFolder"
+					datasourceid="c5dd63b0-82c0-4742-94a4-61ef4bed138e"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToNewFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="34943f88-8ade-4e84-9831-d0a34e08c454"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="suffixItem"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="3193d72f-a468-404f-a33b-6fbfac17c4f9"
 			name="HideRanorexProgressDialog"
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<smartfoldernode
+			id="32c0cb51-5e3c-4a9f-a0dd-e8e4fdf3c456"
+			name="ValidateAllParametersAreEqualInCopyCalculationInDuplicatedFolder">
+			</smartfoldernode>
 			<testmodule
 			id="346fee85-9756-4de2-91f8-eb1d3eb53d6d"
 			name="DuplicateCalculationItem"
@@ -466,6 +703,50 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="36b440c8-bfd9-48ef-84f6-5947f18b3b2c"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameOfProject"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fielNameToOpen"
+					datasourceid="5c68fcb8-4ef4-4268-8a33-9ff8282b1237"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="37430a3e-d0f2-4bda-bdbf-1a1f83db84d8"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="380d0edc-a379-499a-883e-b4200e58292c"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -486,6 +767,20 @@
 					variablename="milisecondsToWait">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="39cd2e6b-b3af-44eb-ab7a-99f591f4c1ee"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationToExpandAllParametersInItem"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="3a7c7b51-3774-4ddc-84cf-8e127da253f1"
@@ -562,6 +857,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="406bfe81-eea4-4689-926c-7be5a524d13d"
+			name="CalculatePathToOriginalCalculation">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="4145f572-f5fd-4641-bf22-a729bb74a212"
 			name="DuplicateCalculation">
 			</smartfoldernode>
@@ -584,6 +889,46 @@
 					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="4245cc2b-541e-4dcf-859c-8b2b3b377687"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediatePath2"
+					datasourceid="985e3648-3fd1-4265-a069-595098a49c20"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePath"
+					datasourceid="66b023f0-e275-414d-941c-0e26d17d53aa"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCalculationInsideDuplicatedFolder"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -680,6 +1025,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="502ae719-56f5-494a-9336-1b05fe188166"
+			name="CalculateIfProjectMustBeOpened"
+			ref="0992afa2-5082-4c3f-b072-0a9a6be5977c"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="projectNeedsToBeOpened"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="f5d6fdf5-43e2-42d5-a343-d130722b19cb"
+					variablename="projectMustBeOpened">
+					</var>
+					<var
+					dataname="fileNameOfProject"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="72fcd65e-4903-4569-8c21-047c0d41f306"
+					variablename="fileNameOfProjectThatShouldBeOpen">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script18ParametersToModifyInCalculations"
 			errorbehavior="ContinueNextIteration"
@@ -726,6 +1091,74 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="54c9c5c8-5759-4764-9e69-9235392916c1"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="a0f81bcb-fae9-45a4-a16d-21ce7b95f1d3"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="itemPathInCalculation"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="suffixItem"
+					datasourceid="9e2ca6b0-b53f-480b-aabd-d0512e5f3996"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="54fd3012-a4e7-4d5f-8923-c47560e7793c"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToNewFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="5502e1a8-bcab-431f-b643-897902e719a4"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="rowsOfItemsToCompare"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+					<var
+					dataname="smartFolderToSetRange"
+					datasourceid="6a5d8ef6-6db2-4203-9404-9071ab7c0b42"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="592cbeb7-d6f9-408b-a899-09390e764f88"
 			name="SelectListItemFromDropDownMenuInPropertiesPanel">
@@ -750,6 +1183,56 @@
 						</rightvalue>
 					</condition>
 				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="599caa6a-d908-421d-8fd6-f8f6bb270814"
+			name="InsertPreffixInLastStepOfPath"
+			ref="59c93bda-2f66-419c-8c73-506536ac6587"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToNewFolder"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="49ba6196-e160-44ef-82e0-97affcff7e03"
+					variablename="originalPathItem">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+					<var
+					dataname="pathToDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="preffixCopyOfCalculation"
+					datasourceid="34943f88-8ade-4e84-9831-d0a34e08c454"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixCopyCalculation">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+					<var
+					dataname="pathDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="5be1fa92-fe38-412a-978c-715950a24494"
+			name="DuplicateCalculationAgain">
 			</smartfoldernode>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
@@ -782,6 +1265,34 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="6409ae21-7551-4083-b3a7-d305002473b1"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="65ce53ec-b972-49ac-944c-d4a2dc6fcd34"
+			name="DuplicateCalculationItem"
+			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="66b023f0-e275-414d-941c-0e26d17d53aa"
 			name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
@@ -789,6 +1300,64 @@
 					<param
 					name="fullPathToItem"
 					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="66f3037f-6fe4-4b4b-a78c-57a98c86587d"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="a0f81bcb-fae9-45a4-a16d-21ce7b95f1d3"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="68438232-64f8-4d13-9e0e-7c207c91827e"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="99164892-b25a-4979-8bec-9eb701c2fbcc"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="itemPathInCalculation"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToCopiedCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="suffixItem"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="6a5d8ef6-6db2-4203-9404-9071ab7c0b42"
+			name="SetRangeOfItemsToValidate">
+				<parameters>
+					<param
+					name="smartFolderToSetRange"
+					value="LoopItemsToValidateInCalculation">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -833,6 +1402,46 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="7118a51a-2f62-4b25-a83f-88fa85e3b9eb"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediatePath"
+					datasourceid="985e3648-3fd1-4265-a069-595098a49c20"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="characterNewStepInPath"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="74cceb79-c627-4af3-a01d-d9f033253c3a"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -852,6 +1461,71 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script27aCalculationsToCopyAndValidate"
+			id="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+			maxrange="8"
+			minrange="6"
+			name="LoopFMs">
+				<parameters>
+					<param
+					name="stringifiedPropertiesPanelOriginalCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelOriginalCalculationResult"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyCalculationResult"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
+					value="">
+					</param>
+					<param
+					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationResult"
+					value="">
+					</param>
+					<param
+					name="pathToOriginalCalculation"
+					value="">
+					</param>
+					<param
+					name="pathToCopiedCalculation"
+					value="">
+					</param>
+					<param
+					name="pathToNewFolder"
+					value="">
+					</param>
+					<param
+					name="pathToDuplicatedFolderContainingCopiedCalculation"
+					value="">
+					</param>
+					<param
+					name="pathToCopiedCalculationInsideDuplicatedFolder"
+					value="">
+					</param>
+					<param
+					name="preffixCopy"
+					value="Kopie van ">
+					</param>
+					<param
+					name="separatorStepInPath"
+					value=">">
+					</param>
+					<param
+					name="projectNeedsToBeOpened"
+					value="false">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="77fe5305-0370-4462-a7f8-9ba266c5eece"
 			name="SaveConfigurationXMLFileForCalculation_ToDo">
@@ -876,6 +1550,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="7c2d3775-2086-4117-96d8-68806ad58491"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
 			name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
@@ -886,6 +1582,28 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="816420da-f219-40af-88d0-0d964bd48aa3"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="8461a883-fa43-4f6f-a49d-e05c65708bb0"
 			name="ShowRanorexProgressDialog"
@@ -958,10 +1676,38 @@
 			id="8c7d002a-c536-4210-beff-3562aa22a18c"
 			name="DuplicateCalculationAgain">
 			</smartfoldernode>
+			<testmodule
+			id="8c88068e-6c08-4212-8b0c-fa0d6d0ba304"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="9113c906-d6b7-4532-b681-50f33e48c278"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="8d192fcd-cdb2-492a-880e-e3f7b2283e88"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="906ae357-808b-47c1-b3cc-92754e60dfda"
+			name="ValidateParametersAreEqualInCopyCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="9113c906-d6b7-4532-b681-50f33e48c278"
+			name="ReadAllParametersItemInOriginalCalculation">
+				<parameters>
+					<param
+					name="fullPathToItem"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e"
 			name="a)DuplicationOfCalculations">
@@ -1087,8 +1833,56 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="985e3648-3fd1-4265-a069-595098a49c20"
+			name="CalculatePathToCopyOfCalculationInsideDuplicatedFolder">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+					<param
+					name="intermediatePath2"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="99164892-b25a-4979-8bec-9eb701c2fbcc"
+			name="ReadAllParametersItemInCopyCalculation">
+				<parameters>
+					<param
+					name="fullPathToItem"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="9b855997-d3fa-4905-b185-8f945d8a56a6"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+			</smartfoldernode>
+			<testmodule
+			id="a0f0e388-db1b-49d8-bb2b-2c56b7716bbd"
+			name="ConvertPropertiesPanelToString"
+			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelCopyCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
+					variablename="stringifiedPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="a0f81bcb-fae9-45a4-a16d-21ce7b95f1d3"
+			name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
+				<parameters>
+					<param
+					name="fullPathToItem"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a20e3d1e-8d16-4a51-9e5f-966bea2c887b"
@@ -1202,6 +1996,24 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="ad3a6c32-b39a-43f5-9a28-1b0e076a3922"
+			name="MoveCopiedCalculationInsideCreatedFolder">
+			</smartfoldernode>
+			<testmodule
+			id="ae6c4fae-27b8-47a5-88aa-3ec112c8f8a3"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationToExpandAllParametersInItem"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="ae7640f4-81bd-433e-a94c-5100875ffd05"
 			name="ConvertPropertiesPanelToString"
@@ -1215,6 +2027,97 @@
 					variablename="stringifiedPropertiesPanel">
 					</var>
 				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="b044ad0a-f862-4cb0-a684-fb35eb83f93d"
+			name="DuplicateFolderContainingCopiedAndMovedCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b2998862-9329-4dc0-a5a9-bdddc6e56060"
+			name="OpenProject">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="projectNeedsToBeOpened"
+								id="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="true">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="b2debca2-fbcb-4243-9c60-38822dca3c6f"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="9113c906-d6b7-4532-b681-50f33e48c278"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="itemPathInCalculation"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixItem"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b3228031-4805-454a-bfbe-027a9dc1f7c4"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -1240,12 +2143,46 @@
 			name="b)ExportingAndImportingCalculation">
 			</smartfoldernode>
 			<smartfoldernode
+			id="bdb33938-c1a1-4cc3-9547-3740a695b5f5"
+			name="DuplicateCalculation">
+			</smartfoldernode>
+			<smartfoldernode
 			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
 			name="ReadAllParametersItemInOriginalCalculation">
 				<parameters>
 					<param
 					name="fullPathToItem"
 					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="c3ea7ca5-d925-48a3-8df7-a840b083be8c"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="99164892-b25a-4979-8bec-9eb701c2fbcc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="c5d2246d-57e1-4c17-8c0b-933f8e2f5173"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<smartfoldernode
+			id="c5dd63b0-82c0-4742-94a4-61ef4bed138e"
+			name="CreateCalculationFolder">
+				<parameters>
+					<param
+					name="suffixNewFolder"
+					value=">Nieuwe map">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1286,6 +2223,20 @@
 					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="cd1f214a-ba6e-4788-9f99-cf4bb0dbf9af"
+			name="ConvertPropertiesPanelToString"
+			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
+					variablename="stringifiedPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1347,6 +2298,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="d73863bf-8771-4af2-ab10-f04dcfe62813"
+			name="CalculateIfDifferentProjectNeedsToBeOpened">
+			</smartfoldernode>
+			<smartfoldernode
 			id="da5fff66-2225-4c1b-9c49-23928d144375"
 			name="SetRangeOfItemsToValidate">
 				<parameters>
@@ -1391,6 +2346,40 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="e1f531c5-68a1-45c6-8baa-d28a5833af73"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediatePath"
+					datasourceid="406bfe81-eea4-4689-926c-7be5a524d13d"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="characterNewStepInPath"
+					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="e3d67abc-1a63-46c4-8ce8-2e668bbfa231"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1431,6 +2420,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="ec8306f7-be5b-4c17-ad77-200ad1ae5228"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="ef9a4d1b-219a-4ad9-98f3-ab60a141430e"
 			name="ConvertPropertiesPanelToString"
 			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
@@ -1441,6 +2436,54 @@
 					datasourceid="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4"
 					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
 					variablename="stringifiedPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f00b3f25-16a6-4ba7-8724-195432977f17"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="2f0176c5-2473-4192-a074-ed4c9d8468c1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f00e2541-4179-4bf7-a386-fdd1d33fbf94"
+			name="ValidateStringsPropertiesPanelAreEqual"
+			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
+					variablename="string1PropertiesPanel">
+					</var>
+					<var
+					dataname="stringifiedPropertiesPanelCopyCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
+					variablename="string2PropertiesPanel">
+					</var>
+					<var
+					dataname="maxRowsToValidate"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
+					variablename="maximumNumberOfRowsToValidate">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1512,6 +2555,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="f59c1525-c1c7-4a6b-b013-66fd9be6ad9c"
+			name="DuplicateCalculationItem"
+			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="f6f1a5df-ff33-486f-99e9-98f279472c96"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -1568,6 +2617,38 @@
 					variablename="durationPressRightKey">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="fcd787bb-e84f-4c25-bd6d-29ef14b76b9b"
+			name="ValidateStringsPropertiesPanelAreEqual"
+			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
+					variablename="string1PropertiesPanel">
+					</var>
+					<var
+					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
+					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
+					variablename="string2PropertiesPanel">
+					</var>
+					<var
+					dataname="maxRowsToValidate"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
+					variablename="maximumNumberOfRowsToValidate">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="fd5e14b4-47bf-4e31-8c05-463fffd2daf3"
+			name="DuplicateCalculationItem"
+			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
+			type="Recording">
 			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
@@ -1935,6 +3016,238 @@
 						<smartfoldernode
 						id="b964a574-b2b1-4601-a4fd-20edacda10a1"
 						name="b)ExportingAndImportingCalculation">
+							<smartfoldernode
+							id="7615a019-6164-487c-b0cf-8ef83c0eee8f"
+							name="LoopFMs">
+								<smartfoldernode
+								id="d73863bf-8771-4af2-ab10-f04dcfe62813"
+								name="CalculateIfDifferentProjectNeedsToBeOpened">
+									<testmodule
+									id="502ae719-56f5-494a-9336-1b05fe188166"
+									name="CalculateIfProjectMustBeOpened">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b2998862-9329-4dc0-a5a9-bdddc6e56060"
+								name="OpenProject">
+									<testmodule
+									id="36b440c8-bfd9-48ef-84f6-5947f18b3b2c"
+									name="OpenProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="406bfe81-eea4-4689-926c-7be5a524d13d"
+								name="CalculatePathToOriginalCalculation">
+									<testmodule
+									id="e1f531c5-68a1-45c6-8baa-d28a5833af73"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="0c3cc3e2-bc72-40c3-a53e-bcd43d7a32d5"
+									name="ConcatenateStrings">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="bdb33938-c1a1-4cc3-9547-3740a695b5f5"
+								name="DuplicateCalculation">
+									<testmodule
+									id="816420da-f219-40af-88d0-0d964bd48aa3"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="65ce53ec-b972-49ac-944c-d4a2dc6fcd34"
+									name="DuplicateCalculationItem">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="1a137edd-90c9-4410-98a2-1ddf110599e7"
+								name="CalculatePathToCopyOfCalculation">
+									<testmodule
+									id="25a9ef1c-3273-45fc-8e79-45b676f77b4c"
+									name="InsertPreffixInLastStepOfPath">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="c5dd63b0-82c0-4742-94a4-61ef4bed138e"
+								name="CreateCalculationFolder">
+									<testmodule
+									id="6409ae21-7551-4083-b3a7-d305002473b1"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="2763deea-d9ac-4ef3-b757-e2c5889510ce"
+									name="AddCalculationFolder">
+									</testmodule>
+									<testmodule
+									id="2f5c8e2b-f107-4e4a-b946-e2a67925ebfe"
+									name="ConcatenateStrings">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="ad3a6c32-b39a-43f5-9a28-1b0e076a3922"
+								name="MoveCopiedCalculationInsideCreatedFolder">
+									<testmodule
+									id="082414c3-1eb2-4d0f-9753-b24043da15d6"
+									name="DragAndDropItemOntoAnotherItem">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b044ad0a-f862-4cb0-a684-fb35eb83f93d"
+								name="DuplicateFolderContainingCopiedAndMovedCalculation">
+									<testmodule
+									id="54fd3012-a4e7-4d5f-8923-c47560e7793c"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="fd5e14b4-47bf-4e31-8c05-463fffd2daf3"
+									name="DuplicateCalculationItem">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="985e3648-3fd1-4265-a069-595098a49c20"
+								name="CalculatePathToCopyOfCalculationInsideDuplicatedFolder">
+									<testmodule
+									id="599caa6a-d908-421d-8fd6-f8f6bb270814"
+									name="InsertPreffixInLastStepOfPath">
+									</testmodule>
+									<testmodule
+									id="7118a51a-2f62-4b25-a83f-88fa85e3b9eb"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="23b40567-a15b-424c-af4a-17d11210ffdf"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="4245cc2b-541e-4dcf-859c-8b2b3b377687"
+									name="ConcatenateStrings">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="5be1fa92-fe38-412a-978c-715950a24494"
+								name="DuplicateCalculationAgain">
+									<testmodule
+									id="b3228031-4805-454a-bfbe-027a9dc1f7c4"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="f59c1525-c1c7-4a6b-b013-66fd9be6ad9c"
+									name="DuplicateCalculationItem">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="02a1c940-9b30-46ee-88c1-1a30c689b340"
+								name="ValidateCopiesOfCalculation">
+									<smartfoldernode
+									id="6a5d8ef6-6db2-4203-9404-9071ab7c0b42"
+									name="SetRangeOfItemsToValidate">
+										<testmodule
+										id="5502e1a8-bcab-431f-b643-897902e719a4"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="249bc7fc-a5e8-423d-90b6-12d864629bff"
+									name="LoopItemsToValidateInCalculation">
+										<testmodule
+										id="c5d2246d-57e1-4c17-8c0b-933f8e2f5173"
+										name="HideRanorexProgressDialog">
+										</testmodule>
+										<smartfoldernode
+										id="9113c906-d6b7-4532-b681-50f33e48c278"
+										name="ReadAllParametersItemInOriginalCalculation">
+											<testmodule
+											id="b2debca2-fbcb-4243-9c60-38822dca3c6f"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="8c88068e-6c08-4212-8b0c-fa0d6d0ba304"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="2c5ae058-b0c9-4314-af1d-0babe4bcabda"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="37430a3e-d0f2-4bda-bdbf-1a1f83db84d8"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="028f647d-b044-42a6-8bda-40b5344474e0"
+											name="ConvertPropertiesPanelToString">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="99164892-b25a-4979-8bec-9eb701c2fbcc"
+										name="ReadAllParametersItemInCopyCalculation">
+											<testmodule
+											id="68438232-64f8-4d13-9e0e-7c207c91827e"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="c3ea7ca5-d925-48a3-8df7-a840b083be8c"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="39cd2e6b-b3af-44eb-ab7a-99f591f4c1ee"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="f00b3f25-16a6-4ba7-8724-195432977f17"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="a0f0e388-db1b-49d8-bb2b-2c56b7716bbd"
+											name="ConvertPropertiesPanelToString">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="a0f81bcb-fae9-45a4-a16d-21ce7b95f1d3"
+										name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
+											<testmodule
+											id="54c9c5c8-5759-4764-9e69-9235392916c1"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="66f3037f-6fe4-4b4b-a78c-57a98c86587d"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="ae6c4fae-27b8-47a5-88aa-3ec112c8f8a3"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="7c2d3775-2086-4117-96d8-68806ad58491"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="cd1f214a-ba6e-4788-9f99-cf4bb0dbf9af"
+											name="ConvertPropertiesPanelToString">
+											</testmodule>
+										</smartfoldernode>
+										<testmodule
+										id="ec8306f7-be5b-4c17-ad77-200ad1ae5228"
+										name="ShowRanorexProgressDialog">
+										</testmodule>
+										<smartfoldernode
+										id="906ae357-808b-47c1-b3cc-92754e60dfda"
+										name="ValidateParametersAreEqualInCopyCalculation">
+											<testmodule
+											id="f00e2541-4179-4bf7-a386-fdd1d33fbf94"
+											name="ValidateStringsPropertiesPanelAreEqual">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="32c0cb51-5e3c-4a9f-a0dd-e8e4fdf3c456"
+										name="ValidateAllParametersAreEqualInCopyCalculationInDuplicatedFolder">
+											<testmodule
+											id="fcd787bb-e84f-4c25-bd6d-29ef14b76b9b"
+											name="ValidateStringsPropertiesPanelAreEqual">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
 						id="34f7a4f4-edf0-4bb8-8529-27239f9db0ac"
@@ -5425,7 +6738,7 @@
 						2500
 					</td>
 					<td>
-						400
+						950
 					</td>
 				</tr>
 				<tr>
@@ -5458,7 +6771,7 @@
 						2500
 					</td>
 					<td>
-						400
+						950
 					</td>
 				</tr>
 				<tr>
@@ -5491,7 +6804,7 @@
 						2500
 					</td>
 					<td>
-						400
+						800
 					</td>
 				</tr>
 				<tr>
@@ -5827,6 +7140,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="02a1c940-9b30-46ee-88c1-1a30c689b340">
+			</testcontainer>
+			<testcontainer
 			id="05d58ea9-0b1c-44b8-b1f2-998547ff1fa4">
 			</testcontainer>
 			<testcontainer
@@ -5836,13 +7152,25 @@
 			id="149aa2fd-7c55-4877-b20d-8d9ec0620503">
 			</testcontainer>
 			<testcontainer
+			id="1a137edd-90c9-4410-98a2-1ddf110599e7">
+			</testcontainer>
+			<testcontainer
 			id="1c6a3822-80f6-4e8e-9985-a84175ecb755">
+			</testcontainer>
+			<testcontainer
+			id="249bc7fc-a5e8-423d-90b6-12d864629bff">
 			</testcontainer>
 			<testcontainer
 			id="2f0176c5-2473-4192-a074-ed4c9d8468c1">
 			</testcontainer>
 			<testcontainer
+			id="32c0cb51-5e3c-4a9f-a0dd-e8e4fdf3c456">
+			</testcontainer>
+			<testcontainer
 			id="34943f88-8ade-4e84-9831-d0a34e08c454">
+			</testcontainer>
+			<testcontainer
+			id="406bfe81-eea4-4689-926c-7be5a524d13d">
 			</testcontainer>
 			<testcontainer
 			id="4145f572-f5fd-4641-bf22-a729bb74a212">
@@ -5854,7 +7182,16 @@
 			id="4ec44d85-626e-4b20-b6c5-47f18b24e2b1">
 			</testcontainer>
 			<testcontainer
+			id="5be1fa92-fe38-412a-978c-715950a24494">
+			</testcontainer>
+			<testcontainer
 			id="66b023f0-e275-414d-941c-0e26d17d53aa">
+			</testcontainer>
+			<testcontainer
+			id="6a5d8ef6-6db2-4203-9404-9071ab7c0b42">
+			</testcontainer>
+			<testcontainer
+			id="7615a019-6164-487c-b0cf-8ef83c0eee8f">
 			</testcontainer>
 			<testcontainer
 			id="7fea90cf-52f4-4fb1-916e-cc6a478acb35">
@@ -5869,16 +7206,46 @@
 			id="8c7d002a-c536-4210-beff-3562aa22a18c">
 			</testcontainer>
 			<testcontainer
+			id="906ae357-808b-47c1-b3cc-92754e60dfda">
+			</testcontainer>
+			<testcontainer
+			id="9113c906-d6b7-4532-b681-50f33e48c278">
+			</testcontainer>
+			<testcontainer
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e">
 			</testcontainer>
 			<testcontainer
 			id="95864c76-e50d-45c7-99e9-8008391fc15d">
 			</testcontainer>
 			<testcontainer
+			id="985e3648-3fd1-4265-a069-595098a49c20">
+			</testcontainer>
+			<testcontainer
+			id="99164892-b25a-4979-8bec-9eb701c2fbcc">
+			</testcontainer>
+			<testcontainer
+			id="a0f81bcb-fae9-45a4-a16d-21ce7b95f1d3">
+			</testcontainer>
+			<testcontainer
+			id="ad3a6c32-b39a-43f5-9a28-1b0e076a3922">
+			</testcontainer>
+			<testcontainer
+			id="b044ad0a-f862-4cb0-a684-fb35eb83f93d">
+			</testcontainer>
+			<testcontainer
+			id="b2998862-9329-4dc0-a5a9-bdddc6e56060">
+			</testcontainer>
+			<testcontainer
 			id="b964a574-b2b1-4601-a4fd-20edacda10a1">
 			</testcontainer>
 			<testcontainer
+			id="bdb33938-c1a1-4cc3-9547-3740a695b5f5">
+			</testcontainer>
+			<testcontainer
 			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c">
+			</testcontainer>
+			<testcontainer
+			id="c5dd63b0-82c0-4742-94a4-61ef4bed138e">
 			</testcontainer>
 			<testcontainer
 			id="d095342e-1322-46bc-8662-416053293485">
@@ -5888,6 +7255,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d2ea990a-8b51-400c-a28e-0f1e7a2fc116">
+			</testcontainer>
+			<testcontainer
+			id="d73863bf-8771-4af2-ab10-f04dcfe62813">
 			</testcontainer>
 			<testcontainer
 			id="da5fff66-2225-4c1b-9c49-23928d144375">
