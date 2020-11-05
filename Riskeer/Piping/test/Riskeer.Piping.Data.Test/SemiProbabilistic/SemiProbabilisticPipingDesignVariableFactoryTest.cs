@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test.SemiProbabilistic
@@ -185,32 +186,6 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
             DistributionAssert.AreEqual(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(pipingInput, generalPipingInput), effectiveThicknessCoverageLayer.Distribution);
             Assert.AreEqual(new RoundedDouble(2), effectiveThicknessCoverageLayer.GetDesignValue());
-        }
-
-        [Test]
-        public void GetPhreaticLevelExit_PipingInputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("pipingInput", exception.ParamName);
-        }
-
-        [Test]
-        public void GetPhreaticLevelExit_ValidPipingInput_CreateDesignVariableForPhreaticLevelExit()
-        {
-            // Setup
-            var pipingInput = new TestPipingInput();
-
-            // Call
-            DesignVariable<NormalDistribution> phreaticLevelExit =
-                SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(pipingInput);
-
-            // Assert
-            Assert.AreSame(pipingInput.PhreaticLevelExit, phreaticLevelExit.Distribution);
-            AssertPercentile(0.05, phreaticLevelExit);
         }
 
         [Test]

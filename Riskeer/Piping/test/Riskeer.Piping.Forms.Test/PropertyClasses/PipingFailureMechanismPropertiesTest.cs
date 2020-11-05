@@ -33,6 +33,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses

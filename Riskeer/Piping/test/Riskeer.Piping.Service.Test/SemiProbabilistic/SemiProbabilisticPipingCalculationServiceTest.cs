@@ -65,7 +65,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             RoundedDouble expectedThicknessCoverageLayerDesignValue = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue();
             double thicknessCoverageLayerAccuracy = DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy();
-            RoundedDouble expectedPhreaticLevelExitDesignValue = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
+            RoundedDouble expectedPhreaticLevelExitDesignValue = PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
             double phreaticLevelExitDesignAccuracy = input.PhreaticLevelExit.GetAccuracy();
             double expectedPiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, expectedAssessmentLevel).Value;
             RoundedDouble expectedDampingFactorExitDesignValue = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();

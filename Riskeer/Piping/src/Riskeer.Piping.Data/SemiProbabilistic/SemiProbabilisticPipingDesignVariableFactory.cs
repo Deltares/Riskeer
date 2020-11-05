@@ -22,7 +22,7 @@
 using System;
 using Riskeer.Common.Data.Probabilistics;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.SemiProbabilistic
 {
     /// <summary>
     /// Factory for creating design variables based on distributions for semi-probabilistic piping calculations.
@@ -140,25 +140,6 @@ namespace Riskeer.Piping.Data
             }
 
             return new LogNormalDistributionDesignVariable(effectiveThicknessCoverageLayer)
-            {
-                Percentile = 0.05
-            };
-        }
-
-        /// <summary>
-        /// Creates the design variable for the phreatic level at the exit point.
-        /// </summary>
-        /// <param name="pipingInput">The piping input.</param>
-        /// <returns>The created <see cref="DesignVariable{NormalDistribution}"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
-        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput pipingInput)
-        {
-            if (pipingInput == null)
-            {
-                throw new ArgumentNullException(nameof(pipingInput));
-            }
-
-            return new NormalDistributionDesignVariable(pipingInput.PhreaticLevelExit)
             {
                 Percentile = 0.05
             };

@@ -267,7 +267,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             get
             {
                 return new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                      SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
+                                                                      PipingDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
                                                                       propertyChangeHandler);
             }
         }
@@ -429,7 +429,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             {
                 return new LogNormalDistributionDesignVariableProperties(
                     SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData,
-                                                                                   data.FailureMechanism.GeneralInput));
+                                                                                                    data.FailureMechanism.GeneralInput));
             }
         }
 

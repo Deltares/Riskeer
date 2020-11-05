@@ -259,7 +259,7 @@ namespace Riskeer.Piping.Data
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                                                          generalInput.WaterVolumetricWeight,
-                                                         SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                                                         PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                          input.ExitPointL,
                                                          input.SurfaceLine,
                                                          input.StochasticSoilProfile.SoilProfile));

@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             }
 
             RoundedDouble dampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
-            RoundedDouble phreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
+            RoundedDouble phreaticLevelExit = PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
             return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel,
                                                                                                         dampingFactorExit,
