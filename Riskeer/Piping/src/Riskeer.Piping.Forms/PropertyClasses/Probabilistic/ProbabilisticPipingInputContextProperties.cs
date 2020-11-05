@@ -444,7 +444,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ProfileSpecificCalculation), 4, numberOfCategories)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldProfileSpecificIllustrationPointsBeCalculated
         {
@@ -458,7 +458,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SectionSpecificCalculation), 5, numberOfCategories)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldSectionSpecificIllustrationPointsBeCalculated
         {

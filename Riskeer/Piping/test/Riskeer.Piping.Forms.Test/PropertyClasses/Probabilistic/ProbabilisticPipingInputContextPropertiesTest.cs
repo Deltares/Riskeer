@@ -361,7 +361,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shouldSectionSpecificCalculateIllustrationPointsProperty,
                 sectionSpecificCategory,
-                "Illustratiepunten inlezen",
+                "Illustratiepunten inlezen ",
                 "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
             mocks.VerifyAll();

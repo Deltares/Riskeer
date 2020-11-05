@@ -536,4 +536,11 @@ opbarsten
   <data name="Categories_ProfileSpecificCalculation" xml:space="preserve">
     <value>Sterkte berekening doorsnede</value>
   </data>
+  <data name="ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen</value>
+  </data>
+  <data name="ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen </value>
+    <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
+  </data>
 </root>

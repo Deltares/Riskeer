@@ -1277,6 +1277,24 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen .
+        /// </summary>
+        public static string ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap StochasticSoilModelIcon {
