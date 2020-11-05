@@ -245,11 +245,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsCalculationGroup(null);
+            void Call() => entity.ReadAsMacroStabilityInwardsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -456,11 +456,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsGrassCoverErosionInwardsCalculationGroup(null);
+            void Call() => entity.ReadAsGrassCoverErosionInwardsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -647,11 +647,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -838,11 +838,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsHeightStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsHeightStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1029,11 +1029,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsClosingStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsClosingStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1224,11 +1224,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsStabilityPointStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsStabilityPointStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1415,11 +1415,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1606,11 +1606,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]

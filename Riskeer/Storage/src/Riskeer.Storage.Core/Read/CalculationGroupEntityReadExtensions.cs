@@ -102,14 +102,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as MacroStabilityInwardsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is MacroStabilityInwardsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -142,14 +140,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is GrassCoverErosionInwardsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -182,14 +178,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is GrassCoverErosionOutwardsWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -222,14 +216,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsHeightStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as HeightStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is HeightStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -262,14 +254,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsClosingStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as ClosingStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is ClosingStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -302,14 +292,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as StabilityPointStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is StabilityPointStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -342,14 +330,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as StabilityStoneCoverWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is StabilityStoneCoverWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -382,14 +368,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is WaveImpactAsphaltCoverWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
