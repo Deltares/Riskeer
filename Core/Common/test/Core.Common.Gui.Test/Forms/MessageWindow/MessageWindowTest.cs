@@ -24,6 +24,7 @@ using System.Data;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.ClipBoard;
+using Core.Common.Gui.TestUtil.Clipboard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -442,6 +443,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
+            using (new ClipboardConfig())
             using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);

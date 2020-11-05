@@ -24,6 +24,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.ClipBoard;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.TestUtil.Clipboard;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -238,6 +239,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var exception = new Exception("Test");
+            using (new ClipboardConfig())
             using (var dialog = new ExceptionDialog(new UserControl(), null, exception))
             {
                 dialog.Show();
