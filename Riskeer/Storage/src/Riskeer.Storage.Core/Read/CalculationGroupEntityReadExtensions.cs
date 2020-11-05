@@ -28,6 +28,7 @@ using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
+using Riskeer.Storage.Core.Read.Piping.Probabilistic;
 using Riskeer.Storage.Core.Read.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
@@ -69,9 +70,14 @@ namespace Riskeer.Storage.Core.Read
                     group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector));
                 }
 
-                if (childEntity is SemiProbabilisticPipingCalculationEntity childCalculationEntity)
+                if (childEntity is SemiProbabilisticPipingCalculationEntity semiProbabilisticChildCalculationEntity)
                 {
-                    group.Children.Add(childCalculationEntity.Read(collector));
+                    group.Children.Add(semiProbabilisticChildCalculationEntity.Read(collector));
+                }
+
+                if (childEntity is ProbabilisticPipingCalculationEntity probabilisticChildCalculationEntity)
+                {
+                    group.Children.Add(probabilisticChildCalculationEntity.Read(collector));
                 }
             }
 
@@ -391,6 +397,11 @@ namespace Riskeer.Storage.Core.Read
             }
 
             foreach (SemiProbabilisticPipingCalculationEntity calculationEntity in entity.SemiProbabilisticPipingCalculationEntities)
+            {
+                sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+
+            foreach (ProbabilisticPipingCalculationEntity calculationEntity in entity.ProbabilisticPipingCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }

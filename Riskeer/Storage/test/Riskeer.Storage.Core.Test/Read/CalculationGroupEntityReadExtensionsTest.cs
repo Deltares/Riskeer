@@ -29,6 +29,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
@@ -176,7 +177,47 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingCalculationGroup_EntityWithChildSemiProbabilisticPipingCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        public void ReadAsPipingCalculationGroup_EntityWithChildProbabilisticPipingCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                ProbabilisticPipingCalculationEntities =
+                {
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 1,
+                        Name = "2",
+                        DampingFactorExitMean = 2
+                    },
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1",
+                        DampingFactorExitMean = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
+
+            // Assert
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
+
+            var rootChildCalculation1 = (ProbabilisticPipingCalculationScenario) rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+
+            var rootChildCalculation2 = (ProbabilisticPipingCalculationScenario) rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+        }
+
+        [Test]
+        public void ReadAsPipingCalculationGroup_EntityWithChildPipingCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -192,8 +233,23 @@ namespace Riskeer.Storage.Core.Test.Read
                     },
                     new SemiProbabilisticPipingCalculationEntity
                     {
+                        Order = 3,
+                        Name = "calculation3",
+                        DampingFactorExitMean = 2
+                    }
+                },
+                ProbabilisticPipingCalculationEntities =
+                {
+                    new ProbabilisticPipingCalculationEntity
+                    {
                         Order = 2,
                         Name = "calculation2",
+                        DampingFactorExitMean = 1
+                    },
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 5,
+                        Name = "calculation4",
                         DampingFactorExitMean = 2
                     }
                 },
@@ -201,7 +257,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Order = 3,
+                        Order = 4,
                         Name = "group2"
                     },
                     new CalculationGroupEntity
@@ -219,19 +275,25 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
-            Assert.AreEqual(4, rootChildren.Count);
+            Assert.AreEqual(6, rootChildren.Count);
 
-            var rootChildCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
-            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+            var rootChildSemiProbabilisticCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildSemiProbabilisticCalculation1.Name);
 
             var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
-            var rootChildCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[2];
-            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+            var rootChildProbabilisticCalculation1 = (ProbabilisticPipingCalculationScenario) rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildProbabilisticCalculation1.Name);
+            
+            var rootChildSemiProbabilisticCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[3];
+            Assert.AreEqual("calculation3", rootChildSemiProbabilisticCalculation2.Name);
 
-            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[4];
             Assert.AreEqual("group2", rootChildGroup2.Name);
+            
+            var rootChildProbabilisticCalculation2 = (ProbabilisticPipingCalculationScenario) rootChildren[5];
+            Assert.AreEqual("calculation4", rootChildProbabilisticCalculation2.Name);
         }
 
         #endregion
