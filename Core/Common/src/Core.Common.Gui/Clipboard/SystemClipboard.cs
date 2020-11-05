@@ -32,7 +32,12 @@ namespace Core.Common.Gui.ClipBoard
         {
             Clipboard.SetDataObject(data, copy);
         }
-        
+
+        public object GetDataObject()
+        {
+            return Clipboard.GetDataObject();
+        }
+
         public string GetText()
         {
             return Clipboard.GetText();
