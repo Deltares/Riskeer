@@ -19,28 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows;
-
 namespace Core.Common.Gui.ClipBoard
 {
     /// <summary>
-    /// Implementation of <see cref="IClipboard"/> based on the system <see cref="Clipboard"/>.
+    /// Provides the <see cref="IClipboard"/> to be used for copy/paste actions.
     /// </summary>
-    internal class SystemClipboard : IClipboard
+    public static class ClipboardProvider
     {
-        public void SetDataObject(object data, bool copy = false)
-        {
-            Clipboard.SetDataObject(data, copy);
-        }
-
-        public object GetDataObject()
-        {
-            return Clipboard.GetDataObject();
-        }
-
-        public string GetText()
-        {
-            return Clipboard.GetText();
-        }
+        /// <summary>
+        /// Gets the clipboard instance to be used.
+        /// </summary>
+        public static IClipboard Clipboard { get; internal set; } = new SystemClipboard();
     }
 }
