@@ -123,10 +123,7 @@ namespace AutomatedSystemTests.Modules.IO
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at Center.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(6));
             repo.Openen.ButtonOpen.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(7));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(7));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

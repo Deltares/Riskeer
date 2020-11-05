@@ -870,15 +870,6 @@ BRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRSUUALRRRQAUUlLQAUUUUAFFFFABRRSUALRRSUgFooo
 oASiiigYUUUUwCiiigD/2Q==
 			</helperscreenshot>
 		</mouseitem>
-		<explicitdelayitem
-		duration="100ms"
-		enabled="True"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
 		<WaitForRecordItem
 		enabled="True"
 		optional="False"
