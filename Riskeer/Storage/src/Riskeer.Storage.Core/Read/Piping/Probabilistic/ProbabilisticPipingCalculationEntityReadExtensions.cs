@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
@@ -60,6 +61,7 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
                 }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
+            ReadCalculationOutputs(calculation, entity);
 
             return calculation;
         }
@@ -92,6 +94,16 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
 
             inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldProfileSpecificIllustrationPointsBeCalculated);
             inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldSectionSpecificIllustrationPointsBeCalculated);
+        }
+        
+        private static void ReadCalculationOutputs(ProbabilisticPipingCalculationScenario calculation,
+                                                   ProbabilisticPipingCalculationEntity entity)
+        {
+            ProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.ProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
+            if (calculationOutputEntity != null)
+            {
+                calculation.Output = calculationOutputEntity.Read();
+            }
         }
     }
 }

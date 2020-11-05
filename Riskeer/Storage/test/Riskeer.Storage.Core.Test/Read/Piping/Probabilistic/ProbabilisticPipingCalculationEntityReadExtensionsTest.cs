@@ -303,6 +303,36 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
             Assert.IsTrue(collector.ContainsPipingStochasticSoilModel(stochasticSoilModelEntity));
         }
+        
+        [Test]
+        public void Read_EntityWithSemiProbabilisticPipingCalculationOutputEntity_CalculationWithSemiProbabilisticPipingOutput()
+        {
+            // Setup
+            var entity = new ProbabilisticPipingCalculationEntity
+            {
+                EntryPointL = 1,
+                ExitPointL = 2,
+                DampingFactorExitMean = 1,
+                ProbabilisticPipingCalculationOutputEntities =
+                {
+                    new ProbabilisticPipingCalculationOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            ProbabilisticPipingCalculationScenario calculation = entity.Read(collector);
+
+            // Assert
+            ProbabilisticPipingOutput output = calculation.Output;
+            Assert.IsNotNull(output);
+
+            Assert.IsNaN(output.ProfileSpecificOutput.Reliability);
+            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNaN(output.SectionSpecificOutput.Reliability);
+            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+        }
 
         private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
         {
