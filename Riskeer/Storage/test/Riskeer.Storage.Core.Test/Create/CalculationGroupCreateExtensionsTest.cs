@@ -164,7 +164,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_GroupWithChildPipingCalculations_CreateEntities()
+        public void Create_GroupWithChildSemiProbabilisticPipingCalculations_CreateEntities()
         {
             // Setup
             var group = new CalculationGroup
@@ -175,17 +175,9 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new ProbabilisticPipingCalculationScenario
-                    {
-                        Name = "B"
-                    },
                     new SemiProbabilisticPipingCalculationScenario
                     {
-                        Name = "C"
-                    },
-                    new ProbabilisticPipingCalculationScenario
-                    {
-                        Name = "D"
+                        Name = "B"
                     }
                 }
             };
@@ -197,22 +189,50 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             SemiProbabilisticPipingCalculationEntity[] semiProbabilisticChildCalculationEntities = entity.SemiProbabilisticPipingCalculationEntities.ToArray();
-            ProbabilisticPipingCalculationEntity[] probabilisticChildCalculationEntities = entity.ProbabilisticPipingCalculationEntities.ToArray();
             Assert.AreEqual(2, semiProbabilisticChildCalculationEntities.Length);
-            Assert.AreEqual(2, probabilisticChildCalculationEntities.Length);
 
             SemiProbabilisticPipingCalculationEntity childEntity1 = semiProbabilisticChildCalculationEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
             Assert.AreEqual(0, childEntity1.Order);
-            ProbabilisticPipingCalculationEntity childEntity2 = probabilisticChildCalculationEntities[0];
+            SemiProbabilisticPipingCalculationEntity childEntity2 = semiProbabilisticChildCalculationEntities[1];
             Assert.AreEqual("B", childEntity2.Name);
             Assert.AreEqual(1, childEntity2.Order);
-            SemiProbabilisticPipingCalculationEntity childEntity3 = semiProbabilisticChildCalculationEntities[1];
-            Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(2, childEntity3.Order);
-            ProbabilisticPipingCalculationEntity childEntity4 = probabilisticChildCalculationEntities[1];
-            Assert.AreEqual("D", childEntity4.Name);
-            Assert.AreEqual(3, childEntity4.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildProbabilisticPipingCalculations_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new ProbabilisticPipingCalculationScenario
+                    {
+                        Name = "A"
+                    },
+                    new ProbabilisticPipingCalculationScenario
+                    {
+                        Name = "B"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            ProbabilisticPipingCalculationEntity[] probabilisticChildCalculationEntities = entity.ProbabilisticPipingCalculationEntities.ToArray();
+            Assert.AreEqual(2, probabilisticChildCalculationEntities.Length);
+
+            ProbabilisticPipingCalculationEntity childEntity1 = probabilisticChildCalculationEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(0, childEntity1.Order);
+            ProbabilisticPipingCalculationEntity childEntity2 = probabilisticChildCalculationEntities[1];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
         }
 
         [Test]
