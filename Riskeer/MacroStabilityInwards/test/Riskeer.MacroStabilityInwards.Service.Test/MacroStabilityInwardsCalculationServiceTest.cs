@@ -32,7 +32,6 @@ using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -219,7 +218,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -248,7 +248,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationWarning = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -277,8 +278,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -321,6 +324,36 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     Assert.AreEqual(Level.Error, tuple.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
                 });
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? testCalculation.InputParameters.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                CalculatorInputAssert.AssertExtremeInput(input, factory.LastCreatedWaternetExtremeCalculator.Input, expectedAssessmentLevel);
+                CalculatorInputAssert.AssertDailyInput(input, factory.LastCreatedWaternetDailyCalculator.Input);
+
+                AssertInput(testCalculation.InputParameters, factory, expectedAssessmentLevel);
             }
         }
 
@@ -821,8 +854,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             AssertSlipPlaneConstraints(originalInput, actualInput.SlipPlaneConstraints);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(expectedAssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);

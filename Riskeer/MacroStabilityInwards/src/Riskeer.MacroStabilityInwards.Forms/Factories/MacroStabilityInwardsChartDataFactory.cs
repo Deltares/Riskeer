@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
     internal static class MacroStabilityInwardsChartDataFactory
     {
         /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for waternet zones
+        /// Create a <see cref="ChartDataCollection"/> for Waternet zones
         /// under extreme circumstances.
         /// </summary>
         /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for waternet zones
+        /// Create a <see cref="ChartDataCollection"/> for Waternet zones
         /// under daily circumstances.
         /// </summary>
         /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create a <see cref="ChartMultipleAreaData"/> for a waternet zone.
+        /// Create a <see cref="ChartMultipleAreaData"/> for a Waternet zone.
         /// </summary>
         /// <param name="name">The name of the zone.</param>
         /// <param name="isVisible">The default visibility of the zone.</param>

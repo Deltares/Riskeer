@@ -19,14 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
+using Deltares.MacroStability.CSharpWrapper.Output;
+using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
 {
-    /// <summary>
-    /// All pl line creation method types.
-    /// </summary>
-    public enum PlLineCreationMethod
+    [TestFixture]
+    public class MessageHelperTest
     {
-        RingtoetsWti2017 = 1,
-        None = 2
+        [Test]
+        public void CreateMessage_ExpectedValues()
+        {
+            // Setup
+            const string content = "test";
+            const MessageType messageType = MessageType.Warning;
+
+            // Call
+            Message message = MessageHelper.CreateMessage(messageType, content);
+
+            // Assert
+            Assert.AreEqual(messageType, message.MessageType);
+            Assert.AreEqual(content, message.Content);
+        }
     }
 }

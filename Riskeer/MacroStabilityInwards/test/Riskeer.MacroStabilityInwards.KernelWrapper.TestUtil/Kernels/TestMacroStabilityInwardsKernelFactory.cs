@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -39,7 +39,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         public TestMacroStabilityInwardsKernelFactory()
         {
             LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
-            LastCreatedWaternetKernel = new WaternetKernelStub();
+            LastCreatedWaternetExtremeKernel = new WaternetKernelStub();
+            LastCreatedWaternetDailyKernel = new WaternetKernelStub();
         }
 
         /// <summary>
@@ -48,29 +49,35 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
 
         /// <summary>
-        /// The last created Waternet kernel.
+        /// The last created Waternet extreme kernel.
         /// </summary>
-        public WaternetKernelStub LastCreatedWaternetKernel { get; }
+        public WaternetKernelStub LastCreatedWaternetExtremeKernel { get; }
 
-        public IUpliftVanKernel CreateUpliftVanKernel()
+        /// <summary>
+        /// The last created Waternet daily kernel.
+        /// </summary>
+        public WaternetKernelStub LastCreatedWaternetDailyKernel { get; }
+
+        public IUpliftVanKernel CreateUpliftVanKernel(MacroStabilityInput kernelInput)
         {
+            LastCreatedUpliftVanKernel.SetInput(kernelInput);
             return LastCreatedUpliftVanKernel;
         }
 
-        public IWaternetKernel CreateWaternetExtremeKernel(Location location)
+        public IWaternetKernel CreateWaternetExtremeKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(location);
+            return CreateWaternetKernel(kernelInput, LastCreatedWaternetExtremeKernel);
         }
 
-        public IWaternetKernel CreateWaternetDailyKernel(Location location)
+        public IWaternetKernel CreateWaternetDailyKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(location);
+            return CreateWaternetKernel(kernelInput, LastCreatedWaternetDailyKernel);
         }
 
-        private IWaternetKernel CreateWaternetKernel(Location location)
+        private static IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput, WaternetKernelStub waternetKernel)
         {
-            LastCreatedWaternetKernel.SetLocation(location);
-            return LastCreatedWaternetKernel;
+            waternetKernel.SetInput(kernelInput);
+            return waternetKernel;
         }
     }
 }

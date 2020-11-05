@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 namespace Riskeer.MacroStabilityInwards.CalculatedInput
 {
     /// <summary>
-    /// Exception thrown when something went wrong while performing the waternet calculation.
+    /// Exception thrown when something went wrong while performing the Waternet calculation.
     /// </summary>
     [Serializable]
     public class WaternetCalculationException : Exception

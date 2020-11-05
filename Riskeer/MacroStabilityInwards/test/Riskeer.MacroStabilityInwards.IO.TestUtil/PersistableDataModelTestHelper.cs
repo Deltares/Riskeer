@@ -286,7 +286,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// Asserts whether the <see cref="MacroStabilityInwardsWaternet"/> contains the data
         /// that is representative for the <paramref name="originalWaternets"/>.
         /// </summary>
-        /// <param name="originalWaternets">The waternets that contain the original data.</param>
+        /// <param name="originalWaternets">The Waternets that contain the original data.</param>
         /// <param name="actualWaternets">The <see cref="PersistableWaternet"/>
         /// that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="actualWaternets"/>
@@ -426,8 +426,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="calculationSettings">The calculation settings that are used.</param>
         /// <param name="geometries">The geometries that are used.</param>
         /// <param name="soilLayers">The soil layers that are used.</param>
-        /// <param name="waternets">The waternets that are used.</param>
-        /// <param name="waternetCreatorSettings">The waternet creator settings that are used.</param>
+        /// <param name="waternets">The Waternets that are used.</param>
+        /// <param name="waternetCreatorSettings">The Waternet creator settings that are used.</param>
         /// <param name="states">The states that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>

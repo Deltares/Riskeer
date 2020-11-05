@@ -148,14 +148,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no Waternet chart data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
-        /// <param name="waternetZonesExtremeIndex">The index of the waternet zones chart data under extreme
+        /// <param name="waternetZonesExtremeIndex">The index of the Waternet zones chart data under extreme
         /// circumstances in the <paramref name="chartDataCollection"/>.</param>
-        /// <param name="waternetZonesDailyIndex">The index of the waternet zones chart data under daily
+        /// <param name="waternetZonesDailyIndex">The index of the Waternet zones chart data under daily
         /// circumstances in the <paramref name="chartDataCollection"/>.</param>
-        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        /// <exception cref="AssertionException">Thrown when a Waternet layer is present.</exception>
         public static void AssertEmptyWaternetChartData(ChartDataCollection chartDataCollection,
                                                         int waternetZonesExtremeIndex,
                                                         int waternetZonesDailyIndex)

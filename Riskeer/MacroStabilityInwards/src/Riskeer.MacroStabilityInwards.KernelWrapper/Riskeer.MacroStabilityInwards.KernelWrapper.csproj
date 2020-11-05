@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
+    <Reference Include="Deltares.MacroStability.CSharpWrapper">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIStability">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
@@ -31,6 +31,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\WTIStability.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Macrostability-20.1.1.9503\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Macrostability-20.3.1.10489\*&quot;" />
   </Target>
 </Project>

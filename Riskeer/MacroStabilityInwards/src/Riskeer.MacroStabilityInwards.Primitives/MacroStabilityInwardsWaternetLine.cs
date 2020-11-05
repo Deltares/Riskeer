@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// The waternet line created by the Waternet calculator in the derived
+    /// The Waternet line created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
     public class MacroStabilityInwardsWaternetLine
@@ -35,8 +35,8 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaternetLine"/>.
         /// </summary>
-        /// <param name="name">The name of the waternet line.</param>
-        /// <param name="geometry">The geometry points of the waternet line.</param>
+        /// <param name="name">The name of the Waternet line.</param>
+        /// <param name="geometry">The geometry points of the Waternet line.</param>
         /// <param name="phreaticLine">The associated phreatic line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument
         /// is <c>null</c>.</exception>
@@ -63,12 +63,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets the name of the waternet line.
+        /// Gets the name of the Waternet line.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets the geometry points of the waternet line.
+        /// Gets the geometry points of the Waternet line.
         /// </summary>
         public IEnumerable<Point2D> Geometry { get; }
 

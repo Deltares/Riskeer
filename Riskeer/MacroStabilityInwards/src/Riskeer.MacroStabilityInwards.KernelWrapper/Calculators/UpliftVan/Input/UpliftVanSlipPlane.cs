@@ -52,6 +52,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSlipPlane"/>.
         /// </summary>
+        /// <param name="leftGrid">The left grid.</param>
+        /// <param name="rightGrid">The right grid.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="leftGrid"/>
         /// or <paramref name="rightGrid"/> is <c>null</c>.</exception>
         /// <remarks>The following values are set:
@@ -74,6 +76,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSlipPlane"/>.
         /// </summary>
+        /// <param name="leftGrid">The left grid.</param>
+        /// <param name="rightGrid">The right grid.</param>
+        /// <param name="tangentZTop">The tangent line top boundary.</param>
+        /// <param name="tangentZBottom">The tangent line bottom boundary.</param>
+        /// <param name="tangentLineNumber">The number of tangent lines.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="leftGrid"/>
         /// or <paramref name="rightGrid"/> is <c>null</c>.</exception>
         /// <remarks>The following values are set:

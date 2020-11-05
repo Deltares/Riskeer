@@ -22,16 +22,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// This class compares the coordinates of two <see cref="FixedSoilStress"/> 
+    /// This class compares the soil and POP of two <see cref="FixedSoilStress"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
     public class FixedSoilStressComparer : IComparer<FixedSoilStress>, IComparer
     {
+        private readonly SoilComparer soilComparer = new SoilComparer();
+
         public int Compare(object x, object y)
         {
             if (!(x is FixedSoilStress) || !(y is FixedSoilStress))
@@ -44,7 +46,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(FixedSoilStress x, FixedSoilStress y)
         {
-            return x.ToString() == y.ToString() && Math.Abs(x.CenterStressValue.POP - y.CenterStressValue.POP) < 1e-6
+            return soilComparer.Compare(x.Soil, y.Soil) == 0
+                   && Math.Abs(x.POP - y.POP) < 1e-6
                        ? 0
                        : 1;
         }

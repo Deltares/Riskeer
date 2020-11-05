@@ -22,11 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Core.Common.Base.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using WaterPressureInterpolationModel = Deltares.MacroStability.CSharpWrapper.Input.WaterPressureInterpolationModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -51,20 +52,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var lookup = new Dictionary<SoilLayer, LayerWithSoil>
             {
                 {
-                    CreateSoilLayer(new Point2D[0], true, 22),
-                    CreateLayerWithSoil(new Point2D[0], "Material 1")
+                    CreateSoilLayer(new Point2D[0], true, 22), CreateLayerWithSoil(new Point2D[0], "Material 1")
                 },
                 {
-                    CreateSoilLayer(new Point2D[0], false),
-                    CreateLayerWithSoil(new Point2D[0], "Material 2")
+                    CreateSoilLayer(new Point2D[0], false), CreateLayerWithSoil(new Point2D[0], "Material 2")
                 },
                 {
-                    CreateSoilLayer(new Point2D[0], true, 23),
-                    CreateLayerWithSoil(new Point2D[0], "Material 3")
+                    CreateSoilLayer(new Point2D[0], true, 23), CreateLayerWithSoil(new Point2D[0], "Material 3")
                 },
                 {
-                    CreateSoilLayer(new Point2D[0], true, 24),
-                    CreateLayerWithSoil(new Point2D[0], "Material 4")
+                    CreateSoilLayer(new Point2D[0], true, 24), CreateLayerWithSoil(new Point2D[0], "Material 4")
                 }
             };
 
@@ -79,17 +76,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             {
                 KeyValuePair<SoilLayer, LayerWithSoil> keyValuePair = lookUpWithPop.ElementAt(i);
                 FixedSoilStress fixedSoilStress = fixedSoilStresses.ElementAt(i);
-                
+
                 Assert.AreEqual(keyValuePair.Value.Soil, fixedSoilStress.Soil);
-                Assert.AreEqual(keyValuePair.Key.Pop, fixedSoilStress.CenterStressValue.POP);
-                
-                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.CenterStressValue.FixedStressPosition); // Automatically synced
-                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.BottomStressValue.FixedStressPosition); // Automatically synced
-                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.TopStressValue.FixedStressPosition); // Automatically synced
-                Assert.IsNull(fixedSoilStress.CenterStressValue.FixedSoilStress); // Irrelevant
-                Assert.IsNull(fixedSoilStress.BottomStressValue.FixedSoilStress); // Irrelevant
-                Assert.IsNull(fixedSoilStress.TopStressValue.FixedSoilStress); // Irrelevant
-                Assert.IsFalse(fixedSoilStress.TopBottom); // Irrelevant
+                Assert.AreEqual(keyValuePair.Key.Pop, fixedSoilStress.POP);
             }
         }
 
@@ -104,7 +93,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         private static LayerWithSoil CreateLayerWithSoil(IEnumerable<Point2D> outerRing1, string materialName)
         {
-            return new LayerWithSoil(outerRing1, Enumerable.Empty<IEnumerable<Point2D>>(), new Soil(materialName), false, WaterpressureInterpolationModel.Automatic);
+            return new LayerWithSoil(outerRing1, Enumerable.Empty<IEnumerable<Point2D>>(), new Soil
+            {
+                Name = materialName
+            }, false, WaterPressureInterpolationModel.Automatic);
         }
     }
 }

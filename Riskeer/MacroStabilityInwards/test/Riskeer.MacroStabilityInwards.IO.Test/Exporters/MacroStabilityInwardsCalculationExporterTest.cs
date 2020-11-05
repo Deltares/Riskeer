@@ -133,21 +133,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ThrowException = true
-            };
+                var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+                {
+                    ThrowException = true
+                };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-            // Call
-            var exportResult = true;
-            void Call() => exportResult = exporter.Export();
+                // Call
+                var exportResult = true;
+                void Call() => exportResult = exporter.Export();
 
-            // Assert
-            string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-            Assert.IsFalse(exportResult);
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(exportResult);
+            }
         }
 
         [Test]
@@ -158,20 +161,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ThrowException = true,
-                WriteFile = true
-            };
+                var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+                {
+                    ThrowException = true,
+                    WriteFile = true
+                };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-            // Call
-            exporter.Export();
+                // Call
+                exporter.Export();
 
-            // Assert
-            Assert.IsFalse(File.Exists(filePath));
-            Assert.IsFalse(File.Exists($"{filePath}.temp"));
+                // Assert
+                Assert.IsFalse(File.Exists(filePath));
+                Assert.IsFalse(File.Exists($"{filePath}.temp"));
+            }
         }
 
         [Test]

@@ -28,6 +28,7 @@ using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
@@ -99,8 +100,9 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 // Assert
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
-                Assert.AreEqual(assessmentLevel, calculatorFactory.LastCreatedWaternetCalculator.Input.AssessmentLevel);
-                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetExtremeCalculator;
+                Assert.AreEqual(assessmentLevel, calculator.Input.AssessmentLevel);
+                CalculatorOutputAssert.AssertWaternet(calculator.Output, waternet);
             }
         }
 
@@ -167,7 +169,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 // Assert
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
-                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetDailyCalculator.Output, waternet);
             }
         }
     }

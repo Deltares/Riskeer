@@ -37,8 +37,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Creates a new collection of <see cref="PersistableWaternet"/>.
         /// </summary>
-        /// <param name="dailyWaternet">The daily waternet to use.</param>
-        /// <param name="extremeWaternet">The extreme waternet to use.</param>
+        /// <param name="dailyWaternet">The daily Waternet to use.</param>
+        /// <param name="extremeWaternet">The extreme Waternet to use.</param>
         /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableWaternet"/>.</returns>

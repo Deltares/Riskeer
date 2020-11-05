@@ -33,7 +33,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of waternet line properties in <see cref="MacroStabilityInwardsWaternetLine"/> for properties panel.
+    /// ViewModel of Waternet line properties in <see cref="MacroStabilityInwardsWaternetLine"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsWaternetLineProperties : ObjectProperties<MacroStabilityInwardsWaternetLine>

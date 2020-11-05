@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
@@ -35,11 +35,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="WaternetLine"/> array.</param>
+        /// <param name="expected">The expected <see cref="ReferenceLine"/> array.</param>
         /// <param name="actual">The actual <see cref="WaternetLineResult"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertWaternetLines(WaternetLine[] expected, WaternetLineResult[] actual)
+        public static void AssertReferenceLines(ReferenceLine[] expected, WaternetLineResult[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -47,18 +47,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
             {
                 Assert.AreEqual(expected[i].Name, actual[i].Name);
                 CollectionAssert.AreEqual(expected[i].Points.Select(p => new Point2D(p.X, p.Z)), actual[i].Geometry);
-                AssertPhreaticLine(expected[i].HeadLine, actual[i].PhreaticLine);
+                AssertPhreaticLine(expected[i].AssociatedHeadLine, actual[i].PhreaticLine);
             }
         }
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="GeometryPointString"/> array.</param>
+        /// <param name="expected">The expected <see cref="HeadLine"/> array.</param>
         /// <param name="actual">The actual <see cref="WaternetPhreaticLineResult"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertPhreaticLines(GeometryPointString[] expected, WaternetPhreaticLineResult[] actual)
+        public static void AssertPhreaticLines(HeadLine[] expected, WaternetPhreaticLineResult[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -71,11 +71,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="GeometryPointString"/>.</param>
+        /// <param name="expected">The expected <see cref="HeadLine"/>.</param>
         /// <param name="actual">The actual <see cref="WaternetPhreaticLineResult"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertPhreaticLine(GeometryPointString expected, WaternetPhreaticLineResult actual)
+        private static void AssertPhreaticLine(HeadLine expected, WaternetPhreaticLineResult actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
             CollectionAssert.AreEqual(expected.Points.Select(p => new Point2D(p.X, p.Z)), actual.Geometry);

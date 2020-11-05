@@ -5016,6 +5016,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _pageleftInfo;
             RepoItemInfo _duplicerenInfo;
             RepoItemInfo _maptoevoegenInfo;
+            RepoItemInfo _mapleegmakenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -5045,6 +5046,7 @@ namespace AutomatedSystemTests
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
                 _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
                 _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
+                _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
             }
 
             /// <summary>
@@ -5596,6 +5598,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _maptoevoegenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The MapLeegmaken item.
+            /// </summary>
+            [RepositoryItem("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
+            public virtual Ranorex.MenuItem MapLeegmaken
+            {
+                get
+                {
+                    return _mapleegmakenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapLeegmaken item info.
+            /// </summary>
+            [RepositoryItemInfo("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
+            public virtual RepoItemInfo MapLeegmakenInfo
+            {
+                get
+                {
+                    return _mapleegmakenInfo;
                 }
             }
         }

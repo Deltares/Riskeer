@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Deltares.MacroStability.Data;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -49,8 +49,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 SlipPlaneMinDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinLength = input.SlipPlaneMinimumLength,
-                XLeftMin = input.ZoneBoundaryLeft,
-                XLeftMax = input.ZoneBoundaryRight
+                XEntryMin = input.ZoneBoundaryLeft,
+                XEntryMax = input.ZoneBoundaryRight
             };
         }
     }

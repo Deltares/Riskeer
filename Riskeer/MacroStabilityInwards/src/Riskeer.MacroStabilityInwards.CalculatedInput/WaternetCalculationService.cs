@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
@@ -202,8 +201,6 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         {
             return new WaternetCalculatorInput.ConstructionProperties
             {
-                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                 SurfaceLine = input.SurfaceLine,
                 SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
                 DrainageConstruction = DrainageConstructionConverter.Convert(input),
