@@ -92,8 +92,8 @@ namespace AutomatedSystemTests.Modules.Ribbon
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at Center.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Self.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(1));
             Keyboard.PrepareFocus(repo.RiskeerMainWindow.Self);
