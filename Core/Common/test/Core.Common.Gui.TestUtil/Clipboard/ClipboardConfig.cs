@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Forms;
 using Core.Common.Gui.ClipBoard;
 
 namespace Core.Common.Gui.TestUtil.Clipboard
@@ -80,14 +81,14 @@ namespace Core.Common.Gui.TestUtil.Clipboard
                 clipBoardContent = data;
             }
 
-            public object GetDataObject()
+            public IDataObject GetDataObject()
             {
-                return clipBoardContent;
+                return clipBoardContent as IDataObject;
             }
 
             public string GetText()
             {
-                return (string) clipBoardContent;
+                return clipBoardContent as string;
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Core.Common.Gui.ClipBoard
             Clipboard.SetDataObject(data, copy);
         }
 
-        public object GetDataObject()
+        public IDataObject GetDataObject()
         {
             return Clipboard.GetDataObject();
         }

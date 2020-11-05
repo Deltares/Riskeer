@@ -21,7 +21,6 @@
 
 using System;
 using System.Data;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.ClipBoard;
 using Core.Common.Gui.TestUtil.Clipboard;
@@ -438,7 +437,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void ButtonCopy_Click_CopiesContentToClipboard()
         {
             // Setup
@@ -458,7 +456,10 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
-                Assert.AreEqual("\t00:00:00\tmessage", ClipboardProvider.Clipboard.GetText());
+                IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
+                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
+                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
+                Assert.AreEqual("\t00:00:00\tmessage", actualContent);
             }
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.ClipBoard;
 using Core.Common.Gui.Commands;
@@ -234,7 +233,6 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // Don't remove: test will hang otherwise due to copy to clipboard
         public void GivenExceptionDialog_WhenCopyToClipboardClicked_ThenExceptionTextCopiedToClipboard()
         {
             // Setup

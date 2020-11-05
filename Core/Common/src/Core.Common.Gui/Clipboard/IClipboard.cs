@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Core.Common.Gui.ClipBoard
 {
     /// <summary>
@@ -38,9 +40,9 @@ namespace Core.Common.Gui.ClipBoard
         /// <summary>
         /// Retrieves the data that is currently on the clipboard.
         /// </summary>
-        /// <returns>The <see cref="object" /> that is on the clipboard, or <c>null</c> if the clipboard
+        /// <returns>The <see cref="IDataObject"/> that is on the clipboard, or <c>null</c> if the clipboard
         /// does not contain any data.</returns>
-        object GetDataObject();
+        IDataObject GetDataObject();
 
         /// <summary>
         /// Retrieves the textual data that is currently on the clipboard.
