@@ -21,7 +21,7 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Gui.Clipboard1;
+using Core.Common.Gui.Clipboard;
 
 namespace Core.Common.Gui.TestUtil.Clipboard
 {
@@ -74,21 +74,21 @@ namespace Core.Common.Gui.TestUtil.Clipboard
 
         private class TestClipboard : IClipboard
         {
-            private object clipBoardContent;
+            private object clipboardContent;
 
             public void SetDataObject(object data, bool copy = false)
             {
-                clipBoardContent = data;
+                clipboardContent = data;
             }
 
             public IDataObject GetDataObject()
             {
-                return clipBoardContent as IDataObject;
+                return clipboardContent as IDataObject;
             }
 
             public string GetText()
             {
-                return clipBoardContent as string;
+                return clipboardContent as string;
             }
         }
     }

@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using FormsClipboard = System.Windows.Forms.Clipboard;
 
-namespace Core.Common.Gui.Clipboard1
+namespace Core.Common.Gui.Clipboard
 {
     /// <summary>
     /// Implementation of <see cref="IClipboard"/> based on the system <see cref="Clipboard"/>.
@@ -30,17 +31,17 @@ namespace Core.Common.Gui.Clipboard1
     {
         public void SetDataObject(object data, bool copy = false)
         {
-            Clipboard.SetDataObject(data, copy);
+            FormsClipboard.SetDataObject(data, copy);
         }
 
         public IDataObject GetDataObject()
         {
-            return Clipboard.GetDataObject();
+            return FormsClipboard.GetDataObject();
         }
 
         public string GetText()
         {
-            return Clipboard.GetText();
+            return FormsClipboard.GetText();
         }
     }
 }

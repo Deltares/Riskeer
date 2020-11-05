@@ -22,7 +22,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
-using Core.Common.Gui.Clipboard1;
+using Core.Common.Gui.Clipboard;
 using Core.Common.Gui.TestUtil.Clipboard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
