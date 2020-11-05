@@ -1284,7 +1284,7 @@
 			datasource="script18ParametersToModifyInCalculations"
 			errorbehavior="ContinueNextIteration"
 			id="4ee89ccd-4875-4f75-a76d-af0c47729751"
-			name="ModifyParametersInSelectedCalculationInput_ToDo">
+			name="ModifyParametersInSelectedCalculationInput">
 			</smartfoldernode>
 			<smartfoldernode
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97"
@@ -2933,7 +2933,7 @@
 			id="b47f226a-dc7a-4cfe-8207-9232909de566"
 			maxrange="0"
 			minrange="0"
-			name="LoopCalculationsToModify_ToDo">
+			name="LoopCalculationsToModify">
 				<parameters>
 					<param
 					name="fullPathToCalculationInput"
@@ -3510,7 +3510,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
-			name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+			name="SetRangeOfLoopModificationParametersInCalculation">
 				<parameters>
 					<param
 					name="nameOfSmartFolderToSpecifyRange"
@@ -3749,7 +3749,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="daf19c59-fc9a-4c83-9494-713840ef72af"
-			name="SaveConfigurationXMLFileForCalculation_ToDo">
+			name="SaveConfigurationXMLFileForCalculation">
 			</smartfoldernode>
 			<testmodule
 			id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
@@ -4204,7 +4204,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
-			name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+			name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 			</smartfoldernode>
 			<testmodule
 			id="f88d8120-e89e-4a11-bab3-2d1b84db2867"
@@ -5324,7 +5324,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="b47f226a-dc7a-4cfe-8207-9232909de566"
-						name="LoopCalculationsToModify_ToDo">
+						name="LoopCalculationsToModify">
 							<smartfoldernode
 							id="da864375-f0d3-4c16-b053-43b24f070f2b"
 							name="CreateFullPathToInput">
@@ -5343,7 +5343,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
-							name="SetRangeOfLoopModificationParametersInCalculation_ToDo">
+							name="SetRangeOfLoopModificationParametersInCalculation">
 								<testmodule
 								id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
 								name="SetRangeInSmartFolder">
@@ -5355,7 +5355,7 @@
 							</testmodule>
 							<smartfoldernode
 							id="4ee89ccd-4875-4f75-a76d-af0c47729751"
-							name="ModifyParametersInSelectedCalculationInput_ToDo">
+							name="ModifyParametersInSelectedCalculationInput">
 								<testmodule
 								id="c26734e2-e4cf-4603-8adc-abaa0e9f3ab7"
 								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
@@ -5375,7 +5375,7 @@
 							</testmodule>
 							<smartfoldernode
 							id="daf19c59-fc9a-4c83-9494-713840ef72af"
-							name="SaveConfigurationXMLFileForCalculation_ToDo">
+							name="SaveConfigurationXMLFileForCalculation">
 								<testmodule
 								id="7ce7baba-e4b7-4601-a6d6-30a99de82942"
 								name="SelectGenericItemInProjectExplorer">
@@ -5387,7 +5387,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="f7f6eada-0f44-412a-8b5b-03586ca6d8ee"
-							name="CompareSavedCalculationConfigurationFileWithReferenceFile_ToDo">
+							name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 								<testmodule
 								id="256c1bb8-2535-464d-8251-e5ddffef2882"
 								name="ComparePlainTextFiles">
@@ -6959,12 +6959,6 @@
 				<column>
 					CustomAssessmentTypeItem
 				</column>
-				<column>
-					FaalkansSetValue
-				</column>
-				<column>
-					FaalkansValidateValue
-				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -7624,6 +7618,12 @@
 				</column>
 				<column>
 					DetailedAssessmentTypeItem
+				</column>
+				<column>
+					FailureProbabilityToAssign
+				</column>
+				<column>
+					ExpectedFailureProbability
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
