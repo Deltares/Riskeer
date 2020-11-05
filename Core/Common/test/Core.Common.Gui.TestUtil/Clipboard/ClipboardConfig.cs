@@ -73,16 +73,21 @@ namespace Core.Common.Gui.TestUtil.Clipboard
 
         private class TestClipboard : IClipboard
         {
-            private string clipBoardContent;
+            private object clipBoardContent;
 
             public void SetDataObject(object data, bool copy = false)
             {
-                clipBoardContent = data.ToString();
+                clipBoardContent = data;
+            }
+
+            public object GetDataObject()
+            {
+                return clipBoardContent;
             }
 
             public string GetText()
             {
-                return clipBoardContent;
+                return (string) clipBoardContent;
             }
         }
     }
