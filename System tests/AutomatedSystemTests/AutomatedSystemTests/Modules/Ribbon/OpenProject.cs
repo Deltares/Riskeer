@@ -92,42 +92,45 @@ namespace AutomatedSystemTests.Modules.Ribbon
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at Center.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Self.Click();
+            
+            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(1));
             Keyboard.PrepareFocus(repo.RiskeerMainWindow.Self);
             Keyboard.Press(System.Windows.Forms.Keys.O | System.Windows.Forms.Keys.Control, Keyboard.DefaultScanCode, Keyboard.DefaultKeyPressTime, 1, true);
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(3));
             
-            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(4));
             
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(5));
             repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(6));
             repo.OpenDialog.ButtonOpen.Click();
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(7));
             Delay.Duration(300, false);
             
             Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(9));
             Delay.Duration(300, false);
             
             // Wait until file has been loaded and open dialog has been closed
-            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(10));
             repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(11));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(30000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(11));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(12));
             Delay.Duration(1000, false);
             
         }
