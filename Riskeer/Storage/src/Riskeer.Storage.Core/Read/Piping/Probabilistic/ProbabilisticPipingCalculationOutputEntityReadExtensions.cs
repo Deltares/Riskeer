@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.IllustrationPoints;
 
 namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
 {
@@ -30,6 +32,29 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
     /// </summary>
     internal static class ProbabilisticPipingCalculationOutputEntityReadExtensions
     {
-        
+        /// <summary>
+        /// Read the <see cref="ProbabilisticPipingCalculationOutputEntity"/> and use the information to
+        /// construct a <see cref="ProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="ProbabilisticPipingCalculationOutputEntity"/> to create
+        /// <see cref="ProbabilisticPipingOutput"/> for.</param>
+        /// <returns>A new <see cref="ProbabilisticPipingOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
+        /// is <c>null</c>.</exception>
+        public static ProbabilisticPipingOutput Read(this ProbabilisticPipingCalculationOutputEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            return new ProbabilisticPipingOutput(
+                new PartialProbabilisticPipingOutput(
+                    entity.SectionSpecificReliability.ToNullAsNaN(),
+                    entity.GeneralResultFaultTreeIllustrationPointEntity1?.Read()),
+                new PartialProbabilisticPipingOutput(
+                    entity.ProfileSpecificReliability.ToNullAsNaN(),
+                    entity.GeneralResultFaultTreeIllustrationPointEntity?.Read()));
+        }
     }
 }

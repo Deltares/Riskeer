@@ -19,13 +19,86 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.Piping.Probabilistic;
+using Riskeer.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
 {
     [TestFixture]
     public class ProbabilisticPipingCalculationOutputEntityReadExtensionsTest
     {
-        
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((ProbabilisticPipingCalculationOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_ValidEntity_ReturnProbabilisticPipingOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var profileSpecificGeneralResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+            var sectionSpecificGeneralResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSW",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+
+            var entity = new ProbabilisticPipingCalculationOutputEntity
+            {
+                ProfileSpecificReliability = random.NextDouble(),
+                SectionSpecificReliability = random.NextDouble(),
+                GeneralResultFaultTreeIllustrationPointEntity = profileSpecificGeneralResultEntity,
+                GeneralResultFaultTreeIllustrationPointEntity1 = sectionSpecificGeneralResultEntity
+            };
+
+            // Call
+            ProbabilisticPipingOutput output = entity.Read();
+
+            // Assert
+            Assert.AreEqual(entity.ProfileSpecificReliability, output.ProfileSpecificOutput.Reliability);
+            Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
+
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
+                output.ProfileSpecificOutput.GeneralResult, profileSpecificGeneralResultEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
+                output.SectionSpecificOutput.GeneralResult, sectionSpecificGeneralResultEntity);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithNullParameterValues_ReturnProbabilisticPipingOutput()
+        {
+            // Setup
+            var entity = new ProbabilisticPipingCalculationOutputEntity
+            {
+                ProfileSpecificReliability = null,
+                SectionSpecificReliability = null,
+                GeneralResultFaultTreeIllustrationPointEntity = null,
+                GeneralResultFaultTreeIllustrationPointEntity1 = null
+            };
+
+            // Call
+            ProbabilisticPipingOutput output = entity.Read();
+
+            // Assert
+            Assert.IsNaN(output.ProfileSpecificOutput.Reliability);
+            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNaN(output.SectionSpecificOutput.Reliability);
+            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+        }
     }
 }
