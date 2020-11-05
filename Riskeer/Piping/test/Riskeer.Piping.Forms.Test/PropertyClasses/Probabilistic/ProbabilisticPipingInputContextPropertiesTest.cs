@@ -544,7 +544,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void Calculation_InMultipleSections_ReturnExpectedValues()
+        public void Constructor_CalculationInMultipleSections_ReturnExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -595,7 +595,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Assert
             Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0.0, properties.SectionLength);
+            Assert.AreEqual(0, properties.SectionLength, properties.SectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }

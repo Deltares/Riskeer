@@ -158,13 +158,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return data.AvailablePipingSurfaceLines;
         }
 
-        private FailureMechanismSection GetCorrespondingSection()
+        private FailureMechanismSection GetSection()
         {
-            IEnumerable<FailureMechanismSection> sections = data.FailureMechanism
-                                                                .Sections
-                                                                .Where(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points))).ToArray();
+            FailureMechanismSection[] sections = data.FailureMechanism
+                                                     .Sections
+                                                     .Where(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                                                                Math2D.ConvertPointsToLineSegments(section.Points)))
+                                                     .ToArray();
 
-            return sections.Count() == 1 ? sections.First() : null;
+            return sections.Length == 1
+                       ? sections[0]
+                       : null;
         }
 
         #region Hydraulic data
@@ -416,7 +420,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetCorrespondingSection();
+                FailureMechanismSection failureMechanismSection = GetSection();
                 return failureMechanismSection == null ? "-" : failureMechanismSection.Name;
             }
         }
@@ -429,7 +433,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetCorrespondingSection();
+                FailureMechanismSection failureMechanismSection = GetSection();
                 return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
             }
         }
