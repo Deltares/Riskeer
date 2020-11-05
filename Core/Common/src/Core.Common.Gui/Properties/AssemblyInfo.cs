@@ -25,3 +25,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Core.Common.Gui")]
 [assembly: AssemblyProduct("Core.Common.Gui")]
 [assembly: InternalsVisibleTo("Core.Common.Gui.Test")]
+[assembly: InternalsVisibleTo("Core.Common.Gui.TestUtil")]
