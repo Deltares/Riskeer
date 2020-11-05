@@ -45,8 +45,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
             Assert.IsInstanceOf<IMacroStabilityInwardsCalculatorFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
             Assert.IsNull(factory.LastCreatedUpliftVanCalculator.Input);
-            Assert.IsNotNull(factory.LastCreatedWaternetCalculator);
-            Assert.IsNull(factory.LastCreatedWaternetCalculator.Input);
+            Assert.IsNotNull(factory.LastCreatedWaternetDailyCalculator);
+            Assert.IsNull(factory.LastCreatedWaternetDailyCalculator.Input);
+            Assert.IsNotNull(factory.LastCreatedWaternetExtremeCalculator);
+            Assert.IsNull(factory.LastCreatedWaternetExtremeCalculator.Input);
         }
 
         [Test]
@@ -90,6 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<WaternetCalculatorStub>(calculator);
             Assert.AreSame(input, calculator.Input);
+            Assert.AreSame(factory.LastCreatedWaternetExtremeCalculator, calculator);
         }
 
         [Test]
@@ -111,6 +114,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<WaternetCalculatorStub>(calculator);
             Assert.AreSame(input, calculator.Input);
+            Assert.AreSame(factory.LastCreatedWaternetDailyCalculator, calculator);
         }
     }
 }

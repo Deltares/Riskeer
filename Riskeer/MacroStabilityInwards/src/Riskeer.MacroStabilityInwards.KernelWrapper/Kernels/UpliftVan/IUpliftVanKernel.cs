@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Deltares.MacroStability.Data;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -58,103 +56,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Gets the sliding curve result.
         /// </summary>
-        SlidingDualCircle SlidingCurveResult { get; }
+        DualSlidingCircleMinimumSafetyCurve SlidingCurveResult { get; }
 
         /// <summary>
-        /// Gets the slip plane result.
+        /// Gets the calculation grid result.
         /// </summary>
-        SlipPlaneUpliftVan SlipPlaneResult { get; }
+        UpliftVanCalculationGrid UpliftVanCalculationGridResult { get; }
 
         /// <summary>
         /// Gets the messages returned by the kernel during
         /// the calculation.
         /// </summary>
-        IEnumerable<LogMessage> CalculationMessages { get; }
-
-        /// <summary>
-        /// Sets the slip plane Uplift Van.
-        /// </summary>
-        /// <param name="slipPlaneUpliftVan">The slip plane Uplift Van to set.</param>
-        void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
-
-        /// <summary>
-        /// Sets the slip plane constraints.
-        /// </summary>
-        /// <param name="slipPlaneConstraints">The slip plane constraints to set.</param>
-        void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
-
-        /// <summary>
-        /// Sets the soil model.
-        /// </summary>
-        /// <param name="soilModel">The soil model to set.</param>
-        void SetSoilModel(IList<Soil> soilModel);
-
-        /// <summary>
-        /// Sets the soil profile.
-        /// </summary>
-        /// <param name="soilProfile">The soil profile to set.</param>
-        void SetSoilProfile(SoilProfile2D soilProfile);
-
-        /// <summary>
-        /// Sets the Waternet under daily circumstances.
-        /// </summary>
-        /// <param name="waternetDaily">The daily Waternet to set.</param>
-        void SetWaternetDaily(WtiStabilityWaternet waternetDaily);
-
-        /// <summary>
-        /// Sets the Waternet under extreme circumstances.
-        /// </summary>
-        /// <param name="waternetExtreme">The extreme Waternet to set.</param>
-        void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme);
-
-        /// <summary>
-        /// Sets the move grid property.
-        /// </summary>
-        /// <param name="moveGrid">The move grid value to set.</param>
-        void SetMoveGrid(bool moveGrid);
-
-        /// <summary>
-        /// Sets the maximum slice width.
-        /// [m]
-        /// </summary>
-        /// <param name="maximumSliceWidth">The maximum slice width to set.</param>
-        void SetMaximumSliceWidth(double maximumSliceWidth);
-
-        /// <summary>
-        /// Sets the surface line.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line to set.</param>
-        void SetSurfaceLine(SurfaceLine2 surfaceLine);
-
-        /// <summary>
-        /// Sets whether the grid is automatically determined or not.
-        /// </summary>
-        /// <param name="gridAutomaticDetermined">The grid automatic determined value to set.</param>
-        void SetGridAutomaticDetermined(bool gridAutomaticDetermined);
-
-        /// <summary>
-        /// Sets whether the tangent lines are automatically determined or not.
-        /// </summary>
-        /// <param name="tangentLinesAutomaticDetermined">The tangent automatic lines determined value to set.</param>
-        void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined);
-
-        /// <summary>
-        /// Sets the fixed soil stresses.
-        /// </summary>
-        /// <param name="soilStresses">The soil stresses to set.</param>
-        void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses);
-
-        /// <summary>
-        /// Sets the preconsolidation stresses.
-        /// </summary>
-        /// <param name="preConsolidationStresses">The preconsolidation stresses to set.</param>
-        void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses);
-
-        /// <summary>
-        /// Sets whether the forbidden zones are automatically determined or not.
-        /// </summary>
-        /// <param name="automaticForbiddenZones">The automatic forbidden zones to set.</param>
-        void SetAutomaticForbiddenZones(bool automaticForbiddenZones);
+        IEnumerable<Message> CalculationMessages { get; }
 
         /// <summary>
         /// Performs the Uplift Van calculation.
@@ -166,9 +79,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Validates the input for the Uplift Van calculation.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IValidationResult"/> objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Message"/> objects.</returns>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
-        IEnumerable<IValidationResult> Validate();
+        IEnumerable<Message> Validate();
     }
 }

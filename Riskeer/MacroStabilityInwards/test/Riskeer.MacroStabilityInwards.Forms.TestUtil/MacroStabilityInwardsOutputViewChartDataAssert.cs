@@ -137,11 +137,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no Waternet chart data.
         /// </summary>
         /// <param name="waternet">The original <see cref="MacroStabilityInwardsWaternet"/>.</param>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
-        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        /// <exception cref="AssertionException">Thrown when a Waternet layer is present.</exception>
         public static void AssertWaternetChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartDataCollection)
         {
             MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(waternet,
@@ -189,14 +189,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 
         /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data,
-        /// empty soil layer chart data and empty waternet chart data.
+        /// empty soil layer chart data and empty Waternet chart data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="chartDataCollection"/> is not empty;</item>
         /// <item>a soil layer chart data contains data;</item>
-        /// <item>a waternet layer chart data contains data.</item>
+        /// <item>a Waternet layer chart data contains data.</item>
         /// </list>
         /// </exception>
         public static void AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(ChartDataCollection chartDataCollection)
@@ -215,14 +215,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 
         /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data and
-        /// empty soil layer chart data and no waternet chart data.
+        /// empty soil layer chart data and no Waternet chart data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="chartDataCollection"/> is not empty;</item>
         /// <item>a soil layer chart data contains data;</item>
-        /// <item>a waternet layer is present.</item>
+        /// <item>a Waternet layer is present.</item>
         /// </list>
         /// </exception>
         public static void AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(ChartDataCollection chartDataCollection)
@@ -232,10 +232,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no Waternet chart data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
-        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        /// <exception cref="AssertionException">Thrown when a Waternet layer is present.</exception>
         public static void AssertEmptyWaternetChartData(ChartDataCollection chartDataCollection)
         {
             MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,

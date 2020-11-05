@@ -134,28 +134,31 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ThrowException = true
-            };
+                var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+                {
+                    ThrowException = true
+                };
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, persistenceFactory, folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, persistenceFactory, folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
-            try
-            {
-                // Call
-                var exportResult = true;
-                void Call() => exportResult = exporter.Export();
+                try
+                {
+                    // Call
+                    var exportResult = true;
+                    void Call() => exportResult = exporter.Export();
 
-                // Assert
-                string filePath = Path.Combine(folderPath, $"{calculation.Name}.stix");
-                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-                Assert.IsFalse(exportResult);
-            }
-            finally
-            {
-                Directory.Delete(folderPath, true);
+                    // Assert
+                    string filePath = Path.Combine(folderPath, $"{calculation.Name}.stix");
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                    Assert.IsFalse(exportResult);
+                }
+                finally
+                {
+                    Directory.Delete(folderPath, true);
+                }
             }
         }
 

@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Outpu
         /// Creates a new instance of <see cref="WaternetCalculatorResult"/>.
         /// </summary>
         /// <param name="phreaticLines">The phreatic lines.</param>
-        /// <param name="waternetLines">The waternet lines.</param>
+        /// <param name="waternetLines">The Waternet lines.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="phreaticLines"/>
         /// or <paramref name="waternetLines"/> is <c>null</c>.</exception>
         internal WaternetCalculatorResult(IEnumerable<WaternetPhreaticLineResult> phreaticLines,
@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Outpu
         public IEnumerable<WaternetPhreaticLineResult> PhreaticLines { get; }
 
         /// <summary>
-        /// Gets the waternet lines.
+        /// Gets the Waternet lines.
         /// </summary>
         public IEnumerable<WaternetLineResult> WaternetLines { get; }
     }

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
-using Point2D = Core.Common.Base.Geometry.Point2D;
+using Core.Common.Base.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                IEnumerable<IEnumerable<Point2D>> innerRings,
                                Soil soil,
                                bool isAquifer,
-                               WaterpressureInterpolationModel waterPressureInterpolationModel)
+                               WaterPressureInterpolationModel waterPressureInterpolationModel)
         {
             OuterRing = outerRing;
             InnerRings = innerRings;
@@ -74,6 +74,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <summary>
         /// Gets the water pressure interpolation model of the layer.
         /// </summary>
-        public WaterpressureInterpolationModel WaterPressureInterpolationModel { get; }
+        public WaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
     }
 }

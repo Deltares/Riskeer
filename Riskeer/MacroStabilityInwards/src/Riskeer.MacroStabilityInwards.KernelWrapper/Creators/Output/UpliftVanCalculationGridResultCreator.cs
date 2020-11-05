@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Deltares.MacroStability.Data;
+using Deltares.MacroStability.CSharpWrapper;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
@@ -34,28 +33,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
     {
         /// <summary>
         /// Creates a <see cref="UpliftVanCalculationGridResult"/> based on the information
-        /// given in the <paramref name="slipPlaneUpliftVan"/>.
+        /// given in the <paramref name="upliftVanCalculationGrid"/>.
         /// </summary>
-        /// <param name="slipPlaneUpliftVan">The output to create the result for.</param>
+        /// <param name="upliftVanCalculationGrid">The output to create the result for.</param>
         /// <returns>A new <see cref="UpliftVanCalculationGridResult"/> with information
-        /// taken from the <paramref name="slipPlaneUpliftVan"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlaneUpliftVan"/>
+        /// taken from the <paramref name="upliftVanCalculationGrid"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="upliftVanCalculationGrid"/>
         /// is <c>null</c>.</exception>
-        public static UpliftVanCalculationGridResult Create(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        public static UpliftVanCalculationGridResult Create(UpliftVanCalculationGrid upliftVanCalculationGrid)
         {
-            if (slipPlaneUpliftVan == null)
+            if (upliftVanCalculationGrid == null)
             {
-                throw new ArgumentNullException(nameof(slipPlaneUpliftVan));
+                throw new ArgumentNullException(nameof(upliftVanCalculationGrid));
             }
 
-            UpliftVanGrid leftGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid);
-            UpliftVanGrid rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
+            UpliftVanGrid leftGrid = CreateGrid(upliftVanCalculationGrid.LeftGrid);
+            UpliftVanGrid rightGrid = CreateGrid(upliftVanCalculationGrid.RightGrid);
 
-            return new UpliftVanCalculationGridResult(leftGrid, rightGrid, slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights
-                                                                                             .Select(tl => tl.Height));
+            return new UpliftVanCalculationGridResult(leftGrid, rightGrid, upliftVanCalculationGrid.TangentLines);
         }
 
-        private static UpliftVanGrid CreateGrid(SlipCircleGrid grid)
+        private static UpliftVanGrid CreateGrid(CalculationGrid grid)
         {
             return new UpliftVanGrid(grid.GridXLeft, grid.GridXRight, grid.GridZTop, grid.GridZBottom, grid.GridXNumber, grid.GridZNumber);
         }

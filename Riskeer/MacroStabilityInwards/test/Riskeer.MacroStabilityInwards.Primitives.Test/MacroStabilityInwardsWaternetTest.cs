@@ -141,7 +141,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                                                   {
                                                       new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], new TestMacroStabilityInwardsPhreaticLine())
                                                   }))
-                    .SetName("Other waternet line");
+                    .SetName("Other Waternet line");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternet(
                                                   new[]
@@ -153,7 +153,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                                                       new TestMacroStabilityInwardsWaternetLine(),
                                                       new TestMacroStabilityInwardsWaternetLine()
                                                   }))
-                    .SetName("Other waternet line count");
+                    .SetName("Other Waternet line count");
             }
         }
     }

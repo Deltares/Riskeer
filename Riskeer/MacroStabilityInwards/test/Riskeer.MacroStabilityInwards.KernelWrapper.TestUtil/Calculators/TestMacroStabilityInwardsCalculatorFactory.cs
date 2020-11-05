@@ -41,7 +41,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
         public TestMacroStabilityInwardsCalculatorFactory()
         {
             LastCreatedUpliftVanCalculator = new UpliftVanCalculatorStub();
-            LastCreatedWaternetCalculator = new WaternetCalculatorStub();
+            LastCreatedWaternetDailyCalculator = new WaternetCalculatorStub();
+            LastCreatedWaternetExtremeCalculator = new WaternetCalculatorStub();
         }
 
         /// <summary>
@@ -50,9 +51,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
         public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
 
         /// <summary>
-        /// Gets the last created <see cref="WaternetCalculatorStub"/>.
+        /// Gets the last created daily <see cref="WaternetCalculatorStub"/>.
         /// </summary>
-        public WaternetCalculatorStub LastCreatedWaternetCalculator { get; }
+        public WaternetCalculatorStub LastCreatedWaternetDailyCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created extreme <see cref="WaternetCalculatorStub"/>.
+        /// </summary>
+        public WaternetCalculatorStub LastCreatedWaternetExtremeCalculator { get; }
 
         public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
@@ -63,19 +69,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
 
         public IWaternetCalculator CreateWaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return CreateWaternetCalculator(input);
+            return CreateWaternetCalculator(input, LastCreatedWaternetExtremeCalculator);
         }
 
         public IWaternetCalculator CreateWaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return CreateWaternetCalculator(input);
+            return CreateWaternetCalculator(input, LastCreatedWaternetDailyCalculator);
         }
 
-        private IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input)
+        private IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, WaternetCalculatorStub calculator)
         {
-            LastCreatedWaternetCalculator.Input = input;
-
-            return LastCreatedWaternetCalculator;
+            calculator.Input = input;
+            return calculator;
         }
     }
 }

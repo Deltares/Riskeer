@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -48,8 +48,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             return layerLookup.Where(ll => ll.Key.UsePop)
-                              .Select(keyValuePair => new FixedSoilStress(keyValuePair.Value.Soil, StressValueType.POP, keyValuePair.Key.Pop))
-                              .ToArray();
+                              .Select(keyValuePair => new FixedSoilStress
+                              {
+                                  Soil = keyValuePair.Value.Soil,
+                                  POP = keyValuePair.Key.Pop
+                              }).ToArray();
         }
     }
 }

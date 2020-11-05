@@ -30,7 +30,6 @@ using Riskeer.MacroStabilityInwards.CalculatedInput;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -82,7 +81,8 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             try
             {
-                waternetExtremeKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateExtreme(calculation.InputParameters, normativeAssessmentLevel),
+                waternetExtremeKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateExtreme(
+                                                                     calculation.InputParameters, GetEffectiveAssessmentLevel(calculation.InputParameters, normativeAssessmentLevel)),
                                                                  Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started);
                 waternetDailyKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateDaily(calculation.InputParameters),
                                                                Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started);
@@ -152,7 +152,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             {
                 var stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine(Resources.MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages);
-                
+
                 foreach (MacroStabilityInwardsKernelMessage kernelMessage in e.KernelMessages)
                 {
                     stringBuilder.AppendLine(string.Format(Resources.MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1, kernelMessage.Type, kernelMessage.Message));
@@ -228,15 +228,11 @@ namespace Riskeer.MacroStabilityInwards.Service
 
         private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
-            RoundedDouble effectiveAssessmentLevel = inputParameters.UseAssessmentLevelManualInput
-                                                         ? inputParameters.AssessmentLevel
-                                                         : normativeAssessmentLevel;
+            RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel);
 
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                    PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = effectiveAssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
@@ -267,6 +263,13 @@ namespace Riskeer.MacroStabilityInwards.Service
                     MoveGrid = inputParameters.MoveGrid,
                     MaximumSliceWidth = inputParameters.MaximumSliceWidth
                 });
+        }
+
+        private static RoundedDouble GetEffectiveAssessmentLevel(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        {
+            return inputParameters.UseAssessmentLevelManualInput
+                       ? inputParameters.AssessmentLevel
+                       : normativeAssessmentLevel;
         }
 
         private static string CreateAggregatedLogMessage(string baseMessage, UpliftVanCalculatorResult macroStabilityInwardsResult)

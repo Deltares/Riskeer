@@ -63,8 +63,8 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -650,21 +650,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(assessmentSection, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     using (new PipingSubCalculatorFactoryConfig())
-                    using (new MacroStabilityInwardsKernelFactoryConfig())
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
                     {
                         var pipingTestFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                        var macroStabilityTestFactory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                        var macroStabilityTestFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
                         // Precondition
                         Assert.IsFalse(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                        Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                        Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
 
                         // When
                         contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                         // Then
                         Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                        Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                        Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
                     }
                 }
 

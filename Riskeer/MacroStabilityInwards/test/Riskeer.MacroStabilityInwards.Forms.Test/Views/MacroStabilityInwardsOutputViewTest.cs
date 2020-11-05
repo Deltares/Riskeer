@@ -36,7 +36,6 @@ using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -104,8 +103,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel))
             using (var form = new Form())
             {
                 form.Controls.Add(view);
@@ -258,8 +257,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
                 using (var form = new Form())
                 using (var view = new MacroStabilityInwardsOutputView(calculation,

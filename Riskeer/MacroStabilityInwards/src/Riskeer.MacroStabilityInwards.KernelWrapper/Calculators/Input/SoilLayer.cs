@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
         /// Gets the dilatancy.
         /// </summary>
         public double Dilatancy { get; }
-        
+
         /// <summary>
         /// Gets the water pressure interpolation model.
         /// </summary>

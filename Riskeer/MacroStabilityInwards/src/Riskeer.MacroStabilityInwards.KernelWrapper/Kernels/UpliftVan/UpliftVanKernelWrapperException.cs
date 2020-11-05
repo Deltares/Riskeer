@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -57,17 +57,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpliftVanKernelWrapperException"/> class
-        /// with a specified error message and a reference to the inner exception that is
-        /// the cause of this exception.
+        /// with messages provided by the kernel.
         /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="inner">The exception that is the cause of the current exception, 
-        /// or a null reference if no inner exception is specified.</param>
-        /// <param name="logMessages">The messages provided by the kernel.</param>
-        public UpliftVanKernelWrapperException(string message, Exception inner, IEnumerable<LogMessage> logMessages)
-            : base(message, inner)
+        /// <param name="messages">The messages provided by the kernel.</param>
+        public UpliftVanKernelWrapperException(IEnumerable<Message> messages)
         {
-            LogMessages = logMessages;
+            Messages = messages;
         }
 
         /// <summary>
@@ -84,8 +79,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         protected UpliftVanKernelWrapperException(SerializationInfo info, StreamingContext context) : base(info, context) {}
 
         /// <summary>
-        /// Gets the log messages.
+        /// Gets the messages provided by the kernel.
         /// </summary>
-        public IEnumerable<LogMessage> LogMessages { get; } = Enumerable.Empty<LogMessage>();
+        public IEnumerable<Message> Messages { get; } = Enumerable.Empty<Message>();
     }
 }

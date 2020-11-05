@@ -22,7 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -30,7 +31,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
@@ -70,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             try
             {
                 IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
-                return MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(upliftVanKernel.Validate().ToArray());
+                return MacroStabilityInwardsKernelMessagesCreator.Create(upliftVanKernel.Validate().ToArray());
             }
             catch (UpliftVanKernelWrapperException e)
             {
@@ -84,8 +85,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
-                UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(upliftVanKernel.CalculationMessages),
+                UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.UpliftVanCalculationGridResult),
+                MacroStabilityInwardsKernelMessagesCreator.Create(upliftVanKernel.CalculationMessages),
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactorOfStability,
@@ -104,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             }
             catch (UpliftVanKernelWrapperException e)
             {
-                throw new UpliftVanCalculatorException(e.Message, e, MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(e.LogMessages));
+                throw new UpliftVanCalculatorException(e.Message, e, MacroStabilityInwardsKernelMessagesCreator.Create(e.Messages));
             }
 
             return upliftVanKernel;
@@ -113,40 +114,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            List<Soil> soils = layersWithSoil.Select(lws => lws.Soil).ToList();
 
-            SurfaceLine2 surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
-            SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
+            SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            SoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
 
-            IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input));
-            CalculateWaternet(waternetDailyKernelWrapper, soilProfile2D, surfaceLine);
+            MacroStabilityInput waternetDailyKernelInput = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
+            MacroStabilityInput waternetExtremeKernelInput = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
 
-            IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input));
-            CalculateWaternet(waternetExtremeKernelWrapper, soilProfile2D, surfaceLine);
+            IWaternetKernel waternetDailyKernel = factory.CreateWaternetDailyKernel(waternetDailyKernelInput);
+            waternetDailyKernel.Calculate();
 
-            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
-            upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
-            upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
-            upliftVanKernel.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
-            upliftVanKernel.SetSoilProfile(soilProfile2D);
-            upliftVanKernel.SetWaternetDaily(waternetDailyKernelWrapper.Waternet);
-            upliftVanKernel.SetWaternetExtreme(waternetExtremeKernelWrapper.Waternet);
-            upliftVanKernel.SetMoveGrid(input.MoveGrid);
-            upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
-            upliftVanKernel.SetSurfaceLine(surfaceLine);
-            upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);
-            upliftVanKernel.SetTangentLinesAutomaticDetermined(input.SlipPlane.TangentLinesAutomaticAtBoundaries);
-            upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
-            upliftVanKernel.SetPreConsolidationStresses(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses));
-            upliftVanKernel.SetAutomaticForbiddenZones(input.SlipPlaneConstraints.AutomaticForbiddenZones);
+            IWaternetKernel waternetExtremeKernel = factory.CreateWaternetExtremeKernel(waternetExtremeKernelInput);
+            waternetExtremeKernel.Calculate();
 
-            return upliftVanKernel;
-        }
-        
-        private static void CalculateWaternet(IWaternetKernel waternetKernelWrapper, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
-        {
-            waternetKernelWrapper.SetSoilProfile(soilProfile2D);
-            waternetKernelWrapper.SetSurfaceLine(surfaceLine);
-            waternetKernelWrapper.Calculate();
+            MacroStabilityInput kernelInput = MacroStabilityInputCreator.CreateUpliftVan(input, soils, layerLookup,
+                                                                                         surfaceLine, soilProfile,
+                                                                                         waternetDailyKernel.Waternet,
+                                                                                         waternetExtremeKernel.Waternet);
+
+            return factory.CreateUpliftVanKernel(kernelInput);
         }
     }
 }

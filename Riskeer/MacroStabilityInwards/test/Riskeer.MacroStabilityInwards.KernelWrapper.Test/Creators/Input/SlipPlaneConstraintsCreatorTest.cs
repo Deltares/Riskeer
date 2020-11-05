@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Deltares.MacroStability.Data;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -36,8 +36,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             void Call() => SlipPlaneConstraintsCreator.Create(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -54,13 +54,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinDepth);
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinLength);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, slipPlaneConstraints.XLeftMin);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, slipPlaneConstraints.XLeftMax);
-            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight); // Irrelevant
-            Assert.IsTrue(slipPlaneConstraints.AllowRightToLeft); // Irrelevant
-            Assert.IsTrue(slipPlaneConstraints.AllowSwapLeftRight); // Irrelevant
-            Assert.IsNaN(slipPlaneConstraints.XRightMin); // Irrelevant
-            Assert.IsNaN(slipPlaneConstraints.XRightMax); // Irrelevant
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, slipPlaneConstraints.XEntryMin);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, slipPlaneConstraints.XEntryMax);
+            Assert.IsNaN(slipPlaneConstraints.XExitMin); // Irrelevant
+            Assert.IsNaN(slipPlaneConstraints.XExitMax); // Irrelevant
         }
     }
 }

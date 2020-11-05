@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -42,17 +41,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Gets the Waternet result.
         /// </summary>
-        WtiStabilityWaternet Waternet { get; }
-
-        /// <summary>
-        /// Sets the soil profile.
-        /// </summary>
-        void SetSoilProfile(SoilProfile2D soilProfile);
-
-        /// <summary>
-        /// Sets the surface line.
-        /// </summary>
-        void SetSurfaceLine(SurfaceLine2 surfaceLine);
+        CSharpWrapperWaternet Waternet { get; }
 
         /// <summary>
         /// Performs the Waternet calculation.
@@ -64,9 +53,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Validates the input for the Waternet calculation.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IValidationResult"/> objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Message"/> objects.</returns>
         /// <exception cref="WaternetKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
-        IEnumerable<IValidationResult> Validate();
+        IEnumerable<Message> Validate();
     }
 }

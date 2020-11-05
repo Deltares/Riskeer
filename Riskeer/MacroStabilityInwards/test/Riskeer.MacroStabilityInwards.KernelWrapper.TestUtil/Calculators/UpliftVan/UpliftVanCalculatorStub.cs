@@ -74,6 +74,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// </summary>
         public bool ReturnValidationWarning { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
         public UpliftVanCalculatorResult Calculate()
         {
             var calculationMessages = new List<MacroStabilityInwardsKernelMessage>();
@@ -102,6 +107,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
             {
                 throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2", null, calculationMessages);
             }
+
+            Calculated = true;
 
             return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));
         }

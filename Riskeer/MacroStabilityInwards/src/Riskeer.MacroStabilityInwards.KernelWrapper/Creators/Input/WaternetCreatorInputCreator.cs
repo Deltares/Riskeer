@@ -21,48 +21,48 @@
 
 using System;
 using System.ComponentModel;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Location"/> instances which are required by <see cref="IWaternetKernel"/>.
+    /// Creates <see cref="WaternetCreatorInput"/> instances which are required by <see cref="IWaternetKernel"/>.
     /// </summary>
-    internal static class WaternetLocationCreator
+    internal static class WaternetCreatorInputCreator
     {
         /// <summary>
-        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/>
+        /// Creates a <see cref="WaternetCreatorInput"/> based on the given <paramref name="input"/>
         /// which can be used by <see cref="IWaternetKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="WaternetCreatorInput"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
-        /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
-        /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>
         /// is a valid value, but unsupported.</exception>
-        public static Location Create(WaternetCalculatorInput input)
+        public static WaternetCreatorInput Create(WaternetCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return new Location
+            return new WaternetCreatorInput
             {
-                DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                DikeSoilScenario = WaternetCreatorInputHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaterLevelRiver = input.AssessmentLevel,
+                HeadInPlLine3 = input.AssessmentLevel,
+                HeadInPlLine4 = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolder,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
-                XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
-                ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
+                DrainageConstruction = input.DrainageConstruction.IsPresent
+                                           ? new Point2D(input.DrainageConstruction.XCoordinate, input.DrainageConstruction.ZCoordinate)
+                                           : null,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 UseDefaultOffsets = input.PhreaticLineOffsets.UseDefaults,
@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
                 PenetrationLength = input.PenetrationLength,
-                Inwards = true
+                UnitWeightWater = 9.81
             };
         }
     }

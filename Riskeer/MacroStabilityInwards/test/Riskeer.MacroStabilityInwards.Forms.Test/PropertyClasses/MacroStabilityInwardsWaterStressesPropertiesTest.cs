@@ -38,6 +38,7 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
@@ -288,8 +289,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
-                Assert.AreEqual(assessmentLevel, calculatorFactory.LastCreatedWaternetCalculator.Input.AssessmentLevel);
-                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetExtremeCalculator;
+                Assert.AreEqual(assessmentLevel, calculator.Input.AssessmentLevel);
+                CalculatorOutputAssert.AssertWaternet(calculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
             }
 
             Assert.AreSame(input, properties.Drainage.Data);

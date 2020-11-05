@@ -19,33 +19,39 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
     /// This class compares the coordinates of the <see cref="Point2D"/>
-    /// of all <see cref="GeometryCurve"/> instances of the <see cref="GeometryLoop"/>
-    /// instances to determine whether they're equal to each other or not.
+    /// of two <see cref="Curve"/> instances to determine whether
+    /// they're equal to each other or not.
     /// </summary>
-    public class GeometryLoopComparer : IComparer<GeometryLoop>, IComparer
+    public class CurveComparer : IComparer<Curve>, IComparer
     {
-        private readonly GeometryCurveComparer curveComparer = new GeometryCurveComparer();
+        private readonly StabilityPointComparer pointComparer = new StabilityPointComparer();
 
         public int Compare(object x, object y)
         {
-            return Compare(x as GeometryLoop, y as GeometryLoop);
+            if (!(x is Curve) || !(y is Curve))
+            {
+                throw new ArgumentException($"Cannot compare objects other than {typeof(Curve)} with this comparer.");
+            }
+
+            return Compare((Curve) x, (Curve) y);
         }
 
-        public int Compare(GeometryLoop x, GeometryLoop y)
+        public int Compare(Curve x, Curve y)
         {
-            return x.CurveList.Where((curve, index) =>
-                                         curveComparer.Compare(curve, y.CurveList[index]) == 1).Any()
-                       ? 1
-                       : 0;
+            return pointComparer.Compare(x.HeadPoint, y.HeadPoint) == 0
+                   && pointComparer.Compare(x.EndPoint, y.EndPoint) == 0
+                       ? 0
+                       : 1;
         }
     }
 }
