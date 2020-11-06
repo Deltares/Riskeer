@@ -1239,6 +1239,12 @@
       <UserCode>true</UserCode>
       <id>9c0432ee-2a9c-4603-b986-7d7f080add11</id>
     </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateStringsAreEqual.cs">
+      <id>9ad5f486-19f1-4148-9448-0fb74e0420ab</id>
+    </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateStringsAreNotEqual.cs">
+      <id>b70cb88e-3754-4bbb-8747-d435ee41b3a8</id>
+    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1697,6 +1703,9 @@
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreEqual.cs">
       <id>007488a8-5d59-42df-8824-32336f400f51</id>
+    </Compile>
+    <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreNotEqual.cs">
+      <id>5d655704-eed1-40fa-a340-b0c2c0e2b5d4</id>
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateSubsurfaceSchematizationContributionInPropertiesPanel.cs">
       <DependentUpon>ValidateSubsurfaceSchematizationContributionInPropertiesPanel.rxrec</DependentUpon>
@@ -2554,6 +2563,9 @@
     </Folder>
     <Folder Include="Modules\Validation\DocumentView">
       <id>60731e6c-db30-4fc8-94bd-6fcbd2666b0e</id>
+    </Folder>
+    <Folder Include="Modules\Validation\Abstract">
+      <id>3153ec44-4733-45ee-afef-35e0aaee4994</id>
     </Folder>
     <Folder Include="Modules\Validation\ProjectExplorer">
       <id>99ea1c19-fb3a-4ea5-8a98-7b10c3993598</id>
