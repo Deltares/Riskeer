@@ -45,9 +45,9 @@ namespace Riskeer.Piping.IO.Configurations.Converters
                 switch (calculationType)
                 {
                     case PipingCalculationConfigurationType.SemiProbabilistic:
-                        return "semi-probabilistisch";
+                        return PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic;
                     case PipingCalculationConfigurationType.Probabilistic:
-                        return "probabilistisch";
+                        return PipingCalculationConfigurationSchemaIdentifiers.Probabilistic;
                     default:
                         throw new NotSupportedException();
                 }
