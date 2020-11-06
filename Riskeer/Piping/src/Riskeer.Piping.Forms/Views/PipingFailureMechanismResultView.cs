@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             return new PipingFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(),
+                FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
                 new PipingFailureMechanismSectionResultRow.ConstructionProperties

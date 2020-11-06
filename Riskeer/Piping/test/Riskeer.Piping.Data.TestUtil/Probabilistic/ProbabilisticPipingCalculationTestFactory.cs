@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil.Probabilistic
 {
@@ -61,6 +65,40 @@ namespace Riskeer.Piping.Data.TestUtil.Probabilistic
                     SurfaceLine = PipingCalculationTestFactory.GetSurfaceLine(),
                     StochasticSoilProfile = PipingCalculationTestFactory.GetStochasticSoilProfile(),
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+        }
+
+        /// <summary>
+        /// Creates a probabilistic calculation for which the surface line on the input intersects with <paramref name="section"/>
+        /// and the calculation has not been performed.
+        /// </summary>
+        /// <typeparam name="T">The type of probabilistic calculation to create.</typeparam>
+        /// <param name="section">The section for which an intersection will be created.</param>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
+        public static T CreateNotCalculatedCalculation<T>(FailureMechanismSection section)
+            where T : ProbabilisticPipingCalculation, new()
+        {
+            if (section == null)
+            {
+                throw new ArgumentNullException(nameof(section));
+            }
+
+            var pipingSurfaceLine = new PipingSurfaceLine(string.Empty);
+            Point2D p = section.Points.First();
+            pipingSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(p.X, p.Y, 0),
+                new Point3D(p.X + 2, p.Y + 2, 0)
+            });
+            pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
+
+            return new T
+            {
+                InputParameters =
+                {
+                    SurfaceLine = pipingSurfaceLine
                 }
             };
         }

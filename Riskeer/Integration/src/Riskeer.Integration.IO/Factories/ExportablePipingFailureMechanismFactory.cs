@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculationScenarios = failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculationScenarios = failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)

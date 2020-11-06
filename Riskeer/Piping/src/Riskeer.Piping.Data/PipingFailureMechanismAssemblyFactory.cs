@@ -353,7 +353,7 @@ namespace Riskeer.Piping.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                             failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(),
+                                                             failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }
