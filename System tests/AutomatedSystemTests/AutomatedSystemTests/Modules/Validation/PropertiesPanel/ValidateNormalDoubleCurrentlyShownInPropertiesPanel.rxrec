@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="96402262-15e0-4220-98f9-083d0b2a69c0"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
+	namespace="AutomatedSystemTests.Modules.Validation.PropertiesPanel">
+	</codegen>
+	<variables>
+		<var
+		id="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+		name="expectedValue">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="Validate_GenericParameterVisibleInProjectExplorer"
+		namespace="AutomatedSystemTests.Modules.Validation.PropertiesPanel"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="9e8e3c97-3954-483d-92c3-98259eeea161">
+				<argument
+				argname="rowInfo"
+				id="662bfc9f-ccba-44f0-bce5-799119b4b801">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="cf5689c7-ef04-4ccc-894d-2b9520363191">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename=$nameOfParameterInPropertiesPanel]
+				</path>
+			</info>
+		</loggingrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateNormalDoubleCurrentlyShownInPropertiesPanel.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
