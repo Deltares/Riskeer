@@ -97,5 +97,31 @@ namespace Riskeer.Piping.IO.Test.Configurations.Converters
             // Assert
             Assert.AreEqual(expectedText, convertTo);
         }
+
+        [Test]
+        public void CanConvertFrom_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertFrom);
+        }
     }
 }
