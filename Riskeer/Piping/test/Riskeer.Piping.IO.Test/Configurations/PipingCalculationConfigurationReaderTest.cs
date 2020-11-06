@@ -150,6 +150,22 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
+                
+                yield return new TestCaseData("invalidCalculationNoCalculationType.xml",
+                                              "The element 'berekening' has incomplete content. List of possible elements expected: 'toets'.")
+                    .SetName("invalidCalculationNoCalculationType");
+                yield return new TestCaseData("invalidCalculationMultipleCalculationType.xml",
+                                              "Element 'toets' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleCalculationType");
+                yield return new TestCaseData("invalidCalculationTypeEmpty.xml",
+                                              "The 'toets' element is invalid - The value '' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationTypeEmpty");
+                yield return new TestCaseData("invalidCalculationTypeNoString.xml",
+                                              "The 'toets' element is invalid - The value '1' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationTypeNoString");
+                yield return new TestCaseData("invalidCalculationTypeUnknownValue.xml",
+                                              "The 'toets' element is invalid - The value 'toets' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationTypeUnknownValue");
             }
         }
 
