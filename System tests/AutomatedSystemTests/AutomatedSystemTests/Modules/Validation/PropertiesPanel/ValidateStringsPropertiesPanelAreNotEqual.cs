@@ -95,9 +95,13 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
                     }
                 }
             Validate.AreEqual(true, differencesFound, "Validating that differences have been found. Expected: {0}. Found:{1}.");
-            Report.Log(ReportLevel.Success, listOfDifferencesFound.Count + " differences found.");
-            foreach (int index in listOfDifferencesFound) {
-                Validate.IsFalse(list1[index ]==list2[index ], "Difference found: Row " + list1[index ] + " <-> Row " + list2[index]);
+            if (listOfDifferencesFound.Count>0) {
+                Report.Log(ReportLevel.Success, listOfDifferencesFound.Count + " differences found.");
+                foreach (int index in listOfDifferencesFound) {
+                    Validate.IsFalse(list1[index ]==list2[index ], "Difference found: Row " + list1[index ] + " <-> Row " + list2[index]);
+                }
+            } else {
+                Report.Log(ReportLevel.Error, "No differences found.");
             }
         }
     }

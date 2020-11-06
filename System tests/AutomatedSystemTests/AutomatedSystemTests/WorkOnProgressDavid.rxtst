@@ -904,6 +904,26 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="37699c61-fe2d-4e2a-a5e8-1bee6f7f9c4f"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="380d0edc-a379-499a-883e-b4200e58292c"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -1475,6 +1495,26 @@
 			name="InvalidCalculations">
 			</smartfoldernode>
 			<testmodule
+			id="51fe6292-5beb-4e2f-aa9f-9018e44cc47d"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="53515314-ac46-4867-9603-d84ee1fbea2c"
 			name="CalculateStructureProjectExplorerNode"
 			ref="a3e08090-a06f-4108-b55c-de95e3e51cc4"
@@ -1596,7 +1636,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="5d7f6a48-3367-493b-8a34-9e6955f3df4c"
-			name="ValidateStringsForBothStructuresAreEqual">
+			name="ValidateStringsForBothStructuresAreNotEqual">
 			</smartfoldernode>
 			<testmodule
 			id="5dd49d95-f0d5-4ba8-87ee-4bb7824218b6"
@@ -1801,8 +1841,9 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
 			id="6de68e69-f2e7-4c69-8e7d-4644be8aa55b"
-			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully_TODO">
+			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
 			</smartfoldernode>
 			<smartfoldernode
 			id="6dea1156-9dbc-4c58-80a2-405697352e66"
@@ -2361,8 +2402,9 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script27b_ValidationMessagesNotSuccesfullyImportedConfiguration"
 			id="85627600-de81-48c2-884a-7f8d7462f5d3"
-			name="ValidateThatConfigurationFileHasNOTBeenImportedSuccesfully_TODO">
+			name="ValidateThatConfigurationFileHasNotBeenImportedSuccesfully">
 			</smartfoldernode>
 			<testmodule
 			id="85f12fad-dc5b-418a-90d6-796c4fcbf439"
@@ -2386,10 +2428,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="86853c61-a26b-4b78-8db7-cfbce8ff99a6"
-			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully_TODO">
-			</smartfoldernode>
 			<smartfoldernode
 			id="872f521e-1070-4643-ab40-c35d3b231507"
 			name="ValidateParametersAreEqualInCopyCalculation">
@@ -2862,6 +2900,11 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
+			id="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
+			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
+			</smartfoldernode>
 			<testmodule
 			id="adb895af-6a73-4f4c-a26c-a93f57fc11e3"
 			name="ConvertPropertiesPanelToString"
@@ -2975,7 +3018,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="b695e9c0-b827-4f47-87f7-c34362a620e0"
-			name="ValidateThatStructureCalculationsIsNOTTheSame">
+			name="ValidateThatStructureCalculationsIsNotTheSame">
 			</smartfoldernode>
 			<testmodule
 			id="b69b094d-bb33-4e66-b051-8ffeb40305a2"
@@ -3067,6 +3110,46 @@
 					variablename="fileNameToImport">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="bcc24f2b-fa0c-4616-9dd6-b072393be953"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="bcd84f57-3455-45fb-8ed5-e99ccad81e0f"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="3b6612e8-a0b7-4d25-9c6a-c25f81978ee6"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="3b6612e8-a0b7-4d25-9c6a-c25f81978ee6"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="bd838548-5908-4592-8b56-0b9dd65202b4"
@@ -3342,10 +3425,6 @@
 			id="d095342e-1322-46bc-8662-416053293485"
 			name="ValidateAllParametersAreEqualInCopyCalculationInDuplicatedFolder">
 			</smartfoldernode>
-			<smartfoldernode
-			id="d1622bc1-a4a5-4dda-9442-2a0ef6481f41"
-			name="ValidateThatInputModifiedCalculationIsNOTTheSame_TODO">
-			</smartfoldernode>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
@@ -3451,7 +3530,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="dff71d51-bcc5-4c25-9f7a-6292646c3678"
-			name="ValidateAllParametersInInputAreEqual">
+			name="ValidateNotAllParametersInInputAreEqual">
 			</smartfoldernode>
 			<testmodule
 			id="e29dd36a-cfb3-4fe2-8546-fdd43f7db828"
@@ -3547,7 +3626,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="ea1d0730-9123-431b-93df-982965472f8c"
-			name="ValidateThatInputCalculationIsTheSame_TODO">
+			name="ValidateThatInputCalculationIsNotTheSame">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ec444957-2600-484b-8732-927b13c0e67d"
@@ -4403,7 +4482,11 @@
 									name="ValidateImportedReferenceCalculations_TODO">
 										<smartfoldernode
 										id="6de68e69-f2e7-4c69-8e7d-4644be8aa55b"
-										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully_TODO">
+										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
+											<testmodule
+											id="51fe6292-5beb-4e2f-aa9f-9018e44cc47d"
+											name="ValidateTextMesage">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="6ee80901-e328-4cc7-82ed-17580b5ebcb0"
@@ -4428,6 +4511,10 @@
 										<smartfoldernode
 										id="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
 										name="ValidateThatCalculationsCanBeValidated_TODO">
+											<testmodule
+											id="bcc24f2b-fa0c-4616-9dd6-b072393be953"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="14944ab6-2aa7-480c-93fb-4172f980457b"
@@ -4566,8 +4653,12 @@
 									id="78dd8250-9779-4ff7-9192-3fdfc5777ee3"
 									name="ValidateImportedModifiedCalculations_TODO">
 										<smartfoldernode
-										id="86853c61-a26b-4b78-8db7-cfbce8ff99a6"
-										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully_TODO">
+										id="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
+										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
+											<testmodule
+											id="37699c61-fe2d-4e2a-a5e8-1bee6f7f9c4f"
+											name="ValidateTextMesage">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="a363da48-5912-4a5e-8dee-742e0fcb1bb7"
@@ -4594,12 +4685,8 @@
 										name="ValidateThatCalculationsCanBeValidated_TODO">
 										</smartfoldernode>
 										<smartfoldernode
-										id="d1622bc1-a4a5-4dda-9442-2a0ef6481f41"
-										name="ValidateThatInputModifiedCalculationIsNOTTheSame_TODO">
-										</smartfoldernode>
-										<smartfoldernode
 										id="ea1d0730-9123-431b-93df-982965472f8c"
-										name="ValidateThatInputCalculationIsTheSame_TODO">
+										name="ValidateThatInputCalculationIsNotTheSame">
 											<smartfoldernode
 											id="1dea2a90-5e48-4d43-9324-f91984793359"
 											name="ReadInputImportedModifiedCaculations">
@@ -4686,7 +4773,7 @@
 											</smartfoldernode>
 											<smartfoldernode
 											id="dff71d51-bcc5-4c25-9f7a-6292646c3678"
-											name="ValidateAllParametersInInputAreEqual">
+											name="ValidateNotAllParametersInInputAreEqual">
 												<smartfoldernode
 												id="94d748fe-e86d-4191-97f5-325e9713ab71"
 												name="SingleCalculation">
@@ -4735,11 +4822,15 @@
 									name="ValidateImportedInvalidCalculations">
 										<smartfoldernode
 										id="85627600-de81-48c2-884a-7f8d7462f5d3"
-										name="ValidateThatConfigurationFileHasNOTBeenImportedSuccesfully_TODO">
+										name="ValidateThatConfigurationFileHasNotBeenImportedSuccesfully">
+											<testmodule
+											id="bcd84f57-3455-45fb-8ed5-e99ccad81e0f"
+											name="ValidateTextMesage">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="b695e9c0-b827-4f47-87f7-c34362a620e0"
-										name="ValidateThatStructureCalculationsIsNOTTheSame">
+										name="ValidateThatStructureCalculationsIsNotTheSame">
 											<smartfoldernode
 											id="662f6172-f65b-4288-b71c-22a825d9a1cf"
 											name="CalculateStructureImportedReferenceFolderCalculations">
@@ -4750,7 +4841,7 @@
 											</smartfoldernode>
 											<smartfoldernode
 											id="5d7f6a48-3367-493b-8a34-9e6955f3df4c"
-											name="ValidateStringsForBothStructuresAreEqual">
+											name="ValidateStringsForBothStructuresAreNotEqual">
 												<testmodule
 												id="908e139e-3389-4b1b-af9a-628e2a3e3418"
 												name="ValidateStringsAreNotEqual">
@@ -8647,6 +8738,122 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="3b6612e8-a0b7-4d25-9c6a-c25f81978ee6"
+		lastknownrowcount="5"
+		name="script27b_ValidationMessagesNotSuccesfullyImportedConfiguration"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					substringMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						substringMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van 'Riskeer berekeningenconfiguratie' is gelukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Gegevens zijn geïmporteerd vanuit bestand
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						is overgeslagen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						is overgeslagen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						Importeren van 'Riskeer berekeningenconfiguratie' is gestart.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+		lastknownrowcount="3"
+		name="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					substringMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						substringMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van 'Riskeer berekeningenconfiguratie' is gelukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Gegevens zijn geïmporteerd vanuit bestand
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						Importeren van 'Riskeer berekeningenconfiguratie' is gestart.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 		lastknownrowcount="9"
 		name="script27bExportAndImportConfigurations"
@@ -9125,9 +9332,6 @@
 			id="85627600-de81-48c2-884a-7f8d7462f5d3">
 			</testcontainer>
 			<testcontainer
-			id="86853c61-a26b-4b78-8db7-cfbce8ff99a6">
-			</testcontainer>
-			<testcontainer
 			id="872f521e-1070-4643-ab40-c35d3b231507">
 			</testcontainer>
 			<testcontainer
@@ -9167,6 +9371,9 @@
 			id="a363da48-5912-4a5e-8dee-742e0fcb1bb7">
 			</testcontainer>
 			<testcontainer
+			id="abd3611b-fbc6-453a-8b2d-f232c78a2fcd">
+			</testcontainer>
+			<testcontainer
 			id="b2998862-9329-4dc0-a5a9-bdddc6e56060">
 			</testcontainer>
 			<testcontainer
@@ -9198,9 +9405,6 @@
 			</testcontainer>
 			<testcontainer
 			id="d095342e-1322-46bc-8662-416053293485">
-			</testcontainer>
-			<testcontainer
-			id="d1622bc1-a4a5-4dda-9442-2a0ef6481f41">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
