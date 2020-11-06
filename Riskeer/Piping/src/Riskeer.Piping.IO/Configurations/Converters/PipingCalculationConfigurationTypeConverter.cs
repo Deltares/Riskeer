@@ -30,6 +30,9 @@ namespace Riskeer.Piping.IO.Configurations.Converters
     /// </summary>
     public class PipingCalculationConfigurationTypeConverter : TypeConverter
     {
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="PipingCalculationConfigurationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var calculationType = (PipingCalculationConfigurationType) value;
@@ -60,6 +63,24 @@ namespace Riskeer.Piping.IO.Configurations.Converters
         {
             return sourceType == typeof(string)
                    || base.CanConvertFrom(context, sourceType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is string stringValue)
+            {
+                if (stringValue == PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic)
+                {
+                    return PipingCalculationConfigurationType.SemiProbabilistic;
+                }
+
+                if (stringValue == PipingCalculationConfigurationSchemaIdentifiers.Probabilistic)
+                {
+                    return PipingCalculationConfigurationType.Probabilistic;
+                }
+            }
+
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }

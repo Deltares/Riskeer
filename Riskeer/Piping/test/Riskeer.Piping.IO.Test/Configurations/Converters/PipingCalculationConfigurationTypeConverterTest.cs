@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.TestUtil;
@@ -122,6 +123,48 @@ namespace Riskeer.Piping.IO.Test.Configurations.Converters
 
             // Assert
             Assert.IsFalse(canConvertFrom);
+        }
+
+        [Test]
+        [TestCase("semi-probabilistisch", PipingCalculationConfigurationType.SemiProbabilistic)]
+        [TestCase("probabilistisch", PipingCalculationConfigurationType.Probabilistic)]
+        public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCategoryType(
+            string value, PipingCalculationConfigurationType expectedResult)
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            object convertFrom = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, convertFrom);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidText_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            void Call() => converter.ConvertFrom("1x");
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+        }
+
+        [Test]
+        public void ConvertFrom_Null_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            void Call() => converter.ConvertFrom(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
         }
     }
 }
