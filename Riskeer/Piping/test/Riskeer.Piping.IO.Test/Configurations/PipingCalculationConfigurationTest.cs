@@ -33,10 +33,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         public void Constructor_WithoutName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingCalculationConfiguration(null);
+            void Call() => new PipingCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -51,6 +51,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readPipingCalculation);
             Assert.AreEqual(name, readPipingCalculation.Name);
+            Assert.IsNull(readPipingCalculation.CalculationType);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocationName);
             Assert.IsNull(readPipingCalculation.SurfaceLineName);
@@ -70,10 +71,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var calculationConfiguration = new PipingCalculationConfiguration("valid name");
 
             // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
+            void Call() => calculationConfiguration.Name = null;
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
     }
 }

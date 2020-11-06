@@ -42,6 +42,11 @@ namespace Riskeer.Piping.IO.Configurations
         }
 
         /// <summary>
+        /// Gets or sets the calculation type.
+        /// </summary>
+        public PipingCalculationConfigurationType? CalculationType { get; set; }
+
+        /// <summary>
         /// Gets or sets the assessment level of the piping calculation.
         /// </summary>
         public double? AssessmentLevel { get; set; }
@@ -97,10 +102,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 if (value == null)
