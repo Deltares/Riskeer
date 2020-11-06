@@ -38,7 +38,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ValidateValueDoubleOfParameterInPropertiesPanelGivenPath"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.PropertiesPanel"
 		optional="False">
 			<comment>
 			</comment>

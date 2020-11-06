@@ -579,6 +579,18 @@
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
       <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
     </Compile>
+    <Compile Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.cs">
+      <BoundTo>8a7c290a-c895-4ab6-8417-8c4f981c847e</BoundTo>
+      <DependentUpon>ValidateAllCalculationsInSelectedFolder.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>bc44eb68-3639-415c-bcaa-f6e57785509b</id>
+    </Compile>
+    <Compile Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.UserCode.cs">
+      <BoundTo>8a7c290a-c895-4ab6-8417-8c4f981c847e</BoundTo>
+      <DependentUpon>ValidateAllCalculationsInSelectedFolder.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f0e73397-fdfa-4dba-8dd2-e5f1402712df</id>
+    </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -746,6 +758,18 @@
       <UserCode>true</UserCode>
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
       <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.cs">
+      <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
+      <DependentUpon>CreateScreenshotMessagesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1a7031f7-4c2a-4d65-a31b-de562f0adfd7</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.UserCode.cs">
+      <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
+      <DependentUpon>CreateScreenshotMessagesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>47ef003f-a4d7-4b56-a656-858372a8fc5b</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\LogMessage.cs">
       <DependentUpon>LogMessage.rxrec</DependentUpon>
@@ -2000,6 +2024,11 @@
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
     </None>
+    <None Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
+      <recordtableid>4e9bdd58-dcf1-424d-a224-1d30c86d102b</recordtableid>
+    </None>
     <None Include="Modules\IO\ComparePlainTextFiles.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
@@ -2069,6 +2098,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
+    </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</id>
+      <recordtableid>061e4f7d-17ae-44b5-8bfe-3d8ea937802d</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\LogMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2311,9 +2345,9 @@
       <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
     </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
       <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
     </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateTextMesage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

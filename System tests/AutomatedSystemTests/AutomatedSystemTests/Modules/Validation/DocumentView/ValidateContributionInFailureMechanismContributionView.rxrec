@@ -34,7 +34,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_ContributionCell"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
 		optional="False">
 			<comment>
 				With the cached version, it takes extremely long to identify objects

@@ -42,7 +42,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="CompareValuesCultureInvariant"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
 		optional="False">
 			<comment>
 			</comment>
@@ -83,7 +83,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="CompareValuesCultureInvariant"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
 		optional="False">
 			<comment>
 			</comment>
@@ -124,7 +124,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="CompareValuesCultureInvariant"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
 		optional="False">
 			<comment>
 			</comment>

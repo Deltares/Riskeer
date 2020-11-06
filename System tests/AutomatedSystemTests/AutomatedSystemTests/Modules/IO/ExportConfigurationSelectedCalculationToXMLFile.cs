@@ -98,27 +98,29 @@ namespace AutomatedSystemTests.Modules.IO
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Exporteren' at Center.", repo.ContextMenu.ExporterenInfo, new RecordItemIndex(1));
             repo.ContextMenu.Exporteren.Click();
             
+            ClickOnSelectionExportTypeIfDialogPresent(repo.SelectItemDialog.RiskeerBerekeningenconfiguratieAsteriInfo, repo.SelectItemDialog.ButtonOkInfo);
+            
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "User", "Name of XLM file to export to:", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "User", "Name of XLM file to export to:", new RecordItemIndex(4));
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(5));
             repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
             
-            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(6));
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(7));
             repo.OpslaanAls.SaveButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(8));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(10));
             Delay.Duration(250, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(11));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

@@ -3,6 +3,12 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
+			id="01e4bcb0-70ca-4aec-871a-a8555cc48611"
+			name="ValidateAllCalculationsInSelectedFolder"
+			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="0233f019-e3c3-44b9-9702-a5a927d513c3"
 			name="ConvertPropertiesPanelToString"
 			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
@@ -162,6 +168,40 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="0692afeb-bfb6-497f-9bdf-ea006226e244"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedTextLastRowMessages"
+					datasourceid="8ff05a69-d008-475e-914c-dd11998e7cd8"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+					<var
+					dataname="indexLastRowMessages"
+					datasourceid="8ff05a69-d008-475e-914c-dd11998e7cd8"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedTextLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="07d0ace3-44ab-4044-91e0-942f77e82112"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -235,7 +275,25 @@
 			</testmodule>
 			<smartfoldernode
 			id="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
-			name="ValidateThatCalculationsCanBeValidated_TODO">
+			name="ValidateThatCalculationsCanBeValidated">
+				<parameters>
+					<param
+					name="indexLastRowMessages"
+					value="0">
+					</param>
+					<param
+					name="expectedTextLastRowMessages"
+					value="Validatie is beëindigd.">
+					</param>
+					<param
+					name="delayBeforeValidatingTextMessages"
+					value="500">
+					</param>
+					<param
+					name="warningMessageValidation"
+					value="Please, check messages when validating valid calculations.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="0ecf77ac-fb7c-49bf-ba02-de64b007e128"
@@ -707,6 +765,42 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="2cbe5eaa-793b-4e62-81a2-76d7b02d3310"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="delayBeforeValidatingTextMessages"
+					datasourceid="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="delayBeforeValidatingTextMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="2cd142f5-9c30-417f-a1c1-0ad502a6bae9"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageValidation"
+					datasourceid="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script27a_ItemsToValidateInCalculation"
 			errorbehavior="ContinueNextIteration"
@@ -715,6 +809,20 @@
 			minrange="1"
 			name="LoopItemsToValidateInCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="310be7d8-ce55-41b2-8636-69cc55c2ac2c"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageValidation"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="319f1f66-7eee-4616-96c7-ddd1ecd2ecc8"
 			name="SelectGenericItemInProjectExplorer"
@@ -778,6 +886,20 @@
 			name="DuplicateCalculationItem"
 			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="347155de-2851-447b-b69d-6aa9586c3f17"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageValidation"
+					datasourceid="8ff05a69-d008-475e-914c-dd11998e7cd8"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="34943f88-8ade-4e84-9831-d0a34e08c454"
@@ -1685,6 +1807,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="5e55f891-1ff4-49a8-92f5-3c4ff22a9bdc"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageValidConfiguration"
+					datasourceid="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="warningMessageInvalidConfiguration"
+					datasourceid="85627600-de81-48c2-884a-7f8d7462f5d3"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5e99e87f-e908-4eb7-ae1d-e983bc89a4e3"
 			name="DragAndDropItemOntoAnotherItem"
 			ref="909ea538-c662-4239-a56a-672c6d28b694"
@@ -1734,6 +1878,12 @@
 			id="662f6172-f65b-4288-b71c-22a825d9a1cf"
 			name="CalculateStructureImportedReferenceFolderCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="6655c8e8-90f4-475a-83aa-027a55d145ad"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="66b023f0-e275-414d-941c-0e26d17d53aa"
 			name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
@@ -1840,10 +1990,22 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="6cf1832d-d4e0-4bb7-9bd0-885a3f2289c8"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			datasource="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
 			id="6de68e69-f2e7-4c69-8e7d-4644be8aa55b"
 			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
+				<parameters>
+					<param
+					name="warningMessageValidConfiguration"
+					value="Please, check messages when importing valid calculation configuration.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="6dea1156-9dbc-4c58-80a2-405697352e66"
@@ -1868,6 +2030,28 @@
 					datasourceid="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6ea966fe-5b01-4f29-965e-59e628fdc11e"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageValidConfiguration"
+					datasourceid="6de68e69-f2e7-4c69-8e7d-4644be8aa55b"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="warningMessageValidConfiguration"
+					datasourceid="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2036,6 +2220,26 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="73816f66-fb5b-4c12-a774-445b9a8986ee"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="73f99afd-a222-4d41-ae74-40fa89898ed2"
+			name="ValidateAllCalculationsInSelectedFolder"
+			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="74cceb79-c627-4af3-a01d-d9f033253c3a"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -2056,11 +2260,11 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script27bExportAndImportConfigurations"
+			errorbehavior="ContinueNextIteration"
 			id="7615a019-6164-487c-b0cf-8ef83c0eee8f"
-			maxrange="0"
-			minrange="0"
+			maxrange="8"
+			minrange="6"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -2195,11 +2399,29 @@
 			</testmodule>
 			<smartfoldernode
 			id="78dd8250-9779-4ff7-9192-3fdfc5777ee3"
-			name="ValidateImportedModifiedCalculations_TODO">
+			name="ValidateImportedModifiedCalculations">
 			</smartfoldernode>
 			<smartfoldernode
 			id="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
-			name="ValidateThatCalculationsCanBeValidated_TODO">
+			name="ValidateThatCalculationsCanBeValidated">
+				<parameters>
+					<param
+					name="delayBeforeValidatingTextMessages"
+					value="500">
+					</param>
+					<param
+					name="expectedTextLastRowMessages"
+					value="Validatie is beëindigd.">
+					</param>
+					<param
+					name="indexLastRowMessages"
+					value="0">
+					</param>
+					<param
+					name="warningMessageValidation"
+					value="Please, check messages when validating valid calculations.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="7bed3fb1-db59-4db6-8fe3-9cd2caa5085b"
@@ -2325,7 +2547,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="832ac51f-1288-4e2f-806e-d5bc596feebf"
-			name="ValidateImportedReferenceCalculations_TODO">
+			name="ValidateImportedReferenceCalculations">
 			</smartfoldernode>
 			<testmodule
 			id="8461a883-fa43-4f6f-a49d-e05c65708bb0"
@@ -2402,9 +2624,14 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script27b_ValidationMessagesNotSuccesfullyImportedConfiguration"
 			id="85627600-de81-48c2-884a-7f8d7462f5d3"
 			name="ValidateThatConfigurationFileHasNotBeenImportedSuccesfully">
+				<parameters>
+					<param
+					name="warningMessageInvalidConfiguration"
+					value="Please, check messages when importing invalid calculation configuration.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="85f12fad-dc5b-418a-90d6-796c4fcbf439"
@@ -2481,6 +2708,20 @@
 			name="setup">
 			</setup>
 			<testmodule
+			id="8d5249ee-e708-4797-8a52-f7743d66c849"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="delayBeforeValidatingTextMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8e5deb23-cfa8-4920-9496-3f7244825aa2"
 			name="CalculateStructureProjectExplorerNode"
 			ref="a3e08090-a06f-4108-b55c-de95e3e51cc4"
@@ -2520,6 +2761,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8ff05a69-d008-475e-914c-dd11998e7cd8"
+			name="ValidateCalculations">
+				<parameters>
+					<param
+					name="delayBeforeValidatingTextMessages"
+					value="500">
+					</param>
+					<param
+					name="expectedTextLastRowMessages"
+					value="Validatie is beëindigd.">
+					</param>
+					<param
+					name="indexLastRowMessages"
+					value="0">
+					</param>
+					<param
+					name="warningMessageValidation"
+					value="Please, check messages when validating valid calculations.">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="908e139e-3389-4b1b-af9a-628e2a3e3418"
 			name="ValidateStringsAreNotEqual"
@@ -2587,6 +2850,40 @@
 					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
 					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
 					variablename="finalPathItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="927c2796-746e-4e73-b1e3-f155a961da6c"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedTextLastRowMessages"
+					datasourceid="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+					<var
+					dataname="indexLastRowMessages"
+					datasourceid="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedTextLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2904,6 +3201,12 @@
 			datasource="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
 			id="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
 			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
+				<parameters>
+					<param
+					name="warningMessageValidConfiguration"
+					value="Please, check messages when importing valid calculation configuration.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="adb895af-6a73-4f4c-a26c-a93f57fc11e3"
@@ -3116,40 +3419,14 @@
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="bcd84f57-3455-45fb-8ed5-e99ccad81e0f"
-			name="ValidateTextMesage"
-			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
-			type="Recording">
 				<databinding>
 					<var
-					dataname="rowIndex"
-					datasourceid="3b6612e8-a0b7-4d25-9c6a-c25f81978ee6"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="substringMessage"
-					datasourceid="3b6612e8-a0b7-4d25-9c6a-c25f81978ee6"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="substringMessage"
-					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="bd838548-5908-4592-8b56-0b9dd65202b4"
@@ -3384,6 +3661,40 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="c6bab189-26a7-41c1-a550-64d129111fda"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedTextLastRowMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="c86d8725-3109-4922-8d9d-d30a13f1e37d"
 			name="CalculateStructureProjectExplorerNode"
 			ref="a3e08090-a06f-4108-b55c-de95e3e51cc4"
@@ -3400,6 +3711,20 @@
 					datasourceid="7615a019-6164-487c-b0cf-8ef83c0eee8f"
 					variableid="7b7c74c0-9847-4740-b48b-2ca96ae3f3df"
 					variablename="structureNode">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="cb7f4312-4717-486f-859c-6df11f7b9ae4"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessageInvalidConfiguration"
+					datasourceid="85627600-de81-48c2-884a-7f8d7462f5d3"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3420,6 +3745,12 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="d083aef8-f370-42a3-9705-2dcb4056c9a5"
+			name="ValidateAllCalculationsInSelectedFolder"
+			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="d095342e-1322-46bc-8662-416053293485"
@@ -3818,6 +4149,28 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="f487128b-d7c1-4b1b-81b3-a7d56714595a"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="delayBeforeValidatingTextMessages"
+					datasourceid="8ff05a69-d008-475e-914c-dd11998e7cd8"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="delayBeforeValidatingTextMessages"
+					datasourceid="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="f565edc1-46dc-42b6-a57d-fa1a1264850d"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -4010,6 +4363,20 @@
 					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fe85147f-5617-48a1-b52b-8edf7bbf83a2"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="ffa91a5f-ff4c-4fa3-8d81-44369c0e58a7"
@@ -4396,6 +4763,10 @@
 											name="SelectGenericItemInProjectExplorer">
 											</testmodule>
 											<testmodule
+											id="6655c8e8-90f4-475a-83aa-027a55d145ad"
+											name="HideRanorexProgressDialog">
+											</testmodule>
+											<testmodule
 											id="5f4b6c44-9024-4500-a33b-ceba9e3a752e"
 											name="ExpandAllRowItemsInPropertiesPanel">
 											</testmodule>
@@ -4406,6 +4777,10 @@
 											<testmodule
 											id="1199e773-e75b-473a-aaa4-13467df1e37e"
 											name="ConvertPropertiesPanelToString">
+											</testmodule>
+											<testmodule
+											id="6cf1832d-d4e0-4bb7-9bd0-885a3f2289c8"
+											name="ShowRanorexProgressDialog">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -4454,6 +4829,30 @@
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
+									id="8ff05a69-d008-475e-914c-dd11998e7cd8"
+									name="ValidateCalculations">
+										<testmodule
+										id="73816f66-fb5b-4c12-a774-445b9a8986ee"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="01e4bcb0-70ca-4aec-871a-a8555cc48611"
+										name="ValidateAllCalculationsInSelectedFolder">
+										</testmodule>
+										<testmodule
+										id="f487128b-d7c1-4b1b-81b3-a7d56714595a"
+										name="WaitForXMiliseconds">
+										</testmodule>
+										<testmodule
+										id="0692afeb-bfb6-497f-9bdf-ea006226e244"
+										name="ValidateTextMesage">
+										</testmodule>
+										<testmodule
+										id="347155de-2851-447b-b69d-6aa9586c3f17"
+										name="CreateScreenshotMessagesPanel">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="b8c17de2-b7ba-49bd-b0e8-226122f2e0d9"
 									name="DeleteAllCalculations">
 										<testmodule
@@ -4479,13 +4878,17 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="832ac51f-1288-4e2f-806e-d5bc596feebf"
-									name="ValidateImportedReferenceCalculations_TODO">
+									name="ValidateImportedReferenceCalculations">
 										<smartfoldernode
 										id="6de68e69-f2e7-4c69-8e7d-4644be8aa55b"
 										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
 											<testmodule
 											id="51fe6292-5beb-4e2f-aa9f-9018e44cc47d"
 											name="ValidateTextMesage">
+											</testmodule>
+											<testmodule
+											id="6ea966fe-5b01-4f29-965e-59e628fdc11e"
+											name="CreateScreenshotMessagesPanel">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -4510,10 +4913,26 @@
 										</smartfoldernode>
 										<smartfoldernode
 										id="0b35b860-b9c2-4f2d-a0df-99bd48147c50"
-										name="ValidateThatCalculationsCanBeValidated_TODO">
+										name="ValidateThatCalculationsCanBeValidated">
 											<testmodule
 											id="bcc24f2b-fa0c-4616-9dd6-b072393be953"
 											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="d083aef8-f370-42a3-9705-2dcb4056c9a5"
+											name="ValidateAllCalculationsInSelectedFolder">
+											</testmodule>
+											<testmodule
+											id="8d5249ee-e708-4797-8a52-f7743d66c849"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="c6bab189-26a7-41c1-a550-64d129111fda"
+											name="ValidateTextMesage">
+											</testmodule>
+											<testmodule
+											id="310be7d8-ce55-41b2-8636-69cc55c2ac2c"
+											name="CreateScreenshotMessagesPanel">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -4651,13 +5070,17 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="78dd8250-9779-4ff7-9192-3fdfc5777ee3"
-									name="ValidateImportedModifiedCalculations_TODO">
+									name="ValidateImportedModifiedCalculations">
 										<smartfoldernode
 										id="abd3611b-fbc6-453a-8b2d-f232c78a2fcd"
 										name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
 											<testmodule
 											id="37699c61-fe2d-4e2a-a5e8-1bee6f7f9c4f"
 											name="ValidateTextMesage">
+											</testmodule>
+											<testmodule
+											id="5e55f891-1ff4-49a8-92f5-3c4ff22a9bdc"
+											name="CreateScreenshotMessagesPanel">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -4682,7 +5105,27 @@
 										</smartfoldernode>
 										<smartfoldernode
 										id="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
-										name="ValidateThatCalculationsCanBeValidated_TODO">
+										name="ValidateThatCalculationsCanBeValidated">
+											<testmodule
+											id="fe85147f-5617-48a1-b52b-8edf7bbf83a2"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="73f99afd-a222-4d41-ae74-40fa89898ed2"
+											name="ValidateAllCalculationsInSelectedFolder">
+											</testmodule>
+											<testmodule
+											id="2cbe5eaa-793b-4e62-81a2-76d7b02d3310"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="927c2796-746e-4e73-b1e3-f155a961da6c"
+											name="ValidateTextMesage">
+											</testmodule>
+											<testmodule
+											id="2cd142f5-9c30-417f-a1c1-0ad502a6bae9"
+											name="CreateScreenshotMessagesPanel">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="ea1d0730-9123-431b-93df-982965472f8c"
@@ -4824,8 +5267,8 @@
 										id="85627600-de81-48c2-884a-7f8d7462f5d3"
 										name="ValidateThatConfigurationFileHasNotBeenImportedSuccesfully">
 											<testmodule
-											id="bcd84f57-3455-45fb-8ed5-e99ccad81e0f"
-											name="ValidateTextMesage">
+											id="cb7f4312-4717-486f-859c-6df11f7b9ae4"
+											name="CreateScreenshotMessagesPanel">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -9111,7 +9554,7 @@
 						X:\script27\configurations\referenceSTKWp.xml
 					</td>
 					<td>
-						X:\script27\configurations\modifiedSTKW.xml
+						X:\script27\configurations\modifiedSTKWp.xml
 					</td>
 					<td>
 						X:\script27\configurations\invalidSTKWp.xml
@@ -9345,6 +9788,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8c7d002a-c536-4210-beff-3562aa22a18c">
+			</testcontainer>
+			<testcontainer
+			id="8ff05a69-d008-475e-914c-dd11998e7cd8">
 			</testcontainer>
 			<testcontainer
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e">

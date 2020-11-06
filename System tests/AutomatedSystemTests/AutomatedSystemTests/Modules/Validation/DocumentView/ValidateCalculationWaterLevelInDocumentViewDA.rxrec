@@ -34,7 +34,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ValidateValueWaterLevelInDocumentViewDA"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
 		optional="False">
 			<comment>
 			</comment>

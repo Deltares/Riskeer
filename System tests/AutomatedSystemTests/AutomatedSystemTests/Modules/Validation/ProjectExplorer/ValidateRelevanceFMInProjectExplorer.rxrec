@@ -122,7 +122,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ValidateNumberOfNodesInFM"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.ProjectExplorer"
 		optional="True">
 			<comment>
 			</comment>
@@ -231,7 +231,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ValidateNumberOfItemsInContextMenu"
-		namespace="AutomatedSystemTests.Modules.Validation"
+		namespace="AutomatedSystemTests.Modules.Validation.ProjectExplorer"
 		optional="True">
 			<comment>
 			</comment>
