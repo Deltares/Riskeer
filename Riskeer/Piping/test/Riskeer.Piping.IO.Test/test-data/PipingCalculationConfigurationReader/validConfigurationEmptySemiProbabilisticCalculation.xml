@@ -2,9 +2,5 @@
 <configuratie versie="1">
   <berekening naam="Calculation">
     <toets>semi-probabilistisch</toets>
-    <stochasten>
-      <stochast naam="binnendijksewaterstand" />
-      <stochast naam="dempingsfactor" />
-    </stochasten>
   </berekening>
 </configuratie>

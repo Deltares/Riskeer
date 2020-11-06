@@ -170,10 +170,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ValidConfiguration_ExpectedValues()
+        [TestCase("validConfigurationEmptySemiProbabilisticCalculation")]
+        [TestCase("validConfigurationEmptyProbabilisticCalculation")]
+        public void Constructor_ValidConfiguration_ExpectedValues(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
 
             // Call
             var reader = new PipingCalculationConfigurationReader(filePath);
@@ -183,10 +185,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationEmptySemiProbabilisticCalculation")]
+        [TestCase("validConfigurationEmptyProbabilisticCalculation")]
+        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call

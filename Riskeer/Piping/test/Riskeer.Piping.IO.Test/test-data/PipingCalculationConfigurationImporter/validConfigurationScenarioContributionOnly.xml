@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
+    <toets>semi-probabilistisch</toets>
     <scenario>
-        <bijdrage>87.654321</bijdrage>
+      <bijdrage>87.654321</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

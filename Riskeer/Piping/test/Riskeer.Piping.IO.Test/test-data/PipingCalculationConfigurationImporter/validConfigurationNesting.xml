@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
+  <toets>semi-probabilistisch</toets>
   <map naam="Group 1">
     <berekening naam="Calculation 3"/>
   </map>
