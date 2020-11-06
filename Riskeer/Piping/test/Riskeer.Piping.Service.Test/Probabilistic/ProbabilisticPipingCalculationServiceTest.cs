@@ -968,9 +968,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -1078,8 +1078,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -1143,9 +1143,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede '{calculation.Name}' is mislukt. " +
                                     $"Bekijk het foutrapport door op details te klikken.\r\n{profileSpecificCalculator.LastErrorFileContent}", msgs[1]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -1209,10 +1209,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[2]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[2]);
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
@@ -1277,11 +1277,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak '{calculation.Name}' is mislukt. " +
                                     $"Bekijk het foutrapport door op details te klikken.\r\n{sectionSpecificCalculator.LastErrorFileContent}", msgs[2]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
@@ -1336,10 +1336,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     Assert.AreEqual(parserError, msgs[2]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
@@ -1396,9 +1396,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(4, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -1455,9 +1455,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     Assert.AreEqual(parserError, msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
@@ -1515,9 +1515,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(4, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -1576,10 +1576,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[2]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
 
@@ -1640,11 +1640,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculation.Name} (doorsnede): " +
                                     "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[2]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
@@ -1703,9 +1703,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
@@ -1767,9 +1767,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     Assert.AreEqual(5, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"De doorsnede berekening is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie '{profileSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
-                    Assert.AreEqual($"De vak berekening is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie '{sectionSpecificCalculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculation.Name} (vak): " +
                                     "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[3]);

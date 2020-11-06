@@ -516,10 +516,10 @@ opbarsten
 [m+NAP]</value>
   </data>
   <data name="ProbabilisticProfileSpecificOutput_DisplayName" xml:space="preserve">
-    <value>Resultaat doorsnede</value>
+    <value>Sterkte berekening doorsnede</value>
   </data>
   <data name="ProbabilisticSectionSpecificOutput_DisplayName" xml:space="preserve">
-    <value>Resultaat vak</value>
+    <value>Sterkte berekening vak</value>
   </data>
   <data name="Categories_FailureMechanismSection" xml:space="preserve">
     <value>Vakinformatie</value>

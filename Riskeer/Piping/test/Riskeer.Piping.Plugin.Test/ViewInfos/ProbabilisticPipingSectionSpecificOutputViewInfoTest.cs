@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Resultaat vak", viewName);
+            Assert.AreEqual("Sterkte berekening vak", viewName);
         }
 
         [Test]

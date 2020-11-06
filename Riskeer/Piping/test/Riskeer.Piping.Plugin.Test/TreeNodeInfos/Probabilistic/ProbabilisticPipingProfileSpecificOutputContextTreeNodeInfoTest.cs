@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Resultaat doorsnede", text);
+            Assert.AreEqual("Sterkte berekening doorsnede", text);
         }
 
         [Test]

@@ -242,7 +242,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1 {
             get {
@@ -252,7 +252,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening voor piping &apos;{1}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} &apos;{1}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2 {
@@ -263,7 +263,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening voor piping &apos;{1}&apos; is mislukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} &apos;{1}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report {
             get {
@@ -273,7 +273,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren piping berekening voor {0}.
+        ///   Looks up a localized string similar to Uitvoeren sterkte berekening voor {0}.
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0 {
             get {

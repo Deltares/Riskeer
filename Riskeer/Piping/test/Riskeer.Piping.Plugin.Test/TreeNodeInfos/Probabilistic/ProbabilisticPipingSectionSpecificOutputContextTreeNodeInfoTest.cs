@@ -84,7 +84,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Resultaat vak", text);
+            Assert.AreEqual("Sterkte berekening vak", text);
         }
 
         [Test]

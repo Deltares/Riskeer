@@ -1259,7 +1259,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultaat doorsnede.
+        ///   Looks up a localized string similar to Sterkte berekening doorsnede.
         /// </summary>
         public static string ProbabilisticProfileSpecificOutput_DisplayName {
             get {
@@ -1268,7 +1268,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultaat vak.
+        ///   Looks up a localized string similar to Sterkte berekening vak.
         /// </summary>
         public static string ProbabilisticSectionSpecificOutput_DisplayName {
             get {

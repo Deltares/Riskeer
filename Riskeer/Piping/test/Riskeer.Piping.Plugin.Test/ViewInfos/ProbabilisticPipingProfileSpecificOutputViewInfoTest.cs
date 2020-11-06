@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Resultaat doorsnede", viewName);
+            Assert.AreEqual("Sterkte berekening doorsnede", viewName);
         }
 
         [Test]

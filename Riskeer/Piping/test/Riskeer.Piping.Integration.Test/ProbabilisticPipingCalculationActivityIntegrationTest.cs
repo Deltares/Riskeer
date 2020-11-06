@@ -124,8 +124,8 @@ namespace Riskeer.Piping.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith("De vak berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    StringAssert.StartsWith("De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    StringAssert.StartsWith("De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -206,8 +206,8 @@ namespace Riskeer.Piping.Integration.Test
                 activity.Run();
 
                 // Assert
-                string expectedProgressTexts = "Stap 1 van 2 | Uitvoeren piping berekening voor doorsnede" + Environment.NewLine +
-                                               "Stap 2 van 2 | Uitvoeren piping berekening voor vak" + Environment.NewLine;
+                string expectedProgressTexts = "Stap 1 van 2 | Uitvoeren sterkte berekening voor doorsnede" + Environment.NewLine +
+                                               "Stap 2 van 2 | Uitvoeren sterkte berekening voor vak" + Environment.NewLine;
 
                 Assert.AreEqual(expectedProgressTexts, progressTexts);
             }
@@ -274,8 +274,8 @@ namespace Riskeer.Piping.Integration.Test
                     string errorReportText = lastErrorFileContent != null
                                                  ? $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}"
                                                  : "Er is geen foutrapport beschikbaar.";
-                    Assert.AreEqual($"De doorsnede berekening voor piping '{calculation.Name}' is mislukt. {errorReportText}", msgs[4]);
-                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    Assert.AreEqual($"De piping sterkte berekening voor doorsnede '{calculation.Name}' is mislukt. {errorReportText}", msgs[4]);
+                    StringAssert.StartsWith("De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -341,12 +341,12 @@ namespace Riskeer.Piping.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    StringAssert.StartsWith("De doorsnede berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    StringAssert.StartsWith("De piping sterkte berekening voor doorsnede is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     string errorReportText = lastErrorFileContent != null
                                                  ? $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}"
                                                  : "Er is geen foutrapport beschikbaar.";
-                    Assert.AreEqual($"De vak berekening voor piping '{calculation.Name}' is mislukt. {errorReportText}", msgs[5]);
-                    StringAssert.StartsWith("De vak berekening is uitgevoerd op de tijdelijke locatie", msgs[6]);
+                    Assert.AreEqual($"De piping sterkte berekening voor vak '{calculation.Name}' is mislukt. {errorReportText}", msgs[5]);
+                    StringAssert.StartsWith("De piping sterkte berekening voor vak is uitgevoerd op de tijdelijke locatie", msgs[6]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
