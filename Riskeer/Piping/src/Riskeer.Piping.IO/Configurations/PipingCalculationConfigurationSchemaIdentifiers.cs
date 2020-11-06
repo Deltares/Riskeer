@@ -27,6 +27,23 @@ namespace Riskeer.Piping.IO.Configurations
     internal static class PipingCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
+        /// The identifier for the type of the calculation.
+        /// </summary>
+        public const string CalculationType = "toets";
+
+        /// <summary>
+        /// The possible content of the <see cref="CalculationType"/> element
+        /// indicating a semi-probabilistic calculation.
+        /// </summary>
+        public const string SemiProbabilistic = "semi-probabilistisch";
+
+        /// <summary>
+        /// The possible content of the <see cref="CalculationType"/> element
+        /// indicating a probabilistic calculation.
+        /// </summary>
+        public const string Probabilistic = "probabilistisch";
+
+        /// <summary>
         /// The identifier for water level elements.
         /// </summary>
         public const string WaterLevelElement = "waterstand";
