@@ -65,6 +65,7 @@ namespace AutomatedSystemTests.Modules.Selection
         			         }
         				} else {
         				// child is last one in path
+        			    stepChild.Focus();
         			    stepChild.Click(Location.CenterLeft);
         			     }
         			}
