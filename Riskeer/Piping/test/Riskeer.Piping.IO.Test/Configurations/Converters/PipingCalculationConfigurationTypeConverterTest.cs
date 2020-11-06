@@ -19,13 +19,83 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Globalization;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Piping.IO.Configurations;
+using Riskeer.Piping.IO.Configurations.Converters;
 
 namespace Riskeer.Piping.IO.Test.Configurations.Converters
 {
     [TestFixture]
     public class PipingCalculationConfigurationTypeConverterTest
     {
-        
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Assert
+            Assert.IsInstanceOf<TypeConverter>(converter);
+        }
+
+        [Test]
+        public void CanConvertTo_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertTo);
+        }
+
+        [Test]
+        public void CanConvertTo_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertTo);
+        }
+
+        [Test]
+        public void ConvertTo_InvalidPipingCalculationConfigurationType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const PipingCalculationConfigurationType invalidValue = (PipingCalculationConfigurationType) 99;
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            void Call() => converter.ConvertTo(invalidValue, typeof(string));
+
+            // Assert
+            var expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(PipingCalculationConfigurationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(PipingCalculationConfigurationType.SemiProbabilistic, "semi-probabilistisch")]
+        [TestCase(PipingCalculationConfigurationType.Probabilistic, "probabilistisch")]
+        public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCategoryType_ReturnExpectedText(
+            PipingCalculationConfigurationType value, string expectedText)
+        {
+            // Setup
+            var converter = new PipingCalculationConfigurationTypeConverter();
+
+            // Call
+            object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
+
+            // Assert
+            Assert.AreEqual(expectedText, convertTo);
+        }
     }
 }

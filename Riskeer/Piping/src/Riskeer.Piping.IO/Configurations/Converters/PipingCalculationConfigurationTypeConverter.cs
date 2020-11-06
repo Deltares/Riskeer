@@ -19,14 +19,41 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
+using System.Globalization;
+
 namespace Riskeer.Piping.IO.Configurations.Converters
 {
     /// <summary>
-    /// Converts <see cref="PipingCalculationConfigurationType"/> to <see cref="string"/>
-    /// and back
+    /// Converts <see cref="PipingCalculationConfigurationType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class PipingCalculationConfigurationTypeConverter
+    public class PipingCalculationConfigurationTypeConverter : TypeConverter
     {
-        
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            var calculationType = (PipingCalculationConfigurationType) value;
+            if (!Enum.IsDefined(typeof(PipingCalculationConfigurationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) calculationType,
+                                                       typeof(PipingCalculationConfigurationType));
+            }
+
+            if (destinationType == typeof(string))
+            {
+                switch (calculationType)
+                {
+                    case PipingCalculationConfigurationType.SemiProbabilistic:
+                        return "semi-probabilistisch";
+                    case PipingCalculationConfigurationType.Probabilistic:
+                        return "probabilistisch";
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
     }
 }
