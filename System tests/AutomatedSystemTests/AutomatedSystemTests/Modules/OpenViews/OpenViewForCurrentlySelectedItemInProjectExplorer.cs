@@ -82,8 +82,8 @@ namespace AutomatedSystemTests.Modules.OpenViews
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at 79;11.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Openen.Click("79;11");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Openen.Click();
             
         }
 
