@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Calculation
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The CalculateCategoryBoundary recording.
+    ///The CalculateSectionCategoryBoundary recording.
     /// </summary>
     [TestModule("b235cebd-3495-47c7-96d9-f82c3092f4cb", ModuleType.Recording, 1)]
-    public partial class CalculateCategoryBoundary : ITestModule
+    public partial class CalculateSectionCategoryBoundary : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static CalculateCategoryBoundary instance = new CalculateCategoryBoundary();
+        static CalculateSectionCategoryBoundary instance = new CalculateSectionCategoryBoundary();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CalculateCategoryBoundary()
+        public CalculateSectionCategoryBoundary()
         {
             calculatedCategoryBoundary = "";
             signalingValueText = "";
@@ -54,7 +54,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static CalculateCategoryBoundary Instance
+        public static CalculateSectionCategoryBoundary Instance
         {
             get { return instance; }
         }

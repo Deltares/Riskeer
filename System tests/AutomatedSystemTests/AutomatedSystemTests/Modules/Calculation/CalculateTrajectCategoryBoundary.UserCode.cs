@@ -23,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Calculation
 {
-    public partial class CalculateCategoryBoundary
+    public partial class CalculateTrajectCategoryBoundary
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -41,65 +41,39 @@ namespace AutomatedSystemTests.Modules.Calculation
         	double lowerLimitD = 1/Double.Parse(lowerLimitDenominator, currentCulture);
         	string signalingValueDenominator = signalingValueText.Substring(2, signalingValueText.Length-2);
         	double signalingValueD = 1/Double.Parse(signalingValueDenominator, currentCulture);
-        	double contributionD = Double.Parse(contributionText, currentCulture);
-        	double parameterND = Double.Parse(parameterNText, currentCulture);
         	double boundaryValue;
         	var boundaryToEvaluate = categoryName + boundaryType;
         	switch (boundaryToEvaluate) {
-        		case "IOnder":
+        		case "A+Onder":
         			calculatedCategoryBoundary = "1/Oneindig";
-        			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
+        			Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
         			return calculatedCategoryBoundary;
-        		case "VIBoven":
+        		case "DBoven":
         			calculatedCategoryBoundary = "1/1";
-        			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
+        			Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
         			return calculatedCategoryBoundary;
-        		case "IIOnder":
-        			boundaryValue = (1.0/30.0)*signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
+        		case "AOnder":
+        			boundaryValue = (1.0/30.0)*signalingValueD;
         			break;
-        		case "IBoven":
-        			boundaryValue = (1/30.0)*signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
+        		case "A+Boven":
+        			boundaryValue = (1.0/30.0)*signalingValueD;
         			break;
-        		case "IIIOnder":
-        			boundaryValue = signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
+        		case "BOnder":
+        			boundaryValue = signalingValueD;
         			break;
-        		case "IIBoven":
-        			boundaryValue = signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
+        		case "ABoven":
+        			boundaryValue = signalingValueD;
         			break;
-        		case "IVOnder":
-        			boundaryValue = lowerLimitD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IIIBoven":
-        			boundaryValue = lowerLimitD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "VOnder":
+        		case "COnder":
         			boundaryValue = lowerLimitD;
         			break;
-        		case "IVBoven":
+        		case "BBoven":
         			boundaryValue = lowerLimitD;
         			break;
-        		case "VIOnder":
+        		case "DOnder":
         			boundaryValue = 30.0*lowerLimitD;
         			break;
-        		case "VBoven":
+        		case "CBoven":
         			boundaryValue = 30.0*lowerLimitD;
         			break;
         		default:
@@ -108,7 +82,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         	}
         	var denominatorBoundary = Math.Round(1/boundaryValue);
         	calculatedCategoryBoundary = "1/" + denominatorBoundary.ToString("N0", currentCulture.NumberFormat);
-        	Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
+        	Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
         	return calculatedCategoryBoundary;
         }
 

@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateCategoryBoundaryInDocumentView recording.
+    ///The ValidateTrajectCategoryBoundaryInDocumentView recording.
     /// </summary>
-    [TestModule("b8095d4b-9eb5-467b-976f-5811b54836f6", ModuleType.Recording, 1)]
-    public partial class ValidateCategoryBoundaryInDocumentView : ITestModule
+    [TestModule("bb8a13eb-104a-4991-a3e8-ff6db9bce7b6", ModuleType.Recording, 1)]
+    public partial class ValidateTrajectCategoryBoundaryInDocumentView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateCategoryBoundaryInDocumentView instance = new ValidateCategoryBoundaryInDocumentView();
+        static ValidateTrajectCategoryBoundaryInDocumentView instance = new ValidateTrajectCategoryBoundaryInDocumentView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateCategoryBoundaryInDocumentView()
+        public ValidateTrajectCategoryBoundaryInDocumentView()
         {
             expectedBoundary = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateCategoryBoundaryInDocumentView Instance
+        public static ValidateTrajectCategoryBoundaryInDocumentView Instance
         {
             get { return instance; }
         }
@@ -59,21 +59,11 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         /// <summary>
         /// Gets or sets the value of variable expectedBoundary.
         /// </summary>
-        [TestVariable("74f78223-bbfe-48f3-8b40-2445e6a47468")]
+        [TestVariable("ee31468f-c9ba-4f17-8540-27c1b55329b7")]
         public string expectedBoundary
         {
             get { return _expectedBoundary; }
             set { _expectedBoundary = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable sectionSubstring.
-        /// </summary>
-        [TestVariable("7f611ae2-9cdd-49ab-9f5c-3a3d10895d80")]
-        public string sectionSubstring
-        {
-            get { return repo.sectionSubstring; }
-            set { repo.sectionSubstring = value; }
         }
 
         /// <summary>
@@ -84,16 +74,6 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         {
             get { return repo.categoryName; }
             set { repo.categoryName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable categorysuffix.
-        /// </summary>
-        [TestVariable("b8671a42-1c75-4941-b387-69d720e545f8")]
-        public string categorysuffix
-        {
-            get { return repo.categorysuffix; }
-            set { repo.categorysuffix = value; }
         }
 
         /// <summary>
@@ -132,17 +112,17 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(0));
-            //repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell.Focus();
+            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, new RecordItemIndex(0));
+            //repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell.Focus();
             //Delay.Milliseconds(0);
             
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(1));
-            //repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell.Select();
+            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, new RecordItemIndex(1));
+            //repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell.Select();
             //Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell, false, new RecordItemIndex(2));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell, false, new RecordItemIndex(2));
             
-            Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo);
+            Abstract.ValidateCategoryBoundary.Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, expectedBoundary);
             Delay.Milliseconds(0);
             
         }

@@ -612,6 +612,26 @@
 			name="ReadInputImportedModifiedCaculations">
 			</smartfoldernode>
 			<testmodule
+			id="1e5cce5f-fd5e-4a07-a987-7798d63267b5"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="1ed47271-ac13-4b1e-948e-04a29d1954c8"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1426,6 +1446,26 @@
 					variablename="durationPressRightKey">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="4df8eb8a-dbc5-4d0a-84c1-44c20bc406fc"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="destinationSurfaceLineCharPoints"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+					<var
+					dataname="sourceSurfaceLineCharPoints"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="4e711e42-2218-43d0-be0b-6481c5c6d20f"
@@ -2345,6 +2385,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<setup
+			id="770d4e08-ab42-4056-9fb2-56a2b9a52179"
+			name="setup">
+			</setup>
 			<testmodule
 			id="789b1f58-b48e-4afc-a5cd-6c5112a6661f"
 			name="DuplicateCalculationItem"
@@ -2577,6 +2621,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<teardown
+			id="848a304d-64e3-4543-b9f1-c7a58fe3b36a"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="85407ecd-6746-42ab-b741-589d66f8db20"
 			name="ConcatenateStrings"
@@ -2691,6 +2739,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="8828de6f-6216-4298-a863-6cc1c15ee9e9"
+			name="AddNewTrajectAppropriateForSchematization">
+				<parameters>
+					<param
+					name="signalValue"
+					value="">
+					</param>
+					<param
+					name="lowValue"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="89761618-8bda-4de7-a743-ef01575859e0"
 			name="CalculationInsideFolder">
@@ -2891,6 +2953,20 @@
 			id="93de7666-90f6-4350-88c3-684636168014"
 			name="DeleteAllCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="94275b9f-0d24-47f0-b8f3-55c841276f01"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineFileToDelete"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="9460757f-eb8b-40b9-9785-93407d033d68"
 			name="ImportCalculationsFromReferenceXMLConfigurationFile">
@@ -3472,6 +3548,36 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="bea93852-acdc-42a1-9838-d572c01df8d7"
+			name="CopyOriginalFiles">
+				<parameters>
+					<param
+					name="surfacelineCharactPointsToDelete"
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="surfacelineFileToDelete"
+					value="X:\script10\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineFile"
+					value="X:\script10\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineCharPoints"
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="sourceSurfaceLineCharPoints"
+					value="X:\script10\00original\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="sourceSurfaceLineFile"
+					value="X:\script10\00original\surfacelines traject 12-2.csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="bec05f62-a2fa-4d83-8a85-3a3661403fb1"
 			name="WaitForXMiliseconds"
@@ -3510,6 +3616,11 @@
 			ref="f942f297-31be-4e47-a62e-d6cf657dcbdf"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script09_LoopFMs"
+			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+			name="LoopFMs">
+			</smartfoldernode>
 			<testmodule
 			id="c1925c52-c171-41c5-aad5-c43626417045"
 			name="ConcatenateStrings"
@@ -3714,6 +3825,30 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="c8816c39-e62b-4c6f-98b3-6bcbd728a07c"
+			name="script09_Voorland_of_voorliggende_dam_importeren">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="09">
+					</param>
+				</parameters>
+			</testcase>
+			<testmodule
+			id="c90b9b96-fe39-49a3-81d4-8e3abe5ac2dc"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineCharactPointsToDelete"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="cb7f4312-4717-486f-859c-6df11f7b9ae4"
 			name="CreateScreenshotMessagesPanel"
@@ -3839,6 +3974,38 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="dc71d330-4030-4374-904c-4dfc9459d7dc"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="norm"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signalValue"
+					datasourceid="8828de6f-6216-4298-a863-6cc1c15ee9e9"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowValue"
+					datasourceid="8828de6f-6216-4298-a863-6cc1c15ee9e9"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="ddfdff82-4340-4015-aee4-64a41dc9bae0"
 			name="ImportConfigurationCalculationsFromXMLFile"
@@ -4091,6 +4258,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="f237e07a-d38c-40a5-bfd8-e3a277e000ae"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="f298578a-5e42-44e8-840c-8c8fca87e3f1"
 			name="OpenProject">
@@ -4261,6 +4442,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="f7cbaf68-85f7-44ad-90f2-798046b0c6d5"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="c8816c39-e62b-4c6f-98b3-6bcbd728a07c"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="f7ce0f1c-0f7b-48f2-a28a-3dd3fde744be"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -4317,6 +4520,26 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fb5aa0cc-79fc-42ba-be37-ad9d3ed55ca0"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="destinationSurfaceLineFile"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+					<var
+					dataname="sourceSurfaceLineFile"
+					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="fc90c734-3c74-4182-bc99-c6db05276130"
@@ -5304,11 +5527,110 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<testcase
+					id="c8816c39-e62b-4c6f-98b3-6bcbd728a07c"
+					name="script09_Voorland_of_voorliggende_dam_importeren">
+						<setup
+						id="770d4e08-ab42-4056-9fb2-56a2b9a52179"
+						name="setup">
+							<testmodule
+							id="1e5cce5f-fd5e-4a07-a987-7798d63267b5"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="f7cbaf68-85f7-44ad-90f2-798046b0c6d5"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+						name="LoopFMs">
+							<smartfoldernode
+							id="8828de6f-6216-4298-a863-6cc1c15ee9e9"
+							name="AddNewTrajectAppropriateForSchematization">
+								<testmodule
+								id="dc71d330-4030-4374-904c-4dfc9459d7dc"
+								name="AddNewTrajectUsingContextMenu">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="bea93852-acdc-42a1-9838-d572c01df8d7"
+							name="CopyOriginalFiles">
+								<testmodule
+								id="94275b9f-0d24-47f0-b8f3-55c841276f01"
+								name="DeleteFileIfExists">
+								</testmodule>
+								<testmodule
+								id="c90b9b96-fe39-49a3-81d4-8e3abe5ac2dc"
+								name="DeleteFileIfExists">
+								</testmodule>
+								<testmodule
+								id="4df8eb8a-dbc5-4d0a-84c1-44c20bc406fc"
+								name="CopyFile">
+								</testmodule>
+								<testmodule
+								id="fb5aa0cc-79fc-42ba-be37-ad9d3ed55ca0"
+								name="CopyFile">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="848a304d-64e3-4543-b9f1-c7a58fe3b36a"
+						name="teardown">
+							<testmodule
+							id="f237e07a-d38c-40a5-bfd8-e3a277e000ae"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
+		<DataSource
+		id="7e99b103-d280-478b-83ce-35c833678662"
+		lastknownrowcount="1"
+		name="script09_LoopFMs"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					trajectToAdd
+				</column>
+				<column>
+					norm
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmLabel
+					</th>
+					<th>
+						trajectToAdd
+					</th>
+					<th>
+						norm
+					</th>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						12-2
+					</td>
+					<td>
+						Signal
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 		<DataSource
 		id="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 		lastknownrowcount="8"
@@ -9663,6 +9985,21 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="8828de6f-6216-4298-a863-6cc1c15ee9e9">
+			</testcontainer>
+			<testcontainer
+			id="bea93852-acdc-42a1-9838-d572c01df8d7">
+			</testcontainer>
+			<testcontainer
+			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b">
+			</testcontainer>
+			<testcontainer
+			id="c8816c39-e62b-4c6f-98b3-6bcbd728a07c">
+			</testcontainer>
+			<testcontainer
+			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
+			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>

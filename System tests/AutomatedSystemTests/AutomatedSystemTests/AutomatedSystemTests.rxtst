@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -110,6 +110,11 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script07_TrajectCategories"
+			id="05b5e63d-ad9c-4aed-b02e-4a58a92dbba6"
+			name="LoopCategories(A+_D)">
+			</smartfoldernode>
+			<smartfoldernode
 			id="06908862-b5db-4ca7-99ea-562da0210ef4"
 			name="UpdateSurfaceLinesEditedSTPH">
 				<parameters>
@@ -190,7 +195,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script07_ExpectedBoundaryCategories"
 			id="0a57be93-765c-4c1d-b82b-41fa47b1de47"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
@@ -213,6 +217,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0c34cacd-0bab-45e1-a910-94c6d9713136"
+			name="ValidateTrajectCategoryBoundaryInDocumentView"
+			ref="bb8a13eb-104a-4991-a3e8-ff6db9bce7b6"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="categoryName"
+					datasourceid="33ef707a-537c-43cf-87d4-ed603585c9dd"
+					variableid="e76c5155-f1f8-4415-bd13-dde7073c53b6"
+					variablename="categoryName">
+					</var>
+					<var
+					dataname="calculatedCategoryBoundary"
+					datasourceid="f0930338-9439-45d4-ac6a-7dfb8f426bb1"
+					variableid="ee31468f-c9ba-4f17-8540-27c1b55329b7"
+					variablename="expectedBoundary">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="8f75181e-5620-4184-b263-790e9b45c319"
+					variablename="boundaryTypeSubstring">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="0eb80dfc-5f8b-47af-bd90-3595efeb63f7"
 			name="ValidateSubsurfaceSchematizationName"
@@ -553,6 +583,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="1b8ef393-b40b-44b8-8a11-c7856df90952"
+			name="ConfirmActionInDialog"
+			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
 			name="ValidateLengthEffectParameterN">
@@ -773,6 +809,32 @@
 					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
 					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
 					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="2c5abab4-118a-4153-9d2d-15aa3c23514d"
+			name="ValidateTrajectCategoryBoundaryInDocumentView"
+			ref="bb8a13eb-104a-4991-a3e8-ff6db9bce7b6"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="categoryName"
+					datasourceid="33ef707a-537c-43cf-87d4-ed603585c9dd"
+					variableid="e76c5155-f1f8-4415-bd13-dde7073c53b6"
+					variablename="categoryName">
+					</var>
+					<var
+					dataname="calculatedCategoryBoundary"
+					datasourceid="c6c983a8-f4ff-46cf-90ec-83bae998d94d"
+					variableid="ee31468f-c9ba-4f17-8540-27c1b55329b7"
+					variablename="expectedBoundary">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="8f75181e-5620-4184-b263-790e9b45c319"
+					variablename="boundaryTypeSubstring">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1411,6 +1473,44 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="562da0a4-9f7a-499e-ba1e-6b4b17f0f3f9"
+			name="CalculateTrajectCategoryBoundary"
+			ref="32a3407b-7f73-4eaf-903a-c752160bcebd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="14d25f92-b43e-4e21-80e5-251c265ae43d"
+					variablename="lowerLimitText">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="7e3f45c6-8984-4ac1-9ac6-46dd6c34fec6"
+					variablename="signalingValueText">
+					</var>
+					<var
+					dataname="categoryName"
+					datasourceid="33ef707a-537c-43cf-87d4-ed603585c9dd"
+					variableid="c7d869d1-e1dd-484c-9ba5-53ffaaed18de"
+					variablename="categoryName">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="66a64b21-f119-4f42-b24b-cf9c41739492"
+					variablename="boundaryType">
+					</var>
+					<var
+					dataname="calculatedCategoryBoundary"
+					datasourceid="f0930338-9439-45d4-ac6a-7dfb8f426bb1"
+					variableid="cc714625-3f6f-49aa-9a70-5aa884b5d71d"
+					variablename="calculatedCategoryBoundary">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="56686535-e9c1-4dee-937e-6edd48e15b86"
 			name="FormulaType3_(BSKW)">
@@ -1567,7 +1667,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-			name="CalculateCategoryBoundary"
+			name="CalculateSectionCategoryBoundary"
 			ref="b235cebd-3495-47c7-96d9-f82c3092f4cb"
 			type="Recording">
 				<databinding>
@@ -1701,6 +1801,32 @@
 				<databinding>
 					<var
 					dataname="TrajectName"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringNameItemInTraject"
+					datasourceid="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+					<var
+					dataname="nameOfSignallingValueInPropertiesPanel"
+					datasourceid="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="TrajectName"
 					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
@@ -1723,7 +1849,7 @@
 					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="60e53209-a978-4c5a-817e-3b4685b8922b"
@@ -1746,9 +1872,22 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script07_updated_norm"
 			id="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
 			name="ChangeBoundaries">
+				<parameters>
+					<param
+					name="substringNameItemInTraject"
+					value="Normen">
+					</param>
+					<param
+					name="nameOfSignallingValueInPropertiesPanel"
+					value="Signaleringswaarde [1/jaar]">
+					</param>
+					<param
+					name="nameOfLowerLimitValueInPropertiesPanel"
+					value="Ondergrens [1/jaar]">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="622bed72-4898-4d20-b9a5-d40c869cdd75"
@@ -2007,6 +2146,64 @@
 					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
 					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
 					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6ee760cf-0a51-4f6d-a69a-a585b0fba2aa"
+			name="SetValueWithKeyPressParameterForItemInTraject"
+			ref="e550d732-7780-4b40-a989-f787f458a7c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringNameItemInTraject"
+					datasourceid="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+					<var
+					dataname="nameOfLowerLimitValueInPropertiesPanel"
+					datasourceid="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="ItemInTraject"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="Parameter"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="Value"
+					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2851,7 +3048,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-			name="ValidateCategoryBoundaryInDocumentView"
+			name="ValidateSectionCategoryBoundaryInDocumentView"
 			ref="b8095d4b-9eb5-467b-976f-5811b54836f6"
 			type="Recording">
 				<databinding>
@@ -3194,11 +3391,6 @@
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
 			name="ValidateChartsInCalculations">
 			</smartfoldernode>
-			<smartfoldernode
-			datasource="script07_Validate_updated_category_boundaries"
-			id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6"
-			name="ValidateCategoryBoundaries">
-			</smartfoldernode>
 			<testmodule
 			id="c3744923-020e-4304-b830-2ea9ca446b46"
 			name="GetValueParameterForItemInTraject"
@@ -3350,6 +3542,23 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="boundaryTypesNames"
+			errorbehavior="ContinueNextIteration"
+			id="c6c983a8-f4ff-46cf-90ec-83bae998d94d"
+			name="LoopBoundaryType(LowerUpper)">
+				<parameters>
+					<param
+					name="calculatedCategoryBoundary"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script07_TrajectCategories"
+			id="c78dfe00-9b91-4cd5-a578-0349b61b1518"
+			name="LoopCategories(A+_D)">
+			</smartfoldernode>
 			<testmodule
 			id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
 			name="ValidateSourcePathSurfaceLines"
@@ -3375,64 +3584,6 @@
 					variablename="pathSurfaceLines">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="c9dc0d50-524d-4cfc-b583-f0fe8fec7d84"
-			name="ValidateTrajectCategoryBoundaryRow"
-			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="boundaryCategory"
-					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
-					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
-					variablename="boundaryCategory">
-					</var>
-					<var
-					dataname="lowerBoundary"
-					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
-					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
-					variablename="lowerBoundary">
-					</var>
-					<var
-					dataname="upperBoundary"
-					datasourceid="2c040547-7753-46ad-bc7f-2af8c503e644"
-					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
-					variablename="upperBoundary">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="upperBoundary"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
-					variablename="upperBoundary">
-					</var>
-					<var
-					dataname="lowerBoundary"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
-					variablename="lowerBoundary">
-					</var>
-					<var
-					dataname="boundaryCategory"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
-					variablename="boundaryCategory">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ca88852d-a16f-4e5f-b5cf-b4e3f894a961"
@@ -3606,38 +3757,6 @@
 			name="ControlFailureMechanismContributions">
 			</smartfoldernode>
 			<testmodule
-			id="d4fdbaef-a964-4fee-8868-6aa7f2717011"
-			name="ValidateTrajectCategoryBoundaryRow"
-			ref="66405087-b5ac-48fb-9dfc-5a5fb68148b4"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="upperBoundary"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="2b917f66-d746-47f0-9d83-ee93bf18074c"
-					variablename="upperBoundary">
-					</var>
-					<var
-					dataname="lowerBoundary"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="d8decb24-a4e0-497c-9560-6d46ba0f86bf"
-					variablename="lowerBoundary">
-					</var>
-					<var
-					dataname="boundaryCategory"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="2aecbb51-4591-4020-8e95-7baef9b5785f"
-					variablename="boundaryCategory">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="a7ddab38-2b13-4944-bd93-e77bde9307fe"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="d5b53eb4-b138-4c8d-9f51-644ab631b55f"
 			name="DeleteFileIfExists"
 			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
@@ -3674,6 +3793,44 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d7131151-bc08-4239-8a8a-e332b8633dcb"
+			name="CalculateTrajectCategoryBoundary"
+			ref="32a3407b-7f73-4eaf-903a-c752160bcebd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="14d25f92-b43e-4e21-80e5-251c265ae43d"
+					variablename="lowerLimitText">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="7e3f45c6-8984-4ac1-9ac6-46dd6c34fec6"
+					variablename="signalingValueText">
+					</var>
+					<var
+					dataname="categoryName"
+					datasourceid="33ef707a-537c-43cf-87d4-ed603585c9dd"
+					variableid="c7d869d1-e1dd-484c-9ba5-53ffaaed18de"
+					variablename="categoryName">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="66a64b21-f119-4f42-b24b-cf9c41739492"
+					variablename="boundaryType">
+					</var>
+					<var
+					dataname="calculatedCategoryBoundary"
+					datasourceid="c6c983a8-f4ff-46cf-90ec-83bae998d94d"
+					variableid="cc714625-3f6f-49aa-9a70-5aa884b5d71d"
+					variablename="calculatedCategoryBoundary">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d884dec3-4263-48c9-aeff-64381e3aa9c0"
 			name="ExpandUntilFMInput"
 			ref="758dd2d8-956a-46d7-a793-08dc2c8e08a7"
@@ -3690,6 +3847,26 @@
 					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="d9ed7c2a-e546-407a-a5bc-fc5b205dbd46"
+			name="GetRandomNorm"
+			ref="3f50af80-7a9e-4428-b269-4f7f8984a5c6"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="e01fd9fd-aa65-4395-8eb5-c1f689b71205"
+					variablename="lowerLimitValue">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="c2e11629-322d-4b63-afe5-6fef0cc6581e"
+					variablename="signallingValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3805,7 +3982,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac"
-			name="CopyOrginalFiles">
+			name="CopyOriginalFiles">
 				<parameters>
 					<param
 					name="surfacelineCharactPointsToDelete"
@@ -4103,6 +4280,22 @@
 			id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
 			name="teardown">
 			</teardown>
+			<smartfoldernode
+			datasource="boundaryTypesNames"
+			errorbehavior="ContinueNextIteration"
+			id="f0930338-9439-45d4-ac6a-7dfb8f426bb1"
+			name="LoopBoundaryType(LowerUpper)">
+				<parameters>
+					<param
+					name="calculatedCategoryBoundary"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="f0ba4f16-d208-44be-a7a1-ba567a3c8d86"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
 			name="ConvertToCurrentCulture"
@@ -4669,14 +4862,30 @@
 						<smartfoldernode
 						id="0a57be93-765c-4c1d-b82b-41fa47b1de47"
 						name="ValidateCategoryBoundaries">
-							<testmodule
-							id="d4fdbaef-a964-4fee-8868-6aa7f2717011"
-							name="ValidateTrajectCategoryBoundaryRow">
-							</testmodule>
+							<smartfoldernode
+							id="c78dfe00-9b91-4cd5-a578-0349b61b1518"
+							name="LoopCategories(A+_D)">
+								<smartfoldernode
+								id="f0930338-9439-45d4-ac6a-7dfb8f426bb1"
+								name="LoopBoundaryType(LowerUpper)">
+									<testmodule
+									id="562da0a4-9f7a-499e-ba1e-6b4b17f0f3f9"
+									name="CalculateTrajectCategoryBoundary">
+									</testmodule>
+									<testmodule
+									id="0c34cacd-0bab-45e1-a910-94c6d9713136"
+									name="ValidateTrajectCategoryBoundaryInDocumentView">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
 						name="ChangeBoundaries">
+							<testmodule
+							id="d9ed7c2a-e546-407a-a5bc-fc5b205dbd46"
+							name="GetRandomNorm">
+							</testmodule>
 							<testmodule
 							id="60a3b7d4-cec8-4db1-9c0a-fde0e86eb428"
 							name="SetValueWithKeyPressParameterForItemInTraject">
@@ -4685,14 +4894,34 @@
 							id="b64fe96d-bcf6-4fe7-a4ad-fd8942bdebe5"
 							name="ConfirmActionInDialog">
 							</testmodule>
+							<testmodule
+							id="6ee760cf-0a51-4f6d-a69a-a585b0fba2aa"
+							name="SetValueWithKeyPressParameterForItemInTraject">
+							</testmodule>
+							<testmodule
+							id="1b8ef393-b40b-44b8-8a11-c7856df90952"
+							name="ConfirmActionInDialog">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
-						id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6"
+						id="f0ba4f16-d208-44be-a7a1-ba567a3c8d86"
 						name="ValidateCategoryBoundaries">
-							<testmodule
-							id="c9dc0d50-524d-4cfc-b583-f0fe8fec7d84"
-							name="ValidateTrajectCategoryBoundaryRow">
-							</testmodule>
+							<smartfoldernode
+							id="05b5e63d-ad9c-4aed-b02e-4a58a92dbba6"
+							name="LoopCategories(A+_D)">
+								<smartfoldernode
+								id="c6c983a8-f4ff-46cf-90ec-83bae998d94d"
+								name="LoopBoundaryType(LowerUpper)">
+									<testmodule
+									id="d7131151-bc08-4239-8a8a-e332b8633dcb"
+									name="CalculateTrajectCategoryBoundary">
+									</testmodule>
+									<testmodule
+									id="2c5abab4-118a-4153-9d2d-15aa3c23514d"
+									name="ValidateTrajectCategoryBoundaryInDocumentView">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
 						id="4241c2f1-b584-4ef4-b9cd-cd73257d6e88"
@@ -5010,14 +5239,14 @@
 											name="LoopBoundaryType(LowerUpper)">
 												<testmodule
 												id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-												name="CalculateCategoryBoundary">
+												name="CalculateSectionCategoryBoundary">
 												</testmodule>
 												<smartfoldernode
 												id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
 												name="ValidationInDocumentView">
 													<testmodule
 													id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-													name="ValidateCategoryBoundaryInDocumentView">
+													name="ValidateSectionCategoryBoundaryInDocumentView">
 													</testmodule>
 												</smartfoldernode>
 												<smartfoldernode
@@ -5072,7 +5301,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="ddfa8ca6-6795-4646-9070-a5d686852fac"
-						name="CopyOrginalFiles">
+						name="CopyOriginalFiles">
 							<testmodule
 							id="0107a901-86b4-4f30-83c1-f3cf871c6ea6"
 							name="DeleteFileIfExists">
@@ -8550,22 +8779,13 @@
 			</file>
 		</DataSource>
 		<DataSource
-		id="a7ddab38-2b13-4944-bd93-e77bde9307fe"
+		id="33ef707a-537c-43cf-87d4-ed603585c9dd"
 		lastknownrowcount="5"
-		name="script07_ExpectedBoundaryCategories"
+		name="script07_TrajectCategories"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					rowIndex
-				</column>
-				<column>
-					boundaryCategory
-				</column>
-				<column>
-					lowerBoundary
-				</column>
-				<column>
-					upperBoundary
+					categoryName
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -8573,152 +8793,32 @@
 			<table>
 				<tr>
 					<th>
-						rowIndex
-					</th>
-					<th>
-						boundaryCategory
-					</th>
-					<th>
-						lowerBoundary
-					</th>
-					<th>
-						upperBoundary
+						categoryName
 					</th>
 				</tr>
 				<tr>
-					<td>
-						0
-					</td>
 					<td>
 						A+
 					</td>
-					<td>
-						1/Oneindig
-					</td>
-					<td>
-						1/90000
-					</td>
 				</tr>
 				<tr>
-					<td>
-						1
-					</td>
 					<td>
 						A
 					</td>
-					<td>
-						1/90000
-					</td>
-					<td>
-						1/3000
-					</td>
 				</tr>
 				<tr>
-					<td>
-						2
-					</td>
 					<td>
 						B
 					</td>
-					<td>
-						1/3000
-					</td>
-					<td>
-						1/1000
-					</td>
 				</tr>
 				<tr>
-					<td>
-						3
-					</td>
 					<td>
 						C
 					</td>
-					<td>
-						1/1000
-					</td>
-					<td>
-						1/33
-					</td>
 				</tr>
 				<tr>
-					<td>
-						4
-					</td>
 					<td>
 						D
-					</td>
-					<td>
-						1/33
-					</td>
-					<td>
-						1/1
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="f3332522-21a5-4685-b856-9b552b60b138"
-		lastknownrowcount="2"
-		name="script07_updated_norm"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					TrajectName
-				</column>
-				<column>
-					ItemInTraject
-				</column>
-				<column>
-					Parameter
-				</column>
-				<column>
-					Value
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						TrajectName
-					</th>
-					<th>
-						ItemInTraject
-					</th>
-					<th>
-						Parameter
-					</th>
-					<th>
-						Value
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Traject 12-2
-					</td>
-					<td>
-						Normen
-					</td>
-					<td>
-						Signaleringswaarde [1/jaar]
-					</td>
-					<td>
-						1/4000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 12-2
-					</td>
-					<td>
-						Normen
-					</td>
-					<td>
-						Ondergrens [1/jaar]
-					</td>
-					<td>
-						1/2000
 					</td>
 				</tr>
 			</table>
@@ -17508,6 +17608,9 @@
 			id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba">
 			</testcontainer>
 			<testcontainer
+			id="05b5e63d-ad9c-4aed-b02e-4a58a92dbba6">
+			</testcontainer>
+			<testcontainer
 			id="06908862-b5db-4ca7-99ea-562da0210ef4">
 			</testcontainer>
 			<testcontainer
@@ -17658,7 +17761,10 @@
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
 			</testcontainer>
 			<testcontainer
-			id="c2ddea66-e8d1-454e-b4fd-d7d117565cb6">
+			id="c6c983a8-f4ff-46cf-90ec-83bae998d94d">
+			</testcontainer>
+			<testcontainer
+			id="c78dfe00-9b91-4cd5-a578-0349b61b1518">
 			</testcontainer>
 			<testcontainer
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">
@@ -17692,6 +17798,12 @@
 			</testcontainer>
 			<testcontainer
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
+			</testcontainer>
+			<testcontainer
+			id="f0930338-9439-45d4-ac6a-7dfb8f426bb1">
+			</testcontainer>
+			<testcontainer
+			id="f0ba4f16-d208-44be-a7a1-ba567a3c8d86">
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">

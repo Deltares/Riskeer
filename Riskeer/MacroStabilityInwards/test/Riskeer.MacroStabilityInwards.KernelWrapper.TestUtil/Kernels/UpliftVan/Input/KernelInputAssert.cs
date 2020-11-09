@@ -116,6 +116,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected collection of <see cref="Surface"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="Surface"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSurfaces(ICollection<Surface> expected, ICollection<Surface> actual)
+        {
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (var i = 0; i < expected.Count; i++)
+            {
+                AssertSurface(expected.ElementAt(i), actual.ElementAt(i));
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="Surface"/>.</param>
         /// <param name="actual">The actual <see cref="Surface"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
@@ -131,23 +148,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                                           actual.OuterLoop
                                       }.Concat(actual.InnerLoops),
                                       new LoopComparer());
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected collection of <see cref="Surface"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="Surface"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSurfaces(ICollection<Surface> expected, ICollection<Surface> actual)
-        {
-            Assert.AreEqual(expected.Count, actual.Count);
-
-            for (var i = 0; i < expected.Count; i++)
-            {
-                AssertSurface(expected.ElementAt(i), actual.ElementAt(i));
-            }
         }
 
         /// <summary>
