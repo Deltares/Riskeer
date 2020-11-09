@@ -666,6 +666,9 @@
       <id>5fb4a01e-4152-4cb8-aef6-80b96d54ec65</id>
       <BoundTo>171d5e60-a4ba-4594-80a1-966838bfcfcd</BoundTo>
     </Compile>
+    <Compile Include="Modules\IO\CsvExport.cs">
+      <id>a239e62e-879d-41fe-839a-af3a847b3c09</id>
+    </Compile>
     <Compile Include="Modules\IO\DeleteAllSearchFilteredFiles.cs">
       <id>f080910c-68a7-421d-97d8-0e2718c60cb2</id>
     </Compile>
