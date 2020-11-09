@@ -66,17 +66,21 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int exitPointLPropertyIndex = 7;
         private const int seepageLengthPropertyIndex = 8;
         private const int thicknessCoverageLayerDistributionPropertyIndex = 9;
-        private const int effectiveThicknessCoverageLayerDistributionPropertyIndex = 10;
-        private const int thicknessAquiferLayerPropertyIndex = 11;
-        private const int darcyPermeabilityPropertyIndex = 12;
-        private const int diameter70PropertyIndex = 13;
-        private const int saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 14;
+        private const int thicknessCoverageLayerDeterministPropertyIndex = 10;
+        private const int effectiveThicknessCoverageLayerDistributionPropertyIndex = 11;
+        private const int effectiveThicknessCoverageLayerDeterministPropertyIndex = 12;
+        private const int thicknessAquiferLayerPropertyIndex = 13;
+        private const int darcyPermeabilityPropertyIndex = 14;
+        private const int diameter70PropertyIndex = 15;
+        private const int saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 16;
+        private const int saturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex = 17;
 
-        private const int sectionNamePropertyIndex = 15;
-        private const int sectionLengthPropertyIndex = 16;
+        private const int sectionNamePropertyIndex = 18;
+        private const int sectionLengthPropertyIndex = 19;
 
-        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 17;
-        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 18;
+        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 20;
+        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 21;
+        
         private const int numberOfCategories = 5;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;

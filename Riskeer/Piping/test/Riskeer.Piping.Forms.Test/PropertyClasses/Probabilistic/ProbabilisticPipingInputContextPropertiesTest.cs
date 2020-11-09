@@ -67,17 +67,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedExitPointLPropertyIndex = 7;
         private const int expectedSeepageLengthPropertyIndex = 8;
         private const int expectedThicknessCoverageLayerDistributionPropertyIndex = 9;
-        private const int expectedEffectiveThicknessCoverageLayerDistributionPropertyIndex = 10;
-        private const int expectedThicknessAquiferLayerPropertyIndex = 11;
-        private const int expectedDarcyPermeabilityPropertyIndex = 12;
-        private const int expectedDiameter70PropertyIndex = 13;
-        private const int expectedSaturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 14;
+        private const int expectedThicknessCoverageLayerDeterministPropertyIndex = 10;
+        private const int expectedEffectiveThicknessCoverageLayerDistributionPropertyIndex = 11;
+        private const int expectedEffectiveThicknessCoverageLayerDeterministPropertyIndex = 12;
+        private const int expectedThicknessAquiferLayerPropertyIndex = 13;
+        private const int expectedDarcyPermeabilityPropertyIndex = 14;
+        private const int expectedDiameter70PropertyIndex = 15;
+        private const int expectedSaturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 16;
+        private const int expectedSaturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex = 17;
 
-        private const int expectedSectionNamePropertyIndex = 15;
-        private const int expectedSectionLengthPropertyIndex = 16;
+        private const int expectedSectionNamePropertyIndex = 18;
+        private const int expectedSectionLengthPropertyIndex = 19;
 
-        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 17;
-        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 18;
+        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 20;
+        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 21;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
