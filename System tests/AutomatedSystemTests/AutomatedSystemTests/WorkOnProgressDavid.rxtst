@@ -1448,26 +1448,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="4df8eb8a-dbc5-4d0a-84c1-44c20bc406fc"
-			name="CopyFile"
-			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="destinationSurfaceLineCharPoints"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
-					variablename="destinationFileName">
-					</var>
-					<var
-					dataname="sourceSurfaceLineCharPoints"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
-					variablename="sourceFileName">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="4e711e42-2218-43d0-be0b-6481c5c6d20f"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1985,6 +1965,26 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="6a86e22b-adc5-4d5a-b3e7-d61c052b669d"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2279,6 +2279,16 @@
 			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="74b49f88-ed5a-4b45-a506-6385fe611405"
+			name="ImportSchematizations">
+				<parameters>
+					<param
+					name="pathSchematizationsToImport"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="74cceb79-c627-4af3-a01d-d9f033253c3a"
 			name="StartAUT"
@@ -2953,20 +2963,6 @@
 			id="93de7666-90f6-4350-88c3-684636168014"
 			name="DeleteAllCalculations">
 			</smartfoldernode>
-			<testmodule
-			id="94275b9f-0d24-47f0-b8f3-55c841276f01"
-			name="DeleteFileIfExists"
-			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="surfacelineFileToDelete"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
-					variablename="fileToBeDeleted">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="9460757f-eb8b-40b9-9785-93407d033d68"
 			name="ImportCalculationsFromReferenceXMLConfigurationFile">
@@ -3548,35 +3544,35 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="nameOfFileToImportSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathSchematizationsToImport"
+					datasourceid="74b49f88-ed5a-4b45-a506-6385fe611405"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="bea93852-acdc-42a1-9838-d572c01df8d7"
 			name="CopyOriginalFiles">
-				<parameters>
-					<param
-					name="surfacelineCharactPointsToDelete"
-					value="X:\script10\surfacelines traject 12-2.krp.csv">
-					</param>
-					<param
-					name="surfacelineFileToDelete"
-					value="X:\script10\surfacelines traject 12-2.csv">
-					</param>
-					<param
-					name="destinationSurfaceLineFile"
-					value="X:\script10\surfacelines traject 12-2.csv">
-					</param>
-					<param
-					name="destinationSurfaceLineCharPoints"
-					value="X:\script10\surfacelines traject 12-2.krp.csv">
-					</param>
-					<param
-					name="sourceSurfaceLineCharPoints"
-					value="X:\script10\00original\surfacelines traject 12-2.krp.csv">
-					</param>
-					<param
-					name="sourceSurfaceLineFile"
-					value="X:\script10\00original\surfacelines traject 12-2.csv">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="bec05f62-a2fa-4d83-8a85-3a3661403fb1"
@@ -3600,6 +3596,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="bf76cacd-a1b1-4b10-bd24-1270b3a9ff3c"
 			name="ReadAllParametersItemInOriginalCalculation">
@@ -3620,6 +3630,16 @@
 			datasource="script09_LoopFMs"
 			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
 			name="LoopFMs">
+				<parameters>
+					<param
+					name="pathInputFiles"
+					value="X:\script09\input\">
+					</param>
+					<param
+					name="searchFilterAllFiles"
+					value="*.*">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="c1925c52-c171-41c5-aad5-c43626417045"
@@ -3836,20 +3856,6 @@
 				</parameters>
 			</testcase>
 			<testmodule
-			id="c90b9b96-fe39-49a3-81d4-8e3abe5ac2dc"
-			name="DeleteFileIfExists"
-			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="surfacelineCharactPointsToDelete"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
-					variablename="fileToBeDeleted">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="cb7f4312-4717-486f-859c-6df11f7b9ae4"
 			name="CreateScreenshotMessagesPanel"
 			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
@@ -3891,6 +3897,32 @@
 			id="d095342e-1322-46bc-8662-416053293485"
 			name="ValidateAllParametersAreEqualInCopyCalculationInDuplicatedFolder">
 			</smartfoldernode>
+			<testmodule
+			id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="originalFiles"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+				</databinding>
+			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
@@ -3974,6 +4006,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
+			name="ImportSchematizationForCurrentlySelectedItem"
+			ref="70e43517-d352-4149-9ec3-90e95cb9cbf0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathSchematizationsToImport"
+					datasourceid="74b49f88-ed5a-4b45-a506-6385fe611405"
+					variableid="94b6c8c3-2e32-4bf9-b4c6-68330bc3337c"
+					variablename="nameSchematizationsFilesToImport">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="dc71d330-4030-4374-904c-4dfc9459d7dc"
 			name="AddNewTrajectUsingContextMenu"
@@ -4520,26 +4566,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="fb5aa0cc-79fc-42ba-be37-ad9d3ed55ca0"
-			name="CopyFile"
-			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="destinationSurfaceLineFile"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
-					variablename="destinationFileName">
-					</var>
-					<var
-					dataname="sourceSurfaceLineFile"
-					datasourceid="bea93852-acdc-42a1-9838-d572c01df8d7"
-					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
-					variablename="sourceFileName">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="fc90c734-3c74-4182-bc99-c6db05276130"
@@ -5557,20 +5583,28 @@
 							id="bea93852-acdc-42a1-9838-d572c01df8d7"
 							name="CopyOriginalFiles">
 								<testmodule
-								id="94275b9f-0d24-47f0-b8f3-55c841276f01"
-								name="DeleteFileIfExists">
+								id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
+								name="DeleteAllSearchFilteredFiles">
 								</testmodule>
 								<testmodule
-								id="c90b9b96-fe39-49a3-81d4-8e3abe5ac2dc"
-								name="DeleteFileIfExists">
+								id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
+								name="CopyAllSearchFilteredFilesFromSourceToTarget">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="74b49f88-ed5a-4b45-a506-6385fe611405"
+							name="ImportSchematizations">
+								<testmodule
+								id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
+								name="ConcatenateStrings">
 								</testmodule>
 								<testmodule
-								id="4df8eb8a-dbc5-4d0a-84c1-44c20bc406fc"
-								name="CopyFile">
+								id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
+								name="SelectGenericItemInProjectExplorer">
 								</testmodule>
 								<testmodule
-								id="fb5aa0cc-79fc-42ba-be37-ad9d3ed55ca0"
-								name="CopyFile">
+								id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
+								name="ImportSchematizationForCurrentlySelectedItem">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -5603,6 +5637,15 @@
 				<column>
 					norm
 				</column>
+				<column>
+					originalFiles
+				</column>
+				<column>
+					pathToSchematizationsFolderItemInProjectExplorer
+				</column>
+				<column>
+					nameOfFileToImportSchematizations
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -5617,6 +5660,15 @@
 					<th>
 						norm
 					</th>
+					<th>
+						originalFiles
+					</th>
+					<th>
+						pathToSchematizationsFolderItemInProjectExplorer
+					</th>
+					<th>
+						nameOfFileToImportSchematizations
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -5627,6 +5679,15 @@
 					</td>
 					<td>
 						Signal
+					</td>
+					<td>
+						X:\script09\01_GEKB_12-2\original\
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
+					</td>
+					<td>
+						Dijkprofielen 12-2.shp
 					</td>
 				</tr>
 			</table>
@@ -9985,6 +10046,9 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="74b49f88-ed5a-4b45-a506-6385fe611405">
+			</testcontainer>
 			<testcontainer
 			id="8828de6f-6216-4298-a863-6cc1c15ee9e9">
 			</testcontainer>
