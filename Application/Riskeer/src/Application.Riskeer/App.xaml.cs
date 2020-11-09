@@ -47,7 +47,7 @@ namespace Application.Riskeer
 
             Assembly GetAssemblyResolver(object sender, ResolveEventArgs args)
             {
-                return Assembly.LoadFile(Path.Combine(assemblyDirectory, "Core", "Core.Common.Assembly.dll"));
+                return Assembly.LoadFrom(Path.Combine(assemblyDirectory, "Core", "Core.Common.Assembly.dll"));
             }
 
             AppDomain.CurrentDomain.AssemblyResolve += GetAssemblyResolver;
