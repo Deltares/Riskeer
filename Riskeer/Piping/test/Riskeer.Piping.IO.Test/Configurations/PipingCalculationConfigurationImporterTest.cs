@@ -96,8 +96,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_ValidConfigurationInvalidData_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, file), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_ValidConfigurationInvalidData_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, file), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }, "readerPath");
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 var successful = false;
 
@@ -132,7 +132,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -140,13 +140,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), new PipingFailureMechanism());
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), new PipingFailureMechanism());
 
                 try
                 {
@@ -162,7 +162,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -170,13 +170,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_SurfaceLineUnknown_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_SurfaceLineUnknown_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSurfaceLine.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_SurfaceLineUnknown_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSurfaceLine.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], new PipingFailureMechanism());
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], new PipingFailureMechanism());
 
                 try
                 {
@@ -192,7 +192,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -200,14 +200,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochasticSoilModelUnknown_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilModelUnknown_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilModel.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilModelUnknown_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilModel.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 try
                 {
@@ -223,7 +223,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -231,8 +231,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
@@ -261,7 +261,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }, "readerPath");
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 try
                 {
@@ -278,7 +278,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -286,8 +286,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochasticSoilProfileUnknown_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilProfileUnknown_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilProfileUnknown_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
@@ -316,7 +316,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }, "readerPath");
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 try
                 {
@@ -333,7 +333,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -341,14 +341,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochasticSoilProfileSpecifiedWithoutSoilModel_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilProfileSpecifiedWithoutSoilModel_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingSoilProfileWithoutSoilModel.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochasticSoilProfileSpecifiedWithoutSoilModel_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingSoilProfileWithoutSoilModel.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 try
                 {
@@ -365,7 +365,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -377,13 +377,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_EntryAndOrExitPointDefinedWithoutSurfaceLine_LogMessageAndContinueImport(string file)
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_EntryAndOrExitPointDefinedWithoutSurfaceLine_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, file), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_EntryAndOrExitPointDefinedWithoutSurfaceLine_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, file), filePath);
 
                 var calculationGroup = new CalculationGroup();
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
+                    filePath, calculationGroup, new HydraulicBoundaryLocation[0], pipingFailureMechanism);
 
                 try
                 {
@@ -400,7 +400,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -408,15 +408,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochastsWithNoParametersSet_DataAddedToModel()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithNoParametersSet_DataAddedToModel));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsNoParameters.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithNoParametersSet_DataAddedToModel));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsNoParameters.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 try
                 {
@@ -425,7 +425,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     void Call() => successful = importer.Import();
 
                     // Assert
-                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{testFilePath}'.", 1);
+                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
                     Assert.IsTrue(successful);
 
                     TCalculationScenario expectedCalculation = CreateCalculationScenario();
@@ -436,7 +436,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -444,15 +444,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochastsWithMeanSet_DataAddedToModel()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithMeanSet_DataAddedToModel));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsMeanOnly.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithMeanSet_DataAddedToModel));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsMeanOnly.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 try
                 {
@@ -461,7 +461,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     void Call() => successful = importer.Import();
 
                     // Assert
-                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{testFilePath}'.", 1);
+                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
                     Assert.IsTrue(successful);
 
                     TCalculationScenario expectedCalculation = CreateCalculationScenario();
@@ -474,7 +474,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -482,15 +482,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_StochastsWithStandardDeviationSet_DataAddedToModel()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithStandardDeviationSet_DataAddedToModel));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsStandardDeviationOnly.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_StochastsWithStandardDeviationSet_DataAddedToModel));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationStochastsStandardDeviationOnly.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 try
                 {
@@ -499,7 +499,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     void Call() => successful = importer.Import();
 
                     // Assert
-                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{testFilePath}'.", 1);
+                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
                     Assert.IsTrue(successful);
 
                     TCalculationScenario expectedCalculation = CreateCalculationScenario();
@@ -512,7 +512,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -520,15 +520,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_ScenarioEmpty_LogMessageAndContinueImport()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioEmpty_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioEmpty_LogMessageAndContinueImport));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 var successful = false;
 
@@ -546,7 +546,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -554,15 +554,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_ScenarioWithContributionSet_DataAddedToModel()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioWithContributionSet_DataAddedToModel));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioWithContributionSet_DataAddedToModel));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 try
                 {
@@ -571,7 +571,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     void Call() => successful = importer.Import();
 
                     // Assert
-                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{testFilePath}'.", 1);
+                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
                     Assert.IsTrue(successful);
 
                     TCalculationScenario expectedCalculation = CreateCalculationScenario();
@@ -583,7 +583,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
@@ -591,15 +591,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             public void Import_ScenarioWithRelevantSet_DataAddedToModel()
             {
                 // Setup
-                string testFilePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioWithRelevantSet_DataAddedToModel));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml"), testFilePath);
+                string filePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioWithRelevantSet_DataAddedToModel));
+                SetCalculationType(Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml"), filePath);
 
                 var calculationGroup = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var importer = new PipingCalculationConfigurationImporter(
-                    testFilePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
+                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
 
                 try
                 {
@@ -608,7 +608,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     void Call() => successful = importer.Import();
 
                     // Assert
-                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{testFilePath}'.", 1);
+                    TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
                     Assert.IsTrue(successful);
 
                     TCalculationScenario expectedCalculation = CreateCalculationScenario();
@@ -620,7 +620,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 }
                 finally
                 {
-                    File.Delete(testFilePath);
+                    File.Delete(filePath);
                 }
             }
 
