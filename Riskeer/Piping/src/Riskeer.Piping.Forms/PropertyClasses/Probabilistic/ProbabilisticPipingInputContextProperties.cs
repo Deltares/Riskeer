@@ -65,12 +65,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int entryPointLPropertyIndex = 6;
         private const int exitPointLPropertyIndex = 7;
         private const int seepageLengthPropertyIndex = 8;
-        private const int thicknessCoverageLayerPropertyIndex = 9;
-        private const int effectiveThicknessCoverageLayerPropertyIndex = 10;
+        private const int thicknessCoverageLayerDistributionPropertyIndex = 9;
+        private const int effectiveThicknessCoverageLayerDistributionPropertyIndex = 10;
         private const int thicknessAquiferLayerPropertyIndex = 11;
         private const int darcyPermeabilityPropertyIndex = 12;
         private const int diameter70PropertyIndex = 13;
-        private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
+        private const int saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 14;
 
         private const int sectionNamePropertyIndex = 15;
         private const int sectionLengthPropertyIndex = 16;
@@ -329,12 +329,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
-        [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
+        [PropertyOrder(thicknessCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
-        public LogNormalDistributionProperties ThicknessCoverageLayer
+        public LogNormalDistributionProperties ThicknessCoverageLayerDistribution
         {
             get
             {
@@ -342,12 +342,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
-        [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
+        [PropertyOrder(effectiveThicknessCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
-        public LogNormalDistributionProperties EffectiveThicknessCoverageLayer
+        public LogNormalDistributionProperties EffectiveThicknessCoverageLayerDistribution
         {
             get
             {
@@ -395,12 +395,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
-        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
+        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
-        public ShiftedLogNormalDistributionProperties SaturatedVolumicWeightOfCoverageLayer
+        public ShiftedLogNormalDistributionProperties SaturatedVolumicWeightOfCoverageLayerDistribution
         {
             get
             {
