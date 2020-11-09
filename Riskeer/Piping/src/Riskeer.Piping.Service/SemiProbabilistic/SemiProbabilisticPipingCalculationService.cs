@@ -239,7 +239,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                     RoundedDouble saturatedVolumicWeightOfCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
                     if (!double.IsNaN(saturatedVolumicWeightOfCoverageLayer) && saturatedVolumicWeightOfCoverageLayer < generalInput.WaterVolumetricWeight)
                     {
-                        yield return Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
+                        yield return Resources.SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight;
                     }
                 }
             }

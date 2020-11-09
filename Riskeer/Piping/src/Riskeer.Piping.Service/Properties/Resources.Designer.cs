@@ -222,16 +222,6 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_b" +
-                        "e_larger_than_WaterVolumetricWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         internal static string PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2 {
@@ -296,6 +286,26 @@ namespace Riskeer.Piping.Service.Properties {
         internal static string ProbabilisticPipingCalculationService_SectionSpecific {
             get {
                 return ResourceManager.GetString("ProbabilisticPipingCalculationService_SectionSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
+                        "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        /// </summary>
+        internal static string SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
+            get {
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCov" +
+                        "erageLayer_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
             }
         }
     }

@@ -39,6 +39,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Properties;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
@@ -466,9 +467,31 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input));
 
-            
-            
+            if (!validationResults.Any())
+            {
+                validationResults.AddRange(ValidateCoverageLayers(input, generalInput));
+            }
+
             return validationResults;
+        }
+
+        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, GeneralPipingInput generalInput)
+        {
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+
+            if (pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any())
+            {
+                LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
+                if (!double.IsNaN(thicknessCoverageLayer.Mean))
+                {
+                    LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
+                    if (saturatedVolumicWeightOfCoverageLayer.Shift < generalInput.WaterVolumetricWeight)
+                    {
+                        yield return Resources.ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight;
+                    }
+                }
+            }
         }
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
