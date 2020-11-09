@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             LogAnyWarnings(calculation);
 
-            bool hasErrors = LogAnyErrors(calculation, assessmentSection);
+            bool hasErrors = LogAnyErrors(calculation, generalInput, assessmentSection);
 
             CalculationServiceHelper.LogValidationEnd();
 
@@ -416,7 +416,9 @@ namespace Riskeer.Piping.Service.Probabilistic
             CalculationServiceHelper.LogMessagesAsWarning(PipingCalculationValidationHelper.GetValidationWarnings(calculation.InputParameters).ToArray());
         }
 
-        private static bool LogAnyErrors(ProbabilisticPipingCalculation calculation, IAssessmentSection assessmentSection)
+        private static bool LogAnyErrors(ProbabilisticPipingCalculation calculation,
+                                         GeneralPipingInput generalInput,
+                                         IAssessmentSection assessmentSection)
         {
             string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
 
@@ -426,7 +428,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 return true;
             }
 
-            messages = ValidateInput(calculation.InputParameters).ToArray();
+            messages = ValidateInput(calculation.InputParameters, generalInput).ToArray();
 
             if (messages.Length > 0)
             {
@@ -453,7 +455,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
         }
 
-        private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input)
+        private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input, GeneralPipingInput generalInput)
         {
             var validationResults = new List<string>();
 
@@ -464,6 +466,8 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input));
 
+            
+            
             return validationResults;
         }
 
