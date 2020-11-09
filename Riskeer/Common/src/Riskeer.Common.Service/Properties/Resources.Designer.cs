@@ -40,7 +40,7 @@ namespace Riskeer.Common.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -267,6 +267,26 @@ namespace Riskeer.Common.Service.Properties {
             get {
                 return ResourceManager.GetString("ProbabilisticDistributionValidationRule_StandardDeviation_of_ParameterName_0_must" +
                         "_be_larger_or_equal_to_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening..
+        /// </summary>
+        public static string ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_For_This_Calculation {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_F" +
+                        "or_This_Calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
+        /// </summary>
+        public static string ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Imported {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Impo" +
+                        "rted", resourceCulture);
             }
         }
         
