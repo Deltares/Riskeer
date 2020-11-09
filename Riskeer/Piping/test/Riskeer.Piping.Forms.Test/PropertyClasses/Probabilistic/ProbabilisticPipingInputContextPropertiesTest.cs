@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(22, dynamicProperties.Count);
 
             const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
             const string schematizationCategory = "\t\t\tSchematisatie";

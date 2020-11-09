@@ -346,6 +346,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [PropertyOrder(thicknessCoverageLayerDeterministPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
+        public RoundedDouble ThicknessCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
+            }
+        }
+
         [PropertyOrder(effectiveThicknessCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
@@ -357,6 +369,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             {
                 return new LogNormalDistributionProperties(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(data.WrappedData,
                                                                                                                  data.FailureMechanism.GeneralInput));
+            }
+        }
+
+        [PropertyOrder(effectiveThicknessCoverageLayerDeterministPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
+        public RoundedDouble EffectiveThicknessCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
             }
         }
 
@@ -409,6 +433,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get
             {
                 return new ShiftedLogNormalDistributionProperties(DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
+            }
+        }
+
+        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
+        public RoundedDouble SaturatedVolumicWeightOfCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
             }
         }
 
