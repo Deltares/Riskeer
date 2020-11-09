@@ -5039,6 +5039,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _pagerightInfo;
             RepoItemInfo _pageleftInfo;
             RepoItemInfo _sluitenInfo;
+            RepoItemInfo _trajecttoevoegenInfo;
             RepoItemInfo _verwijderenInfo;
             RepoItemInfo _wisalleuitvoerInfo;
             RepoItemInfo _wisillustratiepuntenInfo;
@@ -5069,6 +5070,7 @@ namespace AutomatedSystemTests
                 _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
                 _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
+                _trajecttoevoegenInfo = new RepoItemInfo(this, "TrajectToevoegen", "menuitem[@accessiblename='Traject toevoegen...']", 30000, null, "c7acb51c-88c0-43d8-8fa6-0b0cb70d665c");
                 _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
@@ -5552,6 +5554,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _sluitenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TrajectToevoegen item.
+            /// </summary>
+            [RepositoryItem("c7acb51c-88c0-43d8-8fa6-0b0cb70d665c")]
+            public virtual Ranorex.MenuItem TrajectToevoegen
+            {
+                get
+                {
+                    return _trajecttoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The TrajectToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("c7acb51c-88c0-43d8-8fa6-0b0cb70d665c")]
+            public virtual RepoItemInfo TrajectToevoegenInfo
+            {
+                get
+                {
+                    return _trajecttoevoegenInfo;
                 }
             }
 
