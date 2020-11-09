@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
@@ -70,9 +72,10 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> for which to validate the values.</param>
         /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the validation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool Validate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection)
+        public static bool Validate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection, PipingFailureMechanism failureMechanism)
         {
             if (calculation == null)
             {
@@ -89,11 +92,16 @@ namespace Riskeer.Piping.Service.Probabilistic
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             CalculationServiceHelper.LogValidationBegin();
 
             LogAnyWarnings(calculation);
 
-            bool hasErrors = LogAnyErrors(calculation, generalInput, assessmentSection);
+            bool hasErrors = LogAnyErrors(calculation, generalInput, assessmentSection, failureMechanism);
 
             CalculationServiceHelper.LogValidationEnd();
 
@@ -419,7 +427,8 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         private static bool LogAnyErrors(ProbabilisticPipingCalculation calculation,
                                          GeneralPipingInput generalInput,
-                                         IAssessmentSection assessmentSection)
+                                         IAssessmentSection assessmentSection,
+                                         PipingFailureMechanism failureMechanism)
         {
             string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
 
@@ -437,7 +446,38 @@ namespace Riskeer.Piping.Service.Probabilistic
                 return true;
             }
 
+            messages = ValidateSections(calculation, failureMechanism).ToArray();
+
+            if (messages.Length > 0)
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
             return false;
+        }
+
+        private static IEnumerable<string> ValidateSections(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism)
+        {
+            var validationResults = new List<string>();
+
+            FailureMechanismSection[] sections = failureMechanism
+                                                 .Sections
+                                                 .Where(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                                                            Math2D.ConvertPointsToLineSegments(section.Points)))
+                                                 .ToArray();
+
+            if (sections.Length == 0)
+            {
+                validationResults.Add(RiskeerCommonServiceResources.ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Imported);
+            }
+
+            if (sections.Length > 1)
+            {
+                validationResults.Add(RiskeerCommonServiceResources.ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_For_This_Calculation);
+            }
+
+            return validationResults;
         }
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)

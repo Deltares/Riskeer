@@ -764,7 +764,8 @@ namespace Riskeer.Piping.Plugin
         {
             ValidateAll(context.WrappedData.Calculations.Cast<IPipingCalculationScenario<PipingInput>>(),
                         context.WrappedData.GeneralInput,
-                        context.Parent);
+                        context.Parent,
+                        context.WrappedData);
         }
 
         /// <summary>
@@ -1027,7 +1028,8 @@ namespace Riskeer.Piping.Plugin
         {
             ValidateAll(context.WrappedData.GetCalculations().Cast<IPipingCalculationScenario<PipingInput>>(),
                         context.FailureMechanism.GeneralInput,
-                        context.AssessmentSection);
+                        context.AssessmentSection,
+                        context.FailureMechanism);
         }
 
         /// <summary>
@@ -1196,7 +1198,7 @@ namespace Riskeer.Piping.Plugin
         {
             ProbabilisticPipingCalculationService.Validate(context.WrappedData,
                                                            context.FailureMechanism.GeneralInput,
-                                                           context.AssessmentSection);
+                                                           context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateProbabilistic(ProbabilisticPipingCalculationScenarioContext context)
@@ -1279,10 +1281,12 @@ namespace Riskeer.Piping.Plugin
         /// <param name="pipingCalculations">The calculations to validate.</param>
         /// <param name="generalPipingInput">The general input to use during the validation.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="pipingCalculations"/> belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism to use during the validation.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the provided calculations is of a type that is not supported.</exception>
         private static void ValidateAll(IEnumerable<IPipingCalculationScenario<PipingInput>> pipingCalculations,
                                         GeneralPipingInput generalPipingInput,
-                                        IAssessmentSection assessmentSection)
+                                        IAssessmentSection assessmentSection,
+                                        PipingFailureMechanism failureMechanism)
         {
             foreach (IPipingCalculationScenario<PipingInput> calculation in pipingCalculations)
             {
@@ -1296,7 +1300,8 @@ namespace Riskeer.Piping.Plugin
                     case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
                         ProbabilisticPipingCalculationService.Validate(probabilisticPipingCalculationScenario,
                                                                        generalPipingInput,
-                                                                       assessmentSection);
+                                                                       assessmentSection,
+                                                                       failureMechanism);
                         break;
                     default:
                         throw new NotSupportedException();
