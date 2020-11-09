@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
-    <toets>semi-probabilistisch</toets>
+    <toetstype/>
     <waterstand>1.1</waterstand>
     <intredepunt>2.2</intredepunt>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
