@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ValidateCategoryBoundaryInDocumentView"
+	classname="ValidateSectionCategoryBoundaryInDocumentView"
 	namespace="AutomatedSystemTests.Modules.Validation.DocumentView">
 	</codegen>
 	<variables>
@@ -90,21 +90,21 @@ mode="Global">
 			</info>
 		</loggingrecorditem>
 		<userrecorditem
-		classname="ValidateCategoryBoundaryInDocumentView"
+		classname="ValidateCategoryBoundary"
 		enabled="True"
-		isexternaltestmethod="False"
+		isexternaltestmethod="True"
 		methodname="Validate_GenericCategoryBoundaryCellAlmostEqual"
-		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
+		namespace="AutomatedSystemTests.Modules.Validation.Abstract"
 		optional="False">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<arguments
-			id="c8c33f6a-5447-4fc1-96d9-18702cb6a5e7">
+			id="a47f4436-94c5-47f5-aecc-89f7b45d5120">
 				<argument
 				argname="cellInfo"
-				id="f8c68965-468e-4956-832e-f2cdc32e7c0b">
+				id="877af5e1-4719-4354-b696-e7ae770e22a5">
 					<argvaluetype>
 						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
 					</argvaluetype>
@@ -112,11 +112,21 @@ mode="Global">
 					</argvalue>
 					<info
 					id="c05e48a6-c497-43a0-9a7d-e3c812e6e11e"
-					sourcename="ItemRecorderEditor">
+					sourcename="RepositoryEditor">
 						<path>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
 						</path>
 					</info>
+				</argument>
+				<argument
+				argname="expectedBoundary"
+				id="0328ab55-13f7-45b5-ace9-2f4811b7b807"
+				variable="expectedBoundary">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
 				</argument>
 			</arguments>
 		</userrecorditem>
@@ -136,7 +146,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ValidateCategoryBoundaryInDocumentView.UserCode.cs
+		ValidateSectionCategoryBoundaryInDocumentView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

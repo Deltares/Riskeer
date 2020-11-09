@@ -327,6 +327,18 @@
     <Compile Include="Modules\Calculation\CalculateStructureProjectExplorerNode.cs">
       <id>08459172-91f3-4d84-9fdd-8a5ddf452e1e</id>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateTrajectCategoryBoundary.cs">
+      <DependentUpon>CalculateTrajectCategoryBoundary.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2d9c1101-279c-489f-aacf-f9ee6567286a</id>
+      <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\CalculateTrajectCategoryBoundary.UserCode.cs">
+      <DependentUpon>CalculateTrajectCategoryBoundary.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
+      <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
+    </Compile>
     <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
       <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
     </Compile>
@@ -1089,6 +1101,18 @@
     <Compile Include="Modules\SettingsTestSuite\HideRanorexProgressDialog.cs">
       <id>9487b9ef-54c0-44d0-ad10-6772c60edd41</id>
     </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\GetRandomNorm.cs">
+      <BoundTo>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</BoundTo>
+      <DependentUpon>GetRandomNorm.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>87878707-1ccd-40e3-856d-b617b0ac9acc</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\GetRandomNorm.UserCode.cs">
+      <BoundTo>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</BoundTo>
+      <DependentUpon>GetRandomNorm.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9c648481-ceaa-431b-9aa9-4f8985106298</id>
+    </Compile>
     <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.cs">
       <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1263,6 +1287,9 @@
       <UserCode>true</UserCode>
       <id>9c0432ee-2a9c-4603-b986-7d7f080add11</id>
     </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateCategoryBoundary.cs">
+      <id>db4be10f-ef1c-4e3b-af9c-d3adf1e4dfe0</id>
+    </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreEqual.cs">
       <id>9ad5f486-19f1-4148-9448-0fb74e0420ab</id>
     </Compile>
@@ -1281,14 +1308,14 @@
       <id>0ff1e861-1102-41de-9f2b-90d77af2f13f</id>
       <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateCategoryBoundaryInDocumentView.cs">
-      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.cs">
+      <DependentUpon>ValidateSectionCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
       <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateCategoryBoundaryInDocumentView.UserCode.cs">
-      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.UserCode.cs">
+      <DependentUpon>ValidateSectionCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
       <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
@@ -1329,17 +1356,17 @@
       <id>9cefaa1d-9ded-4c55-8092-777bcd7c2cb8</id>
       <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryRow.cs">
-      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.cs">
+      <DependentUpon>ValidateTrajectCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
-      <id>538b5cdf-ee87-4989-9e96-ab8f67ac38eb</id>
-      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <id>6dbf4b5d-1492-4d58-86ed-302b8c254a9a</id>
+      <BoundTo>e7464627-428f-4286-934b-085c173cdecc</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryRow.UserCode.cs">
-      <DependentUpon>ValidateTrajectCategoryBoundaryRow.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.UserCode.cs">
+      <DependentUpon>ValidateTrajectCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
-      <id>e480f7ab-ab0e-4794-85f7-46af326cc416</id>
-      <BoundTo>ded229a1-d08c-49e0-b019-134612fde1b4</BoundTo>
+      <id>2d96d6e6-6fa0-47c8-a52b-021abeaae9ba</id>
+      <BoundTo>e7464627-428f-4286-934b-085c173cdecc</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateValueWaterLevelWaveHeightNotMetInDocumentView.cs">
       <DependentUpon>ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec</DependentUpon>
@@ -1944,6 +1971,11 @@
       <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
       <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
     </None>
+    <None Include="Modules\Calculation\CalculateTrajectCategoryBoundary.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>169d05de-10e4-4de8-a1e7-b20d6b35e438</id>
+      <recordtableid>32a3407b-7f73-4eaf-903a-c752160bcebd</recordtableid>
+    </None>
     <None Include="Modules\Calculation\CalculateValueParameterN.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0eabce3a-8b80-466b-aa80-402c74d568d4</id>
@@ -2234,6 +2266,11 @@
       <id>bd83daa0-c4f9-4e92-818b-ddb482e0838c</id>
       <recordtableid>f3cd18f8-b687-4886-b040-fc89f784d832</recordtableid>
     </None>
+    <None Include="Modules\Set_Assign\Assembly\GetRandomNorm.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</id>
+      <recordtableid>3f50af80-7a9e-4428-b269-4f7f8984a5c6</recordtableid>
+    </None>
     <None Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
@@ -2309,7 +2346,7 @@
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
       <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateCategoryBoundaryInDocumentView.rxrec">
+    <None Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
       <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>
@@ -2329,10 +2366,10 @@
       <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
       <recordtableid>bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryRow.rxrec">
+    <None Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>ded229a1-d08c-49e0-b019-134612fde1b4</id>
-      <recordtableid>66405087-b5ac-48fb-9dfc-5a5fb68148b4</recordtableid>
+      <id>e7464627-428f-4286-934b-085c173cdecc</id>
+      <recordtableid>bb8a13eb-104a-4991-a3e8-ff6db9bce7b6</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

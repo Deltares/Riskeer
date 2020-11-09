@@ -20,86 +20,63 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Validation.DocumentView
+namespace AutomatedSystemTests.Modules.Set_Assign.Assembly
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateTrajectCategoryBoundaryRow recording.
+    ///The GetRandomNorm recording.
     /// </summary>
-    [TestModule("66405087-b5ac-48fb-9dfc-5a5fb68148b4", ModuleType.Recording, 1)]
-    public partial class ValidateTrajectCategoryBoundaryRow : ITestModule
+    [TestModule("3f50af80-7a9e-4428-b269-4f7f8984a5c6", ModuleType.Recording, 1)]
+    public partial class GetRandomNorm : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateTrajectCategoryBoundaryRow instance = new ValidateTrajectCategoryBoundaryRow();
+        static GetRandomNorm instance = new GetRandomNorm();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateTrajectCategoryBoundaryRow()
+        public GetRandomNorm()
         {
-            boundaryCategory = "";
-            lowerBoundary = "";
-            upperBoundary = "";
+            signallingValue = "";
+            lowerLimitValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateTrajectCategoryBoundaryRow Instance
+        public static GetRandomNorm Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _boundaryCategory;
+        string _signallingValue;
 
         /// <summary>
-        /// Gets or sets the value of variable boundaryCategory.
+        /// Gets or sets the value of variable signallingValue.
         /// </summary>
-        [TestVariable("2aecbb51-4591-4020-8e95-7baef9b5785f")]
-        public string boundaryCategory
+        [TestVariable("c2e11629-322d-4b63-afe5-6fef0cc6581e")]
+        public string signallingValue
         {
-            get { return _boundaryCategory; }
-            set { _boundaryCategory = value; }
+            get { return _signallingValue; }
+            set { _signallingValue = value; }
         }
 
-        string _lowerBoundary;
+        string _lowerLimitValue;
 
         /// <summary>
-        /// Gets or sets the value of variable lowerBoundary.
+        /// Gets or sets the value of variable lowerLimitValue.
         /// </summary>
-        [TestVariable("d8decb24-a4e0-497c-9560-6d46ba0f86bf")]
-        public string lowerBoundary
+        [TestVariable("e01fd9fd-aa65-4395-8eb5-c1f689b71205")]
+        public string lowerLimitValue
         {
-            get { return _lowerBoundary; }
-            set { _lowerBoundary = value; }
-        }
-
-        string _upperBoundary;
-
-        /// <summary>
-        /// Gets or sets the value of variable upperBoundary.
-        /// </summary>
-        [TestVariable("2b917f66-d746-47f0-9d83-ee93bf18074c")]
-        public string upperBoundary
-        {
-            get { return _upperBoundary; }
-            set { _upperBoundary = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable rowIndex.
-        /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
-        public string rowIndex
-        {
-            get { return repo.rowIndex; }
-            set { repo.rowIndex = value; }
+            get { return _lowerLimitValue; }
+            set { _lowerLimitValue = value; }
         }
 
 #endregion
@@ -128,13 +105,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.BoundaryCategoryCellInfo, boundaryCategory);
+            signallingValue = GetRandomSignallingValue();
             Delay.Milliseconds(0);
             
-            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.LowerBoundaryCellInfo, lowerBoundary);
-            Delay.Milliseconds(0);
-            
-            CompareValuesCultureInvariant(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.UpperBoundaryCellInfo, upperBoundary);
+            lowerLimitValue = GetRandomLowerLimitValue();
             Delay.Milliseconds(0);
             
         }

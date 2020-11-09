@@ -3287,6 +3287,7 @@ namespace AutomatedSystemTests
         public partial class TableDataGridViewFolder : RepoGenBaseFolder
         {
             RepoItemInfo _boundarycategorycellInfo;
+            RepoItemInfo _genericassessmentsectionboundarycellInfo;
             RepoItemInfo _lowerboundarycellInfo;
             RepoItemInfo _upperboundarycellInfo;
 
@@ -3297,6 +3298,7 @@ namespace AutomatedSystemTests
                     base("TableDataGridView", "container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "bfe86bd7-3a1c-48ae-90c4-30c51f5b0814", "")
             {
                 _boundarycategorycellInfo = new RepoItemInfo(this, "BoundaryCategoryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Categorie Row ']", 10000, null, "abed330f-4524-4539-b710-116c85ef9a22");
+                _genericassessmentsectionboundarycellInfo = new RepoItemInfo(this, "GenericAssessmentSectionBoundaryCell", "row[@accessiblevalue>$categoryName+';']/cell[@accessiblename>$boundaryTypeSubstring]", 10000, null, "98207a81-b9a2-4194-81fe-14b7564d211a");
                 _lowerboundarycellInfo = new RepoItemInfo(this, "LowerBoundaryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Ondergrens']", 10000, null, "0bb11898-6dc4-4f30-86b1-6ec16b0e30d9");
                 _upperboundarycellInfo = new RepoItemInfo(this, "UpperBoundaryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Bovengrens']", 10000, null, "8652405a-ea4c-4a05-9e58-51f10e585c40");
             }
@@ -3346,6 +3348,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _boundarycategorycellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericAssessmentSectionBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("98207a81-b9a2-4194-81fe-14b7564d211a")]
+            public virtual Ranorex.Cell GenericAssessmentSectionBoundaryCell
+            {
+                get
+                {
+                    return _genericassessmentsectionboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericAssessmentSectionBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("98207a81-b9a2-4194-81fe-14b7564d211a")]
+            public virtual RepoItemInfo GenericAssessmentSectionBoundaryCellInfo
+            {
+                get
+                {
+                    return _genericassessmentsectionboundarycellInfo;
                 }
             }
 

@@ -715,6 +715,15 @@ name="AutomatedSystemTestsRepository">
 						<item
 						addcaps="cell,accessible"
 						capname="cell"
+						id="98207a81-b9a2-4194-81fe-14b7564d211a"
+						name="GenericAssessmentSectionBoundaryCell"
+						refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$categoryName+';']/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
 						id="0bb11898-6dc4-4f30-86b1-6ec16b0e30d9"
 						name="LowerBoundaryCell"
 						refimgid="349d2e28-2522-44e2-9741-1756981d6d2a"

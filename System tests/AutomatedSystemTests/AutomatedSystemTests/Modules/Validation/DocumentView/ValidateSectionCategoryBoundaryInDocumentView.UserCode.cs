@@ -23,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Validation.DocumentView
 {
-    public partial class ValidateTrajectCategoryBoundaryRow
+    public partial class ValidateSectionCategoryBoundaryInDocumentView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,17 +32,6 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private void Init()
         {
             // Your recording specific initialization code goes here.
-        }
-
-        public void CompareValuesCultureInvariant(RepoItemInfo cellInfo, string expectedValue)
-        {
-            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            expectedValue = expectedValue.Replace(" ", String.Empty).Replace(".", String.Empty);
-        	Report.Log(ReportLevel.Info, "Info", expectedValue, cellInfo);
-        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='" + expectedValue.ToString() + "') on item 'cellInfo'.", cellInfo);
-        	string foundValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<String>("AccessibleValue");
-        	foundValue = foundValue.Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
-            Validate.AreEqual(foundValue, expectedValue);
         }
     }
 }
