@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
             catch (ArgumentException e)
             {
-                log.WarnFormat(Resources.PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
+                log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_ProfileSpecific, e.Message);
             }
 
@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
             catch (ArgumentException e)
             {
-                log.WarnFormat(Resources.PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
+                log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_SectionSpecific, e.Message);
             }
 

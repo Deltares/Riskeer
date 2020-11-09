@@ -129,7 +129,7 @@
   <data name="PipingCalculationService_ValidateInput_No_SurfaceLine_selected" xml:space="preserve">
     <value>Er is geen profielschematisatie geselecteerd.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit" xml:space="preserve">
+  <data name="SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit" xml:space="preserve">
     <value>Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_value_for_EntryPointL" xml:space="preserve">
@@ -159,7 +159,7 @@
   <data name="PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight" xml:space="preserve">
     <value>Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.</value>
   </data>
-  <data name="PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model" xml:space="preserve">
+  <data name="SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model" xml:space="preserve">
     <value>Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.</value>
   </data>
   <data name="SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
@@ -181,7 +181,7 @@
   <data name="ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1" xml:space="preserve">
     <value>De piping sterkte berekening voor {0} is uitgevoerd op de tijdelijke locatie '{1}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
-  <data name="PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2" xml:space="preserve">
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2" xml:space="preserve">
     <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
   <data name="ProbabilisticPipingCalculationService_ProfileSpecific" xml:space="preserve">

@@ -102,16 +102,6 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m..
-        /// </summary>
-        internal static string PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_va" +
-                        "lid_range_of_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability {
@@ -135,15 +125,6 @@ namespace Riskeer.Piping.Service.Properties {
         internal static string PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight {
             get {
                 return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit", resourceCulture);
             }
         }
         
@@ -222,16 +203,6 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
-        /// </summary>
-        internal static string PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2 {
-            get {
-                return ResourceManager.GetString("PipingProbabilisticCalculationService_Calculate_Error_in_reading_illustrationPoin" +
-                        "ts_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De piping sterkte berekening voor {0} is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1 {
@@ -259,6 +230,16 @@ namespace Riskeer.Piping.Service.Properties {
             get {
                 return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_fo" +
                         "r_calculation_with_name_1_no_error_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoin" +
+                        "ts_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2", resourceCulture);
             }
         }
         
@@ -296,6 +277,26 @@ namespace Riskeer.Piping.Service.Properties {
             get {
                 return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
                         "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m..
+        /// </summary>
+        internal static string SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model {
+            get {
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_" +
+                        "value_0_not_in_valid_range_of_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
+        /// </summary>
+        internal static string SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {
+            get {
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_Piezomet" +
+                        "ricHeadExit", resourceCulture);
             }
         }
         

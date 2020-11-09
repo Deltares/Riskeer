@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             {
                 CalculationServiceHelper.LogMessagesAsWarning(new[]
                 {
-                    string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value)
+                    string.Format(Resources.SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value)
                 });
             }
         }
@@ -200,7 +200,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 RoundedDouble piezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, GetEffectiveAssessmentLevel(input, normativeAssessmentLevel));
                 if (double.IsNaN(piezometricHeadExit) || double.IsInfinity(piezometricHeadExit))
                 {
-                    validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
+                    validationResults.Add(Resources.SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
                 }
             }
 
