@@ -150,7 +150,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-                
+
                 yield return new TestCaseData("invalidCalculationNoCalculationType.xml",
                                               "The element 'berekening' has incomplete content. List of possible elements expected: 'toets'.")
                     .SetName("invalidCalculationNoCalculationType");
@@ -201,9 +201,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationEmptySemiProbabilisticCalculation")]
-        [TestCase("validConfigurationEmptyProbabilisticCalculation")]
-        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation(string fileName)
+        [TestCase("validConfigurationEmptySemiProbabilisticCalculation", PipingCalculationConfigurationType.SemiProbabilistic)]
+        [TestCase("validConfigurationEmptyProbabilisticCalculation", PipingCalculationConfigurationType.Probabilistic)]
+        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation(
+            string fileName, PipingCalculationConfigurationType expectedCalculationType)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
@@ -216,6 +217,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", configuration.Name);
+            Assert.AreEqual(expectedCalculationType, configuration.CalculationType);
             Assert.IsNull(configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.SurfaceLineName);
@@ -318,6 +320,29 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             AssertConfiguration(configuration, hydraulicBoundaryLocation);
+            Assert.AreEqual(PipingCalculationConfigurationType.SemiProbabilistic, configuration.CalculationType);
+        }
+
+        [Test]
+        [TestCase("validConfigurationFullCalculationSemiProbabilistic", PipingCalculationConfigurationType.SemiProbabilistic)]
+        [TestCase("validConfigurationFullCalculationSemiProbabilistic_differentOrder", PipingCalculationConfigurationType.SemiProbabilistic)]
+        [TestCase("validConfigurationFullCalculationProbabilistic", PipingCalculationConfigurationType.Probabilistic)]
+        [TestCase("validConfigurationFullCalculationProbabilistic_differentOrder", PipingCalculationConfigurationType.Probabilistic)]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadPipingCalculation(
+            string fileName, PipingCalculationConfigurationType calculationType)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration, true);
+            Assert.AreEqual(calculationType, configuration.CalculationType);
         }
 
         [Test]
@@ -352,6 +377,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", configuration.Name);
+            Assert.AreEqual(PipingCalculationConfigurationType.SemiProbabilistic, configuration.CalculationType);
             Assert.IsNull(configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.SurfaceLineName);

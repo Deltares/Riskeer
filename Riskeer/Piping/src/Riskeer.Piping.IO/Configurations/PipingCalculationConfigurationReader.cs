@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.Piping.IO.Configurations.Converters;
 using Riskeer.Piping.IO.Properties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -92,6 +93,8 @@ namespace Riskeer.Piping.IO.Configurations
         {
             return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
+                CalculationType = (PipingCalculationConfigurationType?) calculationElement.GetConvertedValueFromDescendantStringElement<PipingCalculationConfigurationTypeConverter>(
+                    PipingCalculationConfigurationSchemaIdentifiers.CalculationType),
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
