@@ -82,8 +82,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         /// <summary>
-        /// Base class for tests that need to be run for both
-        /// <see cref="SemiProbabilisticPipingCalculationScenario"/> and
+        /// Test fixture base class for running <see cref="PipingCalculationConfigurationImporter"/> tests
+        /// that need to be run for both <see cref="SemiProbabilisticPipingCalculationScenario"/> and
         /// <see cref="ProbabilisticPipingCalculationScenario"/>. 
         /// </summary>
         /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
