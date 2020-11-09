@@ -32,6 +32,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -576,9 +577,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
-        [TestCase("validConfigurationFullCalculationContainingWaterLevel.xml", true)]
-        public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
+        [TestCase("validConfigurationFullSemiProbabilisticCalculationContainingHydraulicBoundaryLocation.xml", false)]
+        [TestCase("validConfigurationFullSemiProbabilisticCalculationContainingWaterLevel.xml", true)]
+        public void Import_ValidConfigurationFullSemiProbabilisticCalculationWithValidHydraulicBoundaryData_DataAddedToModel(
+            string file, bool manualAssessmentLevel)
         {
             // Setup
             string filePath = Path.Combine(importerPath, file);
@@ -667,12 +669,95 @@ namespace Riskeer.Piping.IO.Test.Configurations
             AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
+        [Test]
+        public void Import_ValidConfigurationFullProbabilisticCalculationWithValidHydraulicBoundaryData_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationFullProbabilisticCalculation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
+            });
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0, new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
+            {
+                new PipingSoilLayer(0)
+            }, SoilProfileType.SoilProfile1D));
+
+            var stochasticSoilModel = new PipingStochasticSoilModel("Ondergrondmodel", new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }, new[]
+            {
+                stochasticSoilProfile
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "readerPath");
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            }, "readerPath");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      new[]
+                                                                      {
+                                                                          hydraulicBoundaryLocation
+                                                                      },
+                                                                      pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            void Call() => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new ProbabilisticPipingCalculationScenario
+            {
+                Name = "Calculation",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 2.2,
+                    ExitPointL = (RoundedDouble) 3.3,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 4.4,
+                        StandardDeviation = (RoundedDouble) 5.5
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 6.6,
+                        StandardDeviation = (RoundedDouble) 7.7
+                    }
+                },
+                Contribution = (RoundedDouble) 0.088,
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (ProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
         private static void AssertPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedCalculation,
                                                             SemiProbabilisticPipingCalculationScenario actualCalculation)
         {
-            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
-            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
+            AssertPipingCalculationScenario((IPipingCalculationScenario<PipingInput>) expectedCalculation, actualCalculation);
 
             SemiProbabilisticPipingInput expectedInput = expectedCalculation.InputParameters;
             SemiProbabilisticPipingInput actualInput = actualCalculation.InputParameters;
@@ -685,6 +770,27 @@ namespace Riskeer.Piping.IO.Test.Configurations
             {
                 Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             }
+        }
+
+        private static void AssertPipingCalculationScenario(ProbabilisticPipingCalculationScenario expectedCalculation,
+                                                            ProbabilisticPipingCalculationScenario actualCalculation)
+        {
+            AssertPipingCalculationScenario((IPipingCalculationScenario<PipingInput>) expectedCalculation, actualCalculation);
+
+            ProbabilisticPipingInput expectedInput = expectedCalculation.InputParameters;
+            ProbabilisticPipingInput actualInput = actualCalculation.InputParameters;
+            Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+        }
+
+        private static void AssertPipingCalculationScenario(IPipingCalculationScenario<PipingInput> expectedCalculation,
+                                                            IPipingCalculationScenario<PipingInput> actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
+
+            PipingInput expectedInput = expectedCalculation.InputParameters;
+            PipingInput actualInput = actualCalculation.InputParameters;
 
             Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
             Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);
