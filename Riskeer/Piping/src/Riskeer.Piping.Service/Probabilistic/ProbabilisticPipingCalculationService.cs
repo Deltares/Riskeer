@@ -463,8 +463,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             FailureMechanismSection[] sections = failureMechanism
                                                  .Sections
-                                                 .Where(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                                                            Math2D.ConvertPointsToLineSegments(section.Points)))
+                                                 .Where(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)))
                                                  .ToArray();
 
             if (sections.Length == 0)
