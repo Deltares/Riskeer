@@ -1027,7 +1027,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation, new GeneralPipingInput(), assessmentSection, failureMechanism);
+            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
+                                                                                    new GeneralPipingInput(),
+                                                                                    assessmentSection,
+                                                                                    failureMechanism);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -1070,7 +1073,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation, new GeneralPipingInput(), assessmentSection, failureMechanism);
+            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
+                                                                                    new GeneralPipingInput(),
+                                                                                    assessmentSection,
+                                                                                    failureMechanism);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
