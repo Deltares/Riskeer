@@ -288,14 +288,14 @@
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
-    <Compile Include="Modules\Calculation\CalculateCategoryBoundary.cs">
-      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+    <Compile Include="Modules\Calculation\CalculateSectionCategoryBoundary.cs">
+      <DependentUpon>CalculateSectionCategoryBoundary.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>e6e89825-6bd5-445d-a2b3-c5c8a0cdc970</id>
       <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
     </Compile>
-    <Compile Include="Modules\Calculation\CalculateCategoryBoundary.UserCode.cs">
-      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+    <Compile Include="Modules\Calculation\CalculateSectionCategoryBoundary.UserCode.cs">
+      <DependentUpon>CalculateSectionCategoryBoundary.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6217e391-5ede-44c5-97f8-aa4b0d6a63b0</id>
       <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
@@ -1914,7 +1914,7 @@
       <id>1a2c2ff6-3175-4621-8731-c6b45579fc0c</id>
       <recordtableid>909ea538-c662-4239-a56a-672c6d28b694</recordtableid>
     </None>
-    <None Include="Modules\Calculation\CalculateCategoryBoundary.rxrec">
+    <None Include="Modules\Calculation\CalculateSectionCategoryBoundary.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
       <recordtableid>b235cebd-3495-47c7-96d9-f82c3092f4cb</recordtableid>

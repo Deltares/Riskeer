@@ -1567,7 +1567,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-			name="CalculateCategoryBoundary"
+			name="CalculateSectionCategoryBoundary"
 			ref="b235cebd-3495-47c7-96d9-f82c3092f4cb"
 			type="Recording">
 				<databinding>
@@ -5010,7 +5010,7 @@
 											name="LoopBoundaryType(LowerUpper)">
 												<testmodule
 												id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-												name="CalculateCategoryBoundary">
+												name="CalculateSectionCategoryBoundary">
 												</testmodule>
 												<smartfoldernode
 												id="9b499f01-56e6-434d-b7fd-6043d1ff2349"

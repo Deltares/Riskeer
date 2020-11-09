@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="CalculateCategoryBoundary"
+	classname="CalculateSectionCategoryBoundary"
 	namespace="AutomatedSystemTests.Modules.Calculation">
 	</codegen>
 	<variables>
@@ -58,7 +58,7 @@ mode="Global">
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="CalculateCategoryBoundary"
+		classname="CalculateSectionCategoryBoundary"
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="CalculateSingleCategoryBoundary"
@@ -92,7 +92,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		CalculateCategoryBoundary.UserCode.cs
+		CalculateSectionCategoryBoundary.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -23,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Calculation
 {
-    public partial class CalculateCategoryBoundary
+    public partial class CalculateSectionCategoryBoundary
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
