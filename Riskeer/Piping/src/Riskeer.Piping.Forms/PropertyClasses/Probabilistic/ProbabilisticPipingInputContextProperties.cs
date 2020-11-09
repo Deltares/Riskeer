@@ -120,6 +120,26 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return true;
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(ThicknessCoverageLayerDeterminist)
+                || propertyName == nameof(EffectiveThicknessCoverageLayerDeterminist)
+                || propertyName == nameof(SaturatedVolumicWeightOfCoverageLayerDeterminist))
+            {
+                return double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
+            }
+            
+            if (propertyName == nameof(ThicknessCoverageLayerDistribution)
+                || propertyName == nameof(EffectiveThicknessCoverageLayerDistribution)
+                || propertyName == nameof(SaturatedVolumicWeightOfCoverageLayerDistribution))
+            {
+                return !double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Gets the available selectable hydraulic boundary locations on <see cref="ProbabilisticPipingInputContext"/>.
         /// </summary>
@@ -333,6 +353,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(thicknessCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
@@ -346,6 +367,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(thicknessCoverageLayerDeterministPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
@@ -358,6 +380,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(effectiveThicknessCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
@@ -372,6 +395,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(effectiveThicknessCoverageLayerDeterministPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
@@ -423,6 +447,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
@@ -436,6 +461,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
