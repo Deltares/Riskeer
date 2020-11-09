@@ -27,6 +27,15 @@ All rights reserved.
       </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="berekening">
+    <xsl:copy>
+      <xsl:apply-templates select="node()|@*"/>
+      <xsl:element name="toets">
+        <xsl:text>semi-probabilistisch</xsl:text>
+      </xsl:element>
+    </xsl:copy>
+  </xsl:template>
+  
   <xsl:template match="berekening/hrlocatie">
     <xsl:element name="hblocatie">
       <xsl:apply-templates/>
