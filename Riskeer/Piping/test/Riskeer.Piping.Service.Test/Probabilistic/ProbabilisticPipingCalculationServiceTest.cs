@@ -532,7 +532,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var random = new Random(21);
             const double belowPhreaticLevelDeviation = 0.5;
-            const int belowPhreaticLevelShift = 1;
+            const int belowPhreaticLevelShift = 10;
             const double belowPhreaticLevelMeanBase = 15.0;
 
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
