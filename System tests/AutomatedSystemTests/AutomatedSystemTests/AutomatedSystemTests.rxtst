@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -3982,7 +3982,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac"
-			name="CopyOrginalFiles">
+			name="CopyOriginalFiles">
 				<parameters>
 					<param
 					name="surfacelineCharactPointsToDelete"
@@ -5301,7 +5301,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="ddfa8ca6-6795-4646-9070-a5d686852fac"
-						name="CopyOrginalFiles">
+						name="CopyOriginalFiles">
 							<testmodule
 							id="0107a901-86b4-4f30-83c1-f3cf871c6ea6"
 							name="DeleteFileIfExists">

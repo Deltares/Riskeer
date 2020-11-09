@@ -1,4 +1,5 @@
-﻿<repository
+<?xml version="1.0" encoding="utf-8"?>
+<repository
 id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 name="AutomatedSystemTestsRepository">
 	<codegen
@@ -1214,6 +1215,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
 					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						<image
 						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
 						name="ErrorIcon">
@@ -1229,7 +1231,6 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 					</item>
 					<item
 					addcaps="cell,accessible"
@@ -1458,6 +1459,16 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="c7acb51c-88c0-43d8-8fa6-0b0cb70d665c"
+			name="TrajectToevoegen"
+			refimgid="7ea70fd6-3b30-4a80-b23f-f675ed861742"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Traject toevoegen...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Traject toevoegen...']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
