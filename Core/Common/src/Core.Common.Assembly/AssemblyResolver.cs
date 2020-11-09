@@ -192,7 +192,7 @@ namespace Core.Common.Assembly
 
             if (assemblyLookup.TryGetValue(assemblyName, out string assemblyFile))
             {
-                return System.Reflection.Assembly.LoadFile(assemblyFile);
+                return System.Reflection.Assembly.LoadFrom(assemblyFile);
             }
 
             return null;

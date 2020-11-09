@@ -469,6 +469,53 @@ KKKACiiigD//2Q==
 		classname="ExportConfigurationSelectedCalculationToXMLFile"
 		enabled="True"
 		isexternaltestmethod="False"
+		methodname="ClickOnSelectionExportTypeIfDialogPresent"
+		namespace="AutomatedSystemTests.Modules.IO"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="d5cac56f-ed5f-45de-893f-904ba776c941">
+				<argument
+				argname="listitemInfo"
+				id="f262123a-bcf8-4b9a-b37f-0d5274677f29">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@controlname='SelectItemDialog']/list/listitem[@text&gt;'Riskeer berekeningenconfiguratie']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="buttonInfo"
+				id="bb6bb60d-f1fb-4f1a-ba61-640109f09947">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="60eebdf2-2a5e-4a38-a8bb-e4c684bad433"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+		<userrecorditem
+		classname="ExportConfigurationSelectedCalculationToXMLFile"
+		enabled="True"
+		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
 		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">

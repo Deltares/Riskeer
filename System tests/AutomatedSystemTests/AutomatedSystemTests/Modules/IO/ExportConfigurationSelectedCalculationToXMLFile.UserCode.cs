@@ -51,5 +51,20 @@ namespace AutomatedSystemTests.Modules.IO
                 fileNameToSave = Directory.GetCurrentDirectory() + "\\" + fileNameToSave;
             }
         }
+
+        public void ClickOnSelectionExportTypeIfDialogPresent(RepoItemInfo listitemInfo, RepoItemInfo buttonInfo)
+        {
+            try{
+                Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'listitemInfo' at Center if present.", listitemInfo);
+                listitemInfo.WaitForExists(1000);
+                listitemInfo.FindAdapter<ListItem>().Click();
+                Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center if present.", buttonInfo);
+                buttonInfo.WaitForExists(1000);
+                buttonInfo.FindAdapter<Button>().Click();
+            } catch (Exception) 
+            {
+                // dialog was not shown for this FM
+            }
+        }
     }
 }

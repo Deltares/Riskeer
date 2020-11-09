@@ -5000,23 +5000,23 @@ namespace AutomatedSystemTests
             RepoItemInfo _allesvaliderenInfo;
             RepoItemInfo _berekenenInfo;
             RepoItemInfo _bijwerkenInfo;
+            RepoItemInfo _duplicerenInfo;
             RepoItemInfo _eigenschappenInfo;
             RepoItemInfo _exporterenInfo;
             RepoItemInfo _genereerscenariosInfo;
             RepoItemInfo _importerenInfo;
             RepoItemInfo _isrelevantInfo;
             RepoItemInfo _koppelaandatabaseInfo;
+            RepoItemInfo _maptoevoegenInfo;
+            RepoItemInfo _mapleegmakenInfo;
             RepoItemInfo _openenInfo;
+            RepoItemInfo _pagerightInfo;
+            RepoItemInfo _pageleftInfo;
             RepoItemInfo _sluitenInfo;
             RepoItemInfo _verwijderenInfo;
             RepoItemInfo _wisalleuitvoerInfo;
             RepoItemInfo _wisillustratiepuntenInfo;
             RepoItemInfo _wisuitvoerInfo;
-            RepoItemInfo _pagerightInfo;
-            RepoItemInfo _pageleftInfo;
-            RepoItemInfo _duplicerenInfo;
-            RepoItemInfo _maptoevoegenInfo;
-            RepoItemInfo _mapleegmakenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -5030,23 +5030,23 @@ namespace AutomatedSystemTests
                 _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
                 _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
                 _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
+                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
                 _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
                 _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
                 _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
+                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
+                _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
                 _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
+                _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
+                _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
                 _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
                 _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
-                _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
-                _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
-                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
-                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
-                _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
             }
 
             /// <summary>
@@ -5218,6 +5218,30 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The Dupliceren item.
+            /// </summary>
+            [RepositoryItem("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual Ranorex.MenuItem Dupliceren
+            {
+                get
+                {
+                    return _duplicerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Dupliceren item info.
+            /// </summary>
+            [RepositoryItemInfo("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
+            public virtual RepoItemInfo DuplicerenInfo
+            {
+                get
+                {
+                    return _duplicerenInfo;
+                }
+            }
+
+            /// <summary>
             /// The Eigenschappen item.
             /// </summary>
             [RepositoryItem("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
@@ -5362,6 +5386,54 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The MapToevoegen item.
+            /// </summary>
+            [RepositoryItem("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual Ranorex.MenuItem MapToevoegen
+            {
+                get
+                {
+                    return _maptoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
+            public virtual RepoItemInfo MapToevoegenInfo
+            {
+                get
+                {
+                    return _maptoevoegenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The MapLeegmaken item.
+            /// </summary>
+            [RepositoryItem("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
+            public virtual Ranorex.MenuItem MapLeegmaken
+            {
+                get
+                {
+                    return _mapleegmakenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapLeegmaken item info.
+            /// </summary>
+            [RepositoryItemInfo("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
+            public virtual RepoItemInfo MapLeegmakenInfo
+            {
+                get
+                {
+                    return _mapleegmakenInfo;
+                }
+            }
+
+            /// <summary>
             /// The Openen item.
             /// </summary>
             [RepositoryItem("3162063a-bd8d-4e48-b6ab-9725baa70e0e")]
@@ -5382,6 +5454,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _openenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item.
+            /// </summary>
+            [RepositoryItem("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual Ranorex.MenuItem PageRight
+            {
+                get
+                {
+                    return _pagerightInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageRight item info.
+            /// </summary>
+            [RepositoryItemInfo("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
+            public virtual RepoItemInfo PageRightInfo
+            {
+                get
+                {
+                    return _pagerightInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item.
+            /// </summary>
+            [RepositoryItem("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual Ranorex.MenuItem PageLeft
+            {
+                get
+                {
+                    return _pageleftInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PageLeft item info.
+            /// </summary>
+            [RepositoryItemInfo("69713320-a880-4f24-86d8-5042b7dac3c0")]
+            public virtual RepoItemInfo PageLeftInfo
+            {
+                get
+                {
+                    return _pageleftInfo;
                 }
             }
 
@@ -5502,126 +5622,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _wisuitvoerInfo;
-                }
-            }
-
-            /// <summary>
-            /// The PageRight item.
-            /// </summary>
-            [RepositoryItem("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
-            public virtual Ranorex.MenuItem PageRight
-            {
-                get
-                {
-                    return _pagerightInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The PageRight item info.
-            /// </summary>
-            [RepositoryItemInfo("9a3b24c9-61e7-4c4f-abc9-d5ba71939147")]
-            public virtual RepoItemInfo PageRightInfo
-            {
-                get
-                {
-                    return _pagerightInfo;
-                }
-            }
-
-            /// <summary>
-            /// The PageLeft item.
-            /// </summary>
-            [RepositoryItem("69713320-a880-4f24-86d8-5042b7dac3c0")]
-            public virtual Ranorex.MenuItem PageLeft
-            {
-                get
-                {
-                    return _pageleftInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The PageLeft item info.
-            /// </summary>
-            [RepositoryItemInfo("69713320-a880-4f24-86d8-5042b7dac3c0")]
-            public virtual RepoItemInfo PageLeftInfo
-            {
-                get
-                {
-                    return _pageleftInfo;
-                }
-            }
-
-            /// <summary>
-            /// The Dupliceren item.
-            /// </summary>
-            [RepositoryItem("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
-            public virtual Ranorex.MenuItem Dupliceren
-            {
-                get
-                {
-                    return _duplicerenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Dupliceren item info.
-            /// </summary>
-            [RepositoryItemInfo("75209dc1-5b20-4d57-8ce9-8ec71c26bb9e")]
-            public virtual RepoItemInfo DuplicerenInfo
-            {
-                get
-                {
-                    return _duplicerenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The MapToevoegen item.
-            /// </summary>
-            [RepositoryItem("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
-            public virtual Ranorex.MenuItem MapToevoegen
-            {
-                get
-                {
-                    return _maptoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The MapToevoegen item info.
-            /// </summary>
-            [RepositoryItemInfo("bb08d163-934b-43d2-b55e-ba2f9cd39c14")]
-            public virtual RepoItemInfo MapToevoegenInfo
-            {
-                get
-                {
-                    return _maptoevoegenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The MapLeegmaken item.
-            /// </summary>
-            [RepositoryItem("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
-            public virtual Ranorex.MenuItem MapLeegmaken
-            {
-                get
-                {
-                    return _mapleegmakenInfo.CreateAdapter<Ranorex.MenuItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The MapLeegmaken item info.
-            /// </summary>
-            [RepositoryItemInfo("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
-            public virtual RepoItemInfo MapLeegmakenInfo
-            {
-                get
-                {
-                    return _mapleegmakenInfo;
                 }
             }
         }
@@ -6745,6 +6745,7 @@ namespace AutomatedSystemTests
         {
             RepoItemInfo _optioncsvInfo;
             RepoItemInfo _buttonokInfo;
+            RepoItemInfo _riskeerberekeningenconfiguratieasteriInfo;
 
             /// <summary>
             /// Creates a new SelectItemDialog  folder.
@@ -6754,6 +6755,7 @@ namespace AutomatedSystemTests
             {
                 _optioncsvInfo = new RepoItemInfo(this, "OptionCSV", "list/listitem[@text<'*.csv)']", 30000, null, "ab9a410e-84e4-4d83-aeb5-0574bad1c88e");
                 _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "button[@controlname='buttonOk']", 30000, null, "60eebdf2-2a5e-4a38-a8bb-e4c684bad433");
+                _riskeerberekeningenconfiguratieasteriInfo = new RepoItemInfo(this, "RiskeerBerekeningenconfiguratieAsteri", "list/listitem[@text>'Riskeer berekeningenconfiguratie']", 30000, null, "3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24");
             }
 
             /// <summary>
@@ -6825,6 +6827,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _buttonokInfo;
+                }
+            }
+
+            /// <summary>
+            /// The RiskeerBerekeningenconfiguratieAsteri item.
+            /// </summary>
+            [RepositoryItem("3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24")]
+            public virtual Ranorex.ListItem RiskeerBerekeningenconfiguratieAsteri
+            {
+                get
+                {
+                    return _riskeerberekeningenconfiguratieasteriInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The RiskeerBerekeningenconfiguratieAsteri item info.
+            /// </summary>
+            [RepositoryItemInfo("3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24")]
+            public virtual RepoItemInfo RiskeerBerekeningenconfiguratieAsteriInfo
+            {
+                get
+                {
+                    return _riskeerberekeningenconfiguratieasteriInfo;
                 }
             }
         }

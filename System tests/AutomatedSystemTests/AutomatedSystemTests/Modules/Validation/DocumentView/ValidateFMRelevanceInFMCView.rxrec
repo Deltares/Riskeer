@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="3c9b70f2-d794-41d3-b0ce-6da8c1e00475"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateFMRelevanceInFMCView"
+	namespace="AutomatedSystemTests.Modules.Validation.DocumentView">
+	</codegen>
+	<variables>
+		<var
+		id="8f4ca43a-f614-4ad7-898c-4a121072e015"
+		name="fmExpectedRelevance">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateFMRelevanceInFMCView"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateFMinFMCView"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
+		optional="True">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="f88c476a-23d4-4f7b-9281-99502a8d305a">
+				<argument
+				argname="cellInfo"
+				id="841ee0ac-539f-4a20-91aa-09ad838bacf2">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="59990c0d-401e-4dff-8f8b-b423839ef7c6"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="expectedRelevance"
+				id="5f8679ba-d398-47b9-92a2-e9156dc55ac3"
+				variable="fmExpectedRelevance">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateFMRelevanceInFMCView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="3314c841-2400-467a-8ba2-57b55ddfeec2"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
+	namespace="AutomatedSystemTests.Modules.Validation.PropertiesPanel">
+	</codegen>
+	<variables>
+		<var
+		id="0675c45c-e880-46f2-98bd-e4e10289d70f"
+		name="expectedValueString">
+		</var>
+		<var
+		id="d40bcbfe-ffe8-47cc-969c-7d0fac936b80"
+		name="pathToRowInPropertiesPanel">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateValueDoubleOfParameterInPropertiesPanelGivenPath"
+		namespace="AutomatedSystemTests.Modules.Validation.PropertiesPanel"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="20f10f0e-4eb2-4846-af75-92d9c272ce1c">
+				<argument
+				argname="propertiesPanelAdapter"
+				id="16755ce3-9f6f-40c0-8951-29879b1a18b6">
+					<argvaluetype>
+						Ranorex.Adapter, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="pathToRowInPropertiesPanel"
+				id="1803d7e6-333e-439b-9b2f-3cc19e5d985d"
+				variable="pathToRowInPropertiesPanel">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateDoubleValueparameterInPropertiesPanelGivenPath.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>
