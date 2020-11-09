@@ -190,7 +190,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.IsInstanceOf<ShiftedLogNormalDistributionProperties>(properties.SaturatedVolumicWeightOfCoverageLayerDistribution);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayerDistribution));
-
+            
             mocks.VerifyAll();
         }
 
@@ -292,6 +292,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerDistributionProperty.Converter);
 
+            PropertyDescriptor thicknessCoverageLayerDeterministProperty = dynamicProperties[expectedThicknessCoverageLayerDeterministPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thicknessCoverageLayerDeterministProperty,
+                schematizationCategory,
+                "Totale deklaagdikte bij uittredepunt [m]",
+                "Totale deklaagdikte bij uittredepunt.",
+                true);
+            
             PropertyDescriptor effectiveThicknessCoverageLayerDistributionProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerDistributionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 effectiveThicknessCoverageLayerDistributionProperty,
@@ -300,6 +308,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "Effectieve deklaagdikte bij uittredepunt.",
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerDistributionProperty.Converter);
+
+            PropertyDescriptor effectiveThicknessCoverageLayerDeterministProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerDeterministPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                effectiveThicknessCoverageLayerDeterministProperty,
+                schematizationCategory,
+                "Effectieve deklaagdikte bij uittredepunt [m]",
+                "Effectieve deklaagdikte bij uittredepunt.",
+                true);
 
             PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -336,6 +352,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "Verzadigd gewicht deklaag.",
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerDistributionProperty.Converter);
+
+            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerDeterministProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                saturatedVolumicWeightOfCoverageLayerDeterministProperty,
+                schematizationCategory,
+                "Verzadigd gewicht deklaag [kN/m³]",
+                "Verzadigd gewicht deklaag.",
+                true);
 
             PropertyDescriptor sectionNameProperty = dynamicProperties[expectedSectionNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -466,10 +490,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(thicknessCoverageLayerDistribution.Mean, properties.ThicknessCoverageLayerDistribution.Mean);
             Assert.AreEqual(thicknessCoverageLayerDistribution.StandardDeviation, properties.ThicknessCoverageLayerDistribution.StandardDeviation);
 
+            Assert.AreEqual(0, properties.ThicknessCoverageLayerDeterminist, properties.ThicknessCoverageLayerDeterminist.GetAccuracy());
+            
             LogNormalDistribution effectiveThicknessCoverageLayerDistribution = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, new GeneralPipingInput());
             Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.Mean, properties.EffectiveThicknessCoverageLayerDistribution.Mean);
             Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.StandardDeviation, properties.EffectiveThicknessCoverageLayerDistribution.StandardDeviation);
 
+            Assert.AreEqual(0, properties.EffectiveThicknessCoverageLayerDeterminist, properties.EffectiveThicknessCoverageLayerDeterminist.GetAccuracy());
+            
             VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(inputParameters);
             Assert.AreEqual(diameterD70.Mean, properties.Diameter70.Mean);
             Assert.AreEqual(diameterD70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
@@ -490,6 +518,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.Shift,
                             properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Shift);
 
+            Assert.AreEqual(0, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist.GetAccuracy());
+            
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
@@ -798,7 +828,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void ShouldProfileSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
+        public void ShouldProfileSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -826,7 +856,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void ShouldSectionSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatedObservers()
+        public void ShouldSectionSpecificIllustrationPointsBeCalculated_SetValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var mocks = new MockRepository();
