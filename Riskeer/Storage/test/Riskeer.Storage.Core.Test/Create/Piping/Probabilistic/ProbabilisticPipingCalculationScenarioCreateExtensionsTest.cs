@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
         [Test]
         [TestCase(true, 0.0, "A", "<Comments>", 2.2, 0.0, 123, 827364, true, true)]
         [TestCase(false, 1.0, null, null, double.NaN, double.NaN, 980754, 231, false, false)]
-        public void Create_PipingCalculationScenarioWithPropertiesSet_ReturnPipingCalculationEntity(
+        public void Create_ProbabilisticPipingCalculationScenarioWithPropertiesSet_ReturnProbabilisticPipingCalculationEntity(
             bool isRelevant, double contribution, string name, string comments,
             double exitPoint, double entryPoint, int order, int randomSeed,
             bool calculateProfileIllustrationPoints, bool calculateSectionIllustrationPoints)
