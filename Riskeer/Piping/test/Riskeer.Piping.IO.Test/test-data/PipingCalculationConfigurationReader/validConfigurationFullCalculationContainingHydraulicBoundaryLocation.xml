@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
-    <toets>semi-probabilistisch</toets>
-    <hblocatie>Locatie</hblocatie>
+    <semi-probabilistisch>
+      <hblocatie>Locatie</hblocatie>
+    </semi-probabilistisch>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <intredepunt>2.2</intredepunt>
     <uittredepunt>3.3</uittredepunt>

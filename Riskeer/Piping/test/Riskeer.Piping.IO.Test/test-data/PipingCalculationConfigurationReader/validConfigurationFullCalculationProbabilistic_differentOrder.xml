@@ -20,7 +20,8 @@
       <bijdrage>8.8</bijdrage>
     </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <hblocatie>Locatie</hblocatie>
-    <toets>probabilistisch</toets>
+    <probabilistisch>
+      <hblocatie>Locatie</hblocatie>
+    </probabilistisch>
   </berekening>
 </configuratie>

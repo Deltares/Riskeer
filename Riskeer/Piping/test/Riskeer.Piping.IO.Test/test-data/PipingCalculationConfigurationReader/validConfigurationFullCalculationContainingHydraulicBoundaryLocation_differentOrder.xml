@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
-    <toets>semi-probabilistisch</toets>
     <stochasten>
       <stochast naam="dempingsfactor">
         <standaardafwijking>7.7</standaardafwijking>
@@ -21,6 +20,8 @@
       <bijdrage>8.8</bijdrage>
     </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <hblocatie>Locatie</hblocatie>
+    <semi-probabilistisch>
+      <hblocatie>Locatie</hblocatie>
+    </semi-probabilistisch>
   </berekening>
 </configuratie>
