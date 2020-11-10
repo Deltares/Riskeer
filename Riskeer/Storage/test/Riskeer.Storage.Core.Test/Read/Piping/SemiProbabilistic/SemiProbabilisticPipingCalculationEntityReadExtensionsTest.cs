@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -93,12 +92,12 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
-            AssertRoundedDouble(entryPoint, calculation.InputParameters.EntryPointL);
-            AssertRoundedDouble(exitPoint, calculation.InputParameters.ExitPointL);
-            AssertRoundedDouble(entity.PhreaticLevelExitMean, calculation.InputParameters.PhreaticLevelExit.Mean);
-            AssertRoundedDouble(entity.PhreaticLevelExitStandardDeviation, calculation.InputParameters.PhreaticLevelExit.StandardDeviation);
-            AssertRoundedDouble(entity.DampingFactorExitMean, calculation.InputParameters.DampingFactorExit.Mean);
-            AssertRoundedDouble(entity.DampingFactorExitStandardDeviation, calculation.InputParameters.DampingFactorExit.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entryPoint, calculation.InputParameters.EntryPointL);
+            RoundedDoubleTestHelper.AssertRoundedDouble(exitPoint, calculation.InputParameters.ExitPointL);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.PhreaticLevelExitMean, calculation.InputParameters.PhreaticLevelExit.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.PhreaticLevelExitStandardDeviation, calculation.InputParameters.PhreaticLevelExit.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.DampingFactorExitMean, calculation.InputParameters.DampingFactorExit.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.DampingFactorExitStandardDeviation, calculation.InputParameters.DampingFactorExit.StandardDeviation);
 
             Assert.AreEqual(useAssessmentLevelManualInput, calculation.InputParameters.UseAssessmentLevelManualInput);
             Assert.AreEqual(entity.AssessmentLevel.ToNullAsNaN(), calculation.InputParameters.AssessmentLevel.Value);
@@ -336,17 +335,6 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             Assert.IsNaN(output.SellmeijerCreepCoefficient);
             Assert.IsNaN(output.SellmeijerCriticalFall);
             Assert.IsNaN(output.SellmeijerReducedFall);
-        }
-
-        private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
-        {
-            Assert.IsTrue(expectedValue.HasValue);
-            Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
-        {
-            Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
 
         private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)

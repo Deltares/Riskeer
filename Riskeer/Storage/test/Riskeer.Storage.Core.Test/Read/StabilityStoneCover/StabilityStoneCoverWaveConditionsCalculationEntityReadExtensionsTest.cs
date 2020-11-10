@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -118,13 +117,13 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             StabilityStoneCoverWaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.AreEqual(useBreakWater, calculationInput.UseBreakWater);
             Assert.AreEqual(breakWaterType, calculationInput.BreakWater.Type);
-            AssertRoundedDouble(breakWaterHeight, calculationInput.BreakWater.Height);
+            RoundedDoubleTestHelper.AssertRoundedDouble(breakWaterHeight, calculationInput.BreakWater.Height);
             Assert.AreEqual(useForeshore, calculationInput.UseForeshore);
-            AssertRoundedDouble(orientation, calculationInput.Orientation);
-            AssertRoundedDouble(upperBoundaryRevetment, calculationInput.UpperBoundaryRevetment);
-            AssertRoundedDouble(lowerBoundaryRevetment, calculationInput.LowerBoundaryRevetment);
-            AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
-            AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
+            RoundedDoubleTestHelper.AssertRoundedDouble(orientation, calculationInput.Orientation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryRevetment, calculationInput.UpperBoundaryRevetment);
+            RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryRevetment, calculationInput.LowerBoundaryRevetment);
+            RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
+            RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
             Assert.AreEqual(categoryType, calculationInput.CategoryType);
             Assert.AreEqual(calculationType, calculationInput.CalculationType);
@@ -387,11 +386,6 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             Assert.AreEqual(outputBLevel, calculation.Output.ColumnsOutput.ElementAt(1).WaterLevel, accuracy);
 
             Assert.IsNull(calculation.Output.BlocksOutput);
-        }
-
-        private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
-        {
-            Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
     }
 }

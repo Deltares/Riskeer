@@ -15,7 +15,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="actualValue">The actual <see cref="RoundedDouble"/> instance.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="expectedValue"/> doesn't match
         /// <paramref name="actualValue"/>.</exception>
-        private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
+        public static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
         {
             Assert.IsTrue(expectedValue.HasValue);
             Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());
@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="actualValue">The actual <see cref="RoundedDouble"/> instance.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="expectedValue"/> doesn't match
         /// <paramref name="actualValue"/>.</exception>
-        private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
+        public static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
