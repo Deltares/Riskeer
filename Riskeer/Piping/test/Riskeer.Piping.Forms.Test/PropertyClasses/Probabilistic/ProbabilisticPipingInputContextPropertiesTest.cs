@@ -205,7 +205,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             var context = new ProbabilisticPipingInputContext(withCoverageLayer
-                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>(2)
+                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>()
                                                                   : calculation.InputParameters,
                                                               calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
@@ -1767,7 +1767,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_CoverageLayerRelatedProperties_DependsOnHavingCoverageLayerOrNot(bool withCoverageLayer)
+        public void DynamicVisibleValidationMethod_CoverageLayerDependentProperties_DependsOnHavingCoverageLayerOrNot(bool withCoverageLayer)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1780,7 +1780,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             var context = new ProbabilisticPipingInputContext(withCoverageLayer
-                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>(2)
+                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>()
                                                                   : calculation.InputParameters,
                                                               calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
