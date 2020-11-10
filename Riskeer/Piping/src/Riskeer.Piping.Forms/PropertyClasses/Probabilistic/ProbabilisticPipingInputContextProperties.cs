@@ -65,22 +65,19 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int entryPointLPropertyIndex = 6;
         private const int exitPointLPropertyIndex = 7;
         private const int seepageLengthPropertyIndex = 8;
-        private const int thicknessCoverageLayerDistributionPropertyIndex = 9;
-        private const int thicknessCoverageLayerDeterministPropertyIndex = 10;
-        private const int effectiveThicknessCoverageLayerDistributionPropertyIndex = 11;
-        private const int effectiveThicknessCoverageLayerDeterministPropertyIndex = 12;
-        private const int thicknessAquiferLayerPropertyIndex = 13;
-        private const int darcyPermeabilityPropertyIndex = 14;
-        private const int diameter70PropertyIndex = 15;
-        private const int saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 16;
-        private const int saturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex = 17;
+        private const int thicknessCoverageLayerPropertyIndex = 9;
+        private const int effectiveThicknessCoverageLayerPropertyIndex = 10;
+        private const int thicknessAquiferLayerPropertyIndex = 11;
+        private const int darcyPermeabilityPropertyIndex = 12;
+        private const int diameter70PropertyIndex = 13;
+        private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int sectionNamePropertyIndex = 18;
-        private const int sectionLengthPropertyIndex = 19;
+        private const int sectionNamePropertyIndex = 15;
+        private const int sectionLengthPropertyIndex = 16;
 
-        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 20;
-        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 21;
-        
+        private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 17;
+        private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 18;
+
         private const int numberOfCategories = 5;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
@@ -129,7 +126,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             {
                 return double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
             }
-            
+
             if (propertyName == nameof(ThicknessCoverageLayerDistribution)
                 || propertyName == nameof(EffectiveThicknessCoverageLayerDistribution)
                 || propertyName == nameof(SaturatedVolumicWeightOfCoverageLayerDistribution))
@@ -354,7 +351,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(thicknessCoverageLayerDistributionPropertyIndex)]
+        [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
@@ -368,7 +365,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(thicknessCoverageLayerDeterministPropertyIndex)]
+        [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
@@ -381,7 +378,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(effectiveThicknessCoverageLayerDistributionPropertyIndex)]
+        [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
@@ -396,7 +393,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(effectiveThicknessCoverageLayerDeterministPropertyIndex)]
+        [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
@@ -448,7 +445,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex)]
+        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
@@ -462,7 +459,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [DynamicVisible]
-        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex)]
+        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
