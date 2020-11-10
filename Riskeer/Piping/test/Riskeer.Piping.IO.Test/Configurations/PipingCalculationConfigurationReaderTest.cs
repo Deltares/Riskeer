@@ -519,7 +519,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                                   "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                         .SetName("invalidScenarioRelevantNoBoolean");
-                    
+
                     yield return new TestCaseData("invalidProbabilisticCalculationMultipleHydraulicBoundaryLocation.xml",
                                                   "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
@@ -708,7 +708,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }
 
             [Test]
-            public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException()
+            public void Constructor_ProbabilisticFileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException()
             {
                 // Setup
                 string filePath = Path.Combine(testDirectoryPath, "invalidProbabilisticContainingWaterLevel.xml");
@@ -719,7 +719,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(Call);
                 Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-                StringAssert.Contains("Element 'waterstand' cannot appear more than once if content model type is \"all\".", exception.InnerException?.Message);
+                StringAssert.Contains("The element 'berekening' has invalid child element 'toets'.", exception.InnerException?.Message);
             }
 
             protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
