@@ -529,6 +529,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidContainingBothSemiProbabilisticAndProbabilistic.xml",
                                                   "Element 'probabilistisch' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidContainingBothSemiProbabilisticAndProbabilistic");
+                    yield return new TestCaseData("invalidContainingMultipleSemiProbabilistic.xml",
+                                                  "Element 'semi-probabilistisch' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidContainingMultipleSemiProbabilistic");
+                    yield return new TestCaseData("invalidContainingMultipleProbabilistic.xml",
+                                                  "Element 'probabilistisch' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidContainingMultipleProbabilistic");
                 }
             }
 
