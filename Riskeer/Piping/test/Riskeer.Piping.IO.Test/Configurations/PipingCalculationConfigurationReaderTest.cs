@@ -569,6 +569,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
                                                   "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidCalculationMultipleWaterLevel");
+
+                    yield return new TestCaseData("invalidSemiProbabilisticContainingShouldProfileSpecificIllustrationPointsBeCalculated.xml",
+                                                  "The element 'semi-probabilistisch' has invalid child element 'doorsnedeillustratiepunteninlezen'.")
+                        .SetName("invalidSemiProbabilisticContainingShouldProfileSpecificIllustrationPointsBeCalculated");
+                    yield return new TestCaseData("invalidSemiProbabilisticContainingShouldSectionSpecificIllustrationPointsBeCalculated.xml",
+                                                  "The element 'semi-probabilistisch' has invalid child element 'vakillustratiepunteninlezen'.")
+                        .SetName("invalidSemiProbabilisticContainingShouldSectionSpecificIllustrationPointsBeCalculated");
                 }
             }
 
@@ -677,7 +684,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.AreEqual(1.1, configuration.AssessmentLevel);
                     Assert.IsNull(configuration.HydraulicBoundaryLocationName);
                 }
-                
+
                 Assert.IsNull(configuration.ShouldProfileSpecificIllustrationPointsBeCalculated);
                 Assert.IsNull(configuration.ShouldSectionSpecificIllustrationPointsBeCalculated);
             }
@@ -699,9 +706,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 get
                 {
                     yield return new TestCaseData("invalidProbabilisticContainingWaterLevel.xml",
-                                                  "The element 'berekening' has invalid child element 'toets'.")
+                                                  "The element 'probabilistisch' has invalid child element 'waterstand'.")
                         .SetName("invalidProbabilisticContainingWaterLevel");
-                    
+
                     yield return new TestCaseData("invalidShouldProfileSpecificIllustrationPointsBeCalculatedEmpty.xml",
                                                   "The 'doorsnedeillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                         .SetName("invalidShouldProfileSpecificIllustrationPointsBeCalculatedEmpty");
@@ -711,7 +718,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidMultipleShouldProfileSpecificIllustrationPointsBeCalculated.xml",
                                                   "Element 'doorsnedeillustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidMultipleShouldProfileSpecificIllustrationPointsBeCalculated");
-                    
+
                     yield return new TestCaseData("invalidShouldSectionSpecificIllustrationPointsBeCalculatedEmpty.xml",
                                                   "The 'vakillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                         .SetName("invalidShouldSectionSpecificIllustrationPointsBeCalculatedEmpty");
@@ -740,7 +747,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
                 StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
             }
-            
+
             [Test]
             [TestCase("validConfigurationFullCalculationProbabilistic")]
             [TestCase("validConfigurationFullCalculationProbabilistic_differentOrder")]
