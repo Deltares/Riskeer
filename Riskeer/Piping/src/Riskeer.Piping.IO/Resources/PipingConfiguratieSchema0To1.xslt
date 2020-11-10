@@ -43,24 +43,27 @@ All rights reserved.
   </xsl:template>
   
   <!--Rename 'hrlocatie' to 'hblocatie'.-->
-  <xsl:template match="berekening/hrlocatie">
+  <xsl:template match="hrlocatie">
     <xsl:element name="hblocatie">
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
   <!--Rename 'toetspeil' to 'waterstand'.-->
-  <xsl:template match="berekening/toetspeil">
+  <xsl:template match="toetspeil">
     <xsl:element name="waterstand">
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
-  <!--Add 'semi-probabilistisch' element.-->
+  <!--Add 'semi-probabilistisch' element, and move 'hrlocatie' and 'toetspeil' to it.-->
   <xsl:template match="berekening">
     <xsl:copy>
-      <xsl:apply-templates select="node()|@*"/>
-      <xsl:element name="semi-probabilistisch"/>
+      <xsl:apply-templates select="@*|node()[not(self::toetspeil or self::hrlocatie)]"/>
+      <xsl:element name="semi-probabilistisch">
+        <xsl:apply-templates select="hrlocatie"/>
+        <xsl:apply-templates select="toetspeil"/>
+      </xsl:element>
     </xsl:copy>
   </xsl:template>
 
