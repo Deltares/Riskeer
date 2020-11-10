@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
         private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation,
                                        StabilityPointStructuresCalculationEntity entity)
         {
-            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.SingleOrDefault();
             if (outputEntity == null)
             {
                 return;

@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
         private static void ReadCalculationOutputs(SemiProbabilisticPipingCalculationScenario calculation,
                                                    SemiProbabilisticPipingCalculationEntity entity)
         {
-            SemiProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
+            SemiProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.SemiProbabilisticPipingCalculationOutputEntities.SingleOrDefault();
             if (calculationOutputEntity != null)
             {
                 calculation.Output = calculationOutputEntity.Read();

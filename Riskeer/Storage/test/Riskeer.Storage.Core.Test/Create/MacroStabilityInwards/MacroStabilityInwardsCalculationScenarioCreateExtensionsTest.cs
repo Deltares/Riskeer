@@ -386,7 +386,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.FirstOrDefault();
+            MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.SingleOrDefault();
             Assert.IsNotNull(outputEntity);
             MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(scenario.Output, outputEntity);
         }

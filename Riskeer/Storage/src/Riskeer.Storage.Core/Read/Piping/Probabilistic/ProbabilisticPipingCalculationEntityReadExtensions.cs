@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
         private static void ReadCalculationOutputs(ProbabilisticPipingCalculationScenario calculation,
                                                    ProbabilisticPipingCalculationEntity entity)
         {
-            ProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.ProbabilisticPipingCalculationOutputEntities.FirstOrDefault();
+            ProbabilisticPipingCalculationOutputEntity calculationOutputEntity = entity.ProbabilisticPipingCalculationOutputEntities.SingleOrDefault();
             if (calculationOutputEntity != null)
             {
                 calculation.Output = calculationOutputEntity.Read();
