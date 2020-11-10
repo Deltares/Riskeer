@@ -556,6 +556,64 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="14e5bca8-b8d7-4a88-83ca-d74258e37a60"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="normType"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="trajectLabel"
+					datasourceid="02a85580-c5da-4d64-8012-b42d5a9ad388"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="normType"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1962,38 +2020,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="62f8c8fc-2bc9-4ea0-8355-6bd2b04decab"
-			name="AddNewTraject"
-			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
-					dataname="NormType"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
-					variablename="lowLimitValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="638def4b-9e2a-41be-bb18-2991948a1821"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -2538,38 +2564,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="7f4fc51f-f97d-4807-bcc9-ac13ca60dfe3"
-			name="AddNewTraject"
-			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectID"
-					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
-					dataname="norm"
-					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
-					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
-					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
-					variablename="signallingValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="80b3e677-2281-402a-998a-84e8a67feb17"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -2670,6 +2664,64 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="8e5ab94b-6bc8-44ea-b501-07ac1c5f0f21"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="NormType"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="TrajectName"
+					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="normType"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
 			name="ReadTrajectLength">
@@ -2872,46 +2924,6 @@
 			id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
 			name="LoopCategories(I_VI)">
 			</smartfoldernode>
-			<testmodule
-			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
-			name="AddNewTraject"
-			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectLabel"
-					datasourceid="02a85580-c5da-4d64-8012-b42d5a9ad388"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="normType"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="normType"
-					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="a3af9ada-71f3-4fd8-a9ce-27e8dc263809"
 			name="ShowRanorexProgressDialog"
@@ -3123,6 +3135,64 @@
 					variablename="pathCellToValidate">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="b27697e4-68d1-45a6-9f6d-ab41d8dd3bf4"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="signallingValue"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="norm"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="normType"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script18CalculationsToModify"
@@ -4851,8 +4921,8 @@
 						id="85368837-2aad-4048-bd53-0143d14c5b6b"
 						name="PrepareRiskeer">
 							<testmodule
-							id="62f8c8fc-2bc9-4ea0-8355-6bd2b04decab"
-							name="AddNewTraject">
+							id="8e5ab94b-6bc8-44ea-b501-07ac1c5f0f21"
+							name="AddNewTrajectUsingContextMenu">
 							</testmodule>
 							<testmodule
 							id="3a4f0450-6e8c-4dbe-b171-24e3b1381f2b"
@@ -4951,8 +5021,8 @@
 						id="02a85580-c5da-4d64-8012-b42d5a9ad388"
 						name="AddNewTraject">
 							<testmodule
-							id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
-							name="AddNewTraject">
+							id="14e5bca8-b8d7-4a88-83ca-d74258e37a60"
+							name="AddNewTrajectUsingContextMenu">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
@@ -5483,8 +5553,8 @@
 						id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
 						name="AddTraject6-5">
 							<testmodule
-							id="7f4fc51f-f97d-4807-bcc9-ac13ca60dfe3"
-							name="AddNewTraject">
+							id="b27697e4-68d1-45a6-9f6d-ab41d8dd3bf4"
+							name="AddNewTrajectUsingContextMenu">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
