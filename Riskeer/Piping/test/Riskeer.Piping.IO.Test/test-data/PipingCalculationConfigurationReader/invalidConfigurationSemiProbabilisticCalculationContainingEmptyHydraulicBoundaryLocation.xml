@@ -2,7 +2,7 @@
 <configuratie versie="1">
   <berekening naam="Calculation">
     <semi-probabilistisch>
-      <waterstand/>
+      <hblocatie/>
     </semi-probabilistisch>
   </berekening>
 </configuratie>

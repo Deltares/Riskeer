@@ -435,12 +435,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
             {
                 get
                 {
-                    yield return new TestCaseData("invalidWaterLevelEmpty.xml",
-                                                  "The 'waterstand' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                        .SetName("invalidWaterLevelEmpty");
-                    yield return new TestCaseData("invalidWaterLevelNoDouble.xml",
-                                                  "The 'waterstand' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                        .SetName("invalidWaterLevelNoDouble");
                     yield return new TestCaseData("invalidEntryPointEmpty.xml",
                                                   "The 'intredepunt' element is invalid - The value '' is invalid according to its datatype 'Double'")
                         .SetName("invalidEntryPointEmpty");
@@ -483,15 +477,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidMultipleDampingFactorExitStochast.xml",
                                                   "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                         .SetName("invalidMultipleDampingFactorExitStochast");
-                    yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation.xml",
-                                                  "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                        .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation");
-                    yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
-                                                  "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
-                        .SetName("invalidCalculationMultipleWaterLevel");
-                    yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
-                                                  "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                        .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                     yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
                                                   "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidCalculationMultipleSurfaceLine");
@@ -510,9 +495,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
                                                   "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidCalculationMultipleStochasts");
-                    yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
-                                                  "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                        .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                     yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
                                                   "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                         .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
@@ -543,6 +525,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                                   "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                         .SetName("invalidScenarioRelevantNoBoolean");
+
+                    yield return new TestCaseData("invalidContainingBothSemiProbabilisticAndProbabilistic.xml",
+                                                  "Element 'probabilistisch' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidContainingBothSemiProbabilisticAndProbabilistic");
                 }
             }
 
@@ -564,6 +550,51 @@ namespace Riskeer.Piping.IO.Test.Configurations
             protected override string CalculationType => "semi-probabilistisch";
 
             protected override PipingCalculationConfigurationType CalculationConfigurationType => PipingCalculationConfigurationType.SemiProbabilistic;
+
+            private static IEnumerable<TestCaseData> InvalidSemiProbabilisticConfigurations
+            {
+                get
+                {
+                    yield return new TestCaseData("invalidWaterLevelEmpty.xml",
+                                                  "The 'waterstand' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                        .SetName("invalidWaterLevelEmpty");
+                    yield return new TestCaseData("invalidWaterLevelNoDouble.xml",
+                                                  "The 'waterstand' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                        .SetName("invalidWaterLevelNoDouble");
+
+                    yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation.xml",
+                                                  "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation");
+                    yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
+                                                  "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidCalculationMultipleWaterLevel");
+
+                    yield return new TestCaseData("invalidSemiProbabilisticCalculationMultipleHydraulicBoundaryLocation.xml",
+                                                  "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidSemiProbabilisticCalculationMultipleHydraulicBoundaryLocation");
+
+                    yield return new TestCaseData("invalidConfigurationSemiProbabilisticCalculationContainingEmptyHydraulicBoundaryLocation.xml",
+                                                  "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                        .SetName("invalidConfigurationSemiProbabilisticCalculationContainingEmptyHydraulicBoundaryLocation");
+                }
+            }
+
+            [Test]
+            [TestCaseSource(nameof(InvalidSemiProbabilisticConfigurations))]
+            public void Constructor_SemiProbabilisticFileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(
+                string fileName, string expectedParsingMessage)
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, fileName);
+
+                // Call
+                void Call() => new PipingCalculationConfigurationReader(filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+                StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
+            }
 
             [Test]
             [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation", true)]
@@ -667,6 +698,37 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             protected override PipingCalculationConfigurationType CalculationConfigurationType => PipingCalculationConfigurationType.Probabilistic;
 
+            private static IEnumerable<TestCaseData> InvalidProbabilisticConfigurations
+            {
+                get
+                {
+                    yield return new TestCaseData("invalidProbabilisticCalculationMultipleHydraulicBoundaryLocation.xml",
+                                                  "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidProbabilisticCalculationMultipleHydraulicBoundaryLocation");
+
+                    yield return new TestCaseData("invalidConfigurationProbabilisticCalculationContainingEmptyHydraulicBoundaryLocation.xml",
+                                                  "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                        .SetName("invalidConfigurationProbabilisticCalculationContainingEmptyHydraulicBoundaryLocation");
+                }
+            }
+
+            [Test]
+            [TestCaseSource(nameof(InvalidProbabilisticConfigurations))]
+            public void Constructor_ProbabilisticFileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(
+                string fileName, string expectedParsingMessage)
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, fileName);
+
+                // Call
+                void Call() => new PipingCalculationConfigurationReader(filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+                StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
+            }
+
             [Test]
             [TestCase("validConfigurationFullCalculationProbabilistic")]
             [TestCase("validConfigurationFullCalculationProbabilistic_differentOrder")]
@@ -685,14 +747,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 AssertConfiguration(configuration);
             }
 
-            protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
-            {
-                AssertConfigurationGeneralProperties(configuration);
-
-                Assert.IsNull(configuration.AssessmentLevel);
-                Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
-            }
-
             [Test]
             public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException()
             {
@@ -706,6 +760,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 var exception = Assert.Throws<CriticalFileReadException>(Call);
                 Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
                 StringAssert.Contains("Element 'waterstand' cannot appear more than once if content model type is \"all\".", exception.InnerException?.Message);
+            }
+
+            protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
+            {
+                AssertConfigurationGeneralProperties(configuration);
+
+                Assert.IsNull(configuration.AssessmentLevel);
+                Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
             }
         }
     }
