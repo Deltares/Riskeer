@@ -826,7 +826,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
 
-            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
         }
 

@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
             Assert.AreEqual(failureMechanism.HeightStructures.SourcePath, metaEntity.HeightStructureCollectionSourcePath);
             Assert.AreEqual(failureMechanism.ForeshoreProfiles.SourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);

@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(Convert.ToByte(backgroundType), backgroundDataEntity.BackgroundDataType);
 
             Assert.AreEqual(1, backgroundDataEntity.BackgroundDataMetaEntities.Count);
-            BackgroundDataMetaEntity isConfiguredMetaEntity = backgroundDataEntity.BackgroundDataMetaEntities.First();
+            BackgroundDataMetaEntity isConfiguredMetaEntity = backgroundDataEntity.BackgroundDataMetaEntities.Single();
             Assert.AreEqual("IsConfigured", isConfiguredMetaEntity.Key);
             Assert.AreEqual("0", isConfiguredMetaEntity.Value);
         }
