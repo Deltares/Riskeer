@@ -40,6 +40,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.AreEqual("ondergrondschematisatie", PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
             Assert.AreEqual("binnendijksewaterstand", PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             Assert.AreEqual("dempingsfactor", PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
+            Assert.AreEqual("doorsnedeillustratiepunteninlezen", PipingCalculationConfigurationSchemaIdentifiers.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual("vakillustratiepunteninlezen", PipingCalculationConfigurationSchemaIdentifiers.ShouldSectionSpecificIllustrationPointsBeCalculated);
         }
     }
 }
