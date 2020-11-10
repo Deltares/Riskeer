@@ -207,7 +207,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     // Assert
                     var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-                    Assert.IsNaN(configuration.AssessmentLevel);
                     Assert.IsNaN(configuration.EntryPointL);
                     Assert.IsNaN(configuration.ExitPointL);
                     Assert.IsNaN(configuration.PhreaticLevelExit.Mean);
@@ -239,7 +238,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     // Assert
                     var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-                    Assert.IsNotNull(configuration.AssessmentLevel);
                     Assert.IsNotNull(configuration.EntryPointL);
                     Assert.IsNotNull(configuration.ExitPointL);
                     Assert.IsNotNull(configuration.PhreaticLevelExit.Mean);
@@ -248,7 +246,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.IsNotNull(configuration.DampingFactorExit.StandardDeviation);
                     Assert.IsNotNull(configuration.Scenario.Contribution);
 
-                    Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
                     Assert.IsTrue(double.IsNegativeInfinity(configuration.EntryPointL.Value));
                     Assert.IsTrue(double.IsPositiveInfinity(configuration.ExitPointL.Value));
                     Assert.IsTrue(double.IsNegativeInfinity(configuration.PhreaticLevelExit.Mean.Value));
@@ -552,7 +549,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             private void SetCalculationType(string readFilePath, string writeFilePath)
             {
                 string text = File.ReadAllText(readFilePath);
-                text = text.Replace("<toetstype/>", $"<toets>{CalculationType}</toets>");
+                text = text.Replace("<toetstype/>", $"<{CalculationType}/>");
                 File.WriteAllText(writeFilePath, text);
             }
         }
@@ -608,6 +605,40 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 AssertConfiguration(configuration, hydraulicBoundaryLocation);
             }
 
+            [Test]
+            public void Read_ValidConfigurationWithSemiProbabilisticCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, "validConfigurationSemiProbabilisticCalculationContainingInfinities.xml");
+
+                var reader = new PipingCalculationConfigurationReader(filePath);
+
+                // Call
+                IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+                // Assert
+                var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+
+                Assert.IsNotNull(configuration.AssessmentLevel);
+                Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
+            }
+
+            [Test]
+            public void Read_ValidConfigurationWithSemiProbabilisticCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, "validConfigurationSemiProbabilisticCalculationContainingNaNs.xml");
+                var reader = new PipingCalculationConfigurationReader(filePath);
+
+                // Call
+                IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+                // Assert
+                var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+
+                Assert.IsNaN(configuration.AssessmentLevel);
+            }
+
             protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
             {
                 AssertConfigurationGeneralProperties(configuration);
@@ -660,6 +691,21 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
                 Assert.IsNull(configuration.AssessmentLevel);
                 Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            }
+
+            [Test]
+            public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException()
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, "invalidProbabilisticContainingWaterLevel.xml");
+
+                // Call
+                void Call() => new PipingCalculationConfigurationReader(filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+                StringAssert.Contains("Element 'waterstand' cannot appear more than once if content model type is \"all\".", exception.InnerException?.Message);
             }
         }
     }
