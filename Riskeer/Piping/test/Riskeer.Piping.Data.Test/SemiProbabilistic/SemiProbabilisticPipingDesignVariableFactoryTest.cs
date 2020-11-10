@@ -128,7 +128,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForThicknessCoverageLayer()
         {
             // Setup
-            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             // Call
             DesignVariable<LogNormalDistribution> thicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(pipingInput);
@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetEffectiveThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForEffectiveThicknessCoverageLayer()
         {
             // Setup
-            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             var generalPipingInput = new GeneralPipingInput();
 
             // Call
@@ -267,7 +267,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithCoverLayerWithSaturatedDefinition_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
-            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput pipingInput = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             pipingInput.StochasticSoilProfile.SoilProfile.Layers.First().BelowPhreaticLevel = new LogNormalDistribution
             {
                 Mean = (RoundedDouble) 3.2

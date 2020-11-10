@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Data.Test
         public void ExitPointL_ExitPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.EntryPointL = RoundedDouble.NaN;
 
             // Call
@@ -149,7 +149,7 @@ namespace Riskeer.Piping.Data.Test
         public void ExitPointL_SetToNew_ValueIsRounded(double exitPointValue)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.EntryPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.ExitPointL.NumberOfDecimalPlaces;
@@ -204,7 +204,7 @@ namespace Riskeer.Piping.Data.Test
         public void EntryPointL_EntryPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.ExitPointL = RoundedDouble.NaN;
 
             // Call
@@ -224,7 +224,7 @@ namespace Riskeer.Piping.Data.Test
         public void EntryPointL_SetToNew_ValueIsRounded(double entryPointValue)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.ExitPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.EntryPointL.NumberOfDecimalPlaces;

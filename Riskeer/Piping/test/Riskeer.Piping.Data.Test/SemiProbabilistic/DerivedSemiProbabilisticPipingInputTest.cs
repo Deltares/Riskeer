@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetPiezometricHeadExit_AssessmentLevelNaN_ReturnsNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>(1.0, 1.0);
 
             // Call
             RoundedDouble piezometricHead = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, RoundedDouble.NaN);
