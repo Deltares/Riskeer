@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -337,6 +337,38 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="10e5f6c2-516a-497d-8c5c-f0350e36d5ef"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="normType"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="1115d338-6f63-4419-b0ef-587167c98aa9"
 			name="ValidateValueParameterForItemInTraject"
@@ -2559,38 +2591,6 @@
 			id="85368837-2aad-4048-bd53-0143d14c5b6b"
 			name="PrepareRiskeer">
 			</smartfoldernode>
-			<testmodule
-			id="85c62712-bbe5-489f-965e-90fd6852f168"
-			name="AddNewTraject"
-			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectID"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
-					dataname="normType"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
-					variablename="lowLimitValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="866ab523-8f0f-4453-8c7b-31319b148e5c"
 			name="ValidateContributionOfFMInProjectExplorer"
@@ -5295,8 +5295,8 @@
 						id="f4955a2d-d976-4dab-9a66-884a462172a4"
 						name="AddTraject12-2">
 							<testmodule
-							id="85c62712-bbe5-489f-965e-90fd6852f168"
-							name="AddNewTraject">
+							id="10e5f6c2-516a-497d-8c5c-f0350e36d5ef"
+							name="AddNewTrajectUsingContextMenu">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
