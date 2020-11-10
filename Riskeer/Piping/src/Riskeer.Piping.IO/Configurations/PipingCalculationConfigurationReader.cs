@@ -93,8 +93,7 @@ namespace Riskeer.Piping.IO.Configurations
         {
             return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                CalculationType = (PipingCalculationConfigurationType?) calculationElement.GetConvertedValueFromDescendantStringElement<PipingCalculationConfigurationTypeConverter>(
-                    PipingCalculationConfigurationSchemaIdentifiers.CalculationType),
+                CalculationType = GetCalculationType(calculationElement),
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
@@ -106,6 +105,21 @@ namespace Riskeer.Piping.IO.Configurations
                 DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
+        }
+
+        private PipingCalculationConfigurationType? GetCalculationType(XElement calculationElement)
+        {
+            if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic) != null)
+            {
+                return PipingCalculationConfigurationType.SemiProbabilistic;
+            }
+            
+            if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.Probabilistic) != null)
+            {
+                return PipingCalculationConfigurationType.Probabilistic;
+            }
+
+            return null;
         }
     }
 }
