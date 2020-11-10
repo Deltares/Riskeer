@@ -288,6 +288,9 @@
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateFullPathToFMFromFullPathToSubitem.cs">
+      <id>7d817ded-00c9-4649-b93d-66f4b86400b6</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CalculateSectionCategoryBoundary.cs">
       <DependentUpon>CalculateSectionCategoryBoundary.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -450,187 +453,187 @@
     <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
       <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\AddCalculationFolder.cs">
+    <Compile Include="Modules\ActionsContextMenu\AddCalculationFolder.cs">
       <BoundTo>9441f05b-a115-4956-80b5-b0c4190b783c</BoundTo>
       <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>e5aafb0d-a4b7-49ce-925c-254981319763</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\AddCalculationFolder.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\AddCalculationFolder.UserCode.cs">
       <BoundTo>9441f05b-a115-4956-80b5-b0c4190b783c</BoundTo>
       <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8e242905-1c47-454c-b60d-03ec3266db48</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\AddNewTrajectUsingContextMenu.cs">
+    <Compile Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.cs">
       <BoundTo>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</BoundTo>
       <DependentUpon>AddNewTrajectUsingContextMenu.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>5b412eb0-0124-4cde-b11e-66f26ffcae85</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\AddNewTrajectUsingContextMenu.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.UserCode.cs">
       <BoundTo>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</BoundTo>
       <DependentUpon>AddNewTrajectUsingContextMenu.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f4d70d7c-0b29-4ae2-b3e4-db7657b27db3</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\CoupleCurrentItemToHBCDatabase.cs">
+    <Compile Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.cs">
       <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>5141321a-4613-4ce7-8034-421c443b4402</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\CoupleCurrentItemToHBCDatabase.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.UserCode.cs">
       <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>79a6a4d1-4e9c-4369-9783-f1a62eb698b6</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\DuplicateCalculationItem.cs">
+    <Compile Include="Modules\ActionsContextMenu\DuplicateCalculationItem.cs">
       <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
       <DependentUpon>DuplicateCalculationItem.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>8e15e985-6045-4848-a90f-6d55c46c8909</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\DuplicateCalculationItem.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\DuplicateCalculationItem.UserCode.cs">
       <BoundTo>eef58afc-1dbf-443d-ab20-627186db7d7a</BoundTo>
       <DependentUpon>DuplicateCalculationItem.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>56d2a824-41ce-44b4-8fe1-9603946b4136</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\EmptySelectedFolder.cs">
+    <Compile Include="Modules\ActionsContextMenu\EmptySelectedFolder.cs">
       <BoundTo>7389de91-22c0-4018-bba0-2d8c8c1ec357</BoundTo>
       <DependentUpon>EmptySelectedFolder.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>80e241fb-7b20-4d3d-aac0-93b9ef242fbf</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\EmptySelectedFolder.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\EmptySelectedFolder.UserCode.cs">
       <BoundTo>7389de91-22c0-4018-bba0-2d8c8c1ec357</BoundTo>
       <DependentUpon>EmptySelectedFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>a6501606-bb8a-4073-ac8b-32b3a0a327c2</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.cs">
+    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.cs">
       <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>e5a16cb5-0ebe-4cba-9b69-51b63088fad0</id>
       <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.UserCode.cs">
       <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8ae21ef3-342a-4c9c-a7ac-809ad8717eba</id>
       <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\GenerateCalculations.cs">
+    <Compile Include="Modules\ActionsContextMenu\GenerateCalculations.cs">
       <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>85c917e3-c5a0-4695-ae37-f3958d58710c</id>
       <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\GenerateCalculations.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\GenerateCalculations.UserCode.cs">
       <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6d50e1d1-3b95-4960-a2dc-05b4f670fe34</id>
       <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportSchematizationForCurrentlySelectedItem.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportSchematizationForCurrentlySelectedItem.cs">
       <BoundTo>c3697963-419e-4cd5-97ce-b6e28e0325b8</BoundTo>
       <DependentUpon>ImportSchematizationForCurrentlySelectedItem.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>85a24315-00b8-4a7f-b74d-039b7d79b2ca</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportSchematizationForCurrentlySelectedItem.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportSchematizationForCurrentlySelectedItem.UserCode.cs">
       <BoundTo>c3697963-419e-4cd5-97ce-b6e28e0325b8</BoundTo>
       <DependentUpon>ImportSchematizationForCurrentlySelectedItem.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>e67e2261-57fc-4d95-a9b5-4b17582fb696</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportStochasticSoilModelCollection.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportStochasticSoilModelCollection.cs">
       <DependentUpon>ImportStochasticSoilModelCollection.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>80d32f77-ece3-4bde-ae47-929b1605043e</id>
       <BoundTo>42ae0196-5f78-448c-bd8a-65349a1cda86</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportStochasticSoilModelCollection.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportStochasticSoilModelCollection.UserCode.cs">
       <DependentUpon>ImportStochasticSoilModelCollection.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>e4c43391-ae3b-4b9d-a4ca-a50b1e12521d</id>
       <BoundTo>42ae0196-5f78-448c-bd8a-65349a1cda86</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportSurfaceLines.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportSurfaceLines.cs">
       <DependentUpon>ImportSurfaceLines.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>2340de48-ef73-4462-a3b1-a70df7aa5a8b</id>
       <BoundTo>6e87cfa0-534f-4923-8621-fdf766c5ce6f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ImportSurfaceLines.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\ImportSurfaceLines.UserCode.cs">
       <DependentUpon>ImportSurfaceLines.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f3d5c74c-a1ce-4c3f-8485-bffc34bbaa2e</id>
       <BoundTo>6e87cfa0-534f-4923-8621-fdf766c5ce6f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\StartAllCalculationsInSelectedFolderInProjectExplorer.cs">
+    <Compile Include="Modules\ActionsContextMenu\StartAllCalculationsInSelectedFolderInProjectExplorer.cs">
       <DependentUpon>StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>1b3beff1-5049-4f01-b2a4-41477b1f0cb9</id>
       <BoundTo>af0febe3-a18a-480b-a52f-1a751996c9c0</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\StartAllCalculationsInSelectedFolderInProjectExplorer.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\StartAllCalculationsInSelectedFolderInProjectExplorer.UserCode.cs">
       <DependentUpon>StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>75cdb08c-9692-4282-8c6a-62e2452337a1</id>
       <BoundTo>af0febe3-a18a-480b-a52f-1a751996c9c0</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\StartSingleCalculation.cs">
+    <Compile Include="Modules\ActionsContextMenu\StartSingleCalculation.cs">
       <DependentUpon>StartSingleCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>ab61f0e5-5895-450a-af23-dd7e49b9c9dc</id>
       <BoundTo>4696e5ae-8be0-4ab1-adca-9943fa2b230d</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\StartSingleCalculation.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\StartSingleCalculation.UserCode.cs">
       <DependentUpon>StartSingleCalculation.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>b2be3309-72bf-4396-988b-5b88cd7cf647</id>
       <BoundTo>4696e5ae-8be0-4ab1-adca-9943fa2b230d</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\UpdateSubsurfaceSchematization.cs">
+    <Compile Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.cs">
       <DependentUpon>UpdateSubsurfaceSchematization.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>6c63b2c9-c52f-4219-8437-55f52e4a244a</id>
       <BoundTo>bea3f530-85c7-459c-a174-4593fea77c20</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\UpdateSubsurfaceSchematization.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.UserCode.cs">
       <DependentUpon>UpdateSubsurfaceSchematization.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>02d6d6c9-db98-4ed4-a4a5-a9107ab2d7f6</id>
       <BoundTo>bea3f530-85c7-459c-a174-4593fea77c20</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\UpdateSurfaceLines.cs">
+    <Compile Include="Modules\ActionsContextMenu\UpdateSurfaceLines.cs">
       <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>c916a031-a6ba-419f-8770-f467922b88af</id>
       <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\UpdateSurfaceLines.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\UpdateSurfaceLines.UserCode.cs">
       <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
       <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.cs">
+    <Compile Include="Modules\ActionsContextMenu\ValidateAllCalculationsInSelectedFolder.cs">
       <BoundTo>8a7c290a-c895-4ab6-8417-8c4f981c847e</BoundTo>
       <DependentUpon>ValidateAllCalculationsInSelectedFolder.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>bc44eb68-3639-415c-bcaa-f6e57785509b</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\ValidateAllCalculationsInSelectedFolder.UserCode.cs">
       <BoundTo>8a7c290a-c895-4ab6-8417-8c4f981c847e</BoundTo>
       <DependentUpon>ValidateAllCalculationsInSelectedFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f0e73397-fdfa-4dba-8dd2-e5f1402712df</id>
     </Compile>
-    <Compile Include="Modules\ContextMenuActions\VerifyItemPresentInContextMenu.cs">
+    <Compile Include="Modules\ActionsContextMenu\VerifyItemPresentInContextMenu.cs">
       <id>6a737ffa-3e0c-4c81-bdc5-78b47fbd8ea6</id>
     </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
@@ -2042,77 +2045,77 @@
       <id>0be59255-8483-4bd6-b789-9bb7d1340977</id>
       <recordtableid>3b08b464-43f7-4e4b-9c47-143e9b31807c</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\AddCalculationFolder.rxrec">
+    <None Include="Modules\ActionsContextMenu\AddCalculationFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9441f05b-a115-4956-80b5-b0c4190b783c</id>
       <recordtableid>c09a9669-9b00-4ab5-9134-5658e1a585ac</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\AddNewTrajectUsingContextMenu.rxrec">
+    <None Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</id>
       <recordtableid>2f5dc792-0805-4c80-8900-c03885f8e020</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\CoupleCurrentItemToHBCDatabase.rxrec">
+    <None Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>58bb17f9-0f73-4d80-84ed-fec70eb3207f</id>
       <recordtableid>354b1a8c-c247-4b13-920b-24ee0b2b997d</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\DuplicateCalculationItem.rxrec">
+    <None Include="Modules\ActionsContextMenu\DuplicateCalculationItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eef58afc-1dbf-443d-ab20-627186db7d7a</id>
       <recordtableid>be163e36-1d54-4e23-8859-2e6b0da85302</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\EmptySelectedFolder.rxrec">
+    <None Include="Modules\ActionsContextMenu\EmptySelectedFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>7389de91-22c0-4018-bba0-2d8c8c1ec357</id>
       <recordtableid>f942f297-31be-4e47-a62e-d6cf657dcbdf</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ExpandAllSubNodesCalculations.rxrec">
+    <None Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>59490521-b0d6-4832-b342-9035761334e8</id>
       <recordtableid>a2bd227a-e006-4e77-9c0d-21fc549d097c</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\GenerateCalculations.rxrec">
+    <None Include="Modules\ActionsContextMenu\GenerateCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
       <recordtableid>8513f955-1cc5-4468-875c-d51ce8a545ba</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ImportSchematizationForCurrentlySelectedItem.rxrec">
+    <None Include="Modules\ActionsContextMenu\ImportSchematizationForCurrentlySelectedItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c3697963-419e-4cd5-97ce-b6e28e0325b8</id>
       <recordtableid>70e43517-d352-4149-9ec3-90e95cb9cbf0</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ImportStochasticSoilModelCollection.rxrec">
+    <None Include="Modules\ActionsContextMenu\ImportStochasticSoilModelCollection.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>42ae0196-5f78-448c-bd8a-65349a1cda86</id>
       <recordtableid>288d66d7-3c19-43f3-bd1e-9523f15bb660</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ImportSurfaceLines.rxrec">
+    <None Include="Modules\ActionsContextMenu\ImportSurfaceLines.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>6e87cfa0-534f-4923-8621-fdf766c5ce6f</id>
       <recordtableid>ec62b093-3fff-4a7e-8468-0636f99e4153</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec">
+    <None Include="Modules\ActionsContextMenu\StartAllCalculationsInSelectedFolderInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>af0febe3-a18a-480b-a52f-1a751996c9c0</id>
       <recordtableid>9c9a5824-8ab8-44a2-b76c-84bb3359d312</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\StartSingleCalculation.rxrec">
+    <None Include="Modules\ActionsContextMenu\StartSingleCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4696e5ae-8be0-4ab1-adca-9943fa2b230d</id>
       <recordtableid>bbf874ea-d649-48f1-b9a6-08ca561100d3</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\UpdateSubsurfaceSchematization.rxrec">
+    <None Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bea3f530-85c7-459c-a174-4593fea77c20</id>
       <recordtableid>32dc32fd-5a31-4bd3-96eb-7c8d70401ccb</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\UpdateSurfaceLines.rxrec">
+    <None Include="Modules\ActionsContextMenu\UpdateSurfaceLines.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
     </None>
-    <None Include="Modules\ContextMenuActions\ValidateAllCalculationsInSelectedFolder.rxrec">
+    <None Include="Modules\ActionsContextMenu\ValidateAllCalculationsInSelectedFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
       <recordtableid>4e9bdd58-dcf1-424d-a224-1d30c86d102b</recordtableid>
@@ -2649,7 +2652,7 @@
     <Folder Include="Modules\IO">
       <id>ca0a786e-167b-417f-a79e-76aa6e5afe93</id>
     </Folder>
-    <Folder Include="Modules\ContextMenuActions">
+    <Folder Include="Modules\ActionsContextMenu">
       <id>2ae3426c-1569-41c9-8f63-62464e02e74f</id>
     </Folder>
     <Folder Include="Modules\ActionsVisibilityItemsProjectExplorer">

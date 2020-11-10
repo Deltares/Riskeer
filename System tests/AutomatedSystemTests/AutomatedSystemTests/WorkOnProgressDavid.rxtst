@@ -537,6 +537,10 @@
 			id="149aa2fd-7c55-4877-b20d-8d9ec0620503"
 			name="MoveCopiedCalculationInsideCreatedFolder">
 			</smartfoldernode>
+			<smartfoldernode
+			id="14c6feec-346f-41f8-bb3b-31e798809700"
+			name="InitialSchematizations">
+			</smartfoldernode>
 			<testmodule
 			id="19042d41-ff06-4e51-9f18-6d1425c3c2dd"
 			name="SelectGenericItemInProjectExplorer"
@@ -813,6 +817,12 @@
 					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="296fe926-7f17-4968-be70-53cc60ce4042"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="2a6a4f5f-fae7-4009-a311-8bbff37f75b0"
@@ -1552,6 +1562,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="4a8ff87d-d35b-40ba-92e7-2e1abd46c733"
+			name="CalculateFullPathToFMFromFullPathToSubitem"
+			ref="9621d7a6-85d9-4061-87d6-529fc5356c46"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="9731f22a-ca63-407b-a787-7c6c8ce0c3e9"
+					variablename="fullPathToSubitemOfFM">
+					</var>
+					<var
+					dataname="pathToFM"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="8fc2a5db-1cbe-485a-a15c-bf89dcdf3864"
+					variablename="fullPathToFM">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="4ad44ef1-f123-4580-8c1b-7da758436296"
 			name="CalculatePathToCopyOfCalculation">
@@ -1820,6 +1850,20 @@
 					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
 					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
 					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="5300a2c7-990b-4ca0-a142-4d8ced950a73"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3181,6 +3225,10 @@
 			id="912d98e6-5a9a-4cb7-b45a-302ba284881e"
 			name="a)DuplicationOfCalculations">
 			</smartfoldernode>
+			<smartfoldernode
+			id="9232dd47-cb02-402c-8c78-39338684347e"
+			name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
+			</smartfoldernode>
 			<testmodule
 			id="9261685c-b99d-4bbf-961e-9f1c03eda7d0"
 			name="InsertPreffixInLastStepOfPath"
@@ -4036,6 +4084,10 @@
 					name="pathSchematizationsToImport"
 					value="">
 					</param>
+					<param
+					name="pathToFM"
+					value="">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<testmodule
@@ -4088,6 +4140,12 @@
 			id="c1bb7450-09fa-4d31-9cd3-e5861294ad5d"
 			name="SingleCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="c2c75792-dbee-4ac4-96a2-78b443694a58"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="c352ee10-d84a-46b3-92a9-9c5da0f0c3eb"
 			name="VerifyItemPresentInContextMenu"
@@ -4437,6 +4495,12 @@
 			id="d6076213-3c50-4c9d-bea0-01d9a64b2325"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 			</smartfoldernode>
+			<testmodule
+			id="d6955934-9ca2-4cb4-a46e-f63064f92f6e"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="d73863bf-8771-4af2-ab10-f04dcfe62813"
 			name="CalculateIfDifferentProjectNeedsToBeOpened">
@@ -6062,123 +6126,151 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="bea93852-acdc-42a1-9838-d572c01df8d7"
-							name="CopyOriginalFiles">
-								<testmodule
-								id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
-								name="DeleteAllSearchFilteredFiles">
-								</testmodule>
-								<testmodule
-								id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
-								name="CopyAllSearchFilteredFilesFromSourceToTarget">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="74b49f88-ed5a-4b45-a506-6385fe611405"
-							name="ImportSchematizations">
-								<testmodule
-								id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
-								name="ConcatenateStrings">
-								</testmodule>
-								<testmodule
-								id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
-								name="ImportSchematizationForCurrentlySelectedItem">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="255f7be8-eab7-487a-8607-fe9d53f1e650"
-							name="ValidateSourceSchematizations">
-								<testmodule
-								id="a155aa35-f8c7-4613-ab62-484f13176263"
-								name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="b7ca621d-0063-4dab-b955-e247237ea5f2"
-							name="SetRangeLoopSchematizations">
-								<testmodule
-								id="70317e5e-7c22-47ee-bc4f-cc69c8ce3695"
-								name="SetRangeInSmartFolder">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="3ddd79e4-a99e-40f0-b120-763a595ad464"
-							name="LoopSchematizations">
+							id="14c6feec-346f-41f8-bb3b-31e798809700"
+							name="InitialSchematizations">
 								<smartfoldernode
-								id="1ae50821-3a56-41e3-bba3-fb6a120f3966"
-								name="ValidateItemNameInProjectExplorer">
+								id="bea93852-acdc-42a1-9838-d572c01df8d7"
+								name="CopyOriginalFiles">
 									<testmodule
-									id="79e8ed2d-2cd9-4385-8fc5-a2899de9db5d"
+									id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
+									name="DeleteAllSearchFilteredFiles">
+									</testmodule>
+									<testmodule
+									id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
+									name="CopyAllSearchFilteredFilesFromSourceToTarget">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="74b49f88-ed5a-4b45-a506-6385fe611405"
+								name="ImportSchematizations">
+									<testmodule
+									id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
 									name="ConcatenateStrings">
 									</testmodule>
 									<testmodule
-									id="4c1d35b0-8a56-452a-8131-2585610d156c"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="11fbb514-05ec-4ab3-89f4-1c09746972d1"
+									id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
 									name="SelectGenericItemInProjectExplorer">
 									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="ac91d500-2876-4c50-b509-bb6438e6eee9"
-								name="CheckIfItemCanBeOpened">
 									<testmodule
-									id="c352ee10-d84a-46b3-92a9-9c5da0f0c3eb"
-									name="VerifyItemPresentInContextMenu">
+									id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
+									name="ImportSchematizationForCurrentlySelectedItem">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="3f8762ba-8500-4108-881f-91fba5fb5f79"
-								name="MakeAllItemsInPropertiesPanelVisible">
+								id="255f7be8-eab7-487a-8607-fe9d53f1e650"
+								name="ValidateSourceSchematizations">
 									<testmodule
-									id="2eafda3a-1635-4472-9046-9777f1bbbfd8"
-									name="ExpandAllRowItemsInPropertiesPanel">
-									</testmodule>
-									<testmodule
-									id="680f9af2-d23a-42cb-80bc-e770476d6d50"
-									name="WaitForXMiliseconds">
+									id="a155aa35-f8c7-4613-ab62-484f13176263"
+									name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="bfa6e1e0-2820-45ac-8c71-a5e6d0bd9f19"
-								name="GenerateCSV">
+								id="9232dd47-cb02-402c-8c78-39338684347e"
+								name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
 									<testmodule
-									id="7a3348a5-4d43-4d5b-a0ba-ed605852bc31"
-									name="ReplaceSubstring">
+									id="296fe926-7f17-4968-be70-53cc60ce4042"
+									name="CreateScreenshotDocumentView">
 									</testmodule>
 									<testmodule
-									id="11420a48-c12d-472c-a243-a6d69db94815"
-									name="ConcatenateStrings">
+									id="4a8ff87d-d35b-40ba-92e7-2e1abd46c733"
+									name="CalculateFullPathToFMFromFullPathToSubitem">
 									</testmodule>
 									<testmodule
-									id="76b6af4e-be18-4488-b44a-bafb0cb3d626"
-									name="ConcatenateStrings">
+									id="5300a2c7-990b-4ca0-a142-4d8ced950a73"
+									name="SelectGenericItemInProjectExplorer">
 									</testmodule>
 									<testmodule
-									id="ebf2a3d2-4360-468a-97b2-c5ff6ae362f7"
-									name="ConcatenateStrings">
+									id="c2c75792-dbee-4ac4-96a2-78b443694a58"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
 									</testmodule>
 									<testmodule
-									id="45eb54be-adca-4951-a3f7-c15f7e71b493"
-									name="ExportPropertiesPanelToCsv">
+									id="d6955934-9ca2-4cb4-a46e-f63064f92f6e"
+									name="CreateScreenshotDocumentView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42"
-								name="ValidateCSVEqualToReference">
+								id="b7ca621d-0063-4dab-b955-e247237ea5f2"
+								name="SetRangeLoopSchematizations">
 									<testmodule
-									id="b711a260-5f39-4dae-93dd-7cdba9a3da7b"
-									name="ConcatenateStrings">
+									id="70317e5e-7c22-47ee-bc4f-cc69c8ce3695"
+									name="SetRangeInSmartFolder">
 									</testmodule>
-									<testmodule
-									id="c5cf8d7a-fd96-40c5-95d9-e4d42f6d55c8"
-									name="ComparePlainTextFiles">
-									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="3ddd79e4-a99e-40f0-b120-763a595ad464"
+								name="LoopSchematizations">
+									<smartfoldernode
+									id="1ae50821-3a56-41e3-bba3-fb6a120f3966"
+									name="ValidateItemNameInProjectExplorer">
+										<testmodule
+										id="79e8ed2d-2cd9-4385-8fc5-a2899de9db5d"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="4c1d35b0-8a56-452a-8131-2585610d156c"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="11fbb514-05ec-4ab3-89f4-1c09746972d1"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="ac91d500-2876-4c50-b509-bb6438e6eee9"
+									name="CheckIfItemCanBeOpened">
+										<testmodule
+										id="c352ee10-d84a-46b3-92a9-9c5da0f0c3eb"
+										name="VerifyItemPresentInContextMenu">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="3f8762ba-8500-4108-881f-91fba5fb5f79"
+									name="MakeAllItemsInPropertiesPanelVisible">
+										<testmodule
+										id="2eafda3a-1635-4472-9046-9777f1bbbfd8"
+										name="ExpandAllRowItemsInPropertiesPanel">
+										</testmodule>
+										<testmodule
+										id="680f9af2-d23a-42cb-80bc-e770476d6d50"
+										name="WaitForXMiliseconds">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="bfa6e1e0-2820-45ac-8c71-a5e6d0bd9f19"
+									name="GenerateCSV">
+										<testmodule
+										id="7a3348a5-4d43-4d5b-a0ba-ed605852bc31"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="11420a48-c12d-472c-a243-a6d69db94815"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="76b6af4e-be18-4488-b44a-bafb0cb3d626"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="ebf2a3d2-4360-468a-97b2-c5ff6ae362f7"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="45eb54be-adca-4951-a3f7-c15f7e71b493"
+										name="ExportPropertiesPanelToCsv">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42"
+									name="ValidateCSVEqualToReference">
+										<testmodule
+										id="b711a260-5f39-4dae-93dd-7cdba9a3da7b"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="c5cf8d7a-fd96-40c5-95d9-e4d42f6d55c8"
+										name="ComparePlainTextFiles">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -10930,6 +11022,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="14c6feec-346f-41f8-bb3b-31e798809700">
+			</testcontainer>
+			<testcontainer
 			id="1ae50821-3a56-41e3-bba3-fb6a120f3966">
 			</testcontainer>
 			<testcontainer
@@ -10946,6 +11041,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8828de6f-6216-4298-a863-6cc1c15ee9e9">
+			</testcontainer>
+			<testcontainer
+			id="9232dd47-cb02-402c-8c78-39338684347e">
 			</testcontainer>
 			<testcontainer
 			id="ac91d500-2876-4c50-b509-bb6438e6eee9">
