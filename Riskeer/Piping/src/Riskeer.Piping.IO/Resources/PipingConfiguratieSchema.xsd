@@ -45,8 +45,7 @@ All rights reserved.
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="toets"/>
-            <xs:element ref="hblocatie-of-waterstand" minOccurs="0"/>
+            <xs:element ref="toetsType"/>
             <xs:element ref="profielschematisatie" minOccurs="0"/>
             <xs:element ref="intredepunt" minOccurs="0"/>
             <xs:element ref="uittredepunt" minOccurs="0"/>
@@ -74,15 +73,28 @@ All rights reserved.
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+
+  <!--Specificeert de keuze van een semi-probabilistische of een probabilistische berekening.-->
+  <xs:element name="toetsType" abstract="true" />
   
-  <!--Specificeert de type van de toets.-->
-  <xs:element name="toets">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="semi-probabilistisch"/>
-        <xs:enumeration value="probabilistisch"/>
-      </xs:restriction>
-    </xs:simpleType>
+  <!--Specificeert de semi-probabilistische berekening. Indien dit element is opgenomen,
+  mag geen probabilistsich worden opgenomen (en andersom).-->
+  <xs:element name="semi-probabilistisch" substitutionGroup="toetsType">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="hblocatie-of-waterstand" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Specificeert de probabilistische berekening. Indien dit element is opgenomen,
+  mag geen semi-probabilistsich worden opgenomen (en andersom).-->
+  <xs:element name="probabilistisch" substitutionGroup="toetsType">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="hblocatie" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
   </xs:element>
   
   <!--Specificeert de keuze van een HB locatie of een waterstand.-->
