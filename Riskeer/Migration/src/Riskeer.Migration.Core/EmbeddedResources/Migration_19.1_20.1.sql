@@ -1,5 +1,5 @@
 /*
-Migration script for migrating Ringtoets databases.
+Migration script for migrating Riskeer databases.
 SourceProject version: 19.1
 TargetProject version: 20.1
 */
