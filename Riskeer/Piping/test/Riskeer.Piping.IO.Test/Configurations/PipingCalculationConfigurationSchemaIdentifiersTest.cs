@@ -30,7 +30,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [Test]
         public void PipingCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("toets", PipingCalculationConfigurationSchemaIdentifiers.CalculationType);
             Assert.AreEqual("semi-probabilistisch", PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic);
             Assert.AreEqual("probabilistisch", PipingCalculationConfigurationSchemaIdentifiers.Probabilistic);
             Assert.AreEqual("waterstand", PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement);
