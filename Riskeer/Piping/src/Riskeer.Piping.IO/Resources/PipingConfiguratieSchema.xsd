@@ -21,7 +21,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
   
   <!--Definitie voor het specificeren van een berekeningsscenario.-->
@@ -32,7 +32,7 @@ All rights reserved.
   waterstand (handmatig gespecificeerde waterstand) vergelijkbaar met een
   piping berekening in Riskeer.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
-    
+
     <xs:complexType name="configuratieType">
       <xs:complexContent>
         <xs:extension base="configuratieType">
@@ -68,7 +68,7 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
-  
+
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
@@ -76,7 +76,7 @@ All rights reserved.
 
   <!--Specificeert de keuze van een semi-probabilistische of een probabilistische berekening.-->
   <xs:element name="toetsType" abstract="true" />
-  
+
   <!--Specificeert de semi-probabilistische berekening. Indien dit element is opgenomen,
   mag geen probabilistsich worden opgenomen (en andersom).-->
   <xs:element name="semi-probabilistisch" substitutionGroup="toetsType">
@@ -86,17 +86,19 @@ All rights reserved.
       </xs:all>
     </xs:complexType>
   </xs:element>
-  
+
   <!--Specificeert de probabilistische berekening. Indien dit element is opgenomen,
   mag geen semi-probabilistsich worden opgenomen (en andersom).-->
   <xs:element name="probabilistisch" substitutionGroup="toetsType">
     <xs:complexType>
       <xs:all>
         <xs:element ref="hblocatie" minOccurs="0"/>
+        <xs:element ref="doorsnedeillustratiepunteninlezen" minOccurs="0"/>
+        <xs:element ref="vakillustratiepunteninlezen" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  
+
   <!--Specificeert de keuze van een HB locatie of een waterstand.-->
   <xs:element name="hblocatie-of-waterstand" abstract="true" />
 
@@ -107,7 +109,7 @@ All rights reserved.
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
-  
+
   <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 
   handmatig ingevoerde waterstand worden opgenomen (en andersom).-->
   <xs:element name="hblocatie" substitutionGroup="hblocatie-of-waterstand">
@@ -159,6 +161,22 @@ All rights reserved.
       <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren
+  van een doorsnede sterkte berekening.-->
+  <xs:element name="doorsnedeillustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren
+  van een vak sterkte berekening.-->
+  <xs:element name="vakillustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
   </xs:element>
 
