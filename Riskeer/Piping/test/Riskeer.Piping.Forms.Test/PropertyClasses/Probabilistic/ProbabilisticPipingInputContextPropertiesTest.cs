@@ -1764,6 +1764,70 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_CoverageLayerRelatedProperties_DependsOnHavingCoverageLayerOrNot(bool withCoverageLayer)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var calculation = new ProbabilisticPipingCalculationScenario();
+
+            var context = new ProbabilisticPipingInputContext(withCoverageLayer
+                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>(2)
+                                                                  : calculation.InputParameters,
+                                                              calculation,
+                                                              Enumerable.Empty<PipingSurfaceLine>(),
+                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              failureMechanism,
+                                                              assessmentSection);
+
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            // Call & Assert
+            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDistribution)));
+            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDeterminist)));
+            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDistribution)));
+            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDeterminist)));
+            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDistribution)));
+            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDeterminist)));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var calculation = new ProbabilisticPipingCalculationScenario();
+
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                              calculation,
+                                                              Enumerable.Empty<PipingSurfaceLine>(),
+                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              failureMechanism,
+                                                              assessmentSection);
+
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+
+            // Call
+            bool result = properties.DynamicVisibleValidationMethod("prop");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         private static void SetPropertyAndVerifyNotificationsForCalculation(
             Action<ProbabilisticPipingInputContextProperties> setProperty,
             ProbabilisticPipingCalculationScenario calculation)

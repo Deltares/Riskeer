@@ -134,7 +134,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                 return !double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
