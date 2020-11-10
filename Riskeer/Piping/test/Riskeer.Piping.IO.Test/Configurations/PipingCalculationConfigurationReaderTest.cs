@@ -151,6 +151,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.IsNull(configuration.PhreaticLevelExit);
                     Assert.IsNull(configuration.DampingFactorExit);
                     Assert.IsNull(configuration.Scenario);
+                    Assert.IsNull(configuration.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                    Assert.IsNull(configuration.ShouldSectionSpecificIllustrationPointsBeCalculated);
                 }
                 finally
                 {
@@ -675,6 +677,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.AreEqual(1.1, configuration.AssessmentLevel);
                     Assert.IsNull(configuration.HydraulicBoundaryLocationName);
                 }
+                
+                Assert.IsNull(configuration.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                Assert.IsNull(configuration.ShouldSectionSpecificIllustrationPointsBeCalculated);
             }
         }
 
@@ -689,6 +694,53 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             protected override PipingCalculationConfigurationType CalculationConfigurationType => PipingCalculationConfigurationType.Probabilistic;
 
+            private static IEnumerable<TestCaseData> InvalidProbabilisticConfigurations
+            {
+                get
+                {
+                    yield return new TestCaseData("invalidProbabilisticContainingWaterLevel.xml",
+                                                  "The element 'berekening' has invalid child element 'toets'.")
+                        .SetName("invalidProbabilisticContainingWaterLevel");
+                    
+                    yield return new TestCaseData("invalidShouldProfileSpecificIllustrationPointsBeCalculatedEmpty.xml",
+                                                  "The 'doorsnedeillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                        .SetName("invalidShouldProfileSpecificIllustrationPointsBeCalculatedEmpty");
+                    yield return new TestCaseData("invalidShouldProfileSpecificIllustrationPointsBeCalculatedNoBoolean.xml",
+                                                  "The 'doorsnedeillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                        .SetName("invalidShouldProfileSpecificIllustrationPointsBeCalculatedNoBoolean");
+                    yield return new TestCaseData("invalidMultipleShouldProfileSpecificIllustrationPointsBeCalculated.xml",
+                                                  "Element 'doorsnedeillustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidMultipleShouldProfileSpecificIllustrationPointsBeCalculated");
+                    
+                    yield return new TestCaseData("invalidShouldSectionSpecificIllustrationPointsBeCalculatedEmpty.xml",
+                                                  "The 'vakillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                        .SetName("invalidShouldSectionSpecificIllustrationPointsBeCalculatedEmpty");
+                    yield return new TestCaseData("invalidShouldSectionSpecificIllustrationPointsBeCalculatedNoBoolean.xml",
+                                                  "The 'vakillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                        .SetName("invalidShouldSectionSpecificIllustrationPointsBeCalculatedNoBoolean");
+                    yield return new TestCaseData("invalidMultipleShouldSectionSpecificIllustrationPointsBeCalculated.xml",
+                                                  "Element 'vakillustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
+                        .SetName("invalidMultipleShouldSectionSpecificIllustrationPointsBeCalculated");
+                }
+            }
+
+            [Test]
+            [TestCaseSource(nameof(InvalidProbabilisticConfigurations))]
+            public void Constructor_ProbabilisticFileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(
+                string fileName, string expectedParsingMessage)
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, fileName);
+
+                // Call
+                void Call() => new PipingCalculationConfigurationReader(filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+                StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
+            }
+            
             [Test]
             [TestCase("validConfigurationFullCalculationProbabilistic")]
             [TestCase("validConfigurationFullCalculationProbabilistic_differentOrder")]
@@ -705,21 +757,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
                 AssertConfiguration(configuration);
-            }
-
-            [Test]
-            public void Constructor_ProbabilisticFileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException()
-            {
-                // Setup
-                string filePath = Path.Combine(testDirectoryPath, "invalidProbabilisticContainingWaterLevel.xml");
-
-                // Call
-                void Call() => new PipingCalculationConfigurationReader(filePath);
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(Call);
-                Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-                StringAssert.Contains("The element 'berekening' has invalid child element 'toets'.", exception.InnerException?.Message);
             }
 
             protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
