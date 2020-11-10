@@ -62,6 +62,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.IsNull(readPipingCalculation.PhreaticLevelExit);
             Assert.IsNull(readPipingCalculation.DampingFactorExit);
             Assert.IsNull(readPipingCalculation.Scenario);
+            Assert.IsNull(readPipingCalculation.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.IsNull(readPipingCalculation.ShouldSectionSpecificIllustrationPointsBeCalculated);
         }
 
         [Test]

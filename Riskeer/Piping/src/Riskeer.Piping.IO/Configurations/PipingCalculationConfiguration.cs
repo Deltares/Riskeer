@@ -97,6 +97,16 @@ namespace Riskeer.Piping.IO.Configurations
         public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
+        /// Gets or sets if the illustration points should be calculated for profile specific calculations.
+        /// </summary>
+        public bool? ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for section specific calculations.
+        /// </summary>
+        public bool? ShouldSectionSpecificIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the piping calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
