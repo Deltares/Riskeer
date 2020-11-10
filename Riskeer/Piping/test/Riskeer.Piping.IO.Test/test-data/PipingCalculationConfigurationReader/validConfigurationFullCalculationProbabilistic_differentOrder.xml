@@ -21,6 +21,8 @@
     </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <probabilistisch>
+      <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
+      <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
       <hblocatie>Locatie</hblocatie>
     </probabilistisch>
   </berekening>

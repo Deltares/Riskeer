@@ -3,6 +3,8 @@
   <berekening naam="Calculation">
     <probabilistisch>
       <hblocatie>Locatie</hblocatie>
+      <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
+      <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
     </probabilistisch>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <intredepunt>2.2</intredepunt>

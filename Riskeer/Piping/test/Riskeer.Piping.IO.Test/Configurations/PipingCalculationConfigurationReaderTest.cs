@@ -772,6 +772,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
                 Assert.IsNull(configuration.AssessmentLevel);
                 Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+                Assert.IsTrue(configuration.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                Assert.IsTrue(configuration.ShouldSectionSpecificIllustrationPointsBeCalculated);
             }
         }
     }

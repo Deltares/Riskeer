@@ -102,7 +102,9 @@ namespace Riskeer.Piping.IO.Configurations
                 StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
                 PhreaticLevelExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
                 DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
-                Scenario = calculationElement.GetScenarioConfiguration()
+                Scenario = calculationElement.GetScenarioConfiguration(),
+                ShouldProfileSpecificIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ShouldProfileSpecificIllustrationPointsBeCalculated),
+                ShouldSectionSpecificIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ShouldSectionSpecificIllustrationPointsBeCalculated)
             };
         }
 
