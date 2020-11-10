@@ -162,6 +162,18 @@
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\UpdateCurrentlySelectedItem.cs">
+      <BoundTo>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</BoundTo>
+      <DependentUpon>UpdateCurrentlySelectedItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b935223f-e85d-4833-a628-2cf04c2d1405</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\UpdateCurrentlySelectedItem.UserCode.cs">
+      <BoundTo>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</BoundTo>
+      <DependentUpon>UpdateCurrentlySelectedItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c2bd5b91-8358-4ec8-adde-aa4939fde88b</id>
+    </Compile>
     <Compile Include="Modules\ActionsDialogs\ConfirmActionInDialog.cs">
       <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1939,6 +1951,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\UpdateCurrentlySelectedItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</id>
+      <recordtableid>be610d83-0566-4237-980c-570b403e4ee8</recordtableid>
     </None>
     <None Include="Modules\ActionsDialogs\ConfirmActionInDialog.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

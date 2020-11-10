@@ -3,6 +3,44 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
+			id="01251542-6ccf-4070-8c54-1c6d23912081"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="01b92589-3c18-4d10-8f09-378787725518"
+			name="AddNewTrajectNotAppropriateForSchematization">
+				<parameters>
+					<param
+					name="signalValue"
+					value="">
+					</param>
+					<param
+					name="lowValue"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="01c9c713-003b-464f-a011-3214577843db"
+			name="SchematizationsWithElementsRemoved">
+			</smartfoldernode>
+			<testmodule
 			id="01e4bcb0-70ca-4aec-871a-a8555cc48611"
 			name="ValidateAllCalculationsInSelectedFolder"
 			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
@@ -202,6 +240,74 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="06f4ab2f-7170-40fe-9a72-7328d65cec15"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="752898ca-e57f-4f23-a03c-1b7a43c223cd"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="nameConfigurationFileToSave"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="07c9a099-9378-4e77-a79d-bb492a0d58c1"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="extensionCSV"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="07d0ace3-44ab-4044-91e0-942f77e82112"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -295,6 +401,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0be2f169-6ba6-4e37-9c48-2bb8a259b610"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="0ecf77ac-fb7c-49bf-ba02-de64b007e128"
 			name="CalculatePathToCopyOfCalculationInsideDuplicatedFolder">
@@ -309,6 +429,52 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0f94d805-5248-48ef-a599-5a32c41c5f32"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="11420a48-c12d-472c-a243-a6d69db94815"
 			name="ConcatenateStrings"
@@ -539,8 +705,31 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="14c6feec-346f-41f8-bb3b-31e798809700"
-			name="InitialSchematizations">
+			name="OriginalSchematizations">
 			</smartfoldernode>
+			<testmodule
+			enabled="False"
+			id="184b2129-fbbb-4e45-952f-0387951e089e"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitTime"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTime"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="19042d41-ff06-4e51-9f18-6d1425c3c2dd"
 			name="SelectGenericItemInProjectExplorer"
@@ -560,6 +749,46 @@
 					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="1a7e2e54-f971-4bf8-ab2a-e4d32752c5e7"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -720,6 +949,57 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="1f5eb0b6-46f4-4c2f-97c7-ba31227fc6ea"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="20be10ff-86c3-4921-8f26-3f3f7a28593d"
+			name="ValidateItemNameInProjectExplorer">
+			</smartfoldernode>
 			<testmodule
 			id="232aa484-8738-487c-951f-cce9735d7f80"
 			name="EmptySelectedFolder"
@@ -917,6 +1197,12 @@
 			name="LoopItemsToValidateInCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="30e5ecee-7cf1-4e6d-9111-83747bafcebf"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="310be7d8-ce55-41b2-8636-69cc55c2ac2c"
 			name="CreateScreenshotMessagesPanel"
 			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
@@ -987,6 +1273,46 @@
 			name="EmptySelectedFolder"
 			ref="f942f297-31be-4e47-a62e-d6cf657dcbdf"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="33d8bf22-24a7-4d9d-aa88-9399c2091dd0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="ee034c08-5f87-4098-b747-c267efeef9fa"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="startPathReferenceCSV"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="startPathReferenceCSV"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="346fee85-9756-4de2-91f8-eb1d3eb53d6d"
@@ -1386,7 +1712,7 @@
 					</param>
 					<param
 					name="startPathReferenceCSV"
-					value="X:\script09\reference\">
+					value="X:\script09\reference\original\">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1404,6 +1730,11 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="3ea77d24-27f3-4296-b8fc-faf074d7785f"
+			name="ValidateItemNameInProjectExplorer">
+			</smartfoldernode>
 			<smartfoldernode
 			id="3f524424-d616-4dfe-bff8-50ad0fc8a08e"
 			name="CalculateStructureImportedReferenceFolderCalculations">
@@ -1461,6 +1792,60 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="42853b2b-5631-4578-b140-c15b835e9c3e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="432178ff-75b3-4ed5-8dbc-d9aa17484e7e"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="substituteSubstring"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathSeparator"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="4442784e-4785-4118-a764-a69983cb304f"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -1473,6 +1858,12 @@
 					variablename="durationPressRightKey">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="44501a9a-6d26-4b6c-833f-e841712a995b"
+			name="UpdateCurrentlySelectedItem"
+			ref="be610d83-0566-4237-980c-570b403e4ee8"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="456ccb48-e868-4cd3-af10-1049dacd9019"
@@ -1540,6 +1931,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="48e89bee-3c18-40ae-9d13-b119911b8740"
+			name="UpdateSchematizations">
+			</smartfoldernode>
 			<testmodule
 			id="49b6e785-837c-44a0-901a-d99ece390872"
 			name="SelectGenericItemInProjectExplorer"
@@ -1853,6 +2248,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="520b910c-64c4-4606-813e-84776561cf75"
+			name="GenerateCSV">
+				<parameters>
+					<param
+					name="substituteSubstring"
+					value="_">
+					</param>
+					<param
+					name="intermediateString"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="extensionCSV"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="5300a2c7-990b-4ca0-a142-4d8ced950a73"
 			name="SelectGenericItemInProjectExplorer"
@@ -1888,9 +2305,47 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="5378926b-0e49-4f70-8310-994287503e45"
+			name="TrajectContainingSchematizations">
+			</smartfoldernode>
+			<smartfoldernode
 			id="54533a37-34b3-4012-a022-f13d02d08c95"
 			name="SingleCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="57d19037-abd2-47f4-810a-83192ffebcee"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="ee034c08-5f87-4098-b747-c267efeef9fa"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="nameConfigurationFileToSave"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="59f6b8e8-eaa9-4df0-a6e0-b368d3f99ee8"
 			name="ConcatenateStrings"
@@ -1937,6 +2392,45 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script09_LoopSchematizations"
+			id="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+			name="LoopSchematizationsItemsModified">
+				<parameters>
+					<param
+					name="startPathReferenceCSV"
+					value="X:\script09\reference\modified\">
+					</param>
+					<param
+					name="pathSeparator"
+					value=">">
+					</param>
+					<param
+					name="pathToSchematizationItem"
+					value="">
+					</param>
+					<param
+					name="intermediatePathToschematizationItem"
+					value="">
+					</param>
+					<param
+					name="csvFileName"
+					value="">
+					</param>
+					<param
+					name="separationCharacterCsvFile"
+					value=";">
+					</param>
+					<param
+					name="waitTime"
+					value="1">
+					</param>
+					<param
+					name="durationRightKey"
+					value="500">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="5ba69b5c-8c7b-45b5-b4a4-599635e7d4ca"
 			name="ConcatenateStrings"
@@ -2060,6 +2554,40 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="5e971966-109c-4989-93c3-65af6a2d0b71"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="schematizationName"
+					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5e99e87f-e908-4eb7-ae1d-e983bc89a4e3"
 			name="DragAndDropItemOntoAnotherItem"
 			ref="909ea538-c662-4239-a56a-672c6d28b694"
@@ -2105,6 +2633,46 @@
 			id="652a985d-5e6d-4c24-b749-4caf3f21e18f"
 			name="ValidateStringsForBothStructuresAreEqual">
 			</smartfoldernode>
+			<testmodule
+			id="66217cdb-9514-4678-b191-60493294055b"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediatePathToschematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="662f6172-f65b-4288-b71c-22a825d9a1cf"
 			name="CalculateStructureImportedReferenceFolderCalculations">
@@ -2198,6 +2766,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="6992e8a3-ab3b-4793-84a1-941b60cbcb41"
+			name="MakeAllItemsInPropertiesPanelVisible">
+			</smartfoldernode>
 			<testmodule
 			id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
 			name="DeleteAllSearchFilteredFiles"
@@ -2263,6 +2835,77 @@
 					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script09_LoopSchematizations"
+			id="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+			name="LoopSchematizationsItemsRemoved">
+				<parameters>
+					<param
+					name="startPathReferenceCSV"
+					value="X:\script09\reference\modified\">
+					</param>
+					<param
+					name="pathSeparator"
+					value=">">
+					</param>
+					<param
+					name="pathToSchematizationItem"
+					value="">
+					</param>
+					<param
+					name="intermediatePathToschematizationItem"
+					value="">
+					</param>
+					<param
+					name="csvFileName"
+					value="">
+					</param>
+					<param
+					name="separationCharacterCsvFile"
+					value=";">
+					</param>
+					<param
+					name="waitTime"
+					value="1">
+					</param>
+					<param
+					name="durationRightKey"
+					value="500">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="6bd74c8b-3541-4429-907d-14c790ddb637"
+			name="UpdateCurrentlySelectedItem"
+			ref="be610d83-0566-4237-980c-570b403e4ee8"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="6ca745a3-261c-49c8-854e-6e2d6f62a2ab"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="nameOfFileToImportSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathSchematizationsToImport"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="6cf1832d-d4e0-4bb7-9bd0-885a3f2289c8"
@@ -2572,6 +3215,17 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="752898ca-e57f-4f23-a03c-1b7a43c223cd"
+			name="ValidateCSVEqualToModifiedReference">
+				<parameters>
+					<param
+					name="fullPathReferenceCSVFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script27bExportAndImportConfigurations"
 			errorbehavior="ContinueNextIteration"
 			id="7615a019-6164-487c-b0cf-8ef83c0eee8f"
@@ -2802,6 +3456,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="7a395bd5-4a3e-4961-8f6a-b78c6e6a34fe"
+			name="UpdateSchematizations">
+			</smartfoldernode>
+			<smartfoldernode
 			id="7a457ef1-6264-41cf-94d9-d2fbc258c17e"
 			name="ValidateThatCalculationsCanBeValidated">
 				<parameters>
@@ -2844,6 +3502,12 @@
 					variablename="milisecondsToWait">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="7bfea6ac-4c20-4d37-8a13-b50724e5f962"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="7c8cf00d-8f97-4cca-8c6f-04fb1e2ac2dc"
@@ -2982,6 +3646,28 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="84ab2a63-250e-495f-98f5-90d7f154e08c"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationRightKey"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="durationRightKey"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="85407ecd-6746-42ab-b741-589d66f8db20"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -3109,14 +3795,94 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="8895da2d-60d9-4211-9b28-5b46b64312cd"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="89761618-8bda-4de7-a743-ef01575859e0"
 			name="CalculationInsideFolder">
 			</smartfoldernode>
+			<testmodule
+			id="8a81a813-3861-4c35-853f-6c5f1290afe5"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="originalFiles"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="8af1712e-f23e-4c35-af04-2b1d356f3f92"
 			name="CalculationInsideFolder">
 			</smartfoldernode>
+			<testmodule
+			id="8c622026-f1df-4950-aade-55b05c732d52"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="norm"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signalValue"
+					datasourceid="01b92589-3c18-4d10-8f09-378787725518"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowValue"
+					datasourceid="01b92589-3c18-4d10-8f09-378787725518"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="8c7d002a-c536-4210-beff-3562aa22a18c"
 			name="DuplicateCalculationAgain">
@@ -3226,9 +3992,47 @@
 			name="a)DuplicationOfCalculations">
 			</smartfoldernode>
 			<smartfoldernode
+			id="91d6f84f-a372-4c2a-978b-f46b98949f27"
+			name="MakeAllItemsInPropertiesPanelVisible">
+			</smartfoldernode>
+			<smartfoldernode
 			id="9232dd47-cb02-402c-8c78-39338684347e"
 			name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
 			</smartfoldernode>
+			<testmodule
+			id="9242e94d-6729-4dbf-ae90-a3f07af37d8f"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="schematizationName"
+					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="schematizationName"
+					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="9261685c-b99d-4bbf-961e-9f1c03eda7d0"
 			name="InsertPreffixInLastStepOfPath"
@@ -3322,6 +4126,40 @@
 			id="94d748fe-e86d-4191-97f5-325e9713ab71"
 			name="SingleCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="94ff2202-de8a-4be7-b090-2a46aa1c4ef1"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separationCharacterCsvFile"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separationCharacterCsvFile"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="95864c76-e50d-45c7-99e9-8008391fc15d"
 			name="DuplicateFolderContainingCopiedAndMovedCalculation">
@@ -3352,6 +4190,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="963eab3d-4716-40fb-bf42-9da0d4d2001c"
+			name="CopyFilesModifiedElements">
+			</smartfoldernode>
 			<testmodule
 			id="97f56e05-124e-4e25-b0d8-33dba9974ceb"
 			name="ConcatenateStrings"
@@ -3430,6 +4272,30 @@
 			id="9bc23aba-995c-4df1-b822-1c57ad56443d"
 			name="ValidateAllParametersInInputAreEqual">
 			</smartfoldernode>
+			<smartfoldernode
+			id="9c334442-e33e-455d-88b5-e00062d2c4f5"
+			name="SetRangeLoopSchematizations">
+				<parameters>
+					<param
+					name="nameLoopToSetRange"
+					value="LoopSchematizationsItemsModified">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="9c4126a8-8742-4d4b-b5a6-00342645a93a"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="9d3b0559-efbb-47ac-bea7-4006bf61a4c7"
 			name="WaitForXMiliseconds"
@@ -3519,6 +4385,28 @@
 			id="a1b92b8f-fbf1-4e35-b1ab-238b9538d87b"
 			name="CalculationInsideFolder">
 			</smartfoldernode>
+			<testmodule
+			id="a2a144e5-cbf5-4fa3-8ece-7277edc4238b"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationRightKey"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="durationRightKey"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="a2b7f409-95ea-4358-a3b5-a3c2ab9dc05a"
 			name="AddCalculationFolder"
@@ -3611,6 +4499,36 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="a8d7d4c0-1236-4c96-aa0c-bad1750951c3"
+			name="ImportSchematizations">
+			</smartfoldernode>
+			<testmodule
+			id="a8e47749-9bd1-42d6-8454-56309465454d"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substituteSubstring"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a962f501-dc86-4f91-aae5-606e3bbcf1bc"
 			name="HideRanorexProgressDialog"
@@ -3649,6 +4567,10 @@
 					value="Please, check messages when importing valid calculation configuration.">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="ac5fc05e-8c96-4cc2-9bf8-1fc61a1e23cc"
+			name="OriginalSchematizations">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ac91d500-2876-4c50-b509-bb6438e6eee9"
@@ -3767,6 +4689,29 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			enabled="False"
+			id="b34eb2ba-63bc-4729-a1fb-28ed4630392c"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitTime"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTime"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="b46048fd-22d6-47ab-9b89-208e574c4e4e"
 			name="ValidateImportedInvalidCalculations">
@@ -3902,6 +4847,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="bc81d2c9-74bc-43d9-bbe6-dedad6b7d539"
+			name="TrajectNotContainingSchematizations">
+			</smartfoldernode>
 			<testmodule
 			id="bcc24f2b-fa0c-4616-9dd6-b072393be953"
 			name="SelectGenericItemInProjectExplorer"
@@ -4065,7 +5014,6 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script09_LoopFMs"
 			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
 			maxrange="0"
@@ -4139,6 +5087,10 @@
 			<smartfoldernode
 			id="c1bb7450-09fa-4d31-9cd3-e5861294ad5d"
 			name="SingleCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="c2010d89-47d3-4f55-aa3a-504a00aa13d0"
+			name="SchematizationsWithElementsModified">
 			</smartfoldernode>
 			<testmodule
 			id="c2c75792-dbee-4ac4-96a2-78b443694a58"
@@ -4244,6 +5196,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="c670c614-012d-49c7-9f54-fbf25b8136c8"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substituteSubstring"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="c681de41-2fc2-46fb-87b2-42f2d2569a7e"
 			name="ImportCalculationsFromInvalidXMLConfigurationFile">
@@ -4325,6 +5303,40 @@
 					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
 					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
 					variablename="expectedMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="c76bf850-1988-42a2-becf-54ed487741a5"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameLoopToSetRange"
+					datasourceid="f3deae71-13a8-4be2-9640-6d5ff07eb6ce"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowsOfItemsToCompare"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+					<var
+					dataname="smartFolderToSetRange"
+					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4426,6 +5438,40 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="d15f4fa5-80f5-49f0-9bb5-25338edac119"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separationCharacterCsvFile"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separationCharacterCsvFile"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
@@ -4473,6 +5519,46 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="d3ee15d3-4635-42fa-9073-562f15e390d2"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="752898ca-e57f-4f23-a03c-1b7a43c223cd"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="startPathReferenceCSV"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="startPathReferenceCSV"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="d4288e24-62e0-442e-8093-a4d170e30cb6"
 			name="CalculateStructureImportedReferenceFolderCalculations">
@@ -4492,6 +5578,28 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+			name="GenerateCSV">
+				<parameters>
+					<param
+					name="substituteSubstring"
+					value="_">
+					</param>
+					<param
+					name="intermediateString"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="extensionCSV"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="d6076213-3c50-4c9d-bea0-01d9a64b2325"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 			</smartfoldernode>
@@ -4501,14 +5609,80 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="d6c274fb-a38c-462e-b1d7-5ab6865d86db"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filesRemovedElements"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="d73863bf-8771-4af2-ab10-f04dcfe62813"
 			name="CalculateIfDifferentProjectNeedsToBeOpened">
 			</smartfoldernode>
+			<testmodule
+			id="d7c5a9b7-923e-4f53-80af-d6a38383415a"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="substituteSubstring"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathSeparator"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42"
-			name="ValidateCSVEqualToReference">
+			name="ValidateCSVEqualToOriginalReference">
 				<parameters>
 					<param
 					name="fullPathReferenceCSVFile"
@@ -4592,10 +5766,96 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="dfcf6ed8-b8c3-4978-914e-70af87d48e37"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameLoopToSetRange"
+					datasourceid="9c334442-e33e-455d-88b5-e00062d2c4f5"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowsOfItemsToCompare"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+					<var
+					dataname="smartFolderToSetRange"
+					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="dff71d51-bcc5-4c25-9f7a-6292646c3678"
 			name="ValidateNotAllParametersInInputAreEqual">
 			</smartfoldernode>
+			<testmodule
+			id="e076ca0a-4bce-4d0e-914b-7e9fa81973a4"
+			name="ImportSchematizationForCurrentlySelectedItem"
+			ref="70e43517-d352-4149-9ec3-90e95cb9cbf0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathSchematizationsToImport"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="94b6c8c3-2e32-4bf9-b4c6-68330bc3337c"
+					variablename="nameSchematizationsFilesToImport">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="e0da6474-2475-46b8-9296-82e0e464fac3"
+			name="CopyOriginalFiles">
+			</smartfoldernode>
+			<testmodule
+			id="e1c31a2d-729b-4bfc-8df7-2215939740cc"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="extensionCSV"
+					datasourceid="520b910c-64c4-4606-813e-84776561cf75"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="csvFileName"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="csvFileName"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="e29dd36a-cfb3-4fe2-8546-fdd43f7db828"
 			name="SelectGenericItemInProjectExplorer"
@@ -4768,6 +6028,17 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="ee034c08-5f87-4098-b747-c267efeef9fa"
+			name="ValidateCSVEqualToModifiedReference">
+				<parameters>
+					<param
+					name="fullPathReferenceCSVFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="ef95467d-ebc2-45d7-a2d2-8daf77eed2a3"
 			name="SelectGenericItemInProjectExplorer"
@@ -4850,6 +6121,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="f1a1f2fb-b212-4123-873c-9c09ec227ce6"
+			name="CopyFilesModifiedElements">
+			</smartfoldernode>
 			<testmodule
 			id="f237e07a-d38c-40a5-bfd8-e3a277e000ae"
 			name="CloseAUT"
@@ -4916,11 +6191,43 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="f34e6c35-f120-43c3-b9ab-c75abca7855d"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSchematizationItem"
+					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="f368d0da-41b4-4542-a8b5-755bea719f30"
 			name="DuplicateCalculationItem"
 			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="f3deae71-13a8-4be2-9640-6d5ff07eb6ce"
+			name="SetRangeLoopSchematizations">
+				<parameters>
+					<param
+					name="nameLoopToSetRange"
+					value="LoopSchematizationsItemsRemoved">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="f487128b-d7c1-4b1b-81b3-a7d56714595a"
 			name="WaitForXMiliseconds"
@@ -5158,6 +6465,32 @@
 					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fca74588-2172-4e56-a757-c03bc313cab0"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filesModifiedElements"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="fe85147f-5617-48a1-b52b-8edf7bbf83a2"
@@ -6118,157 +7451,413 @@
 						id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b"
 						name="LoopFMs">
 							<smartfoldernode
-							id="8828de6f-6216-4298-a863-6cc1c15ee9e9"
-							name="AddNewTrajectAppropriateForSchematization">
-								<testmodule
-								id="dc71d330-4030-4374-904c-4dfc9459d7dc"
-								name="AddNewTrajectUsingContextMenu">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="14c6feec-346f-41f8-bb3b-31e798809700"
-							name="InitialSchematizations">
+							id="5378926b-0e49-4f70-8310-994287503e45"
+							name="TrajectContainingSchematizations">
 								<smartfoldernode
-								id="bea93852-acdc-42a1-9838-d572c01df8d7"
-								name="CopyOriginalFiles">
+								id="8828de6f-6216-4298-a863-6cc1c15ee9e9"
+								name="AddNewTrajectAppropriateForSchematization">
 									<testmodule
-									id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
-									name="DeleteAllSearchFilteredFiles">
-									</testmodule>
-									<testmodule
-									id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
-									name="CopyAllSearchFilteredFilesFromSourceToTarget">
+									id="dc71d330-4030-4374-904c-4dfc9459d7dc"
+									name="AddNewTrajectUsingContextMenu">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="74b49f88-ed5a-4b45-a506-6385fe611405"
-								name="ImportSchematizations">
-									<testmodule
-									id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
-									name="ImportSchematizationForCurrentlySelectedItem">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="255f7be8-eab7-487a-8607-fe9d53f1e650"
-								name="ValidateSourceSchematizations">
-									<testmodule
-									id="a155aa35-f8c7-4613-ab62-484f13176263"
-									name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="9232dd47-cb02-402c-8c78-39338684347e"
-								name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
-									<testmodule
-									id="296fe926-7f17-4968-be70-53cc60ce4042"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-									<testmodule
-									id="4a8ff87d-d35b-40ba-92e7-2e1abd46c733"
-									name="CalculateFullPathToFMFromFullPathToSubitem">
-									</testmodule>
-									<testmodule
-									id="5300a2c7-990b-4ca0-a142-4d8ced950a73"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="c2c75792-dbee-4ac4-96a2-78b443694a58"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="d6955934-9ca2-4cb4-a46e-f63064f92f6e"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="b7ca621d-0063-4dab-b955-e247237ea5f2"
-								name="SetRangeLoopSchematizations">
-									<testmodule
-									id="70317e5e-7c22-47ee-bc4f-cc69c8ce3695"
-									name="SetRangeInSmartFolder">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="3ddd79e4-a99e-40f0-b120-763a595ad464"
-								name="LoopSchematizations">
+								id="14c6feec-346f-41f8-bb3b-31e798809700"
+								name="OriginalSchematizations">
 									<smartfoldernode
-									id="1ae50821-3a56-41e3-bba3-fb6a120f3966"
-									name="ValidateItemNameInProjectExplorer">
+									id="bea93852-acdc-42a1-9838-d572c01df8d7"
+									name="CopyOriginalFiles">
 										<testmodule
-										id="79e8ed2d-2cd9-4385-8fc5-a2899de9db5d"
+										id="69b5e499-c60d-4953-8085-e17a4c9b0e56"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+										<testmodule
+										id="d14ee27c-81b9-4a0b-bacb-e763bb75613e"
+										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="74b49f88-ed5a-4b45-a506-6385fe611405"
+									name="ImportSchematizations">
+										<testmodule
+										id="be1b60c3-2a13-4a5f-917c-7341d6440e0a"
 										name="ConcatenateStrings">
 										</testmodule>
 										<testmodule
-										id="4c1d35b0-8a56-452a-8131-2585610d156c"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="11fbb514-05ec-4ab3-89f4-1c09746972d1"
+										id="bf3ebc36-0279-4e62-816f-e45bf35e0952"
 										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="ac91d500-2876-4c50-b509-bb6438e6eee9"
-									name="CheckIfItemCanBeOpened">
 										<testmodule
-										id="c352ee10-d84a-46b3-92a9-9c5da0f0c3eb"
-										name="VerifyItemPresentInContextMenu">
+										id="dc58143a-bd64-4269-9abb-2e8bc026ab7c"
+										name="ImportSchematizationForCurrentlySelectedItem">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
-									id="3f8762ba-8500-4108-881f-91fba5fb5f79"
-									name="MakeAllItemsInPropertiesPanelVisible">
+									id="255f7be8-eab7-487a-8607-fe9d53f1e650"
+									name="ValidateSourceSchematizations">
 										<testmodule
-										id="2eafda3a-1635-4472-9046-9777f1bbbfd8"
-										name="ExpandAllRowItemsInPropertiesPanel">
-										</testmodule>
-										<testmodule
-										id="680f9af2-d23a-42cb-80bc-e770476d6d50"
-										name="WaitForXMiliseconds">
+										id="a155aa35-f8c7-4613-ab62-484f13176263"
+										name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
-									id="bfa6e1e0-2820-45ac-8c71-a5e6d0bd9f19"
-									name="GenerateCSV">
+									id="9232dd47-cb02-402c-8c78-39338684347e"
+									name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
 										<testmodule
-										id="7a3348a5-4d43-4d5b-a0ba-ed605852bc31"
-										name="ReplaceSubstring">
+										id="296fe926-7f17-4968-be70-53cc60ce4042"
+										name="CreateScreenshotDocumentView">
 										</testmodule>
 										<testmodule
-										id="11420a48-c12d-472c-a243-a6d69db94815"
-										name="ConcatenateStrings">
+										id="7bfea6ac-4c20-4d37-8a13-b50724e5f962"
+										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 										<testmodule
-										id="76b6af4e-be18-4488-b44a-bafb0cb3d626"
-										name="ConcatenateStrings">
+										id="4a8ff87d-d35b-40ba-92e7-2e1abd46c733"
+										name="CalculateFullPathToFMFromFullPathToSubitem">
 										</testmodule>
 										<testmodule
-										id="ebf2a3d2-4360-468a-97b2-c5ff6ae362f7"
-										name="ConcatenateStrings">
+										id="5300a2c7-990b-4ca0-a142-4d8ced950a73"
+										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
 										<testmodule
-										id="45eb54be-adca-4951-a3f7-c15f7e71b493"
-										name="ExportPropertiesPanelToCsv">
+										id="c2c75792-dbee-4ac4-96a2-78b443694a58"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="d6955934-9ca2-4cb4-a46e-f63064f92f6e"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="30e5ecee-7cf1-4e6d-9111-83747bafcebf"
+										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
-									id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42"
-									name="ValidateCSVEqualToReference">
+									id="b7ca621d-0063-4dab-b955-e247237ea5f2"
+									name="SetRangeLoopSchematizations">
 										<testmodule
-										id="b711a260-5f39-4dae-93dd-7cdba9a3da7b"
+										id="70317e5e-7c22-47ee-bc4f-cc69c8ce3695"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="3ddd79e4-a99e-40f0-b120-763a595ad464"
+									name="LoopSchematizations">
+										<smartfoldernode
+										id="1ae50821-3a56-41e3-bba3-fb6a120f3966"
+										name="ValidateItemNameInProjectExplorer">
+											<testmodule
+											id="79e8ed2d-2cd9-4385-8fc5-a2899de9db5d"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="4c1d35b0-8a56-452a-8131-2585610d156c"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="11fbb514-05ec-4ab3-89f4-1c09746972d1"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="ac91d500-2876-4c50-b509-bb6438e6eee9"
+										name="CheckIfItemCanBeOpened">
+											<testmodule
+											id="c352ee10-d84a-46b3-92a9-9c5da0f0c3eb"
+											name="VerifyItemPresentInContextMenu">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="3f8762ba-8500-4108-881f-91fba5fb5f79"
+										name="MakeAllItemsInPropertiesPanelVisible">
+											<testmodule
+											id="2eafda3a-1635-4472-9046-9777f1bbbfd8"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="680f9af2-d23a-42cb-80bc-e770476d6d50"
+											name="WaitForXMiliseconds">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="bfa6e1e0-2820-45ac-8c71-a5e6d0bd9f19"
+										name="GenerateCSV">
+											<testmodule
+											id="7a3348a5-4d43-4d5b-a0ba-ed605852bc31"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="11420a48-c12d-472c-a243-a6d69db94815"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="76b6af4e-be18-4488-b44a-bafb0cb3d626"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="ebf2a3d2-4360-468a-97b2-c5ff6ae362f7"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="45eb54be-adca-4951-a3f7-c15f7e71b493"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42"
+										name="ValidateCSVEqualToOriginalReference">
+											<testmodule
+											id="b711a260-5f39-4dae-93dd-7cdba9a3da7b"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="c5cf8d7a-fd96-40c5-95d9-e4d42f6d55c8"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="c2010d89-47d3-4f55-aa3a-504a00aa13d0"
+								name="SchematizationsWithElementsModified">
+									<smartfoldernode
+									id="f1a1f2fb-b212-4123-873c-9c09ec227ce6"
+									name="CopyFilesModifiedElements">
+										<testmodule
+										id="fca74588-2172-4e56-a757-c03bc313cab0"
+										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="7a395bd5-4a3e-4961-8f6a-b78c6e6a34fe"
+									name="UpdateSchematizations">
+										<testmodule
+										id="42853b2b-5631-4578-b140-c15b835e9c3e"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="6bd74c8b-3541-4429-907d-14c790ddb637"
+										name="UpdateCurrentlySelectedItem">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="9c334442-e33e-455d-88b5-e00062d2c4f5"
+									name="SetRangeLoopSchematizations">
+										<testmodule
+										id="dfcf6ed8-b8c3-4978-914e-70af87d48e37"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="5aa74c80-6ea2-40ec-9dd6-96925623b43a"
+									name="LoopSchematizationsItemsModified">
+										<smartfoldernode
+										id="3ea77d24-27f3-4296-b8fc-faf074d7785f"
+										name="ValidateItemNameInProjectExplorer">
+											<testmodule
+											id="66217cdb-9514-4678-b191-60493294055b"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="1f5eb0b6-46f4-4c2f-97c7-ba31227fc6ea"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="f34e6c35-f120-43c3-b9ab-c75abca7855d"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="6992e8a3-ab3b-4793-84a1-941b60cbcb41"
+										name="MakeAllItemsInPropertiesPanelVisible">
+											<testmodule
+											id="84ab2a63-250e-495f-98f5-90d7f154e08c"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="184b2129-fbbb-4e45-952f-0387951e089e"
+											name="WaitForXMiliseconds">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="520b910c-64c4-4606-813e-84776561cf75"
+										name="GenerateCSV">
+											<testmodule
+											id="d7c5a9b7-923e-4f53-80af-d6a38383415a"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="a8e47749-9bd1-42d6-8454-56309465454d"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="9242e94d-6729-4dbf-ae90-a3f07af37d8f"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="e1c31a2d-729b-4bfc-8df7-2215939740cc"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="94ff2202-de8a-4be7-b090-2a46aa1c4ef1"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="ee034c08-5f87-4098-b747-c267efeef9fa"
+										name="ValidateCSVEqualToModifiedReference">
+											<testmodule
+											id="33d8bf22-24a7-4d9d-aa88-9399c2091dd0"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="57d19037-abd2-47f4-810a-83192ffebcee"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="01c9c713-003b-464f-a011-3214577843db"
+								name="SchematizationsWithElementsRemoved">
+									<smartfoldernode
+									id="963eab3d-4716-40fb-bf42-9da0d4d2001c"
+									name="CopyFilesModifiedElements">
+										<testmodule
+										id="d6c274fb-a38c-462e-b1d7-5ab6865d86db"
+										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="48e89bee-3c18-40ae-9d13-b119911b8740"
+									name="UpdateSchematizations">
+										<testmodule
+										id="0be2f169-6ba6-4e37-9c48-2bb8a259b610"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="44501a9a-6d26-4b6c-833f-e841712a995b"
+										name="UpdateCurrentlySelectedItem">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f3deae71-13a8-4be2-9640-6d5ff07eb6ce"
+									name="SetRangeLoopSchematizations">
+										<testmodule
+										id="c76bf850-1988-42a2-becf-54ed487741a5"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="6b7338db-e988-46c4-8f89-bb71700b2f5f"
+									name="LoopSchematizationsItemsRemoved">
+										<smartfoldernode
+										id="20be10ff-86c3-4921-8f26-3f3f7a28593d"
+										name="ValidateItemNameInProjectExplorer">
+											<testmodule
+											id="1a7e2e54-f971-4bf8-ab2a-e4d32752c5e7"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="0f94d805-5248-48ef-a599-5a32c41c5f32"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="8895da2d-60d9-4211-9b28-5b46b64312cd"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="91d6f84f-a372-4c2a-978b-f46b98949f27"
+										name="MakeAllItemsInPropertiesPanelVisible">
+											<testmodule
+											id="a2a144e5-cbf5-4fa3-8ece-7277edc4238b"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="b34eb2ba-63bc-4729-a1fb-28ed4630392c"
+											name="WaitForXMiliseconds">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="d6041f65-67b4-4792-b24e-b734e8cc4d45"
+										name="GenerateCSV">
+											<testmodule
+											id="432178ff-75b3-4ed5-8dbc-d9aa17484e7e"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="c670c614-012d-49c7-9f54-fbf25b8136c8"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="5e971966-109c-4989-93c3-65af6a2d0b71"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="07c9a099-9378-4e77-a79d-bb492a0d58c1"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="d15f4fa5-80f5-49f0-9bb5-25338edac119"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="752898ca-e57f-4f23-a03c-1b7a43c223cd"
+										name="ValidateCSVEqualToModifiedReference">
+											<testmodule
+											id="d3ee15d3-4635-42fa-9073-562f15e390d2"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="06f4ab2f-7170-40fe-9a72-7328d65cec15"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="bc81d2c9-74bc-43d9-bbe6-dedad6b7d539"
+							name="TrajectNotContainingSchematizations">
+								<smartfoldernode
+								id="01b92589-3c18-4d10-8f09-378787725518"
+								name="AddNewTrajectNotAppropriateForSchematization">
+									<testmodule
+									id="8c622026-f1df-4950-aade-55b05c732d52"
+									name="AddNewTrajectUsingContextMenu">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="ac5fc05e-8c96-4cc2-9bf8-1fc61a1e23cc"
+								name="OriginalSchematizations">
+									<smartfoldernode
+									id="e0da6474-2475-46b8-9296-82e0e464fac3"
+									name="CopyOriginalFiles">
+										<testmodule
+										id="01251542-6ccf-4070-8c54-1c6d23912081"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+										<testmodule
+										id="8a81a813-3861-4c35-853f-6c5f1290afe5"
+										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="a8d7d4c0-1236-4c96-aa0c-bad1750951c3"
+									name="ImportSchematizations">
+										<testmodule
+										id="6ca745a3-261c-49c8-854e-6e2d6f62a2ab"
 										name="ConcatenateStrings">
 										</testmodule>
 										<testmodule
-										id="c5cf8d7a-fd96-40c5-95d9-e4d42f6d55c8"
-										name="ComparePlainTextFiles">
+										id="9c4126a8-8742-4d4b-b5a6-00342645a93a"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="e076ca0a-4bce-4d0e-914b-7e9fa81973a4"
+										name="ImportSchematizationForCurrentlySelectedItem">
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -6307,6 +7896,12 @@
 					originalFiles
 				</column>
 				<column>
+					filesModifiedElements
+				</column>
+				<column>
+					filesRemovedElements
+				</column>
+				<column>
 					pathToSchematizationsFolderItemInProjectExplorer
 				</column>
 				<column>
@@ -6314,6 +7909,12 @@
 				</column>
 				<column>
 					rangeSchematizations
+				</column>
+				<column>
+					rangeModifiedSchematizations
+				</column>
+				<column>
+					rangeRemovedItemsSchematizations
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -6333,6 +7934,12 @@
 						originalFiles
 					</th>
 					<th>
+						filesModifiedElements
+					</th>
+					<th>
+						filesRemovedElements
+					</th>
+					<th>
 						pathToSchematizationsFolderItemInProjectExplorer
 					</th>
 					<th>
@@ -6340,6 +7947,12 @@
 					</th>
 					<th>
 						rangeSchematizations
+					</th>
+					<th>
+						rangeModifiedSchematizations
+					</th>
+					<th>
+						rangeRemovedItemsSchematizations
 					</th>
 				</tr>
 				<tr>
@@ -6353,7 +7966,13 @@
 						Signal
 					</td>
 					<td>
-						X:\script09\01_GEKB_12-2\original\
+						X:\script09\01_GEKB_12-2\original
+					</td>
+					<td>
+						X:\script09\01_GEKB_12-2\modified
+					</td>
+					<td>
+						X:\script09\01_GEKB_12-2\removed
 					</td>
 					<td>
 						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
@@ -6363,6 +7982,12 @@
 					</td>
 					<td>
 						1-5
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						1
 					</td>
 				</tr>
 				<tr>
@@ -6379,6 +8004,12 @@
 						X:\script09\02_ZST_28-1\original
 					</td>
 					<td>
+						X:\script09\02_ZST_28-1\modified
+					</td>
+					<td>
+						X:\script09\02_ZST_28-1\removed
+					</td>
+					<td>
 						28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6386,6 +8017,12 @@
 					</td>
 					<td>
 						6
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						2
 					</td>
 				</tr>
 				<tr>
@@ -6402,6 +8039,12 @@
 						X:\script09\03_AGK_8-3\original
 					</td>
 					<td>
+						X:\script09\03_AGK_8-3\modified
+					</td>
+					<td>
+						X:\script09\03_AGK_8-3\removed
+					</td>
+					<td>
 						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6409,6 +8052,12 @@
 					</td>
 					<td>
 						7
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6425,6 +8074,12 @@
 						X:\script09\04_GEBU_6-6\original
 					</td>
 					<td>
+						X:\script09\04_GEBU_6-6\modified
+					</td>
+					<td>
+						X:\script09\04_GEBU_6-6\removed
+					</td>
+					<td>
 						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6432,6 +8087,12 @@
 					</td>
 					<td>
 						8
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						4
 					</td>
 				</tr>
 				<tr>
@@ -6448,6 +8109,12 @@
 						X:\script09\05_HTKW_36-2\original
 					</td>
 					<td>
+						X:\script09\05_HTKW_36-2\modified
+					</td>
+					<td>
+						X:\script09\05_HTKW_36-2\removed
+					</td>
+					<td>
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6455,6 +8122,12 @@
 					</td>
 					<td>
 						9-10
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						5
 					</td>
 				</tr>
 				<tr>
@@ -6471,6 +8144,12 @@
 						X:\script09\06_BSKW_34-1\original
 					</td>
 					<td>
+						X:\script09\06_BSKW_34-1\modified
+					</td>
+					<td>
+						X:\script09\06_BSKW_34-1\removed
+					</td>
+					<td>
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6478,6 +8157,12 @@
 					</td>
 					<td>
 						11-13
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						6
 					</td>
 				</tr>
 				<tr>
@@ -6494,6 +8179,12 @@
 						X:\script09\07_STKWp_44-2\original
 					</td>
 					<td>
+						X:\script09\07_STKWp_44-2\modified
+					</td>
+					<td>
+						X:\script09\07_STKWp_44-2\removed
+					</td>
+					<td>
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -6501,6 +8192,12 @@
 					</td>
 					<td>
 						14-17
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						7
 					</td>
 				</tr>
 			</table>
@@ -11022,10 +12719,16 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="01c9c713-003b-464f-a011-3214577843db">
+			</testcontainer>
+			<testcontainer
 			id="14c6feec-346f-41f8-bb3b-31e798809700">
 			</testcontainer>
 			<testcontainer
 			id="1ae50821-3a56-41e3-bba3-fb6a120f3966">
+			</testcontainer>
+			<testcontainer
+			id="20be10ff-86c3-4921-8f26-3f3f7a28593d">
 			</testcontainer>
 			<testcontainer
 			id="255f7be8-eab7-487a-8607-fe9d53f1e650">
@@ -11034,16 +12737,49 @@
 			id="3ddd79e4-a99e-40f0-b120-763a595ad464">
 			</testcontainer>
 			<testcontainer
+			id="3ea77d24-27f3-4296-b8fc-faf074d7785f">
+			</testcontainer>
+			<testcontainer
 			id="3f8762ba-8500-4108-881f-91fba5fb5f79">
+			</testcontainer>
+			<testcontainer
+			id="48e89bee-3c18-40ae-9d13-b119911b8740">
+			</testcontainer>
+			<testcontainer
+			id="520b910c-64c4-4606-813e-84776561cf75">
+			</testcontainer>
+			<testcontainer
+			id="5378926b-0e49-4f70-8310-994287503e45">
+			</testcontainer>
+			<testcontainer
+			id="5aa74c80-6ea2-40ec-9dd6-96925623b43a">
+			</testcontainer>
+			<testcontainer
+			id="6992e8a3-ab3b-4793-84a1-941b60cbcb41">
+			</testcontainer>
+			<testcontainer
+			id="6b7338db-e988-46c4-8f89-bb71700b2f5f">
 			</testcontainer>
 			<testcontainer
 			id="74b49f88-ed5a-4b45-a506-6385fe611405">
 			</testcontainer>
 			<testcontainer
+			id="7a395bd5-4a3e-4961-8f6a-b78c6e6a34fe">
+			</testcontainer>
+			<testcontainer
 			id="8828de6f-6216-4298-a863-6cc1c15ee9e9">
 			</testcontainer>
 			<testcontainer
+			id="91d6f84f-a372-4c2a-978b-f46b98949f27">
+			</testcontainer>
+			<testcontainer
 			id="9232dd47-cb02-402c-8c78-39338684347e">
+			</testcontainer>
+			<testcontainer
+			id="963eab3d-4716-40fb-bf42-9da0d4d2001c">
+			</testcontainer>
+			<testcontainer
+			id="9c334442-e33e-455d-88b5-e00062d2c4f5">
 			</testcontainer>
 			<testcontainer
 			id="ac91d500-2876-4c50-b509-bb6438e6eee9">
@@ -11061,13 +12797,28 @@
 			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b">
 			</testcontainer>
 			<testcontainer
+			id="c2010d89-47d3-4f55-aa3a-504a00aa13d0">
+			</testcontainer>
+			<testcontainer
 			id="c8816c39-e62b-4c6f-98b3-6bcbd728a07c">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
+			id="d6041f65-67b4-4792-b24e-b734e8cc4d45">
+			</testcontainer>
+			<testcontainer
 			id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42">
+			</testcontainer>
+			<testcontainer
+			id="ee034c08-5f87-4098-b747-c267efeef9fa">
+			</testcontainer>
+			<testcontainer
+			id="f1a1f2fb-b212-4123-873c-9c09ec227ce6">
+			</testcontainer>
+			<testcontainer
+			id="f3deae71-13a8-4be2-9640-6d5ff07eb6ce">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
