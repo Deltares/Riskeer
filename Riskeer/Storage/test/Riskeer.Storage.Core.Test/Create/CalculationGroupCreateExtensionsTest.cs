@@ -79,7 +79,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             CollectionAssert.IsEmpty(entity.CalculationGroupEntity1);
             CollectionAssert.IsEmpty(entity.FailureMechanismEntities);
-            Assert.IsNull(entity.ParentCalculationGroupEntityId);
+            Assert.IsNull(entity.CalculationGroupEntity2);
         }
 
         [Test]

@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             FaultTreeIllustrationPointEntity entity = node.Create(order);
 
             // Assert
-            Assert.IsNull(entity.ParentFaultTreeIllustrationPointEntityId);
+            Assert.IsNull(entity.FaultTreeIllustrationPointEntity2);
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
             Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
             byte expectedCombinationType = Convert.ToByte(illustrationPoint.CombinationType);
@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             FaultTreeIllustrationPointEntity entity = node.Create(order);
 
             // Assert
-            Assert.IsNull(entity.ParentFaultTreeIllustrationPointEntityId);
+            Assert.IsNull(entity.FaultTreeIllustrationPointEntity2);
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
             Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
             byte expectedCombinationType = Convert.ToByte(illustrationPoint.CombinationType);

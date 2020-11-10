@@ -171,9 +171,9 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(input.DeviationWaveDirection.Value, entity.DeviationWaveDirection);
 
             Assert.IsNull(entity.CalculationGroupEntity);
-            Assert.IsNull(entity.ForeshoreProfileEntityId);
-            Assert.IsNull(entity.HeightStructureEntityId);
-            Assert.IsNull(entity.HydraulicLocationEntityId);
+            Assert.IsNull(entity.ForeshoreProfileEntity);
+            Assert.IsNull(entity.HeightStructureEntity);
+            Assert.IsNull(entity.HydraulicLocationEntity);
 
             Assert.AreEqual(input.BreakWater.Height.Value, entity.BreakWaterHeight);
             Assert.AreEqual((short) input.BreakWater.Type, entity.BreakWaterType);
