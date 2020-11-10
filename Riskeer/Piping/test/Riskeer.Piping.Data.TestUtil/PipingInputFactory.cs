@@ -37,9 +37,11 @@ namespace Riskeer.Piping.Data.TestUtil
         /// </summary>
         /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer.</param>
         /// <param name="thicknessCoverageLayer">The thickness of the coverage layer.</param>
-        /// <returns>A new <see cref="PipingInput"/>.</returns>
-        public static PipingInput CreateInputWithAquiferAndCoverageLayer(double thicknessAquiferLayer = 1.0,
-                                                                         double thicknessCoverageLayer = 2.0)
+        /// <typeparam name="T">The type of piping input to create.</typeparam>
+        /// <returns>A new <see cref="T"/>.</returns>
+        public static T CreateInputWithAquiferAndCoverageLayer<T>(double thicknessAquiferLayer = 1.0,
+                                                                  double thicknessCoverageLayer = 2.0)
+            where T : PipingInput, new()
         {
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -60,7 +62,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            return new TestPipingInput
+            return new T
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile,

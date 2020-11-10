@@ -66,21 +66,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedEntryPointLPropertyIndex = 6;
         private const int expectedExitPointLPropertyIndex = 7;
         private const int expectedSeepageLengthPropertyIndex = 8;
-        private const int expectedThicknessCoverageLayerDistributionPropertyIndex = 9;
-        private const int expectedThicknessCoverageLayerDeterministPropertyIndex = 10;
-        private const int expectedEffectiveThicknessCoverageLayerDistributionPropertyIndex = 11;
-        private const int expectedEffectiveThicknessCoverageLayerDeterministPropertyIndex = 12;
-        private const int expectedThicknessAquiferLayerPropertyIndex = 13;
-        private const int expectedDarcyPermeabilityPropertyIndex = 14;
-        private const int expectedDiameter70PropertyIndex = 15;
-        private const int expectedSaturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex = 16;
-        private const int expectedSaturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex = 17;
+        private const int expectedThicknessCoverageLayerPropertyIndex = 9;
+        private const int expectedEffectiveThicknessCoverageLayerPropertyIndex = 10;
+        private const int expectedThicknessAquiferLayerPropertyIndex = 11;
+        private const int expectedDarcyPermeabilityPropertyIndex = 12;
+        private const int expectedDiameter70PropertyIndex = 13;
+        private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int expectedSectionNamePropertyIndex = 18;
-        private const int expectedSectionLengthPropertyIndex = 19;
+        private const int expectedSectionNamePropertyIndex = 15;
+        private const int expectedSectionLengthPropertyIndex = 16;
 
-        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 20;
-        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 21;
+        private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 17;
+        private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 18;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -190,22 +187,26 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.IsInstanceOf<ShiftedLogNormalDistributionProperties>(properties.SaturatedVolumicWeightOfCoverageLayerDistribution);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayerDistribution));
-            
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidDataWithOrWithoutCoverageLayer_PropertiesHaveExpectedAttributesValues(bool withCoverageLayer)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
+            var calculation = new ProbabilisticPipingCalculationScenario();
 
-            var context = new ProbabilisticPipingInputContext(calculation.InputParameters,
+            var context = new ProbabilisticPipingInputContext(withCoverageLayer
+                                                                  ? PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<ProbabilisticPipingInput>(2)
+                                                                  : calculation.InputParameters,
                                                               calculation,
                                                               Enumerable.Empty<PipingSurfaceLine>(),
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -220,7 +221,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(22, dynamicProperties.Count);
+            Assert.AreEqual(19, dynamicProperties.Count);
 
             const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
             const string schematizationCategory = "\t\t\tSchematisatie";
@@ -283,39 +284,39 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
 
-            PropertyDescriptor thicknessCoverageLayerDistributionProperty = dynamicProperties[expectedThicknessCoverageLayerDistributionPropertyIndex];
+            PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thicknessCoverageLayerDistributionProperty,
+                thicknessCoverageLayerProperty,
                 schematizationCategory,
                 "Totale deklaagdikte bij uittredepunt [m]",
                 "Totale deklaagdikte bij uittredepunt.",
                 true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerDistributionProperty.Converter);
 
-            PropertyDescriptor thicknessCoverageLayerDeterministProperty = dynamicProperties[expectedThicknessCoverageLayerDeterministPropertyIndex];
+            if (withCoverageLayer)
+            {
+                Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
+            }
+            else
+            {
+                Assert.IsNotInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
+            }
+
+            PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thicknessCoverageLayerDeterministProperty,
-                schematizationCategory,
-                "Totale deklaagdikte bij uittredepunt [m]",
-                "Totale deklaagdikte bij uittredepunt.",
-                true);
-            
-            PropertyDescriptor effectiveThicknessCoverageLayerDistributionProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerDistributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                effectiveThicknessCoverageLayerDistributionProperty,
+                effectiveThicknessCoverageLayerProperty,
                 schematizationCategory,
                 "Effectieve deklaagdikte bij uittredepunt [m]",
                 "Effectieve deklaagdikte bij uittredepunt.",
                 true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerDistributionProperty.Converter);
 
-            PropertyDescriptor effectiveThicknessCoverageLayerDeterministProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerDeterministPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                effectiveThicknessCoverageLayerDeterministProperty,
-                schematizationCategory,
-                "Effectieve deklaagdikte bij uittredepunt [m]",
-                "Effectieve deklaagdikte bij uittredepunt.",
-                true);
+            if (withCoverageLayer)
+            {
+                Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
+            }
+            else
+            {
+                Assert.IsNotInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
+            }
 
             PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -344,22 +345,22 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(diameter70Property.Converter);
 
-            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerDistributionProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerDistributionPropertyIndex];
+            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                saturatedVolumicWeightOfCoverageLayerDistributionProperty,
+                saturatedVolumicWeightOfCoverageLayerProperty,
                 schematizationCategory,
                 "Verzadigd gewicht deklaag [kN/m³]",
                 "Verzadigd gewicht deklaag.",
                 true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerDistributionProperty.Converter);
 
-            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerDeterministProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerDeterministPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                saturatedVolumicWeightOfCoverageLayerDeterministProperty,
-                schematizationCategory,
-                "Verzadigd gewicht deklaag [kN/m³]",
-                "Verzadigd gewicht deklaag.",
-                true);
+            if (withCoverageLayer)
+            {
+                Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
+            }
+            else
+            {
+                Assert.IsNotInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
+            }
 
             PropertyDescriptor sectionNameProperty = dynamicProperties[expectedSectionNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -491,13 +492,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(thicknessCoverageLayerDistribution.StandardDeviation, properties.ThicknessCoverageLayerDistribution.StandardDeviation);
 
             Assert.AreEqual(0, properties.ThicknessCoverageLayerDeterminist, properties.ThicknessCoverageLayerDeterminist.GetAccuracy());
-            
+
             LogNormalDistribution effectiveThicknessCoverageLayerDistribution = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, new GeneralPipingInput());
             Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.Mean, properties.EffectiveThicknessCoverageLayerDistribution.Mean);
             Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.StandardDeviation, properties.EffectiveThicknessCoverageLayerDistribution.StandardDeviation);
 
             Assert.AreEqual(0, properties.EffectiveThicknessCoverageLayerDeterminist, properties.EffectiveThicknessCoverageLayerDeterminist.GetAccuracy());
-            
+
             VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(inputParameters);
             Assert.AreEqual(diameterD70.Mean, properties.Diameter70.Mean);
             Assert.AreEqual(diameterD70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
@@ -519,7 +520,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                             properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Shift);
 
             Assert.AreEqual(0, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist.GetAccuracy());
-            
+
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
