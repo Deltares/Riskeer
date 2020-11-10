@@ -303,16 +303,13 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
             Assert.IsTrue(collector.ContainsPipingStochasticSoilModel(stochasticSoilModelEntity));
         }
-        
+
         [Test]
-        public void Read_EntityWithSemiProbabilisticPipingCalculationOutputEntity_CalculationWithSemiProbabilisticPipingOutput()
+        public void Read_EntityWithProbabilisticPipingCalculationOutputEntity_CalculationWithProbabilisticPipingOutput()
         {
             // Setup
             var entity = new ProbabilisticPipingCalculationEntity
             {
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
                 ProbabilisticPipingCalculationOutputEntities =
                 {
                     new ProbabilisticPipingCalculationOutputEntity()

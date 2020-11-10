@@ -1000,7 +1000,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 {
                     new SemiProbabilisticPipingCalculationScenario
                     {
-                        Name = "Semi-Probabilistic with HydraulicBoundaryLocation",
+                        Name = "Semi-probabilistic with HydraulicBoundaryLocation",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
@@ -1031,7 +1031,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     new SemiProbabilisticPipingCalculationScenario
                     {
-                        Name = "Semi-Probabilistic with manual input",
+                        Name = "Semi-probabilistic with manual input",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =

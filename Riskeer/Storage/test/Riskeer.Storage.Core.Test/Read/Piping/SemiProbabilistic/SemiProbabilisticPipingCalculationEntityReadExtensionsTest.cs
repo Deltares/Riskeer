@@ -313,9 +313,6 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             // Setup
             var entity = new SemiProbabilisticPipingCalculationEntity
             {
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
                 SemiProbabilisticPipingCalculationOutputEntities =
                 {
                     new SemiProbabilisticPipingCalculationOutputEntity()
