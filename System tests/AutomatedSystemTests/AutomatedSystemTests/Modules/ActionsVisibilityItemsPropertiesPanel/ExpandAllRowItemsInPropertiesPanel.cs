@@ -61,6 +61,7 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             
             Ranorex.Row currentRow = propertiesPanelAdapter.As<Table>().Rows.ToList()[0];
             currentRow.Focus();
+            currentRow.Select();
             currentRow.PressKeys("{Right " + durationPressRightKey + "}");
         }
     }

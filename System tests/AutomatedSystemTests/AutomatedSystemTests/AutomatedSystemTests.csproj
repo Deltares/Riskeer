@@ -447,6 +447,9 @@
       <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
       <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
+      <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
+    </Compile>
     <Compile Include="Modules\ContextMenuActions\AddCalculationFolder.cs">
       <BoundTo>9441f05b-a115-4956-80b5-b0c4190b783c</BoundTo>
       <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
@@ -627,6 +630,9 @@
       <UserCode>true</UserCode>
       <id>f0e73397-fdfa-4dba-8dd2-e5f1402712df</id>
     </Compile>
+    <Compile Include="Modules\ContextMenuActions\VerifyItemPresentInContextMenu.cs">
+      <id>6a737ffa-3e0c-4c81-bdc5-78b47fbd8ea6</id>
+    </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -707,6 +713,9 @@
       <UserCode>true</UserCode>
       <id>1458cd92-3504-4445-97f3-eb30ac8b9761</id>
       <BoundTo>d5a0a829-3c74-4406-9514-acc72b31ac0a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\ExportPropertiesPanelToCsv.cs">
+      <id>d3e045f6-fd35-400e-8864-ce9627abde51</id>
     </Compile>
     <Compile Include="Modules\IO\ImportConfigurationCalculationsFromXMLFile.cs">
       <BoundTo>fb360840-4623-47a1-a936-f62b3f14df39</BoundTo>

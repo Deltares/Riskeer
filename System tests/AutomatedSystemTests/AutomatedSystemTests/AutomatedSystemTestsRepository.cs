@@ -437,6 +437,18 @@ namespace AutomatedSystemTests
             set { _newValue = value; }
         }
 
+        string _nameOfItem = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfItem.
+        /// </summary>
+        [TestVariable("9ce62106-6b73-4d5b-8b48-7398d9284c21")]
+        public string nameOfItem
+        {
+            get { return _nameOfItem; }
+            set { _nameOfItem = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -5030,6 +5042,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _eigenschappenInfo;
             RepoItemInfo _exporterenInfo;
             RepoItemInfo _genereerscenariosInfo;
+            RepoItemInfo _genericitemincontextmenuInfo;
             RepoItemInfo _importerenInfo;
             RepoItemInfo _isrelevantInfo;
             RepoItemInfo _koppelaandatabaseInfo;
@@ -5061,6 +5074,7 @@ namespace AutomatedSystemTests
                 _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
                 _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
                 _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
+                _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
@@ -5338,6 +5352,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genereerscenariosInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInContextMenu item.
+            /// </summary>
+            [RepositoryItem("39eb92d8-2056-4218-88eb-8b21c0ab477e")]
+            public virtual Ranorex.MenuItem GenericItemInContextMenu
+            {
+                get
+                {
+                    return _genericitemincontextmenuInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInContextMenu item info.
+            /// </summary>
+            [RepositoryItemInfo("39eb92d8-2056-4218-88eb-8b21c0ab477e")]
+            public virtual RepoItemInfo GenericItemInContextMenuInfo
+            {
+                get
+                {
+                    return _genericitemincontextmenuInfo;
                 }
             }
 
