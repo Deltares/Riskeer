@@ -32,9 +32,8 @@ using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
-using Riskeer.GrassCoverErosionInwards.Service;
 
-namespace Riskeer.GrassCoverErosionInwards.Util.Test
+namespace Riskeer.GrassCoverErosionInwards.Service.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDataSynchronizationServiceTest
