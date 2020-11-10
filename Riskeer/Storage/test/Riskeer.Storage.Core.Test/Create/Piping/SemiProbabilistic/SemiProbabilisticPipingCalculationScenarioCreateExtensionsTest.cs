@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
         [Test]
         [TestCase(true, false, 0.0, "A", "<Comments>", 2.2, 0.0, 5.8, 123, 827364)]
         [TestCase(false, true, 1.0, null, null, double.NaN, double.NaN, double.NaN, 980754, 231)]
-        public void Create_PipingCalculationScenarioWithPropertiesSet_ReturnPipingCalculationEntity(
+        public void Create_SemiProbabilisticPipingCalculationScenarioWithPropertiesSet_ReturnSemiProbabilisticPipingCalculationEntity(
             bool isRelevant, bool useAssessmentLevelManualInput, double contribution, string name, string comments,
             double exitPoint, double entryPoint, double assessmentLevel, int order, int randomSeed)
         {
