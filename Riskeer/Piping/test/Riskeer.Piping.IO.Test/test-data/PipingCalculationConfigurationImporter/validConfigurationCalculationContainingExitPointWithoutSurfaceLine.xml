@@ -2,7 +2,6 @@
 <configuratie versie="1">
   <berekening naam="Calculation">
     <toetstype/>
-    <waterstand>1.1</waterstand>
     <uittredepunt>3.3</uittredepunt>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>

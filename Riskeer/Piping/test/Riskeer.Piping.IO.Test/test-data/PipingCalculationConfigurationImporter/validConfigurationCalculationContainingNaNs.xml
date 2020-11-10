@@ -2,7 +2,6 @@
 <configuratie versie="1">
   <berekening naam="Calculation">
     <toetstype/>
-    <waterstand>NaN</waterstand>
     <intredepunt>NaN</intredepunt>
     <uittredepunt>NaN</uittredepunt>
     <stochasten>

@@ -2,7 +2,6 @@
 <configuratie versie="1">
   <berekening naam="Calculation">
     <toetstype/>
-    <waterstand>-INF</waterstand>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <intredepunt>0</intredepunt>
     <uittredepunt>INF</uittredepunt>
