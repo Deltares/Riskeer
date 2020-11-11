@@ -893,7 +893,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                         {
                             Mean = (RoundedDouble) 6.6,
                             StandardDeviation = (RoundedDouble) 7.7
-                        }
+                        },
+                        ShouldProfileSpecificIllustrationPointsBeCalculated = true,
+                        ShouldSectionSpecificIllustrationPointsBeCalculated = true
                     },
                     Contribution = (RoundedDouble) 0.088,
                     IsRelevant = false
@@ -916,6 +918,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 ProbabilisticPipingInput expectedInput = expectedCalculation.InputParameters;
                 ProbabilisticPipingInput actualInput = actualCalculation.InputParameters;
                 Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedInput.ShouldProfileSpecificIllustrationPointsBeCalculated, actualInput.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                Assert.AreEqual(expectedInput.ShouldSectionSpecificIllustrationPointsBeCalculated, actualInput.ShouldSectionSpecificIllustrationPointsBeCalculated);
             }
         }
     }
