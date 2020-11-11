@@ -44,7 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             "Deltares", $"HydraRing-{HydraRingFileConstants.HydraRingVersionNumber}");
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForAssessmentLevelCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -141,7 +141,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -238,7 +238,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -402,7 +402,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDikeHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForDikeHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -565,7 +565,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForOvertoppingRateCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -727,7 +727,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -901,7 +901,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveConditionsCosineCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1023,7 +1023,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1147,7 +1147,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1281,7 +1281,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1417,7 +1417,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1555,7 +1555,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1723,7 +1723,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1891,7 +1891,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2057,7 +2057,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2223,7 +2223,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2320,7 +2320,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithPipingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForPipingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
