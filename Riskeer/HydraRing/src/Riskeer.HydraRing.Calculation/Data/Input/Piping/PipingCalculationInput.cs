@@ -60,7 +60,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
         private readonly double criticalHeaveGradientStandardDeviation;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="PipingCalculationInput"/> class.
+        /// Creates a new instance of the <see cref="PipingCalculationInput"/> class, taking into account the precense of a coverage layer.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="sectionLength">The length of the section.</param>
@@ -125,6 +125,82 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
             this.saturatedVolumicWeightOfCoverageLayerMean = saturatedVolumicWeightOfCoverageLayerMean;
             this.saturatedVolumicWeightOfCoverageLayerStandardDeviation = saturatedVolumicWeightOfCoverageLayerStandardDeviation;
             this.saturatedVolumicWeightOfCoverageLayerShift = saturatedVolumicWeightOfCoverageLayerShift;
+            this.upliftModelFactorMean = upliftModelFactorMean;
+            this.upliftModelFactorStandardDeviation = upliftModelFactorStandardDeviation;
+            this.dampingFactorExitMean = dampingFactorExitMean;
+            this.dampingFactorExitStandardDeviation = dampingFactorExitStandardDeviation;
+            this.seepageLengthMean = seepageLengthMean;
+            this.seepageLengthCoefficientOfVariation = seepageLengthCoefficientOfVariation;
+            this.thicknessAquiferLayerMean = thicknessAquiferLayerMean;
+            this.thicknessAquiferLayerStandardDeviation = thicknessAquiferLayerStandardDeviation;
+            this.sandParticlesVolumicWeight = sandParticlesVolumicWeight;
+            this.sellmeijerModelFactorMean = sellmeijerModelFactorMean;
+            this.sellmeijerModelFactorStandardDeviation = sellmeijerModelFactorStandardDeviation;
+            this.beddingAngle = beddingAngle;
+            this.whitesDragCoefficient = whitesDragCoefficient;
+            this.waterKinematicViscosity = waterKinematicViscosity;
+            this.darcyPermeabilityMean = darcyPermeabilityMean;
+            this.darcyPermeabilityCoefficientOfVariation = darcyPermeabilityCoefficientOfVariation;
+            this.diameter70Mean = diameter70Mean;
+            this.diameter70CoefficientOfVariation = diameter70CoefficientOfVariation;
+            this.gravity = gravity;
+            this.criticalHeaveGradientMean = criticalHeaveGradientMean;
+            this.criticalHeaveGradientStandardDeviation = criticalHeaveGradientStandardDeviation;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="PipingCalculationInput"/> class, not taking into account the precense of a coverage layer.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
+        /// <param name="sectionLength">The length of the section.</param>
+        /// <param name="phreaticLevelExitMean">The mean of the phreatic level at the exit point.</param>
+        /// <param name="phreaticLevelExitStandardDeviation">The standard deviation of the phreatic level at the exit point.</param>
+        /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
+        /// <param name="upliftModelFactorMean">The mean of the distribution used to account for uncertainty in the model for uplift.</param>
+        /// <param name="upliftModelFactorStandardDeviation">The standard deviation of the distribution used to account for uncertainty in the model for uplift.</param>
+        /// <param name="dampingFactorExitMean">The mean of the damping factor at the exit point.</param>
+        /// <param name="dampingFactorExitStandardDeviation">The standard deviation of the damping factor at the exit point.</param>
+        /// <param name="seepageLengthMean">The mean of the horizontal distance between entry and exit point.</param>
+        /// <param name="seepageLengthCoefficientOfVariation">The coefficient of variation of the horizontal distance between entry and exit point.</param>
+        /// <param name="thicknessAquiferLayerMean">The mean of the total thickness of the aquifer layers at the exit point.</param>
+        /// <param name="thicknessAquiferLayerStandardDeviation">The standard deviation of the total thickness of the aquifer layers at the exit point.</param>
+        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water.</param>
+        /// <param name="sellmeijerModelFactorMean">The mean of the distribution used to account for uncertainty in the model for Sellmeijer.</param>
+        /// <param name="sellmeijerModelFactorStandardDeviation">The standard deviation of the distribution used to account for uncertainty in the model for Sellmeijer.</param>
+        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling.</param>
+        /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
+        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 °C.</param>
+        /// <param name="darcyPermeabilityMean">The mean of the Darcy-speed with which water flows through the aquifer layer.</param>
+        /// <param name="darcyPermeabilityCoefficientOfVariation">The coefficient of variation of the Darcy-speed with which water flows through the aquifer layer.</param>
+        /// <param name="diameter70Mean">The mean of the sieve size through which 70% of the grains of the top part of the aquifer pass.</param>
+        /// <param name="diameter70CoefficientOfVariation">The coefficient of variation of the sieve size through which 70% of the grains of the top part of the aquifer pass.</param>
+        /// <param name="gravity">The gravitational acceleration.</param>
+        /// <param name="criticalHeaveGradientMean">The mean of the critical exit gradient for heave.</param>
+        /// <param name="criticalHeaveGradientStandardDeviation">The standard deviation of the critical exit gradient for heave.</param>
+        public PipingCalculationInput(long hydraulicBoundaryLocationId,
+                                      double sectionLength,
+                                      double phreaticLevelExitMean, double phreaticLevelExitStandardDeviation,
+                                      double waterVolumetricWeight,
+                                      double upliftModelFactorMean, double upliftModelFactorStandardDeviation,
+                                      double dampingFactorExitMean, double dampingFactorExitStandardDeviation,
+                                      double seepageLengthMean, double seepageLengthCoefficientOfVariation,
+                                      double thicknessAquiferLayerMean, double thicknessAquiferLayerStandardDeviation,
+                                      double sandParticlesVolumicWeight,
+                                      double sellmeijerModelFactorMean, double sellmeijerModelFactorStandardDeviation,
+                                      double beddingAngle,
+                                      double whitesDragCoefficient,
+                                      double waterKinematicViscosity,
+                                      double darcyPermeabilityMean, double darcyPermeabilityCoefficientOfVariation,
+                                      double diameter70Mean, double diameter70CoefficientOfVariation,
+                                      double gravity,
+                                      double criticalHeaveGradientMean,
+                                      double criticalHeaveGradientStandardDeviation)
+            : base(hydraulicBoundaryLocationId)
+        {
+            Section = new HydraRingSection(1, sectionLength, double.NaN);
+            this.phreaticLevelExitMean = phreaticLevelExitMean;
+            this.phreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation;
+            this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactorMean = upliftModelFactorMean;
             this.upliftModelFactorStandardDeviation = upliftModelFactorStandardDeviation;
             this.dampingFactorExitMean = dampingFactorExitMean;
