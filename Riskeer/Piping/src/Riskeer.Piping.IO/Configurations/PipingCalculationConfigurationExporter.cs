@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.IO.Configurations
@@ -34,7 +35,7 @@ namespace Riskeer.Piping.IO.Configurations
     public class PipingCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             PipingCalculationConfigurationWriter,
-            SemiProbabilisticPipingCalculationScenario,
+            IPipingCalculationScenario<PipingInput>,
             PipingCalculationConfiguration>
     {
         /// <summary>
@@ -47,9 +48,9 @@ namespace Riskeer.Piping.IO.Configurations
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new PipingCalculationConfigurationWriter(filePath)) {}
 
-        protected override PipingCalculationConfiguration ToConfiguration(SemiProbabilisticPipingCalculationScenario calculation)
+        protected override PipingCalculationConfiguration ToConfiguration(IPipingCalculationScenario<PipingInput> calculation)
         {
-            SemiProbabilisticPipingInput input = calculation.InputParameters;
+            PipingInput input = calculation.InputParameters;
 
             var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name)
             {
@@ -57,15 +58,6 @@ namespace Riskeer.Piping.IO.Configurations
                 PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
                 Scenario = calculation.ToScenarioConfiguration()
             };
-
-            if (input.UseAssessmentLevelManualInput)
-            {
-                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
-            }
-            else if (input.HydraulicBoundaryLocation != null)
-            {
-                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
-            }
 
             if (input.SurfaceLine != null)
             {
@@ -79,8 +71,27 @@ namespace Riskeer.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
+            
+            if (calculation is SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculation)
+            {
+                ToSemiProbabilisticConfiguration(calculationConfiguration, semiProbabilisticPipingCalculation);
+            }
 
             return calculationConfiguration;
+        }
+
+        private static void ToSemiProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
+                                                             SemiProbabilisticPipingCalculationScenario calculation)
+        {
+            SemiProbabilisticPipingInput input = calculation.InputParameters;
+            if (input.UseAssessmentLevelManualInput)
+            {
+                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
+            }
+            else if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
+            }
         }
     }
 }

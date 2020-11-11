@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.TestUtil;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.IO.Configurations;
@@ -36,7 +37,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
-            SemiProbabilisticPipingCalculationScenario,
+            IPipingCalculationScenario<PipingInput>,
             PipingCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
@@ -108,7 +109,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
+        protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
         {
             return new SemiProbabilisticPipingCalculationScenario();
         }
