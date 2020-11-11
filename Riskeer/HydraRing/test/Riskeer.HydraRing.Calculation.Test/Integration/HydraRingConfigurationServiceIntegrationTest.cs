@@ -2495,27 +2495,27 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             const double phreaticLevelExitMean = 2.2;
             const double phreaticLevelExitStandardDeviation = 3.3;
             const double waterVolumetricWeight = 4.4;
-            const double upliftModelFactorMean = 10.0;
-            const double upliftModelFactorStandardDeviation = 11.1;
-            const double dampingFactorExitMean = 12.2;
-            const double dampingFactorExitStandardDeviation = 13.3;
-            const double seepageLengthMean = 14.4;
-            const double seepageLengthCoefficientOfVariation = 15.5;
-            const double thicknessAquiferLayerMean = 16.6;
-            const double thicknessAquiferLayerStandardDeviation = 17.7;
-            const double sandParticlesVolumicWeight = 18.8;
-            const double sellmeijerModelFactorMean = 19.9;
-            const double sellmeijerModelFactorStandardDeviation = 20.0;
-            const double beddingAngle = 21.1;
-            const double whitesDragCoefficient = 22.2;
-            const double waterKinematicViscosity = 23.3;
-            const double darcyPermeabilityMean = 24.4;
-            const double darcyPermeabilityCoefficientOfVariation = 25.5;
-            const double diameter70Mean = 26.6;
-            const double diameter70CoefficientOfVariation = 27.7;
-            const double gravity = 28.8;
-            const double criticalHeaveGradientMean = 29.9;
-            const double criticalHeaveGradientStandardDeviation = 30.0;
+            const double upliftModelFactorMean = 5.5;
+            const double upliftModelFactorStandardDeviation = 6.6;
+            const double dampingFactorExitMean = 7.7;
+            const double dampingFactorExitStandardDeviation = 8.8;
+            const double seepageLengthMean = 9.9;
+            const double seepageLengthCoefficientOfVariation = 10.0;
+            const double thicknessAquiferLayerMean = 11.1;
+            const double thicknessAquiferLayerStandardDeviation = 12.2;
+            const double sandParticlesVolumicWeight = 13.3;
+            const double sellmeijerModelFactorMean = 14.4;
+            const double sellmeijerModelFactorStandardDeviation = 15.5;
+            const double beddingAngle = 16.6;
+            const double whitesDragCoefficient = 17.7;
+            const double waterKinematicViscosity = 18.8;
+            const double darcyPermeabilityMean = 19.9;
+            const double darcyPermeabilityCoefficientOfVariation = 20.0;
+            const double diameter70Mean = 21.1;
+            const double diameter70CoefficientOfVariation = 22.2;
+            const double gravity = 23.3;
+            const double criticalHeaveGradientMean = 24.4;
+            const double criticalHeaveGradientStandardDeviation = 25.5;
 
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
@@ -2576,19 +2576,19 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 43, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 44, 0, 0, 0, NULL, NULL, NULL, 1, 0, 200);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 45, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 46, 0, 4, 10, 11.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 47, 0, 4, 12.2, 13.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 48, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 3000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 49, 0, 4, 16.6, 17.7, NULL, NULL, 1, 0, 1500);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 50, 23.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 51, 0, 4, 19.9, 20, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 52, 21.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 53, 22.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 54, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 55, 0, 4, 24.4, NULL, NULL, NULL, 0, 25.5, 600);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 56, 0, 4, 26.6, NULL, NULL, NULL, 0, 27.7, 180);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 58, 28.8, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 124, 0, 4, 29.9, 30, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 46, 0, 4, 5.5, 6.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 47, 0, 4, 7.7, 8.8, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 48, 0, 4, 9.9, NULL, NULL, NULL, 0, 10, 3000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 49, 0, 4, 11.1, 12.2, NULL, NULL, 1, 0, 1500);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 50, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 51, 0, 4, 14.4, 15.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 52, 16.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 53, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 54, 18.8, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 55, 0, 4, 19.9, NULL, NULL, NULL, 0, 20, 600);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 56, 0, 4, 21.1, NULL, NULL, NULL, 0, 22.2, 180);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 58, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 124, 0, 4, 24.4, 25.5, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
