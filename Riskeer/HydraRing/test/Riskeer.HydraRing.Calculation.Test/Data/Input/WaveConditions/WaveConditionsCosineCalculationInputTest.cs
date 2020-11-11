@@ -72,7 +72,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(sectionId, waveConditionsCosineCalculationInput.Section.SectionId);
             Assert.AreEqual(sectionNormal, waveConditionsCosineCalculationInput.Section.CrossSectionNormal);
             HydraRingDataEqualityHelper.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineCalculationInput.Variables.ToArray());
-            Assert.AreSame(forelandPoints, waveConditionsCosineCalculationInput.ForelandsPoints);
+            Assert.AreSame(forelandPoints, waveConditionsCosineCalculationInput.ForelandPoints);
             Assert.AreSame(breakWater, waveConditionsCosineCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsCosineCalculationInput.Beta);
         }

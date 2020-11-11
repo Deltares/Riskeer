@@ -47,7 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(9, reliabilityIndexCalculationInput.CalculationTypeId);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.Variables);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ProfilePoints);
-            CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ForelandsPoints);
+            CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ForelandPoints);
             Assert.IsNull(reliabilityIndexCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, reliabilityIndexCalculationInput.Beta);
         }

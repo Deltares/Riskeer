@@ -97,7 +97,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(1, input.VariableId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultDikeHeightVariables().ToArray(), input.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
-            CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
+            CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandPoints);
             Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
             Assert.AreEqual(expectedBeta, input.Beta);
 

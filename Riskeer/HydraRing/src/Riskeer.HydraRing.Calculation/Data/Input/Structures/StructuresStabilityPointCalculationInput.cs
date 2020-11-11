@@ -178,7 +178,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
-            ForelandsPoints = forelandPoints;
+            ForelandPoints = forelandPoints;
             BreakWater = breakWater;
             this.volumicWeightWater = volumicWeightWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
@@ -280,7 +280,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
+        public override IEnumerable<HydraRingForelandPoint> ForelandPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
 

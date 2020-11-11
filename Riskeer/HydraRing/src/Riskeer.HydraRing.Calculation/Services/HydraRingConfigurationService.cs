@@ -131,7 +131,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["AreaPoints"] = new List<OrderedDictionary>(),
                 ["PresentationSections"] = new List<OrderedDictionary>(),
                 ["Profiles"] = GetProfilesConfiguration(),
-                ["ForelandModels"] = GetForlandModelsConfiguration(),
+                ["ForelandModels"] = GetForelandModelsConfiguration(),
                 ["Forelands"] = GetForelandsConfiguration(),
                 ["ProbabilityAlternatives"] = new List<OrderedDictionary>(),
                 ["SetUpHeights"] = new List<OrderedDictionary>(),
@@ -564,10 +564,10 @@ namespace Riskeer.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IEnumerable<OrderedDictionary> GetForlandModelsConfiguration()
+        private IEnumerable<OrderedDictionary> GetForelandModelsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
-            foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandsPoints.Any() || i.BreakWater != null))
+            foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandPoints.Any() || i.BreakWater != null))
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(input.FailureMechanismType);
                 orderDictionaries.Add(new OrderedDictionary
@@ -592,9 +592,9 @@ namespace Riskeer.HydraRing.Calculation.Services
             var orderDictionaries = new List<OrderedDictionary>();
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                for (var i = 0; i < hydraRingCalculationInput.ForelandsPoints.Count(); i++)
+                for (var i = 0; i < hydraRingCalculationInput.ForelandPoints.Count(); i++)
                 {
-                    HydraRingForelandPoint forelandPoint = hydraRingCalculationInput.ForelandsPoints.ElementAt(i);
+                    HydraRingForelandPoint forelandPoint = hydraRingCalculationInput.ForelandPoints.ElementAt(i);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {

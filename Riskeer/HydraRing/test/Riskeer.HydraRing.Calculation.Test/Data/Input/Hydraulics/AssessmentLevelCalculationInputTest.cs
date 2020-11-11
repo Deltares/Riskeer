@@ -53,7 +53,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(hydraulicBoundaryLocationId, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(assessmentLevelCalculationInput.Section);
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
-            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandsPoints);
+            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandPoints);
             Assert.IsNull(assessmentLevelCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 

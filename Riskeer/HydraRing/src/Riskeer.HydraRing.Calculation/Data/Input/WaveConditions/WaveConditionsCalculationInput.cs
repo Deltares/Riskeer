@@ -60,7 +60,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
         {
             Section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
             Beta = StatisticsConverter.ProbabilityToReliability(norm);
-            ForelandsPoints = forelandPoints;
+            ForelandPoints = forelandPoints;
             BreakWater = breakWater;
 
             this.waterLevel = waterLevel;
@@ -89,7 +89,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
+        public override IEnumerable<HydraRingForelandPoint> ForelandPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
 

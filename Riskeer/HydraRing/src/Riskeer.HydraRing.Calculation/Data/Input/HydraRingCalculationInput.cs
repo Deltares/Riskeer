@@ -114,7 +114,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Gets the foreland points to use during the calculation.
         /// </summary>
-        public virtual IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        public virtual IEnumerable<HydraRingForelandPoint> ForelandPoints
         {
             get
             {

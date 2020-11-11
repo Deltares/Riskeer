@@ -102,7 +102,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, section.SectionId);
             Assert.IsNaN(section.SectionLength);
             Assert.AreEqual(sectionNormal, section.CrossSectionNormal);
-            Assert.AreSame(forelandPoints, input.ForelandsPoints);
+            Assert.AreSame(forelandPoints, input.ForelandPoints);
             Assert.AreSame(breakWater, input.BreakWater);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());
         }

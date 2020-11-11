@@ -45,7 +45,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(hydraulicBoundaryLocationId, exceedanceProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ProfilePoints);
-            CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ForelandsPoints);
+            CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ForelandPoints);
             Assert.IsNull(exceedanceProbabilityCalculationInputImplementation.BreakWater);
             Assert.IsNaN(exceedanceProbabilityCalculationInputImplementation.Beta);
         }

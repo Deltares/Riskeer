@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(hydraulicBoundaryLocationId, overtoppingCalculationInput.HydraulicBoundaryLocationId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
-            CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
+            CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandPoints);
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
             Assert.IsNaN(overtoppingCalculationInput.Beta);
 

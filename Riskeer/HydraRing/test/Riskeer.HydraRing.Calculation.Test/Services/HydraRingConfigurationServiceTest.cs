@@ -492,7 +492,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+            public override IEnumerable<HydraRingForelandPoint> ForelandPoints
             {
                 get
                 {
