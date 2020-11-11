@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
     public class PipingCalculationInputTest
     {
         [Test]
-        public void Constructor_Always_ExpectedValues()
+        public void Constructor_WithCoverageLayerParameters_ExpectedValues()
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
@@ -89,7 +89,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
             Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.Piping, pipingCalculationInput.FailureMechanismType);
             Assert.AreEqual(expectedVariableId, pipingCalculationInput.VariableId);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultPipingVariables().ToArray(), pipingCalculationInput.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultPipingVariables(true).ToArray(), pipingCalculationInput.Variables.ToArray());
             Assert.IsNaN(pipingCalculationInput.Beta);
 
             HydraRingSection hydraRingSection = pipingCalculationInput.Section;
@@ -98,12 +98,80 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
             Assert.IsNaN(hydraRingSection.CrossSectionNormal);
         }
 
-        private static IEnumerable<HydraRingVariable> GetDefaultPipingVariables()
+        [Test]
+        public void Constructor_WithoutCoverageLayerParameters_ExpectedValues()
+        {
+            // Setup
+            const int hydraulicBoundaryLocationId = 1000;
+            const double sectionLength = 1.1;
+            const double phreaticLevelExitMean = 2.2;
+            const double phreaticLevelExitStandardDeviation = 3.3;
+            const double waterVolumetricWeight = 4.4;
+            const double upliftModelFactorMean = 10.0;
+            const double upliftModelFactorStandardDeviation = 11.1;
+            const double dampingFactorExitMean = 12.2;
+            const double dampingFactorExitStandardDeviation = 13.3;
+            const double seepageLengthMean = 14.4;
+            const double seepageLengthCoefficientOfVariation = 15.5;
+            const double thicknessAquiferLayerMean = 16.6;
+            const double thicknessAquiferLayerStandardDeviation = 17.7;
+            const double sandParticlesVolumicWeight = 18.8;
+            const double sellmeijerModelFactorMean = 19.9;
+            const double sellmeijerModelFactorStandardDeviation = 20.0;
+            const double beddingAngle = 21.1;
+            const double whitesDragCoefficient = 22.2;
+            const double waterKinematicViscosity = 23.3;
+            const double darcyPermeabilityMean = 24.4;
+            const double darcyPermeabilityCoefficientOfVariation = 25.5;
+            const double diameter70Mean = 26.6;
+            const double diameter70CoefficientOfVariation = 27.7;
+            const double gravity = 28.8;
+            const double criticalHeaveGradientMean = 29.9;
+            const double criticalHeaveGradientStandardDeviation = 30.0;
+
+            // Call
+            var pipingCalculationInput = new PipingCalculationInput(
+                hydraulicBoundaryLocationId, sectionLength, phreaticLevelExitMean, phreaticLevelExitStandardDeviation,
+                waterVolumetricWeight, upliftModelFactorMean, upliftModelFactorStandardDeviation, dampingFactorExitMean,
+                dampingFactorExitStandardDeviation, seepageLengthMean, seepageLengthCoefficientOfVariation,
+                thicknessAquiferLayerMean, thicknessAquiferLayerStandardDeviation, sandParticlesVolumicWeight,
+                sellmeijerModelFactorMean, sellmeijerModelFactorStandardDeviation, beddingAngle, whitesDragCoefficient,
+                waterKinematicViscosity, darcyPermeabilityMean, darcyPermeabilityCoefficientOfVariation, diameter70Mean,
+                diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation);
+
+            // Assert
+            const int expectedCalculationTypeId = 1;
+            const int expectedVariableId = 58;
+            Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(pipingCalculationInput);
+            Assert.AreEqual(expectedCalculationTypeId, pipingCalculationInput.CalculationTypeId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.Piping, pipingCalculationInput.FailureMechanismType);
+            Assert.AreEqual(expectedVariableId, pipingCalculationInput.VariableId);
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultPipingVariables(false).ToArray(), pipingCalculationInput.Variables.ToArray());
+            Assert.IsNaN(pipingCalculationInput.Beta);
+
+            HydraRingSection hydraRingSection = pipingCalculationInput.Section;
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.AreEqual(sectionLength, hydraRingSection.SectionLength);
+            Assert.IsNaN(hydraRingSection.CrossSectionNormal);
+        }
+
+        private static IEnumerable<HydraRingVariable> GetDefaultPipingVariables(bool hasCoverageLayer)
         {
             yield return new NormalHydraRingVariable(42, HydraRingDeviationType.Standard, 2.2, 3.3);
             yield return new DeterministicHydraRingVariable(43, 4.4);
-            yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, 5.5, 6.6);
-            yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, 7.7, 8.8, 9.9);
+
+            if (hasCoverageLayer)
+            {
+                yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, 5.5, 6.6);
+                yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, 7.7, 8.8, 9.9);
+            }
+            else
+            {
+                yield return new DeterministicHydraRingVariable(44, 0);
+                yield return new DeterministicHydraRingVariable(45, 0);
+            }
+
             yield return new LogNormalHydraRingVariable(46, HydraRingDeviationType.Standard, 10.0, 11.1);
             yield return new LogNormalHydraRingVariable(47, HydraRingDeviationType.Standard, 12.2, 13.3);
             yield return new LogNormalHydraRingVariable(48, HydraRingDeviationType.Variation, 14.4, 15.5);
