@@ -45,10 +45,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroupConfiguration("PK001_0001", new IConfigurationItem[]
             {
-                CreateFullCalculationConfiguration(),
+                CreateFullSemiProbabilisticCalculationConfiguration(),
+                CreateFullProbabilisticCalculationConfiguration(),
                 new CalculationGroupConfiguration("PK001_0002", new[]
                 {
-                    CreateSparseCalculationConfiguration()
+                    CreateSparseCalculationConfiguration(PipingCalculationConfigurationType.SemiProbabilistic),
+                    CreateSparseCalculationConfiguration(PipingCalculationConfigurationType.Probabilistic)
                 })
             });
 
@@ -76,7 +78,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }
         }
 
-        private static PipingCalculationConfiguration CreateFullCalculationConfiguration()
+        private static PipingCalculationConfiguration CreateFullSemiProbabilisticCalculationConfiguration()
         {
             return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1", PipingCalculationConfigurationType.SemiProbabilistic)
             {
@@ -101,13 +103,46 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 {
                     IsRelevant = true,
                     Contribution = 0.3
-                }
+                },
+                ShouldProfileSpecificIllustrationPointsBeCalculated = true,
+                ShouldSectionSpecificIllustrationPointsBeCalculated = false
             };
         }
 
-        private static PipingCalculationConfiguration CreateSparseCalculationConfiguration()
+        private static PipingCalculationConfiguration CreateFullProbabilisticCalculationConfiguration()
         {
-            return new PipingCalculationConfiguration("Sparse", PipingCalculationConfigurationType.SemiProbabilistic);
+            return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1 probabilistisch", PipingCalculationConfigurationType.Probabilistic)
+            {
+                AssessmentLevel = 15,
+                HydraulicBoundaryLocationName = "PUNT_KAT_18",
+                SurfaceLineName = "PK001_0001",
+                StochasticSoilModelName = "PK001_0001_Piping",
+                StochasticSoilProfileName = "W1-6_0_1D1",
+                EntryPointL = 0.5,
+                ExitPointL = 0.8,
+                PhreaticLevelExit = new StochastConfiguration
+                {
+                    Mean = 0.4,
+                    StandardDeviation = 0.2
+                },
+                DampingFactorExit = new StochastConfiguration
+                {
+                    Mean = 0.8,
+                    StandardDeviation = 0.2
+                },
+                Scenario = new ScenarioConfiguration
+                {
+                    IsRelevant = true,
+                    Contribution = 0.6
+                },
+                ShouldProfileSpecificIllustrationPointsBeCalculated = true,
+                ShouldSectionSpecificIllustrationPointsBeCalculated = true
+            };
+        }
+
+        private static PipingCalculationConfiguration CreateSparseCalculationConfiguration(PipingCalculationConfigurationType calculationType)
+        {
+            return new PipingCalculationConfiguration("Sparse", calculationType);
         }
 
         protected override PipingCalculationConfigurationWriter CreateWriterInstance(string filePath)
