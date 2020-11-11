@@ -234,6 +234,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
 
         public override int VariableId { get; } = 58;
 
+        public override int FaultTreeModelId => hasCoverageLayer ? 3015 : 3014;
+
         public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables

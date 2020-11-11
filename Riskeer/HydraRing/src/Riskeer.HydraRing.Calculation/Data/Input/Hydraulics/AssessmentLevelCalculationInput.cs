@@ -41,21 +41,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
             Section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.AssessmentLevel;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.AssessmentLevel;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 26;
-            }
-        }
+        public override int VariableId => 26;
+
+        public override int FaultTreeModelId => 1;
 
         public override HydraRingSection Section { get; }
 

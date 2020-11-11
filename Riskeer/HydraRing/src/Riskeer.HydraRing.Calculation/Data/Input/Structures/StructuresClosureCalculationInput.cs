@@ -126,6 +126,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 
         public override int VariableId { get; } = 58;
 
+        public override int FaultTreeModelId => 4505;
+
         public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -153,13 +155,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 
         public override HydraRingBreakWater BreakWater { get; }
 
-        public override int IterationMethodId
-        {
-            get
-            {
-                return 6;
-            }
-        }
+        public override int IterationMethodId => 6;
 
         public abstract override int? GetSubMechanismModelId(int subMechanismId);
     }

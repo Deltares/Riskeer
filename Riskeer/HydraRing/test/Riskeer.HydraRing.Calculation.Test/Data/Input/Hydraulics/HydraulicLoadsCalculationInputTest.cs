@@ -90,6 +90,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
+            Assert.AreEqual(1017, input.FaultTreeModelId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.IsNotNull(input.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.Variables.ToArray());

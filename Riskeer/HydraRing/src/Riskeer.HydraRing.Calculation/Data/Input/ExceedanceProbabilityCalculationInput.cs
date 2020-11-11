@@ -33,12 +33,6 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location to use during the calculation.</param>
         protected ExceedanceProbabilityCalculationInput(long hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
-        public override int CalculationTypeId
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public override int CalculationTypeId => 1;
     }
 }

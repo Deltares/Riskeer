@@ -68,29 +68,13 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
             this.b = b;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.QVariant;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.QVariant;
 
-        public override int CalculationTypeId
-        {
-            get
-            {
-                return 8;
-            }
-        }
+        public override int CalculationTypeId => 8;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 114;
-            }
-        }
+        public override int VariableId => 114;
+
+        public override int FaultTreeModelId => 6;
 
         public override HydraRingSection Section { get; }
 

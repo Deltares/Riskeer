@@ -49,6 +49,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(HydraRingFailureMechanismType.WaveHeight, waveHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);
+            Assert.AreEqual(11, waveHeightCalculationInput.FaultTreeModelId);
             Assert.AreEqual(hydraulicBoundaryLocationId, waveHeightCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveHeightCalculationInput.Section);
             CollectionAssert.IsEmpty(waveHeightCalculationInput.ProfilePoints);

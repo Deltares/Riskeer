@@ -75,6 +75,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         public abstract int VariableId { get; }
 
         /// <summary>
+        /// Gets the fault tree model id.
+        /// </summary>
+        public abstract int FaultTreeModelId { get; }
+
+        /// <summary>
         /// Gets the id of the hydraulic boundary location to use during the calculation.
         /// </summary>
         public long HydraulicBoundaryLocationId { get; }
@@ -120,36 +125,18 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Gets the break water to use during the calculation.
         /// </summary>
-        public virtual HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return null;
-            }
-        }
+        public virtual HydraRingBreakWater BreakWater => null;
 
         /// <summary>
         /// Gets the reliability index to use during the calculation.
         /// </summary>
         /// <remarks>Only relevant for calculations that iterate towards a reliability index.</remarks>
-        public virtual double Beta
-        {
-            get
-            {
-                return double.NaN;
-            }
-        }
+        public virtual double Beta => double.NaN;
 
         /// <summary>
         /// Gets the iteration method id to use during the calculation.
         /// </summary>
-        public virtual int IterationMethodId
-        {
-            get
-            {
-                return 3;
-            }
-        }
+        public virtual int IterationMethodId => 3;
 
         /// <summary>
         /// Gets the sub mechanism model id corresponding to the provided sub mechanism id.

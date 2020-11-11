@@ -38,5 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DunesBoundaryConditions;
 
         public override int CalculationTypeId { get; } = 2;
+
+        public override int FaultTreeModelId => 8;
     }
 }

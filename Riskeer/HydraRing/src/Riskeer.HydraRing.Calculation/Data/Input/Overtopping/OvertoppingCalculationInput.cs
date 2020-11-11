@@ -130,6 +130,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
 
         public override int VariableId { get; } = 1;
 
+        public override int FaultTreeModelId => 1017;
+
         public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables

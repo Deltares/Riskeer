@@ -82,13 +82,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
                 diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation);
 
             // Assert
-            const int expectedCalculationTypeId = 1;
-            const int expectedVariableId = 58;
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(pipingCalculationInput);
-            Assert.AreEqual(expectedCalculationTypeId, pipingCalculationInput.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, pipingCalculationInput.CalculationTypeId);
             Assert.AreEqual(HydraRingFailureMechanismType.Piping, pipingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, pipingCalculationInput.VariableId);
+            Assert.AreEqual(58, pipingCalculationInput.VariableId);
+            Assert.AreEqual(3015, pipingCalculationInput.FaultTreeModelId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultPipingVariables(true).ToArray(), pipingCalculationInput.Variables.ToArray());
             Assert.IsNaN(pipingCalculationInput.Beta);
 
@@ -140,13 +139,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
                 diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation);
 
             // Assert
-            const int expectedCalculationTypeId = 1;
-            const int expectedVariableId = 58;
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(pipingCalculationInput);
-            Assert.AreEqual(expectedCalculationTypeId, pipingCalculationInput.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, pipingCalculationInput.CalculationTypeId);
             Assert.AreEqual(HydraRingFailureMechanismType.Piping, pipingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, pipingCalculationInput.VariableId);
+            Assert.AreEqual(58, pipingCalculationInput.VariableId);
+            Assert.AreEqual(3014, pipingCalculationInput.FaultTreeModelId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, pipingCalculationInput.HydraulicBoundaryLocationId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultPipingVariables(false).ToArray(), pipingCalculationInput.Variables.ToArray());
             Assert.IsNaN(pipingCalculationInput.Beta);
 

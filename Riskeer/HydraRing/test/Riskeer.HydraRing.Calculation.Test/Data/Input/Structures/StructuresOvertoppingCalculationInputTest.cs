@@ -90,14 +90,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
                                                                   stormDurationMean, stormDurationVariation);
 
             // Assert
-            const int expectedCalculationTypeId = 1;
-            const int variableId = 60;
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
-            Assert.AreEqual(expectedCalculationTypeId, input.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, input.FailureMechanismType);
-            Assert.AreEqual(variableId, input.VariableId);
+            Assert.AreEqual(60, input.VariableId);
+            Assert.AreEqual(4404, input.FaultTreeModelId);
             Assert.AreEqual(6, input.IterationMethodId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
 
             HydraRingSection section = input.Section;
             Assert.AreEqual(1, section.SectionId);
