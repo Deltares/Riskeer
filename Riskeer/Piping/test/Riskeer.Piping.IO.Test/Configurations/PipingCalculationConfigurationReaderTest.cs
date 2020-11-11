@@ -522,10 +522,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                   "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                         .SetName("invalidScenarioRelevantNoBoolean");
 
-                    yield return new TestCaseData("invalidProbabilisticCalculationMultipleHydraulicBoundaryLocation.xml",
+                    yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                                   "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
-                    yield return new TestCaseData("invalidConfigurationProbabilisticCalculationContainingEmptyHydraulicBoundaryLocation.xml",
+                    yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                                   "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                         .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                 }
