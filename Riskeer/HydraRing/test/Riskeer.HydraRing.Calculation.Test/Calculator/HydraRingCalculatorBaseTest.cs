@@ -42,10 +42,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraRingCalculator(null);
+            void Call() => new TestHydraRingCalculator(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
@@ -56,15 +56,16 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
             var parser = new TestParser();
             var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty, false);
             var calculator = new TestHydraRingCalculator(settings, parser);
-            var hydraRingCalculationInput = new TestHydraRingCalculationInput();
-
-            hydraRingCalculationInput.PreprocessorSetting = new PreprocessorSetting(1, 2, new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6));
+            var hydraRingCalculationInput = new TestHydraRingCalculationInput
+            {
+                PreprocessorSetting = new PreprocessorSetting(1, 2, new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6))
+            };
 
             // Call
-            TestDelegate test = () => calculator.PublicCalculate(hydraRingCalculationInput);
+            void Call() => calculator.PublicCalculate(hydraRingCalculationInput);
 
             // Assert
-            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            string message = Assert.Throws<InvalidOperationException>(Call).Message;
             Assert.AreEqual("Preprocessor directory required but not specified.", message);
         }
 
@@ -94,10 +95,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
                                                          parser);
 
             // Call
-            TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
+            void Call() => calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            var exception = Assert.Throws<HydraRingCalculationException>(test);
+            var exception = Assert.Throws<HydraRingCalculationException>(Call);
             Assert.AreEqual(parseException.Message, exception.Message);
             Assert.AreSame(parseException.InnerException, exception.InnerException);
         }
@@ -120,10 +121,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
                                                          parser);
 
             // Call
-            TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
+            void Call() => calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            var exception = Assert.Throws<HydraRingCalculationException>(test);
+            var exception = Assert.Throws<HydraRingCalculationException>(Call);
             string expectedMessage = "Het besturingssysteem geeft de volgende melding:"
                                      + Environment.NewLine
                                      + $"{supportedException.Message}";
@@ -142,7 +143,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            string expectedContent = $"Hydraulic database {settings.HlcdFilePath} not found.\r\n";
+            var expectedContent = $"Hydraulic database {settings.HlcdFilePath} not found.\r\n";
             Assert.AreEqual(expectedContent, calculator.LastErrorFileContent);
         }
 
@@ -201,29 +202,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
                 TimeIntegrationSetting = new TimeIntegrationSetting(1);
             }
 
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return HydraRingFailureMechanismType.AssessmentLevel;
-                }
-            }
+            public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.AssessmentLevel;
 
-            public override int CalculationTypeId
-            {
-                get
-                {
-                    return 0;
-                }
-            }
+            public override int CalculationTypeId => 0;
 
-            public override int VariableId
-            {
-                get
-                {
-                    return 0;
-                }
-            }
+            public override int VariableId => 0;
+
+            public override int FaultTreeModelId => 0;
 
             public override HydraRingSection Section { get; } = new HydraRingSection(12, 12, 12);
         }
