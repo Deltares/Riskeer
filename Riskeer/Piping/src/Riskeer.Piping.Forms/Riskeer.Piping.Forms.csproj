@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
     <ProjectReference Include="..\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj" />
     <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj" />
+    <ProjectReference Include="..\Riskeer.Piping.Util\Riskeer.Piping.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

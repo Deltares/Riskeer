@@ -29,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
@@ -54,6 +55,7 @@ using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms;
+using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
@@ -68,6 +70,7 @@ using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
 using Riskeer.Piping.Service.Probabilistic;
 using Riskeer.Piping.Service.SemiProbabilistic;
+using Riskeer.Piping.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
@@ -714,6 +717,11 @@ namespace Riskeer.Piping.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
+            IEnumerable<ProbabilisticPipingCalculationScenario> calculations = pipingFailureMechanismContext.WrappedData
+                                                                                                            .Calculations
+                                                                                                            .OfType<ProbabilisticPipingCalculationScenario>();
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
@@ -728,6 +736,9 @@ namespace Riskeer.Piping.Plugin
                               CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
+                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                              () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculations),
+                              CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -845,6 +856,8 @@ namespace Riskeer.Piping.Plugin
                                                                              .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             if (!isNestedGroup)
             {
                 builder.AddOpenItem()
@@ -885,7 +898,9 @@ namespace Riskeer.Piping.Plugin
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculations.OfType<ProbabilisticPipingCalculationScenario>()),
+                                                                        CreateChangeHandler(inquiryHelper, calculations.OfType<ProbabilisticPipingCalculationScenario>()));
 
             if (isNestedGroup)
             {
@@ -1161,9 +1176,10 @@ namespace Riskeer.Piping.Plugin
         private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
                                                                                                object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
             ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
+            var changeHandler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(GetInquiryHelper(),
+                                                                                                         calculation);
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
@@ -1182,6 +1198,8 @@ namespace Riskeer.Piping.Plugin
                               CalculateProbabilistic)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
+                          .AddClearIllustrationPointsOfCalculationItem(() => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
+                                                                       changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -1275,6 +1293,12 @@ namespace Riskeer.Piping.Plugin
                     calculationGroupContext.NotifyObservers();
                 }
             }
+        }
+
+        private static ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler CreateChangeHandler(
+            IInquiryHelper inquiryHelper, IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
+        {
+            return new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
 
         /// <summary>

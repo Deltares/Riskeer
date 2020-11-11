@@ -1972,8 +1972,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Util", "Risk
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Piping.Util.Test", "Riskeer\Piping\test\Riskeer.Piping.Util.Test\Riskeer.Piping.Util.Test.csproj", "{79656871-341E-42F7-AEB0-98E517E55312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Util.Test", "Riskeer\Piping\test\Riskeer.Piping.Util.Test\Riskeer.Piping.Util.Test.csproj", "{79656871-341E-42F7-AEB0-98E517E55312}"
 	ProjectSection(ProjectDependencies) = postProject
+		{3BBFD65B-B277-4E50-AE6D-BD24C3434609} = {3BBFD65B-B277-4E50-AE6D-BD24C3434609}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
