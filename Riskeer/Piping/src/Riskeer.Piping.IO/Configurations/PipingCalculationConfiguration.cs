@@ -29,8 +29,6 @@ namespace Riskeer.Piping.IO.Configurations
     /// </summary>
     public class PipingCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfiguration"/>.
         /// </summary>
@@ -38,6 +36,11 @@ namespace Riskeer.Piping.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public PipingCalculationConfiguration(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            
             Name = name;
         }
 
@@ -107,21 +110,8 @@ namespace Riskeer.Piping.IO.Configurations
         public bool? ShouldSectionSpecificIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the piping calculation.
+        /// Gets the name of the piping calculation.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get => name;
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-
-                name = value;
-            }
-        }
+        public string Name { get; }
     }
 }

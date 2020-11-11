@@ -29,8 +29,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfiguration"/>.
         /// </summary>
@@ -40,6 +38,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationConfiguration(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
         }
 
@@ -107,24 +110,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the grass cover erosion inwards calculation.
+        /// Gets the name of the grass cover erosion inwards calculation.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-
-                name = value;
-            }
-        }
+        public string Name { get; }
     }
 }

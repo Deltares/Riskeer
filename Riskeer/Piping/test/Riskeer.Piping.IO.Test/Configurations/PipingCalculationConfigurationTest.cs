@@ -30,13 +30,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
     public class PipingCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutName_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new PipingCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(Call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -64,19 +65,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.IsNull(readPipingCalculation.Scenario);
             Assert.IsNull(readPipingCalculation.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.IsNull(readPipingCalculation.ShouldSectionSpecificIllustrationPointsBeCalculated);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new PipingCalculationConfiguration("valid name");
-
-            // Call
-            void Call() => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(Call);
         }
     }
 }

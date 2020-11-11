@@ -33,10 +33,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationConfiguration(null);
+            void Call() => new MacroStabilityInwardsCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -88,19 +89,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.TangentLineNumber);
             Assert.IsNull(configuration.LeftGrid);
             Assert.IsNull(configuration.RightGrid);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }
