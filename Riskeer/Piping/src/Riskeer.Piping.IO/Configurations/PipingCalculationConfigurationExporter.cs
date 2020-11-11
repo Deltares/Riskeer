@@ -52,7 +52,7 @@ namespace Riskeer.Piping.IO.Configurations
         {
             PipingInput input = calculation.InputParameters;
 
-            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name)
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, PipingCalculationConfigurationType.SemiProbabilistic)
             {
                 DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
                 PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),

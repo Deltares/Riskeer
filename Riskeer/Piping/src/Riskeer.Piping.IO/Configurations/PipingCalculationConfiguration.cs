@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Configurations
@@ -33,21 +34,32 @@ namespace Riskeer.Piping.IO.Configurations
         /// Creates a new instance of <see cref="PipingCalculationConfiguration"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="PipingCalculationConfiguration"/>.</param>
+        /// <param name="calculationType">The type of the <see cref="PipingCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public PipingCalculationConfiguration(string name)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/>
+        /// has an invalid value.</exception>
+        public PipingCalculationConfiguration(string name, PipingCalculationConfigurationType calculationType)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            
+
+            if (!Enum.IsDefined(typeof(PipingCalculationConfigurationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType),
+                                                       (int) calculationType,
+                                                       typeof(PipingCalculationConfigurationType));
+            }
+
             Name = name;
+            CalculationType = calculationType;
         }
 
         /// <summary>
-        /// Gets or sets the calculation type.
+        /// Gets the calculation type.
         /// </summary>
-        public PipingCalculationConfigurationType? CalculationType { get; set; }
+        public PipingCalculationConfigurationType CalculationType { get; }
 
         /// <summary>
         /// Gets or sets the assessment level of the piping calculation.

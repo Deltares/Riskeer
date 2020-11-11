@@ -78,7 +78,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
         private static PipingCalculationConfiguration CreateFullCalculationConfiguration()
         {
-            return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1")
+            return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1", PipingCalculationConfigurationType.SemiProbabilistic)
             {
                 AssessmentLevel = 10,
                 HydraulicBoundaryLocationName = "PUNT_KAT_18",
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
         private static PipingCalculationConfiguration CreateSparseCalculationConfiguration()
         {
-            return new PipingCalculationConfiguration("Sparse");
+            return new PipingCalculationConfiguration("Sparse", PipingCalculationConfigurationType.SemiProbabilistic);
         }
 
         protected override PipingCalculationConfigurationWriter CreateWriterInstance(string filePath)
