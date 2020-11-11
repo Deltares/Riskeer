@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -35,11 +36,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
             var hydraRingCalculationInput = new HydraRingCalculationInputImplementation(1);
 
             // Assert
-            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(4, hydraRingCalculationInput.CalculationTypeId);
-            Assert.AreEqual(5, hydraRingCalculationInput.VariableId);
             Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(1, hydraRingCalculationInput.Section.SectionId);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ForelandsPoints);
@@ -48,66 +45,19 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(3, hydraRingCalculationInput.IterationMethodId);
         }
 
-        [Test]
-        public void GetSubMechanismModelId_ReturnsExpectedValues()
-        {
-            // Call
-            var hydraRingCalculationInput = new HydraRingCalculationInputImplementation(1);
-
-            // Assert
-            Assert.AreEqual(10, hydraRingCalculationInput.GetSubMechanismModelId(1));
-            Assert.AreEqual(20, hydraRingCalculationInput.GetSubMechanismModelId(2));
-            Assert.IsNull(hydraRingCalculationInput.GetSubMechanismModelId(3));
-        }
-
         private class HydraRingCalculationInputImplementation : HydraRingCalculationInput
         {
             public HydraRingCalculationInputImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return HydraRingFailureMechanismType.QVariant;
-                }
-            }
+            public override HydraRingFailureMechanismType FailureMechanismType => throw new NotImplementedException();
 
-            public override int CalculationTypeId
-            {
-                get
-                {
-                    return 4;
-                }
-            }
+            public override int CalculationTypeId => throw new NotImplementedException();
 
-            public override int VariableId
-            {
-                get
-                {
-                    return 5;
-                }
-            }
+            public override int VariableId => throw new NotImplementedException();
 
-            public override HydraRingSection Section
-            {
-                get
-                {
-                    return new HydraRingSection(1, 2.2, 3.3);
-                }
-            }
+            public override int FaultTreeModelId => throw new NotImplementedException();
 
-            public override int? GetSubMechanismModelId(int subMechanismId)
-            {
-                switch (subMechanismId)
-                {
-                    case 1:
-                        return 10;
-                    case 2:
-                        return 20;
-                    default:
-                        return null;
-                }
-            }
+            public override HydraRingSection Section => throw new NotImplementedException();
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -32,7 +33,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const int expectedCalculationTypeId = 1;
             const int hydraulicBoundaryLocationId = 1000;
 
             // Call
@@ -41,11 +41,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculationInput>(exceedanceProbabilityCalculationInputImplementation);
-            Assert.AreEqual(expectedCalculationTypeId, exceedanceProbabilityCalculationInputImplementation.CalculationTypeId);
+            Assert.AreEqual(1, exceedanceProbabilityCalculationInputImplementation.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, exceedanceProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, exceedanceProbabilityCalculationInputImplementation.FailureMechanismType);
-            Assert.AreEqual(5, exceedanceProbabilityCalculationInputImplementation.VariableId);
-            Assert.AreEqual(1, exceedanceProbabilityCalculationInputImplementation.Section.SectionId);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ProfilePoints);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ForelandsPoints);
@@ -57,29 +54,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         {
             public ExceedanceProbabilityCalculationInputImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return HydraRingFailureMechanismType.DikesOvertopping;
-                }
-            }
+            public override HydraRingFailureMechanismType FailureMechanismType => throw new NotImplementedException();
 
-            public override int VariableId
-            {
-                get
-                {
-                    return 5;
-                }
-            }
+            public override int VariableId => throw new NotImplementedException();
 
-            public override HydraRingSection Section
-            {
-                get
-                {
-                    return new HydraRingSection(1, 2.2, 3.3);
-                }
-            }
+            public override int FaultTreeModelId => throw new NotImplementedException();
+
+            public override HydraRingSection Section => throw new NotImplementedException();
         }
     }
 }

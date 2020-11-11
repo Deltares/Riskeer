@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Call
-            var reliabilityIndexCalculationInput = new SimpleReliabilityIndexCalculationInput(locationId, norm);
+            var reliabilityIndexCalculationInput = new ReliabilityIndexCalculationInputImplementation(locationId, norm);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculationInput>(reliabilityIndexCalculationInput);
@@ -52,34 +52,18 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(expectedBeta, reliabilityIndexCalculationInput.Beta);
         }
 
-        private class SimpleReliabilityIndexCalculationInput : ReliabilityIndexCalculationInput
+        private class ReliabilityIndexCalculationInputImplementation : ReliabilityIndexCalculationInput
         {
-            public SimpleReliabilityIndexCalculationInput(int i, double norm)
+            public ReliabilityIndexCalculationInputImplementation(int i, double norm)
                 : base(i, norm) {}
 
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            public override HydraRingFailureMechanismType FailureMechanismType => throw new NotImplementedException();
 
-            public override int VariableId
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            public override int VariableId => throw new NotImplementedException();
 
-            public override HydraRingSection Section
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            public override int FaultTreeModelId => throw new NotImplementedException();
+
+            public override HydraRingSection Section => throw new NotImplementedException();
         }
     }
 }
