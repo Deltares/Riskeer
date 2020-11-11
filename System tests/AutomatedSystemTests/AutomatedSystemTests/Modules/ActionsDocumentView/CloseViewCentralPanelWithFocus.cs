@@ -79,9 +79,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(0));
+            Delay.Duration(100, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.HeaderOpenViews.ViewCloseButton' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButtonInfo, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(1));
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.HeaderOpenViews.ViewCloseButton' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButtonInfo, new RecordItemIndex(2));
             repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButton.Click();
             
         }

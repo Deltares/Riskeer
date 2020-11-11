@@ -402,6 +402,15 @@ wpDZPAHzZ469KdFZTLKAwhEYnabcpO45zgYx79c1oUUAZiabMsSoWjyI4l6nqrZPalksJ2j2jZ8k
 AooooAKKKKACiiigAooooA//2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
