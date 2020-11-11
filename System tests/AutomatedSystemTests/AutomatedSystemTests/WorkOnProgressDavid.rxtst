@@ -228,6 +228,26 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="144925b8-a017-4bf0-a511-ae845883fa00"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="637a1776-3804-41ed-889d-753d946a265b"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="substringMessage"
+					datasourceid="637a1776-3804-41ed-889d-753d946a265b"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="14c6feec-346f-41f8-bb3b-31e798809700"
 			name="OriginalSchematizations">
@@ -824,6 +844,11 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script09_substringsImportingSchematizationsOnWrongTraject"
+			id="5bc3ecf1-4e26-468d-b6ec-2459c53ce631"
+			name="ValidateErrorMessages">
+			</smartfoldernode>
 			<testmodule
 			id="5e971966-109c-4989-93c3-65af6a2d0b71"
 			name="ConcatenateStrings"
@@ -1330,12 +1355,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -1352,6 +1371,12 @@
 					datasourceid="01b92589-3c18-4d10-8f09-378787725518"
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
 					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="disjointedTrajectToAdd"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1452,7 +1477,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
+					dataname="pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -1537,7 +1562,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="ac5fc05e-8c96-4cc2-9bf8-1fc61a1e23cc"
-			name="OriginalSchematizations">
+			name="ImportOriginalSchematizations">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ac91d500-2876-4c50-b509-bb6438e6eee9"
@@ -2852,7 +2877,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="ac5fc05e-8c96-4cc2-9bf8-1fc61a1e23cc"
-								name="OriginalSchematizations">
+								name="ImportOriginalSchematizations">
 									<smartfoldernode
 									id="e0da6474-2475-46b8-9296-82e0e464fac3"
 									name="CopyOriginalFiles">
@@ -2881,6 +2906,14 @@
 										name="ImportSchematizationForCurrentlySelectedItem">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="5bc3ecf1-4e26-468d-b6ec-2459c53ce631"
+								name="ValidateErrorMessages">
+									<testmodule
+									id="144925b8-a017-4bf0-a511-ae845883fa00"
+									name="ValidateTextMesage">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -2940,6 +2973,12 @@
 				<column>
 					rangeRemainingItems
 				</column>
+				<column>
+					disjointedTrajectToAdd
+				</column>
+				<column>
+					pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -2981,6 +3020,12 @@
 					<th>
 						rangeRemainingItems
 					</th>
+					<th>
+						disjointedTrajectToAdd
+					</th>
+					<th>
+						pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -3017,6 +3062,12 @@
 					</td>
 					<td>
 						1-5
+					</td>
+					<td>
+						8-1
+					</td>
+					<td>
+						8-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
 					</td>
 				</tr>
 				<tr>
@@ -3055,6 +3106,12 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						8-2
+					</td>
+					<td>
+						8-2&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Voorlandprofielen
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -3092,6 +3149,12 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						6-3
+					</td>
+					<td>
+						6-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Voorlandprofielen
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -3128,6 +3191,12 @@
 						3
 					</td>
 					<td>
+					</td>
+					<td>
+						8-4
+					</td>
+					<td>
+						8-4&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Voorlandprofielen
 					</td>
 				</tr>
 				<tr>
@@ -3167,6 +3236,12 @@
 					<td>
 						6
 					</td>
+					<td>
+						8-5
+					</td>
+					<td>
+						8-5&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Voorlandprofielen
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -3205,6 +3280,12 @@
 					<td>
 						7-8
 					</td>
+					<td>
+						8-6
+					</td>
+					<td>
+						8-6&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Voorlandprofielen
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -3242,6 +3323,12 @@
 					</td>
 					<td>
 						9-11
+					</td>
+					<td>
+						8-7
+					</td>
+					<td>
+						8-7&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Voorlandprofielen
 					</td>
 				</tr>
 			</table>
@@ -3596,134 +3683,85 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="637a1776-3804-41ed-889d-753d946a265b"
+		lastknownrowcount="6"
+		name="script09_substringsImportingSchematizationsOnWrongTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					substringMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						substringMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van
+					</td>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						is mislukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Fout bij het lezen
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						ligt niet op de referentielijn.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						Importeren van
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						is gestart.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
-			<testcontainer
-			id="01c9c713-003b-464f-a011-3214577843db">
-			</testcontainer>
-			<testcontainer
-			id="0659e551-fd9f-47f5-ac88-42bde8e95ec7">
-			</testcontainer>
-			<testcontainer
-			id="14c6feec-346f-41f8-bb3b-31e798809700">
-			</testcontainer>
-			<testcontainer
-			id="1ae50821-3a56-41e3-bba3-fb6a120f3966">
-			</testcontainer>
-			<testcontainer
-			id="20be10ff-86c3-4921-8f26-3f3f7a28593d">
-			</testcontainer>
-			<testcontainer
-			id="255f7be8-eab7-487a-8607-fe9d53f1e650">
-			</testcontainer>
-			<testcontainer
-			id="2d957c9d-6fb4-4bc8-acb0-bdf60c8f7703">
-			</testcontainer>
-			<testcontainer
-			id="3ddd79e4-a99e-40f0-b120-763a595ad464">
-			</testcontainer>
-			<testcontainer
-			id="3ea77d24-27f3-4296-b8fc-faf074d7785f">
-			</testcontainer>
-			<testcontainer
-			id="3f5498c5-27ab-4b7a-a339-381d21727dd3">
-			</testcontainer>
-			<testcontainer
-			id="3f8762ba-8500-4108-881f-91fba5fb5f79">
-			</testcontainer>
-			<testcontainer
-			id="48e89bee-3c18-40ae-9d13-b119911b8740">
-			</testcontainer>
-			<testcontainer
-			id="520b910c-64c4-4606-813e-84776561cf75">
-			</testcontainer>
-			<testcontainer
-			id="5378926b-0e49-4f70-8310-994287503e45">
-			</testcontainer>
-			<testcontainer
-			id="5aa74c80-6ea2-40ec-9dd6-96925623b43a">
-			</testcontainer>
-			<testcontainer
-			id="6992e8a3-ab3b-4793-84a1-941b60cbcb41">
-			</testcontainer>
-			<testcontainer
-			id="6b7338db-e988-46c4-8f89-bb71700b2f5f">
-			</testcontainer>
-			<testcontainer
-			id="74b49f88-ed5a-4b45-a506-6385fe611405">
-			</testcontainer>
-			<testcontainer
-			id="752898ca-e57f-4f23-a03c-1b7a43c223cd">
-			</testcontainer>
-			<testcontainer
-			id="7a395bd5-4a3e-4961-8f6a-b78c6e6a34fe">
-			</testcontainer>
-			<testcontainer
-			id="8111a7e9-3a11-4db3-9c4e-c51b5248b931">
-			</testcontainer>
-			<testcontainer
-			id="8828de6f-6216-4298-a863-6cc1c15ee9e9">
-			</testcontainer>
-			<testcontainer
-			id="91d6f84f-a372-4c2a-978b-f46b98949f27">
-			</testcontainer>
-			<testcontainer
-			id="9232dd47-cb02-402c-8c78-39338684347e">
-			</testcontainer>
-			<testcontainer
-			id="963eab3d-4716-40fb-bf42-9da0d4d2001c">
-			</testcontainer>
-			<testcontainer
-			id="9c334442-e33e-455d-88b5-e00062d2c4f5">
-			</testcontainer>
-			<testcontainer
-			id="a93df419-792b-4132-9a20-9192e0858637">
-			</testcontainer>
-			<testcontainer
-			id="ac91d500-2876-4c50-b509-bb6438e6eee9">
-			</testcontainer>
-			<testcontainer
-			id="b7ca621d-0063-4dab-b955-e247237ea5f2">
-			</testcontainer>
-			<testcontainer
-			id="bea93852-acdc-42a1-9838-d572c01df8d7">
-			</testcontainer>
-			<testcontainer
-			id="bfa6e1e0-2820-45ac-8c71-a5e6d0bd9f19">
-			</testcontainer>
-			<testcontainer
-			id="c12a7229-70a5-4da1-8e7f-13c4f6c1b23b">
-			</testcontainer>
-			<testcontainer
-			id="c2010d89-47d3-4f55-aa3a-504a00aa13d0">
-			</testcontainer>
-			<testcontainer
-			id="c8816c39-e62b-4c6f-98b3-6bcbd728a07c">
-			</testcontainer>
-			<testcontainer
-			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
-			</testcontainer>
-			<testcontainer
-			id="d6041f65-67b4-4792-b24e-b734e8cc4d45">
-			</testcontainer>
-			<testcontainer
-			id="da2d302f-1544-4fd0-b20b-7c4ba76d1f42">
-			</testcontainer>
-			<testcontainer
-			id="ee034c08-5f87-4098-b747-c267efeef9fa">
-			</testcontainer>
-			<testcontainer
-			id="f1a1f2fb-b212-4123-873c-9c09ec227ce6">
-			</testcontainer>
-			<testcontainer
-			id="f3993f25-132b-49fb-a2d8-90e0b966e0a0">
-			</testcontainer>
-			<testcontainer
-			id="f3deae71-13a8-4be2-9640-6d5ff07eb6ce">
-			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>
