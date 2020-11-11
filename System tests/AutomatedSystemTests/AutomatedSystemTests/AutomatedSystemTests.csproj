@@ -1545,6 +1545,9 @@
       <id>27d2d9ae-7798-4f2f-ac73-31e08f03ece9</id>
       <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\ProjectExplorer\ValidateWhetherFolderGivenPathContainsNode.cs">
+      <id>89cc3807-c64e-4752-aaf6-996a110e3a06</id>
+    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateCategoryBoundaryInPropertiesPanel.cs">
       <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
