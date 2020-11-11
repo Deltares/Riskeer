@@ -453,37 +453,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                 failureMechanismType = HydraRingFailureMechanismType.AssessmentLevel;
             }
 
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return failureMechanismType;
-                }
-            }
+            public override HydraRingFailureMechanismType FailureMechanismType => failureMechanismType;
 
-            public override int CalculationTypeId
-            {
-                get
-                {
-                    return 4;
-                }
-            }
+            public override int CalculationTypeId => 4;
 
-            public override int VariableId
-            {
-                get
-                {
-                    return 5;
-                }
-            }
+            public override int VariableId => 5;
 
-            public override HydraRingSection Section
-            {
-                get
-                {
-                    return new HydraRingSection(sectionId, 2.2, 3.3);
-                }
-            }
+            public override int FaultTreeModelId => 6;
+
+            public override HydraRingSection Section => new HydraRingSection(sectionId, 2.2, 3.3);
 
             public override IEnumerable<HydraRingVariable> Variables
             {
@@ -526,23 +504,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override HydraRingBreakWater BreakWater
-            {
-                get
-                {
-                    return withBreakWater
-                               ? new HydraRingBreakWater(1, 99.9)
-                               : null;
-                }
-            }
+            public override HydraRingBreakWater BreakWater => withBreakWater ? new HydraRingBreakWater(1, 99.9) : null;
 
-            public override double Beta
-            {
-                get
-                {
-                    return 1.1;
-                }
-            }
+            public override double Beta => 1.1;
 
             public void SetFailureMechanismType(HydraRingFailureMechanismType type)
             {
