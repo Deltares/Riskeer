@@ -165,7 +165,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [CalculationProfiles] VALUES (1, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
-                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 6);" + Environment.NewLine +
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +
@@ -358,15 +358,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [CalculationProfiles] VALUES (3, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
-                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 6);" + Environment.NewLine +
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +
-                                            "INSERT INTO [SectionFaultTreeModels] VALUES (2, 1, 1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (2, 1, 1, 1, 6);" + Environment.NewLine +
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (2, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +
-                                            "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 6);" + Environment.NewLine +
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +

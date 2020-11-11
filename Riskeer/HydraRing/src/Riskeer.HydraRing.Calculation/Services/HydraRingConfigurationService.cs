@@ -447,7 +447,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                     double correlationLength = double.IsNaN(variableDefaults.CorrelationLength)
                                                    ? hydraRingCalculationInput.Section.SectionLength
                                                    : variableDefaults.CorrelationLength;
-                    
+
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
@@ -652,7 +652,7 @@ namespace Riskeer.HydraRing.Calculation.Services
 
                 orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
                                                                     failureMechanismDefaults.MechanismId,
-                                                                    failureMechanismDefaults.FaultTreeModelId));
+                                                                    hydraRingCalculationInput.FaultTreeModelId));
 
                 if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
