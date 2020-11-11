@@ -120,9 +120,6 @@
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
     <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
-    <value>Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.</value>
-  </data>
   <data name="PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected" xml:space="preserve">
     <value>Er is geen ondergrondschematisatie geselecteerd.</value>
   </data>
@@ -139,7 +136,7 @@
     <value>De waarde voor 'uittredepunt' moet een concreet getal zijn.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine" xml:space="preserve">
-    <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>
+    <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer" xml:space="preserve">
     <value>Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden.</value>

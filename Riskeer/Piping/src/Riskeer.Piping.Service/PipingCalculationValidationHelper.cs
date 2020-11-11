@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Service
 
                 warnings.AddRange(GetMultipleAquiferLayersWarning(input, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(input, surfaceLineLevel));
-                warnings.AddRange(GetThicknessCoverageLayerWarnings(input));
+                warnings.AddRange(GetThicknessCoverageLayerWarning(input));
             }
 
             return warnings;
@@ -84,20 +84,11 @@ namespace Riskeer.Piping.Service
             return errors;
         }
 
-        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput input)
+        private static IEnumerable<string> GetThicknessCoverageLayerWarning(PipingInput input)
         {
-            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
-            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
-
-            bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
-            if (!hasConsecutiveCoverageLayers)
-            {
-                yield return Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine;
-            }
-
             if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(input).Mean))
             {
-                yield return Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer;
+                yield return Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine;
             }
         }
 

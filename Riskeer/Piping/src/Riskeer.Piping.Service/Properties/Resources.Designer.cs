@@ -138,15 +138,6 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine {
@@ -157,7 +148,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt..
+        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine {
             get {
