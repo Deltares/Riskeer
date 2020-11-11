@@ -33,15 +33,13 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         /// </summary>
         /// <param name="mechanismId">The mechanism id.</param>
         /// <param name="subMechanismIds">The sub mechanism ids that are applicable.</param>
-        /// <param name="faultTreeModelId">The fault tree model id.</param>
         /// <param name="preprocessorFaultTreeModelId">The fault tree model id to be used when running the preprocessor.</param>
         /// <param name="preprocessorMechanismId">The mechanism id to be used when running the preprocessor.</param>
-        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds, int faultTreeModelId,
+        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds,
                                         int preprocessorFaultTreeModelId, int preprocessorMechanismId)
         {
             MechanismId = mechanismId;
             SubMechanismIds = subMechanismIds;
-            FaultTreeModelId = faultTreeModelId;
             PreprocessorFaultTreeModelId = preprocessorFaultTreeModelId;
             PreprocessorMechanismId = preprocessorMechanismId;
         }
@@ -57,11 +55,6 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         public IEnumerable<int> SubMechanismIds { get; }
 
         /// <summary>
-        /// Gets the fault tree model id.
-        /// </summary>
-        public int FaultTreeModelId { get; }
-
-        /// <summary>
         /// Gets the fault tree model id to be used when running the preprocessor.
         /// </summary>
         public int PreprocessorFaultTreeModelId { get; }
@@ -74,12 +67,6 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         /// <summary>
         /// Gets the sub mechanism id to be used when running the preprocessor.
         /// </summary>
-        public int PreprocessorSubMechanismId
-        {
-            get
-            {
-                return 7;
-            }
-        }
+        public int PreprocessorSubMechanismId => 7;
     }
 }
