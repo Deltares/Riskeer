@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="PK001_0001 W1-6_0_1D1">
-    <waterstand>NaN</waterstand>
+    <semi-probabilistisch>
+      <waterstand>NaN</waterstand>
+    </semi-probabilistisch>
     <profielschematisatie>PK001_0001</profielschematisatie>
     <intredepunt>NaN</intredepunt>
     <uittredepunt>NaN</uittredepunt>
