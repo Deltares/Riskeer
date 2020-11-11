@@ -88,10 +88,13 @@ namespace Riskeer.Piping.IO.Configurations
                     }, Resources.PipingConfiguratieSchema0To1)
             }) {}
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when the value of
+        /// <see cref="PipingCalculationConfigurationType"/> is not supported.</exception>
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
             return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
-                GetCalculationType(calculationElement).Value)
+                                                      GetCalculationType(calculationElement))
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
@@ -108,19 +111,26 @@ namespace Riskeer.Piping.IO.Configurations
             };
         }
 
-        private static PipingCalculationConfigurationType? GetCalculationType(XElement calculationElement)
+        /// <summary>
+        /// Gets the type of the calculation.
+        /// </summary>
+        /// <param name="calculationElement">The read calculation element to parse.</param>
+        /// <returns>A <see cref="PipingCalculationConfigurationType"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the value of
+        /// <see cref="PipingCalculationConfigurationType"/> is not supported.</exception>
+        private static PipingCalculationConfigurationType GetCalculationType(XElement calculationElement)
         {
             if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic) != null)
             {
                 return PipingCalculationConfigurationType.SemiProbabilistic;
             }
-            
+
             if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.Probabilistic) != null)
             {
                 return PipingCalculationConfigurationType.Probabilistic;
             }
 
-            return null;
+            throw new NotSupportedException();
         }
     }
 }
