@@ -73,10 +73,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 Comments = comments,
                 EntryPointL = entryPoint.ToNaNAsNull(),
                 ExitPointL = exitPoint.ToNaNAsNull(),
-                PhreaticLevelExitMean = GetRandomNullableDoubleInRange(random, -9999.99, 9999.99),
-                PhreaticLevelExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
-                DampingFactorExitMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
-                DampingFactorExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
+                PhreaticLevelExitMean = random.NextDouble(-9999.99, 9999.99),
+                PhreaticLevelExitStandardDeviation = random.NextDouble(0, 9999.99),
+                DampingFactorExitMean = random.NextDouble(1e-6, 9999.99),
+                DampingFactorExitStandardDeviation = random.NextDouble(0, 9999.99),
                 AssessmentLevel = assessmentLevel.ToNaNAsNull(),
                 UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput)
             };
@@ -335,12 +335,6 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             Assert.IsNaN(output.SellmeijerCreepCoefficient);
             Assert.IsNaN(output.SellmeijerCriticalFall);
             Assert.IsNaN(output.SellmeijerReducedFall);
-        }
-
-        private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
-        {
-            double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble(0, difference);
         }
     }
 }
