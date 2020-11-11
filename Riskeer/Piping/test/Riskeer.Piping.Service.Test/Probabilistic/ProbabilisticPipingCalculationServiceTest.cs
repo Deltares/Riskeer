@@ -1027,6 +1027,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             var isValid = false;
+
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
                                                                                     new GeneralPipingInput(),
                                                                                     assessmentSection,
@@ -1073,6 +1074,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             var isValid = false;
+
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
                                                                                     new GeneralPipingInput(),
                                                                                     assessmentSection,
@@ -1132,7 +1134,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_CalculationValid_InputPropertiesCorrectlySentToCalculator()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CalculationValidWithOrWithoutCoverageLayer_InputPropertiesCorrectlySentToCalculator(bool withCoverageLayer)
         {
             // Setup
             double sectionLength = new Random(21).NextDouble();
@@ -1157,6 +1161,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -1170,8 +1183,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.AreEqual(1, profileSpecificInputs.Length);
                 Assert.AreEqual(1, sectionSpecificInputs.Length);
 
-                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
-                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, sectionLength, sectionSpecificInputs[0]);
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, withCoverageLayer, profileSpecificInputs[0]);
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, sectionLength, withCoverageLayer, sectionSpecificInputs[0]);
             }
 
             mocks.VerifyAll();
@@ -2245,36 +2258,67 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                                                             string.Empty);
         }
 
-        private static void AssertCalculatorInput(GeneralPipingInput generalInput, ProbabilisticPipingInput input, double sectionLength, PipingCalculationInput actualInput)
+        private static void AssertCalculatorInput(GeneralPipingInput generalInput,
+                                                  ProbabilisticPipingInput input,
+                                                  double sectionLength,
+                                                  bool withCoverageLayer,
+                                                  PipingCalculationInput actualInput)
         {
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, generalInput);
-            LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(input);
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
             VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(input);
             VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(input);
 
-            var expectedInput = new PipingCalculationInput(
-                1300001,
-                sectionLength,
-                input.PhreaticLevelExit.Mean, input.PhreaticLevelExit.StandardDeviation,
-                generalInput.WaterVolumetricWeight,
-                effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,
-                saturatedVolumicWeightOfCoverageLayer.Mean, saturatedVolumicWeightOfCoverageLayer.StandardDeviation,
-                saturatedVolumicWeightOfCoverageLayer.Shift,
-                generalInput.UpliftModelFactor.Mean, generalInput.UpliftModelFactor.StandardDeviation,
-                input.DampingFactorExit.Mean, input.DampingFactorExit.StandardDeviation,
-                seepageLength.Mean, seepageLength.CoefficientOfVariation,
-                thicknessAquiferLayer.Mean, thicknessAquiferLayer.StandardDeviation,
-                generalInput.SandParticlesVolumicWeight,
-                generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
-                generalInput.BeddingAngle,
-                generalInput.WhitesDragCoefficient,
-                generalInput.WaterKinematicViscosity,
-                darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
-                diameterD70.Mean, diameterD70.CoefficientOfVariation,
-                generalInput.Gravity,
-                generalInput.CriticalHeaveGradient.Mean, generalInput.CriticalHeaveGradient.StandardDeviation);
+            PipingCalculationInput expectedInput;
+
+            if (withCoverageLayer)
+            {
+                LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, generalInput);
+                LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
+
+                expectedInput = new PipingCalculationInput(
+                    1300001,
+                    sectionLength,
+                    input.PhreaticLevelExit.Mean, input.PhreaticLevelExit.StandardDeviation,
+                    generalInput.WaterVolumetricWeight,
+                    effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,
+                    saturatedVolumicWeightOfCoverageLayer.Mean, saturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+                    saturatedVolumicWeightOfCoverageLayer.Shift,
+                    generalInput.UpliftModelFactor.Mean, generalInput.UpliftModelFactor.StandardDeviation,
+                    input.DampingFactorExit.Mean, input.DampingFactorExit.StandardDeviation,
+                    seepageLength.Mean, seepageLength.CoefficientOfVariation,
+                    thicknessAquiferLayer.Mean, thicknessAquiferLayer.StandardDeviation,
+                    generalInput.SandParticlesVolumicWeight,
+                    generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
+                    generalInput.BeddingAngle,
+                    generalInput.WhitesDragCoefficient,
+                    generalInput.WaterKinematicViscosity,
+                    darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
+                    diameterD70.Mean, diameterD70.CoefficientOfVariation,
+                    generalInput.Gravity,
+                    generalInput.CriticalHeaveGradient.Mean, generalInput.CriticalHeaveGradient.StandardDeviation);
+            }
+            else
+            {
+                expectedInput = new PipingCalculationInput(
+                    1300001,
+                    sectionLength,
+                    input.PhreaticLevelExit.Mean, input.PhreaticLevelExit.StandardDeviation,
+                    generalInput.WaterVolumetricWeight,
+                    generalInput.UpliftModelFactor.Mean, generalInput.UpliftModelFactor.StandardDeviation,
+                    input.DampingFactorExit.Mean, input.DampingFactorExit.StandardDeviation,
+                    seepageLength.Mean, seepageLength.CoefficientOfVariation,
+                    thicknessAquiferLayer.Mean, thicknessAquiferLayer.StandardDeviation,
+                    generalInput.SandParticlesVolumicWeight,
+                    generalInput.SellmeijerModelFactor.Mean, generalInput.SellmeijerModelFactor.StandardDeviation,
+                    generalInput.BeddingAngle,
+                    generalInput.WhitesDragCoefficient,
+                    generalInput.WaterKinematicViscosity,
+                    darcyPermeability.Mean, darcyPermeability.CoefficientOfVariation,
+                    diameterD70.Mean, diameterD70.CoefficientOfVariation,
+                    generalInput.Gravity,
+                    generalInput.CriticalHeaveGradient.Mean, generalInput.CriticalHeaveGradient.StandardDeviation);
+            }
 
             HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
         }
