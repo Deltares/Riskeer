@@ -59,6 +59,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
         private readonly double criticalHeaveGradientMean;
         private readonly double criticalHeaveGradientStandardDeviation;
 
+        private readonly bool hasCoverageLayer;
+
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationInput"/> class, taking into account the precense of a coverage layer.
         /// </summary>
@@ -116,6 +118,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
                                       double criticalHeaveGradientStandardDeviation)
             : base(hydraulicBoundaryLocationId)
         {
+            hasCoverageLayer = true;
+
             Section = new HydraRingSection(1, sectionLength, double.NaN);
             this.phreaticLevelExitMean = phreaticLevelExitMean;
             this.phreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation;
@@ -197,6 +201,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
                                       double criticalHeaveGradientStandardDeviation)
             : base(hydraulicBoundaryLocationId)
         {
+            hasCoverageLayer = false;
+
             Section = new HydraRingSection(1, sectionLength, double.NaN);
             this.phreaticLevelExitMean = phreaticLevelExitMean;
             this.phreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation;
@@ -237,11 +243,21 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
                 yield return new NormalHydraRingVariable(42, HydraRingDeviationType.Standard, phreaticLevelExitMean,
                                                          phreaticLevelExitStandardDeviation);
                 yield return new DeterministicHydraRingVariable(43, waterVolumetricWeight);
-                yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, effectiveThicknessCoverageLayerMean,
-                                                            effectiveThicknessCoverageLayerStandardDeviation);
-                yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, saturatedVolumicWeightOfCoverageLayerMean,
-                                                            saturatedVolumicWeightOfCoverageLayerStandardDeviation,
-                                                            saturatedVolumicWeightOfCoverageLayerShift);
+
+                if (hasCoverageLayer)
+                {
+                    yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, effectiveThicknessCoverageLayerMean,
+                                                                effectiveThicknessCoverageLayerStandardDeviation);
+                    yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, saturatedVolumicWeightOfCoverageLayerMean,
+                                                                saturatedVolumicWeightOfCoverageLayerStandardDeviation,
+                                                                saturatedVolumicWeightOfCoverageLayerShift);
+                }
+                else
+                {
+                    yield return new DeterministicHydraRingVariable(44, 0);
+                    yield return new DeterministicHydraRingVariable(45, 0);
+                }
+
                 yield return new LogNormalHydraRingVariable(46, HydraRingDeviationType.Standard, upliftModelFactorMean,
                                                             upliftModelFactorStandardDeviation);
                 yield return new LogNormalHydraRingVariable(47, HydraRingDeviationType.Standard, dampingFactorExitMean,
