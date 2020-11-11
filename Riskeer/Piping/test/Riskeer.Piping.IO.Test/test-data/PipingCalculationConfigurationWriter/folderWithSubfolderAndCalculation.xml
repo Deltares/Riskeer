@@ -2,8 +2,10 @@
 <configuratie versie="1">
   <map naam="PK001_0001">
     <berekening naam="PK001_0001 W1-6_0_1D1">
-      <waterstand>10</waterstand>
-      <hblocatie>PUNT_KAT_18</hblocatie>
+      <semi-probabilistisch>
+        <waterstand>10</waterstand>
+        <hblocatie>PUNT_KAT_18</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <intredepunt>0.1</intredepunt>
       <uittredepunt>0.2</uittredepunt>
@@ -26,6 +28,7 @@
     </berekening>
     <map naam="PK001_0002">
       <berekening naam="Sparse">
+        <semi-probabilistisch />
         <stochasten />
       </berekening>
     </map>
