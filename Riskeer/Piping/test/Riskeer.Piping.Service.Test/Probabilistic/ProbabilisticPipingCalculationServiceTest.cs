@@ -427,7 +427,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
                 Assert.AreEqual("Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[2]);
                 Assert.AreEqual("Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[3]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
@@ -484,7 +484,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsTrue(isValid);
@@ -544,7 +544,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsTrue(isValid);

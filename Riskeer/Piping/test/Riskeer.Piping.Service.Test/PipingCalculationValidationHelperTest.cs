@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.AreEqual(1, messages.Count());
-            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.", messages.ElementAt(0));
+            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.", messages.ElementAt(0));
         }
 
         [Test]
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.AreEqual(1, messages.Count());
-            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0.", messages.ElementAt(0));
+            Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.", messages.ElementAt(0));
         }
 
         [Test]
