@@ -155,8 +155,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.ButtonOk' at Center.", repo.DialogNewTraject.ButtonOkInfo, new RecordItemIndex(9));
             repo.DialogNewTraject.ButtonOk.Click();
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.DocumentViewContainer'", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(10));
-            repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo.WaitForExists(5000);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 10s to exist. Associated repository item: 'RiskeerMainWindow.DocumentViewContainer'", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new ActionTimeout(10000), new RecordItemIndex(10));
+            repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo.WaitForExists(10000);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(11));
             

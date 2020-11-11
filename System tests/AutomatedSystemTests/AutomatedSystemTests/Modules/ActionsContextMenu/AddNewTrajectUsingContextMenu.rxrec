@@ -2365,7 +2365,7 @@ f61YxSii7CyBRiinCikM/9k=
 		optional="False"
 		searchpropertyid="f9b39367-69e1-4f3e-bc55-a5c2f622328d"
 		waitaction="Exists"
-		waittimeout="5000ms">
+		waittimeout="10000ms">
 			<comment>
 			</comment>
 			<bindings>
