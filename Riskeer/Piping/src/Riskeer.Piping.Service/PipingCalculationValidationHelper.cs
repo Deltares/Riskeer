@@ -157,15 +157,14 @@ namespace Riskeer.Piping.Service
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
 
-            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
-
-            validationResults.AddRange(ValidateAquiferLayers(input, surfaceLevel));
-            validationResults.AddRange(ValidateCoverageLayers(input, surfaceLevel));
+            validationResults.AddRange(ValidateAquiferLayers(input));
+            validationResults.AddRange(ValidateCoverageLayers(input));
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input, double surfaceLevel)
+        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input)
         {
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
             PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
 
             if (!pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).Any())
@@ -188,20 +187,14 @@ namespace Riskeer.Piping.Service
             }
         }
 
-        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, double surfaceLevel)
+        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input)
         {
-            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
-
-            if (pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any())
+            if (!double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(input).Mean))
             {
-                LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
-                if (!double.IsNaN(thicknessCoverageLayer.Mean))
+                LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
+                if (IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.Mean) || IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.StandardDeviation))
                 {
-                    LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(input);
-                    if (IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.Mean) || IsInvalidDistributionValue(saturatedVolumicWeightOfCoverageLayer.StandardDeviation))
-                    {
-                        yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight;
-                    }
+                    yield return Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight;
                 }
             }
         }
