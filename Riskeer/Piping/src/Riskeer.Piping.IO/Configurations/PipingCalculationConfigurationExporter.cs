@@ -25,6 +25,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.IO.Configurations
@@ -52,7 +53,7 @@ namespace Riskeer.Piping.IO.Configurations
         {
             PipingInput input = calculation.InputParameters;
 
-            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, PipingCalculationConfigurationType.SemiProbabilistic)
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, GetCalculationConfigurationType(calculation))
             {
                 DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
                 PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
@@ -71,13 +72,31 @@ namespace Riskeer.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
-            
+
             if (calculation is SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculation)
             {
                 ToSemiProbabilisticConfiguration(calculationConfiguration, semiProbabilisticPipingCalculation);
             }
 
+            if (calculation is ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario)
+            {
+                ToProbabilisticConfiguration(calculationConfiguration, probabilisticPipingCalculationScenario);
+            }
+
             return calculationConfiguration;
+        }
+
+        private static PipingCalculationConfigurationType GetCalculationConfigurationType(IPipingCalculationScenario<PipingInput> pipingCalculationScenario)
+        {
+            switch (pipingCalculationScenario)
+            {
+                case SemiProbabilisticPipingCalculationScenario _:
+                    return PipingCalculationConfigurationType.SemiProbabilistic;
+                case ProbabilisticPipingCalculationScenario _:
+                    return PipingCalculationConfigurationType.Probabilistic;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private static void ToSemiProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
@@ -92,6 +111,19 @@ namespace Riskeer.Piping.IO.Configurations
             {
                 calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
             }
+        }
+
+        private static void ToProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
+                                                         ProbabilisticPipingCalculationScenario calculation)
+        {
+            ProbabilisticPipingInput input = calculation.InputParameters;
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
+            }
+
+            calculationConfiguration.ShouldProfileSpecificIllustrationPointsBeCalculated = input.ShouldProfileSpecificIllustrationPointsBeCalculated;
+            calculationConfiguration.ShouldSectionSpecificIllustrationPointsBeCalculated = input.ShouldSectionSpecificIllustrationPointsBeCalculated;
         }
     }
 }

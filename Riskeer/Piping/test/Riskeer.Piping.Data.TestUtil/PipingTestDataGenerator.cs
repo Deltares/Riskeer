@@ -57,12 +57,14 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> without hydraulic boundary location or design water level.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without hydraulic boundary location.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> without hydraulic boundary location or design water level.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without surface line.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocation<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            var calculation = GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             return calculation;
@@ -191,11 +193,35 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values set.
         /// </summary>
         /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithNaNs()
+        public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithNaNs()
         {
             SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
+            calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
+            calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
+
+            return calculation;
+        }
+        
+        /// <summary>
+        /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
+        public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithNaNs()
+        {
+            var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+            calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
@@ -218,7 +244,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// </summary>
         /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
         /// and <c>double.PositiveInfinity</c> values.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithInfinities()
+        public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithInfinities()
         {
             SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
@@ -230,6 +256,39 @@ namespace Riskeer.Piping.Data.TestUtil
             });
 
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.EntryPointL = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.ExitPointL = (RoundedDouble) double.PositiveInfinity;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = (RoundedDouble) double.NegativeInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = (RoundedDouble) double.PositiveInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+
+            return calculation;
+        }
+        
+        /// <summary>
+        /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values.</returns>
+        public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithInfinities()
+        {
+            var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
+
+            calculation.InputParameters.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, double.NegativeInfinity, 0),
+                new Point3D(0, double.PositiveInfinity, 0)
+            });
+
             calculation.InputParameters.EntryPointL = (RoundedDouble) double.NegativeInfinity;
             calculation.InputParameters.ExitPointL = (RoundedDouble) double.PositiveInfinity;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
