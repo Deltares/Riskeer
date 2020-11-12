@@ -49,11 +49,15 @@ namespace Riskeer.Piping.IO.Configurations
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new PipingCalculationConfigurationWriter(filePath)) {}
 
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
+        /// is an invalid type.</exception>
         protected override PipingCalculationConfiguration ToConfiguration(IPipingCalculationScenario<PipingInput> calculation)
         {
             PipingInput input = calculation.InputParameters;
 
-            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, GetCalculationConfigurationType(calculation))
+            PipingCalculationConfigurationType calculationConfigurationType = GetCalculationConfigurationType(calculation);
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, calculationConfigurationType)
             {
                 DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
                 PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
@@ -73,22 +77,29 @@ namespace Riskeer.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
-            if (calculation is SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculation)
+            if (calculationConfigurationType == PipingCalculationConfigurationType.SemiProbabilistic)
             {
-                ToSemiProbabilisticConfiguration(calculationConfiguration, semiProbabilisticPipingCalculation);
+                ToSemiProbabilisticConfiguration(calculationConfiguration, (SemiProbabilisticPipingInput) calculation.InputParameters);
             }
 
-            if (calculation is ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario)
+            if (calculationConfigurationType == PipingCalculationConfigurationType.Probabilistic)
             {
-                ToProbabilisticConfiguration(calculationConfiguration, probabilisticPipingCalculationScenario);
+                ToProbabilisticConfiguration(calculationConfiguration, (ProbabilisticPipingInput) calculation.InputParameters);
             }
 
             return calculationConfiguration;
         }
 
-        private static PipingCalculationConfigurationType GetCalculationConfigurationType(IPipingCalculationScenario<PipingInput> pipingCalculationScenario)
+        /// <summary>
+        /// Gets the <see cref="PipingCalculationConfigurationType"/> based on the type of <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation scenario to get the type from.</param>
+        /// <returns>The <see cref="PipingCalculationConfigurationType"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
+        /// is an invalid type.</exception>
+        private static PipingCalculationConfigurationType GetCalculationConfigurationType(IPipingCalculationScenario<PipingInput> calculation)
         {
-            switch (pipingCalculationScenario)
+            switch (calculation)
             {
                 case SemiProbabilisticPipingCalculationScenario _:
                     return PipingCalculationConfigurationType.SemiProbabilistic;
@@ -100,9 +111,8 @@ namespace Riskeer.Piping.IO.Configurations
         }
 
         private static void ToSemiProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
-                                                             SemiProbabilisticPipingCalculationScenario calculation)
+                                                             SemiProbabilisticPipingInput input)
         {
-            SemiProbabilisticPipingInput input = calculation.InputParameters;
             if (input.UseAssessmentLevelManualInput)
             {
                 calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
@@ -114,9 +124,8 @@ namespace Riskeer.Piping.IO.Configurations
         }
 
         private static void ToProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
-                                                         ProbabilisticPipingCalculationScenario calculation)
+                                                         ProbabilisticPipingInput input)
         {
-            ProbabilisticPipingInput input = calculation.InputParameters;
             if (input.HydraulicBoundaryLocation != null)
             {
                 calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
