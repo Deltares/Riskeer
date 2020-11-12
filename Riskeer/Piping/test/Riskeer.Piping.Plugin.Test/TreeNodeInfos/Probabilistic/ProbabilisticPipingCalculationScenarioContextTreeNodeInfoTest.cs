@@ -122,7 +122,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = hasOutput
-                             ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                             ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
                              : null
             };
 
@@ -205,7 +205,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var calculation = new ProbabilisticPipingCalculationScenario
                 {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -546,8 +546,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 var calculation = new ProbabilisticPipingCalculationScenario
                 {
-                    Output = new ProbabilisticPipingOutput(new PartialProbabilisticPipingOutput(0.7, null),
-                                                           new PartialProbabilisticPipingOutput(0.8, null))
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -581,12 +580,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void ContextMenuStrip_CalculationWithOutputAndIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabledAndToolTipSet()
         {
-                        // Setup
+            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new ProbabilisticPipingCalculationScenario
                 {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -671,7 +670,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 // Given
                 CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
-                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -731,7 +730,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             {
                 // Given
                 CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
-                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1046,7 +1045,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
                 plugin.Gui = gui;
 
-                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

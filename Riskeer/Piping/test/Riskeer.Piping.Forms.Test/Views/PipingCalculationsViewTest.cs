@@ -693,7 +693,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             if (useCalculationWithOutput)
             {
-                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
             }
 
             calculation.Attach(calculationObserver);

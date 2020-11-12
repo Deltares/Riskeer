@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var calculation = new TestProbabilisticPipingCalculation
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
             // Call
@@ -126,7 +126,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var calculation = new TestProbabilisticPipingCalculation
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
             // Call
@@ -142,7 +142,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             ProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+            original.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
 
             // Call
             object clone = original.Clone();
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                 .SetName("WithoutOutput");
             yield return new TestCaseData(new TestProbabilisticPipingCalculation
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             }, true).SetName("WithOutputButShouldNotHaveIllustrationPoints");
             yield return new TestCaseData(new TestProbabilisticPipingCalculation
             {
@@ -179,7 +179,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                     ShouldSectionSpecificIllustrationPointsBeCalculated = true,
                     ShouldProfileSpecificIllustrationPointsBeCalculated = true
                 },
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             }, false).SetName("WithOutputAndIllustrationPoints");
             yield return new TestCaseData(new TestProbabilisticPipingCalculation
             {
@@ -188,7 +188,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                     ShouldSectionSpecificIllustrationPointsBeCalculated = false,
                     ShouldProfileSpecificIllustrationPointsBeCalculated = true
                 },
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             }, true).SetName("WithOutputAndPartialIllustrationPoints1");
             yield return new TestCaseData(new TestProbabilisticPipingCalculation
             {
@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                     ShouldSectionSpecificIllustrationPointsBeCalculated = true,
                     ShouldProfileSpecificIllustrationPointsBeCalculated = false
                 },
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             }, true).SetName("WithOutputAndPartialIllustrationPoints2");
             yield return new TestCaseData(new TestProbabilisticPipingCalculation
             {

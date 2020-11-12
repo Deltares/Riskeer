@@ -538,13 +538,23 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/>.
+        /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/> with illustration points.
         /// </summary>
-        /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/>.</returns>
-        public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutput()
+        /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/> with illustration points.</returns>
+        public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutputWithIllustrationPoints()
         {
             return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(),
                                                  GetRandomPartialProbabilisticPipingOutput());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/> without illustration points.
+        /// </summary>
+        /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/> without illustration points.</returns>
+        public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+        {
+            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(null),
+                                                 GetRandomPartialProbabilisticPipingOutput(null));
         }
     }
 }

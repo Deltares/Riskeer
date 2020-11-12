@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             ProbabilisticPipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
-            original.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+            original.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
 
             // Call
             object clone = original.Clone();

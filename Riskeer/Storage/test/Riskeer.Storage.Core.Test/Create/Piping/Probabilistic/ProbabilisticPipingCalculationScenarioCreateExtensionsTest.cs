@@ -248,7 +248,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             // Setup
             var registry = new PersistenceRegistry();
 
-            ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+            ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = output

@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
             var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
 

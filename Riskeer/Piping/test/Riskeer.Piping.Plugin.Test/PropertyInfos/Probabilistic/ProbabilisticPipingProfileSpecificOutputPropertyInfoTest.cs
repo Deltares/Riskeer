@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
                 {
                     SurfaceLine = failureMechanism.SurfaceLines.First()
                 },
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
             var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,

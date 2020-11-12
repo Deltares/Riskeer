@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
             var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation, new PipingFailureMechanism(), assessmentSection);
