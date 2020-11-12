@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> without hydraulic boundary location or design water level.</returns>
         public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             return calculation;
@@ -74,8 +74,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with a manual design water level.</returns>
         public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithAssessmentLevel()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
-
+            var calculation = GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
@@ -84,24 +83,28 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> without surface line.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without surface line.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> without surface line.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithoutSurfaceLine()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without surface line.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSurfaceLine<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.SurfaceLine = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> without soil model.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without soil model.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> without soil model .</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithoutSoilModel()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without soil model .</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSoilModel<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.StochasticSoilModel = null;
             calculation.InputParameters.StochasticSoilProfile = null;
 
@@ -109,24 +112,28 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> without soil profile.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without soil profile.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> without soil profile.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithoutSoilProfile()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without soil profile.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSoilProfile<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.StochasticSoilProfile = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> with relevance set to <c>false</c>.
+        /// Gets a <typeparamref name="TCalculationScenario"/> with relevance set to <c>false</c>.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with relevance set to <c>false</c>.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetIrrelevantPipingCalculationScenario()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> with relevance set to <c>false</c>.</returns>
+        public static TCalculationScenario GetIrrelevantPipingCalculationScenario<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.Contribution = (RoundedDouble) 0.5432;
             calculation.IsRelevant = false;
 
@@ -134,10 +141,12 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/>.
+        /// Gets a <typeparamref name="TCalculationScenario"/>.
         /// </summary>
-        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
-        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenario()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/>.</returns>
+        public static TCalculationScenario GetPipingCalculationScenario<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
             var surfaceLine = new PipingSurfaceLine("PK001_0001")
             {
@@ -149,7 +158,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario
+            var calculation = new TCalculationScenario
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =

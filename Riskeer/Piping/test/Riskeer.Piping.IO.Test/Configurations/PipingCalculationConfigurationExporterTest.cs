@@ -62,16 +62,16 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                   PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel())
                         .SetName(testNameFormat);
                     yield return new TestCaseData("semiProbabilisticCalculationWithoutSurfaceLine",
-                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine())
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine<SemiProbabilisticPipingCalculationScenario>())
                         .SetName(testNameFormat);
                     yield return new TestCaseData("semiProbabilisticCalculationWithoutSoilModel",
-                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel())
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel<SemiProbabilisticPipingCalculationScenario>())
                         .SetName(testNameFormat);
                     yield return new TestCaseData("semiProbabilisticCalculationWithoutSoilProfile",
-                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile())
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile<SemiProbabilisticPipingCalculationScenario>())
                         .SetName(testNameFormat);
                     yield return new TestCaseData("semiProbabilisticCalculationIrrelevant",
-                                                  PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario())
+                                                  PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>())
                         .SetName(testNameFormat);
                     yield return new TestCaseData("semiProbabilisticCalculationWithNaNs",
                                                   PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs())
@@ -86,13 +86,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                 Name = "PK001_0001",
                                 Children =
                                 {
-                                    PipingTestDataGenerator.GetPipingCalculationScenario(),
+                                    PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>(),
                                     new CalculationGroup
                                     {
                                         Name = "PK001_0002",
                                         Children =
                                         {
-                                            PipingTestDataGenerator.GetPipingCalculationScenario()
+                                            PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>()
                                         }
                                     }
                                 }
