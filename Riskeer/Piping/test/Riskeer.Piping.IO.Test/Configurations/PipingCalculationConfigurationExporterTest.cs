@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
@@ -36,6 +37,22 @@ namespace Riskeer.Piping.IO.Test.Configurations
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest
     {
+        [Test]
+        public void Export_InvalidCalculationScenarioType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var exporter = new PipingCalculationConfigurationExporter(new[]
+            {
+                new TestPipingCalculationScenario()
+            }, "NotSupportedCalculationType.xml");
+            
+            // Call
+            void Call() => exporter.Export();
+            
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+        }
+        
         private abstract class PipingCalculationConfigurationExporterTestFixture : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
