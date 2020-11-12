@@ -138,6 +138,10 @@ namespace Jitbit.Utils
 		/// The string used to separate columns in the output.
 		/// By default this is a comma so that the generated output is a CSV document.
 		/// </param>
+		/// 
+		/// <param name="value">
+		/// The csv document value.
+		/// </param>
 		public static string MakeValueCsvFriendly(object value, string columnSeparator=",")
 		{
 			if (value == null) return "";
