@@ -413,7 +413,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_CorrectContextMenuItemsDisabled()
+        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_ContextMenuItemsClearOutputAndClearIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -443,16 +443,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                     Assert.IsFalse(clearOutputItem.Enabled);
                     Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
-                    
-                    clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    ToolStripItem clearIllustrationPointsItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
                     Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
+                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearIllustrationPointsItem.ToolTipText);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithOutput_ContextMenuItemClearAllOutputEnabled()
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithOutput_ContextMenuItemClearAllOutputEnabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -486,9 +486,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsOutputEnabled()
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsOutputEnabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -525,9 +525,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
