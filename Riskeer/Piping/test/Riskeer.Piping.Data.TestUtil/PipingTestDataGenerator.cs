@@ -213,7 +213,7 @@ namespace Riskeer.Piping.Data.TestUtil
 
             return calculation;
         }
-        
+
         /// <summary>
         /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values set.
         /// </summary>
@@ -271,7 +271,7 @@ namespace Riskeer.Piping.Data.TestUtil
 
             return calculation;
         }
-        
+
         /// <summary>
         /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
         /// and <c>double.PositiveInfinity</c> values set.

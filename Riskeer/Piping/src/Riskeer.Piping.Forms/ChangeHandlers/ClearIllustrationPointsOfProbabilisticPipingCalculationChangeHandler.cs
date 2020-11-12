@@ -57,7 +57,6 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         {
             return output.ProfileSpecificOutput.HasGeneralResult
                    || output.SectionSpecificOutput.HasGeneralResult;
-
         }
     }
 }

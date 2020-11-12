@@ -216,8 +216,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
-            var calculation = new TestPipingCalculationScenario(true);
-            group.Children.Add(calculation);
+            group.Children.Add(new TestPipingCalculationScenario(true));
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -883,59 +882,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   "&Bijwerken intrede- en uittredepunten...",
                                                                   "Alle berekeningen met een profielschematisatie bijwerken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationGroupCalculationsWithoutOutput_ContextMenuClearIllustrationPointsDisabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
-                IPipingCalculationScenario<PipingInput> probabilisticCalculation = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                };
-
-                IPipingCalculationScenario<PipingInput> semiProbabilisticCalculation = new SemiProbabilisticPipingCalculationScenario();
-
-                var group = new CalculationGroup
-                {
-                    Children =
-                    {
-                        probabilisticCalculation,
-                        semiProbabilisticCalculation
-                    }
-                };
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
                 }
             }
         }
