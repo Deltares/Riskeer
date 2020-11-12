@@ -373,11 +373,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   "&Wis alle uitvoer...",
                                                                   "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
                                                                   RiskeerCommonFormsResources.ClearIcon);
-                    
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, 8,
                                                                   "Wis alle illustratiepunten...",
-                                                                  "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
+                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   10,
@@ -403,8 +404,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     {
                         menu.Items[1],
                         menu.Items[3],
-                        menu.Items[8],
-                        menu.Items[11]
+                        menu.Items[9],
+                        menu.Items[12]
                     }, typeof(ToolStripSeparator));
                 }
             }

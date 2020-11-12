@@ -75,9 +75,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndexRootGroup = 13;
         private const int contextMenuCalculateAllIndexRootGroup = 14;
         private const int contextMenuClearOutputIndexRootGroup = 16;
-        private const int contextMenuCollapseAllIndexRootGroup = 19;
-        private const int contextMenuExpandAllIndexRootGroup = 20;
-        private const int contextMenuPropertiesIndexRootGroup = 22;
+        private const int contextMenuClearIllustrationPointsIndexRootGroup = 17;
+        private const int contextMenuCollapseAllIndexRootGroup = 20;
+        private const int contextMenuExpandAllIndexRootGroup = 21;
+        private const int contextMenuPropertiesIndexRootGroup = 23;
 
         private const int contextMenuImportCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuExportCalculationGroupIndexNestedGroup = 1;
@@ -215,7 +216,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
-            group.Children.Add(new TestPipingCalculationScenario(true));
+            var calculation = new TestPipingCalculationScenario(true);
+            group.Children.Add(calculation);
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -313,8 +315,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               RiskeerCommonFormsResources.ClearIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
                                                               "Wis alle illustratiepunten...",
-                                                              "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
@@ -342,8 +345,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     menu.Items[8],
                     menu.Items[11],
                     menu.Items[14],
-                    menu.Items[17],
-                    menu.Items[20]
+                    menu.Items[18],
+                    menu.Items[21]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -441,23 +444,21 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.ClearIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
                                                               "Wis alle illustratiepunten...",
-                                                              "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
-                
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                              "Alles ui&tklappen",
-                                                              "Klap dit element en alle onderliggende elementen uit.",
-                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
+                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
@@ -470,8 +471,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     menu.Items[10],
                     menu.Items[12],
                     menu.Items[15],
-                    menu.Items[18],
-                    menu.Items[21]
+                    menu.Items[19],
+                    menu.Items[22]
                 }, typeof(ToolStripSeparator));
             }
         }

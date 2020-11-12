@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Piping.Data.Probabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil
 {
@@ -51,6 +52,11 @@ namespace Riskeer.Piping.Data.TestUtil
         public override bool ShouldCalculate => !HasOutput;
         
         public override bool HasOutput => hasOutput;
+        
+        /// <summary>
+        /// Gets or sets the results of the piping calculation.
+        /// </summary>
+        public ProbabilisticPipingOutput Output { get; set; }
 
         public override void ClearOutput()
         {
