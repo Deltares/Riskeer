@@ -343,7 +343,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(14, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   0,
@@ -373,22 +373,27 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   "&Wis alle uitvoer...",
                                                                   "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
                                                                   RiskeerCommonFormsResources.ClearIcon);
+                    
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  9,
+                                                                  10,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  10,
+                                                                  11,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
                                                                   CoreCommonGuiResources.ExpandAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  12,
+                                                                  13,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                                   CoreCommonGuiResources.PropertiesHS,
@@ -542,6 +547,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);

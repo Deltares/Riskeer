@@ -90,10 +90,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndexNestedGroup = 12;
         private const int contextMenuCalculateAllIndexNestedGroup = 13;
         private const int contextMenuClearOutputIndexNestedGroup = 15;
-        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 16;
-        private const int contextMenuCollapseAllIndexNestedGroup = 18;
-        private const int contextMenuExpandAllIndexNestedGroup = 19;
-        private const int contextMenuPropertiesIndexNestedGroup = 21;
+        private const int contextMenuClearIllustrationPointsIndexNestedGroup = 16;
+        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 17;
+        private const int contextMenuCollapseAllIndexNestedGroup = 19;
+        private const int contextMenuExpandAllIndexNestedGroup = 20;
+        private const int contextMenuPropertiesIndexNestedGroup = 22;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
@@ -264,7 +265,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(22, menu.Items.Count);
+                Assert.AreEqual(23, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -310,6 +311,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.ClearIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
+                                                              "Wis alle illustratiepunten...",
+                                                              "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
@@ -393,7 +398,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(23, menu.Items.Count);
+                Assert.AreEqual(24, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -437,6 +442,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.ClearIcon);
 
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
+                                                              "Wis alle illustratiepunten...",
+                                                              "Wis de illustratiepunten van alle berekeningen binnen deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
+                
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",

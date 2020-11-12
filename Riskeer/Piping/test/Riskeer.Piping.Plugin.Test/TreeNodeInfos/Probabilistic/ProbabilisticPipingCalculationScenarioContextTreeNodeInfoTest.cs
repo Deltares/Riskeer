@@ -303,7 +303,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    Assert.AreEqual(17, contextMenu.Items.Count);
+                    Assert.AreEqual(18, contextMenu.Items.Count);
 
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
@@ -337,6 +337,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
+                    
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuClearIllustrationPointsIndex,
+                                                                  "Wis illustratiepunten...",
+                                                                  "Deze berekening heeft geen illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
                 }
             }
         }
@@ -369,6 +376,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
