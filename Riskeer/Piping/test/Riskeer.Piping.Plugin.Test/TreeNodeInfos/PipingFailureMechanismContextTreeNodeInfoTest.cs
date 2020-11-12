@@ -69,6 +69,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearIndex = 7;
+        private const int contextMenuClearIllustrationPointsIndex = 8;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -412,7 +413,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_ContextMenuItemClearAllOutputDisabled()
+        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_CorrectContextMenuItemsDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -442,6 +443,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                     Assert.IsFalse(clearOutputItem.Enabled);
                     Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
+                    
+                    clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                    Assert.IsFalse(clearOutputItem.Enabled);
+                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
                 }
             }
         }
@@ -478,6 +483,84 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                     Assert.IsTrue(clearOutputItem.Enabled);
                     Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", clearOutputItem.ToolTipText);
+                }
+            }
+        }
+        
+        [Test]
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsOutputEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingCalculation = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                };
+
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                    Assert.IsTrue(clearOutputItem.Enabled);
+                    Assert.AreEqual("Wis alle berekende illustratiepunten binnen dit toetsspoor.", clearOutputItem.ToolTipText);
+                }
+            }
+        }
+        
+        [Test]
+        public void ContextMenuStrip_FailureMechanismHasCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingCalculation = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                };
+
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                    Assert.IsFalse(clearOutputItem.Enabled);
+                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
                 }
             }
         }

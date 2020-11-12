@@ -198,6 +198,42 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearIllustrationPointsDisabledAndToolTipSet()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new ProbabilisticPipingCalculationScenario();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new ProbabilisticPipingCalculationScenarioContext(calculation,
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                 pipingFailureMechanism,
+                                                                                 assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearIllustrationPointsIndex,
+                                                                  "Wis illustratiepunten...",
+                                                                  "Deze berekening heeft geen illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_CalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             // Setup
@@ -337,7 +373,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
-                    
+
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuClearIllustrationPointsIndex,
                                                                   "Wis illustratiepunten...",
@@ -538,8 +574,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             }
         }
 
-                [Test]
-        public void ContextMenuStrip_CalculationWithOutputAndWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabledAndToolTipSet()
+        [Test]
+        public void ContextMenuStrip_CalculationWithOutputAndWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -576,7 +612,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 }
             }
         }
-        
+
         [Test]
         public void ContextMenuStrip_CalculationWithOutputAndIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabledAndToolTipSet()
         {
@@ -614,7 +650,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 }
             }
         }
-        
+
         [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
@@ -1076,7 +1112,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 }
             }
         }
-       
+
         public override void Setup()
         {
             mocks = new MockRepository();
