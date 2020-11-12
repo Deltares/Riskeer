@@ -607,6 +607,20 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="23b4c265-b2b3-405c-a2b9-e7beadce584b"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="37d99e11-0635-4c04-bec0-191fa870e60d"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="2445d4a3-4171-46fe-9104-e79965b497d8"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -752,6 +766,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="2aea3b7a-7b55-4da6-a680-e0f1e8b83663"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="script15a_MessagesLastCalculationsFinished"
 			errorbehavior="ContinueNextIteration"
@@ -934,6 +952,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="37d99e11-0635-4c04-bec0-191fa870e60d"
+			name="WaitSomeTime">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="2000">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="384a4933-2908-4423-9d4a-912d2fac3951"
 			name="RunHydraulicBCCalculationUntilFinished">
@@ -1393,6 +1421,26 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="530f389f-ae91-4ba8-8164-c97f9e9263c0"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="dfd825af-9a87-455b-a42e-e626ae2d6ae5"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="dfd825af-9a87-455b-a42e-e626ae2d6ae5"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15b_pathCalculationsToInspectChart"
 			id="54c68aa2-898a-44cf-8214-dcdad91fa40a"
@@ -1482,6 +1530,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="5922ff68-c351-4053-aa0c-5f7914622df2"
+			name="setup">
+			</setup>
 			<testmodule
 			id="59fb4e7f-bba4-47cb-82ea-cf562a983f9a"
 			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
@@ -2594,6 +2646,20 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
+			id="95781d28-773c-4db3-8713-59dc46cd5194"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="dfd825af-9a87-455b-a42e-e626ae2d6ae5"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="95a1640d-1e35-4ee0-9016-cdfe6721a60f"
 			name="CalculateFullPathToResultsFromFullPathToCalculation"
 			ref="95b6d533-7626-4835-b2be-85c4ec709857"
@@ -3126,6 +3192,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="c25bc42c-e8a4-4af0-bccd-5621c9fffb0f"
+			name="script00_StartUpApplicationForFirstTime">
+			</testcase>
 			<smartfoldernode
 			id="c71b75d0-f077-4a5d-b584-5921185d8023"
 			name="ValidateResultsHaveBeenObtained">
@@ -3921,6 +3991,34 @@
 				<testcase
 				id="dfd825af-9a87-455b-a42e-e626ae2d6ae5"
 				name="VerySlowTestCases">
+					<testcase
+					id="c25bc42c-e8a4-4af0-bccd-5621c9fffb0f"
+					name="script00_StartUpApplicationForFirstTime">
+						<setup
+						id="5922ff68-c351-4053-aa0c-5f7914622df2"
+						name="setup">
+							<testmodule
+							id="530f389f-ae91-4ba8-8164-c97f9e9263c0"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="37d99e11-0635-4c04-bec0-191fa870e60d"
+						name="WaitSomeTime">
+							<testmodule
+							id="23b4c265-b2b3-405c-a2b9-e7beadce584b"
+							name="WaitForXMiliseconds">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="2aea3b7a-7b55-4da6-a680-e0f1e8b83663"
+						name="teardown">
+							<testmodule
+							id="95781d28-773c-4db3-8713-59dc46cd5194"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
 					name="script15_CalculationHydraulicBoundaryConditions">
@@ -8161,6 +8259,9 @@
 			id="345487f9-0e32-45ea-8836-8941fcbf244b">
 			</testcontainer>
 			<testcontainer
+			id="37d99e11-0635-4c04-bec0-191fa870e60d">
+			</testcontainer>
+			<testcontainer
 			id="384a4933-2908-4423-9d4a-912d2fac3951">
 			</testcontainer>
 			<testcontainer
@@ -8327,6 +8428,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ba38ee38-2d76-411a-a515-fa10bd425e82">
+			</testcontainer>
+			<testcontainer
+			id="c25bc42c-e8a4-4af0-bccd-5621c9fffb0f">
 			</testcontainer>
 			<testcontainer
 			id="c71b75d0-f077-4a5d-b584-5921185d8023">
