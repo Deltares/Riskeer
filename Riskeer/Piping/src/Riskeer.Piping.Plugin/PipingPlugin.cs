@@ -193,6 +193,13 @@ namespace Riskeer.Piping.Plugin
                     context.WrappedData
                 }, filePath),
                 GetInquiryHelper());
+
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<ProbabilisticPipingCalculationScenarioContext>(
+                (context, filePath) => new PipingCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
