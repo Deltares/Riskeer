@@ -132,6 +132,20 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
                 return !data.WrappedData.UseAssessmentLevelManualInput;
             }
 
+            if (propertyName == nameof(ThicknessCoverageLayerDeterminist)
+                || propertyName == nameof(EffectiveThicknessCoverageLayerDeterminist)
+                || propertyName == nameof(SaturatedVolumicWeightOfCoverageLayerDeterminist))
+            {
+                return double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
+            }
+
+            if (propertyName == nameof(ThicknessCoverageLayerDistribution)
+                || propertyName == nameof(EffectiveThicknessCoverageLayerDistribution)
+                || propertyName == nameof(SaturatedVolumicWeightOfCoverageLayerDistribution))
+            {
+                return !double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData).Mean);
+            }
+
             return false;
         }
 
@@ -404,12 +418,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
-        public LogNormalDistributionDesignVariableProperties ThicknessCoverageLayer
+        public LogNormalDistributionDesignVariableProperties ThicknessCoverageLayerDistribution
         {
             get
             {
@@ -418,18 +433,45 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             }
         }
 
+        [DynamicVisible]
+        [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
+        public RoundedDouble ThicknessCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
-        public LogNormalDistributionDesignVariableProperties EffectiveThicknessCoverageLayer
+        public LogNormalDistributionDesignVariableProperties EffectiveThicknessCoverageLayerDistribution
         {
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
                     SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData,
                                                                                                     data.FailureMechanism.GeneralInput));
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
+        public RoundedDouble EffectiveThicknessCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
             }
         }
 
@@ -475,17 +517,31 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
-        public ShiftedLogNormalDistributionDesignVariableProperties SaturatedVolumicWeightOfCoverageLayer
+        public ShiftedLogNormalDistributionDesignVariableProperties SaturatedVolumicWeightOfCoverageLayerDistribution
         {
             get
             {
                 return new ShiftedLogNormalDistributionDesignVariableProperties(
                     SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
+        public RoundedDouble SaturatedVolumicWeightOfCoverageLayerDeterminist
+        {
+            get
+            {
+                return new RoundedDouble(2);
             }
         }
 
