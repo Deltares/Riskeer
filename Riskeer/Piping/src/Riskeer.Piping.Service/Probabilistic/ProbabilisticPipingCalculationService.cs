@@ -494,12 +494,12 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             if (sections.Length == 0)
             {
-                validationResults.Add(RiskeerCommonServiceResources.ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Imported);
+                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported);
             }
 
             if (sections.Length > 1)
             {
-                validationResults.Add(RiskeerCommonServiceResources.ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_For_This_Calculation);
+                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation);
             }
 
             return validationResults;

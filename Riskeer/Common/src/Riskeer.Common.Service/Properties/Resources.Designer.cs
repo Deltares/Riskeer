@@ -271,26 +271,6 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening..
-        /// </summary>
-        public static string ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_For_This_Calculation {
-            get {
-                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_Cannot_Determine_Section_F" +
-                        "or_This_Calculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
-        /// </summary>
-        public static string ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Imported {
-            get {
-                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_There_Are_No_Sections_Impo" +
-                        "rted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De variatiecoëfficiënt voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero {

@@ -187,4 +187,10 @@
   <data name="ProbabilisticPipingCalculationService_SectionSpecific" xml:space="preserve">
     <value>vak</value>
   </data>
+  <data name="ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported" xml:space="preserve">
+    <value>Er is geen vakindeling geïmporteerd.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation" xml:space="preserve">
+    <value>Kan geen vak bepalen voor deze berekening.</value>
+  </data>
 </root>

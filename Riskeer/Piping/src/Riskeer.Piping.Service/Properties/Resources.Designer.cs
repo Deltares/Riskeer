@@ -148,7 +148,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Tijdens de berekening wordt een deklaagdikte gebruikt gelijk aan 0..
+        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine {
             get {
@@ -268,6 +268,25 @@ namespace Riskeer.Piping.Service.Properties {
             get {
                 return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
                         "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_f" +
+                        "or_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported", resourceCulture);
             }
         }
         
