@@ -459,6 +459,14 @@ namespace Riskeer.Piping.Service.Probabilistic
                 return true;
             }
 
+            messages = ValidateFailureMechanismHasSections(failureMechanism).ToArray();
+
+            if (messages.Length > 0)
+            {
+                CalculationServiceHelper.LogMessagesAsError(messages);
+                return true;
+            }
+
             messages = ValidateInput(calculation.InputParameters, failureMechanism.GeneralInput).ToArray();
 
             if (messages.Length > 0)
@@ -467,7 +475,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 return true;
             }
 
-            messages = ValidateSections(calculation, failureMechanism).ToArray();
+            messages = ValidateCalculationInMultipleSections(calculation, failureMechanism).ToArray();
 
             if (messages.Length > 0)
             {
@@ -478,7 +486,21 @@ namespace Riskeer.Piping.Service.Probabilistic
             return false;
         }
 
-        private static IEnumerable<string> ValidateSections(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism)
+        private static IEnumerable<string> ValidateFailureMechanismHasSections(PipingFailureMechanism failureMechanism)
+        {
+            var validationResults = new List<string>();
+
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+
+            if (sections.Length == 0)
+            {
+                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported);
+            }
+
+            return validationResults;
+        }
+
+        private static IEnumerable<string> ValidateCalculationInMultipleSections(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism)
         {
             var validationResults = new List<string>();
 
@@ -486,11 +508,6 @@ namespace Riskeer.Piping.Service.Probabilistic
                                                  .Sections
                                                  .Where(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)))
                                                  .ToArray();
-
-            if (sections.Length == 0)
-            {
-                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported);
-            }
 
             if (sections.Length > 1)
             {
