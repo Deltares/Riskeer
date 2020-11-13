@@ -1223,9 +1223,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateProbabilistic(ProbabilisticPipingCalculationScenarioContext context)
         {
-            ProbabilisticPipingCalculationService.Validate(context.WrappedData,
-                                                           context.FailureMechanism.GeneralInput,
-                                                           context.AssessmentSection, context.FailureMechanism);
+            ProbabilisticPipingCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
         }
 
         private void CalculateProbabilistic(ProbabilisticPipingCalculationScenarioContext context)
@@ -1332,9 +1330,7 @@ namespace Riskeer.Piping.Plugin
                         break;
                     case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
                         ProbabilisticPipingCalculationService.Validate(probabilisticPipingCalculationScenario,
-                                                                       generalPipingInput,
-                                                                       assessmentSection,
-                                                                       failureMechanism);
+                                                                       failureMechanism, assessmentSection);
                         break;
                     default:
                         throw new NotSupportedException();

@@ -85,33 +85,12 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(null,
-                                                                          new GeneralPipingInput(),
-                                                                          assessmentSection,
-                                                                          new PipingFailureMechanism());
+                                                                          new PipingFailureMechanism(),
+                                                                          assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_GeneralInputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
-                                                                          null,
-                                                                          assessmentSection,
-                                                                          new PipingFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -125,9 +104,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
-                                                                          new GeneralPipingInput(),
-                                                                          assessmentSection,
-                                                                          null);
+                                                                          null,
+                                                                          assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -140,9 +118,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
-                                                                          new GeneralPipingInput(),
-                                                                          null,
-                                                                          new PipingFailureMechanism());
+                                                                          new PipingFailureMechanism(),
+                                                                          null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -162,9 +139,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                          new GeneralPipingInput(),
-                                                                          assessmentSection,
-                                                                          failureMechanism);
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -193,9 +169,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -229,9 +204,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = true;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -266,9 +240,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = true;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -302,9 +275,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -336,9 +308,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -368,9 +339,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -417,9 +387,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -474,9 +443,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -534,9 +502,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -617,9 +584,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -693,9 +659,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -769,9 +734,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -848,9 +812,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -923,9 +886,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                          new GeneralPipingInput(),
-                                                                          assessmentSection,
-                                                                          failureMechanism);
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -991,9 +953,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             // Call
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -1026,9 +987,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -1073,9 +1033,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var isValid = false;
 
             void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    new GeneralPipingInput(),
-                                                                                    assessmentSection,
-                                                                                    failureMechanism);
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>

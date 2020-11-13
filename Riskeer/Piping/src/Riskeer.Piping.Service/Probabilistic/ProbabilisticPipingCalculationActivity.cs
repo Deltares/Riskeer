@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         protected override bool Validate()
         {
-            return ProbabilisticPipingCalculationService.Validate(calculation, failureMechanism.GeneralInput, assessmentSection, failureMechanism);
+            return ProbabilisticPipingCalculationService.Validate(calculation, failureMechanism, assessmentSection);
         }
     }
 }

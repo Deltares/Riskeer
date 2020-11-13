@@ -69,21 +69,15 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> for which to validate the values.</param>
-        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the validation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> for which to validate the values.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool Validate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput, IAssessmentSection assessmentSection, PipingFailureMechanism failureMechanism)
+        public static bool Validate(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (generalInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (assessmentSection == null)
@@ -100,7 +94,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             LogAnyWarnings(calculation);
 
-            bool hasErrors = LogAnyErrors(calculation, generalInput, assessmentSection, failureMechanism);
+            bool hasErrors = LogAnyErrors(calculation, failureMechanism.GeneralInput, assessmentSection, failureMechanism);
 
             CalculationServiceHelper.LogValidationEnd();
 
