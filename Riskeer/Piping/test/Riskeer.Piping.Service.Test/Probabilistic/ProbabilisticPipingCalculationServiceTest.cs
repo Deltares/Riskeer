@@ -157,6 +157,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -329,6 +333,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -364,6 +372,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -608,6 +620,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -683,6 +699,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -759,6 +779,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -833,6 +857,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -909,6 +937,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "new/path");
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
