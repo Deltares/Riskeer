@@ -116,21 +116,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
-                                                                          new GeneralPipingInput(),
-                                                                          null,
-                                                                          new PipingFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void ValidateFailureMechanismNull_ThrowsArgumentNullException()
+        public void Validate_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -147,6 +133,20 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
+                                                                          new GeneralPipingInput(),
+                                                                          null,
+                                                                          new PipingFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -1012,7 +1012,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_CalculationWithoutSection_LogsMessage()
+        public void Validate_FailureMechanismWithoutSections_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1044,7 +1044,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_CalculationInMultipleSections_LogsMessageOnlyForDuplicateSection()
+        public void Validate_CalculationInMultipleSections_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

@@ -1314,7 +1314,7 @@ namespace Riskeer.Piping.Plugin
         /// <param name="pipingCalculations">The calculations to validate.</param>
         /// <param name="generalPipingInput">The general input to use during the validation.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="pipingCalculations"/> belong to.</param>
-        /// <param name="failureMechanism">The failure mechanism to use during the validation.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="pipingCalculations"/> belong to.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the provided calculations is of a type that is not supported.</exception>
         private static void ValidateAll(IEnumerable<IPipingCalculationScenario<PipingInput>> pipingCalculations,
                                         GeneralPipingInput generalPipingInput,
