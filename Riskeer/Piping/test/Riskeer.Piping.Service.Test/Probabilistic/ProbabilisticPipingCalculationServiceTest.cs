@@ -1042,7 +1042,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Kan geen vak bepalen voor deze berekening.", msgs[1]);
+                StringAssert.StartsWith("Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);

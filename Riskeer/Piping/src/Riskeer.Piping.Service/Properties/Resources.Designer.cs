@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening..
+        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken..
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation {
             get {

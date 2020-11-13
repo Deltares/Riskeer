@@ -191,6 +191,6 @@
     <value>Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation" xml:space="preserve">
-    <value>Kan geen vak bepalen voor deze berekening.</value>
+    <value>Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken.</value>
   </data>
 </root>
