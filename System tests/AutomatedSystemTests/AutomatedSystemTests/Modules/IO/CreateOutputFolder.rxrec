@@ -27,18 +27,26 @@ mode="Global">
 		id="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 		name="caseNumberVar">
 		</var>
+		<var
+		id="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+		name="scriptOutputFolder">
+		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
 		classname="CreateOutputFolder"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="CreateFolderInForCaseOutputDrive"
+		methodname="CreateFolderForOutput"
 		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>
 			<bindings>
+				<binding
+				target="ReturnVariable"
+				variable="scriptOutputFolder">
+				</binding>
 			</bindings>
 			<arguments
 			id="ebf3d7de-ff7d-4b4a-bc84-076a19aa1c79">

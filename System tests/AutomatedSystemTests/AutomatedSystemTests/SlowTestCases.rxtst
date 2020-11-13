@@ -10,6 +10,10 @@
 					name="caseNumber"
 					value="27">
 					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -1881,6 +1885,12 @@
 					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 					variablename="caseNumberVar">
 					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="00973e14-db0c-4044-a111-f59381213fe5"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -3534,6 +3544,10 @@
 					name="caseNumber"
 					value="21">
 					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -3941,6 +3955,12 @@
 					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
 					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
 			</testmodule>
@@ -14198,75 +14218,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
-		includefile="Unchecked"
-		lastknownrowcount="11"
-		name="setRelevance44_2FailureMechanismContributionView"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					TextInTraject
-				</column>
-				<column>
-					Label
-				</column>
-				<column>
-					NameFM
-				</column>
-				<column>
-					IsRelevant
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
-		includefile="Unchecked"
-		lastknownrowcount="8"
-		name="simpleAssessmentGroup1"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					SimpleAssessmentItem
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\simpleAssessmentFMsGroup1.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="f49c9f26-0231-4942-adea-d0914532efb0"
-		includefile="Unchecked"
-		lastknownrowcount="5"
-		name="simpleAssessmentGroup2"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					SimpleAssessmentItem
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\simpleAssessmentFMsGroup2.csv
-			</file>
-		</DataSource>
-		<DataSource
 		id="7d0ad035-5052-4901-bc91-913ef3498490"
 		lastknownrowcount="20"
 		name="script27a_ItemsToValidateInCalculation"
@@ -15241,6 +15192,75 @@
 					</td>
 				</tr>
 			</table>
+		</DataSource>
+		<DataSource
+		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+		includefile="Unchecked"
+		lastknownrowcount="11"
+		name="setRelevance44_2FailureMechanismContributionView"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					TextInTraject
+				</column>
+				<column>
+					Label
+				</column>
+				<column>
+					NameFM
+				</column>
+				<column>
+					IsRelevant
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+		includefile="Unchecked"
+		lastknownrowcount="8"
+		name="simpleAssessmentGroup1"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\simpleAssessmentFMsGroup1.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="f49c9f26-0231-4942-adea-d0914532efb0"
+		includefile="Unchecked"
+		lastknownrowcount="5"
+		name="simpleAssessmentGroup2"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\simpleAssessmentFMsGroup2.csv
+			</file>
 		</DataSource>
 	</datasources>
 	<testconfigurations

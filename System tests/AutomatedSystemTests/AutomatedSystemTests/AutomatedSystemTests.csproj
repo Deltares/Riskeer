@@ -2651,7 +2651,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>86dea715-1b95-4048-874c-00fcbd024d15</id>
     </Content>
-    <Content Include="AutomatedSystemTests.rxtst">
+    <Content Include="NormalSystemTests.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>3253c1bd-a517-45e9-96ad-e70b88e902c5</id>
     </Content>

@@ -3561,6 +3561,10 @@
 					name="caseNumber"
 					value="15">
 					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -3870,6 +3874,12 @@
 					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
 					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
 				<missingdatabinding>

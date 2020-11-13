@@ -303,6 +303,12 @@
 					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 					variablename="caseNumberVar">
 					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e5a82a8e-76aa-4d23-b28b-02d06f176938"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -1163,6 +1169,10 @@
 					name="caseNumber"
 					value="29">
 					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -1960,6 +1970,12 @@
 					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
 					variablename="caseNumberVar">
 					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5c91fa07-4245-4a57-869a-3a440d68775a"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -2532,6 +2548,10 @@
 					<param
 					name="caseNumber"
 					value="12">
+					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
