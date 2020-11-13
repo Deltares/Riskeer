@@ -42,8 +42,6 @@ namespace AutomatedSystemTests.Modules.IO
         public ExportCurrentItemToCSVFile()
         {
             fileNameToSave = "";
-            suffixFM = "";
-            originalFileNameToSave = "";
         }
 
         /// <summary>
@@ -66,30 +64,6 @@ namespace AutomatedSystemTests.Modules.IO
         {
             get { return _fileNameToSave; }
             set { _fileNameToSave = value; }
-        }
-
-        string _suffixFM;
-
-        /// <summary>
-        /// Gets or sets the value of variable suffixFM.
-        /// </summary>
-        [TestVariable("f3aec49f-d3dd-461a-8748-a78d336b8847")]
-        public string suffixFM
-        {
-            get { return _suffixFM; }
-            set { _suffixFM = value; }
-        }
-
-        string _originalFileNameToSave;
-
-        /// <summary>
-        /// Gets or sets the value of variable originalFileNameToSave.
-        /// </summary>
-        [TestVariable("b54bbf34-8016-4a9d-b745-f624c7ec02cc")]
-        public string originalFileNameToSave
-        {
-            get { return _originalFileNameToSave; }
-            set { _originalFileNameToSave = value; }
         }
 
 #endregion
@@ -132,27 +106,23 @@ namespace AutomatedSystemTests.Modules.IO
             
             Report.Log(ReportLevel.Info, "User", "Name of CSV file to export to:", new RecordItemIndex(4));
             
-            AddWorkingDirectoryToFileNameIfRelativeFileName();
+            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(5));
             
-            finishCreatingFileName();
-            
-            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(7));
-            
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(6));
             repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(7));
             repo.OpslaanAls.SaveButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(8));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(12));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(10));
             Delay.Duration(250, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(13));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(11));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

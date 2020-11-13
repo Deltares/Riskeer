@@ -47,7 +47,7 @@ mode="Global">
 		</invokeactionrecorditem>
 		<invokeactionrecorditem
 		action="Select"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="aa3352b1-7134-4be7-b17a-4be63c4182e7">
 			<comment>
@@ -65,6 +65,30 @@ mode="Global">
 			id="19358362-e384-416d-8606-bc803c0f7287">
 			</arguments>
 		</invokeactionrecorditem>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="Center"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="1d4bd9be-9903-4f3c-b1c6-6af4f73210ff"
+		sx="0"
+		sy="0"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+				</path>
+			</info>
+		</mouseitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

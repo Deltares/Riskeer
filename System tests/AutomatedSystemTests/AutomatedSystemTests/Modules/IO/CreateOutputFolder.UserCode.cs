@@ -38,9 +38,9 @@ namespace AutomatedSystemTests.Modules.IO
         {
             string rootOutputFolder = Directory.GetCurrentDirectory() + @"\output";
             CreateFolderIfItDoesNotExist(rootOutputFolder);
-            string path = Directory.GetCurrentDirectory() + @"\script" + caseNumber;
+            string path = rootOutputFolder + @"\script" + caseNumber;
             CreateFolderIfItDoesNotExist(path);
-            return rootOutputFolder;
+            return path + @"\";
         }
         
         private void CreateFolderIfItDoesNotExist(string pathFolder)

@@ -27,14 +27,6 @@ mode="Global">
 		id="fb853fb5-4464-4165-9324-feea0c7aebdd"
 		name="fileNameToSave">
 		</var>
-		<var
-		id="f3aec49f-d3dd-461a-8748-a78d336b8847"
-		name="suffixFM">
-		</var>
-		<var
-		id="b54bbf34-8016-4a9d-b745-f624c7ec02cc"
-		name="originalFileNameToSave">
-		</var>
 	</variables>
 	<recorditems>
 		<keysequenceitem
@@ -1573,36 +1565,6 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=
 			<bindings>
 			</bindings>
 		</loggingrecorditem>
-		<userrecorditem
-		classname="ExportCurrentItemToCSVFile"
-		enabled="True"
-		isexternaltestmethod="False"
-		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests.Modules.IO"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="ac9b2af7-84ad-4b14-ab49-e62c23002b9f">
-			</arguments>
-		</userrecorditem>
-		<userrecorditem
-		classname="ExportCurrentItemToCSVFile"
-		enabled="True"
-		isexternaltestmethod="False"
-		methodname="finishCreatingFileName"
-		namespace="AutomatedSystemTests.Modules.IO"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="ca5da517-536f-4f2e-af67-c31794261e47">
-			</arguments>
-		</userrecorditem>
 		<loggingrecorditem
 		category="User"
 		enabled="True"

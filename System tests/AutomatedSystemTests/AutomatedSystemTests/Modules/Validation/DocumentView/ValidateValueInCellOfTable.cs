@@ -20,43 +20,83 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection
+namespace AutomatedSystemTests.Modules.Validation.DocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectRowCalculation recording.
+    ///The ValidateValueInCellOfTable recording.
     /// </summary>
-    [TestModule("5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3", ModuleType.Recording, 1)]
-    public partial class SelectRowCalculation : ITestModule
+    [TestModule("faa9a301-c9f4-40f1-9ff2-cd46b6083e3c", ModuleType.Recording, 1)]
+    public partial class ValidateValueInCellOfTable : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectRowCalculation instance = new SelectRowCalculation();
+        static ValidateValueInCellOfTable instance = new ValidateValueInCellOfTable();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectRowCalculation()
+        public ValidateValueInCellOfTable()
         {
+            comparisonValue = "";
+            isComparisonValueExpectedToBePresent = "";
+            rowIndex = "";
+            columnIndex = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectRowCalculation Instance
+        public static ValidateValueInCellOfTable Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _comparisonValue;
+
+        /// <summary>
+        /// Gets or sets the value of variable comparisonValue.
+        /// </summary>
+        [TestVariable("9e0ebe56-14fa-48e2-baf6-1d9d6f987c59")]
+        public string comparisonValue
+        {
+            get { return _comparisonValue; }
+            set { _comparisonValue = value; }
+        }
+
+        string _isComparisonValueExpectedToBePresent;
+
+        /// <summary>
+        /// Gets or sets the value of variable isComparisonValueExpectedToBePresent.
+        /// </summary>
+        [TestVariable("aff395e2-5afa-476a-9439-eac60579f977")]
+        public string isComparisonValueExpectedToBePresent
+        {
+            get { return _isComparisonValueExpectedToBePresent; }
+            set { _isComparisonValueExpectedToBePresent = value; }
+        }
+
+        string _columnIndex;
+
+        /// <summary>
+        /// Gets or sets the value of variable columnIndex.
+        /// </summary>
+        [TestVariable("75512c39-26fa-4d1e-bbc5-fad51b7fff43")]
+        public string columnIndex
+        {
+            get { return _columnIndex; }
+            set { _columnIndex = value; }
+        }
+
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
         /// </summary>
-        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
+        [TestVariable("62bb31aa-b365-4711-bc79-ddbc0e672f20")]
         public string rowIndex
         {
             get { return repo.rowIndex; }
@@ -83,20 +123,14 @@ namespace AutomatedSystemTests.Modules.Selection
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRowInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.Focus();
-            
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRowInfo, new RecordItemIndex(1));
-            //repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.Select();
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRowInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.Click();
+            ValidateValueOfCellInTable(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self, comparisonValue, isComparisonValueExpectedToBePresent);
+            Delay.Milliseconds(0);
             
         }
 
