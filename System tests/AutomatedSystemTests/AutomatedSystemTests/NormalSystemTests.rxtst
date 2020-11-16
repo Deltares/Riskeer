@@ -255,7 +255,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString0"
 					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -456,6 +456,32 @@
 					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
 					variableid="3e080daf-3a8c-454e-9f1c-885391b833ba"
 					variablename="nameSubsurfaceSchematization">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="0edadedc-158f-48e1-9897-bac462a5dcef"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="f52ca730-3c84-4322-b44b-17ab9a08ff70"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1080,9 +1106,12 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add extension '.csv']]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -1129,7 +1158,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -1181,13 +1210,10 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add  '_']]>
+				</description>
 				<databinding>
-					<var
-					dataname="intermediateString"
-					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
 					<var
 					dataname="substituteSubstring"
 					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
@@ -1199,6 +1225,12 @@
 					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1243,13 +1275,10 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add  '_']]>
+				</description>
 				<databinding>
-					<var
-					dataname="intermediateString"
-					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
 					<var
 					dataname="substituteSubstring"
 					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
@@ -1261,6 +1290,12 @@
 					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1396,6 +1431,32 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="25e61f0c-4bf7-4850-97b6-131962b44097"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="d4fbfdc1-55b8-4c3f-ade7-0506fee71dc2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="26c0ef81-43ad-4d4d-8a80-8812654c7a16"
@@ -2243,6 +2304,32 @@
 			name="ValidateItemNameInProjectExplorer">
 			</smartfoldernode>
 			<testmodule
+			id="3f068190-2b19-41ba-bd4a-44d07cbe754f"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="f52ca730-3c84-4322-b44b-17ab9a08ff70"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="3fc0ec68-494f-438a-a685-cbf0ae2420f3"
 			name="CopyFile"
 			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
@@ -2318,7 +2405,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -2628,7 +2715,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -2849,7 +2936,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -3362,7 +3449,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -3398,7 +3489,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -3682,6 +3777,9 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add schematization name]]>
+				</description>
 				<databinding>
 					<var
 					dataname="intermediateString2"
@@ -3690,7 +3788,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -3906,9 +4004,12 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[Replace '>' with '_' in path schematizations folder]]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -4196,9 +4297,12 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add extension '.csv']]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -4458,7 +4562,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -4697,6 +4805,35 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="789b951e-4e63-4731-b93d-151ffee63ab2"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Prepend output folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="d4fbfdc1-55b8-4c3f-ade7-0506fee71dc2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="possibleTrajectTypes"
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
@@ -4732,7 +4869,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString0"
 					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -4775,7 +4912,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -4954,7 +5091,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -5040,6 +5177,9 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<description>
+					<![CDATA[Add schematization name]]>
+				</description>
 				<databinding>
 					<var
 					dataname="intermediateString2"
@@ -5054,7 +5194,7 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="a819a079-65da-438e-9cc3-6d3e009ed1bb"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
@@ -5078,6 +5218,9 @@
 			name="ExportPropertiesPanelToCsv"
 			ref="0024b22f-d58b-4ef0-a67d-463153071618"
 			type="UserCode">
+				<description>
+					<![CDATA[Dump content of Properties panel to csv file]]>
+				</description>
 				<databinding>
 					<var
 					dataname="csvFileName"
@@ -5268,9 +5411,12 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[Replace '>' with '_' in path schematizations folder]]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString0"
 					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -5420,7 +5566,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -5641,7 +5787,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString0"
 					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -6116,7 +6262,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString0"
 					datasourceid="71100ee3-7d8f-496d-a0d3-309c0967f4ec"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -6430,7 +6576,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -6496,7 +6646,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -6524,7 +6678,11 @@
 					value="_">
 					</param>
 					<param
-					name="intermediateString"
+					name="intermediateString0"
+					value="">
+					</param>
+					<param
+					name="intermediateString1"
 					value="">
 					</param>
 					<param
@@ -6996,7 +7154,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -7270,7 +7428,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -7403,6 +7561,32 @@
 			id="bbd9e132-db37-4046-b73c-e975e92381be"
 			name="MakeAllItemsInPropertiesPanelVisible">
 			</smartfoldernode>
+			<testmodule
+			id="bc659d8b-6d37-40d4-b0b6-26299db988a1"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="f52ca730-3c84-4322-b44b-17ab9a08ff70"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="59221257-b69e-4e3e-be3b-48c7176a5233"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			enabled="False"
 			id="be228688-3a24-46be-9538-7ddbc2c5e9e7"
@@ -8076,7 +8260,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -8919,6 +9103,9 @@
 			name="ExportPropertiesPanelToCsv"
 			ref="0024b22f-d58b-4ef0-a67d-463153071618"
 			type="UserCode">
+				<description>
+					<![CDATA[Dump content of Properties panel to csv file]]>
+				</description>
 				<databinding>
 					<var
 					dataname="csvFileName"
@@ -9339,7 +9526,7 @@
 			</testmodule>
 			<testcase
 			id="f52ca730-3c84-4322-b44b-17ab9a08ff70"
-			name="script12_Voorland_of_voorliggende_dam_importeren">
+			name="script12_Kunstwerkgegevens_importeren">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -9768,7 +9955,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -9797,7 +9984,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="aa4c3c5d-b0b0-4def-a517-e6f940868c90"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -9868,6 +10055,32 @@
 					variablename="string2">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fcf86b10-225a-4933-8315-b998f59dfdcf"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="d4fbfdc1-55b8-4c3f-ade7-0506fee71dc2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString0"
+					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="a892317c-1996-4518-bf9a-0489c57328e7"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testcase
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
@@ -10681,6 +10894,10 @@
 											name="ReplaceSubstring">
 											</testmodule>
 											<testmodule
+											id="789b951e-4e63-4731-b93d-151ffee63ab2"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
 											id="221174ee-c53b-406b-9f35-70671b8e466e"
 											name="ConcatenateStrings">
 											</testmodule>
@@ -10783,6 +11000,10 @@
 											<testmodule
 											id="89dffbf7-b6b5-445b-a57f-af383a97ef3d"
 											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="fcf86b10-225a-4933-8315-b998f59dfdcf"
+											name="ConcatenateStrings">
 											</testmodule>
 											<testmodule
 											id="2097f431-79af-4820-b11c-c447b4018504"
@@ -10897,6 +11118,10 @@
 													<testmodule
 													id="92ef3e24-6909-46ca-b979-c805a68ba676"
 													name="ReplaceSubstring">
+													</testmodule>
+													<testmodule
+													id="25e61f0c-4bf7-4850-97b6-131962b44097"
+													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
 													id="ce877ae6-2b6a-49fe-a77e-6cc403135e9a"
@@ -11272,7 +11497,7 @@
 					</testcase>
 					<testcase
 					id="f52ca730-3c84-4322-b44b-17ab9a08ff70"
-					name="script12_Voorland_of_voorliggende_dam_importeren">
+					name="script12_Kunstwerkgegevens_importeren">
 						<setup
 						id="74035977-a3a8-4e38-aeec-56af9c1bde9f"
 						name="setup">
@@ -11429,6 +11654,10 @@
 											name="ReplaceSubstring">
 											</testmodule>
 											<testmodule
+											id="3f068190-2b19-41ba-bd4a-44d07cbe754f"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
 											id="b59726d2-9321-4a2e-af0a-f96d91b3d6f1"
 											name="ConcatenateStrings">
 											</testmodule>
@@ -11531,6 +11760,10 @@
 											<testmodule
 											id="9fc0fa0c-d431-436b-9778-b05c5c4186f6"
 											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="0edadedc-158f-48e1-9897-bac462a5dcef"
+											name="ConcatenateStrings">
 											</testmodule>
 											<testmodule
 											id="8cfe43ad-b9b4-4610-a7c5-63ddce8e4e60"
@@ -11645,6 +11878,10 @@
 													<testmodule
 													id="07906644-939c-4106-955a-5400b84699f0"
 													name="ReplaceSubstring">
+													</testmodule>
+													<testmodule
+													id="bc659d8b-6d37-40d4-b0b6-26299db988a1"
+													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
 													id="ba5a64c1-b935-4d31-affb-3004950fd140"
@@ -19783,7 +20020,7 @@
 						1-10
 					</td>
 					<td>
-						script18\createdConfiguration1STPH.xml
+						output\script18\createdConfiguration1STPH.xml
 					</td>
 					<td>
 						X:\script18\referenceConfiguration1STPH.xml
@@ -19797,7 +20034,7 @@
 						11-12
 					</td>
 					<td>
-						script18\createdConfiguration2STPH.xml
+						output\script18\createdConfiguration2STPH.xml
 					</td>
 					<td>
 						X:\script18\referenceConfiguration2STPH.xml
@@ -19811,7 +20048,7 @@
 						13-65
 					</td>
 					<td>
-						script18\createdConfiguration1STBI.xml
+						output\script18\createdConfiguration1STBI.xml
 					</td>
 					<td>
 						X:\script18\referenceConfiguration1STBI.xml
@@ -19825,7 +20062,7 @@
 						66-69
 					</td>
 					<td>
-						script18\createdConfiguration2STBI.xml
+						output\script18\createdConfiguration2STBI.xml
 					</td>
 					<td>
 						X:\script18\referenceConfiguration2STBI.xml
@@ -19839,7 +20076,7 @@
 						70-81
 					</td>
 					<td>
-						script18\createdConfigurationGEKB.xml
+						output\script18\createdConfigurationGEKB.xml
 					</td>
 					<td>
 						X:\script18\referenceConfigurationGEKB.xml
@@ -19853,7 +20090,7 @@
 						82-116
 					</td>
 					<td>
-						script18\createdConfigurationBSKW.xml
+						output\script18\createdConfigurationBSKW.xml
 					</td>
 					<td>
 						X:\script18\referenceConfigurationBSKW.xml
@@ -19867,7 +20104,7 @@
 						117-139
 					</td>
 					<td>
-						script18\createdConfigurationHTKW.xml
+						output\script18\createdConfigurationHTKW.xml
 					</td>
 					<td>
 						X:\script18\referenceConfigurationHTKW.xml
@@ -19881,7 +20118,7 @@
 						140-191
 					</td>
 					<td>
-						script18\createdConfigurationSTKWp.xml
+						output\script18\createdConfigurationSTKWp.xml
 					</td>
 					<td>
 						X:\script18\referenceConfigurationSTKWp.xml
