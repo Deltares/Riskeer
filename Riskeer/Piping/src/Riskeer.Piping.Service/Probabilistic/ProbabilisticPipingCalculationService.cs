@@ -27,7 +27,6 @@ using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
@@ -82,14 +81,14 @@ namespace Riskeer.Piping.Service.Probabilistic
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             CalculationServiceHelper.LogValidationBegin();
@@ -453,29 +452,20 @@ namespace Riskeer.Piping.Service.Probabilistic
         {
             string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
 
-            if (messages.Length > 0)
+            if (messages.Length == 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(messages);
-                return true;
+                messages = ValidateFailureMechanismHasSections(failureMechanism).ToArray();
             }
 
-            messages = ValidateFailureMechanismHasSections(failureMechanism).ToArray();
-
-            if (messages.Length > 0)
+            if (messages.Length == 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(messages);
-                return true;
+                messages = ValidateInput(calculation.InputParameters, failureMechanism.GeneralInput).ToArray();
             }
 
-            messages = ValidateInput(calculation.InputParameters, failureMechanism.GeneralInput).ToArray();
-
-            if (messages.Length > 0)
+            if (messages.Length == 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(messages);
-                return true;
+                messages = ValidateCalculationInMultipleSections(calculation, failureMechanism).ToArray();
             }
-
-            messages = ValidateCalculationInMultipleSections(calculation, failureMechanism).ToArray();
 
             if (messages.Length > 0)
             {
@@ -484,37 +474,6 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
 
             return false;
-        }
-
-        private static IEnumerable<string> ValidateFailureMechanismHasSections(PipingFailureMechanism failureMechanism)
-        {
-            var validationResults = new List<string>();
-
-            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
-
-            if (sections.Length == 0)
-            {
-                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported);
-            }
-
-            return validationResults;
-        }
-
-        private static IEnumerable<string> ValidateCalculationInMultipleSections(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism)
-        {
-            var validationResults = new List<string>();
-
-            FailureMechanismSection[] sections = failureMechanism
-                                                 .Sections
-                                                 .Where(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)))
-                                                 .ToArray();
-
-            if (sections.Length > 1)
-            {
-                validationResults.Add(Resources.ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation);
-            }
-
-            return validationResults;
         }
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
@@ -530,6 +489,14 @@ namespace Riskeer.Piping.Service.Probabilistic
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 yield return preprocessorDirectoryValidationProblem;
+            }
+        }
+
+        private static IEnumerable<string> ValidateFailureMechanismHasSections(PipingFailureMechanism failureMechanism)
+        {
+            if (!failureMechanism.Sections.Any())
+            {
+                yield return Resources.ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sections_imported;
             }
         }
 
@@ -561,6 +528,18 @@ namespace Riskeer.Piping.Service.Probabilistic
                 {
                     yield return Resources.ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight;
                 }
+            }
+        }
+
+        private static IEnumerable<string> ValidateCalculationInMultipleSections(ProbabilisticPipingCalculation calculation, PipingFailureMechanism failureMechanism)
+        {
+            int numberOfSections = failureMechanism
+                                   .Sections
+                                   .Count(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
+
+            if (numberOfSections > 1)
+            {
+                yield return Resources.ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Cannot_determine_section_for_calculation;
             }
         }
 

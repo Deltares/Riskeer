@@ -262,31 +262,32 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
-        /// </summary>
-        internal static string ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight {
-            get {
-                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
-                        "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken..
         /// </summary>
-        internal static string ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation {
+        internal static string ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Cannot_determine_section_for_calculation {
             get {
-                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_f" +
-                        "or_calculation", resourceCulture);
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Canno" +
+                        "t_determine_section_for_calculation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
         /// </summary>
-        internal static string ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported {
+        internal static string ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sections_imported {
             get {
-                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported", resourceCulture);
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sect" +
+                        "ions_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
+                        "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
             }
         }
         

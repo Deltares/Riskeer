@@ -187,10 +187,10 @@
   <data name="ProbabilisticPipingCalculationService_SectionSpecific" xml:space="preserve">
     <value>vak</value>
   </data>
-  <data name="ProbabilisticPipingCalculationService_ValidateSections_No_sections_imported" xml:space="preserve">
+  <data name="ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sections_imported" xml:space="preserve">
     <value>Er is geen vakindeling geïmporteerd.</value>
   </data>
-  <data name="ProbabilisticPipingCalculationService_ValidateSections_Cannot_determine_section_for_calculation" xml:space="preserve">
+  <data name="ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Cannot_determine_section_for_calculation" xml:space="preserve">
     <value>Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken.</value>
   </data>
 </root>
