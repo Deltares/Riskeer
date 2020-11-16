@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -41,7 +42,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
-        /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
+        /// <param name="calculations">The calculations for which the illustration points should be cleared.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
                                                                                               IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
@@ -58,13 +59,10 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
             var affectedObjects = new List<IObservable>();
-            foreach (ProbabilisticPipingCalculationScenario calculation in calculations)
+            foreach (ProbabilisticPipingCalculationScenario calculation in calculations.Where(ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints))
             {
-                if (ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation))
-                {
-                    affectedObjects.Add(calculation);
-                    calculation.ClearIllustrationPoints();
-                }
+                affectedObjects.Add(calculation);
+                calculation.ClearIllustrationPoints();
             }
 
             return affectedObjects;

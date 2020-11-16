@@ -23,6 +23,7 @@ using System;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Util;
 
 namespace Riskeer.Piping.Forms.ChangeHandlers
 {
@@ -44,19 +45,13 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
 
         public override bool ClearIllustrationPoints()
         {
-            if (HasIllustrationPoints(Calculation.Output))
+            if (ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(Calculation))
             {
                 Calculation.ClearIllustrationPoints();
                 return true;
             }
 
             return false;
-        }
-
-        private static bool HasIllustrationPoints(ProbabilisticPipingOutput output)
-        {
-            return output.ProfileSpecificOutput.HasGeneralResult
-                   || output.SectionSpecificOutput.HasGeneralResult;
         }
     }
 }

@@ -32,12 +32,12 @@ namespace Riskeer.Piping.Util
     public static class ProbabilisticPipingIllustrationPointsHelper
     {
         /// <summary>
-        /// Determines whether a <see cref="ProbabilisticPipingCalculationScenario"/> has illustration point results.
+        /// Determines whether a <see cref="ProbabilisticPipingCalculation"/> has illustration point results.
         /// </summary>
         /// <param name="calculation">The calculation to check.</param>
         /// <returns><c>true</c> when <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool HasIllustrationPoints(ProbabilisticPipingCalculationScenario calculation)
+        public static bool HasIllustrationPoints(ProbabilisticPipingCalculation calculation)
         {
             if (calculation == null)
             {
@@ -48,14 +48,14 @@ namespace Riskeer.Piping.Util
         }
 
         /// <summary>
-        /// Determines whether a collection of <see cref="ProbabilisticPipingCalculationScenario"/> contain
+        /// Determines whether a collection of <see cref="ProbabilisticPipingCalculation"/> contain
         /// calculations with illustration point results.
         /// </summary>
         /// <param name="calculations">The calculations to check.</param>
         /// <returns><c>true</c> when <paramref name="calculations"/> contain calculations with
         /// illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public static bool HasIllustrationPoints(IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
+        public static bool HasIllustrationPoints(IEnumerable<ProbabilisticPipingCalculation> calculations)
         {
             if (calculations == null)
             {
