@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
@@ -30,6 +31,17 @@ namespace Riskeer.Common.Forms.Test.Factories
     [TestFixture]
     public class RiskeerMapDataFactoryTest
     {
+        [Test]
+        public void CreateCalculationsMapData_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerMapDataFactory.CreateCalculationsMapData(null, Color.MediumPurple);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
         [Test]
         public void CreateReferenceLineMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
@@ -143,6 +155,22 @@ namespace Riskeer.Common.Forms.Test.Factories
             CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
+        }
+
+        [Test]
+        public void CreateCalculationsMapData_ValidParameters_ReturnsEmptyMapPointDataWithExpectedStyling()
+        {
+            // Setup
+            const string calculationsName = "Probabilistische berekeningen";
+            Color color = Color.MediumPurple;
+
+            // Call
+            MapLineData data = RiskeerMapDataFactory.CreateCalculationsMapData(calculationsName, color);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreEqual(calculationsName, data.Name);
+            AssertEqualStyle(data.Style, color, 2, LineDashStyle.Dash);
         }
 
         [Test]

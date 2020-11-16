@@ -704,6 +704,26 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probabilistische berekeningen.
+        /// </summary>
+        public static string PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations {
+            get {
+                return ResourceManager.GetString("PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calcula" +
+                        "tions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
+        /// </summary>
+        public static string PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations {
+            get {
+                return ResourceManager.GetString("PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilisti" +
+                        "c_Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme heave voor deze berekening..
         /// </summary>
         public static string PipingOutput_HeaveFactorOfSafety_Description {

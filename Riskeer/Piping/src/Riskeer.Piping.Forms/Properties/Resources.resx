@@ -543,4 +543,10 @@ opbarsten
     <value>Illustratiepunten inlezen </value>
     <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
+  <data name="PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations" xml:space="preserve">
+    <value>Semi-probabilistische berekeningen</value>
+  </data>
+  <data name="PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations" xml:space="preserve">
+    <value>Probabilistische berekeningen</value>
+  </data>
 </root>
