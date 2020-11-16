@@ -461,7 +461,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="10bc782c-184e-4b18-bef8-1bfdd380fb3e"
-			name="SingleCalculation">
+			name="StandAloneCalculation">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="setRelevance44_2FailureMechanismContributionView"
@@ -820,7 +820,7 @@
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="221f24ea-224c-4fe1-b0c7-0ab098014b8c"
-			name="SingleCalculation">
+			name="StandAloneCalculation">
 			</smartfoldernode>
 			<testmodule
 			id="222a3932-4b3b-44e0-8d33-b0a143e60a88"
@@ -6137,7 +6137,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="cd9a88fa-545f-477f-bd5f-e952a83e72d2"
-			name="SingleCalculation">
+			name="StandAloneCalculation">
 			</smartfoldernode>
 			<smartfoldernode
 			id="cdc085a7-0202-4b66-8ca2-1f034e551351"
@@ -8863,7 +8863,7 @@
 											name="ValidateAllParametersInInputAreEqual">
 												<smartfoldernode
 												id="cd9a88fa-545f-477f-bd5f-e952a83e72d2"
-												name="SingleCalculation">
+												name="StandAloneCalculation">
 													<testmodule
 													id="822fb76d-15e2-4aeb-910d-203ace9a95ed"
 													name="ValidateStringsPropertiesPanelAreEqual">
@@ -8971,7 +8971,7 @@
 											name="ReadInputImportedModifiedCaculations">
 												<smartfoldernode
 												id="10bc782c-184e-4b18-bef8-1bfdd380fb3e"
-												name="SingleCalculation">
+												name="StandAloneCalculation">
 													<testmodule
 													id="b4085eb0-2a89-4754-b6f4-d87a344fb607"
 													name="ConcatenateStrings">
@@ -9055,7 +9055,7 @@
 											name="ValidateNotAllParametersInInputAreEqual">
 												<smartfoldernode
 												id="221f24ea-224c-4fe1-b0c7-0ab098014b8c"
-												name="SingleCalculation">
+												name="StandAloneCalculation">
 													<testmodule
 													id="5fac9645-e162-4b61-ba2f-a36e7028c1a9"
 													name="ValidateStringsPropertiesPanelAreNotEqual">
@@ -9382,7 +9382,7 @@
 				</tr>
 				<tr>
 					<td>
-						script21\customAssessment.risk
+						output\script21\customAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -9407,7 +9407,7 @@
 				</tr>
 				<tr>
 					<td>
-						script21\detailedAssessment.risk
+						output\script21\detailedAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -9432,7 +9432,7 @@
 				</tr>
 				<tr>
 					<td>
-						script21\relevanceModifiedInFMCView.risk
+						output\script21\relevanceModifiedInFMCView.risk
 					</td>
 				</tr>
 			</table>
@@ -9457,7 +9457,7 @@
 				</tr>
 				<tr>
 					<td>
-						script21\relevanceModifiedInPE.risk
+						output\script21\relevanceModifiedInPE.risk
 					</td>
 				</tr>
 			</table>
@@ -9482,7 +9482,7 @@
 				</tr>
 				<tr>
 					<td>
-						script21\simpleAssessment.risk
+						output\script21\simpleAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -14923,7 +14923,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationSTPH.xml
+						output\script27\configurationSTPH.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceSTPH.xml
@@ -14955,7 +14955,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationSTBI.xml
+						output\script27\configurationSTBI.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceSTBI.xml
@@ -14987,7 +14987,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationGEKB.xml
+						output\script27\configurationGEKB.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceGEKB.xml
@@ -15019,7 +15019,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationBSKW.xml
+						output\script27\configurationBSKW.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceBSKW.xml
@@ -15051,7 +15051,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationHTKW.xml
+						output\script27\configurationHTKW.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceHTKW.xml
@@ -15083,7 +15083,7 @@
 						X:\script27\Project_faalkans_Test_27.risk
 					</td>
 					<td>
-						script27\configurationSTKWp.xml
+						output\script27\configurationSTKWp.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceSTKWp.xml
@@ -15115,7 +15115,7 @@
 						X:\script27\Project_15a_15b_15c_met_resultaten.risk
 					</td>
 					<td>
-						script27\configurationZST.xml
+						output\script27\configurationZST.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceZST.xml
@@ -15147,7 +15147,7 @@
 						X:\script27\Project_15a_15b_15c_met_resultaten.risk
 					</td>
 					<td>
-						script27\configurationAGK.xml
+						output\script27\configurationAGK.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceAGK.xml
@@ -15179,7 +15179,7 @@
 						X:\script27\Project_15a_15b_15c_met_resultaten.risk
 					</td>
 					<td>
-						script27\configurationGEBU.xml
+						output\script27\configurationGEBU.xml
 					</td>
 					<td>
 						X:\script27\configurations\referenceGEBU.xml
