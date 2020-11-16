@@ -44,10 +44,10 @@ mode="Global">
 				</binding>
 			</bindings>
 			<info
-			id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
+			id="4f6147c7-b35a-42d1-8fdd-175372b09979"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 				</path>
 			</info>
 			<matchname>
@@ -70,7 +70,7 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="d79a0edd-fbc5-415d-8701-852d3bf28406"
+			id="43bcbd48-5fca-439f-aa46-2e7f8b5fc251"
 			sourcename="RepositoryEditor">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]

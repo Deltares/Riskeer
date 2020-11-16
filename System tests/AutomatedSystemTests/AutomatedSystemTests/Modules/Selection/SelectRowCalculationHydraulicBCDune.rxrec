@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -45,11 +45,18 @@ mode="Global">
 			id="3cc3eca4-80e4-4484-bf2f-ef7b508cf2b5">
 			</arguments>
 		</invokeactionrecorditem>
-		<invokeactionrecorditem
-		action="Select"
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
 		enabled="True"
+		loc="Center"
+		movetime="300ms"
 		optional="False"
-		searchpropertyid="915d8d1e-7b47-48ae-88bf-32a826a3cd34">
+		searchpropertyid="0f5d4283-ccec-4e9d-9cad-ccbafa3b4a76"
+		sx="0"
+		sy="0"
+		warnoutofbounds="False">
 			<comment>
 			</comment>
 			<bindings>
@@ -61,10 +68,7 @@ mode="Global">
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
 				</path>
 			</info>
-			<arguments
-			id="ff46c298-b857-4dbf-a4fd-eaf0632bcd68">
-			</arguments>
-		</invokeactionrecorditem>
+		</mouseitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

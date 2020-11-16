@@ -45,26 +45,6 @@ mode="Global">
 			id="95c1e14f-4c7e-442c-9444-f585a9f7892a">
 			</arguments>
 		</invokeactionrecorditem>
-		<invokeactionrecorditem
-		action="Select"
-		enabled="False"
-		optional="False"
-		searchpropertyid="aa3352b1-7134-4be7-b17a-4be63c4182e7">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
-				</path>
-			</info>
-			<arguments
-			id="19358362-e384-416d-8606-bc803c0f7287">
-			</arguments>
-		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"

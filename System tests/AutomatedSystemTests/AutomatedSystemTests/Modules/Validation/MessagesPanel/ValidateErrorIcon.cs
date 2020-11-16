@@ -89,24 +89,12 @@ namespace AutomatedSystemTests.Modules.Validation.MessagesPanel
 
             Init();
 
-            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericMessageRow.GenericCellIconInfo);
+            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellIconInfo);
             Delay.Milliseconds(0);
             
         }
 
 #region Image Feature Data
-        /// <summary>
-        /// DO NOT REFERENCE THIS CODE  - auto generated
-        /// </summary>
-        CompressedImage GenericCellIcon_ErrorIcon
-        { get { return repo.RiskeerMainWindow.MessagesDataGridView.GenericMessageRow.GenericCellIconInfo.GetErrorIcon(new Rectangle(0, 1, 17, 15)); } }
-
-        /// <summary>
-        /// DO NOT REFERENCE THIS CODE  - auto generated
-        /// </summary>
-        Imaging.FindOptions GenericCellIcon_ErrorIcon_Options
-        { get { return Imaging.FindOptions.Parse("1;Edges;0,0,0,0;True;10000000;0ms"); } }
-
 #endregion
     }
 #pragma warning restore 0436

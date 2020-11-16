@@ -3141,6 +3141,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder _failuremechanismresultview;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder1 _failuremechanismscontributionview;
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewCachedFolder _designwaterlevelcalculationsviewcached;
+            AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder1 _hydraulicbcdunes;
             RepoItemInfo _insidedocument_isfmrelevantcellInfo;
 
             /// <summary>
@@ -3153,6 +3154,7 @@ namespace AutomatedSystemTests
                 _failuremechanismresultview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder(this);
                 _failuremechanismscontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder1(this);
                 _designwaterlevelcalculationsviewcached = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewCachedFolder(this);
+                _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder1(this);
                 _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "59990c0d-401e-4dff-8f8b-b423839ef7c6");
             }
 
@@ -3238,6 +3240,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewCachedFolder DesignWaterLevelCalculationsViewCached
             {
                 get { return _designwaterlevelcalculationsviewcached; }
+            }
+
+            /// <summary>
+            /// The HydraulicBCDunes folder.
+            /// </summary>
+            [RepositoryFolder("b29993ca-0b96-4e0e-b212-220bcef5fd4f")]
+            public virtual AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder1 HydraulicBCDunes
+            {
+                get { return _hydraulicbcdunes; }
             }
         }
 
@@ -4513,12 +4524,232 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
+        /// The HydraulicBCDunesFolder1 folder.
+        /// </summary>
+        [RepositoryFolder("b29993ca-0b96-4e0e-b212-220bcef5fd4f")]
+        public partial class HydraulicBCDunesFolder1 : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.TableFolder5 _table;
+            AutomatedSystemTestsRepositoryFolders.CalculationButtonsDAFolder1 _calculationbuttonsda;
+
+            /// <summary>
+            /// Creates a new HydraulicBCDunes  folder.
+            /// </summary>
+            public HydraulicBCDunesFolder1(RepoGenBaseFolder parentFolder) :
+                    base("HydraulicBCDunes", "container[@controlname>'Dune']", parentFolder, 30000, null, false, "b29993ca-0b96-4e0e-b212-220bcef5fd4f", "")
+            {
+                _table = new AutomatedSystemTestsRepositoryFolders.TableFolder5(this);
+                _calculationbuttonsda = new AutomatedSystemTestsRepositoryFolders.CalculationButtonsDAFolder1(this);
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("b29993ca-0b96-4e0e-b212-220bcef5fd4f")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("b29993ca-0b96-4e0e-b212-220bcef5fd4f")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Table folder.
+            /// </summary>
+            [RepositoryFolder("7f2e2214-c731-479d-a92c-16e73c0a37a0")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableFolder5 Table
+            {
+                get { return _table; }
+            }
+
+            /// <summary>
+            /// The CalculationButtonsDA folder.
+            /// </summary>
+            [RepositoryFolder("ea56a97a-cf63-4083-88ab-710c6455c060")]
+            public virtual AutomatedSystemTestsRepositoryFolders.CalculationButtonsDAFolder1 CalculationButtonsDA
+            {
+                get { return _calculationbuttonsda; }
+            }
+        }
+
+        /// <summary>
+        /// The TableFolder5 folder.
+        /// </summary>
+        [RepositoryFolder("7f2e2214-c731-479d-a92c-16e73c0a37a0")]
+        public partial class TableFolder5 : RepoGenBaseFolder
+        {
+            RepoItemInfo _genericrowhydraulicbcdunesInfo;
+            RepoItemInfo _cellcalculatedwaterleveldaInfo;
+
+            /// <summary>
+            /// Creates a new Table  folder.
+            /// </summary>
+            public TableFolder5(RepoGenBaseFolder parentFolder) :
+                    base("Table", "container/table", parentFolder, 30000, null, false, "7f2e2214-c731-479d-a92c-16e73c0a37a0", "")
+            {
+                _genericrowhydraulicbcdunesInfo = new RepoItemInfo(this, "GenericRowHydraulicBCDunes", "row[@accessiblename='Row '+$indexRow]", 30000, null, "73e414b7-73d4-49d0-bf0a-6486e581e805");
+                _cellcalculatedwaterleveldaInfo = new RepoItemInfo(this, "CellCalculatedWaterLevelDA", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Rekenwaarde waterstand']", 30000, null, "488e59af-0583-4c1d-803c-35a505a334ad");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("7f2e2214-c731-479d-a92c-16e73c0a37a0")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("7f2e2214-c731-479d-a92c-16e73c0a37a0")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericRowHydraulicBCDunes item.
+            /// </summary>
+            [RepositoryItem("73e414b7-73d4-49d0-bf0a-6486e581e805")]
+            public virtual Ranorex.Row GenericRowHydraulicBCDunes
+            {
+                get
+                {
+                    return _genericrowhydraulicbcdunesInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericRowHydraulicBCDunes item info.
+            /// </summary>
+            [RepositoryItemInfo("73e414b7-73d4-49d0-bf0a-6486e581e805")]
+            public virtual RepoItemInfo GenericRowHydraulicBCDunesInfo
+            {
+                get
+                {
+                    return _genericrowhydraulicbcdunesInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CellCalculatedWaterLevelDA item.
+            /// </summary>
+            [RepositoryItem("488e59af-0583-4c1d-803c-35a505a334ad")]
+            public virtual Ranorex.Cell CellCalculatedWaterLevelDA
+            {
+                get
+                {
+                    return _cellcalculatedwaterleveldaInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CellCalculatedWaterLevelDA item info.
+            /// </summary>
+            [RepositoryItemInfo("488e59af-0583-4c1d-803c-35a505a334ad")]
+            public virtual RepoItemInfo CellCalculatedWaterLevelDAInfo
+            {
+                get
+                {
+                    return _cellcalculatedwaterleveldaInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The CalculationButtonsDAFolder1 folder.
+        /// </summary>
+        [RepositoryFolder("ea56a97a-cf63-4083-88ab-710c6455c060")]
+        public partial class CalculationButtonsDAFolder1 : RepoGenBaseFolder
+        {
+            RepoItemInfo _calculateforselectedbuttonInfo;
+
+            /// <summary>
+            /// Creates a new CalculationButtonsDA  folder.
+            /// </summary>
+            public CalculationButtonsDAFolder1(RepoGenBaseFolder parentFolder) :
+                    base("CalculationButtonsDA", "container[@controlname>'Button']", parentFolder, 30000, null, false, "ea56a97a-cf63-4083-88ab-710c6455c060", "")
+            {
+                _calculateforselectedbuttonInfo = new RepoItemInfo(this, "CalculateForSelectedButton", "button[@controlname='CalculateForSelectedButton']", 30000, null, "1e8ac830-37a1-4bfe-9509-4b0068b043f1");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("ea56a97a-cf63-4083-88ab-710c6455c060")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("ea56a97a-cf63-4083-88ab-710c6455c060")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CalculateForSelectedButton item.
+            /// </summary>
+            [RepositoryItem("1e8ac830-37a1-4bfe-9509-4b0068b043f1")]
+            public virtual Ranorex.Button CalculateForSelectedButton
+            {
+                get
+                {
+                    return _calculateforselectedbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CalculateForSelectedButton item info.
+            /// </summary>
+            [RepositoryItemInfo("1e8ac830-37a1-4bfe-9509-4b0068b043f1")]
+            public virtual RepoItemInfo CalculateForSelectedButtonInfo
+            {
+                get
+                {
+                    return _calculateforselectedbuttonInfo;
+                }
+            }
+        }
+
+        /// <summary>
         /// The PropertiesPanelContainerFolder folder.
         /// </summary>
         [RepositoryFolder("41bb0ddf-7a93-4518-a257-8322f257edf1")]
         public partial class PropertiesPanelContainerFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.TableFolder5 _table;
+            AutomatedSystemTestsRepositoryFolders.TableFolder6 _table;
 
             /// <summary>
             /// Creates a new PropertiesPanelContainer  folder.
@@ -4526,7 +4757,7 @@ namespace AutomatedSystemTests
             public PropertiesPanelContainerFolder(RepoGenBaseFolder parentFolder) :
                     base("PropertiesPanelContainer", ".//container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, true, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
             {
-                _table = new AutomatedSystemTestsRepositoryFolders.TableFolder5(this);
+                _table = new AutomatedSystemTestsRepositoryFolders.TableFolder6(this);
             }
 
             /// <summary>
@@ -4557,17 +4788,17 @@ namespace AutomatedSystemTests
             /// The Table folder.
             /// </summary>
             [RepositoryFolder("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TableFolder5 Table
+            public virtual AutomatedSystemTestsRepositoryFolders.TableFolder6 Table
             {
                 get { return _table; }
             }
         }
 
         /// <summary>
-        /// The TableFolder5 folder.
+        /// The TableFolder6 folder.
         /// </summary>
         [RepositoryFolder("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
-        public partial class TableFolder5 : RepoGenBaseFolder
+        public partial class TableFolder6 : RepoGenBaseFolder
         {
             RepoItemInfo _isrelevantInfo;
             RepoItemInfo _genericparametervisibleinprojectexplorerInfo;
@@ -4581,7 +4812,7 @@ namespace AutomatedSystemTests
             /// <summary>
             /// Creates a new Table  folder.
             /// </summary>
-            public TableFolder5(RepoGenBaseFolder parentFolder) :
+            public TableFolder6(RepoGenBaseFolder parentFolder) :
                     base("Table", ".//table[@accessiblename='Properties Window']", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "row[@accessiblename='Is relevant']", 30000, null, "a71a9303-6a79-4eab-86c6-b77f1a561c93");
@@ -4817,7 +5048,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("ebb0b0be-617b-4c07-a1f1-dd02286813f8")]
         public partial class MessagesDataGridViewFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder _genericmessagerow;
+            AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder _genericrowmessage;
 
             /// <summary>
             /// Creates a new MessagesDataGridView  folder.
@@ -4825,7 +5056,7 @@ namespace AutomatedSystemTests
             public MessagesDataGridViewFolder(RepoGenBaseFolder parentFolder) :
                     base("MessagesDataGridView", "?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, true, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
             {
-                _genericmessagerow = new AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder(this);
+                _genericrowmessage = new AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder(this);
             }
 
             /// <summary>
@@ -4853,92 +5084,55 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericMessageRow folder.
+            /// The GenericRowMessage folder.
             /// </summary>
-            [RepositoryFolder("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-            public virtual AutomatedSystemTestsRepositoryFolders.GenericMessageRowFolder GenericMessageRow
+            [RepositoryFolder("43bcbd48-5fca-439f-aa46-2e7f8b5fc251")]
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder GenericRowMessage
             {
-                get { return _genericmessagerow; }
+                get { return _genericrowmessage; }
             }
         }
 
         /// <summary>
-        /// The GenericMessageRowFolder folder.
+        /// The GenericRowMessageFolder folder.
         /// </summary>
-        [RepositoryFolder("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-        public partial class GenericMessageRowFolder : RepoGenBaseFolder
+        [RepositoryFolder("43bcbd48-5fca-439f-aa46-2e7f8b5fc251")]
+        public partial class GenericRowMessageFolder : RepoGenBaseFolder
         {
-            SelfInfoClass _selfInfo;
-            GenericCellIconInfoClass _genericcelliconInfo;
             RepoItemInfo _genericcellmessageInfo;
+            GenericCellIconInfoClass _genericcelliconInfo;
 
             /// <summary>
-            /// Creates a new GenericMessageRow  folder.
+            /// Creates a new GenericRowMessage  folder.
             /// </summary>
-            public GenericMessageRowFolder(RepoGenBaseFolder parentFolder) :
-                    base("GenericMessageRow", "row[@accessiblename='Row '+$indexRowMessage]", parentFolder, 30000, null, false, "d79a0edd-fbc5-415d-8701-852d3bf28406", "")
+            public GenericRowMessageFolder(RepoGenBaseFolder parentFolder) :
+                    base("GenericRowMessage", "row[@accessiblename='Row '+$indexRowMessage]", parentFolder, 30000, null, false, "43bcbd48-5fca-439f-aa46-2e7f8b5fc251", "")
             {
-                _selfInfo = new SelfInfoClass(this);
+                _genericcellmessageInfo = new RepoItemInfo(this, "GenericCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "4f6147c7-b35a-42d1-8fdd-175372b09979");
                 _genericcelliconInfo = new GenericCellIconInfoClass(this);
-                _genericcellmessageInfo = new RepoItemInfo(this, "GenericCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "2a266ff1-53b4-4d79-a6fe-e2d23e8b118c");
-            }
-
-            /// <summary>
-            /// The SelfInfoClass folder.
-            /// </summary>
-            [RepositoryItemInfo("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-            public class SelfInfoClass : RepoItemInfo
-            {
-                /// <summary>
-                /// SelfInfoClass class constructor.
-                /// </summary>
-                public SelfInfoClass(RepoGenBaseFolder parentFolder)
-                    : base(parentFolder, "Self", "", 0, null, "d79a0edd-fbc5-415d-8701-852d3bf28406")
-                { }
-
-                /// <summary>
-                /// Gets the Screenshot11 item image.
-                /// </summary>
-                /// <returns>The Screenshot11 image.</returns>
-                [RepositoryImage("de00bcae-85d4-42d6-83c8-f1dceff24bb0")]
-                public CompressedImage GetScreenshot11()
-                {
-                    return GetImage("de00bcae-85d4-42d6-83c8-f1dceff24bb0");
-                }
-
-                /// <summary>
-                /// Gets the Screenshot11 item image.
-                /// </summary>
-                /// <param name="cropRect">The bounds of the sub-image to return.</param>
-                /// <returns>The cropped image.</returns>
-                [RepositoryImage("de00bcae-85d4-42d6-83c8-f1dceff24bb0")]
-                public CompressedImage GetScreenshot11(System.Drawing.Rectangle cropRect)
-                {
-                    return GetImage("de00bcae-85d4-42d6-83c8-f1dceff24bb0", cropRect);
-                }
             }
 
             /// <summary>
             /// The GenericCellIconInfoClass folder.
             /// </summary>
-            [RepositoryItemInfo("68d93ccb-0441-468c-9e9a-4028de2b4e0c")]
+            [RepositoryItemInfo("3a1ced42-1f85-4f8c-bb0d-5eaded2e7819")]
             public class GenericCellIconInfoClass : RepoItemInfo
             {
                 /// <summary>
                 /// GenericCellIconInfoClass class constructor.
                 /// </summary>
                 public GenericCellIconInfoClass(RepoGenBaseFolder parentFolder)
-                    : base(parentFolder, "GenericCellIcon", "cell[@accessiblename>' Row']", 30000, null, "68d93ccb-0441-468c-9e9a-4028de2b4e0c")
+                    : base(parentFolder, "GenericCellIcon", "cell[@accessiblename>' Row']", 30000, null, "3a1ced42-1f85-4f8c-bb0d-5eaded2e7819")
                 { }
 
                 /// <summary>
                 /// Gets the ErrorIcon item image.
                 /// </summary>
                 /// <returns>The ErrorIcon image.</returns>
-                [RepositoryImage("177d1f5e-b60b-4c93-b880-4e6a8dc84a69")]
+                [RepositoryImage("059402d7-47dc-4145-82d6-ce241d086db5")]
                 public CompressedImage GetErrorIcon()
                 {
-                    return GetImage("177d1f5e-b60b-4c93-b880-4e6a8dc84a69");
+                    return GetImage("059402d7-47dc-4145-82d6-ce241d086db5");
                 }
 
                 /// <summary>
@@ -4946,17 +5140,17 @@ namespace AutomatedSystemTests
                 /// </summary>
                 /// <param name="cropRect">The bounds of the sub-image to return.</param>
                 /// <returns>The cropped image.</returns>
-                [RepositoryImage("177d1f5e-b60b-4c93-b880-4e6a8dc84a69")]
+                [RepositoryImage("059402d7-47dc-4145-82d6-ce241d086db5")]
                 public CompressedImage GetErrorIcon(System.Drawing.Rectangle cropRect)
                 {
-                    return GetImage("177d1f5e-b60b-4c93-b880-4e6a8dc84a69", cropRect);
+                    return GetImage("059402d7-47dc-4145-82d6-ce241d086db5", cropRect);
                 }
             }
 
             /// <summary>
             /// The Self item.
             /// </summary>
-            [RepositoryItem("d79a0edd-fbc5-415d-8701-852d3bf28406")]
+            [RepositoryItem("43bcbd48-5fca-439f-aa46-2e7f8b5fc251")]
             public virtual Ranorex.Row Self
             {
                 get
@@ -4968,8 +5162,8 @@ namespace AutomatedSystemTests
             /// <summary>
             /// The Self item info.
             /// </summary>
-            [RepositoryItemInfo("d79a0edd-fbc5-415d-8701-852d3bf28406")]
-            public virtual SelfInfoClass SelfInfo
+            [RepositoryItemInfo("43bcbd48-5fca-439f-aa46-2e7f8b5fc251")]
+            public virtual RepoItemInfo SelfInfo
             {
                 get
                 {
@@ -4978,33 +5172,9 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericCellIcon item.
-            /// </summary>
-            [RepositoryItem("68d93ccb-0441-468c-9e9a-4028de2b4e0c")]
-            public virtual Ranorex.Cell GenericCellIcon
-            {
-                get
-                {
-                    return _genericcelliconInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The GenericCellIcon item info.
-            /// </summary>
-            [RepositoryItemInfo("68d93ccb-0441-468c-9e9a-4028de2b4e0c")]
-            public virtual GenericCellIconInfoClass GenericCellIconInfo
-            {
-                get
-                {
-                    return _genericcelliconInfo;
-                }
-            }
-
-            /// <summary>
             /// The GenericCellMessage item.
             /// </summary>
-            [RepositoryItem("2a266ff1-53b4-4d79-a6fe-e2d23e8b118c")]
+            [RepositoryItem("4f6147c7-b35a-42d1-8fdd-175372b09979")]
             public virtual Ranorex.Cell GenericCellMessage
             {
                 get
@@ -5016,12 +5186,36 @@ namespace AutomatedSystemTests
             /// <summary>
             /// The GenericCellMessage item info.
             /// </summary>
-            [RepositoryItemInfo("2a266ff1-53b4-4d79-a6fe-e2d23e8b118c")]
+            [RepositoryItemInfo("4f6147c7-b35a-42d1-8fdd-175372b09979")]
             public virtual RepoItemInfo GenericCellMessageInfo
             {
                 get
                 {
                     return _genericcellmessageInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericCellIcon item.
+            /// </summary>
+            [RepositoryItem("3a1ced42-1f85-4f8c-bb0d-5eaded2e7819")]
+            public virtual Ranorex.Cell GenericCellIcon
+            {
+                get
+                {
+                    return _genericcelliconInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericCellIcon item info.
+            /// </summary>
+            [RepositoryItemInfo("3a1ced42-1f85-4f8c-bb0d-5eaded2e7819")]
+            public virtual GenericCellIconInfoClass GenericCellIconInfo
+            {
+                get
+                {
+                    return _genericcelliconInfo;
                 }
             }
         }

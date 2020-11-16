@@ -1425,17 +1425,8 @@
       <id>2d96d6e6-6fa0-47c8-a52b-021abeaae9ba</id>
       <BoundTo>e7464627-428f-4286-934b-085c173cdecc</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateValueInCellOfTable.cs">
-      <BoundTo>01903fba-f050-45de-bae4-94dfc2857330</BoundTo>
-      <DependentUpon>ValidateValueInCellOfTable.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>967676fd-89fb-42f7-96b1-f72541c75f45</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateValueInCellOfTable.UserCode.cs">
-      <BoundTo>01903fba-f050-45de-bae4-94dfc2857330</BoundTo>
-      <DependentUpon>ValidateValueInCellOfTable.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b0cadfb4-08a5-40f3-bdab-c9177a395850</id>
+    <Compile Include="Modules\Validation\DocumentView\ValidateValueInTableOfHBCDocumentView.cs">
+      <id>1308cd76-a226-4040-b1bc-b8ef3d797d79</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateValueWaterLevelWaveHeightNotMetInDocumentView.cs">
       <DependentUpon>ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec</DependentUpon>
@@ -2461,11 +2452,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>e7464627-428f-4286-934b-085c173cdecc</id>
       <recordtableid>bb8a13eb-104a-4991-a3e8-ff6db9bce7b6</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateValueInCellOfTable.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>01903fba-f050-45de-bae4-94dfc2857330</id>
-      <recordtableid>faa9a301-c9f4-40f1-9ff2-cd46b6083e3c</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateValueWaterLevelWaveHeightNotMetInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

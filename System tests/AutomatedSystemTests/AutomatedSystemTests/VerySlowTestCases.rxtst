@@ -179,26 +179,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			id="0f6023ee-76ed-4e56-ae2a-c03268ef75a4"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha7"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha7"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="0fa75da8-c167-4a23-986b-2e0814a305aa"
 			name="SelectCaseToRun">
@@ -238,34 +218,6 @@
 					variablename="pathToRowInPropertiesPanel">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="110e8566-9628-46f4-bae3-7bae18eec2f2"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha4"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha4"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="1302d1c4-c2ea-4af7-ab7b-a604c2413799"
@@ -408,26 +360,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="189db43a-9bd3-4347-b1c4-55c0f9c2289f"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha13"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha13"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="1946f142-11b3-4c7a-a76b-c2ca51b5f9ae"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -558,8 +490,8 @@
 			datasource="script15_a_ExpectedResultsCalculations"
 			errorbehavior="ContinueNextIteration"
 			id="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
-			maxrange="1"
-			minrange="1"
+			maxrange="22"
+			minrange="18"
 			name="HydraulicBoundaryConditionCases">
 				<parameters>
 					<param
@@ -569,10 +501,6 @@
 					<param
 					name="rowCalculationToValidate"
 					value="0">
-					</param>
-					<param
-					name="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
-					value="6">
 					</param>
 					<param
 					name="expectedValueIfNotRun"
@@ -797,26 +725,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="28eebd1e-908c-4d31-a7b2-a0cd028be9da"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha12"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha12"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<teardown
 			id="2aea3b7a-7b55-4da6-a680-e0f1e8b83663"
 			name="teardown">
@@ -855,32 +763,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			errorbehavior="ContinueNextIteration"
-			id="32a2c50d-8b88-42be-9b51-089c34542310"
-			name="ValidateDetailedHydraulicBoundaryConditionsDA">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
-								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="Rekenwaarde waterstand [m+NAP]">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
 			<testmodule
 			id="33efce2d-deaf-4012-8173-271fbcc06a0c"
 			name="SelectGenericItemInProjectExplorer"
@@ -1052,7 +934,7 @@
 				<parameters>
 					<param
 					name="fileNameToSave"
-					value="script15\script15abc.risk">
+					value="output\script15\script15abc.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1101,11 +983,6 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			errorbehavior="ContinueNextIteration"
-			id="41ea2cf3-9792-4837-a7fe-a3bd88eb762c"
-			name="ValidateResultsIllustrationPoints">
-			</smartfoldernode>
 			<smartfoldernode
 			id="42e23461-3eed-447a-b5e4-d1565516e12e"
 			name="ValidateResultInDocumentViewHasBeenDeleted">
@@ -1229,26 +1106,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="49933cf1-5026-4fd2-80e0-1a188416f517"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha5"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha5"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="4aae4d02-35f4-4028-8eb0-fcd5bad180f6"
 			name="SelectRowCalculationHydraulicBCDune"
 			ref="41e70303-25bd-42fe-9275-c9f1baa62c5c"
@@ -1269,12 +1126,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="nameOfAlphasGropuToExpand"
+					datasourceid="5ee73857-9c31-4f53-b9a0-14f332e61595"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="nameAlphasGroupInPropertiesPanel"
 					datasourceid="9ec51b86-f0df-4ffc-a3cc-4e9c4f59632d"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4b37b88a-a34a-46f3-a7c1-626eaca1b4e4"
@@ -1463,26 +1328,6 @@
 			name="setup">
 			</setup>
 			<testmodule
-			id="59fb4e7f-bba4-47cb-82ea-cf562a983f9a"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha4"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha4"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="5a98b671-b40e-4b92-9803-dff79b22f196"
 			name="ClickOnRunSelectedCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
@@ -1550,105 +1395,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="5b3dd05b-0ca8-44d0-ad55-d7d7e8f80efb"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha5"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha5"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
-			</testmodule>
-			<smartfoldernode
-			errorbehavior="ContinueNextIteration"
-			id="5d310a62-72b8-41d6-8f04-87eaff37cadc"
-			name="ValidateDetailedResultsInPropertiesPanelGEBU">
-				<conditiongroup
-				comparison="OR"
-				enabled="True">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
-								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="Waterstand [m+NAP]">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
-								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="Golfhoogte [m]">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
-			<testmodule
-			id="5d95ce96-716c-4748-973d-60a033bc6995"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha3"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha3"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
-			</testmodule>
-			<testmodule
 			id="5df61008-734f-4626-9eb8-8c39c2b34592"
 			name="CalculateFullPathToResultsFromFullPathToCalculation"
 			ref="95b6d533-7626-4835-b2be-85c4ec709857"
@@ -1668,26 +1414,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="5e0fedf2-d1b5-4b95-acd0-a18b7f3d1ea6"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha10"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha10"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="5e8a0692-03f7-4359-94da-0c443adffc99"
 			name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
@@ -1695,6 +1421,12 @@
 			<smartfoldernode
 			id="5ee73857-9c31-4f53-b9a0-14f332e61595"
 			name="SelectRowGEBU">
+				<parameters>
+					<param
+					name="nameOfAlphasGropuToExpand"
+					value="Invloedscoëfficiënten [-]">
+					</param>
+				</parameters>
 				<conditiongroup
 				comparison="OR"
 				enabled="True">
@@ -1843,7 +1575,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="64ec6a7b-4df8-45bb-8c48-33c0b387980e"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1910,26 +1641,6 @@
 					datasourceid="5aa27dc9-4ea6-4442-9d73-0fd2376e9719"
 					variableid="d40bcbfe-ffe8-47cc-969c-7d0fac936b80"
 					variablename="pathToRowInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="676cfe0f-f93e-40c7-84de-437c5fefae42"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha11"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha11"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2239,7 +1950,7 @@
 			datasource="script15a_AllRows"
 			errorbehavior="ContinueNextIteration"
 			id="7afa684a-e56c-40bf-a558-205a01981f48"
-			name="ValidateResultsPresentInDocumentView">
+			name="ValidateResultsArePresentPresentInDocumentView">
 			</smartfoldernode>
 			<smartfoldernode
 			id="7cc68e03-d8eb-43f9-bf83-c5e5cf505aa2"
@@ -2817,26 +2528,6 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
-			id="a805501b-77bd-4b10-805c-21a5cc9f3f9c"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha6"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha6"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="a850792a-0814-48c5-a87b-fa54c6b86fce"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2957,58 +2648,6 @@
 			name="CoupleToHBCDatabase">
 			</smartfoldernode>
 			<testmodule
-			id="ad965fc9-f5e2-4743-91c0-64c86563db85"
-			name="ValidateValueInCellOfTable"
-			ref="faa9a301-c9f4-40f1-9ff2-cd46b6083e3c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="62bb31aa-b365-4711-bc79-ddbc0e672f20"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="expectedValueIfNotRun"
-					datasourceid="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
-					variableid="9e0ebe56-14fa-48e2-baf6-1d9d6f987c59"
-					variablename="comparisonValue">
-					</var>
-					<var
-					dataname="stringForValueIsNotExpectedToBePresent"
-					datasourceid="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
-					variableid="aff395e2-5afa-476a-9439-eac60579f977"
-					variablename="isComparisonValueExpectedToBePresent">
-					</var>
-					<var
-					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
-					datasourceid="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
-					variableid="75512c39-26fa-4d1e-bbc5-fad51b7fff43"
-					variablename="columnIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="columnIndex"
-					datasourceid="e3a1ccd5-86b4-4a5a-a23c-178dd668fd48"
-					variableid="75512c39-26fa-4d1e-bbc5-fad51b7fff43"
-					variablename="columnIndex">
-					</var>
-					<var
-					dataname="isValueExpectedToBePresent"
-					datasourceid="e3a1ccd5-86b4-4a5a-a23c-178dd668fd48"
-					variableid="aff395e2-5afa-476a-9439-eac60579f977"
-					variablename="isComparisonValueExpectedToBePresent">
-					</var>
-					<var
-					dataname="comparisonValue"
-					datasourceid="e3a1ccd5-86b4-4a5a-a23c-178dd668fd48"
-					variableid="9e0ebe56-14fa-48e2-baf6-1d9d6f987c59"
-					variablename="comparisonValue">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="aed13338-a019-4654-a55d-b6c92a41ff3e"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -3063,26 +2702,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="b6ed79a8-3630-49f4-aca7-b4206dc4df04"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha8"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha8"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="b96e7b16-6509-426c-8f9e-cf93b0998d75"
 			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
 			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
@@ -3101,26 +2720,6 @@
 			id="ba38ee38-2d76-411a-a515-fa10bd425e82"
 			name="LoopHydraulicBoundaryCalculationsToCarryOut">
 			</smartfoldernode>
-			<testmodule
-			id="bb74762a-0a0b-4cbd-aac1-b3310fd258d9"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="bb76284f-f64f-4c52-b714-1edadcee82f5"
 			name="CalculateFullPathToSeparateCalculation"
@@ -3216,26 +2815,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			id="c77a1a53-8532-4cb3-8f92-5e87a59c206b"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha9"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha9"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="c8503c7d-b4bb-4f7f-b56a-c16e6bbcc3e0"
@@ -3289,34 +2868,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="cd691ab1-4242-4680-a6e7-480d0863b6c9"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha3"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha3"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="ce1193a3-b171-407e-8b39-5d78f760a562"
@@ -3421,34 +2972,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="dc5570e6-e903-40a6-beed-4ee980893b68"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha2"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha2"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
-			</testmodule>
-			<testmodule
 			id="dcd6ad5e-4c6b-4ff6-a88d-7492c0f058e6"
 			name="GenerateRandomNumberInRangeCases"
 			ref="6104469d-a535-47ca-b393-2256db12cca4"
@@ -3526,34 +3049,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="e042a9d5-8b56-499f-83ef-5a86b7844380"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha2"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha2"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testcase
 			id="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
@@ -3739,50 +3234,10 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="eff47027-7a8b-4a0d-b051-763794217ee8"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="f111c440-4326-434a-9714-ad89fe728404"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="f11515db-8abd-4d20-b019-7f31c07ef835"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha14"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha14"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="f14f0309-d12e-49c2-ad61-294782681742"
@@ -3817,34 +3272,6 @@
 					variablename="expectedMessage">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="f1b089b6-e8e0-42cc-b015-e23a9c79d480"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameAlpha6"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="expectedValueAlpha6"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameAlpha1"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="64d047d3-698a-4da0-849d-8f06905ffe9d"
-					variablename="nameOfParameter">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="f20274b1-23f6-49ae-bb0d-17afc5b77f53"
@@ -3887,6 +3314,44 @@
 					variablename="string2">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f6c86871-641c-4fc9-bb4e-ee1c1252512c"
+			name="ValidateValueInTableOfHBCDocumentView"
+			ref="556ee382-bfb6-405a-929c-a48c9b1d339b"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="labelFM"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="expectedValueIfNotRun"
+					datasourceid="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
+					variableid="cd5ceefa-263c-4bfc-9666-bb8867efc808"
+					variablename="comparisonValue">
+					</var>
+					<var
+					dataname="stringForValueIsNotExpectedToBePresent"
+					datasourceid="1ed455a9-a9f2-4bab-b681-236f4efdff7d"
+					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
+					variablename="isComparisonValueExpectedToBeMet">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -4305,10 +3770,10 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="7afa684a-e56c-40bf-a558-205a01981f48"
-									name="ValidateResultsPresentInDocumentView">
+									name="ValidateResultsArePresentPresentInDocumentView">
 										<testmodule
-										id="ad965fc9-f5e2-4743-91c0-64c86563db85"
-										name="ValidateValueInCellOfTable">
+										id="f6c86871-641c-4fc9-bb4e-ee1c1252512c"
+										name="ValidateValueInTableOfHBCDocumentView">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -4324,6 +3789,14 @@
 												id="761ec621-ea41-400b-8b2a-dceb31bce9ad"
 												name="SelectRowCalculation">
 												</testmodule>
+												<testmodule
+												id="4ad1130c-4d85-4b9a-a6e3-330d58d2b32e"
+												name="ExpandAlphasGroup">
+												</testmodule>
+												<testmodule
+												id="1b626efa-6953-45af-87de-de3debd85e97"
+												name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
 											id="884a4e22-bf78-4b23-b046-1b7e97d2631f"
@@ -4337,106 +3810,6 @@
 										<smartfoldernode
 										id="9ec51b86-f0df-4ffc-a3cc-4e9c4f59632d"
 										name="ValidationDetailedResultsInPropertiesPanel">
-											<smartfoldernode
-											id="5d310a62-72b8-41d6-8f04-87eaff37cadc"
-											name="ValidateDetailedResultsInPropertiesPanelGEBU">
-												<testmodule
-												id="4ad1130c-4d85-4b9a-a6e3-330d58d2b32e"
-												name="ExpandAlphasGroup">
-												</testmodule>
-												<testmodule
-												id="1b626efa-6953-45af-87de-de3debd85e97"
-												name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<smartfoldernode
-												id="41ea2cf3-9792-4837-a7fe-a3bd88eb762c"
-												name="ValidateResultsIllustrationPoints">
-													<testmodule
-													id="bb74762a-0a0b-4cbd-aac1-b3310fd258d9"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="dc5570e6-e903-40a6-beed-4ee980893b68"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="cd691ab1-4242-4680-a6e7-480d0863b6c9"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="110e8566-9628-46f4-bae3-7bae18eec2f2"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="5b3dd05b-0ca8-44d0-ad55-d7d7e8f80efb"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="f1b089b6-e8e0-42cc-b015-e23a9c79d480"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="0f6023ee-76ed-4e56-ae2a-c03268ef75a4"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="b6ed79a8-3630-49f4-aca7-b4206dc4df04"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="c77a1a53-8532-4cb3-8f92-5e87a59c206b"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="5e0fedf2-d1b5-4b95-acd0-a18b7f3d1ea6"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="676cfe0f-f93e-40c7-84de-437c5fefae42"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="28eebd1e-908c-4d31-a7b2-a0cd028be9da"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="189db43a-9bd3-4347-b1c4-55c0f9c2289f"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-													<testmodule
-													id="f11515db-8abd-4d20-b019-7f31c07ef835"
-													name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-													</testmodule>
-												</smartfoldernode>
-											</smartfoldernode>
-											<smartfoldernode
-											id="32a2c50d-8b88-42be-9b51-089c34542310"
-											name="ValidateDetailedHydraulicBoundaryConditionsDA">
-												<testmodule
-												id="eff47027-7a8b-4a0d-b051-763794217ee8"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="e042a9d5-8b56-499f-83ef-5a86b7844380"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="5d95ce96-716c-4748-973d-60a033bc6995"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="59fb4e7f-bba4-47cb-82ea-cf562a983f9a"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="49933cf1-5026-4fd2-80e0-1a188416f517"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-												<testmodule
-												id="a805501b-77bd-4b10-805c-21a5cc9f3f9c"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-											</smartfoldernode>
 											<testmodule
 											id="1d45a5a9-0ba8-4d20-a02f-da70e48db883"
 											name="SetRangeInSmartFolder">
@@ -5099,7 +4472,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.92026
+						-0.92026
 					</td>
 				</tr>
 				<tr>
@@ -5183,7 +4556,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.19911
+						-0.19911
 					</td>
 				</tr>
 				<tr>
@@ -5309,7 +4682,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.91610
+						-0.91610
 					</td>
 				</tr>
 				<tr>
@@ -5393,7 +4766,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.13445
+						-0.13445
 					</td>
 				</tr>
 				<tr>
@@ -5519,7 +4892,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.91218
+						-0.91218
 					</td>
 				</tr>
 				<tr>
@@ -5603,7 +4976,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.11131
+						-0.11131
 					</td>
 				</tr>
 				<tr>
@@ -5729,7 +5102,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.88461
+						-0.88461
 					</td>
 				</tr>
 				<tr>
@@ -5813,7 +5186,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.04784
+						-0.04784
 					</td>
 				</tr>
 				<tr>
@@ -5939,7 +5312,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.80111
+						-0.80209
 					</td>
 				</tr>
 				<tr>
@@ -5967,7 +5340,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.08155
+						-0.08169
 					</td>
 				</tr>
 				<tr>
@@ -6023,7 +5396,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.13496
+						-0.1354
 					</td>
 				</tr>
 				<tr>
@@ -6051,7 +5424,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.43891
+						-0.43678
 					</td>
 				</tr>
 				<tr>
@@ -6149,7 +5522,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.77846
+						-0.77959
 					</td>
 				</tr>
 				<tr>
@@ -6177,7 +5550,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.08868
+						-0.08887
 					</td>
 				</tr>
 				<tr>
@@ -6233,7 +5606,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.10493
+						-0.10528
 					</td>
 				</tr>
 				<tr>
@@ -6261,7 +5634,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.45814
+						-0.4558
 					</td>
 				</tr>
 				<tr>
@@ -6359,7 +5732,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.76559
+						-0.7667
 					</td>
 				</tr>
 				<tr>
@@ -6387,7 +5760,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.09599
+						-0.09619
 					</td>
 				</tr>
 				<tr>
@@ -6443,7 +5816,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.09501
+						-0.09552
 					</td>
 				</tr>
 				<tr>
@@ -6471,7 +5844,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.47083
+						-0.46852
 					</td>
 				</tr>
 				<tr>
@@ -6569,7 +5942,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.71149
+						-0.71307
 					</td>
 				</tr>
 				<tr>
@@ -6597,7 +5970,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.09905
+						-0.09912
 					</td>
 				</tr>
 				<tr>
@@ -6653,7 +6026,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.06463
+						-0.06465
 					</td>
 				</tr>
 				<tr>
@@ -6681,7 +6054,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.52543
+						-0.52269
 					</td>
 				</tr>
 				<tr>
@@ -6779,7 +6152,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.91775
+						-0.91775
 					</td>
 				</tr>
 				<tr>
@@ -6863,7 +6236,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.25832
+						-0.25832
 					</td>
 				</tr>
 				<tr>
@@ -6933,7 +6306,7 @@
 						Windrichting
 					</td>
 					<td>
-						-0.3302
+						-0.33002
 					</td>
 				</tr>
 				<tr>
@@ -6989,7 +6362,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.92033
+						-0.92033
 					</td>
 				</tr>
 				<tr>
@@ -7073,7 +6446,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.20995
+						-0.20995
 					</td>
 				</tr>
 				<tr>
@@ -7199,7 +6572,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.92041
+						-0.92041
 					</td>
 				</tr>
 				<tr>
@@ -7283,7 +6656,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.19118
+						-0.19118
 					</td>
 				</tr>
 				<tr>
@@ -7409,7 +6782,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.91218
+						-0.91218
 					</td>
 				</tr>
 				<tr>
@@ -7493,7 +6866,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.11131
+						-0.11131
 					</td>
 				</tr>
 				<tr>
@@ -7619,7 +6992,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.88461
+						-0.88461
 					</td>
 				</tr>
 				<tr>
@@ -7703,7 +7076,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.04784
+						-0.04784
 					</td>
 				</tr>
 				<tr>
@@ -7829,7 +7202,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.82694
+						-0.82694
 					</td>
 				</tr>
 				<tr>
@@ -7857,7 +7230,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.08641
+						-0.08649
 					</td>
 				</tr>
 				<tr>
@@ -7913,7 +7286,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.17747
+						-0.17785
 					</td>
 				</tr>
 				<tr>
@@ -7941,7 +7314,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.40081
+						-0.39866
 					</td>
 				</tr>
 				<tr>
@@ -8039,7 +7412,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.80921
+						-0.80921
 					</td>
 				</tr>
 				<tr>
@@ -8067,7 +7440,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.08211
+						-0.08223
 					</td>
 				</tr>
 				<tr>
@@ -8123,7 +7496,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.14396
+						-0.1444
 					</td>
 				</tr>
 				<tr>
@@ -8151,7 +7524,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.42814
+						-0.4258
 					</td>
 				</tr>
 				<tr>
@@ -8249,7 +7622,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.80067
+						-0.80067
 					</td>
 				</tr>
 				<tr>
@@ -8277,7 +7650,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.08043
+						-0.08056
 					</td>
 				</tr>
 				<tr>
@@ -8333,7 +7706,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.12771
+						-0.12812
 					</td>
 				</tr>
 				<tr>
@@ -8361,7 +7734,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.44028
+						-0.43809
 					</td>
 				</tr>
 				<tr>
@@ -8403,7 +7776,7 @@
 						Windrichting
 					</td>
 					<td>
-						-0.41708
+						-0.41748
 					</td>
 				</tr>
 				<tr>
@@ -8459,7 +7832,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.76559
+						-0.7667
 					</td>
 				</tr>
 				<tr>
@@ -8487,7 +7860,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.09599
+						-0.09619
 					</td>
 				</tr>
 				<tr>
@@ -8543,7 +7916,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.09501
+						-0.09552
 					</td>
 				</tr>
 				<tr>
@@ -8571,7 +7944,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.47083
+						-0.46852
 					</td>
 				</tr>
 				<tr>
@@ -8613,7 +7986,7 @@
 						Windrichting
 					</td>
 					<td>
-						-0.45135
+						-0.45202
 					</td>
 				</tr>
 				<tr>
@@ -8669,7 +8042,7 @@
 						Waterstand Lauwersoog
 					</td>
 					<td>
-						0.71149
+						-0.71307
 					</td>
 				</tr>
 				<tr>
@@ -8697,7 +8070,7 @@
 						Windsnelheid West Terschelling | wl LO
 					</td>
 					<td>
-						0.09905
+						-0.09912
 					</td>
 				</tr>
 				<tr>
@@ -8753,7 +8126,7 @@
 						Onzekerheid waterstand Lauwersoog
 					</td>
 					<td>
-						0.06463
+						-0.06465
 					</td>
 				</tr>
 				<tr>
@@ -8781,7 +8154,7 @@
 						Modelonzekerheid golfhoogte
 					</td>
 					<td>
-						0.52543
+						-0.52269
 					</td>
 				</tr>
 				<tr>
@@ -8851,7 +8224,7 @@
 						Betrouwbaarheidsindex doelkans
 					</td>
 					<td>
-						478.947
+						4.78947
 					</td>
 				</tr>
 				<tr>
@@ -8865,7 +8238,7 @@
 						Betrouwbaarheidsindex berekende kans
 					</td>
 					<td>
-						478.938
+						4.78938
 					</td>
 				</tr>
 				<tr>
@@ -8935,7 +8308,7 @@
 						Betrouwbaarheidsindex doelkans
 					</td>
 					<td>
-						405.485
+						4.05485
 					</td>
 				</tr>
 				<tr>
@@ -8949,7 +8322,7 @@
 						Betrouwbaarheidsindex berekende kans
 					</td>
 					<td>
-						405.500
+						4.05500
 					</td>
 				</tr>
 				<tr>
@@ -9019,7 +8392,7 @@
 						Betrouwbaarheidsindex doelkans
 					</td>
 					<td>
-						405.485
+						4.05485
 					</td>
 				</tr>
 				<tr>
@@ -9033,7 +8406,7 @@
 						Betrouwbaarheidsindex berekende kans
 					</td>
 					<td>
-						405.500
+						4.05500
 					</td>
 				</tr>
 				<tr>
@@ -9103,7 +8476,7 @@
 						Betrouwbaarheidsindex doelkans
 					</td>
 					<td>
-						380.234
+						3.80234
 					</td>
 				</tr>
 				<tr>
@@ -9117,7 +8490,7 @@
 						Betrouwbaarheidsindex berekende kans
 					</td>
 					<td>
-						380.281
+						3.80281
 					</td>
 				</tr>
 				<tr>
@@ -9187,7 +8560,7 @@
 						Betrouwbaarheidsindex doelkans
 					</td>
 					<td>
-						285.527
+						2.85527
 					</td>
 				</tr>
 				<tr>
@@ -9201,7 +8574,7 @@
 						Betrouwbaarheidsindex berekende kans
 					</td>
 					<td>
-						285.617
+						2.85617
 					</td>
 				</tr>
 				<tr>
@@ -9236,6 +8609,9 @@
 					rowIndex
 				</column>
 				<column>
+					columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView
+				</column>
+				<column>
 					rangeLoopValidatePropertiesPanel
 				</column>
 				<column>
@@ -9249,90 +8625,6 @@
 				</column>
 				<column>
 					expectedGoverningWindDirection
-				</column>
-				<column>
-					nameAlpha1
-				</column>
-				<column>
-					expectedValueAlpha1
-				</column>
-				<column>
-					nameAlpha2
-				</column>
-				<column>
-					expectedValueAlpha2
-				</column>
-				<column>
-					nameAlpha3
-				</column>
-				<column>
-					expectedValueAlpha3
-				</column>
-				<column>
-					nameAlpha4
-				</column>
-				<column>
-					expectedValueAlpha4
-				</column>
-				<column>
-					nameAlpha5
-				</column>
-				<column>
-					expectedValueAlpha5
-				</column>
-				<column>
-					nameAlpha6
-				</column>
-				<column>
-					expectedValueAlpha6
-				</column>
-				<column>
-					nameAlpha7
-				</column>
-				<column>
-					expectedValueAlpha7
-				</column>
-				<column>
-					nameAlpha8
-				</column>
-				<column>
-					expectedValueAlpha8
-				</column>
-				<column>
-					nameAlpha9
-				</column>
-				<column>
-					expectedValueAlpha9
-				</column>
-				<column>
-					nameAlpha10
-				</column>
-				<column>
-					expectedValueAlpha10
-				</column>
-				<column>
-					nameAlpha11
-				</column>
-				<column>
-					expectedValueAlpha11
-				</column>
-				<column>
-					nameAlpha12
-				</column>
-				<column>
-					expectedValueAlpha12
-				</column>
-				<column>
-					nameAlpha13
-				</column>
-				<column>
-					expectedValueAlpha13
-				</column>
-				<column>
-					nameAlpha14
-				</column>
-				<column>
-					expectedValueAlpha14
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -9349,6 +8641,9 @@
 						rowIndex
 					</th>
 					<th>
+						columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView
+					</th>
+					<th>
 						rangeLoopValidatePropertiesPanel
 					</th>
 					<th>
@@ -9363,90 +8658,6 @@
 					<th>
 						expectedGoverningWindDirection
 					</th>
-					<th>
-						nameAlpha1
-					</th>
-					<th>
-						expectedValueAlpha1
-					</th>
-					<th>
-						nameAlpha2
-					</th>
-					<th>
-						expectedValueAlpha2
-					</th>
-					<th>
-						nameAlpha3
-					</th>
-					<th>
-						expectedValueAlpha3
-					</th>
-					<th>
-						nameAlpha4
-					</th>
-					<th>
-						expectedValueAlpha4
-					</th>
-					<th>
-						nameAlpha5
-					</th>
-					<th>
-						expectedValueAlpha5
-					</th>
-					<th>
-						nameAlpha6
-					</th>
-					<th>
-						expectedValueAlpha6
-					</th>
-					<th>
-						nameAlpha7
-					</th>
-					<th>
-						expectedValueAlpha7
-					</th>
-					<th>
-						nameAlpha8
-					</th>
-					<th>
-						expectedValueAlpha8
-					</th>
-					<th>
-						nameAlpha9
-					</th>
-					<th>
-						expectedValueAlpha9
-					</th>
-					<th>
-						nameAlpha10
-					</th>
-					<th>
-						expectedValueAlpha10
-					</th>
-					<th>
-						nameAlpha11
-					</th>
-					<th>
-						expectedValueAlpha11
-					</th>
-					<th>
-						nameAlpha12
-					</th>
-					<th>
-						expectedValueAlpha12
-					</th>
-					<th>
-						nameAlpha13
-					</th>
-					<th>
-						expectedValueAlpha13
-					</th>
-					<th>
-						nameAlpha14
-					</th>
-					<th>
-						expectedValueAlpha14
-					</th>
 				</tr>
 				<tr>
 					<td>
@@ -9457,6 +8668,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						1-15
@@ -9473,90 +8687,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.33686
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92026
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.19911
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -9567,6 +8697,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						16-30
@@ -9583,90 +8716,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37773
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91610
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.13445
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -9677,6 +8726,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						31-45
@@ -9693,90 +8745,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.39439
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91218
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.11131
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -9787,6 +8755,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						46-60
@@ -9803,90 +8774,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.46386
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.88461
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.04784
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -9897,6 +8784,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						61-75
@@ -9913,90 +8803,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37533
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80111
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08155
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.13496
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.43891
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10007,6 +8813,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						76-90
@@ -10023,90 +8832,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.40683
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.77846
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08868
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.10493
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.45814
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10117,6 +8842,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						91-105
@@ -10133,90 +8861,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.41748
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.76559
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09599
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.09501
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.47083
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10227,6 +8871,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						106-120
@@ -10243,90 +8890,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.45202
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.71149
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09905
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.06463
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.52543
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10337,6 +8900,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						121-135
@@ -10353,90 +8919,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.30166
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91775
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.25832
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10447,6 +8929,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						136-150
@@ -10463,90 +8948,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.33002
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92033
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.20995
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10557,6 +8958,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						151-165
@@ -10573,90 +8977,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.34101
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92041
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.19118
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10667,6 +8987,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						166-180
@@ -10683,90 +9006,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.39439
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91218
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.11131
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10777,6 +9016,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						181-195
@@ -10793,90 +9035,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.46386
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.88461
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.04784
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10887,6 +9045,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						196-210
@@ -10903,90 +9064,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.34371
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.82694
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08641
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.17747
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.40081
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10997,6 +9074,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						211-225
@@ -11013,90 +9093,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.36913
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80921
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08211
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.14396
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.42814
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -11107,6 +9103,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						226-240
@@ -11123,90 +9122,6 @@
 					<td>
 						&#32;330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37961
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80067
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08043
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.12771
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.44028
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -11217,6 +9132,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						241-255
@@ -11233,90 +9151,6 @@
 					<td>
 						330.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.41708
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.76559
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09599
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.09501
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.47083
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -11327,6 +9161,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						6
 					</td>
 					<td>
 						256-270
@@ -11343,90 +9180,6 @@
 					<td>
 						&#32;300.0
 					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.45135
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.71149
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09905
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.06463
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.52543
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -11439,6 +9192,9 @@
 						0
 					</td>
 					<td>
+						7
+					</td>
+					<td>
 						271-276
 					</td>
 					<td>
@@ -11446,74 +9202,6 @@
 					</td>
 					<td>
 						7.40
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						16.05
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.78947
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.78938
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						9.78
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						7.40
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
 					</td>
 					<td>
 					</td>
@@ -11531,6 +9219,9 @@
 						0
 					</td>
 					<td>
+						7
+					</td>
+					<td>
 						277-282
 					</td>
 					<td>
@@ -11538,74 +9229,6 @@
 					</td>
 					<td>
 						5.88
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.87
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.05485
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.05500
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.85
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.88
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
 					</td>
 					<td>
 					</td>
@@ -11623,6 +9246,9 @@
 						0
 					</td>
 					<td>
+						7
+					</td>
+					<td>
 						283-288
 					</td>
 					<td>
@@ -11630,74 +9256,6 @@
 					</td>
 					<td>
 						5.88
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.87
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.05485
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.05500
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.85
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.88
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
 					</td>
 					<td>
 					</td>
@@ -11715,6 +9273,9 @@
 						0
 					</td>
 					<td>
+						7
+					</td>
+					<td>
 						289-294
 					</td>
 					<td>
@@ -11722,74 +9283,6 @@
 					</td>
 					<td>
 						5.46
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.51
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						3.80234
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						3.80281
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.56
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.46
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
 					</td>
 					<td>
 					</td>
@@ -11807,6 +9300,9 @@
 						0
 					</td>
 					<td>
+						7
+					</td>
+					<td>
 						295-300
 					</td>
 					<td>
@@ -11814,74 +9310,6 @@
 					</td>
 					<td>
 						4.22
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						13.25
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						2.85527
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						2.85617
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						7.56
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						4.22
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
 					</td>
 					<td>
 					</td>
@@ -12633,19 +10061,109 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0424d00f-a9f9-4373-9111-c014cce4155a">
+			</testcontainer>
+			<testcontainer
+			id="062cf885-33f3-44f3-a93f-15c2012ba8cf">
+			</testcontainer>
+			<testcontainer
+			id="063798f7-6076-451b-85b5-cdf60f1b75c0">
+			</testcontainer>
+			<testcontainer
+			id="063eeda2-b874-4410-90cc-971e67742c64">
+			</testcontainer>
+			<testcontainer
 			id="08ec6f16-ccb8-4a06-a56c-b647003dd81b">
+			</testcontainer>
+			<testcontainer
+			id="09a2debb-2672-433f-b824-7bdedf426d38">
+			</testcontainer>
+			<testcontainer
+			id="0fa75da8-c167-4a23-986b-2e0814a305aa">
+			</testcontainer>
+			<testcontainer
+			id="0fe746a6-6c24-452e-a59c-a23c2254ec0d">
+			</testcontainer>
+			<testcontainer
+			id="14947b6e-daba-4d72-9a26-f436c526c4f9">
+			</testcontainer>
+			<testcontainer
+			id="1a67b900-f3a0-41e3-8116-e9e5de834e08">
+			</testcontainer>
+			<testcontainer
+			id="1d48d0d6-d762-4387-bb40-83abeb9a488a">
 			</testcontainer>
 			<testcontainer
 			id="1ed455a9-a9f2-4bab-b681-236f4efdff7d">
 			</testcontainer>
 			<testcontainer
+			id="1fe6185f-cfdc-4d59-8015-73c21a233048">
+			</testcontainer>
+			<testcontainer
+			id="2601d51d-463b-42fc-a93a-0b792b021f09">
+			</testcontainer>
+			<testcontainer
+			id="27219e89-6789-4a80-ad4b-979ffc734454">
+			</testcontainer>
+			<testcontainer
+			id="2e76d5a7-a44a-4a06-9335-d2f43fbbd160">
+			</testcontainer>
+			<testcontainer
+			id="345487f9-0e32-45ea-8836-8941fcbf244b">
+			</testcontainer>
+			<testcontainer
 			id="37d99e11-0635-4c04-bec0-191fa870e60d">
+			</testcontainer>
+			<testcontainer
+			id="384a4933-2908-4423-9d4a-912d2fac3951">
+			</testcontainer>
+			<testcontainer
+			id="3cab689e-3f7a-432e-ab02-e9bc92bd4e6d">
+			</testcontainer>
+			<testcontainer
+			id="3e79b7c1-fd56-4691-8061-19cb0048736b">
+			</testcontainer>
+			<testcontainer
+			id="3f9a6829-afc5-4cf5-aa15-f2c7a5f42623">
+			</testcontainer>
+			<testcontainer
+			id="403ef265-0dd6-41f7-bb43-bf80ac1b17ae">
+			</testcontainer>
+			<testcontainer
+			id="411a68f2-694e-49df-afae-3ae4cc79c274">
+			</testcontainer>
+			<testcontainer
+			id="42e23461-3eed-447a-b5e4-d1565516e12e">
 			</testcontainer>
 			<testcontainer
 			id="43662af9-ccd2-46d7-9037-c4662e1172c5">
 			</testcontainer>
 			<testcontainer
-			id="5d310a62-72b8-41d6-8f04-87eaff37cadc">
+			id="45b12bc0-838c-4a9b-b0ac-ddc2aac9a3af">
+			</testcontainer>
+			<testcontainer
+			id="4859f6b8-70e3-48f6-818e-35c91ebe1c29">
+			</testcontainer>
+			<testcontainer
+			id="4ba1eda0-75d3-4934-8fd5-205632af5360">
+			</testcontainer>
+			<testcontainer
+			id="4ff94dd5-df05-4bfb-b077-8dbe4dc73bd1">
+			</testcontainer>
+			<testcontainer
+			id="50cef048-efb9-4f25-a07c-a4bb859c05ab">
+			</testcontainer>
+			<testcontainer
+			id="54c68aa2-898a-44cf-8214-dcdad91fa40a">
+			</testcontainer>
+			<testcontainer
+			id="5698ee72-3c6b-49f6-8d04-87afbe737596">
+			</testcontainer>
+			<testcontainer
+			id="589114f0-07ea-46ed-9b42-75ff7def58e4">
+			</testcontainer>
+			<testcontainer
+			id="5aa27dc9-4ea6-4442-9d73-0fd2376e9719">
 			</testcontainer>
 			<testcontainer
 			id="5e8a0692-03f7-4359-94da-0c443adffc99">
@@ -12654,13 +10172,58 @@
 			id="5ee73857-9c31-4f53-b9a0-14f332e61595">
 			</testcontainer>
 			<testcontainer
+			id="5f4e927d-e717-45cc-b4e4-708befbadef1">
+			</testcontainer>
+			<testcontainer
+			id="602bdab1-41f1-4838-a0a3-0bcc665c423a">
+			</testcontainer>
+			<testcontainer
+			id="65452d39-74cd-4333-9947-dc79521f1eb5">
+			</testcontainer>
+			<testcontainer
+			id="6915e22e-bc0e-4d7b-856f-ff4353d60766">
+			</testcontainer>
+			<testcontainer
+			id="6ac5315a-667e-4eb7-88ca-dd65f747ce1b">
+			</testcontainer>
+			<testcontainer
+			id="6c864ac6-a20a-4a64-bae5-f2c4f3e23796">
+			</testcontainer>
+			<testcontainer
+			id="6d3655ba-a8a6-4b59-a9d9-3da4fd88ba9a">
+			</testcontainer>
+			<testcontainer
+			id="73ec1dae-84e4-4194-8882-175b66bf58e2">
+			</testcontainer>
+			<testcontainer
+			id="76e461cb-aac9-4d8c-abdc-f594083642d5">
+			</testcontainer>
+			<testcontainer
+			id="789bf7f7-92d7-481f-ab53-628ebcf613b0">
+			</testcontainer>
+			<testcontainer
 			id="7a5a15b1-94df-4c7e-a866-6130be375fbd">
+			</testcontainer>
+			<testcontainer
+			id="7a6b60fa-f673-4baf-811e-9a87a33c7473">
 			</testcontainer>
 			<testcontainer
 			id="7afa684a-e56c-40bf-a558-205a01981f48">
 			</testcontainer>
 			<testcontainer
+			id="7cc68e03-d8eb-43f9-bf83-c5e5cf505aa2">
+			</testcontainer>
+			<testcontainer
+			id="7d129107-3b98-4b79-bfca-2fcafb522a9b">
+			</testcontainer>
+			<testcontainer
+			id="7d7da181-ac99-4720-b18d-8d0d326091cd">
+			</testcontainer>
+			<testcontainer
 			id="7e58463a-da3f-406e-b419-e3bb415d90b1">
+			</testcontainer>
+			<testcontainer
+			id="81b7d84f-a9cd-4706-88a8-09c2960a860a">
 			</testcontainer>
 			<testcontainer
 			id="87ddf061-b5db-44a9-bcfb-cbdf21271e58">
@@ -12669,19 +10232,103 @@
 			id="884a4e22-bf78-4b23-b046-1b7e97d2631f">
 			</testcontainer>
 			<testcontainer
+			id="8caf5a86-eba8-42eb-a906-9fa658add7f1">
+			</testcontainer>
+			<testcontainer
+			id="902f64aa-5256-4434-a65f-a170b2f93c29">
+			</testcontainer>
+			<testcontainer
+			id="917a5302-cacb-474a-b913-02a2287e7b9f">
+			</testcontainer>
+			<testcontainer
+			id="93a7fb41-f4d6-47c1-873d-c9c945866dcc">
+			</testcontainer>
+			<testcontainer
 			id="9a86a2c9-2943-4b5b-9861-c64764f98463">
+			</testcontainer>
+			<testcontainer
+			id="9df3c739-8b4b-4b5e-8d0c-0c35d72c7b47">
 			</testcontainer>
 			<testcontainer
 			id="9ec51b86-f0df-4ffc-a3cc-4e9c4f59632d">
 			</testcontainer>
 			<testcontainer
+			id="a5961606-7985-4233-b8a3-cc10e3329eef">
+			</testcontainer>
+			<testcontainer
+			id="a5af6632-63d6-4cd5-9bd7-a19aaa8c76d8">
+			</testcontainer>
+			<testcontainer
+			id="a5cf284a-800b-46a3-8a20-1514c84fbf82">
+			</testcontainer>
+			<testcontainer
+			id="a671a57a-b7c7-466d-a56f-4001a5142192">
+			</testcontainer>
+			<testcontainer
+			id="aaf2460d-cabe-48b1-baf6-ad8956e149ba">
+			</testcontainer>
+			<testcontainer
+			id="ad34b335-5471-4b2c-b40a-01b050f203e6">
+			</testcontainer>
+			<testcontainer
+			id="b2ca0b07-934b-4694-a86e-dd1092fb0dd5">
+			</testcontainer>
+			<testcontainer
+			id="ba38ee38-2d76-411a-a515-fa10bd425e82">
+			</testcontainer>
+			<testcontainer
 			id="c25bc42c-e8a4-4af0-bccd-5621c9fffb0f">
+			</testcontainer>
+			<testcontainer
+			id="c71b75d0-f077-4a5d-b584-5921185d8023">
+			</testcontainer>
+			<testcontainer
+			id="c75e9a92-2612-476b-a128-7941ce198628">
+			</testcontainer>
+			<testcontainer
+			id="c8503c7d-b4bb-4f7f-b56a-c16e6bbcc3e0">
+			</testcontainer>
+			<testcontainer
+			id="ca8778d5-8360-4735-bd18-a9dfc6fe7668">
 			</testcontainer>
 			<testcontainer
 			id="dfd825af-9a87-455b-a42e-e626ae2d6ae5">
 			</testcontainer>
 			<testcontainer
 			id="e143dc8f-d1a1-49d8-b681-d0c99b13d652">
+			</testcontainer>
+			<testcontainer
+			id="e78e2490-2e4a-41dd-9b49-9fac76502d16">
+			</testcontainer>
+			<testcontainer
+			id="e9d58148-c2a9-49fd-8a29-dc92fd95504b">
+			</testcontainer>
+			<testcontainer
+			id="eadcee1e-f6a0-4931-a9ab-faa80daac44c">
+			</testcontainer>
+			<testcontainer
+			id="eddac750-9853-4d6d-b4d6-af80de584e69">
+			</testcontainer>
+			<testcontainer
+			id="ee4d8ce0-199b-47a8-af54-f7e54af14c6d">
+			</testcontainer>
+			<testcontainer
+			id="f20274b1-23f6-49ae-bb0d-17afc5b77f53">
+			</testcontainer>
+			<testcontainer
+			id="f5008e3a-311a-45b5-b41d-f1e6f74ef085">
+			</testcontainer>
+			<testcontainer
+			id="f7b8e27c-83ef-477d-8ab4-443af9ea2c67">
+			</testcontainer>
+			<testcontainer
+			id="f92713ed-66ea-4140-b4ef-2290b5c85d59">
+			</testcontainer>
+			<testcontainer
+			id="fd5af495-305e-4a28-9043-e2dd10737a77">
+			</testcontainer>
+			<testcontainer
+			id="fdd83004-25f0-446a-8936-840e51a5c69e">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
