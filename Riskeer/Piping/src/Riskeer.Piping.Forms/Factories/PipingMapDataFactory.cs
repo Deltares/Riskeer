@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Forms.Factories
         /// <summary>
         /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="SemiProbabilisticPipingCalculation"/>.
         /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSemiProbabilisticCalculationsMapData()
         {
             return RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations,
@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Factories
         /// <summary>
         /// Create <see cref="MapLineData"/> with custom styling for collections of <see cref="ProbabilisticPipingCalculation"/>.
         /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateProbabilisticCalculationsMapData()
         {
             return RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations,

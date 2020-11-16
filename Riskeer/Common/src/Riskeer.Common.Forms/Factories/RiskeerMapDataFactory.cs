@@ -203,7 +203,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <summary>
         /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="ICalculation"/>.
         /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCalculationsMapData()
         {
             return CreateCalculationsMapData(RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName, Color.MediumPurple);
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <param name="name">The name of the map data.</param>
         /// <param name="color">The color of the drawn data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="name"/> is <c>null</c>.</exception>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCalculationsMapData(string name, Color color)
         {
             if (name == null)
