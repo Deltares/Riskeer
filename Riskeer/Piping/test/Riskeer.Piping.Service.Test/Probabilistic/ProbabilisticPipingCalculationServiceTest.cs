@@ -156,11 +156,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -332,11 +328,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_InvalidCalculationInput_LogsMessagesAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -371,11 +363,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_WithoutAquiferLayer_LogsMessagesAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -619,11 +607,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_IncompleteDiameterD70Definition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -698,11 +682,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_IncompletePermeabilityDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool coefficientOfVariationSet)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -778,11 +758,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsMessageAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -856,11 +832,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsMessageOnlyForIncompleteDefinition()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -936,11 +908,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_SaturatedCoverageLayerVolumicWeightShiftLessThanWaterVolumicWeight_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "new/path");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -1039,20 +1007,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Validate_CalculationInMultipleSections_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                new FailureMechanismSection("Section1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(1.0, 0.0)
-                }),
-                new FailureMechanismSection("Section2", new[]
-                {
-                    new Point2D(1.0, 0.0),
-                    new Point2D(2.0, 0.0)
-                })
-            }, "path/to/sections");
+            PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
 
             calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 0.0);
 
@@ -1079,6 +1034,27 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             });
             Assert.IsFalse(isValid);
             mocks.VerifyAll();
+        }
+
+        private static PipingFailureMechanism CreateFailureMechanismWithSections()
+        {
+            var failureMechanism = new PipingFailureMechanism();
+
+            failureMechanism.SetSections(new[]
+            {
+                new FailureMechanismSection("Section1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.0, 0.0)
+                }),
+                new FailureMechanismSection("Section2", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(2.0, 0.0)
+                })
+            }, "path/to/sections");
+
+            return failureMechanism;
         }
 
         #endregion
