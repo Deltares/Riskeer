@@ -2,10 +2,203 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			id="0197db16-1c42-4ea1-a4d0-ecf3726a57ad"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a"
+			name="WaitSomeTime">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="2000">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="06b3d40d-70a0-4912-b9f8-378dbde581e9"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newValueShowBackground"
+					datasourceid="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathShowBackground"
+					datasourceid="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="typeValueShowBackground"
+					datasourceid="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="typeValueTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<teardown
+			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
+			name="teardown">
+			</teardown>
+			<testmodule
+			id="14994b8f-c5ce-4b24-9c5e-3ac9c674b6a5"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			enabled="False"
+			id="1a85d7a4-4b47-43e8-939f-2381149c4be0"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="5c91fa07-4245-4a57-869a-3a440d68775a"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="5c91fa07-4245-4a57-869a-3a440d68775a"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="1ee80c63-849a-4b5f-8410-a74fa190e80e"
+			name="EnableBackgroundMap">
+				<parameters>
+					<param
+					name="typeValueShowBackground"
+					value="Text">
+					</param>
+					<param
+					name="pathShowBackground"
+					value="Algemeen>Weergeven">
+					</param>
+					<param
+					name="newValueShowBackground"
+					value="True">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="27b9cfbe-8a70-4010-9524-e98161ca7046"
+			name="ShowMapsSideBySide">
+				<parameters>
+					<param
+					name="nameFMView"
+					value="">
+					</param>
+					<param
+					name="indexLast"
+					value="-1">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="32e11368-3d84-425c-bbbd-f1fe59ca1794"
 			name="setup">
 			</setup>
+			<testmodule
+			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<setup
+			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
+			name="setup">
+			</setup>
+			<testmodule
+			id="3d7305d6-533c-4620-b1d1-7134ee2d523f"
+			name="SelectBackgroundMap"
+			ref="d035a6b8-ea2d-4376-8933-25d2336cd530"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="441deba0-5db6-49c9-9a71-52851e0432ef"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			datarangeactive="True"
+			datasource="script29a_LoopItemWithMap"
+			id="442336b7-dbb3-438a-b0ee-04153d608980"
+			maxrange="12"
+			minrange="12"
+			name="LoopItemWithMap">
+			</smartfoldernode>
+			<testmodule
+			id="446e901f-3bf1-4484-b925-0aab9e97c17e"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2"
+			name="SelectWMTSBackgroundMap">
+				<parameters>
+					<param
+					name="pathBackgroundItem"
+					value="Traject>Achtergrondkaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="4c78f455-e20d-4073-8213-b145554d29b5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathBackgroundItem"
+					datasourceid="495f95b1-d4d7-4756-9dd2-787f6c4266c2"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4d5c449c-d646-4905-9f14-6d6b475f44c4"
 			name="StartAUT"
@@ -26,6 +219,98 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="4f709825-2cec-444e-a2ab-12b182c76449"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<smartfoldernode
+			id="52831fca-a75f-45cf-979e-014ea6e6f752"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="5bea3a46-13b6-4f52-9f0f-c0b111da9559"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemWithMap"
+					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="5c4cc499-3620-4694-b18d-20dc7338da3b"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="5c837885-dc82-460f-b84b-b91bb189d1de"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newValueShowBackground"
+					datasourceid="1ee80c63-849a-4b5f-8410-a74fa190e80e"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathShowBackground"
+					datasourceid="1ee80c63-849a-4b5f-8410-a74fa190e80e"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="typeValueShowBackground"
+					datasourceid="1ee80c63-849a-4b5f-8410-a74fa190e80e"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="typeValueTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="5c91fa07-4245-4a57-869a-3a440d68775a"
 			name="script29_Gegevens_tonen_op_kaart">
@@ -38,16 +323,108 @@
 					name="scriptOutputFolder"
 					value="">
 					</param>
+					<param
+					name="folderProjectPreviousRelease"
+					value="X:\script29\previousRelease">
+					</param>
+					<param
+					name="folderProjectsCurrentRelease"
+					value="X:\script29\currentRelease">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
-			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13"
-			name="start">
+			id="62182200-29fe-4215-8fe2-0d779f46885f"
+			name="b)FMRelatedDataLayers">
 			</smartfoldernode>
+			<testmodule
+			id="6c9d01ed-6dbe-4931-a0db-834993385813"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13"
+			name="a)BackgroundMap">
+			</smartfoldernode>
+			<testmodule
+			id="7d948916-5be4-456c-b8fa-514578862360"
+			name="MoveViewTabToNewVerticalGroup"
+			ref="cccf5ca1-dd5a-482a-b366-7e44203f42a3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameFMView"
+					datasourceid="27b9cfbe-8a70-4010-9524-e98161ca7046"
+					variableid="13791650-2c19-4f34-90e3-ad1a9b57f766"
+					variablename="nameMap">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="83107259-255e-4fb2-ba9a-dd152f82338f"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="8a38fa2c-278a-402b-b04b-76be9a606eba"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="8eb43fa5-ba7d-4cb2-8f56-9719681b97f4"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="8ff0bd9e-88de-4178-9308-3fff2cbf11a0"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="9f40aec7-a47e-487d-8c8e-ed686097e5ce"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="typeValueTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newTransparency"
+					datasourceid="e3280708-ff7d-48ea-88c8-d720eed8791e"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="a4f325a4-4976-43df-96e7-35a016efed41"
 			name="teardown">
 			</teardown>
+			<smartfoldernode
+			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2"
+			name="OpenMap">
+			</smartfoldernode>
 			<testmodule
 			id="ac94291c-3234-4130-8b51-0986a496639a"
 			name="CreateOutputFolder"
@@ -76,6 +453,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="b4366028-12be-4cd9-9e4b-a47189d0f18f"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="projectToOpen"
+					value="X:\script29\currentRelease\ProjectAllFMsRelevant_20-1.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -96,6 +483,46 @@
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testcase
+			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
+			name="script00_MigrateProjectsFromPreviousVersions">
+			</testcase>
+			<smartfoldernode
+			id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8"
+			name="OpenMapTraject">
+				<parameters>
+					<param
+					name="pathToRootNode"
+					value="Traject">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="c91947e6-3202-4824-b5fd-572076e335cf"
+			name="nthStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameFMView"
+					datasourceid="27b9cfbe-8a70-4010-9524-e98161ca7046"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+					<var
+					dataname="pathToItemWithMap"
+					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="indexLast"
+					datasourceid="27b9cfbe-8a70-4010-9524-e98161ca7046"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+				</databinding>
+			</testmodule>
+			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
 			reportlevel="Info;20">
@@ -111,6 +538,42 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="d385580f-bd59-40fc-92df-14829f9c3fe1"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToRootNode"
+					datasourceid="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="e3280708-ff7d-48ea-88c8-d720eed8791e"
+			name="AdjustTransparencyBackgroundMap">
+				<parameters>
+					<param
+					name="newTransparency"
+					value="0.4">
+					</param>
+					<param
+					name="pathTransparency"
+					value="Algemeen>Transparantie">
+					</param>
+					<param
+					name="typeValueTransparency"
+					value="Double">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
+			name="c)AssemblyMap">
+			</smartfoldernode>
+			<testmodule
 			id="f1d26e5d-3c8e-467b-abaa-219a2e90e895"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -124,6 +587,42 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="f2943c18-bd00-4d42-8c45-4ec1e73c5bd6"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="projectToOpen"
+					datasourceid="b4366028-12be-4cd9-9e4b-a47189d0f18f"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<smartfoldernode
+			id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
+			name="DisableBackgroundMap">
+				<parameters>
+					<param
+					name="typeValueShowBackground"
+					value="Text">
+					</param>
+					<param
+					name="pathShowBackground"
+					value="Algemeen>Weergeven">
+					</param>
+					<param
+					name="newValueShowBackground"
+					value="False">
+					</param>
+				</parameters>
+			</smartfoldernode>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -132,6 +631,34 @@
 				<testcase
 				id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 				name="WorkOnProgressDavid">
+					<testcase
+					id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
+					name="script00_MigrateProjectsFromPreviousVersions">
+						<setup
+						id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
+						name="setup">
+							<testmodule
+							id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a"
+						name="WaitSomeTime">
+							<testmodule
+							id="8a38fa2c-278a-402b-b04b-76be9a606eba"
+							name="WaitForXMiliseconds">
+							</testmodule>
+						</smartfoldernode>
+						<teardown
+						id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
+						name="teardown">
+							<testmodule
+							id="3669878b-0c0b-492f-9e68-6926d396d5dd"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="5c91fa07-4245-4a57-869a-3a440d68775a"
 					name="script29_Gegevens_tonen_op_kaart">
@@ -146,10 +673,146 @@
 							id="ac94291c-3234-4130-8b51-0986a496639a"
 							name="CreateOutputFolder">
 							</testmodule>
+							<testmodule
+							id="1a85d7a4-4b47-43e8-939f-2381149c4be0"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
+							</testmodule>
 						</setup>
 						<smartfoldernode
 						id="7319e218-8ff0-43ec-bc96-4c489c4b3d13"
-						name="start">
+						name="a)BackgroundMap">
+							<smartfoldernode
+							id="b4366028-12be-4cd9-9e4b-a47189d0f18f"
+							name="OpenProject">
+								<testmodule
+								id="f2943c18-bd00-4d42-8c45-4ec1e73c5bd6"
+								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="442336b7-dbb3-438a-b0ee-04153d608980"
+							name="LoopItemWithMap">
+								<smartfoldernode
+								id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8"
+								name="OpenMapTraject">
+									<testmodule
+									id="d385580f-bd59-40fc-92df-14829f9c3fe1"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="14994b8f-c5ce-4b24-9c5e-3ac9c674b6a5"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2"
+								name="OpenMap">
+									<testmodule
+									id="5bea3a46-13b6-4f52-9f0f-c0b111da9559"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="446e901f-3bf1-4484-b925-0aab9e97c17e"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="27b9cfbe-8a70-4010-9524-e98161ca7046"
+								name="ShowMapsSideBySide">
+									<testmodule
+									id="c91947e6-3202-4824-b5fd-572076e335cf"
+									name="nthStepFromPath">
+									</testmodule>
+									<testmodule
+									id="7d948916-5be4-456c-b8fa-514578862360"
+									name="MoveViewTabToNewVerticalGroup">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="fa0de14a-4a8b-4bbc-bee5-431705298bb1"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="441deba0-5db6-49c9-9a71-52851e0432ef"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="495f95b1-d4d7-4756-9dd2-787f6c4266c2"
+								name="SelectWMTSBackgroundMap">
+									<testmodule
+									id="4c78f455-e20d-4073-8213-b145554d29b5"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="3d7305d6-533c-4620-b1d1-7134ee2d523f"
+									name="SelectBackgroundMap">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="52831fca-a75f-45cf-979e-014ea6e6f752"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="8eb43fa5-ba7d-4cb2-8f56-9719681b97f4"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e3280708-ff7d-48ea-88c8-d720eed8791e"
+								name="AdjustTransparencyBackgroundMap">
+									<testmodule
+									id="9f40aec7-a47e-487d-8c8e-ed686097e5ce"
+									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="4f709825-2cec-444e-a2ab-12b182c76449"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="6c9d01ed-6dbe-4931-a0db-834993385813"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
+								name="DisableBackgroundMap">
+									<testmodule
+									id="06b3d40d-70a0-4912-b9f8-378dbde581e9"
+									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="5c4cc499-3620-4694-b18d-20dc7338da3b"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="0197db16-1c42-4ea1-a4d0-ecf3726a57ad"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="1ee80c63-849a-4b5f-8410-a74fa190e80e"
+								name="EnableBackgroundMap">
+									<testmodule
+									id="5c837885-dc82-460f-b84b-b91bb189d1de"
+									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="83107259-255e-4fb2-ba9a-dd152f82338f"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="8ff0bd9e-88de-4178-9308-3fff2cbf11a0"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="62182200-29fe-4215-8fe2-0d779f46885f"
+						name="b)FMRelatedDataLayers">
+						</smartfoldernode>
+						<smartfoldernode
+						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
+						name="c)AssemblyMap">
 						</smartfoldernode>
 						<teardown
 						id="a4f325a4-4976-43df-96e7-35a016efed41"
@@ -682,19 +1345,243 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+		lastknownrowcount="18"
+		name="script29a_LoopItemWithMap"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelItem
+				</column>
+				<column>
+					pathToItemWithMap
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelItem
+					</th>
+					<th>
+						pathToItemWithMap
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STMI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Microstabiliteit
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AWO
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GABU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GABI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Piping bij kunstwerk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWl
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						Traject&gt;Duinwaterkering - Duinafslag
+					</td>
+				</tr>
+				<tr>
+					<td>
+						INN
+					</td>
+					<td>
+						Traject&gt;Technische innovaties - Technische innovaties
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a">
+			</testcontainer>
+			<testcontainer
+			id="1ee80c63-849a-4b5f-8410-a74fa190e80e">
+			</testcontainer>
+			<testcontainer
+			id="27b9cfbe-8a70-4010-9524-e98161ca7046">
+			</testcontainer>
+			<testcontainer
+			id="442336b7-dbb3-438a-b0ee-04153d608980">
+			</testcontainer>
+			<testcontainer
+			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2">
+			</testcontainer>
+			<testcontainer
+			id="4f709825-2cec-444e-a2ab-12b182c76449">
+			</testcontainer>
+			<testcontainer
+			id="52831fca-a75f-45cf-979e-014ea6e6f752">
+			</testcontainer>
+			<testcontainer
+			id="5c4cc499-3620-4694-b18d-20dc7338da3b">
+			</testcontainer>
+			<testcontainer
 			id="5c91fa07-4245-4a57-869a-3a440d68775a">
+			</testcontainer>
+			<testcontainer
+			id="62182200-29fe-4215-8fe2-0d779f46885f">
 			</testcontainer>
 			<testcontainer
 			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13">
 			</testcontainer>
 			<testcontainer
+			id="83107259-255e-4fb2-ba9a-dd152f82338f">
+			</testcontainer>
+			<testcontainer
+			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2">
+			</testcontainer>
+			<testcontainer
+			id="b4366028-12be-4cd9-9e4b-a47189d0f18f">
+			</testcontainer>
+			<testcontainer
+			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39">
+			</testcontainer>
+			<testcontainer
+			id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8">
+			</testcontainer>
+			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
+			</testcontainer>
+			<testcontainer
+			id="e3280708-ff7d-48ea-88c8-d720eed8791e">
+			</testcontainer>
+			<testcontainer
+			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4">
+			</testcontainer>
+			<testcontainer
+			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1">
+			</testcontainer>
+			<testcontainer
+			id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

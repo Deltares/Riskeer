@@ -41,6 +41,9 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder _selectitemdialog;
         AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder _opendialog;
         AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder _openfiledialog;
+        AutomatedSystemTestsRepositoryFolders.BackgroundMapDataSelectionDialogAppFolder _backgroundmapdataselectiondialog;
+        AutomatedSystemTestsRepositoryFolders.FoutAppFolder _fout;
+        AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder _wmtsconnectiondialog;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -72,6 +75,9 @@ namespace AutomatedSystemTests
             _selectitemdialog = new AutomatedSystemTestsRepositoryFolders.SelectItemDialogAppFolder(this);
             _opendialog = new AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder(this);
             _openfiledialog = new AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder(this);
+            _backgroundmapdataselectiondialog = new AutomatedSystemTestsRepositoryFolders.BackgroundMapDataSelectionDialogAppFolder(this);
+            _fout = new AutomatedSystemTestsRepositoryFolders.FoutAppFolder(this);
+            _wmtsconnectiondialog = new AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -449,6 +455,18 @@ namespace AutomatedSystemTests
             set { _nameOfItem = value; }
         }
 
+        string _nameMap = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable nameMap.
+        /// </summary>
+        [TestVariable("13791650-2c19-4f34-90e3-ad1a9b57f766")]
+        public string nameMap
+        {
+            get { return _nameMap; }
+            set { _nameMap = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -611,6 +629,33 @@ namespace AutomatedSystemTests
         public virtual AutomatedSystemTestsRepositoryFolders.OpenFileDialogAppFolder OpenFileDialog
         {
             get { return _openfiledialog; }
+        }
+
+        /// <summary>
+        /// The BackgroundMapDataSelectionDialog folder.
+        /// </summary>
+        [RepositoryFolder("4ed2421b-175c-4b4d-8733-b94793ed4133")]
+        public virtual AutomatedSystemTestsRepositoryFolders.BackgroundMapDataSelectionDialogAppFolder BackgroundMapDataSelectionDialog
+        {
+            get { return _backgroundmapdataselectiondialog; }
+        }
+
+        /// <summary>
+        /// The Fout folder.
+        /// </summary>
+        [RepositoryFolder("52ebd3be-7b30-4e13-885c-76c38357604f")]
+        public virtual AutomatedSystemTestsRepositoryFolders.FoutAppFolder Fout
+        {
+            get { return _fout; }
+        }
+
+        /// <summary>
+        /// The WmtsConnectionDialog folder.
+        /// </summary>
+        [RepositoryFolder("2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd")]
+        public virtual AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder WmtsConnectionDialog
+        {
+            get { return _wmtsconnectiondialog; }
         }
     }
 
@@ -847,6 +892,7 @@ namespace AutomatedSystemTests
         public partial class ProjectRootNodeFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder _trajectwithsubstringinname;
+            RepoItemInfo _achtergrondkaartInfo;
 
             /// <summary>
             /// Creates a new ProjectRootNode  folder.
@@ -855,6 +901,7 @@ namespace AutomatedSystemTests
                     base("ProjectRootNode", "treeitem[1]", parentFolder, 30000, null, false, "b466899e-e209-4d83-a46c-0533f333cea5", "")
             {
                 _trajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder(this);
+                _achtergrondkaartInfo = new RepoItemInfo(this, "Achtergrondkaart", "?/?/treeitem[@accessiblename='Achtergrondkaart']", 30000, null, "6131d385-9dd7-4e3e-b606-103f620b1765");
             }
 
             /// <summary>
@@ -878,6 +925,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Achtergrondkaart item.
+            /// </summary>
+            [RepositoryItem("6131d385-9dd7-4e3e-b606-103f620b1765")]
+            public virtual Ranorex.TreeItem Achtergrondkaart
+            {
+                get
+                {
+                    return _achtergrondkaartInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Achtergrondkaart item info.
+            /// </summary>
+            [RepositoryItemInfo("6131d385-9dd7-4e3e-b606-103f620b1765")]
+            public virtual RepoItemInfo AchtergrondkaartInfo
+            {
+                get
+                {
+                    return _achtergrondkaartInfo;
                 }
             }
 
@@ -1902,6 +1973,7 @@ namespace AutomatedSystemTests
         public partial class HeaderOpenViewsFolder : RepoGenBaseFolder
         {
             RepoItemInfo _viewclosebuttonInfo;
+            RepoItemInfo _dijkenendammenpipingInfo;
 
             /// <summary>
             /// Creates a new HeaderOpenViews  folder.
@@ -1910,6 +1982,7 @@ namespace AutomatedSystemTests
                     base("HeaderOpenViews", "?/container/tabpagelist/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, true, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
             {
                 _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
+                _dijkenendammenpipingInfo = new RepoItemInfo(this, "DijkenEnDammenPiping", "container[@automationid='HeaderPanel']/tabpage/?/text[@text>$nameMap]", 30000, null, "71969c09-ef02-4547-bddc-6e74e1272049");
             }
 
             /// <summary>
@@ -1957,6 +2030,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _viewclosebuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The DijkenEnDammenPiping item.
+            /// </summary>
+            [RepositoryItem("71969c09-ef02-4547-bddc-6e74e1272049")]
+            public virtual Ranorex.Text DijkenEnDammenPiping
+            {
+                get
+                {
+                    return _dijkenendammenpipingInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The DijkenEnDammenPiping item info.
+            /// </summary>
+            [RepositoryItemInfo("71969c09-ef02-4547-bddc-6e74e1272049")]
+            public virtual RepoItemInfo DijkenEnDammenPipingInfo
+            {
+                get
+                {
+                    return _dijkenendammenpipingInfo;
                 }
             }
         }
@@ -5245,18 +5342,20 @@ namespace AutomatedSystemTests
             RepoItemInfo _openenInfo;
             RepoItemInfo _pagerightInfo;
             RepoItemInfo _pageleftInfo;
+            RepoItemInfo _selecterenInfo;
             RepoItemInfo _sluitenInfo;
             RepoItemInfo _trajecttoevoegenInfo;
             RepoItemInfo _verwijderenInfo;
             RepoItemInfo _wisalleuitvoerInfo;
             RepoItemInfo _wisillustratiepuntenInfo;
             RepoItemInfo _wisuitvoerInfo;
+            RepoItemInfo _nieuweverticaletabgroepInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
             /// </summary>
             public ContextMenuAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("ContextMenu", "/contextmenu[@processname='Riskeer']", parentFolder, 30000, null, true, "982924af-cebe-4e46-9281-476e566d6398", "")
+                    base("ContextMenu", "/contextmenu[@processname='Riskeer']", parentFolder, 30000, null, false, "982924af-cebe-4e46-9281-476e566d6398", "")
             {
                 _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
                 _allesinklappenInfo = new RepoItemInfo(this, "AllesInklappen", "menuitem[@text='Alles inklappen']", 30000, null, "297a672d-6c71-462e-ae55-f59073eacb0f");
@@ -5277,12 +5376,14 @@ namespace AutomatedSystemTests
                 _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
                 _pagerightInfo = new RepoItemInfo(this, "PageRight", "?/?/menuitem[@accessiblename='Page Right']", 30000, null, "9a3b24c9-61e7-4c4f-abc9-d5ba71939147");
                 _pageleftInfo = new RepoItemInfo(this, "PageLeft", "?/?/menuitem[@accessiblename='Page Left']", 30000, null, "69713320-a880-4f24-86d8-5042b7dac3c0");
+                _selecterenInfo = new RepoItemInfo(this, "Selecteren", "menuitem[@accessiblename>'Selecteren']", 30000, null, "03d52c3a-96d4-4dbb-b708-72ad8a755d65");
                 _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
                 _trajecttoevoegenInfo = new RepoItemInfo(this, "TrajectToevoegen", "menuitem[@accessiblename='Traject toevoegen...']", 30000, null, "c7acb51c-88c0-43d8-8fa6-0b0cb70d665c");
                 _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _wisillustratiepuntenInfo = new RepoItemInfo(this, "WisIllustratiepunten", "menuitem[@accessiblename='Wis illustratiepunten...']", 30000, null, "941588e4-0afe-43fe-aed2-f224958b70b7");
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
+                _nieuweverticaletabgroepInfo = new RepoItemInfo(this, "NieuweVerticaleTabgroep", "?/?/text[@caption='Nieuwe verticale tabgroep']", 30000, null, "e5a4d4cc-3dc6-4ac7-859e-347a1cf90541");
             }
 
             /// <summary>
@@ -5766,6 +5867,30 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The Selecteren item.
+            /// </summary>
+            [RepositoryItem("03d52c3a-96d4-4dbb-b708-72ad8a755d65")]
+            public virtual Ranorex.MenuItem Selecteren
+            {
+                get
+                {
+                    return _selecterenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Selecteren item info.
+            /// </summary>
+            [RepositoryItemInfo("03d52c3a-96d4-4dbb-b708-72ad8a755d65")]
+            public virtual RepoItemInfo SelecterenInfo
+            {
+                get
+                {
+                    return _selecterenInfo;
+                }
+            }
+
+            /// <summary>
             /// The Sluiten item.
             /// </summary>
             [RepositoryItem("7792c7fb-8afc-4635-86af-1263ee5b805f")]
@@ -5906,6 +6031,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _wisuitvoerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The NieuweVerticaleTabgroep item.
+            /// </summary>
+            [RepositoryItem("e5a4d4cc-3dc6-4ac7-859e-347a1cf90541")]
+            public virtual Ranorex.Text NieuweVerticaleTabgroep
+            {
+                get
+                {
+                    return _nieuweverticaletabgroepInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The NieuweVerticaleTabgroep item info.
+            /// </summary>
+            [RepositoryItemInfo("e5a4d4cc-3dc6-4ac7-859e-347a1cf90541")]
+            public virtual RepoItemInfo NieuweVerticaleTabgroepInfo
+            {
+                get
+                {
+                    return _nieuweverticaletabgroepInfo;
                 }
             }
         }
@@ -6220,6 +6369,9 @@ namespace AutomatedSystemTests
         {
             RepoItemInfo _genericdropdownitemInfo;
             RepoItemInfo _dropdownitemInfo;
+            RepoItemInfo _webmaptileservicewmtsInfo;
+            RepoItemInfo _pdokInfo;
+            RepoItemInfo _esriluchtfotoInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuItemList  folder.
@@ -6229,6 +6381,9 @@ namespace AutomatedSystemTests
             {
                 _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 5000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
                 _dropdownitemInfo = new RepoItemInfo(this, "DropDownItem", "listitem[@text=$DropDownItem]", 30000, null, "db738719-488e-425e-963f-e603572ec330");
+                _webmaptileservicewmtsInfo = new RepoItemInfo(this, "WebMapTileServiceWMTS", "listitem[@text>'Web Map Tile Service (WMT']", 30000, null, "1df21d19-b589-4ae0-9b5e-2ed3f606ff9d");
+                _pdokInfo = new RepoItemInfo(this, "PDOK", "listitem[@text='PDOK']", 30000, null, "6a8afea2-aefe-44ee-b5ec-68716a0c5194");
+                _esriluchtfotoInfo = new RepoItemInfo(this, "ESRILuchtfoto", "listitem[@text='ESRI luchtfoto']", 30000, null, "fe15788e-2580-480f-b8f8-af7af1f58ec9");
             }
 
             /// <summary>
@@ -6300,6 +6455,78 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _dropdownitemInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WebMapTileServiceWMTS item.
+            /// </summary>
+            [RepositoryItem("1df21d19-b589-4ae0-9b5e-2ed3f606ff9d")]
+            public virtual Ranorex.ListItem WebMapTileServiceWMTS
+            {
+                get
+                {
+                    return _webmaptileservicewmtsInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WebMapTileServiceWMTS item info.
+            /// </summary>
+            [RepositoryItemInfo("1df21d19-b589-4ae0-9b5e-2ed3f606ff9d")]
+            public virtual RepoItemInfo WebMapTileServiceWMTSInfo
+            {
+                get
+                {
+                    return _webmaptileservicewmtsInfo;
+                }
+            }
+
+            /// <summary>
+            /// The PDOK item.
+            /// </summary>
+            [RepositoryItem("6a8afea2-aefe-44ee-b5ec-68716a0c5194")]
+            public virtual Ranorex.ListItem PDOK
+            {
+                get
+                {
+                    return _pdokInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The PDOK item info.
+            /// </summary>
+            [RepositoryItemInfo("6a8afea2-aefe-44ee-b5ec-68716a0c5194")]
+            public virtual RepoItemInfo PDOKInfo
+            {
+                get
+                {
+                    return _pdokInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ESRILuchtfoto item.
+            /// </summary>
+            [RepositoryItem("fe15788e-2580-480f-b8f8-af7af1f58ec9")]
+            public virtual Ranorex.ListItem ESRILuchtfoto
+            {
+                get
+                {
+                    return _esriluchtfotoInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ESRILuchtfoto item info.
+            /// </summary>
+            [RepositoryItemInfo("fe15788e-2580-480f-b8f8-af7af1f58ec9")]
+            public virtual RepoItemInfo ESRILuchtfotoInfo
+            {
+                get
+                {
+                    return _esriluchtfotoInfo;
                 }
             }
         }
@@ -7319,6 +7546,437 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _filenamefieldInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The BackgroundMapDataSelectionDialogAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("4ed2421b-175c-4b4d-8733-b94793ed4133")]
+        public partial class BackgroundMapDataSelectionDialogAppFolder : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder _tablelayoutpanel1;
+            RepoItemInfo _flowlayoutpanel2Info;
+            RepoItemInfo _row0Info;
+
+            /// <summary>
+            /// Creates a new BackgroundMapDataSelectionDialog  folder.
+            /// </summary>
+            public BackgroundMapDataSelectionDialogAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("BackgroundMapDataSelectionDialog", "/form[@controlname='BackgroundMapDataSelectionDialog']", parentFolder, 30000, null, true, "4ed2421b-175c-4b4d-8733-b94793ed4133", "")
+            {
+                _tablelayoutpanel1 = new AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder(this);
+                _flowlayoutpanel2Info = new RepoItemInfo(this, "FlowLayoutPanel2", "?/?/container[@controlname='flowLayoutPanel2']", 30000, null, "5dcd874b-0399-4534-8388-8c7674656bc6");
+                _row0Info = new RepoItemInfo(this, "Row0", "?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']", 30000, null, "d0b3af51-09f6-49fb-89b1-52aafe114381");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("4ed2421b-175c-4b4d-8733-b94793ed4133")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("4ed2421b-175c-4b4d-8733-b94793ed4133")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FlowLayoutPanel2 item.
+            /// </summary>
+            [RepositoryItem("5dcd874b-0399-4534-8388-8c7674656bc6")]
+            public virtual Ranorex.Container FlowLayoutPanel2
+            {
+                get
+                {
+                    return _flowlayoutpanel2Info.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The FlowLayoutPanel2 item info.
+            /// </summary>
+            [RepositoryItemInfo("5dcd874b-0399-4534-8388-8c7674656bc6")]
+            public virtual RepoItemInfo FlowLayoutPanel2Info
+            {
+                get
+                {
+                    return _flowlayoutpanel2Info;
+                }
+            }
+
+            /// <summary>
+            /// The Row0 item.
+            /// </summary>
+            [RepositoryItem("d0b3af51-09f6-49fb-89b1-52aafe114381")]
+            public virtual Ranorex.Cell Row0
+            {
+                get
+                {
+                    return _row0Info.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Row0 item info.
+            /// </summary>
+            [RepositoryItemInfo("d0b3af51-09f6-49fb-89b1-52aafe114381")]
+            public virtual RepoItemInfo Row0Info
+            {
+                get
+                {
+                    return _row0Info;
+                }
+            }
+
+            /// <summary>
+            /// The TableLayoutPanel1 folder.
+            /// </summary>
+            [RepositoryFolder("5ff51598-720e-48f4-9f45-0cd9533de867")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder TableLayoutPanel1
+            {
+                get { return _tablelayoutpanel1; }
+            }
+        }
+
+        /// <summary>
+        /// The TableLayoutPanel1Folder folder.
+        /// </summary>
+        [RepositoryFolder("5ff51598-720e-48f4-9f45-0cd9533de867")]
+        public partial class TableLayoutPanel1Folder : RepoGenBaseFolder
+        {
+            RepoItemInfo _selectbuttonInfo;
+            RepoItemInfo _maplayercomboboxInfo;
+            RepoItemInfo _addlocationbuttonInfo;
+            RepoItemInfo _connecttobuttonInfo;
+            RepoItemInfo _editlocationbuttonInfo;
+            RepoItemInfo _urllocationcomboboxInfo;
+
+            /// <summary>
+            /// Creates a new TableLayoutPanel1  folder.
+            /// </summary>
+            public TableLayoutPanel1Folder(RepoGenBaseFolder parentFolder) :
+                    base("TableLayoutPanel1", "container[@controlname='tableLayoutPanel1']", parentFolder, 30000, null, false, "5ff51598-720e-48f4-9f45-0cd9533de867", "")
+            {
+                _selectbuttonInfo = new RepoItemInfo(this, "SelectButton", "?/?/button[@controlname='selectButton']", 30000, null, "2df0475f-87b0-4c9a-957d-fe645d198f9b");
+                _maplayercomboboxInfo = new RepoItemInfo(this, "MapLayerComboBox", "?/?/combobox[@controlname='mapLayerComboBox']", 30000, null, "f74cd95e-8133-4695-8dc4-bf54ce2e9dc8");
+                _addlocationbuttonInfo = new RepoItemInfo(this, "AddLocationButton", "container[@controlname='propertiesGroupBox']//button[@controlname='addLocationButton']", 30000, null, "3ec07123-82ef-4483-9d4c-12118ce86d6d");
+                _connecttobuttonInfo = new RepoItemInfo(this, "ConnectToButton", "container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']", 30000, null, "557fa973-5317-4d40-a856-2fd2b14140a4");
+                _editlocationbuttonInfo = new RepoItemInfo(this, "EditLocationButton", "container[@controlname='propertiesGroupBox']//button[@controlname='editLocationButton']", 30000, null, "09b07885-8ed3-48dd-99b1-2fc8ced4fe7c");
+                _urllocationcomboboxInfo = new RepoItemInfo(this, "UrlLocationComboBox", "container[@controlname='propertiesGroupBox']//combobox[@controlname='urlLocationComboBox']", 30000, null, "4b22e2b7-afac-4556-8708-15d3c256eeae");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("5ff51598-720e-48f4-9f45-0cd9533de867")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("5ff51598-720e-48f4-9f45-0cd9533de867")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SelectButton item.
+            /// </summary>
+            [RepositoryItem("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
+            public virtual Ranorex.Button SelectButton
+            {
+                get
+                {
+                    return _selectbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SelectButton item info.
+            /// </summary>
+            [RepositoryItemInfo("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
+            public virtual RepoItemInfo SelectButtonInfo
+            {
+                get
+                {
+                    return _selectbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The MapLayerComboBox item.
+            /// </summary>
+            [RepositoryItem("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
+            public virtual Ranorex.ComboBox MapLayerComboBox
+            {
+                get
+                {
+                    return _maplayercomboboxInfo.CreateAdapter<Ranorex.ComboBox>(true);
+                }
+            }
+
+            /// <summary>
+            /// The MapLayerComboBox item info.
+            /// </summary>
+            [RepositoryItemInfo("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
+            public virtual RepoItemInfo MapLayerComboBoxInfo
+            {
+                get
+                {
+                    return _maplayercomboboxInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AddLocationButton item.
+            /// </summary>
+            [RepositoryItem("3ec07123-82ef-4483-9d4c-12118ce86d6d")]
+            public virtual Ranorex.Button AddLocationButton
+            {
+                get
+                {
+                    return _addlocationbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AddLocationButton item info.
+            /// </summary>
+            [RepositoryItemInfo("3ec07123-82ef-4483-9d4c-12118ce86d6d")]
+            public virtual RepoItemInfo AddLocationButtonInfo
+            {
+                get
+                {
+                    return _addlocationbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ConnectToButton item.
+            /// </summary>
+            [RepositoryItem("557fa973-5317-4d40-a856-2fd2b14140a4")]
+            public virtual Ranorex.Button ConnectToButton
+            {
+                get
+                {
+                    return _connecttobuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ConnectToButton item info.
+            /// </summary>
+            [RepositoryItemInfo("557fa973-5317-4d40-a856-2fd2b14140a4")]
+            public virtual RepoItemInfo ConnectToButtonInfo
+            {
+                get
+                {
+                    return _connecttobuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The EditLocationButton item.
+            /// </summary>
+            [RepositoryItem("09b07885-8ed3-48dd-99b1-2fc8ced4fe7c")]
+            public virtual Ranorex.Button EditLocationButton
+            {
+                get
+                {
+                    return _editlocationbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The EditLocationButton item info.
+            /// </summary>
+            [RepositoryItemInfo("09b07885-8ed3-48dd-99b1-2fc8ced4fe7c")]
+            public virtual RepoItemInfo EditLocationButtonInfo
+            {
+                get
+                {
+                    return _editlocationbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The UrlLocationComboBox item.
+            /// </summary>
+            [RepositoryItem("4b22e2b7-afac-4556-8708-15d3c256eeae")]
+            public virtual Ranorex.ComboBox UrlLocationComboBox
+            {
+                get
+                {
+                    return _urllocationcomboboxInfo.CreateAdapter<Ranorex.ComboBox>(true);
+                }
+            }
+
+            /// <summary>
+            /// The UrlLocationComboBox item info.
+            /// </summary>
+            [RepositoryItemInfo("4b22e2b7-afac-4556-8708-15d3c256eeae")]
+            public virtual RepoItemInfo UrlLocationComboBoxInfo
+            {
+                get
+                {
+                    return _urllocationcomboboxInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The FoutAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("52ebd3be-7b30-4e13-885c-76c38357604f")]
+        public partial class FoutAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _buttonokInfo;
+
+            /// <summary>
+            /// Creates a new Fout  folder.
+            /// </summary>
+            public FoutAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("Fout", "/form[@title='Fout']", parentFolder, 30000, null, true, "52ebd3be-7b30-4e13-885c-76c38357604f", "")
+            {
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", 30000, null, "b8fd9641-981d-469c-bcad-d5e852798a7d");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("52ebd3be-7b30-4e13-885c-76c38357604f")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("52ebd3be-7b30-4e13-885c-76c38357604f")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOK item.
+            /// </summary>
+            [RepositoryItem("b8fd9641-981d-469c-bcad-d5e852798a7d")]
+            public virtual Ranorex.Button ButtonOK
+            {
+                get
+                {
+                    return _buttonokInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonOK item info.
+            /// </summary>
+            [RepositoryItemInfo("b8fd9641-981d-469c-bcad-d5e852798a7d")]
+            public virtual RepoItemInfo ButtonOKInfo
+            {
+                get
+                {
+                    return _buttonokInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The WmtsConnectionDialogAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd")]
+        public partial class WmtsConnectionDialogAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _actionbuttonInfo;
+
+            /// <summary>
+            /// Creates a new WmtsConnectionDialog  folder.
+            /// </summary>
+            public WmtsConnectionDialogAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("WmtsConnectionDialog", "/form[@controlname='WmtsConnectionDialog']", parentFolder, 30000, null, true, "2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd", "")
+            {
+                _actionbuttonInfo = new RepoItemInfo(this, "ActionButton", "?/?/button[@controlname='actionButton']", 30000, null, "ec6b44c2-45b3-4761-889d-dd12e60cabd4");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ActionButton item.
+            /// </summary>
+            [RepositoryItem("ec6b44c2-45b3-4761-889d-dd12e60cabd4")]
+            public virtual Ranorex.Button ActionButton
+            {
+                get
+                {
+                    return _actionbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ActionButton item info.
+            /// </summary>
+            [RepositoryItemInfo("ec6b44c2-45b3-4761-889d-dd12e60cabd4")]
+            public virtual RepoItemInfo ActionButtonInfo
+            {
+                get
+                {
+                    return _actionbuttonInfo;
                 }
             }
         }

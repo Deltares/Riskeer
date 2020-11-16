@@ -162,6 +162,18 @@
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\SelectBackgroundMap.cs">
+      <BoundTo>c38d8804-1846-4b55-8e4c-660c4c799a9c</BoundTo>
+      <DependentUpon>SelectBackgroundMap.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e94d6edc-f732-4db7-b5b9-fc6fcfbfa990</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\SelectBackgroundMap.UserCode.cs">
+      <BoundTo>c38d8804-1846-4b55-8e4c-660c4c799a9c</BoundTo>
+      <DependentUpon>SelectBackgroundMap.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>0427729d-29fe-4e11-990c-fe113e625d87</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\UpdateCurrentlySelectedItem.cs">
       <BoundTo>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</BoundTo>
       <DependentUpon>UpdateCurrentlySelectedItem.rxrec</DependentUpon>
@@ -233,6 +245,18 @@
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
       <BoundTo>75c56bbc-55ab-4649-abbf-6157d7ab6a40</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\MoveViewTabToNewVerticalGroup.cs">
+      <DependentUpon>MoveViewTabToNewVerticalGroup.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6644e69e-5836-4b23-a112-a6d75c9c6319</id>
+      <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\MoveViewTabToNewVerticalGroup.UserCode.cs">
+      <DependentUpon>MoveViewTabToNewVerticalGroup.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
+      <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
     </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
       <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
@@ -461,6 +485,9 @@
       <UserCode>true</UserCode>
       <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
       <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\nthStepFromPath.cs">
+      <id>79a86b5b-ef43-4bb2-b3a4-5f07007049e5</id>
     </Compile>
     <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
       <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
@@ -744,6 +771,21 @@
       <UserCode>true</UserCode>
       <id>0af6a9a8-a1b3-4412-b6da-39ff4d85fb92</id>
     </Compile>
+    <Compile Include="Modules\IO\MigrateAllFilesInFolderUsingCommandLineTool.cs">
+      <id>2a82ac1c-983a-4fbb-bfe6-1ba8c7b0d338</id>
+    </Compile>
+    <Compile Include="Modules\IO\OpenProject.cs">
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>46454a6a-f8b6-49ef-b3f8-a3f39bc673e5</id>
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+    </Compile>
+    <Compile Include="Modules\IO\OpenProject.UserCode.cs">
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+    </Compile>
     <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
       <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -828,6 +870,18 @@
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
       <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenShotEntireApplication.cs">
+      <BoundTo>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</BoundTo>
+      <DependentUpon>CreateScreenShotEntireApplication.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>5d2b4b6c-010f-4c6e-8439-7a9406fd602b</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenShotEntireApplication.UserCode.cs">
+      <BoundTo>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</BoundTo>
+      <DependentUpon>CreateScreenShotEntireApplication.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5d701daa-6729-41d0-8f56-928dceecb1fe</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.cs">
       <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
       <DependentUpon>CreateScreenshotMessagesPanel.rxrec</DependentUpon>
@@ -875,18 +929,6 @@
       <UserCode>true</UserCode>
       <id>58917d69-2f81-4b87-9767-540983f1b18d</id>
       <BoundTo>39b9d06d-71b7-4758-9b92-32814138b9d3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Ribbon\OpenProject.cs">
-      <DependentUpon>OpenProject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>46454a6a-f8b6-49ef-b3f8-a3f39bc673e5</id>
-      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Ribbon\OpenProject.UserCode.cs">
-      <DependentUpon>OpenProject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
-      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
     </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotDocumentView.cs">
       <DependentUpon>CreateScreenshotDocumentView.rxrec</DependentUpon>
@@ -1958,6 +2000,11 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\SelectBackgroundMap.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c38d8804-1846-4b55-8e4c-660c4c799a9c</id>
+      <recordtableid>d035a6b8-ea2d-4376-8933-25d2336cd530</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\UpdateCurrentlySelectedItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</id>
@@ -1987,6 +2034,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\MoveViewTabToNewVerticalGroup.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
+      <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
     </None>
     <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2178,6 +2230,11 @@
       <id>fb360840-4623-47a1-a936-f62b3f14df39</id>
       <recordtableid>65d26ded-850f-4a04-a479-9d3870513676</recordtableid>
     </None>
+    <None Include="Modules\IO\OpenProject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
+      <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
+    </None>
     <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
@@ -2213,6 +2270,11 @@
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
     </None>
+    <None Include="Modules\RepportInfo\CreateScreenShotEntireApplication.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</id>
+      <recordtableid>badbc62e-0842-46fe-b883-582d8a44310b</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</id>
@@ -2232,11 +2294,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>39b9d06d-71b7-4758-9b92-32814138b9d3</id>
       <recordtableid>f0658d7f-65e3-4f38-afe8-97fd942c1478</recordtableid>
-    </None>
-    <None Include="Modules\Ribbon\OpenProject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
-      <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenshotDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

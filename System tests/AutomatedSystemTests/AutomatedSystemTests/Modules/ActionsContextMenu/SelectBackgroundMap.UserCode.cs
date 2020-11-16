@@ -8,7 +8,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Ribbon
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
-    public partial class OpenProject
+    public partial class SelectBackgroundMap
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,25 +31,6 @@ namespace AutomatedSystemTests.Modules.Ribbon
         private void Init()
         {
             // Your recording specific initialization code goes here.
-        }
-
-        public void AddWorkingDirectoryToFileNameIfRelativeFileName()
-        {
-        	if (fileNameToOpen.Substring(1,2) == @":\") {
-            	// fileNameToOpen has been declared using absolute path
-            	return;
-            }
-        	// fileNameToOpen has been declared using relative path 
-        	fileNameToOpen = Directory.GetCurrentDirectory() + "\\" + fileNameToOpen;
-        }
-
-        public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)
-        {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo'.", buttonInfo);
-            try {
-                buttonInfo.WaitForExists(2000);
-            	buttonInfo.FindAdapter<Button>().Click();
-            } catch(Exception) { }
         }
 
     }
