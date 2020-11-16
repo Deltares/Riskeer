@@ -79,7 +79,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
+            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?"))
+                         .Return(expectedConfirmation);
             mocks.ReplayAll();
 
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
@@ -97,16 +98,14 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         public void ClearIllustrationPoints_Always_ReturnsAffectedCalculations()
         {
             // Setup
-            var outputWithNoIllustrationPoints = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints();
             var calculationWitNoIllustrationPoints = new ProbabilisticPipingCalculationScenario
             {
-                Output = outputWithNoIllustrationPoints
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
             };
 
-            var outputWithIllustrationPoints = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
             var calculationWithIllustrationPoints = new ProbabilisticPipingCalculationScenario
             {
-                Output = outputWithIllustrationPoints
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
             ProbabilisticPipingCalculationScenario[] calculations =
@@ -144,7 +143,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 ProbabilisticPipingOutput output = calc.Output;
 
                 return !output.ProfileSpecificOutput.HasGeneralResult
-                       && output.SectionSpecificOutput?.GeneralResult == null;
+                       && !output.SectionSpecificOutput.HasGeneralResult;
             }));
             mocks.VerifyAll();
         }

@@ -50,7 +50,50 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void ClearIllustrationPoints_WithCalculationWithIllustrationPoints_ClearsIllustrationPointsAndReturnsExpectedResult()
+        public void ClearIllustrationPoints_CalculationWithoutOutputWithoutIllustrationPoints_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var calculation = new ProbabilisticPipingCalculationScenario();
+
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+
+            // Call
+            bool result = handler.ClearIllustrationPoints();
+
+            // Assert
+            Assert.IsFalse(result);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+
+            // Call
+            bool result = handler.ClearIllustrationPoints();
+
+            // Assert
+            Assert.IsFalse(result);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithOutputWithIllustrationPoints_ClearsIllustrationPointsAndReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -70,8 +113,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             // Assert
             Assert.IsTrue(result);
 
-            Assert.IsNull(calculation.Output?.ProfileSpecificOutput.GeneralResult);
-            Assert.IsNull(calculation.Output?.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(calculation.Output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(calculation.Output.SectionSpecificOutput.GeneralResult);
             mocks.VerifyAll();
         }
     }

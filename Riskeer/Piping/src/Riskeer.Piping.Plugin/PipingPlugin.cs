@@ -894,6 +894,7 @@ namespace Riskeer.Piping.Plugin
                 builder.AddRenameItem();
             }
 
+            ProbabilisticPipingCalculationScenario[] probabilisticCalculations = calculations.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
             builder.AddCustomItem(updateEntryAndExitPointsItem)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -904,8 +905,9 @@ namespace Riskeer.Piping.Plugin
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculations.OfType<ProbabilisticPipingCalculationScenario>()),
-                                                                        CreateChangeHandler(inquiryHelper, calculations.OfType<ProbabilisticPipingCalculationScenario>()));
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(
+                       () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
+                       CreateChangeHandler(inquiryHelper, probabilisticCalculations));
 
             if (isNestedGroup)
             {
@@ -1201,8 +1203,9 @@ namespace Riskeer.Piping.Plugin
                               CalculateProbabilistic)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
-                          .AddClearIllustrationPointsOfCalculationItem(() => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                                                                       changeHandler)
+                          .AddClearIllustrationPointsOfCalculationItem(
+                              () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
+                              changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()

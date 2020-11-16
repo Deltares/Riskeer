@@ -218,7 +218,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new TestPipingCalculationScenario(true));
 
-            var pipingFailureMechanism = new TestPipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
@@ -358,7 +358,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new TestPipingCalculationScenario(true));
 
-            var pipingFailureMechanism = new TestPipingFailureMechanism();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
@@ -617,7 +617,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSectionStub();
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var pipingFailureMechanism = new PipingFailureMechanism();
                 var group = new CalculationGroup
                 {
                     Children =
@@ -665,7 +665,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var pipingFailureMechanism = new PipingFailureMechanism();
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var group = new CalculationGroup();
@@ -698,50 +698,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupHasNoCalculations_ContextMenuItemClearIllustrationPointsDisabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var group = new CalculationGroup();
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
-                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutSurfaceLine_ContextMenuItemUpdateEntryAndExitPointsDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var group = new CalculationGroup
                 {
@@ -887,14 +849,44 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_CalculationGroupWithoutCalculations_ContextMenuItemClearIllustrationPointsDisabledAndToolTipSet()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var nodeData = new PipingCalculationGroupContext(new CalculationGroup(),
+                                                                 null,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 new PipingFailureMechanism(),
+                                                                 mocks.Stub<IAssessmentSection>());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuClearIllustrationPointsIndexRootGroup,
+                                                                  "Wis alle illustratiepunten...",
+                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_CalculationGroupCalculationsWithIllustrationPoints_ContextMenuClearIllustrationPointsEnabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
                 IPipingCalculationScenario<PipingInput> probabilisticCalculation = new ProbabilisticPipingCalculationScenario
                 {
                     Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
@@ -915,8 +907,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                  null,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
+                                                                 new TestPipingFailureMechanism(),
+                                                                 mocks.Stub<IAssessmentSection>());
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -939,14 +931,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupCalculationsWithoutIllustrationPoints_ContextMenuClearIllustrationPointsEnabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupCalculationsWithoutIllustrationPoints_ContextMenuClearIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
                 IPipingCalculationScenario<PipingInput> probabilisticCalculation = new ProbabilisticPipingCalculationScenario
                 {
                     Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
@@ -967,8 +956,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                  null,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
+                                                                 new PipingFailureMechanism(),
+                                                                 mocks.Stub<IAssessmentSection>());
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -1380,7 +1369,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new TestPipingFailureMechanism();
+                var failureMechanism = new PipingFailureMechanism();
                 var calculationGroup = new CalculationGroup
                 {
                     Children =
@@ -1552,7 +1541,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new TestPipingFailureMechanism();
+                var failureMechanism = new PipingFailureMechanism();
                 var calculationGroup = new CalculationGroup
                 {
                     Children =
@@ -1596,57 +1585,51 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            if (confirm)
+            {
+                calculation1Observer.Expect(o => o.UpdateObserver());
+                calculation2Observer.Expect(o => o.UpdateObserver());
+            }
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation1 = new TestPipingCalculationScenario(true);
+            calculation1.Attach(calculation1Observer);
+
+            var calculation2 = new TestPipingCalculationScenario(true);
+            calculation2.Attach(calculation2Observer);
+
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
+
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(calculation2);
+
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             parentGroup,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   null,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                if (confirm)
-                {
-                    calculation1Observer.Expect(o => o.UpdateObserver());
-                    calculation2Observer.Expect(o => o.UpdateObserver());
-                }
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var calculation1 = new TestPipingCalculationScenario(true);
-                calculation1.Attach(calculation1Observer);
-
-                var calculation2 = new TestPipingCalculationScenario(true);
-                calculation2.Attach(calculation2Observer);
-
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
-
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
-
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 parentGroup,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       null,
-                                                                       Enumerable.Empty<PipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
@@ -1693,63 +1676,57 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnIllustrationPointsItem_ClearIllustrationPointsChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            if (confirm)
+            {
+                calculation1Observer.Expect(o => o.UpdateObserver());
+                calculation2Observer.Expect(o => o.UpdateObserver());
+            }
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation1 = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+            calculation1.Attach(calculation1Observer);
+
+            var calculation2 = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+            calculation2.Attach(calculation2Observer);
+
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
+
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(calculation2);
+
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             parentGroup,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   null,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                if (confirm)
-                {
-                    calculation1Observer.Expect(o => o.UpdateObserver());
-                    calculation2Observer.Expect(o => o.UpdateObserver());
-                }
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var calculation1 = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                };
-                calculation1.Attach(calculation1Observer);
-
-                var calculation2 = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                };
-                calculation2.Attach(calculation2Observer);
-
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
-
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
-
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 parentGroup,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       null,
-                                                                       Enumerable.Empty<PipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
