@@ -233,9 +233,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             this.modificationFactorDynamicOrImpulsivePressureComponent = modificationFactorDynamicOrImpulsivePressureComponent;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresStructuralFailure;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.StructuresStructuralFailure;
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId => 58;
 
         public override int FaultTreeModelId => 4607;
 

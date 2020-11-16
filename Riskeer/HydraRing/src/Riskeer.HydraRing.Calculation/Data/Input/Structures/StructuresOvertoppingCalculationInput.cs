@@ -138,9 +138,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             this.stormDurationVariation = stormDurationVariation;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresOvertopping;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.StructuresOvertopping;
 
-        public override int VariableId { get; } = 60;
+        public override int VariableId => 60;
 
         public override int FaultTreeModelId => 4404;
 

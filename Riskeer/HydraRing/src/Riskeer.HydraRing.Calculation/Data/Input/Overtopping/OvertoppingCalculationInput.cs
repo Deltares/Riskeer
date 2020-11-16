@@ -126,9 +126,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DikesOvertopping;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.DikesOvertopping;
 
-        public override int VariableId { get; } = 1;
+        public override int VariableId => 1;
 
         public override int FaultTreeModelId => 1017;
 

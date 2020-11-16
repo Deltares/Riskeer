@@ -98,9 +98,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
             this.dikeHeight = dikeHeight;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.OvertoppingRate;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.OvertoppingRate;
 
-        public override int VariableId { get; } = 17;
+        public override int VariableId => 17;
 
         public override int CalculationTypeId => 2;
 

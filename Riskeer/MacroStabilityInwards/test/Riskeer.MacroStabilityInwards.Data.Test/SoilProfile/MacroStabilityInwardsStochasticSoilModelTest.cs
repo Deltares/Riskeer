@@ -491,7 +491,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                 Name = name;
             }
 
-            public string Name { get; } = "";
+            public string Name => "";
 
             public IEnumerable<IMacroStabilityInwardsSoilLayer> Layers { get; }
 

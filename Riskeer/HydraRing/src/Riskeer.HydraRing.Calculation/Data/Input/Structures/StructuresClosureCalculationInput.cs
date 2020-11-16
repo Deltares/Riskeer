@@ -122,9 +122,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             this.probabilityOpenStructureBeforeFlooding = probabilityOpenStructureBeforeFlooding;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresClosure;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.StructuresClosure;
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId => 58;
 
         public override int FaultTreeModelId => 4505;
 

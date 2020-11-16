@@ -230,9 +230,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
             this.criticalHeaveGradientStandardDeviation = criticalHeaveGradientStandardDeviation;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.Piping;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.Piping;
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId => 58;
 
         public override int FaultTreeModelId => hasCoverageLayer ? 3015 : 3014;
 

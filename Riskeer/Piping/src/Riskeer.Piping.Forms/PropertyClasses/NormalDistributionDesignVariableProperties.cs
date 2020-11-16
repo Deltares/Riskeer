@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                    designVariable,
                    handler) {}
 
-        public override string DistributionType { get; } = RiskeerCommonFormsResources.DistributionType_Normal;
+        public override string DistributionType => RiskeerCommonFormsResources.DistributionType_Normal;
 
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.NormalDistribution_Mean_Description))]
         public override RoundedDouble Mean

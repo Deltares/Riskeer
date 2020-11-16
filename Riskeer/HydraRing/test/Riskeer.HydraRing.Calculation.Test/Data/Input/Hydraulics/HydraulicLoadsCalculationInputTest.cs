@@ -167,9 +167,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
                        exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                        exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary) {}
 
-            public override HydraRingFailureMechanismType FailureMechanismType { get; } = (HydraRingFailureMechanismType) 1000;
+            public override HydraRingFailureMechanismType FailureMechanismType => (HydraRingFailureMechanismType) 1000;
 
-            public override int VariableId { get; } = -1;
+            public override int VariableId => -1;
         }
     }
 }
