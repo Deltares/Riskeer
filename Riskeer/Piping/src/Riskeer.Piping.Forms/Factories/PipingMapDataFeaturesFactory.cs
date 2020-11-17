@@ -26,6 +26,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
@@ -100,7 +101,7 @@ namespace Riskeer.Piping.Forms.Factories
         /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
         public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
         {
-            bool hasCalculations = calculations != null && calculations.Any();
+            bool hasCalculations = calculations != null && calculations.OfType<SemiProbabilisticPipingCalculationScenario>().Any();
 
             if (!hasCalculations)
             {
@@ -108,6 +109,34 @@ namespace Riskeer.Piping.Forms.Factories
             }
 
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
+                c => c.InputParameters.SurfaceLine != null
+                     && c.InputParameters.HydraulicBoundaryLocation != null);
+
+            MapCalculationData[] calculationData =
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
+                    calculation => new MapCalculationData(
+                        calculation.Name,
+                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+
+            return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
+        }
+
+        /// <summary>
+        /// Create calculation features based on the provided <paramref name="calculations"/>.
+        /// </summary>
+        /// <param name="calculations">The collection of <see cref="ProbabilisticPipingCalculationScenario"/> to create the calculation features for.</param>
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
+        {
+            bool hasCalculations = calculations != null && calculations.OfType<ProbabilisticPipingCalculationScenario>().Any();
+
+            if (!hasCalculations)
+            {
+                return new MapFeature[0];
+            }
+
+            IEnumerable<ProbabilisticPipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
                 c => c.InputParameters.SurfaceLine != null
                      && c.InputParameters.HydraulicBoundaryLocation != null);
 

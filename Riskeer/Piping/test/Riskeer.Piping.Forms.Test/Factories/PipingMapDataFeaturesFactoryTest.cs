@@ -154,7 +154,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(null);
+            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures((IEnumerable<SemiProbabilisticPipingCalculationScenario>) null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
