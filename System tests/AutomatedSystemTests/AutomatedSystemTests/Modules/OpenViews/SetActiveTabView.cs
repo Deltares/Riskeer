@@ -92,6 +92,9 @@ namespace AutomatedSystemTests.Modules.OpenViews
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.GenericContainerMap' at Center.", repo.RiskeerMainWindow.GenericContainerMapInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.GenericContainerMap.Click();
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
+            Delay.Duration(300, false);
+            
         }
 
 #region Image Feature Data

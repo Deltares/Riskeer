@@ -20,47 +20,50 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.OpenViews
+namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MakePanelOnLeftVisible recording.
+    ///The SelectGenericItemInMapLayersPanel recording.
     /// </summary>
-    [TestModule("080c578e-b4cb-4bb4-945d-26465067449d", ModuleType.Recording, 1)]
-    public partial class MakePanelOnLeftVisible : ITestModule
+    [TestModule("cf9c875a-ab88-4601-8761-ea9df4788e02", ModuleType.Recording, 1)]
+    public partial class SelectGenericItemInMapLayersPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MakePanelOnLeftVisible instance = new MakePanelOnLeftVisible();
+        static SelectGenericItemInMapLayersPanel instance = new SelectGenericItemInMapLayersPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MakePanelOnLeftVisible()
+        public SelectGenericItemInMapLayersPanel()
         {
+            pathToItem = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MakePanelOnLeftVisible Instance
+        public static SelectGenericItemInMapLayersPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _pathToItem;
+
         /// <summary>
-        /// Gets or sets the value of variable nameOfPanel.
+        /// Gets or sets the value of variable pathToItem.
         /// </summary>
-        [TestVariable("cd9ca8c4-f4fd-4730-9744-6ce82d091e5c")]
-        public string nameOfPanel
+        [TestVariable("3019b503-c300-443e-bf11-2f4c281b0783")]
+        public string pathToItem
         {
-            get { return repo.nameOfPanel; }
-            set { repo.nameOfPanel = value; }
+            get { return _pathToItem; }
+            set { _pathToItem = value; }
         }
 
 #endregion
@@ -89,8 +92,7 @@ namespace AutomatedSystemTests.Modules.OpenViews
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.TextLabelPanelOnLeft' at Center.", repo.RiskeerMainWindow.TextLabelPanelOnLeftInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.TextLabelPanelOnLeft.Click();
+            SelectTreeItemInMapLayersPanel(pathToItem, repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo);
             
         }
 

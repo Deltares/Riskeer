@@ -20,48 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.OpenViews
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MakePanelOnLeftVisible recording.
+    ///The RemoveCurrentlySelectedMapLayer recording.
     /// </summary>
-    [TestModule("080c578e-b4cb-4bb4-945d-26465067449d", ModuleType.Recording, 1)]
-    public partial class MakePanelOnLeftVisible : ITestModule
+    [TestModule("2937bfe8-7297-4490-8b91-8914529fff94", ModuleType.Recording, 1)]
+    public partial class RemoveCurrentlySelectedMapLayer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MakePanelOnLeftVisible instance = new MakePanelOnLeftVisible();
+        static RemoveCurrentlySelectedMapLayer instance = new RemoveCurrentlySelectedMapLayer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MakePanelOnLeftVisible()
+        public RemoveCurrentlySelectedMapLayer()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MakePanelOnLeftVisible Instance
+        public static RemoveCurrentlySelectedMapLayer Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        /// <summary>
-        /// Gets or sets the value of variable nameOfPanel.
-        /// </summary>
-        [TestVariable("cd9ca8c4-f4fd-4730-9744-6ce82d091e5c")]
-        public string nameOfPanel
-        {
-            get { return repo.nameOfPanel; }
-            set { repo.nameOfPanel = value; }
-        }
 
 #endregion
 
@@ -83,14 +73,23 @@ namespace AutomatedSystemTests.Modules.OpenViews
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.TextLabelPanelOnLeft' at Center.", repo.RiskeerMainWindow.TextLabelPanelOnLeftInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.TextLabelPanelOnLeft.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Verwijderen' at Center.", repo.ContextMenu.VerwijderenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Verwijderen.Click();
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(2));
+            repo.Bevestigen.ButtonOK.Click();
+            Delay.Milliseconds(0);
             
         }
 

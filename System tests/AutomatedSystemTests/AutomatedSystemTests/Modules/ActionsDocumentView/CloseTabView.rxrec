@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="d2eff017-7298-4fed-9265-129a15ac24ff"
+id="eceb2ae3-640b-479d-9053-4728c2a6bb35"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,54 +19,33 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ZoomToExtentCurrentView"
-	namespace="AutomatedSystemTests.Modules.ActionsContextMenu">
+	classname="CloseTabView"
+	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
 	</codegen>
 	<variables>
 	</variables>
 	<recorditems>
-		<explicitdelayitem
-		duration="300ms"
-		enabled="True"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
-		<keysequenceitem
-		KeySequence="{Apps}"
-		duration="20ms"
-		enabled="True"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="1019b2b6-cd16-4e08-a1bc-2aec51793e99">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</keysequenceitem>
 		<mouseitem
 		action="Click"
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc="79;12"
+		loc="Center"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="a011b57e-77c6-4ba0-afe0-5d08b9513401"
-		sx="141"
-		sy="219"
+		searchpropertyid="77482401-fa79-4683-bede-23b3ece25bcb"
+		sx="0"
+		sy="0"
 		warnoutofbounds="False">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<info
-			id="5acc1275-2883-4570-affa-a36a1d5dd4df"
+			id="ce11034c-12e0-4686-8388-75ac745d1755"
 			sourcename="RepositoryEditor">
 				<path>
-					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Zoom naar alles']
+					/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
 				</path>
 			</info>
 		</mouseitem>
@@ -95,7 +74,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ZoomToExtentCurrentlySelectedLayerInCurrentView.UserCode.cs
+		CloseTabView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

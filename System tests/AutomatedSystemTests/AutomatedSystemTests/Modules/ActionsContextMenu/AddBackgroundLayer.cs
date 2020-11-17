@@ -86,31 +86,26 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.MapLegendPanel.RootNode' at Center.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.MapLegendPanel.RootNode.Self.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(1));
             Keyboard.Press("{Apps}");
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.VoegKaartlaagToe' at Center.", repo.ContextMenu.VoegKaartlaagToeInfo, new RecordItemIndex(2));
             repo.ContextMenu.VoegKaartlaagToe.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$backgroundFileNameToAdd' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(3));
             repo.Openen.FileNameField.Element.SetAttributeValue("Text", backgroundFileNameToAdd);
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at Center.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(4));
             repo.Openen.ButtonOpen.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(5));
             Delay.Duration(300, false);

@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.OpenViews
+namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MakePanelOnLeftVisible recording.
+    ///The CloseTabView recording.
     /// </summary>
-    [TestModule("080c578e-b4cb-4bb4-945d-26465067449d", ModuleType.Recording, 1)]
-    public partial class MakePanelOnLeftVisible : ITestModule
+    [TestModule("eceb2ae3-640b-479d-9053-4728c2a6bb35", ModuleType.Recording, 1)]
+    public partial class CloseTabView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MakePanelOnLeftVisible instance = new MakePanelOnLeftVisible();
+        static CloseTabView instance = new CloseTabView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MakePanelOnLeftVisible()
+        public CloseTabView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MakePanelOnLeftVisible Instance
+        public static CloseTabView Instance
         {
             get { return instance; }
         }
@@ -54,13 +54,13 @@ namespace AutomatedSystemTests.Modules.OpenViews
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable nameOfPanel.
+        /// Gets or sets the value of variable indexContainerMap.
         /// </summary>
-        [TestVariable("cd9ca8c4-f4fd-4730-9744-6ce82d091e5c")]
-        public string nameOfPanel
+        [TestVariable("e7772450-4ae6-4220-b179-f7318fbcd095")]
+        public string indexContainerMap
         {
-            get { return repo.nameOfPanel; }
-            set { repo.nameOfPanel = value; }
+            get { return repo.indexContainerMap; }
+            set { repo.indexContainerMap = value; }
         }
 
 #endregion
@@ -83,14 +83,18 @@ namespace AutomatedSystemTests.Modules.OpenViews
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.TextLabelPanelOnLeft' at Center.", repo.RiskeerMainWindow.TextLabelPanelOnLeftInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.TextLabelPanelOnLeft.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.CloseButtonGenericContainerMap' at Center.", repo.RiskeerMainWindow.CloseButtonGenericContainerMapInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.CloseButtonGenericContainerMap.Click();
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
+            Delay.Duration(300, false);
             
         }
 

@@ -174,6 +174,18 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.cs">
+      <BoundTo>66ebac8f-8d87-492e-8948-25182866b345</BoundTo>
+      <DependentUpon>RemoveCurrentlySelectedMapLayer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>442d6d69-1ce4-4fd8-963b-f7577eb75f67</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.UserCode.cs">
+      <BoundTo>66ebac8f-8d87-492e-8948-25182866b345</BoundTo>
+      <DependentUpon>RemoveCurrentlySelectedMapLayer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>afe1d71d-1954-4728-ac75-ff1a4c4777d2</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SelectBackgroundMap.cs">
       <BoundTo>c38d8804-1846-4b55-8e4c-660c4c799a9c</BoundTo>
       <DependentUpon>SelectBackgroundMap.rxrec</DependentUpon>
@@ -257,6 +269,18 @@
       <UserCode>true</UserCode>
       <id>516989bc-37f5-4d53-8442-38a71ee85e4f</id>
       <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\CloseTabView.cs">
+      <BoundTo>644384dc-552b-4221-b47a-dc10974e350f</BoundTo>
+      <DependentUpon>CloseTabView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f147c16f-1f5e-4960-9e3e-3e1eae8756ac</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\CloseTabView.UserCode.cs">
+      <BoundTo>644384dc-552b-4221-b47a-dc10974e350f</BoundTo>
+      <DependentUpon>CloseTabView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fe5874a3-17b4-44f4-9d34-b028c489d7b8</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\CloseViewCentralPanelWithFocus.cs">
       <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
@@ -954,6 +978,18 @@
       <UserCode>true</UserCode>
       <id>47ef003f-a4d7-4b56-a656-858372a8fc5b</id>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.cs">
+      <BoundTo>9132f069-1cc1-49e1-8163-ab0f9b279541</BoundTo>
+      <DependentUpon>CreateScreenshotOfMapLayersPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>24183eeb-327c-419b-80e6-e59a23637853</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.UserCode.cs">
+      <BoundTo>9132f069-1cc1-49e1-8163-ab0f9b279541</BoundTo>
+      <DependentUpon>CreateScreenshotOfMapLayersPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ffdb7e96-9f5b-435e-93d5-1ed4f5148b55</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\LogMessage.cs">
       <DependentUpon>LogMessage.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1157,6 +1193,18 @@
       <UserCode>true</UserCode>
       <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.cs">
+      <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
+      <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>67b3c92f-9ade-4620-8fce-1f9f482c4767</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.UserCode.cs">
+      <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
+      <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>48f098f5-2853-42b9-9615-d10ca759c4aa</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectGenericItemInProjectExplorer.cs">
       <DependentUpon>SelectGenericItemInProjectExplorer.rxrec</DependentUpon>
@@ -1553,6 +1601,9 @@
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\MapLayersPanel\ValidateWhetherFolderGivenPathContainsNode.cs">
+      <id>a76058a8-e278-448b-b98a-a83de005e0a5</id>
     </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
@@ -2105,6 +2156,11 @@
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>66ebac8f-8d87-492e-8948-25182866b345</id>
+      <recordtableid>2937bfe8-7297-4490-8b91-8914529fff94</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\SelectBackgroundMap.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c38d8804-1846-4b55-8e4c-660c4c799a9c</id>
@@ -2139,6 +2195,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c4b5ba37-93b9-4977-a67f-31b2e221b26f</id>
       <recordtableid>a0fb1576-cc6f-43a8-9e64-da0db902668d</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\CloseTabView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>644384dc-552b-4221-b47a-dc10974e350f</id>
+      <recordtableid>eceb2ae3-640b-479d-9053-4728c2a6bb35</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\CloseViewCentralPanelWithFocus.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2405,6 +2466,11 @@
       <id>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</id>
       <recordtableid>061e4f7d-17ae-44b5-8bfe-3d8ea937802d</recordtableid>
     </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9132f069-1cc1-49e1-8163-ab0f9b279541</id>
+      <recordtableid>7b4b5931-d933-4dfd-92c3-207ab4e9306d</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\LogMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>13439f4b-f332-4240-b490-e1dbd6823904</id>
@@ -2489,6 +2555,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
       <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectGenericItemInMapLayersPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</id>
+      <recordtableid>cf9c875a-ab88-4601-8761-ea9df4788e02</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectGenericItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2901,6 +2972,9 @@
     </Folder>
     <Folder Include="Modules\Validation\Abstract">
       <id>3153ec44-4733-45ee-afef-35e0aaee4994</id>
+    </Folder>
+    <Folder Include="Modules\Validation\MapLayersPanel">
+      <id>75b687df-7e33-47cf-92ce-9a12e15e17c6</id>
     </Folder>
     <Folder Include="Modules\Validation\ProjectExplorer">
       <id>99ea1c19-fb3a-4ea5-8a98-7b10c3993598</id>

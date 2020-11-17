@@ -73,9 +73,9 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
@@ -84,11 +84,9 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(1));
             Keyboard.Press("{Apps}");
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.ZoomNaarAlles' at 79;12.", repo.ContextMenu.ZoomNaarAllesInfo, new RecordItemIndex(2));
             repo.ContextMenu.ZoomNaarAlles.Click("79;12");
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
             Delay.Duration(300, false);

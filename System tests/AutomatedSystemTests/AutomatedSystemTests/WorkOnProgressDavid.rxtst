@@ -68,6 +68,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="0dc37397-1c31-4a73-829c-aff2e003491c"
+			name="CreateScreenshotOfMapLayersPanel"
+			ref="7b4b5931-d933-4dfd-92c3-207ab4e9306d"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
 			name="teardown">
@@ -77,6 +83,20 @@
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="1a23006f-798a-41bf-83e6-b6caf73202d2"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			enabled="False"
@@ -118,6 +138,30 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+			name="OpenViewForAssemblyCombinedAssessmentSection">
+				<parameters>
+					<param
+					name="pathToAssemblyCombinedAssessmentSection"
+					value="Traject>Assemblage>Assemblagekaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="24d49fd3-02b9-4ba6-88c0-c0c302f54071"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAddedLayer"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
 			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
 			name="AddExtraLayerBackground">
 				<parameters>
@@ -138,6 +182,16 @@
 					<param
 					name="indexLast"
 					value="-1">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+			name="ShowProjectExplorerPanel">
+				<parameters>
+					<param
+					name="namePanelToBeShown"
+					value="Projectverkenner">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -183,11 +237,51 @@
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			datasource="script29a_AddBackgroundLayer"
+			id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+			name="TryToExportMapLayer">
+				<parameters>
+					<param
+					name="optionToExportItem"
+					value="Exporteren">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="3d7305d6-533c-4620-b1d1-7134ee2d523f"
 			name="SelectBackgroundMap"
 			ref="d035a6b8-ea2d-4376-8933-25d2336cd530"
 			type="Recording">
+				<description>
+					<![CDATA[Add control so that if no connection is possible, it fails f=gracefully]]>
+				</description>
+			</testmodule>
+			<testmodule
+			id="3f2a781e-e400-4c0c-a8ec-c2be8f3d050e"
+			name="ValidateWhetherFolderGivenPathContainsNode"
+			ref="d902c15b-f5aa-4db3-a0a1-e4af2b09c2ca"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToRootFolder"
+					datasourceid="f1af2faf-ca53-41e8-b16f-1360c988214d"
+					variableid="78cde0a3-4042-453e-a0dd-656345445114"
+					variablename="pathToFolder">
+					</var>
+					<var
+					dataname="layerName"
+					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
+					variableid="a99747df-1774-42b3-9164-2861023d359c"
+					variablename="nameOfNode">
+					</var>
+					<var
+					dataname="isLayerExpected"
+					datasourceid="f1af2faf-ca53-41e8-b16f-1360c988214d"
+					variableid="6549233a-4e6c-4e40-96d1-5453ee5f08ec"
+					variablename="nodeIsExpectedToBeContained">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="441deba0-5db6-49c9-9a71-52851e0432ef"
@@ -278,12 +372,49 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script29a_AddBackgroundLayer"
+			id="4e426e5e-8a45-42b3-be56-872c597d634e"
+			name="RemoveAddedLayer">
+			</smartfoldernode>
+			<testmodule
+			id="4e6727e1-6135-4a9e-9f1a-6c8076908385"
+			name="CloseTabView"
+			ref="eceb2ae3-640b-479d-9053-4728c2a6bb35"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="dataViewIndexToClose"
+					datasourceid="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
 			id="4f709825-2cec-444e-a2ab-12b182c76449"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
 			<smartfoldernode
 			id="52831fca-a75f-45cf-979e-014ea6e6f752"
 			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="5449b097-1c64-4453-b681-8fff69eb7b8b"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="5a426a1b-210c-4e89-86f3-38b4834e93f2"
+			name="ValidateThatExpectedLayersExist">
 			</smartfoldernode>
 			<testmodule
 			id="5bea3a46-13b6-4f52-9f0f-c0b111da9559"
@@ -376,6 +507,38 @@
 			name="b)FMRelatedDataLayers">
 			</smartfoldernode>
 			<testmodule
+			id="65023644-73fd-462a-a337-728c85743ccd"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelToBeShown"
+					datasourceid="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+			name="CloseOpenTabView">
+				<parameters>
+					<param
+					name="dataViewIndexToClose"
+					value="2">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
 			id="6c9d01ed-6dbe-4931-a0db-834993385813"
 			name="CreateScreenShotEntireApplication"
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
@@ -404,6 +567,18 @@
 					variablename="nameMap">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="7ffbe541-b662-4542-8b2d-34c676c68468"
+			name="RemoveCurrentlySelectedMapLayer"
+			ref="2937bfe8-7297-4490-8b91-8914529fff94"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="808de86e-481f-4680-8584-f7547c1d80ab"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="83107259-255e-4fb2-ba9a-dd152f82338f"
@@ -461,6 +636,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="a337bd57-bb7c-4f22-b9d1-649962bce3c7"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="a4f325a4-4976-43df-96e7-35a016efed41"
 			name="teardown">
@@ -483,6 +672,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
 			<testmodule
 			id="ac94291c-3234-4130-8b51-0986a496639a"
 			name="CreateOutputFolder"
@@ -649,6 +842,20 @@
 			name="ZoomInZoomOut">
 			</smartfoldernode>
 			<testmodule
+			id="d7ae87e6-a2c1-492d-93bd-28685bacaab5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssemblyCombinedAssessmentSection"
+					datasourceid="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="dc2b49a7-02b9-4c47-9eba-5c7be0e7fd9b"
 			name="MakePanelOnLeftVisible"
 			ref="080c578e-b4cb-4bb4-945d-26465067449d"
@@ -687,8 +894,47 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+			name="ShowMapLayersPanel">
+				<parameters>
+					<param
+					name="namePanelToBeShown"
+					value="Kaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
 			name="c)ValidateLayersOfAssemblyMap">
+			</smartfoldernode>
+			<testmodule
+			id="edf95061-8db3-476e-9593-3b69d956c7e0"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAddedLayer"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script29_LayersInMapViewForAssemblyCombinedAssessmentSection"
+			id="f1af2faf-ca53-41e8-b16f-1360c988214d"
+			name="LoopValidateThatEachLayerExists">
+				<parameters>
+					<param
+					name="pathToRootFolder"
+					value="">
+					</param>
+					<param
+					name="isLayerExpected"
+					value="true">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			enabled="False"
@@ -702,6 +948,20 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f1eaaa91-eee9-441a-b2c3-ca959d97b4be"
+			name="VerifyItemPresentInContextMenu"
+			ref="59075182-3627-4f07-a091-1ce36691ee66"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="optionToExportItem"
+					datasourceid="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+					variableid="ddcaf430-e452-4fc9-819d-4a31547a7865"
+					variablename="nameOfItem">
 					</var>
 				</databinding>
 			</testmodule>
@@ -720,7 +980,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script19a_AddBackgroundLayer"
+			datasource="script29a_AddBackgroundLayer"
 			id="f44bca68-24dc-4702-bc19-0c4cee360d73"
 			name="AddBackgroundLayer">
 			</smartfoldernode>
@@ -746,6 +1006,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="feae535f-79b4-4b96-8888-1d11c1f61b17"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelToBeShown"
+					datasourceid="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -979,11 +1261,103 @@
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
+								<smartfoldernode
+								id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+								name="TryToExportMapLayer">
+									<testmodule
+									id="a337bd57-bb7c-4f22-b9d1-649962bce3c7"
+									name="SetActiveTabView">
+									</testmodule>
+									<testmodule
+									id="edf95061-8db3-476e-9593-3b69d956c7e0"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="f1eaaa91-eee9-441a-b2c3-ca959d97b4be"
+									name="VerifyItemPresentInContextMenu">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="4e426e5e-8a45-42b3-be56-872c597d634e"
+								name="RemoveAddedLayer">
+									<testmodule
+									id="1a23006f-798a-41bf-83e6-b6caf73202d2"
+									name="SetActiveTabView">
+									</testmodule>
+									<testmodule
+									id="24d49fd3-02b9-4ba6-88c0-c0c302f54071"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="7ffbe541-b662-4542-8b2d-34c676c68468"
+									name="RemoveCurrentlySelectedMapLayer">
+									</testmodule>
+									<smartfoldernode
+									id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840"
+									name="ReportScreenShotOfApplication">
+										<testmodule
+										id="808de86e-481f-4680-8584-f7547c1d80ab"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+								name="CloseOpenTabView">
+									<testmodule
+									id="4e6727e1-6135-4a9e-9f1a-6c8076908385"
+									name="CloseTabView">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
 						name="c)ValidateLayersOfAssemblyMap">
+							<smartfoldernode
+							id="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+							name="ShowProjectExplorerPanel">
+								<testmodule
+								id="feae535f-79b4-4b96-8888-1d11c1f61b17"
+								name="MakePanelOnLeftVisible">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+							name="OpenViewForAssemblyCombinedAssessmentSection">
+								<testmodule
+								id="d7ae87e6-a2c1-492d-93bd-28685bacaab5"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="5449b097-1c64-4453-b681-8fff69eb7b8b"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+							name="ShowMapLayersPanel">
+								<testmodule
+								id="65023644-73fd-462a-a337-728c85743ccd"
+								name="MakePanelOnLeftVisible">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5a426a1b-210c-4e89-86f3-38b4834e93f2"
+							name="ValidateThatExpectedLayersExist">
+								<testmodule
+								id="0dc37397-1c31-4a73-829c-aff2e003491c"
+								name="CreateScreenshotOfMapLayersPanel">
+								</testmodule>
+								<smartfoldernode
+								id="f1af2faf-ca53-41e8-b16f-1360c988214d"
+								name="LoopValidateThatEachLayerExists">
+									<testmodule
+									id="3f2a781e-e400-4c0c-a8ec-c2be8f3d050e"
+									name="ValidateWhetherFolderGivenPathContainsNode">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="62182200-29fe-4215-8fe2-0d779f46885f"
@@ -1004,52 +1378,13 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="5a6ec20d-3177-4636-b682-724e13a26235"
+		id="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 		lastknownrowcount="3"
-		name="script12_LoopFMs"
+		name="script29_LayersInMapViewForAssemblyCombinedAssessmentSection"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
-				</column>
-				<column>
-					trajectToAdd
-				</column>
-				<column>
-					norm
-				</column>
-				<column>
-					originalFiles
-				</column>
-				<column>
-					filesModifiedElements
-				</column>
-				<column>
-					filesRemovedElements
-				</column>
-				<column>
-					pathToStructuresFolderItemInProjectExplorer
-				</column>
-				<column>
-					nameOfFileToImportStructures
-				</column>
-				<column>
-					rangeStructures
-				</column>
-				<column>
-					rangeModifiedStructures
-				</column>
-				<column>
-					rangeRemovedItems
-				</column>
-				<column>
-					rangeRemainingItems
-				</column>
-				<column>
-					disjointedTrajectToAdd
-				</column>
-				<column>
-					pathDisjointedTrajectToStructuresFolderItemInProjectExplorer
+					layerName
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -1057,465 +1392,22 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
-					</th>
-					<th>
-						trajectToAdd
-					</th>
-					<th>
-						norm
-					</th>
-					<th>
-						originalFiles
-					</th>
-					<th>
-						filesModifiedElements
-					</th>
-					<th>
-						filesRemovedElements
-					</th>
-					<th>
-						pathToStructuresFolderItemInProjectExplorer
-					</th>
-					<th>
-						nameOfFileToImportStructures
-					</th>
-					<th>
-						rangeStructures
-					</th>
-					<th>
-						rangeModifiedStructures
-					</th>
-					<th>
-						rangeRemovedItems
-					</th>
-					<th>
-						rangeRemainingItems
-					</th>
-					<th>
-						disjointedTrajectToAdd
-					</th>
-					<th>
-						pathDisjointedTrajectToStructuresFolderItemInProjectExplorer
+						layerName
 					</th>
 				</tr>
 				<tr>
 					<td>
-						HTKW
-					</td>
-					<td>
-						36-2
-					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\original
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\modified
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\removed
-					</td>
-					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						HTkw_traject_36-2.shp
-					</td>
-					<td>
-						1-2
-					</td>
-					<td>
-						1-2
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						8-5
-					</td>
-					<td>
-						8-5&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
+						Gecombineerd vakoordeel
 					</td>
 				</tr>
 				<tr>
 					<td>
-						BSKW
-					</td>
-					<td>
-						34-1
-					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\original
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\modified
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\removed
-					</td>
-					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						BSkw_traject_34-1.shp
-					</td>
-					<td>
-						3-5
-					</td>
-					<td>
-						3-5
-					</td>
-					<td>
-						2-4
-					</td>
-					<td>
-					</td>
-					<td>
-						8-6
-					</td>
-					<td>
-						8-6&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
+						Hydraulische belastingen
 					</td>
 				</tr>
 				<tr>
 					<td>
-						STKWp
-					</td>
-					<td>
-						44-2
-					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\original
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\modified
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\removed
-					</td>
-					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						STkwp_traject_44-2.shp
-					</td>
-					<td>
-						6-9
-					</td>
-					<td>
-						6-9
-					</td>
-					<td>
-						5-6
-					</td>
-					<td>
-						2-3
-					</td>
-					<td>
-						8-7
-					</td>
-					<td>
-						8-7&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="00d753e2-44a8-454e-a738-2c4ccf324e17"
-		lastknownrowcount="3"
-		name="script12_LoopRemainingStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Keersluis Cuijk'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk4
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="0a3ba0f8-7c5c-498a-aaab-28472b874202"
-		lastknownrowcount="6"
-		name="script12_LoopRemovedStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Gemaal van Sasse'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Amersluis'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Schuddebeurs'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Hollandsch Diep'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="90223a5e-5cb5-4236-9312-8a11c8d09863"
-		lastknownrowcount="9"
-		name="script12_LoopStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Keersluis Cuijk'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Gemaal van Sasse'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Amersluis'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Schuddebeurs'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Hollandsch Diep'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk4
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="8efa361c-1d0c-4f48-9b36-444e0d55c784"
-		lastknownrowcount="5"
-		name="script12_substringsImportingStructuresOnWrongTraject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					substringMessage
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						substringMessage
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						Importeren van
-					</td>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						is mislukt.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						ligt niet op de referentielijn.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-					<td>
-						Importeren van
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-					<td>
-						is gestart.
+						Referentielijn
 					</td>
 				</tr>
 			</table>
@@ -1523,7 +1415,7 @@
 		<DataSource
 		id="3c6434b8-490e-433d-bfa3-1bce94643159"
 		lastknownrowcount="2"
-		name="script19a_AddBackgroundLayer"
+		name="script29a_AddBackgroundLayer"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -1534,6 +1426,9 @@
 				</column>
 				<column>
 					indexView
+				</column>
+				<column>
+					pathToAddedLayer
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -1549,6 +1444,9 @@
 					<th>
 						indexView
 					</th>
+					<th>
+						pathToAddedLayer
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -1560,6 +1458,9 @@
 					<td>
 						1
 					</td>
+					<td>
+						brt_2011_gn1
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -1570,6 +1471,9 @@
 					</td>
 					<td>
 						2
+					</td>
+					<td>
+						gem_2011_gn1
 					</td>
 				</tr>
 			</table>
@@ -1817,10 +1721,19 @@
 			id="1ee80c63-849a-4b5f-8410-a74fa190e80e">
 			</testcontainer>
 			<testcontainer
+			id="1eeb3a34-0e30-4e05-8897-26543ec7ed73">
+			</testcontainer>
+			<testcontainer
 			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa">
 			</testcontainer>
 			<testcontainer
 			id="27b9cfbe-8a70-4010-9524-e98161ca7046">
+			</testcontainer>
+			<testcontainer
+			id="2d484214-ae86-44e0-b900-d74e92ba5fb7">
+			</testcontainer>
+			<testcontainer
+			id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7">
 			</testcontainer>
 			<testcontainer
 			id="442336b7-dbb3-438a-b0ee-04153d608980">
@@ -1832,10 +1745,16 @@
 			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2">
 			</testcontainer>
 			<testcontainer
+			id="4e426e5e-8a45-42b3-be56-872c597d634e">
+			</testcontainer>
+			<testcontainer
 			id="4f709825-2cec-444e-a2ab-12b182c76449">
 			</testcontainer>
 			<testcontainer
 			id="52831fca-a75f-45cf-979e-014ea6e6f752">
+			</testcontainer>
+			<testcontainer
+			id="5a426a1b-210c-4e89-86f3-38b4834e93f2">
 			</testcontainer>
 			<testcontainer
 			id="5c4cc499-3620-4694-b18d-20dc7338da3b">
@@ -1847,6 +1766,9 @@
 			id="62182200-29fe-4215-8fe2-0d779f46885f">
 			</testcontainer>
 			<testcontainer
+			id="67ba1c26-6b3e-429b-9c1c-4ca80730b054">
+			</testcontainer>
+			<testcontainer
 			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13">
 			</testcontainer>
 			<testcontainer
@@ -1854,6 +1776,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2">
+			</testcontainer>
+			<testcontainer
+			id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840">
 			</testcontainer>
 			<testcontainer
 			id="b4366028-12be-4cd9-9e4b-a47189d0f18f">
@@ -1874,7 +1799,13 @@
 			id="e3280708-ff7d-48ea-88c8-d720eed8791e">
 			</testcontainer>
 			<testcontainer
+			id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a">
+			</testcontainer>
+			<testcontainer
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4">
+			</testcontainer>
+			<testcontainer
+			id="f1af2faf-ca53-41e8-b16f-1360c988214d">
 			</testcontainer>
 			<testcontainer
 			id="f44bca68-24dc-4702-bc19-0c4cee360d73">

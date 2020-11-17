@@ -704,6 +704,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.MessagesDataGridViewFolder _messagesdatagridview;
             AutomatedSystemTestsRepositoryFolders.MapLegendPanelFolder _maplegendpanel;
             RepoItemInfo _genericcontainermapInfo;
+            RepoItemInfo _closebuttongenericcontainermapInfo;
             RepoItemInfo _textlabelpanelonleftInfo;
 
             /// <summary>
@@ -721,6 +722,7 @@ namespace AutomatedSystemTests
                 _messagesdatagridview = new AutomatedSystemTestsRepositoryFolders.MessagesDataGridViewFolder(this);
                 _maplegendpanel = new AutomatedSystemTestsRepositoryFolders.MapLegendPanelFolder(this);
                 _genericcontainermapInfo = new RepoItemInfo(this, "GenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]", 30000, null, "c3fa3e58-ebae-43e2-88e2-41bd6c9116ad");
+                _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
                 _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "*/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
             }
 
@@ -769,6 +771,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genericcontainermapInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CloseButtonGenericContainerMap item.
+            /// </summary>
+            [RepositoryItem("ce11034c-12e0-4686-8388-75ac745d1755")]
+            public virtual Ranorex.Button CloseButtonGenericContainerMap
+            {
+                get
+                {
+                    return _closebuttongenericcontainermapInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CloseButtonGenericContainerMap item info.
+            /// </summary>
+            [RepositoryItemInfo("ce11034c-12e0-4686-8388-75ac745d1755")]
+            public virtual RepoItemInfo CloseButtonGenericContainerMapInfo
+            {
+                get
+                {
+                    return _closebuttongenericcontainermapInfo;
                 }
             }
 

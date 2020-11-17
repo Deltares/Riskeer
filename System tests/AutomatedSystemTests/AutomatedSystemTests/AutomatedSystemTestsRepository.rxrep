@@ -1343,6 +1343,15 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]
 			</item>
 			<item
+			addcaps="container,control,nativewindow"
+			capname="button"
+			id="ce11034c-12e0-4686-8388-75ac745d1755"
+			name="CloseButtonGenericContainerMap"
+			refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
+			</item>
+			<item
 			addcaps="tabpage,wpfelement,wpfgroupelement"
 			capname="text"
 			id="e1c99c99-37e6-45b7-8ef7-3177828972c0"
