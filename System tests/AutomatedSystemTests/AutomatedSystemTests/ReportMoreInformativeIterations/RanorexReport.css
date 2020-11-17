@@ -1,0 +1,1619 @@
+/*
+    *
+    *   Please make your customizations at the end of this document.
+    *
+    */
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: black;
+    background: #ebebeb url(RanorexReport.png) center -63px no-repeat;
+    font-size: 13px;
+    font-family: "Segoe UI", Verdana;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+body, html, div, p, i, strong, table, em, u {
+    color: #606060;
+}
+
+img {
+    border: 0px;
+}
+
+div#Content img {
+    margin: 7px 0;
+}
+
+p, i {
+    margin: 0;
+    padding: 3px 0px;
+    font-style: normal;
+}
+
+b, strong {
+    font-weight: 600;
+}
+
+div#Content table {
+    font-size: 12px;
+    margin: 0px;
+}
+
+table td {
+    padding: 3px 4px;
+    margin: 0;
+}
+
+.module-report table td /* needed to fix word-wrap error in all browsers */ {
+    max-width: 0px;
+}
+
+.reporttable {
+    max-width: 100%;
+}
+
+a:link {
+    color: #000;
+}
+
+a:visited {
+    color: #000;
+}
+
+a:active {
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
+
+#header-top {
+    height: 70px;
+}
+
+#header-top #logo {
+    width: 950px;
+    text-align: left;
+    margin: 0 auto;
+}
+
+#header-top #logo span {
+    display: block;
+    height: 46px;
+    width: 160px;
+    margin: 33px 0 0 0;
+    background-image: url(RanorexReport.png);
+    background-position: -1px -17px;
+}
+
+#header-top #logo span em {
+    display: none;
+}
+
+div#page {
+    text-align: left;
+    margin: 0 auto;
+    width: 950px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+div#container {
+    padding: 20px 0 0 0;
+}
+
+div#Content {
+    float: none;
+    margin: 0 35px 10px 35px;
+    padding: 0 0 12px 0;
+    width: auto;
+}
+
+* html div#Content {
+    height: 1em;
+    margin: 0 35px 10px 35px;
+    padding: 0 0 12px 0;
+}
+
+h1 {
+    font-size: 13pt;
+}
+
+table {
+    border-collapse: separate;
+}
+
+th {
+    background-color: #eee;
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px solid #fff;
+}
+
+td {
+    padding: 5px 3px;
+}
+
+fieldset {
+    clear: both;
+    font-size: 100%;
+    border-color: #000000;
+    border-width: 0;
+    border-style: solid none none none;
+    padding: 5px;
+    margin: 3px 2px 10px 2px;
+}
+
+fieldset legend {
+    font-size: 10pt;
+    color: #555;
+    font-weight: bold;
+    margin: 0 0 0 -7px;
+    padding: 10px 0 0 0;
+}
+
+label {
+    float: left;
+    text-align: right;
+    width: auto;
+    margin-right: 0em;
+    padding: 2px 0;
+}
+/* input {
+            margin-right: 10px;
+            font-size: 11px;
+        }*/
+tr.Debug {
+    color: gray;
+}
+
+tr.Warn {
+    color: #333;
+    background-color: #F8D59C;
+}
+
+tr.Error {
+    color: #fff;
+    background-color: #e10000;
+    font-weight: bold;
+}
+
+tr.Failure {
+    color: #fff;
+    background-color: #e10000;
+    font-weight: bold;
+}
+
+tr.Success {
+    color: green;
+}
+
+.ui-icon, .ui-status-icon, .ui-testcase-icon, .ui-module-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url(RanorexReport.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.ui-icon-minus {
+    background-position: -16px 0;
+    cursor: pointer;
+}
+
+.ui-icon-plus {
+    background-position: 1px 1px;
+}
+
+.ui-icon-circle-triangle-e {
+    background-position: -32px 0px;
+}
+
+.ui-icon-circle-triangle-s {
+    background-position: -48px 0px;
+}
+
+.ui-status-icon {
+    margin-top: -3px;
+}
+
+/* Video recording/Jira button */
+
+.video-button, .jira-button {
+    border: 1px solid #979797;
+    background-color: #fff;
+    margin: 0 8px;
+    letter-spacing: normal;
+    padding: 0 10px 2px 2px;
+    white-space: nowrap;
+}
+
+.video-button a, .jira-button a {
+	text-decoration: none;
+    font-weight: normal;
+}
+
+.video-button:hover, .jira-button:hover {
+    border: 1px solid #545454;
+    background-color: #f0f0f0;
+}
+
+.video-button-label, .jira-button-label {
+    font-size: 12px;
+}
+
+/*h3.module-title a span.ui-status-icon {
+        }*/
+.ui-testcase-icon {
+    background-position: -144px 0px;
+    width: 20px;
+    height: 20px;
+    margin-top: -2px;
+}
+/*.ui-module-icon {
+        }*/
+.ui-module-icon.Recording {
+    background-position: -164px -1px;
+}
+
+.ui-module-icon.UserCode {
+    background-position: -180px -1px;
+}
+
+.ui-module-icon.warn, .ui-icon.warn, .ui-module-icon.Warn, .ui-icon.Warn {
+    background-position: -196px -1px;
+}
+
+.ui-module-icon.retry {
+    background-position: -555px 0px;
+    margin-left: 4px;
+}
+
+.ui-module-icon.error, .ui-icon.error, .ui-module-icon.Error, .ui-icon.Error {
+    background-position: -80px -1px;
+}
+
+.ui-module-icon.conditionmet {
+    background-position: -515px -1px;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-module-icon.conditionnotmet {
+    background-position: -535px -1px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Maintenance mode icon */
+
+.ui-module-icon.MaintenanceMode {
+    background-position: -620px -1px;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-module-icon.video {
+    background-position: -636px -1px;
+	width: 16px;
+	height: 16px;
+}
+
+.ui-module-icon.jira {
+    background-position: -652px -1px;
+	width: 16px;
+	height: 16px;
+}
+
+.ui-icon.modulegroup {
+    background-position: -249px -2px;
+}
+
+.ui-icon.folder {
+    background-position: -230px -2px;
+}
+
+.ui-icon.smartfolder {
+    background-position: -268px -2px;
+}
+
+.ui-treeList {
+    list-style-type: none;
+    position: relative;
+    margin: 0px 0px 0px 0px;
+    padding: 15px 5px 5px 5px;
+}
+
+.ui-treeList ul {
+    list-style-type: none;
+    margin: 0px 0px 0px 0px;
+    padding: 15px 5px 15px 5px;
+}
+/* customization */
+.ui-treeList {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-treeList li {
+    margin: 10px 0 5px 0;
+    padding: 0;
+    position: relative;
+}
+
+.ui-treeList li ul {
+    /* margin-bottom: 20px; */
+}
+
+.ui-treeList li ul li {
+    padding-left: 0;
+}
+/*.ui-treeList li:first-letter {margin:5px 0px 0px 25px;}*/
+/*.ui-treeList li.ui-treeList-item, .ui-treeList li.ui-state-active, .ui-treeList li.ui-state-hover {
+        }*/
+.ui-treeList li.ui-treeList-item ul, .ui-treeList li.ui-state-active ul {
+    padding: 0;
+}
+
+/*.ui-treeList li.ui-state-hover {
+        }*/
+#treeList em {
+    display: inline;
+    padding: 0;
+    color: #CC0000;
+}
+
+.ui-treeList li div.ui-treeList-toggle {
+    width: 17px;
+    height: 17px;
+    margin: -24px 0 0 11px;
+    padding: 0;
+    position: relative;
+    display: block;
+    float: left;
+}
+
+.ui-treeList li h2 {
+    padding: 5px 45px 5px 30px;
+    margin: 0;
+    font-size: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ui-treeList li h2.Failed {
+    border-left: 4px solid #e10000;
+}
+
+.ui-treeList li h3.Failed {
+    border-left: 2px solid #e10000;
+}
+
+.ui-treeList li h2.Success {
+    border-left: 4px solid #42AF6F;
+}
+
+.ui-treeList li h3.Success {
+    border-left: 2px solid #42AF6F;
+}
+
+.ui-treeList li h2.Ignored {
+    border-left: 4px solid #777;
+}
+
+.ui-treeList li h3.Ignored {
+    border-left: 2px solid #777;
+}
+
+.ui-treeList li.iteration h2, .ui-treeList li.iteration-container h2 {
+    padding: 4px 30px;
+    font-size: 14px;
+}
+
+.ui-treeList li.test-case > h2 {
+    background-color: #e3f1ff;
+}
+
+.ui-treeList li.iteration div.ui-treeList-toggle, .ui-treeList li.setup-teardown div.ui-treeList-toggle {
+    margin-top: -21px;
+}
+
+.ui-treeList li.setup-teardown h2 {
+    background-color: #fbfbfb;
+    font-style: normal;
+    font-size: 13px;
+}
+
+.ui-treeList li h2 i.description {
+    font-size: 12px;
+    font-weight: 400;
+    color: #777;
+    margin-left: 7px;
+    display: inline;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.duration {
+    font-size: 11px;
+    position: absolute;
+    right: 10px;
+    color: #999;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.retryLabel {
+    font-size: 11px;
+    color: #999;
+    font-weight: 400;
+    margin-left: -2px;
+    margin-right: 8px;
+}
+
+/* define font sizes for headers of individual folders */
+.displayname.smart-folder.runiteration,
+.displayname.smart-folder.dataiteration,
+.displayname.test-case.runiteration,
+.displayname.test-case.dataiteration,
+.displayname.iteration-container.testcase.runiteration,
+.displayname.iteration-container.testmodule.dataiteration,
+.displayname.entry-container.testcase.runiteration,
+.displayname.entry-container.testmodule.dataiteration {
+    font-size: 13px;
+}
+
+.displayname.smart-folder.execute,
+.displayname.test-case.execute,
+.displayname.iteration-container.smartfolder.execute,
+.displayname.entry-container.smartfolder.execute {
+    font-size: 14px;
+}
+
+.displayname.smart-folder.execute,
+.displayname.smart-folder.runiteration,
+.displayname.smart-folder.dataiteration,
+.displayname.test-case.execute,
+.displayname.test-case.runiteration,
+.displayname.test-case.dataiteration,
+.displayname.iteration-container.smartfolder.execute,
+.displayname.iteration-container.testcase.runiteration,
+.displayname.iteration-container.testmodule.dataiteration,
+.displayname.entry-container.smartfolder.execute,
+.displayname.entry-container.testcase.runiteration,
+.displayname.entry-container.testmodule.dataiteration {
+}
+
+.iterationinfo.smart-folder.execute,
+.iterationinfo.smart-folder.runiteration,
+.iterationinfo.smart-folder.dataiteration,
+.iterationinfo.test-case.execute,
+.iterationinfo.test-case.runiteration,
+.iterationinfo.test-case.dataiteration,
+.iterationinfo.iteration-container.smartfolder.execute,
+.iterationinfo.iteration-container.testcase.runiteration,
+.iterationinfo.iteration-container.testmodule.dataiteration,
+.iterationinfo.entry-container.smartfolder.execute,
+.iterationinfo.entry-container.testcase.runiteration,
+.iterationinfo.entry-container.testmodule.dataiteration,
+.iterationcountinfo, .iterationruninfo, .iterationinfo {
+    font-size: 12px;
+    color: #999;
+    font-weight: normal;
+}
+
+strong.iterationinfo, strong.iterationcountinfo, strong.iterationruninfo {
+    font-weight: bold !important;
+}
+
+/*xsl example "ui-icon {@type} @iteration-exectype} | {@activity-exectype}"*/
+.ui-icon.smart-folder.execute,
+.ui-icon.entry-container.smartfolder.execute { /*20x20*/
+    background-position: -287px -1px;
+    height: 20px;
+    width: 20px;
+}
+
+.ui-icon.test-case.execute,
+.ui-icon.entry-container.testcase.execute { /*20x20*/
+    background-position: -307px -1px;
+    height: 20px;
+    width: 20px;
+}
+
+.ui-icon.test-module.execute,
+.ui-icon.entry-container.testmodule.execute { /*20x20*/
+    background-position: -327px -1px;
+    height: 20px;
+    width: 20px;
+}
+
+/*xsl example "ui-icon {@type} {@activity-exectype}"*/
+.ui-icon.smart-folder.runiteration,
+.ui-icon.smart-folder.dataiteration,
+.ui-icon.entry-container.smartfolder.runiteration,
+.ui-icon.entry-container.smartfolder.dataiteration { /*16x16*/
+    background-position: -467px -1px;
+    height: 16px;
+    width: 16px;
+}
+
+.ui-icon.test-case.runiteration,
+.ui-icon.test-case.dataiteration,
+.ui-icon.entry-container.testcase.runiteration,
+.ui-icon.entry-container.testcase.dataiteration { /*16x16*/
+    background-position: -483px -1px;
+    height: 16px;
+    width: 16px;
+}
+
+.ui-icon.test-module.runiteration,
+.ui-icon.test-module.dataiteration,
+.ui-icon.entry-container.testmodule.runiteration,
+.ui-icon.entry-container.testmodule.dataiteration { /*16x16*/
+    background-position: -500px -1px;
+    height: 16px;
+    width: 16px;
+}
+
+/*xsl example "ui-icon {@type} {@testentry-activity-type} {@iteration-exectype}"*/
+.ui-icon.iteration-container.smartfolder.dataiteration {
+    background-position: -347px -1px;
+    height: 20px;
+    width: 20px;
+}
+
+.ui-icon.iteration-container.testcase.dataiteration {
+    background-position: -367px -1px;
+    height: 20px;
+    width: 20px;
+}
+
+.ui-icon.iteration-container.testmodule.dataiteration {
+    background-position: -387px -1px;
+    height: 20px;
+    width: 20px;
+}
+/*xsl example "ui-icon {@type} {@testentry-activity-type} {@iteration-exectype}"*/
+.ui-icon.iteration-container.smartfolder.runiteration {
+    background-position: -407px -1px;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-icon.iteration-container.testcase.runiteration {
+    background-position: -427px -1px;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-icon.iteration-container.testmodule.runiteration {
+    background-position: -447px -1px;
+    width: 20px;
+    height: 20px;
+}
+
+/*styles for container*/
+
+.ui-treeList-item.iteration-container {
+    border: 1px solid #E6E6E6;
+    border-right: 0;
+    min-height: 28px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.ui-treeList-item.iteration-container > h2 {
+    background-color: transparent !important;
+}
+
+/* setup and teardown container style */
+.setup-teardown {
+    border-top: 1px dashed #999;
+    border-bottom: 1px dashed #999;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #999;
+    border-left: 0;
+    border-right: 0;
+    background-color: #fbfbfb;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+/* setup and teardown header style */
+.setup-teardown h2 {
+    padding: 2px 30px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.ui-treeList li.iteration-container > h2 {
+    padding: 6px 0 4px 30px;
+}
+
+ul.ui-treeList-childs {
+    clear: both;
+}
+
+ul.ui-treeList-childs li {
+    margin-left: 7px;
+}
+
+/* iteration style */
+li.smart-folder.dataiteration,
+li.test-case.dataiteration,
+li.test-case.runiteration,
+li.smart-folder.runiteration,
+li.testcase.runiteration,
+li.testcase.dataiteration {
+    border: 1px solid #b6daff;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #fff;
+}
+
+/* iteration style */
+li.entry-container.smartfolder.runiteration {
+    border-bottom: 1px solid #fff;
+}
+
+/* iteration style (currently unused) */
+li.smart-folder.dataiteration h2,
+li.test-case.dataiteration h2,
+li.smart-folder.runiteration h2,
+li.testcase.runiteration h2 {
+    /* background-color: #fff; */
+}
+
+/* test case execute */
+li.test-case.execute > h2 {
+    background-color: #e3f1ff;
+}
+
+/* style for iteration container */
+li.iteration-container.smart-folder.runiteration,
+li.iteration-container.smart-folder.dataiteration,
+li.iteration-container.smartfolder.runiteration,
+li.iteration-container.smartfolder.dataiteration,
+li.iteration-container.testcase.runiteration,
+li.iteration-container.testcase.dataiteration,
+li.iteration-container.test-case.runiteration,
+li.iteration-container.test-case.dataiteration {
+    border: 1px solid #E6E6E6;
+    border-right: 0;
+}
+
+/* style for iteration container highlight effect */
+li.iteration-container.smart-folder.runiteration:hover,
+li.iteration-container.smart-folder.dataiteration:hover,
+li.iteration-container.smartfolder.runiteration:hover,
+li.iteration-container.smartfolder.dataiteration:hover,
+li.iteration-container.testcase.runiteration:hover,
+li.iteration-container.testcase.dataiteration:hover,
+li.iteration-container.test-case.runiteration:hover,
+li.iteration-container.test-case.dataiteration:hover {
+    border: 1px solid #888;
+    background-color: #fbfbfb;
+    border-right: 0;
+}
+
+span.displayname.testcase,
+span.displayname.iteration-container {
+    font-size: 14px;
+}
+
+li.entry-container.testcase.runiteration,
+li.smart-folder.dataiteration {
+    margin-left: 6px;
+}
+
+li.entry-container.testcase.runiteration > h2,
+li.smart-folder.dataiteration > h2 {
+    /* background-color:#eee; */
+}
+
+/* style for execute container */
+li.test-case.execute,
+li.smart-folder.execute {
+    border: 1px solid #E6E6E6;
+    border-right: 0;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+/* style for iteration info */
+span.iterationinfo {
+    margin-right: 4px;
+}
+
+/* style for iteration info */
+span.displayname {
+    margin-right: 4px;
+}
+
+/* style for toggle, requires different margin */
+li.smart-folder.dataiteration div.ui-treeList-toggle,
+li.testcase.runiteration div.ui-treeList-toggle,
+li.test-case.dataiteration div.ui-treeList-toggle,
+li.test-case.dataiteration div.ui-treeList-toggle,
+li.test-case.dataiteration.ui-widget-content div.ui-treeList-toggle,
+li.entry-container.testcase.runiteration.ui-widget-content div.ui-treeList-toggle {
+    margin: -23px 0 0 11px;
+}
+
+/* style for iteration container toggle */
+li.iteration-container > div.ui-treeList-toggle {
+    margin: -24px 0 0 11px !important;
+}
+
+.ui-treeList-childs > li {
+    margin: 0;
+}
+
+/*styles for container end */
+
+/* module groups begin */
+
+li.modulgroup {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+
+li.modulgroup h2.modulgroup {
+    background-color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    color: #202020;
+    padding: 4px 22px;
+}
+
+li.modulgroup ul.ui-treeList-childs li {
+    margin-left: 3px;
+}
+
+li.modulgroup ul.ui-treeList-childs li.folder h2 {
+    font-size: 12px;
+    font-weight: 400;
+    color: #202020;
+    background-color: #fff;
+}
+
+/* style for folder inside module groups */
+
+li.folder {
+    border-top: 1px solid #ccc;
+}
+
+li.modulgroup div.ui-treeList-toggle {
+    margin: -21px 0 0 5px;
+}
+
+li.modulgroup div.ui-treeList-toggle.ui-icon-plus {
+    background-position: -32px 0px;
+}
+
+li.modulgroup div.ui-treeList-toggle.ui-icon-minus {
+    background-position: -48px 0px;
+}
+
+/* module groups end */
+
+h2.module {
+    margin: 12px 0;
+    font-size: 13px;
+}
+
+h3.module-title {
+    background-color: #fff;
+    margin: 0;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+}
+
+h3.module-title a {
+    text-decoration: none;
+    display: block;
+    padding: 3px;
+    font-weight: 400;
+}
+
+h3.module-title a i {
+    font-size: 12px;
+    color: #777;
+    font-weight: 400;
+}
+
+h3.module-title span.ui-icon {
+    cursor: pointer;
+}
+
+h2.Failed span.ui-status-icon, h3.module-title.Failed a span.ui-status-icon, h2.Active span.ui-status-icon, h3.module-title.Active a span.ui-status-icon, h2.module.Failed span.ui-status-icon {
+    background-position: -80px 0;
+}
+
+h2.Success span.ui-status-icon, h3.module-title.Success a span.ui-status-icon, h2.module.Success span.ui-status-icon {
+    background-position: -64px 0;
+}
+
+h2.Ignored span.ui-status-icon, h3.module-title.Ignored a span.ui-status-icon, h2.module.Ignored span.ui-status-icon {
+    background-position: -128px 0;
+}
+
+/* style for header in case of success */
+h3.module-title.Success a, h3.module-title.Success a:active, h3.module-title.Success a:visited, h2.module.Success {
+    color: #202020;
+}
+
+/* style for header in case of failure */
+h3.module-title.Failed a, h3.module-title.Failed a:active, h3.module-title.Failed a:visited, h2.module.Failed {
+    color: #202020;
+}
+
+h3.active {
+    background-position: left bottom;
+    border-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.module-container {
+    background-color: #fff;
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    margin: 0;
+}
+
+.module-report {
+    display: block;
+    /* max-height: 300px; */
+    overflow: auto;
+    padding-top: 11px;
+    background-color: #fff;
+}
+
+table tr td.messageCell {
+    word-wrap: break-word;
+    width: 100%;
+}
+
+table tr td.messageCell.standalone {
+    word-wrap: break-word;
+    width: 100%;
+}
+
+tr td.timeCell {
+    border-left: 1px solid #fff;
+    max-width: 100%;
+}
+
+tr td.levelCell {
+    max-width: 100%;
+}
+
+tr td.categoryCell {
+    max-width: 100%;
+}
+
+tr td {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
+}
+
+tr.active td {
+    border-top: 1px solid #888888;
+    border-bottom: 1px solid #888888;
+}
+
+tr.active td.timeCell {
+    border-left: 1px solid #888;
+}
+
+tr.active td.messageCell {
+    border-right: 1px solid #888;
+    max-width: 100%;
+}
+
+/* Maintenance mode background in report */
+
+tr.Error.MaintenanceMode, tr.Info.MaintenanceMode, tr.Warn.MaintenanceMode {
+    background-image: url('data:image/png;base64,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');
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+tr.Success.MaintenanceMode {
+    background-image: url('data:image/png;base64,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');
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+table.MaintenanceMode tr td.timeCell {
+    padding-left: 20px;
+}
+
+tr.MaintenanceMode td.timeCell {
+    padding-left: 20px;
+}
+
+tr.Success.MaintenanceMode td.timeCell {
+    padding-left: 30px;
+}
+
+/* Integration error background in report */
+
+table.Integration tr.Error {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAPoCAYAAAArz1VCAAAEXElEQVR4nO3WsWsbZxjH8d/JdurWSzu0LtTEawYP9qKtMiJkyRBjgyAE8l+4f0A8ZDlMIIsW/Q+OhhgyxCU2GSITEFmUJcOBHSfR0MgC1TrJ+nVQ7yJFMqgpdaB8X7hB7/u893mf59W9d0EkWRO0q3YwSdznLQgCZb5k4j9tICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICCf2vQkQVeyWUnalPSrpGVJv0g6llSVdCBpX1LlwhtEki+63i4t+c+9PU/Y9mwv2dbgJUlBJHkcPpvP66enT6UgUOf1a53t7upsf1+dalXdoyNNLyxoZnlZs7mcZm/e1My1a1L/Xtcl/Z7cJwiC8Zm8z+fT5TWLRZ+srFyYbST5ZGXFzWJxMKv8YCYjyNulJbvXs21/3NpylMk4klzf2HCzVHJcq7kXx45rNTdLJdc3NvpzMxl/3NpKkF5SurFIsgfNYtFRJuOj+Xk3wtDudsfvRLfrRhj6aH7eUSYzmNHeWOQkm7Vtx7VaWqJGGE60640wTEsX12pJd3YE+WNz07Z9ur2dlijJoLWz43qh4HalYttuVyquFwpu7eykGSWlO93eTpDNEaRVLtu2P6ytOZLcLJXSldbX19M/Ratc9vt8vr+Q9fU0plkqOZL8YW0t6SqPIJ0osm0fLy46kgbTdvvw0O9yuaH9e7e66vbhYRoT12qOJB8vLiZd0QiSlCaamnIkuRfHQ3VvPX6cjkWSW48eDY334rg/NjWVdHWlz86u7vGxJGl6YaH/+82bdKzz6pWaDx9K5+dp3+mDB4pfvvw0/+/4ZL76R88w0qlWJUkzy8uSpPbz5+lY4/59nT15om9WV/VjuazZGzfUfvZMjXv30pgkPpmv/tk2jLQPDiRJs7mcJOlsdzdd+dzt2/quUNAPYahvb93S92GouTt3NHf3bn/y+Xk/fmC++ofnV3hOLuWJv7Sz6784hb/e++TS3oyD7Uo2q59fvPhNX/COD4JgMkSSrtrBJHHjkP/PdxcICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIv29/AZzbY47bVes2AAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+table.Integration tr th {
+    background-color: #fff;
+}
+
+table.Integration tr td.timeCell {
+    padding-left: 30px;
+}
+
+table.Integration tr.Error {
+    color: #202020;
+    background-color: #fff;
+}
+
+table.Integration tr.Error td .stacktrace, table.Integration tr.Error .stacktrace p {
+    color: #202020;
+}
+
+#integration-testsuite {
+    border: 1px solid #e10000;
+    border-top: 3px solid #e10000;
+    background-color: #f9cccc;
+}
+
+#integration-testsuite > h2 {
+    font-size: 14px;
+}
+
+#integration-testsuite .module-report {
+    padding-top: 0;
+}
+
+
+/* Used for jump-to-functionality */
+.controls-container {
+    position: absolute;
+    display: none;
+    text-align: right;
+    font-weight: 400;
+    right: 15px;
+    background-color: #fff;
+    padding: 3px;
+    margin-top: -24px;
+    border: 1px solid #888;
+    border-bottom: 0;
+    /*position:absolute; float:right; z-index:2; top:0px;  left:0px; width: 115px; background-color: #fff; padding: 3px;  border: 1px solid #888; border-bottom: 0;*/
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=30, Color='#bbbbbb')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=30, Color='#bbbbbb');
+}
+
+.controls-container.two-columns {
+    /* width: 220px;*/
+}
+
+.controls-container.testcase {
+    /* width: 147px; */
+}
+
+.controls-container.three-columns {
+    /* width: 310px; */
+}
+
+.controls-container.active {
+    display: block;
+}
+
+/* Formatting the link of jump-to-functionality */
+.controls-container a {
+    padding: 5px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 400;
+}
+
+.controls-container a.spy span.ui-icon {
+    background-position: -112px 0;
+    cursor: pointer;
+}
+
+.controls-container a.jump-to span.ui-icon {
+    background-position: -96px 0;
+    cursor: pointer;
+}
+
+.controls-container a.help span.ui-icon {
+    background-position: -214px 0;
+    cursor: pointer;
+}
+
+.controls-container a.replace-reference-img span.ui-icon {
+    background-position: -555px 0;
+    cursor: pointer;
+}
+
+.controls-container a#hasVars.edit-in-spy span.ui-icon {
+    background-position: -572px 0;
+    cursor: pointer;
+}
+
+.controls-container a#noVars.edit-in-spy span.ui-icon {
+    background-position: -588px 0;
+    cursor: pointer;
+}
+
+.controls-container a.apply-match span.ui-icon {
+    background-position: -604px 0;
+    cursor: pointer;
+}
+
+
+.stacktrace {
+    padding-top: 7px;
+    color: #eee;
+}
+
+tr.error .stacktrace, tr.error .stacktrace p, tr.failure .stacktrace, tr.failure .stacktrace p {
+    color: #eee;
+}
+
+.stacktrace span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.stacktrace p {
+    display: none;
+    font-weight: 400;
+    padding: 4px 0 0 15px;
+    color: #eee;
+}
+
+.warningMessage span.ui-icon {
+    background-position: -196px -1px;
+}
+
+/* General style for messages */
+.datarow, .dataparams, .errormessage, .warnmessage, .integration-errormessage, .integrationmessage {
+    margin-left: 0;
+    font-size: 12px;
+    padding: 6px 25px 5px;
+    color: #000;
+    word-wrap: break-word;
+}
+
+.dataparams, .errormessage {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.dataparams-pre-testsuite {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.warnmessage {
+    background-color: #F8D59C;
+    margin-left: 0;
+}
+
+.integration-errormessage {
+    background-color: #fff;
+    border: 1px solid #e10000;
+    border-top: 3px solid #e10000;
+}
+
+.integrationmessage {
+    background-color: #F0F0F0;
+    margin-left: 0;
+}
+
+.dataparams td, .datarow td {
+    word-break: break-all;
+    font-size: 12px;
+    width: 260px;
+    padding: 3px 3px 3px 0;
+    vertical-align: text-top;
+    border: 0;
+}
+
+.errormessage .message {
+    color: #c00000;
+    display: block;
+    padding: 6px 0;
+}
+
+.execution-information {
+    margin: 0 0 20px 0;
+    padding: 0px;
+    color: #000;
+    width: 500px;
+}
+
+.execution-information td {
+    font-size: 12px;
+    width: 250px;
+    vertical-align: text-top;
+    padding: 3px 3px 3px 0;
+    margin-bottom: 5px;
+    border: 0;
+}
+
+.execution-information .field b {
+    display: block;
+    font-size: 12px;
+}
+
+.htmlDescription {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    color: #606060;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.htmlDescription em, u, strong {
+    color: #606060 !important;
+}
+
+.htmlDescription ul li  {
+    list-style-type: circle;
+    list-style-position: outside;
+}
+
+.filter {
+    background-color: #f3f3f3;
+    padding: 4px 8px;
+    margin-bottom: 4px;
+}
+
+.filter span {
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+.filter label {
+    float: none;
+    font-size: 12px;
+    margin-right: 25px;
+}
+
+.filter input {
+    display: inline;
+    margin-right: 3px;
+}
+
+/* Buttons for expanding and collapsing test containers */
+input.exButton {
+    background-color: #ededed;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    color: #202020;
+    font-family: "Segoe UI", Verdana;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 3px 4px;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.exButton:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+    background: -moz-linear-gradient(center top, #dfdfdf 5%, #ededed 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color: #dfdfdf;
+}
+
+.exButton:active {
+    position: relative;
+    top: 1px;
+}
+
+input.hyperlinkButton {
+    -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    /*border is optional*/
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #2B6CB1;
+}
+
+.progress {
+    font-size: 9px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 0px 5px;
+    line-height: 20px;
+    background-color: #f3f3f3;
+    border: 1px solid #bfc3c3;
+    border-radius: 7px;
+    height: 20px;
+}
+
+.progress img {
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px !important;
+}
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> global settings needed for thickbox <<<-----------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+* {
+    padding: 0;
+    margin: 0;
+}
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> thickbox specific link and font settings <<<------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+#TB_window {
+    font: 12px "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #333333;
+    min-width: 450px;
+    min-height: 100px;
+    padding: 10px;
+}
+
+#TB_secondLine {
+    font: 10px "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #666666;
+}
+
+#TB_left {
+    font: 10px "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #666666;
+    float: left;
+    width: 150px;
+    position: relative;
+    text-align: left;
+}
+
+#TB_right {
+    font: 10px "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #666666;
+    float: right;
+    width: 150px;
+    position: relative;
+    text-align: right;
+}
+
+#TB_center {
+    font: 10px "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #666666;
+    margin: 0 auto;
+    width: 150px;
+    position: relative;
+    text-align: center;
+}
+
+#TB_window td {
+    padding: 0;
+    margin: 0;
+}
+/*#TB_window tr { }
+        #tb_window table { }*/
+
+#TB_window a:link {
+    color: #666666;
+}
+
+#TB_window a:visited {
+    color: #666666;
+}
+
+#TB_window a:hover {
+    color: #000;
+}
+
+#TB_window a:active {
+    color: #666666;
+}
+
+#TB_window a:focus {
+    color: #666666;
+}
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> thickbox settings <<<-----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+#TB_overlay {
+    position: fixed;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+#TB_ImageOff {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.TB_overlayMacFFBGHack {
+    background: url(macFFBgHack.png) repeat;
+}
+
+.TB_overlayBG {
+    background-color: #000;
+    filter: alpha(opacity=75);
+    /* mozilla hack*/
+    -moz-opacity: 0.75;
+    opacity: 0.75;
+}
+
+* html #TB_overlay {
+    /* ie6 hack */
+    position: absolute;
+    /*Ignore Expected RBRACE ERROR*/
+    height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight +'px');
+}
+
+#TB_window {
+    position: fixed;
+    background: #ffffff;
+    z-index: 102;
+    color: #000000;
+    display: none;
+    border: 4px solid #525252;
+    top: 50%;
+    left: 50%;
+}
+
+* html #TB_window {
+    /* ie6 hack */
+    position: absolute;
+    /*Ignore Expected RBRACE ERROR*/
+    margin-top: expression(0 - parseInt(this.offsetHeight / 2) +(TBWindowMargin=document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) +'px');
+}
+
+#TB_window img#TB_Image {
+    display: block;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #666;
+    border-left: 1px solid #666;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#TB_caption {
+    height: 25px;
+    padding: 7px 30px 10px 25px;
+    float: left;
+}
+
+#TB_closeWindow {
+    height: 25px;
+    padding: 11px 25px 10px 0;
+    float: right;
+}
+
+#TB_closeAjaxWindow {
+    padding: 7px 10px 5px 0;
+    margin-bottom: 1px;
+    text-align: right;
+    float: right;
+}
+
+#TB_ajaxWindowTitle {
+    float: left;
+    padding: 7px 0 5px 10px;
+    margin-bottom: 1px;
+}
+
+#TB_title {
+    background-color: #e8e8e8;
+    height: 27px;
+}
+
+#TB_ajaxContent {
+    clear: both;
+    padding: 2px 15px 15px 15px;
+    overflow: auto;
+    text-align: left;
+    line-height: 1.4em;
+}
+
+#TB_ajaxContent.TB_modal {
+    padding: 15px;
+}
+
+#TB_ajaxContent p {
+    padding: 5px 0px 5px 0px;
+}
+
+#TB_load {
+    position: fixed;
+    display: none;
+    height: 13px;
+    width: 208px;
+    z-index: 103;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -104px;
+    /* -height/2 0 0 -width/2 */
+}
+
+* html #TB_load {
+    /* ie6 hack */
+    position: absolute;
+    /*Ignore Expected RBRACE ERROR*/
+    margin-top: expression(0 - parseInt(this.offsetHeight / 2) +(TBWindowMargin=document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) +'px');
+}
+
+#TB_HideSelect {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    border: none;
+    filter: alpha(opacity=0);
+    /* mozilla hack*/
+    -moz-opacity: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+}
+
+* html #TB_HideSelect {
+    /* ie6 hack */
+    position: absolute;
+    /*Ignore Expected RBRACE ERROR*/
+    height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight +'px');
+}
+
+#TB_iframeContent {
+    clear: both;
+    border: none;
+    margin-bottom: -1px;
+    margin-top: 1px;
+    _margin-bottom: 1px;
+}
+
+/* http://www.jqplot.com/jquery.jqplot.css */
+table.jqplot-table-legend, table.jqplot-cursor-legend {
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    font-size: 12px;
+}
+
+td.jqplot-table-legend {
+    vertical-align: middle;
+}
+
+td.jqplot-table-legend > div {
+    border: 1px solid #cccccc;
+    padding: 2px;
+}
+
+div.jqplot-table-legend-swatch {
+    width: 0px;
+    height: 0px;
+    border-top-width: 0.35em;
+    border-bottom-width: 0.35em;
+    border-left-width: 0.6em;
+    border-right-width: 0.6em;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+}
+
+td.jqplot-cursor-legend-swatch {
+    vertical-align: middle;
+    text-align: center;
+}
+
+div.jqplot-cursor-legend-swatch {
+    width: 1.2em;
+    height: 0.7em;
+}
+
+.jqplot-table-legend {
+    border: 0px solid white;
+}
+
+h3#testCasesHeader {
+    width: 280px;
+    position: relative;
+    margin: -200px 0 0 550px;
+    right: 0;
+    text-align: center;
+}
+
+#testCasesPie {
+    height: 180px;
+    width: 280px;
+    position: relative;
+    margin: 0 0 0 550px;
+    right: 0;
+}
+
+.binding-hidden {
+    display: none;
+}
+
+.binding {
+    cursor: pointer;
+}
+
+.binding a:hover {
+    color: #000;
+}
+
+.binding-header {
+    padding-left: 4px;
+    vertical-align: top;
+}
+
+.binding-icon {
+    margin-left: -18px;
+    margin-top: 0px;
+    width: 16px;
+    height: 16px;
+    background-image: url(RanorexReport.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.binding-icon-collapse {
+    background-position: -48px 0;
+}
+
+.binding-icon-expand {
+    background-position: -32px 0;
+}
+
+.ui-status-icon {
+    display: none !important;
+}
+
+/* Uncomment to customize your report
+        body {
+            background-color: #EEEEEE;
+            background-image: url(YourBackgroundImage.png);
+            background-position: 0;
+       }
+
+        #header-top #logo span {
+            height: 32px;
+            width: 128px;
+            background-image: url(YourLogo.png);
+            background-position: 0;
+        }
+        */

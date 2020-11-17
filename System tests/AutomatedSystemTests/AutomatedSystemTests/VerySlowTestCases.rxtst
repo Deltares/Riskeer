@@ -998,7 +998,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="4358741d-b7b0-46ef-992c-88291faa0a85"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2456,7 +2455,7 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder=""
+			reporttemplatefolder="ReportMoreInformativeIterations"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testmodule
