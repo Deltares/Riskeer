@@ -136,7 +136,7 @@ namespace Core.Common.Gui.ContextMenu
 
         public IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
         {
-            AddItem(guiItemsFactory.CreateCustomImportItem(text, toolTip, image));
+            AddItem(guiItemsFactory.CreateImportItem(text, toolTip, image));
             return this;
         }
 

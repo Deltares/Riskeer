@@ -157,26 +157,7 @@ namespace Core.Common.Gui.ContextMenu
         /// dynamically.</remarks>
         public ToolStripItem CreateImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
-            return CreateCustomImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, importInfos);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of updating
-        /// the data of the given <see cref="TreeNode"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateUpdateItem()
-        {
-            bool canUpdate = updateCommandHandler.CanUpdateOn(dataObject);
-            var newItem = new ToolStripMenuItem(Resources.Update)
-            {
-                ToolTipText = Resources.Update_ToolTip,
-                Image = Resources.RefreshIcon,
-                Enabled = canUpdate
-            };
-            newItem.Click += (s, e) => updateCommandHandler.UpdateOn(dataObject);
-
-            return newItem;
+            return CreateImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, importInfos);
         }
 
         /// <summary>
@@ -196,7 +177,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable
         /// <see cref="ImportInfo"/> instances - as registered by the plugins - will be resolved
         /// dynamically.</remarks>
-        public ToolStripItem CreateCustomImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
+        public ToolStripItem CreateImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -223,6 +204,25 @@ namespace Core.Common.Gui.ContextMenu
             importItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
 
             return importItem;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of updating
+        /// the data of the given <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateUpdateItem()
+        {
+            bool canUpdate = updateCommandHandler.CanUpdateOn(dataObject);
+            var newItem = new ToolStripMenuItem(Resources.Update)
+            {
+                ToolTipText = Resources.Update_ToolTip,
+                Image = Resources.RefreshIcon,
+                Enabled = canUpdate
+            };
+            newItem.Click += (s, e) => updateCommandHandler.UpdateOn(dataObject);
+
+            return newItem;
         }
 
         /// <summary>
