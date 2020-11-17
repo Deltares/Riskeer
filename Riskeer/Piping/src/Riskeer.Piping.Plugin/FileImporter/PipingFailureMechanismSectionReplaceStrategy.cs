@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to set the sections to.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to set the sections to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public PipingFailureMechanismSectionReplaceStrategy(PipingFailureMechanism failureMechanism)

@@ -38,11 +38,8 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             // Call
-            var replaceStrategy = new PipingFailureMechanismSectionReplaceStrategy(failureMechanism);
+            var replaceStrategy = new PipingFailureMechanismSectionReplaceStrategy(new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(replaceStrategy);
