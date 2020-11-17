@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Plugin.FileImporter
 {
@@ -32,6 +35,8 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingFailureMechanismSectionReplaceStrategy : FailureMechanismSectionReplaceStrategy
     {
+        private readonly PipingFailureMechanism failureMechanism;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
@@ -39,6 +44,19 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public PipingFailureMechanismSectionReplaceStrategy(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+            : base(failureMechanism)
+        {
+            this.failureMechanism = failureMechanism;
+        }
+
+        public override void DoPostUpdateActions()
+        {
+            IEnumerable<IObservable> affectedObjects = PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }
