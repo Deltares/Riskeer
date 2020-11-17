@@ -157,7 +157,7 @@ namespace Core.Common.Gui.ContextMenu
         /// dynamically.</remarks>
         public ToolStripItem CreateImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
-            return CreateImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon);
+            return CreateCustomImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, importInfos);
         }
 
         /// <summary>
@@ -213,7 +213,16 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException(nameof(image));
             }
 
-            return CreateImportItem(text, toolTip, image);
+            var importItem = new ToolStripMenuItem(text)
+            {
+                ToolTipText = toolTip,
+                Image = image,
+                Enabled = importCommandHandler.CanImportOn(dataObject)
+            };
+
+            importItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
+
+            return importItem;
         }
 
         /// <summary>
@@ -231,20 +240,6 @@ namespace Core.Common.Gui.ContextMenu
                 Enabled = canShowProperties
             };
             newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesForSelection();
-
-            return newItem;
-        }
-
-        private ToolStripItem CreateImportItem(string text, string tooltip, Image image)
-        {
-            bool canImport = importCommandHandler.CanImportOn(dataObject);
-            var newItem = new ToolStripMenuItem(text)
-            {
-                ToolTipText = tooltip,
-                Image = image,
-                Enabled = canImport
-            };
-            newItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
 
             return newItem;
         }
