@@ -1,9 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\Source.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>Migratiehulpprogramma</AssemblyName>
     <OutputType>Exe</OutputType>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -34,8 +35,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+  <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
+  <!-- Make all references non-private, so they won't be copied to the output folder. -->
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
   </Target>
 </Project>
