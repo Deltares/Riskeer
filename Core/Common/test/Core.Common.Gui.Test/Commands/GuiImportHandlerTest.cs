@@ -93,7 +93,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void GetSupportedImportInfos_NoImportInfosForTarget_ReturnsEmptyEnumeration()
+        public void GetSupportedImportInfos_NoImportInfos_ReturnsEmptyEnumeration()
         {
             // Setup
             var mocks = new MockRepository();
@@ -112,11 +112,86 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
+        public void GetSupportedImportInfos_NoImportInfosForTargetType_ReturnsEmptyEnumeration()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
+            {
+                new ImportInfo<TestClassA>(),
+                new ImportInfo<TestClassB>()
+            }, inquiryHelper);
+
+            // Call
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new TestClassC());
+
+            // Assert
+            CollectionAssert.IsEmpty(supportedImportInfos);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetSupportedImportInfos_MultipleImportInfos_ReturnsEnumerationBasedOnTargetType()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var firstImportInfo = new ImportInfo<TestClassA>
+            {
+                Name = "1"
+            };
+
+            var secondImportInfo = new ImportInfo<TestClassB>
+            {
+                Name = "2"
+            };
+
+            var thirdImportInfo = new ImportInfo<TestClassC>
+            {
+                Name = "3"
+            };
+
+            var fourthImportInfo = new ImportInfo<TestClassB>
+            {
+                Name = "4"
+            };
+
+            var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
+            {
+                firstImportInfo,
+                secondImportInfo,
+                thirdImportInfo,
+                fourthImportInfo
+            }, inquiryHelper);
+
+            // Call
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new TestClassB());
+
+            // Assert
+            var expectedImportInfos = new List<ImportInfo>
+            {
+                firstImportInfo,
+                secondImportInfo,
+                fourthImportInfo
+            };
+
+            CollectionAssert.AreEqual(expectedImportInfos, supportedImportInfos, new ImportInfoNameComparer());
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true, true)]
         [TestCase(true, false)]
         [TestCase(false, true)]
         [TestCase(false, false)]
-        public void GetSupportedImportInfos_MultipleImportInfosForTarget_ReturnsEnumerationBasedOnEnabledState(
+        public void GetSupportedImportInfos_MultipleImportInfosForTargetType_ReturnsEnumerationBasedOnEnabledState(
             bool firstImportInfoEnabled,
             bool secondImportInfoEnabled)
         {
@@ -435,6 +510,12 @@ namespace Core.Common.Gui.Test.Commands
 
             mockRepository.VerifyAll();
         }
+
+        private class TestClassA {}
+
+        private class TestClassB : TestClassA {}
+
+        private class TestClassC {}
 
         private class ImportInfoNameComparer : IComparer
         {
