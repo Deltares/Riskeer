@@ -499,7 +499,7 @@ namespace Core.Plugins.Map.Test.Legend
             var builder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                builder.Expect(mb => mb.AddCustomImportItem(null, null, null)).IgnoreArguments().Return(builder);
+                builder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(builder);
                 builder.Expect(mb => mb.AddSeparator()).Return(builder);
                 builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
                 builder.Expect(mb => mb.AddSeparator()).Return(builder);

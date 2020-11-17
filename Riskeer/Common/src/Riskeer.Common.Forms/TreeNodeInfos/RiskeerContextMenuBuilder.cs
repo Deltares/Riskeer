@@ -463,9 +463,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="toolTip">The tooltip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        public RiskeerContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
         {
-            contextMenuBuilder.AddCustomImportItem(text, toolTip, image);
+            contextMenuBuilder.AddImportItem(text, toolTip, image);
             return this;
         }
 

@@ -128,18 +128,18 @@ namespace Core.Common.Gui.ContextMenu
             return this;
         }
 
-        public IContextMenuBuilder AddUpdateItem()
-        {
-            AddItem(guiItemsFactory.CreateUpdateItem());
-            return this;
-        }
-
-        public IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
         {
             AddItem(guiItemsFactory.CreateImportItem(text, toolTip, image));
             return this;
         }
 
+        public IContextMenuBuilder AddUpdateItem()
+        {
+            AddItem(guiItemsFactory.CreateUpdateItem());
+            return this;
+        }
+        
         public IContextMenuBuilder AddPropertiesItem()
         {
             AddItem(guiItemsFactory.CreatePropertiesItem());

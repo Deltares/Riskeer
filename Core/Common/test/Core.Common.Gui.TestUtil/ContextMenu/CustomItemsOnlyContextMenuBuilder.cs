@@ -111,12 +111,16 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
-        public IContextMenuBuilder AddUpdateItem()
+        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
         {
             return AddStubItem();
         }
 
-        public IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        /// <summary>
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
+        public IContextMenuBuilder AddUpdateItem()
         {
             return AddStubItem();
         }

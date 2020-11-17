@@ -591,7 +591,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddImportItem_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        public void AddImportItemWithoutParameters_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
         {
             // Setup
             var nodeData = new object();
@@ -623,6 +623,50 @@ namespace Core.Common.Gui.Test.ContextMenu
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddImportItemWithTextualParameters_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var nodeData = new object();
+
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
+
+            mocks.ReplayAll();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     nodeData,
+                                                     treeViewControl);
+
+                // Call
+                ContextMenuStrip result = builder.AddImportItem(text, toolTip, image).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+
+                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
             }
 
             mocks.VerifyAll();
@@ -663,50 +707,6 @@ namespace Core.Common.Gui.Test.ContextMenu
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Update, Resources.Update_ToolTip, Resources.RefreshIcon, hasUpdatesForNodeData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AddCustomImportItem_WhenBuild_ItemAddedToContenxtMenu(bool hasImportersForNodeData)
-        {
-            // Setup
-            const string text = "import";
-            const string toolTip = "import tooltip";
-            Image image = Resources.ImportIcon;
-
-            var nodeData = new object();
-
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
-
-            mocks.ReplayAll();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
-
-                // Call
-                ContextMenuStrip result = builder.AddCustomImportItem(text, toolTip, image).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
             }
 
             mocks.VerifyAll();

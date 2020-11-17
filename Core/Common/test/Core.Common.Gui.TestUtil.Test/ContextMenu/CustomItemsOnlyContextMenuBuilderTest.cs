@@ -134,13 +134,26 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
         }
 
         [Test]
-        public void AddImportItem_WhenBuild_StubbedItemAddedToContextMenu()
+        public void AddImportItemWithoutParameters_WhenBuild_StubbedItemAddedToContextMenu()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
 
             // Call
             ContextMenuStrip result = builder.AddImportItem().Build();
+
+            // Assert
+            AssertStubbedContextMenuItem(result);
+        }
+
+        [Test]
+        public void AddImportItemWithTextualParameters_WhenBuild_StubbedItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(null, null, null).Build();
 
             // Assert
             AssertStubbedContextMenuItem(result);
@@ -154,19 +167,6 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
 
             // Call
             ContextMenuStrip result = builder.AddUpdateItem().Build();
-
-            // Assert
-            AssertStubbedContextMenuItem(result);
-        }
-
-        [Test]
-        public void AddCustomImportItem_WhenBuild_StubbedItemAddedToContextMenu()
-        {
-            // Setup
-            var builder = new CustomItemsOnlyContextMenuBuilder();
-
-            // Call
-            ContextMenuStrip result = builder.AddCustomImportItem(null, null, null).Build();
 
             // Assert
             AssertStubbedContextMenuItem(result);

@@ -561,7 +561,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddImportItem_ContextMenuBuilder_CorrectlyDecorated()
+        public void AddImportItemWithoutParameters_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -574,6 +574,29 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             riskeerContextMenuBuilder.AddImportItem();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddImportItemWithTextualParameters_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Bitmap image = RiskeerFormsResources.DatabaseIcon;
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(text, toolTip, image);
 
             // Assert
             mocks.VerifyAll();
@@ -636,30 +659,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void AddCustomImportItem_ContextMenuBuilder_CorrectlyDecorated()
-        {
-            // Setup
-            const string text = "import";
-            const string toolTip = "import tooltip";
-            Bitmap image = RiskeerFormsResources.DatabaseIcon;
-
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomImportItem(text, toolTip, image));
-
-            mocks.ReplayAll();
-
-            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            riskeerContextMenuBuilder.AddCustomImportItem(text, toolTip, image);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         public void Build_ContextMenuBuilder_CorrectlyDecorated()
         {
