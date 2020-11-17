@@ -72,5 +72,10 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new UpdateDataException(e.Message, e);
             }
         }
+
+        public void DoPostUpdateActions()
+        {
+            // Do nothing
+        }
     }
 }
