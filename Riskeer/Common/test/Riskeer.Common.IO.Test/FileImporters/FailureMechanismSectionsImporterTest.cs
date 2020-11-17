@@ -682,11 +682,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void DoPostImport_AfterImport_ObserversNotified()
+        public void DoPostImport_AfterImport_CallUpdateStrategyAndObserversNotified()
         {
             // Setup
             var mocks = new MockRepository();
-            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments();
+            updateStrategy.Expect(us => us.DoPostUpdateActions());
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var observable = mocks.StrictMock<IObserver>();
             observable.Expect(o => o.UpdateObserver());
