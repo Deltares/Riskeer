@@ -149,7 +149,7 @@ namespace Core.Common.Gui.ContextMenu
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of importing
         /// to the data of the given <see cref="TreeNode"/>.
         /// </summary>
-        /// <param name="importInfos">A collection of <see cref="ImportInfo"/> instances,
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances,
         /// representing one or more suitable import actions.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable
@@ -167,7 +167,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="text">The text of the import item.</param>
         /// <param name="toolTip">The toolTip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
-        /// <param name="importInfos">A collection of <see cref="ImportInfo"/> instances,
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances,
         /// representing one or more suitable import actions.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="text"/>

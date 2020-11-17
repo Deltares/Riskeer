@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Core.Common.Gui.Plugin;
+
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
@@ -26,6 +29,13 @@ namespace Core.Common.Gui.Commands
     /// </summary>
     public interface IImportCommandHandler
     {
+        /// <summary>
+        /// Gets all supported <see cref="ImportInfo"/> instances for the provided <paramref name="target"/>.
+        /// </summary>
+        /// <param name="target">The data object to get the supported <see cref="ImportInfo"/> instances for.</param>
+        /// <returns>An enumeration of <see cref="ImportInfo"/> instances.</returns>
+        IEnumerable<ImportInfo> GetSupportedImportInfos(object target);
+
         /// <summary>
         /// Indicates if there are importers for the given target object.
         /// </summary>

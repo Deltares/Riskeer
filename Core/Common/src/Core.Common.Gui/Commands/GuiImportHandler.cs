@@ -91,7 +91,7 @@ namespace Core.Common.Gui.Commands
             ImportItemsUsingDialog(importInfo, target);
         }
 
-        private IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
+        public IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
         {
             if (target == null)
             {
