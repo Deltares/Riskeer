@@ -352,10 +352,10 @@ namespace Core.Common.Gui.Test.Commands
                 }, inquiryHelper);
 
                 // Call
-                Action call = () => importHandler.ImportOn(targetObject);
+                void Call() => importHandler.ImportOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessagesAreGenerated(call, new[]
+                TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                 {
                     $"Importeren van '{dataDescription}' is gestart.",
                     $"Importeren van '{dataDescription}' is mislukt."
@@ -398,10 +398,10 @@ namespace Core.Common.Gui.Test.Commands
                 }, inquiryHelper);
 
                 // Call
-                Action call = () => importHandler.ImportOn(targetObject);
+                void Call() => importHandler.ImportOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Importeren van gegevens is geannuleerd.");
+                TestHelper.AssertLogMessageIsGenerated(Call, "Importeren van gegevens is geannuleerd.");
             }
 
             mockRepository.VerifyAll();

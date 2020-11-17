@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
@@ -194,11 +195,15 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException(nameof(image));
             }
 
+            importInfos = importInfos == null
+                              ? importCommandHandler.GetSupportedImportInfos(dataObject)
+                              : importInfos.Where(info => info.IsEnabled(dataObject));
+
             var importItem = new ToolStripMenuItem(text)
             {
                 ToolTipText = toolTip,
                 Image = image,
-                Enabled = importCommandHandler.CanImportOn(dataObject)
+                Enabled = importInfos.Any()
             };
 
             importItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
