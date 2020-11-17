@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
@@ -40,25 +41,6 @@ namespace Riskeer.Piping.Service
     /// </summary>
     public static class PipingDataSynchronizationService
     {
-        /// <summary>
-        /// Clears the output for all calculations in the <see cref="PipingFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutput(PipingFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return failureMechanism.Calculations
-                                   .Cast<IPipingCalculationScenario<PipingInput>>()
-                                   .SelectMany(ClearCalculationOutput)
-                                   .ToArray();
-        }
-
         /// <summary>
         /// Clears the output of the given <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
@@ -82,6 +64,44 @@ namespace Riskeer.Piping.Service
             }
 
             return Enumerable.Empty<IObservable>();
+        }
+
+        /// <summary>
+        /// Clears the output for all calculations in the <see cref="PipingFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutput(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.Calculations
+                                   .Cast<IPipingCalculationScenario<PipingInput>>()
+                                   .SelectMany(ClearCalculationOutput)
+                                   .ToArray();
+        }
+
+        /// <summary>
+        /// Clears the output for all <see cref="ProbabilisticPipingCalculationScenario"/> in the <see cref="PipingFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllProbabilisticCalculationOutput(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.Calculations
+                                   .OfType<ProbabilisticPipingCalculationScenario>()
+                                   .SelectMany(ClearCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>

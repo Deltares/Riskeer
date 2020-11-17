@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
@@ -41,10 +42,10 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingDataSynchronizationService.ClearCalculationOutput(null);
+            void Call() => PipingDataSynchronizationService.ClearCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -85,10 +86,10 @@ namespace Riskeer.Piping.Service.Test
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.ClearAllCalculationOutput(null);
+            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -113,13 +114,60 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
+        public void ClearAllProbabilisticCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllProbabilisticCalculationOutput_WithVariousCalculations_ClearsProbabilisticCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario()
+            });
+
+            ProbabilisticPipingCalculationScenario[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                                                    .OfType<ProbabilisticPipingCalculationScenario>()
+                                                                                                    .Where(c => c.HasOutput)
+                                                                                                    .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations
+                                          .OfType<ProbabilisticPipingCalculationScenario>()
+                                          .All(c => !c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
