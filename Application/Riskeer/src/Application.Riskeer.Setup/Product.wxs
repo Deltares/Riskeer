@@ -37,8 +37,7 @@
               <!--
               RiskeerExecutablePayload.wxs defines the executable going into this folder.
               RiskeerExecutableConfigPayload.wxs defines the executable config going into this folder.
-              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder.
-              MigrationPayload.wxs defines the Migration folder going into this folder.
+              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder. 
               ThirdPartyLicensesPayload.wxs defines all license files for all used 3rd party libraries.
               
               All the stated .wxs files will be generated on pre-build. Ensure you have build the solution before building the installer!
@@ -157,7 +156,6 @@
       <ComponentGroupRef Id="RiskeerExecutable"/>
       <ComponentGroupRef Id="RiskeerExecutableConfig"/>
       <ComponentGroupRef Id="RiskeerApplicationComponents"/>
-      <ComponentGroupRef Id="RiskeerMigrationComponents"/>
       <ComponentGroupRef Id="ThirdPartyLicenseComponents"/>
       <ComponentGroupRef Id="Examples"/>
       <ComponentGroupRef Id="InstallationVerificationFiles"/>
