@@ -19,9 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Plugin.FileImporter;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
@@ -33,10 +39,46 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void Constructor_ExpectedValues()
         {
             // Call
-            var updateStrategy = new PipingFailureMechanismSectionUpdateStrategy(new PipingFailureMechanism(), new PipingFailureMechanismSectionResultUpdateStrategy());
+            var updateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
+                new PipingFailureMechanism(), new PipingFailureMechanismSectionResultUpdateStrategy());
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResult>>(updateStrategy);
+        }
+
+        [Test]
+        public void DoPostUpdateActions_Always_ClearsOutputAndNotifiesObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario()
+            });
+
+            failureMechanism.Calculations.ForEachElementDo(c => c.Attach(observer));
+
+            var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+
+            // Call
+            replaceStrategy.DoPostUpdateActions();
+
+            // Assert
+            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+            mocks.VerifyAll();
         }
     }
 }
