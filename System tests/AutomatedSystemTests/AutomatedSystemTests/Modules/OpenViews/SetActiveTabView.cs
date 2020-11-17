@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.OpenViews
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MoveViewTabToNewVerticalGroup recording.
+    ///The SetActiveTabView recording.
     /// </summary>
-    [TestModule("cccf5ca1-dd5a-482a-b366-7e44203f42a3", ModuleType.Recording, 1)]
-    public partial class MoveViewTabToNewVerticalGroup : ITestModule
+    [TestModule("69aec744-9ae4-44f8-8d63-455acdcf0f37", ModuleType.Recording, 1)]
+    public partial class SetActiveTabView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MoveViewTabToNewVerticalGroup instance = new MoveViewTabToNewVerticalGroup();
+        static SetActiveTabView instance = new SetActiveTabView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MoveViewTabToNewVerticalGroup()
+        public SetActiveTabView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MoveViewTabToNewVerticalGroup Instance
+        public static SetActiveTabView Instance
         {
             get { return instance; }
         }
@@ -54,13 +54,13 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable nameMap.
+        /// Gets or sets the value of variable indexContainerMap.
         /// </summary>
-        [TestVariable("13791650-2c19-4f34-90e3-ad1a9b57f766")]
-        public string nameMap
+        [TestVariable("e7772450-4ae6-4220-b179-f7318fbcd095")]
+        public string indexContainerMap
         {
-            get { return repo.nameMap; }
-            set { repo.nameMap = value; }
+            get { return repo.indexContainerMap; }
+            set { repo.indexContainerMap = value; }
         }
 
 #endregion
@@ -89,11 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
-            repo.ContextMenu.NieuweVerticaleTabgroep.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.GenericContainerMap' at Center.", repo.RiskeerMainWindow.GenericContainerMapInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.GenericContainerMap.Click();
             
         }
 

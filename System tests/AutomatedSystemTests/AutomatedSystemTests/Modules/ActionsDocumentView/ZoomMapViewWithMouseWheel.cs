@@ -24,43 +24,56 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MoveViewTabToNewVerticalGroup recording.
+    ///The ZoomMapViewWithMouseWheel recording.
     /// </summary>
-    [TestModule("cccf5ca1-dd5a-482a-b366-7e44203f42a3", ModuleType.Recording, 1)]
-    public partial class MoveViewTabToNewVerticalGroup : ITestModule
+    [TestModule("2e681757-ed2c-40ba-a41e-d1f72438b832", ModuleType.Recording, 1)]
+    public partial class ZoomMapViewWithMouseWheel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MoveViewTabToNewVerticalGroup instance = new MoveViewTabToNewVerticalGroup();
+        static ZoomMapViewWithMouseWheel instance = new ZoomMapViewWithMouseWheel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MoveViewTabToNewVerticalGroup()
+        public ZoomMapViewWithMouseWheel()
         {
+            deltaWheelMouseVertical = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MoveViewTabToNewVerticalGroup Instance
+        public static ZoomMapViewWithMouseWheel Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _deltaWheelMouseVertical;
+
         /// <summary>
-        /// Gets or sets the value of variable nameMap.
+        /// Gets or sets the value of variable deltaWheelMouseVertical.
         /// </summary>
-        [TestVariable("13791650-2c19-4f34-90e3-ad1a9b57f766")]
-        public string nameMap
+        [TestVariable("91462502-81dc-42f8-86ef-441b19386843")]
+        public string deltaWheelMouseVertical
         {
-            get { return repo.nameMap; }
-            set { repo.nameMap = value; }
+            get { return _deltaWheelMouseVertical; }
+            set { _deltaWheelMouseVertical = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable indexContainerMap.
+        /// </summary>
+        [TestVariable("e7772450-4ae6-4220-b179-f7318fbcd095")]
+        public string indexContainerMap
+        {
+            get { return repo.indexContainerMap; }
+            set { repo.indexContainerMap = value; }
         }
 
 #endregion
@@ -89,11 +102,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Move item 'RiskeerMainWindow.GenericContainerMap' at Center.", repo.RiskeerMainWindow.GenericContainerMapInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.GenericContainerMap.MoveTo();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
-            repo.ContextMenu.NieuweVerticaleTabgroep.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse scroll Vertical by number of units from variable $deltaWheelMouseVertical.", new RecordItemIndex(1));
+            Mouse.ScrollWheel(Int32.Parse(deltaWheelMouseVertical));
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(2));
+            Delay.Duration(500, false);
             
         }
 

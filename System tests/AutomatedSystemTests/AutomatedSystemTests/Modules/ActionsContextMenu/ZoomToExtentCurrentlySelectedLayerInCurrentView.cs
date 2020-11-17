@@ -20,48 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MoveViewTabToNewVerticalGroup recording.
+    ///The ZoomToExtentCurrentlySelectedLayerInCurrentView recording.
     /// </summary>
-    [TestModule("cccf5ca1-dd5a-482a-b366-7e44203f42a3", ModuleType.Recording, 1)]
-    public partial class MoveViewTabToNewVerticalGroup : ITestModule
+    [TestModule("d2eff017-7298-4fed-9265-129a15ac24ff", ModuleType.Recording, 1)]
+    public partial class ZoomToExtentCurrentView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MoveViewTabToNewVerticalGroup instance = new MoveViewTabToNewVerticalGroup();
+        static ZoomToExtentCurrentView instance = new ZoomToExtentCurrentView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MoveViewTabToNewVerticalGroup()
+        public ZoomToExtentCurrentView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MoveViewTabToNewVerticalGroup Instance
+        public static ZoomToExtentCurrentView Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        /// <summary>
-        /// Gets or sets the value of variable nameMap.
-        /// </summary>
-        [TestVariable("13791650-2c19-4f34-90e3-ad1a9b57f766")]
-        public string nameMap
-        {
-            get { return repo.nameMap; }
-            set { repo.nameMap = value; }
-        }
 
 #endregion
 
@@ -83,17 +73,25 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(0));
+            Delay.Duration(300, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
-            repo.ContextMenu.NieuweVerticaleTabgroep.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(1));
+            Keyboard.Press("{Apps}");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.ZoomNaarAlles' at 79;12.", repo.ContextMenu.ZoomNaarAllesInfo, new RecordItemIndex(2));
+            repo.ContextMenu.ZoomNaarAlles.Click("79;12");
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
+            Delay.Duration(300, false);
             
         }
 

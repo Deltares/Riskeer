@@ -162,6 +162,18 @@
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.cs">
+      <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8b96dbb8-88de-4401-ba1f-dbd033dc1742</id>
+      <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.UserCode.cs">
+      <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
+      <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SelectBackgroundMap.cs">
       <BoundTo>c38d8804-1846-4b55-8e4c-660c4c799a9c</BoundTo>
       <DependentUpon>SelectBackgroundMap.rxrec</DependentUpon>
@@ -185,6 +197,18 @@
       <DependentUpon>UpdateCurrentlySelectedItem.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>c2bd5b91-8358-4ec8-adde-aa4939fde88b</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.cs">
+      <DependentUpon>ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8e6180a6-8236-431b-a9a7-244e9987928d</id>
+      <BoundTo>d839d138-946e-44ab-bd09-ae3cd479119b</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.UserCode.cs">
+      <DependentUpon>ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>cc101b06-9526-4a3a-9cc6-994462ff9413</id>
+      <BoundTo>d839d138-946e-44ab-bd09-ae3cd479119b</BoundTo>
     </Compile>
     <Compile Include="Modules\ActionsDialogs\ConfirmActionInDialog.cs">
       <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
@@ -257,6 +281,18 @@
       <UserCode>true</UserCode>
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.cs">
+      <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
+      <DependentUpon>ZoomMapViewWithMouseWheel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>64d3c4ac-2b90-489f-91b3-e8363f89a369</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.UserCode.cs">
+      <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
+      <DependentUpon>ZoomMapViewWithMouseWheel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9657b84d-e984-472d-a1a5-69bcb14468ed</id>
     </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
       <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
@@ -786,6 +822,18 @@
       <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
       <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
     </Compile>
+    <Compile Include="Modules\OpenViews\MakePanelOnLeftVisible.cs">
+      <BoundTo>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</BoundTo>
+      <DependentUpon>MakePanelOnLeftVisible.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>90340800-fef7-4c2e-9594-6bfb9afe0e12</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\MakePanelOnLeftVisible.UserCode.cs">
+      <BoundTo>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</BoundTo>
+      <DependentUpon>MakePanelOnLeftVisible.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>105d5b0a-b4a9-40e5-a438-ca855892a079</id>
+    </Compile>
     <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
       <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -869,6 +917,18 @@
       <UserCode>true</UserCode>
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
       <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+    </Compile>
+    <Compile Include="Modules\OpenViews\SetActiveTabView.cs">
+      <BoundTo>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</BoundTo>
+      <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>85994798-3410-44e9-8dda-e0708d5f89dd</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\SetActiveTabView.UserCode.cs">
+      <BoundTo>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</BoundTo>
+      <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d25d3134-9f2c-40ef-9f71-0b45d3a24890</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenShotEntireApplication.cs">
       <BoundTo>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</BoundTo>
@@ -1952,6 +2012,46 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NewCustomTemplate1\RanorexReport.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
+    </Content>
+    <Content Include="NewCustomTemplate1\RanorexReport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>c89ebce6-ff3c-4c21-af17-e2bb8daecec8</id>
+    </Content>
+    <Content Include="NewCustomTemplate1\RanorexReport.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
+    </Content>
+    <Content Include="NewCustomTemplate1\View.rxlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
+    </Content>
+    <Content Include="NewCustomTemplate1\View.rxlog.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>17dcd21e-63e7-4537-bdf7-e4302e28f958</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>0f326bc6-b018-4cbb-bad5-b421ba96cb0f</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>f95213af-3c3e-456d-badf-cc13518079e3</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\View.rxlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>ad8fcc37-26d0-4330-87c6-2c47864f7713</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\View.rxlog.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>f135a467-3722-4b50-b2f5-27d5af8ea3fe</id>
+    </Content>
     <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
@@ -2000,6 +2100,11 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\AddBackgroundLayer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
+      <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\SelectBackgroundMap.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c38d8804-1846-4b55-8e4c-660c4c799a9c</id>
@@ -2009,6 +2114,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</id>
       <recordtableid>be610d83-0566-4237-980c-570b403e4ee8</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d839d138-946e-44ab-bd09-ae3cd479119b</id>
+      <recordtableid>d2eff017-7298-4fed-9265-129a15ac24ff</recordtableid>
     </None>
     <None Include="Modules\ActionsDialogs\ConfirmActionInDialog.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2039,6 +2149,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0654a5f3-7f4f-4513-a435-530a7709f072</id>
+      <recordtableid>2e681757-ed2c-40ba-a41e-d1f72438b832</recordtableid>
     </None>
     <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2235,6 +2350,11 @@
       <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
       <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
     </None>
+    <None Include="Modules\OpenViews\MakePanelOnLeftVisible.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</id>
+      <recordtableid>080c578e-b4cb-4bb4-945d-26465067449d</recordtableid>
+    </None>
     <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
@@ -2269,6 +2389,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\SetActiveTabView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</id>
+      <recordtableid>69aec744-9ae4-44f8-8d63-455acdcf0f37</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenShotEntireApplication.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2800,6 +2925,14 @@
     </Folder>
     <Folder Include="Modules\Validation">
       <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>
+    </Folder>
+    <Folder Include="NewCustomTemplate1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>27a8850a-9f7d-4bdd-8e37-bc212ac07f07</id>
+    </Folder>
+    <Folder Include="ReportMoreInformativeIterations">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>4d61d068-4c08-4f54-8eee-84fba2e09652</id>
     </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets">

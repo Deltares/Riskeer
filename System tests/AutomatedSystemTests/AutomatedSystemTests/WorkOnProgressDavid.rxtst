@@ -18,6 +18,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="04fb9157-0472-4c00-b35c-9b3eb3a68464"
+			name="ShowMapPanel">
+			</smartfoldernode>
 			<testmodule
 			id="06b3d40d-70a0-4912-b9f8-378dbde581e9"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -114,6 +118,16 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+			name="AddExtraLayerBackground">
+				<parameters>
+					<param
+					name="namePanelMap"
+					value="Kaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="27b9cfbe-8a70-4010-9524-e98161ca7046"
 			name="ShowMapsSideBySide">
 				<parameters>
@@ -127,6 +141,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
+			name="LogMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="remark"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="32e11368-3d84-425c-bbbd-f1fe59ca1794"
 			name="setup">
@@ -144,6 +172,12 @@
 					variablename="CloseAutProcessIDVar">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="3a0c0599-3a24-456e-8532-9676b93f5e11"
+			name="ZoomToExtentCurrentView"
+			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
+			type="Recording">
 			</testmodule>
 			<setup
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
@@ -175,6 +209,10 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="474742a8-2148-4791-b8a2-896f572c1540"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
 			<smartfoldernode
 			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2"
 			name="SelectWMTSBackgroundMap">
@@ -348,6 +386,12 @@
 			name="a)BackgroundMap">
 			</smartfoldernode>
 			<testmodule
+			id="7a91f0ba-1ff7-479f-a1da-9dfbb0db3fe0"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="7d948916-5be4-456c-b8fa-514578862360"
 			name="MoveViewTabToNewVerticalGroup"
 			ref="cccf5ca1-dd5a-482a-b366-7e44203f42a3"
@@ -426,6 +470,20 @@
 			name="OpenMap">
 			</smartfoldernode>
 			<testmodule
+			id="a71b9081-8e16-4165-89f3-c6f82ae9b4c7"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="ac94291c-3234-4130-8b51-0986a496639a"
 			name="CreateOutputFolder"
 			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
@@ -463,6 +521,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b4daa907-f38a-4c4a-b06f-49da695e1214"
+			name="ZoomMapViewWithMouseWheel"
+			ref="2e681757-ed2c-40ba-a41e-d1f72438b832"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexViewToZoom"
+					datasourceid="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+					<var
+					dataname="deltaVerticalZoom"
+					datasourceid="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+					variableid="91462502-81dc-42f8-86ef-441b19386843"
+					variablename="deltaWheelMouseVertical">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -479,7 +557,7 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder=""
+			reporttemplatefolder="ReportMoreInformativeIterations"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testcase
@@ -496,6 +574,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="c7c31a91-2a89-49b7-a188-0e50337b8534"
+			name="AddBackgroundLayer"
+			ref="46407bea-c0f2-409e-8831-e2e674d7fad1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="backgroundFileName"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="c91947e6-3202-4824-b5fd-572076e335cf"
 			name="nthStepFromPath"
@@ -552,6 +644,31 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script29a_ZoomInZoomOut"
+			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6"
+			name="ZoomInZoomOut">
+			</smartfoldernode>
+			<testmodule
+			id="dc2b49a7-02b9-4c47-9eba-5c7be0e7fd9b"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="e22558bf-7e58-4950-b8c1-0a466c3a5962"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
 			id="e3280708-ff7d-48ea-88c8-d720eed8791e"
 			name="AdjustTransparencyBackgroundMap">
 				<parameters>
@@ -571,9 +688,10 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
-			name="c)AssemblyMap">
+			name="c)ValidateLayersOfAssemblyMap">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="f1d26e5d-3c8e-467b-abaa-219a2e90e895"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -601,6 +719,11 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script19a_AddBackgroundLayer"
+			id="f44bca68-24dc-4702-bc19-0c4cee360d73"
+			name="AddBackgroundLayer">
+			</smartfoldernode>
 			<smartfoldernode
 			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1"
 			name="ReportScreenShotOfApplication">
@@ -804,15 +927,67 @@
 									name="CreateScreenShotEntireApplication">
 									</testmodule>
 								</smartfoldernode>
+								<smartfoldernode
+								id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6"
+								name="ZoomInZoomOut">
+									<testmodule
+									id="b4daa907-f38a-4c4a-b06f-49da695e1214"
+									name="ZoomMapViewWithMouseWheel">
+									</testmodule>
+									<testmodule
+									id="e22558bf-7e58-4950-b8c1-0a466c3a5962"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+								name="AddExtraLayerBackground">
+									<smartfoldernode
+									id="04fb9157-0472-4c00-b35c-9b3eb3a68464"
+									name="ShowMapPanel">
+										<testmodule
+										id="dc2b49a7-02b9-4c47-9eba-5c7be0e7fd9b"
+										name="MakePanelOnLeftVisible">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f44bca68-24dc-4702-bc19-0c4cee360d73"
+									name="AddBackgroundLayer">
+										<testmodule
+										id="a71b9081-8e16-4165-89f3-c6f82ae9b4c7"
+										name="SetActiveTabView">
+										</testmodule>
+										<testmodule
+										id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
+										name="LogMessage">
+										</testmodule>
+										<testmodule
+										id="c7c31a91-2a89-49b7-a188-0e50337b8534"
+										name="AddBackgroundLayer">
+										</testmodule>
+										<testmodule
+										id="3a0c0599-3a24-456e-8532-9676b93f5e11"
+										name="ZoomToExtentCurrentView">
+										</testmodule>
+										<smartfoldernode
+										id="474742a8-2148-4791-b8a2-896f572c1540"
+										name="ReportScreenShotOfApplication">
+											<testmodule
+											id="7a91f0ba-1ff7-479f-a1da-9dfbb0db3fe0"
+											name="CreateScreenShotEntireApplication">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
+						name="c)ValidateLayersOfAssemblyMap">
 						</smartfoldernode>
 						<smartfoldernode
 						id="62182200-29fe-4215-8fe2-0d779f46885f"
 						name="b)FMRelatedDataLayers">
-						</smartfoldernode>
-						<smartfoldernode
-						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
-						name="c)AssemblyMap">
 						</smartfoldernode>
 						<teardown
 						id="a4f325a4-4976-43df-96e7-35a016efed41"
@@ -1346,6 +1521,60 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="3c6434b8-490e-433d-bfa3-1bce94643159"
+		lastknownrowcount="2"
+		name="script19a_AddBackgroundLayer"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					backgroundFileName
+				</column>
+				<column>
+					remark
+				</column>
+				<column>
+					indexView
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						backgroundFileName
+					</th>
+					<th>
+						remark
+					</th>
+					<th>
+						indexView
+					</th>
+				</tr>
+				<tr>
+					<td>
+						X:\script29\background\brt_2011_gn1.shp
+					</td>
+					<td>
+						Large (17 MB) shape file
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						X:\script29\background\gem_2011_gn1.shp
+					</td>
+					<td>
+						Small (600kB) shape file
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
 		lastknownrowcount="18"
 		name="script29a_LoopItemWithMap"
@@ -1515,6 +1744,64 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+		lastknownrowcount="4"
+		name="script29a_ZoomInZoomOut"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexViewToZoom
+				</column>
+				<column>
+					deltaVerticalZoom
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexViewToZoom
+					</th>
+					<th>
+						deltaVerticalZoom
+					</th>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						-600
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						-800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						600
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -1524,13 +1811,22 @@
 			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a">
 			</testcontainer>
 			<testcontainer
+			id="04fb9157-0472-4c00-b35c-9b3eb3a68464">
+			</testcontainer>
+			<testcontainer
 			id="1ee80c63-849a-4b5f-8410-a74fa190e80e">
+			</testcontainer>
+			<testcontainer
+			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa">
 			</testcontainer>
 			<testcontainer
 			id="27b9cfbe-8a70-4010-9524-e98161ca7046">
 			</testcontainer>
 			<testcontainer
 			id="442336b7-dbb3-438a-b0ee-04153d608980">
+			</testcontainer>
+			<testcontainer
+			id="474742a8-2148-4791-b8a2-896f572c1540">
 			</testcontainer>
 			<testcontainer
 			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2">
@@ -1572,10 +1868,16 @@
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
+			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6">
+			</testcontainer>
+			<testcontainer
 			id="e3280708-ff7d-48ea-88c8-d720eed8791e">
 			</testcontainer>
 			<testcontainer
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4">
+			</testcontainer>
+			<testcontainer
+			id="f44bca68-24dc-4702-bc19-0c4cee360d73">
 			</testcontainer>
 			<testcontainer
 			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1">

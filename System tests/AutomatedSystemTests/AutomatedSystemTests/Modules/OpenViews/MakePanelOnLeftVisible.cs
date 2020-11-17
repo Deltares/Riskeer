@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.OpenViews
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The MoveViewTabToNewVerticalGroup recording.
+    ///The MakePanelOnLeftVisible recording.
     /// </summary>
-    [TestModule("cccf5ca1-dd5a-482a-b366-7e44203f42a3", ModuleType.Recording, 1)]
-    public partial class MoveViewTabToNewVerticalGroup : ITestModule
+    [TestModule("080c578e-b4cb-4bb4-945d-26465067449d", ModuleType.Recording, 1)]
+    public partial class MakePanelOnLeftVisible : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static MoveViewTabToNewVerticalGroup instance = new MoveViewTabToNewVerticalGroup();
+        static MakePanelOnLeftVisible instance = new MakePanelOnLeftVisible();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public MoveViewTabToNewVerticalGroup()
+        public MakePanelOnLeftVisible()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static MoveViewTabToNewVerticalGroup Instance
+        public static MakePanelOnLeftVisible Instance
         {
             get { return instance; }
         }
@@ -54,13 +54,13 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable nameMap.
+        /// Gets or sets the value of variable nameOfPanel.
         /// </summary>
-        [TestVariable("13791650-2c19-4f34-90e3-ad1a9b57f766")]
-        public string nameMap
+        [TestVariable("cd9ca8c4-f4fd-4730-9744-6ce82d091e5c")]
+        public string nameOfPanel
         {
-            get { return repo.nameMap; }
-            set { repo.nameMap = value; }
+            get { return repo.nameOfPanel; }
+            set { repo.nameOfPanel = value; }
         }
 
 #endregion
@@ -83,17 +83,15 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
-            repo.ContextMenu.NieuweVerticaleTabgroep.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.TextLabelPanelOnLeft' at Center.", repo.RiskeerMainWindow.TextLabelPanelOnLeftInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.TextLabelPanelOnLeft.Click();
+            Delay.Milliseconds(0);
             
         }
 
