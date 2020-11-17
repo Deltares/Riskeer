@@ -47,11 +47,11 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(null, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+            void Call() => new GuiImportHandler(null, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("dialogParent", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dialogParent", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -65,11 +65,11 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(mainWindow, null, inquiryHelper);
+            void Call() => new GuiImportHandler(mainWindow, null, inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importInfos", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importInfos", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -82,16 +82,16 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), null);
+            void Call() => new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("inquiryHelper", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CanImportOn_HasNoFileImportersForTarget_ReturnFalse()
+        public void GetSupportedImportInfos_NoImportInfosForTarget_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -110,7 +110,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasOneImportInfoForTarget_ReturnTrue()
+        public void GetSupportedImportInfos_OneImportInfoForTarget_ReturnTrue()
         {
             // Setup
             var target = new object();
@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasOneImportInfoForTargetThatIsNotEnabledForTarget_ReturnFalse()
+        public void GetSupportedImportInfos_OneImportInfoForTargetThatIsNotEnabled_ReturnFalse()
         {
             // Setup
             var target = new object();
@@ -160,7 +160,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasMultipleImportInfosForTargetWhereAtLeastOneEnabledForTargetItem_ReturnTrue()
+        public void GetSupportedImportInfos_MultipleImportInfosForTargetWhereOneEnabled_ReturnTrue()
         {
             // Setup
             var target = new object();
@@ -190,7 +190,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasMultipleImportInfosForTargetThatCannotBeUsedForImporting_ReturnFalse()
+        public void GetSupportedImportInfos_MultipleImportInfosForTargetThatCannotBeUsedForImporting_ReturnFalse()
         {
             // Setup
             var target = new object();
