@@ -23,6 +23,7 @@ Application/Riskeer/src/Application.Riskeer.Setup/RiskeerPayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/RiskeerExecutablePayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/RiskeerExecutableConfigPayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/ThirdPartyLicensesPayload.wxs
+Application/Riskeer/src/Application.Riskeer.Setup/MigrationPayload.wxs
 Core/Common/src/Core.Common.Version/GlobalAssembly.cs
 *.ldb
 

@@ -61,6 +61,7 @@
     <Compile Include="ThirdPartyLicensesPayload.wxs" />
     <Compile Include="RiskeerExecutablePayload.wxs" />
     <Compile Include="RiskeerExecutableConfigPayload.wxs" />
+    <Compile Include="MigrationPayload.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
@@ -307,12 +308,13 @@
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);ApplicationNestedBinFolder=..\..\..\..\bin\$(Configuration)\Application;InstallerLicensesFolder=Licenses\;ExamplesFolder=Examples\;</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);ApplicationNestedBinFolder=..\..\..\..\bin\$(Configuration)\Application;MigrationBinFolder=..\..\..\..\bin\$(Configuration)\Migration;InstallerLicensesFolder=Licenses\;ExamplesFolder=Examples\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe -cg RiskeerExecutable -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutablePayload.wxs" 
 "$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config -cg RiskeerExecutableConfig -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutableConfigPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration)\Application -cg RiskeerApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationNestedBinFolder -sfrag -sreg -o "$(ProjectDir)RiskeerPayload.wxs"
+"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration)\Migration -cg RiskeerMigrationComponents -gg -dr INSTALLDIR -var var.MigrationBinFolder -sfrag -sreg -o "$(ProjectDir)MigrationPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)Licenses -cg ThirdPartyLicenseComponents -gg -dr INSTALLDIR -var var.InstallerLicensesFolder -sfrag -sreg -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"</PreBuildEvent>
   </PropertyGroup>
