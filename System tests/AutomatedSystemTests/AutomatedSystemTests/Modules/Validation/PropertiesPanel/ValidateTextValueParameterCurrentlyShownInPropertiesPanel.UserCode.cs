@@ -33,5 +33,12 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
+        public void ValidateTextParameterTrimmedSpaces(RepoItemInfo rowInfo)
+        {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedTextValue) on item 'rowInfo'.", rowInfo);
+            string currentValue = rowInfo.CreateAdapter<Row>(true).Element.GetAttributeValueText("AccessibleValue");
+            Validate.AreEqual(currentValue.Trim(), expectedTextValue.Trim());
+        }
+
     }
 }

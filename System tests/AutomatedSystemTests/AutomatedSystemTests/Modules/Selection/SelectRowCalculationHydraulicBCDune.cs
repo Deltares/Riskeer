@@ -83,19 +83,17 @@ namespace AutomatedSystemTests.Modules.Selection
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Focus();
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Select();
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Click();
             
         }
 

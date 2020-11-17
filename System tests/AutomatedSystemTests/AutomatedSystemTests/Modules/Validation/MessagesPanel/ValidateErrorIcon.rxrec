@@ -65,10 +65,10 @@ mode="Global">
 					<argvalue>
 					</argvalue>
 					<info
-					id="68d93ccb-0441-468c-9e9a-4028de2b4e0c"
-					sourcename="ItemRecorderEditor">
+					id="3a1ced42-1f85-4f8c-bb0d-5eaded2e7819"
+					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
+							/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						</path>
 					</info>
 				</argument>

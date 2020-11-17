@@ -84,8 +84,8 @@ namespace AutomatedSystemTests.Modules.Wait
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 2h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(7200000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(7200000);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 4h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(14400000), new RecordItemIndex(2));
+            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(14400000);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
             Delay.Duration(300, false);

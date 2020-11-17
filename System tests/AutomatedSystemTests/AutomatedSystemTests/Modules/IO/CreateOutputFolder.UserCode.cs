@@ -34,28 +34,34 @@ namespace AutomatedSystemTests.Modules.IO
             // Your recording specific initialization code goes here.
         }
 
-        public void CreateFolderInForCaseOutputDrive(string caseNumber)
+        public string CreateFolderForOutput(string caseNumber)
         {
-            // Specify the directory you want to manipulate.
-        //string path = @"Y:\script" + caseNumber;
-        string path = Directory.GetCurrentDirectory() + @"\script" + caseNumber;
-        try
+            string rootOutputFolder = Directory.GetCurrentDirectory() + @"\output";
+            CreateFolderIfItDoesNotExist(rootOutputFolder);
+            string path = rootOutputFolder + @"\script" + caseNumber;
+            CreateFolderIfItDoesNotExist(path);
+            return path + @"\";
+        }
+        
+        private void CreateFolderIfItDoesNotExist(string pathFolder)
         {
-            // Determine whether the folder exists.
-            if (Directory.Exists(path))
+            try
             {
-                Report.Log(ReportLevel.Info, "Path " + path + " already exists.");
-                return;
+                // Determine whether the folder exists.
+                if (Directory.Exists(pathFolder))
+                {
+                    Report.Log(ReportLevel.Info, "Path " + pathFolder + " already exists.");
+                    return;
+                }
+                // Try to create the folder.
+                DirectoryInfo di = Directory.CreateDirectory(pathFolder);
+                Report.Log(ReportLevel.Info, "The folder " + pathFolder + " was created successfully at " + Directory.GetCreationTime(pathFolder) + ".");
             }
-            // Try to create the folder.
-            DirectoryInfo di = Directory.CreateDirectory(path);
-            Report.Log(ReportLevel.Info, "The folder " + path + " was created successfully at " + Directory.GetCreationTime(path) + ".");
-        }
-        catch (Exception e)
-        {
-            Report.Log(ReportLevel.Error, "Creating the folder " + path + " failed: {0}", e.ToString());
-        }
-        finally {}
+            catch (Exception e)
+            {
+                Report.Log(ReportLevel.Error, "Creating the folder " + pathFolder + " failed: {0}", e.ToString());
+            }
+            finally {}
         }
 
     }

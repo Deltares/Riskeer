@@ -1,7 +1,7 @@
 [
   {
     "Enabled": "True",
-    "TestSuite": "AutomatedSystemTests",
+    "TestSuite": "NormalSystemTests",
     "RunConfig": "TestRun"
   },
   {

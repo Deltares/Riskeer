@@ -42,6 +42,7 @@ namespace AutomatedSystemTests.Modules.IO
         public CreateOutputFolder()
         {
             caseNumberVar = "";
+            scriptOutputFolder = "";
         }
 
         /// <summary>
@@ -64,6 +65,18 @@ namespace AutomatedSystemTests.Modules.IO
         {
             get { return _caseNumberVar; }
             set { _caseNumberVar = value; }
+        }
+
+        string _scriptOutputFolder;
+
+        /// <summary>
+        /// Gets or sets the value of variable scriptOutputFolder.
+        /// </summary>
+        [TestVariable("5a58e76a-8d63-45cf-9337-4cedcbf6e9f6")]
+        public string scriptOutputFolder
+        {
+            get { return _scriptOutputFolder; }
+            set { _scriptOutputFolder = value; }
         }
 
 #endregion
@@ -92,7 +105,7 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            CreateFolderInForCaseOutputDrive(caseNumberVar);
+            scriptOutputFolder = CreateFolderForOutput(caseNumberVar);
             Delay.Milliseconds(0);
             
         }

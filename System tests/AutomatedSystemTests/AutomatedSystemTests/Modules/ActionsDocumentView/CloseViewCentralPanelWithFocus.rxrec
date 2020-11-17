@@ -25,6 +25,15 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<explicitdelayitem
+		duration="100ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"

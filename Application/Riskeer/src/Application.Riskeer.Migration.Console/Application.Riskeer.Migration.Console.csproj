@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\Source.targets" />
   <PropertyGroup>
     <AssemblyName>Migratiehulpprogramma</AssemblyName>
     <OutputType>Exe</OutputType>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -14,6 +15,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Assembly\Core.Common.Assembly.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\..\Migration\Console\src\Migration.Console\Migration.Console.csproj" />
     <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj" />
@@ -34,8 +36,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+  <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
+  <!-- Make all references non-private, so they won't be copied to the output folder. -->
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
   </Target>
 </Project>

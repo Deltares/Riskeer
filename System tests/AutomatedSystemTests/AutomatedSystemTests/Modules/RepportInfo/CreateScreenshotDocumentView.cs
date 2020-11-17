@@ -81,6 +81,9 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.Self, false, new RecordItemIndex(0));
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(1));
+            Delay.Duration(100, false);
+            
         }
 
 #region Image Feature Data

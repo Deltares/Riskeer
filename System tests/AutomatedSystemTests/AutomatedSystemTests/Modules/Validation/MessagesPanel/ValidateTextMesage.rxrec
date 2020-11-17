@@ -44,10 +44,10 @@ mode="Global">
 				</binding>
 			</bindings>
 			<info
-			id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
+			id="4f6147c7-b35a-42d1-8fdd-175372b09979"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 				</path>
 			</info>
 			<matchname>
@@ -64,16 +64,16 @@ mode="Global">
 		message=""
 		optional="False"
 		reportlevel="Info;20"
-		searchpropertyid="5531e94d-b7bd-4849-bc5c-4be25b20a618">
+		searchpropertyid="2171483f-2dd2-4ec6-b030-48f2f1c38cee">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<info
-			id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
+			id="43bcbd48-5fca-439f-aa46-2e7f8b5fc251"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
 				</path>
 			</info>
 		</loggingrecorditem>

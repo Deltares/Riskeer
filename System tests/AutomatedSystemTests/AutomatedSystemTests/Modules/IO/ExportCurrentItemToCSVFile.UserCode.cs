@@ -42,21 +42,5 @@ namespace AutomatedSystemTests.Modules.IO
                 buttonInfo.FindAdapter<Button>().Click();
             }
         }
-
-        public void AddWorkingDirectoryToFileNameIfRelativeFileName()
-        {
-        	if (originalFileNameToSave.Substring(1,2) == @":\") {
-            	// fileNameToSave has been declared using absolute path
-            	return;
-            }
-        	// fileNameToSave has been declared using relative path 
-        	originalFileNameToSave = Directory.GetCurrentDirectory() + "\\" + originalFileNameToSave;
-        }
-
-        public void finishCreatingFileName()
-        {
-            fileNameToSave = originalFileNameToSave + suffixFM + ".csv";
-        }
-
     }
 }

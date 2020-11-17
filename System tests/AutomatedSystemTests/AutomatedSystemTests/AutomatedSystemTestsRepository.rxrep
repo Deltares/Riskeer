@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<repository
+﻿<repository
 id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 name="AutomatedSystemTestsRepository">
 	<codegen
@@ -208,6 +207,16 @@ name="AutomatedSystemTestsRepository">
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
 						</basepath>
 					</folder>
+					<item
+					addcaps="treeitem,accessible,accessibletreeitem"
+					capname="treeitem"
+					id="6131d385-9dd7-4e3e-b606-103f620b1765"
+					name="Achtergrondkaart"
+					refimgid="2b9c6d7f-763a-4c68-a80f-c9c145ff78af"
+					refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem/treeitem[@accessiblename='Achtergrondkaart']"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Achtergrondkaart']
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
@@ -351,6 +360,15 @@ name="AutomatedSystemTestsRepository">
 				refimgid="db245c00-dff8-4d3c-aafb-9cbcb5b3a1cb"
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
+				</item>
+				<item
+				addcaps="text,wpfelement"
+				capname="text"
+				id="71969c09-ef02-4547-bddc-6e74e1272049"
+				name="DijkenEnDammenPiping"
+				refimgid="eb4a8025-5cf6-4dd3-9fec-2688dceb885e"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage/?/text[@text&gt;$nameMap]
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']
@@ -1074,6 +1092,64 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="b29993ca-0b96-4e0e-b212-220bcef5fd4f"
+				isrooted="True"
+				name="HydraulicBCDunes"
+				refimgid="cd926d0c-1ab7-41a3-93e7-6fb16b852681"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="7f2e2214-c731-479d-a92c-16e73c0a37a0"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="row"
+						id="73e414b7-73d4-49d0-bf0a-6486e581e805"
+						name="GenericRowHydraulicBCDunes"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+						</item>
+						<item
+						capname="cell"
+						id="488e59af-0583-4c1d-803c-35a505a334ad"
+						name="CellCalculatedWaterLevelDA"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+						</basepath>
+					</folder>
+					<folder
+					capname="container"
+					id="ea56a97a-cf63-4083-88ab-710c6455c060"
+					isrooted="True"
+					name="CalculationButtonsDA"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="button,control,nativewindow"
+						capname="button"
+						id="1e8ac830-37a1-4bfe-9509-4b0068b043f1"
+						name="CalculateForSelectedButton"
+						refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
+						refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container[@caption='']/container[@controlname='DuneLocationCalculationsViewBase']/container[@controlname='ButtonGroupBox']/button[@controlname='CalculateForSelectedButton']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -1187,37 +1263,29 @@ name="AutomatedSystemTestsRepository">
 			usecache="True">
 				<folder
 				capname="row"
-				id="d79a0edd-fbc5-415d-8701-852d3bf28406"
+				id="43bcbd48-5fca-439f-aa46-2e7f8b5fc251"
 				isrooted="True"
-				name="GenericMessageRow"
-				refimgid="d5377a2d-9d5a-4d81-928b-0ed2747fc681"
+				name="GenericRowMessage"
 				searchtimeout="30000ms"
 				usecache="False">
-					<image
-					guid="de00bcae-85d4-42d6-83c8-f1dceff24bb0"
-					name="Screenshot11">
-						iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
-AAAOxAAADsQBlSsOGwAAAflJREFUOE/Fk/9LE2Ecx/u/+iG0NL9c5+bZdI1NkuI0z+NBtsMIdLqz
-dkWiEzGJ2M2dY4JgYAZB+xeCyF/8YWw6dTnPtXOnnvpDvuNZnI4JJUFvPgfPvT/Pi8/n+Xbj53Wl
-quo/hTOZjKZpkiQ953kEBviFWUlfUDWcSqX8hBRDXjMRsT6oiHJialfo9JM+pCqTfusSjPS4IBiz
-8llq0Yq/PFIeIKx55fRzUo+IIcFdxdtwNpsNBAKl2RDIw7F2BPXLA45yf9vJp0Th9ZOAX8Q06kM2
-jIXpo54KOeo0g07qG31siWd/PGas1YV0N6NpcepDNoyNwfKsWBgYrUZ9YMWeVr27xZge098oEiHU
-h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
-9zDGwtxwTViSSCk6Yc7JtElUM95NlpcTwHY6Gradd/YUIT81XrttbFi2p+14RaNNohr1geUctzfZ
-+oPF6FfHrdob9uuoRHEnzB++j9Nq+xFFj4SBbTB1INOCDxNqHxWEOzDidufkR+ZSTH8lbrlac/db
-Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
-0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
-					</image>
 					<item
 					addcaps="cell,accessible"
 					capname="cell"
-					id="68d93ccb-0441-468c-9e9a-4028de2b4e0c"
+					id="4f6147c7-b35a-42d1-8fdd-175372b09979"
+					name="GenericCellMessage"
+					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					</item>
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="3a1ced42-1f85-4f8c-bb0d-5eaded2e7819"
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						<image
-						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
+						guid="059402d7-47dc-4145-82d6-ce241d086db5"
 						name="ErrorIcon">
 							iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
 AAAOxAAADsQBlSsOGwAAAflJREFUOE/Fk/9LE2Ecx/u/+iG0NL9c5+bZdI1NkuI0z+NBtsMIdLqz
@@ -1231,15 +1299,7 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
-					</item>
-					<item
-					addcaps="cell,accessible"
-					capname="cell"
-					id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
-					name="GenericCellMessage"
-					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
-					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
@@ -1271,7 +1331,7 @@ FjcAAAAASUVORK5CYII=
 		refimgid="b02193bd-0e11-40de-a7d1-7a31055842a6"
 		refpath="/contextmenu[@processname='Riskeer']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
@@ -1373,6 +1433,15 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
+			id="39eb92d8-2056-4218-88eb-8b21c0ab477e"
+			name="GenericItemInContextMenu"
+			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;$nameOfItem]
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
 			id="34965857-9328-4216-9d99-86afbd395e38"
 			name="Importeren"
 			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
@@ -1453,6 +1522,15 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,wpfelement,wpfgroupelement"
 			capname="menuitem"
+			id="03d52c3a-96d4-4dbb-b708-72ad8a755d65"
+			name="Selecteren"
+			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Selecteren']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
 			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
 			name="Sluiten"
 			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
@@ -1509,6 +1587,16 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']
+			</item>
+			<item
+			addcaps="text,wpfelement,wpfgroupelement"
+			capname="text"
+			id="e5a4d4cc-3dc6-4ac7-859e-347a1cf90541"
+			name="NieuweVerticaleTabgroep"
+			refimgid="94dd7f60-148d-4935-8b2b-ba7a20cbe1f6"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Nieuwe verticale tabgroep']/text[@caption='Nieuwe verticale tabgroep']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/?/?/text[@caption='Nieuwe verticale tabgroep']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
@@ -1741,6 +1829,36 @@ QmCC
 			refimgid="2a0eee92-106d-4496-ae63-13d54c5c92f5"
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text=$DropDownItem]
+			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="1df21d19-b589-4ae0-9b5e-2ed3f606ff9d"
+			name="WebMapTileServiceWMTS"
+			refimgid="24c03ccc-b16b-453e-8c0d-f04b53508dc3"
+			refpath="/list[@controlid='1000']/listitem[@text>'Web Map Tile Service (WMT']"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text&gt;'Web Map Tile Service (WMT']
+			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="6a8afea2-aefe-44ee-b5ec-68716a0c5194"
+			name="PDOK"
+			refimgid="6cac12d5-4286-490c-8fec-2667b0a95446"
+			refpath="/list[@controlid='1000']/listitem[@text='PDOK']"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text='PDOK']
+			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="fe15788e-2580-480f-b8f8-af7af1f58ec9"
+			name="ESRILuchtfoto"
+			refimgid="678f56ad-198b-4556-822a-897b769f1b3d"
+			refpath="/list[@controlid='1000']/listitem[@text='ESRI luchtfoto']"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text='ESRI luchtfoto']
 			</item>
 			<basepath>
 				/list[@controlid='1000']
@@ -2205,6 +2323,183 @@ cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
 FjcAAAAASUVORK5CYII=
 			</icon>
 		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="4ed2421b-175c-4b4d-8733-b94793ed4133"
+		isrooted="True"
+		name="BackgroundMapDataSelectionDialog"
+		refpath="/form[@controlname='BackgroundMapDataSelectionDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="container,control,nativewindow"
+			capname="container"
+			id="5dcd874b-0399-4534-8388-8c7674656bc6"
+			name="FlowLayoutPanel2"
+			refimgid="4ea61098-49c3-425f-ac0a-60b0718254bf"
+			refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='flowLayoutPanel2']"
+			searchtimeout="30000ms">
+				/form[@controlname='BackgroundMapDataSelectionDialog']/?/?/container[@controlname='flowLayoutPanel2']
+			</item>
+			<item
+			addcaps="cell,accessible"
+			capname="cell"
+			id="d0b3af51-09f6-49fb-89b1-52aafe114381"
+			name="Row0"
+			refimgid="d45de4fe-b912-4673-9742-101cc0021c88"
+			refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']"
+			searchtimeout="30000ms">
+				/form[@controlname='BackgroundMapDataSelectionDialog']/?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']
+			</item>
+			<folder
+			addcaps="container,control,nativewindow"
+			capname="container"
+			id="5ff51598-720e-48f4-9f45-0cd9533de867"
+			isrooted="True"
+			name="TableLayoutPanel1"
+			refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="2df0475f-87b0-4c9a-957d-fe645d198f9b"
+				name="SelectButton"
+				refimgid="e0e96040-6181-41eb-b932-c87877143e9b"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='flowLayoutPanel1']/button[@controlname='selectButton']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/button[@controlname='selectButton']
+				</item>
+				<item
+				addcaps="combobox,control,nativewindow"
+				capname="combobox"
+				id="f74cd95e-8133-4695-8dc4-bf54ce2e9dc8"
+				name="MapLayerComboBox"
+				refimgid="24ee7590-ebfc-448a-bbee-34bbf220500d"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='flowLayoutPanel2']/combobox[@controlname='mapLayerComboBox']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/combobox[@controlname='mapLayerComboBox']
+				</item>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="3ec07123-82ef-4483-9d4c-12118ce86d6d"
+				name="AddLocationButton"
+				refimgid="335c32dc-0a18-466b-9807-11161fa0e1ba"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='addLocationButton']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='addLocationButton']
+				</item>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="557fa973-5317-4d40-a856-2fd2b14140a4"
+				name="ConnectToButton"
+				refimgid="bf06e489-820f-49cc-b42e-74db30238369"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='connectToButton']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']
+				</item>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="09b07885-8ed3-48dd-99b1-2fc8ced4fe7c"
+				name="EditLocationButton"
+				refimgid="faed3dca-67bd-4b44-b297-9d983088bb14"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='editLocationButton']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='editLocationButton']
+				</item>
+				<item
+				addcaps="combobox,control,nativewindow"
+				capname="combobox"
+				id="4b22e2b7-afac-4556-8708-15d3c256eeae"
+				name="UrlLocationComboBox"
+				refimgid="73c1258e-c728-4287-a372-9fdddc8b8f1b"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='tableLayoutPanel2']/combobox[@controlname='urlLocationComboBox']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//combobox[@controlname='urlLocationComboBox']
+				</item>
+				<basepath>
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']
+				</basepath>
+			</folder>
+			<basepath>
+				/form[@controlname='BackgroundMapDataSelectionDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABpSURBVDhPrY6BCoAwCAX36X7a/sz2EiXmNi07
+uALJyzbgosS996NE5MTeHVgtZJTIX4EvhIHn32aBC2CgAp3vSF1wIgxEWEBPnkF4J3ABvFWgH+5w
+gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="52ebd3be-7b30-4e13-885c-76c38357604f"
+		isrooted="True"
+		name="Fout"
+		refimgid="22eceede-1e2f-4034-89cc-ae6e633c1e9b"
+		refpath="/form[@title='Fout']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="b8fd9641-981d-469c-bcad-d5e852798a7d"
+			name="ButtonOK"
+			refimgid="aac118c7-e893-4e93-9377-f48e535de62f"
+			refpath="/form[@title='Fout']/button[@text='OK']"
+			searchtimeout="30000ms">
+				/form[@title='Fout']/button[@text='OK']
+			</item>
+			<basepath>
+				/form[@title='Fout']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="2cbb63cf-cbc7-4f7c-8fbd-24b7e35e70bd"
+		isrooted="True"
+		name="WmtsConnectionDialog"
+		refimgid="c452eef5-84fa-4323-9901-6c808a1590bb"
+		refpath="/form[@controlname='WmtsConnectionDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="ec6b44c2-45b3-4761-889d-dd12e60cabd4"
+			name="ActionButton"
+			refimgid="458c87a9-eeec-4b84-860d-9e6f81503b92"
+			refpath="/form[@controlname='WmtsConnectionDialog']/container[@controlname='flowLayoutPanel1']/button[@controlname='actionButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='WmtsConnectionDialog']/?/?/button[@controlname='actionButton']
+			</item>
+			<basepath>
+				/form[@controlname='WmtsConnectionDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAB8SURBVDhPpY8BDsAgCAN9uk/zZ27dIOmgRswu
+uZggFG0386eyOCtYbx6GYIyxFFhvHoZADbrAevNw6/1p6nYqPwEVtgHYttro97GWAriBVffgE8CX
+URBfCI4C/GRKAdgKrFmZA/ip5QD/YxQhIAyxb8COMMTK4omyWLTNCyCPWr3n462QAAAAAElFTkSu
+QmCC
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -2328,6 +2623,14 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="973b7938-8c88-411b-81f4-2d7160c01d81"
 		name="newValue">
+		</var>
+		<var
+		id="9ce62106-6b73-4d5b-8b48-7398d9284c21"
+		name="nameOfItem">
+		</var>
+		<var
+		id="13791650-2c19-4f34-90e3-ad1a9b57f766"
+		name="nameMap">
 		</var>
 	</variables>
 </repository>
