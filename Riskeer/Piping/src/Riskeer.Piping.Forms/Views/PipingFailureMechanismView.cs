@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Forms.Views
         private MapLineData stochasticSoilModelsMapData;
         private MapLineData surfaceLinesMapData;
         private MapPointData hydraulicBoundaryLocationsMapData;
-        private MapLineData calculationsMapData;
+        private MapLineData semiProbabilisticCalculationsMapData;
 
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -77,9 +77,9 @@ namespace Riskeer.Piping.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, PipingInput> semiProbabilisticCalculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> calculationObserver;
+        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> semiProbabilisticCalculationObserver;
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
         private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> sectionResultObserver;
 
@@ -148,9 +148,9 @@ namespace Riskeer.Piping.Forms.Views
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
             stochasticSoilModelsObserver.Dispose();
-            calculationInputObserver.Dispose();
+            semiProbabilisticCalculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
+            semiProbabilisticCalculationObserver.Dispose();
             surfaceLinesObserver.Dispose();
             surfaceLineObserver.Dispose();
             sectionResultObserver.Dispose();
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Forms.Views
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
-            calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
+            semiProbabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
@@ -199,7 +199,7 @@ namespace Riskeer.Piping.Forms.Views
             mapDataCollection.Add(assemblyMapDataCollection);
 
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(calculationsMapData);
+            mapDataCollection.Add(semiProbabilisticCalculationsMapData);
         }
 
         private void CreateObservers()
@@ -246,16 +246,16 @@ namespace Riskeer.Piping.Forms.Views
             waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
 
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<SemiProbabilisticPipingCalculationScenario>().Select(pc => pc.InputParameters)))
+            semiProbabilisticCalculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
+                UpdateSemiProbabilisticCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<SemiProbabilisticPipingCalculationScenario>().Select(pc => pc.InputParameters)))
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateSemiProbabilisticCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
+            semiProbabilisticCalculationObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario>(UpdateSemiProbabilisticCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
@@ -273,7 +273,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetAllMapDataFeatures()
         {
-            SetCalculationsMapData();
+            SetSemiProbabilisticCalculationsMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
@@ -307,19 +307,19 @@ namespace Riskeer.Piping.Forms.Views
 
         #region Calculations MapData
 
-        private void UpdateCalculationsMapData()
+        private void UpdateSemiProbabilisticCalculationsMapData()
         {
-            SetCalculationsMapData();
-            calculationsMapData.NotifyObservers();
+            SetSemiProbabilisticCalculationsMapData();
+            semiProbabilisticCalculationsMapData.NotifyObservers();
 
             UpdateAssemblyMapData();
         }
 
-        private void SetCalculationsMapData()
+        private void SetSemiProbabilisticCalculationsMapData()
         {
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations =
                 FailureMechanism.CalculationsGroup.GetCalculations().Cast<SemiProbabilisticPipingCalculationScenario>();
-            calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
+            semiProbabilisticCalculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 
         #endregion
