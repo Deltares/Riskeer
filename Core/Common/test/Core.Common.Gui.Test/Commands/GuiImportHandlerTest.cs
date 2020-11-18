@@ -93,6 +93,28 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
+        public void GetSupportedImportInfos_TargetNull_ReturnsEmptyEnumeration()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
+            {
+                new ImportInfo<object>()
+            }, inquiryHelper);
+
+            // Call
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(supportedImportInfos);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetSupportedImportInfos_NoImportInfos_ReturnsEmptyEnumeration()
         {
             // Setup
@@ -271,7 +293,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_SupportedImportInfoVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledAndActivityCreated()
+        public void ImportOn_SupportedImportInfoAndVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledAndActivityCreated()
         {
             // Setup
             const string filePath = "/some/path";
@@ -337,48 +359,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_InquiryHelperReturnsNoPath_ImportCancelledWithLogMessage()
-        {
-            // Setup
-            var generator = new FileFilterGenerator();
-            var targetObject = new object();
-
-            var mockRepository = new MockRepository();
-            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
-            var fileImporter = mockRepository.Stub<IFileImporter>();
-            mockRepository.ReplayAll();
-
-            using (var form = new Form())
-            {
-                var supportedImportInfo = new ImportInfo<object>
-                {
-                    CreateFileImporter = (o, s) =>
-                    {
-                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
-                        return fileImporter;
-                    },
-                    FileFilterGenerator = generator,
-                    VerifyUpdates = o => true
-                };
-
-                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
-
-                // Call
-                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
-                {
-                    supportedImportInfo
-                });
-
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(Call, "Importeren van gegevens is geannuleerd.");
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ImportOn_SupportedImportInfoVerifyUpdatesUnsuccessful_ActivityNotCreated()
+        public void ImportOn_SupportedImportInfoAndVerifyUpdatesUnsuccessful_ActivityNotCreated()
         {
             // Setup
             var generator = new FileFilterGenerator();
@@ -421,6 +402,47 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(isVerifyUpdatedCalled);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ImportOn_InquiryHelperReturnsNoPath_ImportCancelledWithLogMessage()
+        {
+            // Setup
+            var generator = new FileFilterGenerator();
+            var targetObject = new object();
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
+            var fileImporter = mockRepository.Stub<IFileImporter>();
+            mockRepository.ReplayAll();
+
+            using (var form = new Form())
+            {
+                var supportedImportInfo = new ImportInfo<object>
+                {
+                    CreateFileImporter = (o, s) =>
+                    {
+                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o => true
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+
+                // Call
+                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(Call, "Importeren van gegevens is geannuleerd.");
+            }
+
             mockRepository.VerifyAll();
         }
 

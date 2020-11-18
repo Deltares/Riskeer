@@ -411,7 +411,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateImportItemWithoutParameters_SupportedImportInfos_CausesImportToStartWhenClicked()
+        public void CreateImportItemWithoutParameters_SupportedImportInfo_CausesImportToStartWhenClicked()
         {
             // Setup
             var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -489,7 +489,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateImportItemWithImportInfosParameter_SupportedImportInfos_CausesImportToStartWhenClicked()
+        public void CreateImportItemWithImportInfosParameter_SupportedImportInfo_CausesImportToStartWhenClicked()
         {
             // Setup
             var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -672,7 +672,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateImportItemWithTextualParameters_SupportedImportInfos_CausesImportToStartWhenClicked()
+        public void CreateImportItemWithTextualParameters_SupportedImportInfo_CausesImportToStartWhenClicked()
         {
             // Setup
             const string text = "Import";
@@ -860,7 +860,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateImportItemWithAllParameters_SupportedImportInfos_CausesImportToStartWhenClicked()
+        public void CreateImportItemWithAllParameters_SupportedImportInfo_CausesImportToStartWhenClicked()
         {
             // Setup
             const string text = "Import";

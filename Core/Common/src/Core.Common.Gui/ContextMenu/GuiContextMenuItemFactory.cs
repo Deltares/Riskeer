@@ -151,9 +151,9 @@ namespace Core.Common.Gui.ContextMenu
         /// to the data of the given <see cref="TreeNode"/>.
         /// </summary>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances,
-        /// representing one or more suitable import actions.</param>
+        /// representing one or more supported import actions.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the supported
         /// <see cref="ImportInfo"/> instances - as registered by the plugins - will be resolved
         /// dynamically.</remarks>
         public ToolStripItem CreateImportItem(IEnumerable<ImportInfo> importInfos = null)
@@ -169,13 +169,13 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="toolTip">The toolTip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances,
-        /// representing one or more suitable import actions.</param>
+        /// representing one or more supported import actions.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="text"/>
         /// is <c>null</c> or only whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolTip"/>
         /// or <paramref name="image"/> is <c>null</c>.</exception>
-        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the supported
         /// <see cref="ImportInfo"/> instances - as registered by the plugins - will be resolved
         /// dynamically.</remarks>
         public ToolStripItem CreateImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
@@ -195,9 +195,9 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException(nameof(image));
             }
 
-            importInfos = importInfos == null
-                              ? importCommandHandler.GetSupportedImportInfos(dataObject)
-                              : importInfos.Where(info => info.IsEnabled == null || info.IsEnabled(dataObject)).ToArray();
+            importInfos = importInfos != null
+                              ? importInfos.Where(info => info.IsEnabled == null || info.IsEnabled(dataObject)).ToArray()
+                              : importCommandHandler.GetSupportedImportInfos(dataObject);
 
             var importItem = new ToolStripMenuItem(text)
             {

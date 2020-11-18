@@ -172,7 +172,7 @@
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
+  <data name="GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
   <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item_0_" xml:space="preserve">
@@ -256,7 +256,7 @@
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item" xml:space="preserve">
+  <data name="GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element.</value>
   </data>
   <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item" xml:space="preserve">
@@ -397,7 +397,7 @@
   <data name="ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories" xml:space="preserve">
     <value>Kan geen instanties maken van de benodigde objecten.</value>
   </data>
-  <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
+  <data name="GuiImportHandler_SelectImportInfo_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
   <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_Error" xml:space="preserve">

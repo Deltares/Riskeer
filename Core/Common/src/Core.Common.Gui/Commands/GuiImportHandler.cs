@@ -100,18 +100,18 @@ namespace Core.Common.Gui.Commands
             ImportItemsUsingDialog(importInfo, target);
         }
 
-        private ImportInfo SelectImportInfo(object target, ImportInfo[] supportedImportInfos)
+        private ImportInfo SelectImportInfo(object target, IReadOnlyList<ImportInfo> supportedImportInfos)
         {
-            if (supportedImportInfos.Length == 0)
+            if (supportedImportInfos.Count == 0)
             {
-                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
-                                Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
-                log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_,
+                MessageBox.Show(Resources.GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item,
+                                Resources.GuiImportHandler_SelectImportInfo_Error);
+                log.ErrorFormat(Resources.GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_,
                                 target);
                 return null;
             }
 
-            if (supportedImportInfos.Length == 1)
+            if (supportedImportInfos.Count == 1)
             {
                 return supportedImportInfos[0];
             }

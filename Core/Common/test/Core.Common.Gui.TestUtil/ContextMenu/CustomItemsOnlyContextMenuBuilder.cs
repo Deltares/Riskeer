@@ -104,7 +104,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
-        /// suitable import actions.</param>
+        /// supported import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
@@ -118,7 +118,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <param name="toolTip">The tooltip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
-        /// suitable import actions.</param>
+        /// supported import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
