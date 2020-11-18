@@ -106,7 +106,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
         /// suitable import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
-        public IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos)
+        public IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
             return AddStubItem();
         }
@@ -120,7 +120,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
         /// suitable import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
-        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos)
+        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
             return AddStubItem();
         }
