@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui.ContextMenu
 {
@@ -75,8 +77,12 @@ namespace Core.Common.Gui.ContextMenu
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
         /// </summary>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        IContextMenuBuilder AddImportItem();
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null);
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
@@ -84,8 +90,12 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="text">The text of the import item.</param>
         /// <param name="toolTip">The tooltip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        IContextMenuBuilder AddImportItem(string text, string toolTip, Image image);
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null);
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which updates the data of the <see cref="TreeNode"/>.
