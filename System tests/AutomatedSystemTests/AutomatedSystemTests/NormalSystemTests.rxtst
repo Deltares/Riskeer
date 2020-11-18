@@ -4739,8 +4739,8 @@
 			datasource="script12_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="755c98d4-941d-40ca-be87-19547daea2aa"
-			maxrange="2"
-			minrange="2"
+			maxrange="0"
+			minrange="0"
 			name="LoopFMs">
 				<parameters>
 					<param

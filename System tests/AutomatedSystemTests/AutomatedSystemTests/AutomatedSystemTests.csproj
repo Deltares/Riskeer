@@ -2063,45 +2063,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NewCustomTemplate1\RanorexReport.css">
+    <Content Include="ReportMoreInformativeIterations\NewCustomTemplate1.rar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
-    </Content>
-    <Content Include="NewCustomTemplate1\RanorexReport.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>c89ebce6-ff3c-4c21-af17-e2bb8daecec8</id>
-    </Content>
-    <Content Include="NewCustomTemplate1\RanorexReport.xsl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
-    </Content>
-    <Content Include="NewCustomTemplate1\View.rxlog">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
-    </Content>
-    <Content Include="NewCustomTemplate1\View.rxlog.data">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
+      <id>eb1fb91c-c9aa-46f8-9697-396ff211ed6c</id>
     </Content>
     <Content Include="ReportMoreInformativeIterations\RanorexReport.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>17dcd21e-63e7-4537-bdf7-e4302e28f958</id>
+      <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
     </Content>
     <Content Include="ReportMoreInformativeIterations\RanorexReport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>0f326bc6-b018-4cbb-bad5-b421ba96cb0f</id>
+      <id>c89ebce6-ff3c-4c21-af17-e2bb8daecec8</id>
     </Content>
     <Content Include="ReportMoreInformativeIterations\RanorexReport.xsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>f95213af-3c3e-456d-badf-cc13518079e3</id>
+      <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
     </Content>
     <Content Include="ReportMoreInformativeIterations\View.rxlog">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>ad8fcc37-26d0-4330-87c6-2c47864f7713</id>
+      <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
     </Content>
     <Content Include="ReportMoreInformativeIterations\View.rxlog.data">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>f135a467-3722-4b50-b2f5-27d5af8ea3fe</id>
+      <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
     </Content>
     <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -3000,13 +2984,9 @@
     <Folder Include="Modules\Validation">
       <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>
     </Folder>
-    <Folder Include="NewCustomTemplate1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>27a8850a-9f7d-4bdd-8e37-bc212ac07f07</id>
-    </Folder>
     <Folder Include="ReportMoreInformativeIterations">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>4d61d068-4c08-4f54-8eee-84fba2e09652</id>
+      <id>27a8850a-9f7d-4bdd-8e37-bc212ac07f07</id>
     </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets">
