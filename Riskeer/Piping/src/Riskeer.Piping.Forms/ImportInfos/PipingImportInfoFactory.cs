@@ -19,7 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Util;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Piping.Forms.PresentationObjects;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.ImportInfos
 {
@@ -28,6 +36,34 @@ namespace Riskeer.Piping.Forms.ImportInfos
     /// </summary>
     public static class PipingImportInfoFactory
     {
-        
+        /// <summary>
+        /// Creates a <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
+        /// </summary>
+        /// <param name="updateStrategy">The <see cref="IFailureMechanismSectionUpdateStrategy"/>
+        /// to use in the importer.</param>
+        /// <returns>An <see cref="ImportInfo"/> object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="updateStrategy"/>
+        /// is <c>null</c>.</exception>
+        public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo(
+            IFailureMechanismSectionUpdateStrategy updateStrategy)
+        {
+            if (updateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(updateStrategy));
+            }
+
+            return new ImportInfo<PipingFailureMechanismSectionsContext>
+            {
+                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
+                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
+                    context.WrappedData, context.AssessmentSection.ReferenceLine,
+                    filePath, updateStrategy, new ImportMessageProvider())
+            };
+        }
     }
 }

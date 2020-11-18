@@ -19,13 +19,72 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Geometry;
+using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.ImportInfos;
+using Riskeer.Piping.Forms.PresentationObjects;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Test.ImportInfos
 {
     [TestFixture]
     public class PipingImportInfoFactoryTest
     {
-        
+        [Test]
+        public void CreateFailureMechanismSectionsImportInfo_UpdateStrategyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("updateStrategy", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateFailureMechanismSectionsImportInfo_WithData_ReturnsImportInfo(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            if (isEnabled)
+            {
+                assessmentSection.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(0, 0)
+                });
+            }
+
+            // Call
+            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(updateStrategy);
+
+            // Assert
+            Assert.AreEqual("Vakindeling", importInfo.Name);
+            Assert.AreEqual("Algemeen", importInfo.Category);
+
+            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
+
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, importInfo.Image);
+
+            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
+            Assert.AreEqual(isEnabled, importInfo.IsEnabled(context));
+            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importInfo.CreateFileImporter(context, ""));
+
+            mocks.VerifyAll();
+        }
     }
 }
