@@ -2361,7 +2361,7 @@ f61YxSii7CyBRiinCikM/9k=
 			</helperscreenshot>
 		</mouseitem>
 		<WaitForRecordItem
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="f9b39367-69e1-4f3e-bc55-a5c2f622328d"
 		waitaction="Exists"
@@ -2378,6 +2378,15 @@ f61YxSii7CyBRiinCikM/9k=
 				</path>
 			</info>
 		</WaitForRecordItem>
+		<explicitdelayitem
+		duration="1000ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"
@@ -2391,10 +2400,10 @@ f61YxSii7CyBRiinCikM/9k=
 			<bindings>
 			</bindings>
 			<info
-			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
+			id="d918d6a6-a4c6-4c01-a295-0360a81bad96"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+					/form[@automationid='RiskeerMainWindow']
 				</path>
 			</info>
 		</loggingrecorditem>
