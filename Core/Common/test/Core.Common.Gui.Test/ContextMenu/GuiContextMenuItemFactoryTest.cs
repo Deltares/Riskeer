@@ -715,10 +715,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
             commandHandler.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
-            if (hasPropertyInfoForNodeData)
-            {
-                commandHandler.Expect(ch => ch.ShowPropertiesForSelection());
-            }
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
                                                                    importCommandHandler,
@@ -731,7 +727,6 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Call
             ToolStripItem item = contextMenuFactory.CreatePropertiesItem();
-            item.PerformClick();
 
             // Assert
             Assert.AreEqual(Resources.Properties, item.Text);
@@ -739,6 +734,38 @@ namespace Core.Common.Gui.Test.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.PropertiesHS, item.Image);
             Assert.AreEqual(hasPropertyInfoForNodeData, item.Enabled);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePropertiesItem_CanShowPropertiesFor_CausesPropertiesToBeShownWhenClicked()
+        {
+            // Setup
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+
+            commandHandler.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(true);
+            commandHandler.Expect(ch => ch.ShowPropertiesForSelection());
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
+                                                                   nodeData);
+
+            mocks.ReplayAll();
+
+            ToolStripItem item = contextMenuFactory.CreatePropertiesItem();
+
+            // Call
+            item.PerformClick();
+
+            // Assert
             mocks.VerifyAll();
         }
     }
