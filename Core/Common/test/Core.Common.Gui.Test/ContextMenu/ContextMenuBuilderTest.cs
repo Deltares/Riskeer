@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -601,7 +602,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
 
             mocks.ReplayAll();
 
@@ -645,8 +652,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
-
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
