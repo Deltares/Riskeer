@@ -32,6 +32,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -445,6 +446,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -954,6 +956,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -1060,6 +1063,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -1115,6 +1119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
