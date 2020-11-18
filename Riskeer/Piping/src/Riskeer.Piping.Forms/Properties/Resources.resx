@@ -549,4 +549,10 @@ opbarsten
   <data name="PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations" xml:space="preserve">
     <value>Probabilistische berekeningen</value>
   </data>
+  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations" xml:space="preserve">
+    <value>Semi-probabilistische berekeningen</value>
+  </data>
+  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations" xml:space="preserve">
+    <value>Probabilistische berekeningen</value>
+  </data>
 </root>

@@ -28,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;

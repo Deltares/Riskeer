@@ -1040,8 +1040,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 }
             }
         }
-        
-                [Test]
+
+        [Test]
         public void GivenViewWithAssemblyData_WhenProbabilisticCalculationNotified_ThenMapDataUpdated()
         {
             // Given

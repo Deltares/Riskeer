@@ -442,6 +442,25 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probabilistische berekeningen.
+        /// </summary>
+        public static string PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
+        /// </summary>
+        public static string PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculat" +
+                        "ions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
         public static string PipingInput_DampingFactorExit_Description {

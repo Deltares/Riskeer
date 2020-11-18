@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
             Assert.AreEqual("Semi-probabilistische berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
         }
-        
+
         [Test]
         public void CreateProbabilisticCalculationsMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
             Assert.AreEqual("Probabilistische berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.Pink, 2, LineDashStyle.Dash);
         }
-        
+
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);

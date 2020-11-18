@@ -38,6 +38,7 @@ using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Factories;
+using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
@@ -177,8 +178,10 @@ namespace Riskeer.Piping.Forms.Views
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
-            semiProbabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData("Semi-probabilistische berekeningen", Color.MediumPurple);
-            probabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData("Probabilistische berekeningen", Color.Pink);
+            semiProbabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations,
+                                                                                                   Color.MediumPurple);
+            probabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations,
+                                                                                               Color.Pink);
 
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
