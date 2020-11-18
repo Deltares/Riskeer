@@ -37,12 +37,22 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
     /// </summary>
     public static class PipingUpdateInfoFactory
     {
-         /// <summary>
+        /// <summary>
         /// Creates a <see cref="UpdateInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
+        /// <param name="verifyUpdatesFunc">The <see cref="Func{T1,TResult}"/> to verify whether changes that are
+        /// induced by the importer are allowed.</param>
         /// <returns>An <see cref="UpdateInfo"/> object.</returns>
-        public static UpdateInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsUpdateInfo()
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="verifyUpdatesFunc"/>
+        /// is <c>null</c>.</exception>
+        public static UpdateInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsUpdateInfo(
+            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc)
         {
+            if (verifyUpdatesFunc == null)
+            {
+                throw new ArgumentNullException(nameof(verifyUpdatesFunc));
+            }
+
             return new UpdateInfo<PipingFailureMechanismSectionsContext>
             {
                 Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -58,7 +68,8 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                     filePath,
                     new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
                                                                     new PipingFailureMechanismSectionResultUpdateStrategy()),
-                    new UpdateMessageProvider())
+                    new UpdateMessageProvider()),
+                VerifyUpdates = verifyUpdatesFunc
             };
         }
     }

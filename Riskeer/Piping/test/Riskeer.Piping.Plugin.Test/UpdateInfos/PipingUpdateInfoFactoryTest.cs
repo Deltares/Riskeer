@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -37,9 +38,20 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
     public class PipingUpdateInfoFactoryTest
     {
         [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_VerifyUpdatesFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("verifyUpdatesFunc", exception.ParamName);
+        }
+        
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateFailureMechanismSectionsImportInfo_WithData_ReturnsImportInfo(bool isEnabled)
+        public void CreateFailureMechanismSectionsUpdateInfo_WithData_ReturnsUpdateInfo(bool isEnabled)
         {
             // Setup
             PipingFailureMechanism failureMechanism = isEnabled
@@ -47,9 +59,10 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                                                           : new PipingFailureMechanism();
 
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, new AssessmentSectionStub());
+            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc = c => true;
 
             // Call
-            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo();
+            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(verifyUpdatesFunc);
 
             // Assert
             Assert.AreEqual("Vakindeling", updateInfo.Name);
@@ -63,6 +76,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, updateInfo.CurrentPath(context));
             Assert.AreEqual(isEnabled, updateInfo.IsEnabled(context));
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(context, ""));
+            Assert.AreSame(verifyUpdatesFunc, updateInfo.VerifyUpdates);
         }
     }
 }
