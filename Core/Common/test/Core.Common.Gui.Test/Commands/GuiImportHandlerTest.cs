@@ -240,7 +240,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_NoImporterAvailable_GivesMessageBox()
+        public void ImportOn_NoImportInfos_GivesMessageBox()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -262,7 +262,7 @@ namespace Core.Common.Gui.Test.Commands
             var importHandler = new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
             // Call
-            importHandler.ImportOn(3);
+            importHandler.ImportOn(3, Enumerable.Empty<ImportInfo>());
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
@@ -271,41 +271,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_NoSupportedImportInfoAvailable_GivesMessageBox()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
-
-                messageBox.ClickOk();
-            };
-
-            var importHandler = new GuiImportHandler(mainWindow, new ImportInfo[]
-            {
-                new ImportInfo<double>()
-            }, inquiryHelper);
-
-            // Call
-            importHandler.ImportOn(string.Empty);
-
-            // Assert
-            Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Geen enkele 'Importer' is beschikbaar voor dit element.", messageBoxText);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledActivityCreated()
+        public void ImportOn_SupportedImportInfoVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledAndActivityCreated()
         {
             // Setup
             const string filePath = "/some/path";
@@ -329,30 +295,32 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var supportedImportInfo = new ImportInfo<object>
                 {
-                    new ImportInfo<object>
+                    Name = dataDescription,
+                    CreateFileImporter = (o, s) =>
                     {
-                        Name = dataDescription,
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            Assert.AreEqual(filePath, s);
-                            isCreateFileImporterCalled = true;
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            isVerifyUpdatedCalled = true;
-                            return true;
-                        }
+                        Assert.AreSame(o, targetObject);
+                        Assert.AreEqual(filePath, s);
+                        isCreateFileImporterCalled = true;
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o =>
+                    {
+                        Assert.AreSame(o, targetObject);
+                        isVerifyUpdatedCalled = true;
+                        return true;
                     }
-                }, inquiryHelper);
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
                 // Call
-                void Call() => importHandler.ImportOn(targetObject);
+                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
 
                 // Assert
                 TestHelper.AssertLogMessagesAreGenerated(Call, new[]
@@ -383,22 +351,24 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var supportedImportInfo = new ImportInfo<object>
                 {
-                    new ImportInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o => true
-                    }
-                }, inquiryHelper);
+                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o => true
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
                 // Call
-                void Call() => importHandler.ImportOn(targetObject);
+                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(Call, "Importeren van gegevens is geannuleerd.");
@@ -408,7 +378,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_MultipleSupportedImportInfoAvailableVerifyUpdatesUnsuccessful_ActivityNotCreated()
+        public void ImportOn_SupportedImportInfoVerifyUpdatesUnsuccessful_ActivityNotCreated()
         {
             // Setup
             var generator = new FileFilterGenerator();
@@ -424,27 +394,29 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var supportedImportInfo = new ImportInfo<object>
                 {
-                    new ImportInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            isVerifyUpdatedCalled = true;
-                            return false;
-                        }
+                        Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o =>
+                    {
+                        Assert.AreSame(o, targetObject);
+                        isVerifyUpdatedCalled = true;
+                        return false;
                     }
-                }, inquiryHelper);
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
                 // Call
-                importHandler.ImportOn(targetObject);
+                importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
             }
 
             // Assert
@@ -454,7 +426,7 @@ namespace Core.Common.Gui.Test.Commands
 
         [TestCase(true)]
         [TestCase(false)]
-        public void ImportOn_MultipleSupportedImportInfoAvailable_ShowsDialogWithOptions(bool hasFileFilterGenerator)
+        public void ImportOn_MultipleSupportedImportInfos_ShowsDialogWithOptions(bool hasFileFilterGenerator)
         {
             // Setup
             const string importInfoAName = "nameA";
@@ -487,14 +459,14 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+
+                // Call
+                importHandler.ImportOn(new object(), new ImportInfo[]
                 {
                     importInfoA,
                     importInfoB
-                }, inquiryHelper);
-
-                // Call
-                importHandler.ImportOn(new object());
+                });
             }
 
             // Assert
