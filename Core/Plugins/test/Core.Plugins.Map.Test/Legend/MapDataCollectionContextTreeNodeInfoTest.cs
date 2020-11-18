@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
@@ -519,7 +520,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CustomImportItemEnabled()
+        public void ContextMenuStrip_Always_ImportItemEnabled()
         {
             // Setup
             var mapDataCollection = new MapDataCollection("test data");
@@ -527,7 +528,10 @@ namespace Core.Plugins.Map.Test.Legend
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
             var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
