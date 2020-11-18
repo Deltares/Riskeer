@@ -654,10 +654,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             ImportInfo[] importInfos = hasImportersForNodeData
                                            ? new[]
                                            {
-                                               new ImportInfo
-                                               {
-                                                   IsEnabled = o => true
-                                               }
+                                               new ImportInfo()
                                            }
                                            : new ImportInfo[0];
 
@@ -756,10 +753,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             ImportInfo[] importInfos = hasImportersForNodeData
                                            ? new[]
                                            {
-                                               new ImportInfo
-                                               {
-                                                   IsEnabled = o => true
-                                               }
+                                               new ImportInfo()
                                            }
                                            : new ImportInfo[0];
 

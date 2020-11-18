@@ -84,7 +84,8 @@ namespace Core.Common.Gui.Commands
 
             Type targetType = target.GetType();
 
-            return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
+            return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType))
+                                             && (info.IsEnabled == null || info.IsEnabled(target)));
         }
 
         public void ImportOn(object target, IEnumerable<ImportInfo> supportedImportInfos)

@@ -197,7 +197,7 @@ namespace Core.Common.Gui.ContextMenu
 
             importInfos = importInfos == null
                               ? importCommandHandler.GetSupportedImportInfos(dataObject)
-                              : importInfos.Where(info => info.IsEnabled(dataObject)).ToArray();
+                              : importInfos.Where(info => info.IsEnabled == null || info.IsEnabled(dataObject)).ToArray();
 
             var importItem = new ToolStripMenuItem(text)
             {
