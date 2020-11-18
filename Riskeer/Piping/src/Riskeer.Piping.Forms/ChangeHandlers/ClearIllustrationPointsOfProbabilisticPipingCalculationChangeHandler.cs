@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
     /// Class for handling clearing illustration point results from a grass cover erosion inwards calculation.
     /// </summary>
     public class ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler
-        : ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculation>
+        : ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler"/>.
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                    ProbabilisticPipingCalculation calculation)
+                                                                                    ProbabilisticPipingCalculationScenario calculation)
             : base(inquiryHelper, calculation) {}
 
         public override bool ClearIllustrationPoints()

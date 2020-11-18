@@ -45,12 +45,12 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculation>>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>>(handler);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithoutOutputWithoutIllustrationPoints_ReturnsFalse()
+        public void ClearIllustrationPoints_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -68,7 +68,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             Assert.IsFalse(result);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void ClearIllustrationPoints_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
         {
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             Assert.IsFalse(result);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void ClearIllustrationPoints_CalculationWithOutputWithIllustrationPoints_ClearsIllustrationPointsAndReturnsTrue()
         {
