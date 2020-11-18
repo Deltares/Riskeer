@@ -75,17 +75,6 @@ namespace Core.Common.Gui.Commands
             this.inquiryHelper = inquiryHelper;
         }
 
-        public void ImportOn(object target)
-        {
-            ImportInfo importInfo = GetSupportedImporterUsingDialog(target);
-            if (importInfo == null)
-            {
-                return;
-            }
-
-            ImportItemsUsingDialog(importInfo, target);
-        }
-
         public IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
         {
             if (target == null)
@@ -98,9 +87,20 @@ namespace Core.Common.Gui.Commands
             return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
         }
 
-        private ImportInfo GetSupportedImporterUsingDialog(object target)
+        public void ImportOn(object target, IEnumerable<ImportInfo> supportedImportInfos)
         {
-            ImportInfo[] supportedImportInfos = GetSupportedImportInfos(target).ToArray();
+            ImportInfo importInfo = SelectImportInfo(target, supportedImportInfos.ToArray());
+
+            if (importInfo == null)
+            {
+                return;
+            }
+
+            ImportItemsUsingDialog(importInfo, target);
+        }
+
+        private ImportInfo SelectImportInfo(object target, ImportInfo[] supportedImportInfos)
+        {
             if (supportedImportInfos.Length == 0)
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
