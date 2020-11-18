@@ -54,17 +54,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(null,
-                                                                    importCommandHandler,
-                                                                    exportCommandHandler,
-                                                                    updateCommandHandler,
-                                                                    viewCommands,
-                                                                    new object());
+            void Call() => new GuiContextMenuItemFactory(null,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
+                                                         viewCommands,
+                                                         new object());
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui, message);
-            StringAssert.EndsWith("applicationFeatureCommandHandler", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui, exception.Message);
+            StringAssert.EndsWith("applicationFeatureCommandHandler", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -80,17 +80,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    null,
-                                                                    exportCommandHandler,
-                                                                    updateCommandHandler,
-                                                                    viewCommands,
-                                                                    null);
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         null,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
+                                                         viewCommands,
+                                                         new object());
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, message);
-            StringAssert.EndsWith("importCommandHandler", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.EndsWith("importCommandHandler", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -106,17 +106,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandler,
-                                                                    null,
-                                                                    updateCommandHandler,
-                                                                    viewCommands,
-                                                                    null);
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         null,
+                                                         updateCommandHandler,
+                                                         viewCommands,
+                                                         new object());
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler, message);
-            StringAssert.EndsWith("exportCommandHandler", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.EndsWith("exportCommandHandler", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -132,17 +132,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandler,
-                                                                    exportCommandHandler,
-                                                                    null,
-                                                                    viewCommands,
-                                                                    null);
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         null,
+                                                         viewCommands,
+                                                         new object());
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler, message);
-            StringAssert.EndsWith("updateCommandHandler", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.EndsWith("updateCommandHandler", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -158,17 +158,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandler,
-                                                                    exportCommandHandler,
-                                                                    updateCommandHandler,
-                                                                    null,
-                                                                    null);
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
+                                                         null,
+                                                         new object());
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands, message);
-            StringAssert.EndsWith("viewCommandsHandler", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.EndsWith("viewCommandsHandler", exception.Message);
 
             mocks.VerifyAll();
         }
