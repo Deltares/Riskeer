@@ -29,7 +29,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
-namespace Riskeer.Piping.Forms.ImportInfos
+namespace Riskeer.Piping.Plugin.ImportInfos
 {
     /// <summary>
     /// Factory for creating standard <see cref="ImportInfo"/> objects. 

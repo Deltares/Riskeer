@@ -29,11 +29,11 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.ImportInfos;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Plugin.ImportInfos;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Forms.Test.ImportInfos
+namespace Riskeer.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class PipingImportInfoFactoryTest
