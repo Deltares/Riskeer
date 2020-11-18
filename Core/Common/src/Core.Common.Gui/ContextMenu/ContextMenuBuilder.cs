@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.ContextMenu
@@ -122,15 +124,15 @@ namespace Core.Common.Gui.ContextMenu
             return this;
         }
 
-        public IContextMenuBuilder AddImportItem()
+        public IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
-            AddItem(guiItemsFactory.CreateImportItem());
+            AddItem(guiItemsFactory.CreateImportItem(importInfos));
             return this;
         }
 
-        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
+        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
-            AddItem(guiItemsFactory.CreateImportItem(text, toolTip, image));
+            AddItem(guiItemsFactory.CreateImportItem(text, toolTip, image, importInfos));
             return this;
         }
 

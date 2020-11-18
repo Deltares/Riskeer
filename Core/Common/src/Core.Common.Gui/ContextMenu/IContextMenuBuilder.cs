@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -95,6 +96,9 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable <see cref="ImportInfo"/>
         /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="text"/> is <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolTip"/> or <paramref name="image"/>
+        /// is <c>null</c>.</exception>
         IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null);
 
         /// <summary>
