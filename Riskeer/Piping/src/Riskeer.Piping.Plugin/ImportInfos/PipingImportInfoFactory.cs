@@ -25,7 +25,9 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Plugin.FileImporter;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -39,19 +41,9 @@ namespace Riskeer.Piping.Plugin.ImportInfos
         /// <summary>
         /// Creates a <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
-        /// <param name="updateStrategy">The <see cref="IFailureMechanismSectionUpdateStrategy"/>
-        /// to use in the importer.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="updateStrategy"/>
-        /// is <c>null</c>.</exception>
-        public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo(
-            IFailureMechanismSectionUpdateStrategy updateStrategy)
+        public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo()
         {
-            if (updateStrategy == null)
-            {
-                throw new ArgumentNullException(nameof(updateStrategy));
-            }
-
             return new ImportInfo<PipingFailureMechanismSectionsContext>
             {
                 Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -62,7 +54,8 @@ namespace Riskeer.Piping.Plugin.ImportInfos
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
                     context.WrappedData, context.AssessmentSection.ReferenceLine,
-                    filePath, updateStrategy, new ImportMessageProvider())
+                    filePath, new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) context.WrappedData),
+                    new ImportMessageProvider())
             };
         }
     }

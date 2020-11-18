@@ -19,13 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
@@ -39,26 +37,11 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
     public class PipingImportInfoFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismSectionsImportInfo_UpdateStrategyNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("updateStrategy", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateFailureMechanismSectionsImportInfo_WithData_ReturnsImportInfo(bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
-            mocks.ReplayAll();
-
             var assessmentSection = new AssessmentSectionStub();
             if (isEnabled)
             {
@@ -69,7 +52,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             }
 
             // Call
-            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(updateStrategy);
+            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo();
 
             // Assert
             Assert.AreEqual("Vakindeling", importInfo.Name);
@@ -83,8 +66,6 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             Assert.AreEqual(isEnabled, importInfo.IsEnabled(context));
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importInfo.CreateFileImporter(context, ""));
-
-            mocks.VerifyAll();
         }
     }
 }
