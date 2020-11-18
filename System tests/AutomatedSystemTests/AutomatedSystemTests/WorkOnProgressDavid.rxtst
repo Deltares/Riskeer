@@ -304,6 +304,16 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="4733d22b-0942-4ced-9f2c-0c86127ab232"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="projectToOpen"
+					value="X:\script29\currentRelease\Project_andere.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="474742a8-2148-4791-b8a2-896f572c1540"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
@@ -504,7 +514,7 @@
 			</testcase>
 			<smartfoldernode
 			id="62182200-29fe-4215-8fe2-0d779f46885f"
-			name="b)FMRelatedDataLayers">
+			name="b)SectionAndFMRelatedDataLayers">
 			</smartfoldernode>
 			<testmodule
 			id="65023644-73fd-462a-a337-728c85743ccd"
@@ -585,6 +595,20 @@
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
 			<testmodule
+			id="8506c517-055d-4c71-9998-423fe227b2c3"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="projectToOpen"
+					datasourceid="4733d22b-0942-4ced-9f2c-0c86127ab232"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8a38fa2c-278a-402b-b04b-76be9a606eba"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -610,6 +634,10 @@
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="9652d076-9748-4d87-b02d-c3edf2c377ea"
+			name="ZoomToExtentAfterImportedShapeLayer">
+			</smartfoldernode>
 			<testmodule
 			id="9f40aec7-a47e-487d-8c8e-ed686097e5ce"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -1247,10 +1275,14 @@
 										id="c7c31a91-2a89-49b7-a188-0e50337b8534"
 										name="AddBackgroundLayer">
 										</testmodule>
-										<testmodule
-										id="3a0c0599-3a24-456e-8532-9676b93f5e11"
-										name="ZoomToExtentCurrentView">
-										</testmodule>
+										<smartfoldernode
+										id="9652d076-9748-4d87-b02d-c3edf2c377ea"
+										name="ZoomToExtentAfterImportedShapeLayer">
+											<testmodule
+											id="3a0c0599-3a24-456e-8532-9676b93f5e11"
+											name="ZoomToExtentCurrentView">
+											</testmodule>
+										</smartfoldernode>
 										<smartfoldernode
 										id="474742a8-2148-4791-b8a2-896f572c1540"
 										name="ReportScreenShotOfApplication">
@@ -1315,6 +1347,14 @@
 						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
 						name="c)ValidateLayersOfAssemblyMap">
 							<smartfoldernode
+							id="4733d22b-0942-4ced-9f2c-0c86127ab232"
+							name="OpenProject">
+								<testmodule
+								id="8506c517-055d-4c71-9998-423fe227b2c3"
+								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
 							id="2d484214-ae86-44e0-b900-d74e92ba5fb7"
 							name="ShowProjectExplorerPanel">
 								<testmodule
@@ -1361,7 +1401,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="62182200-29fe-4215-8fe2-0d779f46885f"
-						name="b)FMRelatedDataLayers">
+						name="b)SectionAndFMRelatedDataLayers">
 						</smartfoldernode>
 						<teardown
 						id="a4f325a4-4976-43df-96e7-35a016efed41"
@@ -1739,6 +1779,9 @@
 			id="442336b7-dbb3-438a-b0ee-04153d608980">
 			</testcontainer>
 			<testcontainer
+			id="4733d22b-0942-4ced-9f2c-0c86127ab232">
+			</testcontainer>
+			<testcontainer
 			id="474742a8-2148-4791-b8a2-896f572c1540">
 			</testcontainer>
 			<testcontainer
@@ -1773,6 +1816,9 @@
 			</testcontainer>
 			<testcontainer
 			id="83107259-255e-4fb2-ba9a-dd152f82338f">
+			</testcontainer>
+			<testcontainer
+			id="9652d076-9748-4d87-b02d-c3edf2c377ea">
 			</testcontainer>
 			<testcontainer
 			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2">

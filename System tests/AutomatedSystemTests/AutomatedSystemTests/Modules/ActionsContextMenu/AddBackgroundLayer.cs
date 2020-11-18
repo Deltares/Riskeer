@@ -113,6 +113,9 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(6));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(7));
+            Delay.Duration(300, false);
+            
         }
 
 #region Image Feature Data

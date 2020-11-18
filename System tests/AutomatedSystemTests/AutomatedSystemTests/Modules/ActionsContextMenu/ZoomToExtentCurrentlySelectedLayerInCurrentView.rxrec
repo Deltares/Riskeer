@@ -25,15 +25,6 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
-		<explicitdelayitem
-		duration="300ms"
-		enabled="True"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
 		<keysequenceitem
 		KeySequence="{Apps}"
 		duration="20ms"
