@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
@@ -40,9 +41,19 @@ namespace Riskeer.Piping.Plugin.ImportInfos
         /// <summary>
         /// Creates a <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
+        /// <param name="verifyUpdatesFunc">The <see cref="Func{T1,TResult}"/> to verify whether changes that are
+        /// induced by the importer are allowed.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
-        public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo()
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="verifyUpdatesFunc"/>
+        /// is <c>null</c>.</exception>
+        public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo(
+            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc)
         {
+            if (verifyUpdatesFunc == null)
+            {
+                throw new ArgumentNullException(nameof(verifyUpdatesFunc));
+            }
+
             return new ImportInfo<PipingFailureMechanismSectionsContext>
             {
                 Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -54,7 +65,8 @@ namespace Riskeer.Piping.Plugin.ImportInfos
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
                     context.WrappedData, context.AssessmentSection.ReferenceLine,
                     filePath, new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) context.WrappedData),
-                    new ImportMessageProvider())
+                    new ImportMessageProvider()),
+                VerifyUpdates = verifyUpdatesFunc 
             };
         }
     }

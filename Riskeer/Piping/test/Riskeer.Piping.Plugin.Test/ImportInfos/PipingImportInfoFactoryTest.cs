@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -26,6 +27,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Plugin.ImportInfos;
@@ -36,6 +38,17 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
     [TestFixture]
     public class PipingImportInfoFactoryTest
     {
+        [Test]
+        public void CreateFailureMechanismSectionsImportInfo_VerifyUpdatesFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("verifyUpdatesFunc", exception.ParamName);
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -53,8 +66,11 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
+
             // Call
-            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo();
+            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc = c => true;
+            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(
+                verifyUpdatesFunc);
 
             // Assert
             Assert.AreEqual("Vakindeling", importInfo.Name);
@@ -67,6 +83,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             Assert.AreEqual(isEnabled, importInfo.IsEnabled(context));
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importInfo.CreateFileImporter(context, ""));
+            Assert.AreSame(verifyUpdatesFunc, importInfo.VerifyUpdates);
         }
     }
 }
