@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -334,7 +335,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateImportItem_WithoutParameters_ItemWithPropertiesSet(bool canImportOn)
+        public void CreateImportItem_WithoutParameters_ItemWithPropertiesSet(bool hasImportersForNodeData)
         {
             // Setup
             var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -343,8 +344,16 @@ namespace Core.Common.Gui.Test.ContextMenu
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
-            if (canImportOn)
+
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
+
+            if (hasImportersForNodeData)
             {
                 importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
             }
@@ -366,7 +375,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Import, item.Text);
             Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
-            Assert.AreEqual(canImportOn, item.Enabled);
+            Assert.AreEqual(hasImportersForNodeData, item.Enabled);
 
             mocks.VerifyAll();
         }
@@ -473,7 +482,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateImportItem_WithValidParameters_ItemWithPropertiesSet(bool canImportOn)
+        public void CreateImportItem_WithValidParameters_ItemWithPropertiesSet(bool hasImportersForNodeData)
         {
             // Setup
             const string text = "Import";
@@ -486,8 +495,16 @@ namespace Core.Common.Gui.Test.ContextMenu
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
-            if (canImportOn)
+
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
+
+            if (hasImportersForNodeData)
             {
                 importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
             }
@@ -509,7 +526,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(text, item.Text);
             Assert.AreEqual(toolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(image, item.Image);
-            Assert.AreEqual(canImportOn, item.Enabled);
+            Assert.AreEqual(hasImportersForNodeData, item.Enabled);
 
             mocks.VerifyAll();
         }
