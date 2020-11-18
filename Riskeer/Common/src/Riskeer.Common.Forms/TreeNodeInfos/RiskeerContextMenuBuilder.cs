@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Helpers;
+using Core.Common.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -449,10 +450,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
         /// </summary>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddImportItem()
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        public RiskeerContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
-            contextMenuBuilder.AddImportItem();
+            contextMenuBuilder.AddImportItem(importInfos);
             return this;
         }
 
@@ -462,10 +467,17 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="text">The text of the import item.</param>
         /// <param name="toolTip">The tooltip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the suitable <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="text"/> is <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolTip"/> or <paramref name="image"/>
+        /// is <c>null</c>.</exception>
+        public RiskeerContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
-            contextMenuBuilder.AddImportItem(text, toolTip, image);
+            contextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
             return this;
         }
 
