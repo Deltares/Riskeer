@@ -470,12 +470,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
             {
                 new ImportInfo()
             });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
@@ -570,12 +570,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
             {
                 new ImportInfo()
             });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
