@@ -450,7 +450,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void CreateImportItem_WithInvalidTextParameter_ThrowArgumentException(string text)
+        public void CreateImportItemWithTextualParameters_InvalidTextParameter_ThrowArgumentException(string text)
         {
             // Setup
             const string toolTip = "Import tooltip";
@@ -473,16 +473,17 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateImportItem(text, toolTip, image);
+            void Call() => contextMenuFactory.CreateImportItem(text, toolTip, image);
 
             // Assert
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Text should be set.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "Text should be set.");
             Assert.AreEqual("text", exception.ParamName);
+            
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateImportItem_WithTooltipParameterNull_ThrowArgumentNullException()
+        public void CreateImportItemWithTextualParameters_TooltipParameterNull_ThrowArgumentNullException()
         {
             // Setup
             const string text = "Import";
@@ -505,16 +506,17 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateImportItem(text, null, image);
+            void Call() => contextMenuFactory.CreateImportItem(text, null, image);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("toolTip", exception.ParamName);
+            
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateImportItem_WithImageParameterNull_ThrowArgumentNullException()
+        public void CreateImportItemWithTextualParameters_ImageParameterNull_ThrowArgumentNullException()
         {
             // Setup
             const string text = "Import";
@@ -537,18 +539,19 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateImportItem(text, toolTip, null);
+            void Call() => contextMenuFactory.CreateImportItem(text, toolTip, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("image", exception.ParamName);
+            
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateImportItem_WithValidParameters_ItemWithPropertiesSet(bool hasImportersForNodeData)
+        public void CreateImportItemWithTextualParameters_Always_ItemWithPropertiesSet(bool hasImportersForNodeData)
         {
             // Setup
             const string text = "Import";
@@ -562,20 +565,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            ImportInfo[] importInfos = hasImportersForNodeData
-                                           ? new[]
-                                           {
-                                               new ImportInfo()
-                                           }
-                                           : new ImportInfo[0];
-
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
-
-            if (hasImportersForNodeData)
-            {
-                importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
-            }
-
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(hasImportersForNodeData
+                                                                                                 ? new[]
+                                                                                                 {
+                                                                                                     new ImportInfo()
+                                                                                                 }
+                                                                                                 : new ImportInfo[0]);
+            
             mocks.ReplayAll();
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
@@ -587,7 +583,6 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Call
             ToolStripItem item = contextMenuFactory.CreateImportItem(text, toolTip, image);
-            item.PerformClick();
 
             // Assert
             Assert.AreEqual(text, item.Text);
@@ -598,6 +593,47 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CreateImportItemWithTextualParameters_SupportedImportInfos_CausesImportToStartWhenClicked()
+        {
+            // Setup
+            const string text = "Import";
+            const string toolTip = "Import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+
+            ImportInfo[] importInfos =
+            {
+                new ImportInfo()
+            };
+
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
+            importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
+                                                                   nodeData);
+
+            ToolStripItem item = contextMenuFactory.CreateImportItem(text, toolTip, image);
+
+            // Call
+            item.PerformClick();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
