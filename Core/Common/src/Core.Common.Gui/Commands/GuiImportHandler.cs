@@ -75,11 +75,6 @@ namespace Core.Common.Gui.Commands
             this.inquiryHelper = inquiryHelper;
         }
 
-        public bool CanImportOn(object target)
-        {
-            return GetSupportedImportInfos(target).Any();
-        }
-
         public void ImportOn(object target)
         {
             ImportInfo importInfo = GetSupportedImporterUsingDialog(target);

@@ -37,13 +37,6 @@ namespace Core.Common.Gui.Commands
         IEnumerable<ImportInfo> GetSupportedImportInfos(object target);
 
         /// <summary>
-        /// Indicates if there are importers for the given target object.
-        /// </summary>
-        /// <param name="target">The target object to check importer availability for.</param>
-        /// <returns><c>true</c> if there are importers available, <c>false</c> otherwise.</returns>
-        bool CanImportOn(object target);
-
-        /// <summary>
         /// Perform the import workflow by the following steps:
         /// <list type="number">
         /// <item>If multiple importers are available for the target object, determine
