@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui.TestUtil.ContextMenu
 {
@@ -101,8 +103,10 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <summary>
         /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
-        public IContextMenuBuilder AddImportItem()
+        public IContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos)
         {
             return AddStubItem();
         }
@@ -110,8 +114,13 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <summary>
         /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
+        /// <param name="text">The text of the import item.</param>
+        /// <param name="toolTip">The tooltip of the import item.</param>
+        /// <param name="image">The image of the import item.</param>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// suitable import actions.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
-        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image)
+        public IContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos)
         {
             return AddStubItem();
         }
@@ -166,7 +175,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
 
         private IContextMenuBuilder AddStubItem()
         {
-            ToolStripItem toolStripItem = new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => { });
+            ToolStripItem toolStripItem = new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => {});
 
             contextMenu.Items.Add(toolStripItem);
 
