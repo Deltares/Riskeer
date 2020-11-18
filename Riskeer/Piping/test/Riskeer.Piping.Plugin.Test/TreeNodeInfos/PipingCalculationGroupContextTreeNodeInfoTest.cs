@@ -32,6 +32,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -235,7 +236,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportHandler = mocks.StrictMock<IExportCommandHandler>();
             exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
@@ -369,7 +373,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportHandler = mocks.StrictMock<IExportCommandHandler>();
             exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();

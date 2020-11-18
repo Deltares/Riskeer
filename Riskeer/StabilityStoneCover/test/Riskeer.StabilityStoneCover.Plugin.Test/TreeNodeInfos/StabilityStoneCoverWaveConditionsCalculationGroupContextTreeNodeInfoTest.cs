@@ -32,6 +32,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -469,7 +470,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importCommandHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
@@ -566,7 +570,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importCommandHandler.Expect(ihm => ihm.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
@@ -1672,6 +1679,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
@@ -1720,6 +1728,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
