@@ -172,32 +172,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void Constructor_WithAllInput_DoesNotThrow()
-        {
-            // Setup
-            var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandler,
-                                                                    exportCommandHandler,
-                                                                    updateCommandHandler,
-                                                                    viewCommands,
-                                                                    new object());
-
-            // Assert
-            Assert.DoesNotThrow(test);
-
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
@@ -210,23 +185,50 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandler,
-                                                                    exportCommandHandler,
-                                                                    updateCommandHandler,
-                                                                    viewCommands,
-                                                                    null);
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
+                                                         viewCommands,
+                                                         null);
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, message);
-            StringAssert.EndsWith("dataObject", message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.EndsWith("dataObject", exception.Message);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateOpenItem_NoDataAvailableForView_MenuItemIsDisabled()
+        public void Constructor_ValidInputParameters_DoesNotThrow()
+        {
+            // Setup
+            var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
+                                                         viewCommands,
+                                                         new object());
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateOpenItem_Always_ItemWithPropertiesSet(bool canOpenView)
         {
             // Setup
             var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -235,7 +237,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(false);
+            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(canOpenView);
             mocks.ReplayAll();
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
@@ -253,13 +255,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Open, item.Text);
             Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
-            Assert.IsFalse(item.Enabled);
+            Assert.AreEqual(canOpenView, item.Enabled);
 
             mocks.VerifyAll();
         }
-
+        
         [Test]
-        public void CreateOpenItem_HasViewForData_MenuItemEnabledAndCausesViewToOpenWhenClicked()
+        public void CreateOpenItem_CanOpenView_CausesViewToOpenWhenClicked()
         {
             // Setup
             var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -279,16 +281,12 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    viewCommands,
                                                                    nodeData);
 
-            // Call
             ToolStripItem item = contextMenuFactory.CreateOpenItem();
+            
+            // Call
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.Open, item.Text);
-            Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
-            Assert.IsTrue(item.Enabled);
-
             mocks.VerifyAll();
         }
 
