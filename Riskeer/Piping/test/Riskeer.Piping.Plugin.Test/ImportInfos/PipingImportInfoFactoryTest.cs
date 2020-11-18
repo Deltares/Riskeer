@@ -51,6 +51,8 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
                 });
             }
 
+            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
+
             // Call
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo();
 
@@ -63,7 +65,6 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, importInfo.Image);
 
-            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             Assert.AreEqual(isEnabled, importInfo.IsEnabled(context));
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importInfo.CreateFileImporter(context, ""));
         }
