@@ -2,7 +2,9 @@
 <configuratie versie="1">
   <map naam="Vak1">
     <berekening naam="Vak1 Segment_50005_1D4">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -10,7 +12,7 @@
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -24,7 +26,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak1 Segment_50005_1D5">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -32,7 +36,7 @@
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -46,7 +50,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak1 Segment_50005_1D1">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -54,7 +60,7 @@
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -68,7 +74,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak1 Segment_50005_1D2">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -76,7 +84,7 @@
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -90,7 +98,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak1 Segment_50005_1D6">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -98,7 +108,7 @@
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -112,7 +122,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak1 Segment_50005_1D3">
-      <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak1</profielschematisatie>
       <intredepunt>9.24</intredepunt>
       <uittredepunt>53.73</uittredepunt>
@@ -120,7 +132,7 @@
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -136,7 +148,9 @@
   </map>
   <map naam="Vak2">
     <berekening naam="Vak2 Segment_50005_1D4">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -144,7 +158,7 @@
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -158,7 +172,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak2 Segment_50005_1D5">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -166,7 +182,7 @@
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -180,7 +196,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak2 Segment_50005_1D1">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -188,7 +206,7 @@
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -202,7 +220,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak2 Segment_50005_1D2">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -210,7 +230,7 @@
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -224,7 +244,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak2 Segment_50005_1D6">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -232,7 +254,7 @@
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -246,7 +268,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak2 Segment_50005_1D3">
-      <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0025_1_IJ_km0924</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak2</profielschematisatie>
       <intredepunt>9.92</intredepunt>
       <uittredepunt>32.51</uittredepunt>
@@ -254,7 +278,7 @@
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -270,7 +294,9 @@
   </map>
   <map naam="Vak3">
     <berekening naam="Vak3 Segment_50006_1D3">
-      <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak3</profielschematisatie>
       <intredepunt>14.26</intredepunt>
       <uittredepunt>47.38</uittredepunt>
@@ -278,7 +304,7 @@
       <ondergrondschematisatie>Segment_50006_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -292,7 +318,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak3 Segment_50006_1D4">
-      <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak3</profielschematisatie>
       <intredepunt>14.26</intredepunt>
       <uittredepunt>47.38</uittredepunt>
@@ -300,7 +328,7 @@
       <ondergrondschematisatie>Segment_50006_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -314,7 +342,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak3 Segment_50006_1D1">
-      <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak3</profielschematisatie>
       <intredepunt>14.26</intredepunt>
       <uittredepunt>47.38</uittredepunt>
@@ -322,7 +352,7 @@
       <ondergrondschematisatie>Segment_50006_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -336,7 +366,9 @@
       </scenario>
     </berekening>
     <berekening naam="Vak3 Segment_50006_1D2">
-      <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      <semi-probabilistisch>
+        <hblocatie>050-01_0004_1_IJ_km0922</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>Vak3</profielschematisatie>
       <intredepunt>14.26</intredepunt>
       <uittredepunt>47.38</uittredepunt>
@@ -344,7 +376,7 @@
       <ondergrondschematisatie>Segment_50006_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>7.65</verwachtingswaarde>
+          <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
