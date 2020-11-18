@@ -869,6 +869,14 @@
 			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6"
 			name="ZoomInZoomOut">
 			</smartfoldernode>
+			<smartfoldernode
+			id="d5e21dbc-f440-4107-be85-e79fb8944279"
+			name="FMs">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d7001703-7063-4b14-bc0b-93b7c3de20ad"
+			name="Section(Traject)">
+			</smartfoldernode>
 			<testmodule
 			id="d7ae87e6-a2c1-492d-93bd-28685bacaab5"
 			name="SelectGenericItemInProjectExplorer"
@@ -1344,6 +1352,18 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
+						id="62182200-29fe-4215-8fe2-0d779f46885f"
+						name="b)SectionAndFMRelatedDataLayers">
+							<smartfoldernode
+							id="d7001703-7063-4b14-bc0b-93b7c3de20ad"
+							name="Section(Traject)">
+							</smartfoldernode>
+							<smartfoldernode
+							id="d5e21dbc-f440-4107-be85-e79fb8944279"
+							name="FMs">
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
 						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
 						name="c)ValidateLayersOfAssemblyMap">
 							<smartfoldernode
@@ -1398,10 +1418,6 @@
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="62182200-29fe-4215-8fe2-0d779f46885f"
-						name="b)SectionAndFMRelatedDataLayers">
 						</smartfoldernode>
 						<teardown
 						id="a4f325a4-4976-43df-96e7-35a016efed41"
@@ -1755,52 +1771,16 @@
 			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a">
 			</testcontainer>
 			<testcontainer
-			id="04fb9157-0472-4c00-b35c-9b3eb3a68464">
-			</testcontainer>
-			<testcontainer
-			id="1ee80c63-849a-4b5f-8410-a74fa190e80e">
-			</testcontainer>
-			<testcontainer
 			id="1eeb3a34-0e30-4e05-8897-26543ec7ed73">
-			</testcontainer>
-			<testcontainer
-			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa">
-			</testcontainer>
-			<testcontainer
-			id="27b9cfbe-8a70-4010-9524-e98161ca7046">
 			</testcontainer>
 			<testcontainer
 			id="2d484214-ae86-44e0-b900-d74e92ba5fb7">
 			</testcontainer>
 			<testcontainer
-			id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7">
-			</testcontainer>
-			<testcontainer
-			id="442336b7-dbb3-438a-b0ee-04153d608980">
-			</testcontainer>
-			<testcontainer
 			id="4733d22b-0942-4ced-9f2c-0c86127ab232">
 			</testcontainer>
 			<testcontainer
-			id="474742a8-2148-4791-b8a2-896f572c1540">
-			</testcontainer>
-			<testcontainer
-			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2">
-			</testcontainer>
-			<testcontainer
-			id="4e426e5e-8a45-42b3-be56-872c597d634e">
-			</testcontainer>
-			<testcontainer
-			id="4f709825-2cec-444e-a2ab-12b182c76449">
-			</testcontainer>
-			<testcontainer
-			id="52831fca-a75f-45cf-979e-014ea6e6f752">
-			</testcontainer>
-			<testcontainer
 			id="5a426a1b-210c-4e89-86f3-38b4834e93f2">
-			</testcontainer>
-			<testcontainer
-			id="5c4cc499-3620-4694-b18d-20dc7338da3b">
 			</testcontainer>
 			<testcontainer
 			id="5c91fa07-4245-4a57-869a-3a440d68775a">
@@ -1809,40 +1789,16 @@
 			id="62182200-29fe-4215-8fe2-0d779f46885f">
 			</testcontainer>
 			<testcontainer
-			id="67ba1c26-6b3e-429b-9c1c-4ca80730b054">
-			</testcontainer>
-			<testcontainer
-			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13">
-			</testcontainer>
-			<testcontainer
-			id="83107259-255e-4fb2-ba9a-dd152f82338f">
-			</testcontainer>
-			<testcontainer
-			id="9652d076-9748-4d87-b02d-c3edf2c377ea">
-			</testcontainer>
-			<testcontainer
-			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2">
-			</testcontainer>
-			<testcontainer
-			id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840">
-			</testcontainer>
-			<testcontainer
-			id="b4366028-12be-4cd9-9e4b-a47189d0f18f">
-			</testcontainer>
-			<testcontainer
 			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39">
-			</testcontainer>
-			<testcontainer
-			id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
-			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6">
+			id="d5e21dbc-f440-4107-be85-e79fb8944279">
 			</testcontainer>
 			<testcontainer
-			id="e3280708-ff7d-48ea-88c8-d720eed8791e">
+			id="d7001703-7063-4b14-bc0b-93b7c3de20ad">
 			</testcontainer>
 			<testcontainer
 			id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a">
@@ -1852,15 +1808,6 @@
 			</testcontainer>
 			<testcontainer
 			id="f1af2faf-ca53-41e8-b16f-1360c988214d">
-			</testcontainer>
-			<testcontainer
-			id="f44bca68-24dc-4702-bc19-0c4cee360d73">
-			</testcontainer>
-			<testcontainer
-			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1">
-			</testcontainer>
-			<testcontainer
-			id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
