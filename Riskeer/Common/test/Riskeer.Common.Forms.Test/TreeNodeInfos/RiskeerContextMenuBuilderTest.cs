@@ -28,6 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Helpers;
+using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -580,6 +581,27 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void AddImportItemWithImportInfosParameter_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(importInfos));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(importInfos);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void AddImportItemWithTextualParameters_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
@@ -597,6 +619,30 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             riskeerContextMenuBuilder.AddImportItem(text, toolTip, image);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddImportItemWithAllParameters_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Bitmap image = RiskeerFormsResources.DatabaseIcon;
+            IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image, importInfos));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
 
             // Assert
             mocks.VerifyAll();
@@ -659,7 +705,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Build_ContextMenuBuilder_CorrectlyDecorated()
         {
