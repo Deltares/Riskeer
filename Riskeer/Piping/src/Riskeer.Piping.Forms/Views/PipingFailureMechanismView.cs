@@ -291,6 +291,7 @@ namespace Riskeer.Piping.Forms.Views
         private void SetAllMapDataFeatures()
         {
             SetSemiProbabilisticCalculationsMapData();
+            SetProbabilisticCalculationsMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
