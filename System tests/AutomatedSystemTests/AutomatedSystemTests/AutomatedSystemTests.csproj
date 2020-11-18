@@ -318,6 +318,18 @@
       <UserCode>true</UserCode>
       <id>9657b84d-e984-472d-a1a5-69bcb14468ed</id>
     </Compile>
+    <Compile Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.cs">
+      <BoundTo>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</BoundTo>
+      <DependentUpon>ToggleVisibilityAllLayers.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e10d39ea-8f5b-49b9-b24d-1c69bf67e900</id>
+    </Compile>
+    <Compile Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.UserCode.cs">
+      <BoundTo>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</BoundTo>
+      <DependentUpon>ToggleVisibilityAllLayers.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3ffb81e6-7244-4c09-8e0b-3de2aa64a020</id>
+    </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
       <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -437,6 +449,18 @@
       <UserCode>true</UserCode>
       <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
       <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.cs">
+      <BoundTo>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</BoundTo>
+      <DependentUpon>GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ad249072-e008-42e1-b8c2-b26e92f750e8</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.UserCode.cs">
+      <BoundTo>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</BoundTo>
+      <DependentUpon>GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5ff88a6f-9100-4693-8203-9c8e81da33bb</id>
     </Compile>
     <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
       <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
@@ -2200,6 +2224,11 @@
       <id>0654a5f3-7f4f-4513-a435-530a7709f072</id>
       <recordtableid>2e681757-ed2c-40ba-a41e-d1f72438b832</recordtableid>
     </None>
+    <None Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</id>
+      <recordtableid>fc3fbe79-ece7-4b7d-a17b-826b866c1686</recordtableid>
+    </None>
     <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>5af8448c-2d95-42e6-b08c-b44b79eb28f0</id>
@@ -2274,6 +2303,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ebce4f06-318d-46f0-8678-c8e82cb57486</id>
       <recordtableid>6104469d-a535-47ca-b393-2256db12cca4</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</id>
+      <recordtableid>ff7d8015-0aa1-402e-bd87-ce4d514d5e39</recordtableid>
     </None>
     <None Include="Modules\Calculation\GetValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2932,6 +2966,9 @@
     </Folder>
     <Folder Include="Modules\ActionsWithItemsInProjectExplorer">
       <id>fcb74411-cb5d-493b-a16c-dc59aed3884f</id>
+    </Folder>
+    <Folder Include="Modules\ActionsMapLayersPanel">
+      <id>fe5d5f36-0d60-4a1a-8018-4e469c240742</id>
     </Folder>
     <Folder Include="Modules\SettingsTestSuite">
       <id>70adccec-360c-4240-9723-fdc7d4f728df</id>

@@ -1358,7 +1358,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 			name="TextLabelPanelOnLeft"
 			refimgid="51917487-9afd-4e25-bfb6-bb36e7475531"
 			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/*/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]
+				/form[@automationid='RiskeerMainWindow']/*/tabpagelist/container[@name='HeaderPanel']/tabpage/text[@text=$nameOfPanel]
 			</item>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']

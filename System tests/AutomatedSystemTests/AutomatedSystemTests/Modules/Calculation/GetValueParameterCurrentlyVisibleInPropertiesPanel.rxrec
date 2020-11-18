@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="GetValueParameterCurrentlyVisibleInPropertiesPanel"
+	namespace="AutomatedSystemTests.Modules.Calculation">
+	</codegen>
+	<variables>
+		<var
+		id="aa67bace-369b-415d-9394-acf9d1836168"
+		name="valueOfParameter">
+		</var>
+	</variables>
+	<recorditems>
+		<getvaluerecorditem
+		attrname="AccessibleValue"
+		enabled="True"
+		optional="False"
+		searchpropertyid="6f4511f7-dbd6-4425-8617-256c0a1067f3"
+		varname="valueOfParameter">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+				</path>
+			</info>
+		</getvaluerecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		GetValueParameterCurrentlyVisibleInPropertiesPanel.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

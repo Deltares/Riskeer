@@ -723,7 +723,7 @@ namespace AutomatedSystemTests
                 _maplegendpanel = new AutomatedSystemTestsRepositoryFolders.MapLegendPanelFolder(this);
                 _genericcontainermapInfo = new RepoItemInfo(this, "GenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]", 30000, null, "c3fa3e58-ebae-43e2-88e2-41bd6c9116ad");
                 _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
-                _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "*/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
+                _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "*/tabpagelist/container[@name='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
             }
 
             /// <summary>

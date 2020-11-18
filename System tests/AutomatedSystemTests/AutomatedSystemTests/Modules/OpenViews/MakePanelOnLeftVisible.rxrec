@@ -380,11 +380,6 @@ NaQY5ZkB8P////7///9YKeNJmDfzSJ5w6R1sbsydAe/////+////W1Q8km/tiUmDD4DB09ubCAs=
 					type="System.Object">
 					</dynamicattribute>
 					<dynamicattribute
-					description="The WPF Ranorex.Plugin.Wpf.DepoGroup&lt;System.Windows.Controls.TabItem>.LayoutItem property of type LayoutItem."
-					name="LayoutItem"
-					type="Xceed.Wpf.AvalonDock.Controls.LayoutItem, Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-					</dynamicattribute>
-					<dynamicattribute
 					description="The WPF Ranorex.Plugin.Wpf.DepoGroup&lt;System.Windows.Controls.TabItem>.LayoutTransform property of type Transform."
 					name="LayoutTransform"
 					readonly="False"
@@ -413,12 +408,6 @@ NaQY5ZkB8P////7///9YKeNJmDfzSJ5w6R1sbsydAe/////+////W1Q8km/tiUmDD4DB09ubCAs=
 					name="MinWidth"
 					readonly="False"
 					type="System.Double">
-					</dynamicattribute>
-					<dynamicattribute
-					description="The WPF Ranorex.Plugin.Wpf.DepoGroup&lt;System.Windows.Controls.TabItem>.Model property of type LayoutContent."
-					name="Model"
-					readonly="False"
-					type="Xceed.Wpf.AvalonDock.Layout.LayoutContent, Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
 					</dynamicattribute>
 					<dynamicattribute
 					description="The WPF Ranorex.Plugin.Wpf.DepoGroup&lt;System.Windows.Controls.TabItem>.Opacity property of type Double."
