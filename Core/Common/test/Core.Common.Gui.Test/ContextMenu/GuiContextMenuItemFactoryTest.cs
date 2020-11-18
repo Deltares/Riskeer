@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler, exception.Message);
             StringAssert.EndsWith("exportCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -141,7 +141,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler, exception.Message);
             StringAssert.EndsWith("updateCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -167,12 +167,12 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands, exception.Message);
             StringAssert.EndsWith("viewCommandsHandler", exception.Message);
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
@@ -194,7 +194,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, exception.Message);
             StringAssert.EndsWith("dataObject", exception.Message);
 
             mocks.VerifyAll();
@@ -249,7 +249,6 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Call
             ToolStripItem item = contextMenuFactory.CreateOpenItem();
-            item.PerformClick();
 
             // Assert
             Assert.AreEqual(Resources.Open, item.Text);
@@ -259,7 +258,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void CreateOpenItem_CanOpenView_CausesViewToOpenWhenClicked()
         {
@@ -282,7 +281,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             ToolStripItem item = contextMenuFactory.CreateOpenItem();
-            
+
             // Call
             item.PerformClick();
 
@@ -327,6 +326,37 @@ namespace Core.Common.Gui.Test.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, item.Image);
             Assert.AreEqual(hasExportersForNodeData, item.Enabled);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportItem_CanExportFrom_CausesExportToStartWhenClicked()
+        {
+            // Setup
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+            exportCommandHandler.Expect(ch => ch.CanExportFrom(nodeData)).Return(true);
+            exportCommandHandler.Expect(ch => ch.ExportFrom(nodeData));
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
+                                                                   nodeData);
+
+            ToolStripItem item = contextMenuFactory.CreateExportItem();
+
+            // Call
+            item.PerformClick();
+
+            // Assert
             mocks.VerifyAll();
         }
 
