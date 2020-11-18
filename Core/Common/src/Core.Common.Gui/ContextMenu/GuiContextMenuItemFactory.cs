@@ -206,7 +206,7 @@ namespace Core.Common.Gui.ContextMenu
                 Enabled = importInfos.Any()
             };
 
-            importItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
+            importItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject, importInfos);
 
             return importItem;
         }

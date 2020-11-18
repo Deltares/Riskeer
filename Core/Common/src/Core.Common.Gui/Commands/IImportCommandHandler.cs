@@ -47,6 +47,8 @@ namespace Core.Common.Gui.Commands
         /// </list>
         /// </summary>
         /// <param name="target">The data object to import to.</param>
-        void ImportOn(object target);
+        /// <param name="importInfos">The <see cref="ImportInfo"/> instances representing the importers available
+        /// for the target object.</param>
+        void ImportOn(object target, IEnumerable<ImportInfo> importInfos);
     }
 }

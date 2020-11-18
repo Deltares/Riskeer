@@ -345,17 +345,18 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
-                                .Return(hasImportersForNodeData
-                                            ? new[]
-                                            {
-                                                new ImportInfo()
-                                            }
-                                            : new ImportInfo[0]);
+            ImportInfo[] importInfos = hasImportersForNodeData
+                                           ? new[]
+                                           {
+                                               new ImportInfo()
+                                           }
+                                           : new ImportInfo[0];
+
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
 
             if (hasImportersForNodeData)
             {
-                importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
+                importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
             }
 
             mocks.ReplayAll();
@@ -496,17 +497,18 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
-                                .Return(hasImportersForNodeData
-                                            ? new[]
-                                            {
-                                                new ImportInfo()
-                                            }
-                                            : new ImportInfo[0]);
+            ImportInfo[] importInfos = hasImportersForNodeData
+                                           ? new[]
+                                           {
+                                               new ImportInfo()
+                                           }
+                                           : new ImportInfo[0];
+
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
 
             if (hasImportersForNodeData)
             {
-                importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
+                importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
             }
 
             mocks.ReplayAll();
