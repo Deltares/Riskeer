@@ -44,12 +44,26 @@ namespace Core.Common.TestUtil
     /// </summary>
     public static class TestHelper
     {
-        public static string SolutionRoot
+        /// <summary>
+        /// Gets a full path to the directory that contains the solution file.
+        /// </summary>
+        public static string SolutionRoot => Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
+
+        /// <summary>
+        /// Returns a full path to the application directory, which contains all assemblies that are required for running
+        /// the application.
+        /// </summary>
+        /// <returns>A full path to the application directory.</returns>
+        public static string GetApplicationDirectory()
         {
-            get
+            DirectoryInfo rootDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+
+            while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
             {
-                return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
+                rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
             }
+
+            return Path.Combine(rootDirectoryInfo.FullName, "Application");
         }
 
         /// <summary>
