@@ -22,7 +22,7 @@
 using System;
 using System.IO;
 using System.Security;
-using Core.Common.TestUtil;
+using Riskeer.Common.Util;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Providers;
@@ -84,7 +84,7 @@ namespace Riskeer.HydraRing.Calculation.Services
             TemporaryWorkingDirectory = temporaryWorkingDirectory;
             hlcdFilePath = settings.HlcdFilePath;
 
-            string applicationFolder = TestHelper.GetApplicationDirectory();
+            string applicationFolder = AssemblyHelper.GetApplicationDirectory();
             hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", $"{hydraRingBinariesSubDirectory}-{HydraRingFileConstants.HydraRingVersionNumber}");
 
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
