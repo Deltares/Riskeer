@@ -27,7 +27,7 @@ using Riskeer.Piping.Data.Probabilistic;
 namespace Riskeer.Piping.Util
 {
     /// <summary>
-    /// Class that contains helper methods for determining whether grass cover erosion inwards objects have illustration point results.
+    /// Class that contains helper methods for determining whether probabilistic piping objects have illustration point results.
     /// </summary>
     public static class ProbabilisticPipingIllustrationPointsHelper
     {

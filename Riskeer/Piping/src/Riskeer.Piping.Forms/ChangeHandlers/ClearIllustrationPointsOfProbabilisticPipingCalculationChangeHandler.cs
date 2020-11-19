@@ -28,7 +28,7 @@ using Riskeer.Piping.Util;
 namespace Riskeer.Piping.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling clearing illustration point results from a grass cover erosion inwards calculation.
+    /// Class for handling clearing illustration point results from a probabilistic piping calculation.
     /// </summary>
     public class ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler
         : ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>
