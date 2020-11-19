@@ -122,10 +122,10 @@ namespace Riskeer.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
+        public static string PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sectio" +
-                        "ns_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_S" +
+                        "ections_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         

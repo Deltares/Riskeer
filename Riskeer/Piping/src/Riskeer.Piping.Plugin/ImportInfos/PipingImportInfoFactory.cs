@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Plugin.ImportInfos
                 {
                     var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
                         (PipingFailureMechanism) context.WrappedData,
-                        Resources.PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm,
+                        Resources.PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm,
                         inquiryHelper);
                     return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
                 }

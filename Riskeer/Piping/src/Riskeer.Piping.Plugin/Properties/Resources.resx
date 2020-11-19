@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -170,7 +170,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculationGroup_Add_ProbabilisticCalculation_ToolTip" xml:space="preserve">
     <value>Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.</value>
   </data>
-  <data name="PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
