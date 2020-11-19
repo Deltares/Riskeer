@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -172,6 +172,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

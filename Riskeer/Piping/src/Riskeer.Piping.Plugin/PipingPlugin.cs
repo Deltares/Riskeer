@@ -43,7 +43,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
@@ -67,6 +66,7 @@ using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.ImportInfos;
 using Riskeer.Piping.Plugin.Properties;
+using Riskeer.Piping.Plugin.UpdateInfos;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
 using Riskeer.Piping.Service.Probabilistic;
@@ -238,9 +238,7 @@ namespace Riskeer.Piping.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                PipingFailureMechanismSectionsContext, PipingFailureMechanism, PipingFailureMechanismSectionResult>(
-                new PipingFailureMechanismSectionResultUpdateStrategy());
+            yield return PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(GetInquiryHelper());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

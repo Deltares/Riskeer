@@ -226,6 +226,18 @@ namespace Riskeer.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Se" +
+                        "ctions_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D-Soil Model bestand.
         /// </summary>
         public static string Soil_file_Description {
