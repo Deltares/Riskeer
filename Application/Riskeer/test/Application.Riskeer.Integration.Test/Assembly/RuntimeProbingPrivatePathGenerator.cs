@@ -21,7 +21,7 @@
 
 using System;
 using System.IO;
-using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Riskeer.Integration.Test.Assembly
@@ -43,31 +43,17 @@ namespace Application.Riskeer.Integration.Test.Assembly
     [Explicit("Test that should only be run manually")]
     public class RuntimeProbingPrivatePathGenerator
     {
-        private const string assemblyDirectoryName = "Application";
-
         [Test]
         public void WritePrivatePathStringToConsole()
         {
             var privatePath = string.Empty;
-            string rootDirectory = GetRootDirectory();
-            string assemblyDirectory = Path.Combine(rootDirectory, assemblyDirectoryName);
+            string assemblyDirectory = TestHelper.GetApplicationDirectory();
+            string rootDirectory = Directory.GetParent(assemblyDirectory).FullName;
 
             AddAssemblyPathsRecursively(assemblyDirectory, ref privatePath);
             MakeAssemblyPathsRelativeToRootDirectory(rootDirectory, ref privatePath);
 
             Console.WriteLine(privatePath);
-        }
-
-        private static string GetRootDirectory()
-        {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-            while (rootDirectoryInfo.GetDirectories().All(di => di.Name != assemblyDirectoryName))
-            {
-                rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
-            }
-
-            return rootDirectoryInfo.FullName;
         }
 
         private static void AddAssemblyPathsRecursively(string assemblyDirectory, ref string privatePath)
