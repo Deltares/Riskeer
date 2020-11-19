@@ -23,7 +23,7 @@ using System.Drawing;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 
-namespace Riskeer.Piping.Data.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Class to help asserting drawing styles.

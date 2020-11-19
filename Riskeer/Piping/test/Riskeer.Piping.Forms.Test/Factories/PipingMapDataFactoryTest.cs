@@ -23,7 +23,7 @@ using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Piping.Forms.Factories;
 
 namespace Riskeer.Piping.Forms.Test.Factories
