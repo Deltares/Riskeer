@@ -12,7 +12,7 @@
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -36,7 +36,7 @@
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -60,7 +60,7 @@
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -84,7 +84,7 @@
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -108,7 +108,7 @@
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -132,7 +132,7 @@
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -158,7 +158,7 @@
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -182,7 +182,7 @@
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -206,7 +206,7 @@
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -230,7 +230,7 @@
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -254,7 +254,7 @@
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -278,7 +278,7 @@
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -304,7 +304,7 @@
       <ondergrondschematisatie>Segment_50006_1D3</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -328,7 +328,7 @@
       <ondergrondschematisatie>Segment_50006_1D4</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -352,7 +352,7 @@
       <ondergrondschematisatie>Segment_50006_1D1</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
@@ -376,7 +376,7 @@
       <ondergrondschematisatie>Segment_50006_1D2</ondergrondschematisatie>
       <stochasten>
         <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
+          <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="dempingsfactor">
