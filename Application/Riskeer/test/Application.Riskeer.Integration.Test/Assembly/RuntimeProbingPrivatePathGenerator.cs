@@ -68,7 +68,7 @@ namespace Application.Riskeer.Integration.Test.Assembly
 
         private static void MakeAssemblyPathsRelativeToRootDirectory(string rootDirectory, ref string assemblyPaths)
         {
-            assemblyPaths = assemblyPaths.Replace(rootDirectory, string.Empty);
+            assemblyPaths = assemblyPaths.Replace(rootDirectory + @"\", string.Empty);
         }
     }
 }
