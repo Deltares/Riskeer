@@ -19,12 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Core.Common.Assembly;
-
 namespace Application.Riskeer.Migration.Console
 {
     /// <summary>
@@ -43,45 +37,7 @@ namespace Application.Riskeer.Migration.Console
         /// </list></remarks>
         public static void Main(string[] args)
         {
-            SetupAssemblyResolver();
-            
             InitializeConsole(args);
-        }
-        
-        private static void SetupAssemblyResolver()
-        {
-            string assemblyDirectory = Path.Combine(GetApplicationDirectory(), "Built-in", "Managed");
-
-            Assembly GetAssemblyResolver(object sender, ResolveEventArgs args)
-            {
-                return Assembly.LoadFrom(Path.Combine(assemblyDirectory, "Core", "Core.Common.Assembly.dll"));
-            }
-
-            AppDomain.CurrentDomain.AssemblyResolve += GetAssemblyResolver;
-
-            InitializeAssemblyResolver(assemblyDirectory);
-
-            AppDomain.CurrentDomain.AssemblyResolve -= GetAssemblyResolver;
-        }
-
-        private static void InitializeAssemblyResolver(string assemblyDirectory)
-        {
-            if (AssemblyResolver.RequiresInitialization)
-            {
-                AssemblyResolver.Initialize(assemblyDirectory);
-            }
-        }
-
-        private static string GetApplicationDirectory()
-        {
-            DirectoryInfo executingAssemblyDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
-
-            while (executingAssemblyDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
-            {
-                executingAssemblyDirectoryInfo = Directory.GetParent(executingAssemblyDirectoryInfo.FullName);
-            }
-
-            return Path.Combine(executingAssemblyDirectoryInfo.FullName, "Application");
         }
     }
 }
