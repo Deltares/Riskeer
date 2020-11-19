@@ -18,6 +18,36 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="02e4a835-ca5f-4fcb-9717-7ec4debae405"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="0353497f-87be-42bc-ac38-e66593e71224"
+			name="AddBackgroundLayer"
+			ref="46407bea-c0f2-409e-8831-e2e674d7fad1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathShapeLayerToImport"
+					datasourceid="20cc41d4-dead-4f32-a60d-3ea20716bf19"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="backgroundFileName"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="04fb9157-0472-4c00-b35c-9b3eb3a68464"
+			name="ShowMapPanel">
+			</smartfoldernode>
 			<testmodule
 			id="06b3d40d-70a0-4912-b9f8-378dbde581e9"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -64,6 +94,34 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="07e96765-85ea-4bb0-9ca1-628fc2be1726"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="layerName"
+					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="layerName"
+					datasourceid="aa9d7764-61b9-4353-9631-1aacd39521d6"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="0dc37397-1c31-4a73-829c-aff2e003491c"
+			name="CreateScreenshotOfMapLayersPanel"
+			ref="7b4b5931-d933-4dfd-92c3-207ab4e9306d"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
 			name="teardown">
@@ -73,6 +131,26 @@
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="17725f4f-5c0a-4ae4-bcdb-724cfc956e16"
+			name="ToggleVisibilityAllLayers"
+			ref="fc3fbe79-ece7-4b7d-a17b-826b866c1686"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="1a23006f-798a-41bf-83e6-b6caf73202d2"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			enabled="False"
@@ -96,6 +174,31 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="1cf35353-6189-499b-9bff-74e114578342"
+			name="VisibilityNeedsToChange">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="visibilityStatusAllLayers"
+								id="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Niet">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			id="1ee80c63-849a-4b5f-8410-a74fa190e80e"
 			name="EnableBackgroundMap">
 				<parameters>
@@ -114,6 +217,56 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+			name="OpenViewForAssemblyCombinedAssessmentSection">
+				<parameters>
+					<param
+					name="pathToAssemblyCombinedAssessmentSection"
+					value="Traject>Assemblage>Assemblagekaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="20cc41d4-dead-4f32-a60d-3ea20716bf19"
+			name="AddBackgroundLayer(TypePolygon)">
+				<parameters>
+					<param
+					name="pathShapeLayerToImport"
+					value="X:\script29\background\gem_2011_gn1.shp">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="24d49fd3-02b9-4ba6-88c0-c0c302f54071"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAddedLayer"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+			name="AddExtraLayerBackground">
+				<parameters>
+					<param
+					name="namePanelMap"
+					value="Kaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="26cbab9a-9d43-4e73-94f0-a93ab7eedc63"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
 			id="27b9cfbe-8a70-4010-9524-e98161ca7046"
 			name="ShowMapsSideBySide">
 				<parameters>
@@ -127,10 +280,86 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+			name="ShowProjectExplorerPanel">
+				<parameters>
+					<param
+					name="namePanelToBeShown"
+					value="Projectverkenner">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
+			name="LogMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="remark"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="2eba1cae-a43f-416e-8fa6-6102e4b51018"
+			name="ZoomToExtentCurrentView"
+			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
+			type="Recording">
+			</testmodule>
 			<setup
 			id="32e11368-3d84-425c-bbbd-f1fe59ca1794"
 			name="setup">
 			</setup>
+			<testmodule
+			id="3354142f-e9b5-4b53-9740-2d0a60142bb6"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="typeParameter"
+					datasourceid="c4fdacf6-be9d-4242-bc6c-0f1732c28eea"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToVisibilityParameter"
+					datasourceid="c4fdacf6-be9d-4242-bc6c-0f1732c28eea"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="visibility"
+					datasourceid="c4fdacf6-be9d-4242-bc6c-0f1732c28eea"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueType"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
 			name="CloseAUT"
@@ -145,16 +374,141 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="3a0c0599-3a24-456e-8532-9676b93f5e11"
+			name="ZoomToExtentCurrentView"
+			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
+			type="Recording">
+			</testmodule>
 			<setup
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="3ab20c75-3831-4260-80c0-236ad92730a9"
+			name="HideAllLayers">
+				<parameters>
+					<param
+					name="visibilityStatusAllLayers"
+					value="">
+					</param>
+					<param
+					name="nameParameterVisibility"
+					value="Weergeven">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script29a_AddBackgroundLayer"
+			id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+			name="TryToExportMapLayer">
+				<parameters>
+					<param
+					name="optionToExportItem"
+					value="Exporteren">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="3d7305d6-533c-4620-b1d1-7134ee2d523f"
 			name="SelectBackgroundMap"
 			ref="d035a6b8-ea2d-4376-8933-25d2336cd530"
 			type="Recording">
+				<description>
+					<![CDATA[Add control so that if no connection is possible, it fails f=gracefully]]>
+				</description>
 			</testmodule>
+			<testmodule
+			id="3da291f2-278e-49d4-b592-9ae1d16e57b3"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
+			id="3db18c42-a294-4eb7-8a80-b15bb0a7d809"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="typeParameter"
+					datasourceid="921fad87-68fc-4c0d-976a-2d972bf0fe49"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToVisibilityParameter"
+					datasourceid="921fad87-68fc-4c0d-976a-2d972bf0fe49"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="visibility"
+					datasourceid="921fad87-68fc-4c0d-976a-2d972bf0fe49"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueType"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3f2a781e-e400-4c0c-a8ec-c2be8f3d050e"
+			name="ValidateWhetherFolderGivenPathContainsNode"
+			ref="d902c15b-f5aa-4db3-a0a1-e4af2b09c2ca"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToRootFolder"
+					datasourceid="f1af2faf-ca53-41e8-b16f-1360c988214d"
+					variableid="78cde0a3-4042-453e-a0dd-656345445114"
+					variablename="pathToFolder">
+					</var>
+					<var
+					dataname="layerName"
+					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
+					variableid="a99747df-1774-42b3-9164-2861023d359c"
+					variablename="nameOfNode">
+					</var>
+					<var
+					dataname="isLayerExpected"
+					datasourceid="f1af2faf-ca53-41e8-b16f-1360c988214d"
+					variableid="6549233a-4e6c-4e40-96d1-5453ee5f08ec"
+					variablename="nodeIsExpectedToBeContained">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script29b_LoopValidateLayersTraject"
+			id="4204660d-d5a3-4d1a-aa8e-813fa0f3ea7c"
+			maxrange="1"
+			minrange="0"
+			name="LoopValidateLayersTraject">
+				<parameters>
+					<param
+					name="nameSmartFolderStylingLayer"
+					value="CustomizeLayerStyleParameter">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="441deba0-5db6-49c9-9a71-52851e0432ef"
 			name="CreateScreenShotEntireApplication"
@@ -162,15 +516,52 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script29a_LoopItemWithMap"
 			id="442336b7-dbb3-438a-b0ee-04153d608980"
-			maxrange="12"
-			minrange="12"
+			maxrange="1"
+			minrange="1"
 			name="LoopItemWithMap">
 			</smartfoldernode>
 			<testmodule
 			id="446e901f-3bf1-4484-b925-0aab9e97c17e"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="4671aadd-5c54-4a07-9d3d-5e46f30ba67f"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<smartfoldernode
+			id="4733d22b-0942-4ced-9f2c-0c86127ab232"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="projectToOpen"
+					value="X:\script29\currentRelease\Project_andere.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="47393bab-a31b-42bd-bd57-542597d7b9ee"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="layerName"
+					datasourceid="aa9d7764-61b9-4353-9631-1aacd39521d6"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="474742a8-2148-4791-b8a2-896f572c1540"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="4938c2ae-8834-4b3c-a1de-ed553d8dd123"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
@@ -220,6 +611,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="4d67f097-7407-4c24-8cda-118d24d54ae9"
+			name="ToggleVisibilityAllLayers"
+			ref="fc3fbe79-ece7-4b7d-a17b-826b866c1686"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -240,12 +637,83 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script29a_AddBackgroundLayer"
+			id="4e426e5e-8a45-42b3-be56-872c597d634e"
+			name="RemoveAddedLayer">
+			</smartfoldernode>
+			<testmodule
+			id="4e6727e1-6135-4a9e-9f1a-6c8076908385"
+			name="CloseTabView"
+			ref="eceb2ae3-640b-479d-9053-4728c2a6bb35"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="dataViewIndexToClose"
+					datasourceid="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="4ec1ab1c-c8c9-43e6-b1dd-a9508b32fb75"
+			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
+			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="visibilityStatusAllLayers"
+					datasourceid="3ab20c75-3831-4260-80c0-236ad92730a9"
+					variableid="aa67bace-369b-415d-9394-acf9d1836168"
+					variablename="valueOfParameter">
+					</var>
+					<var
+					dataname="nameParameterVisibility"
+					datasourceid="3ab20c75-3831-4260-80c0-236ad92730a9"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
 			id="4f709825-2cec-444e-a2ab-12b182c76449"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
+			<testmodule
+			id="5175d73e-95d9-4313-acc3-466a98f32d42"
+			name="SetRandomRowWithinRangeSmartFolder"
+			ref="d0d5e1a6-fbfc-4491-a44a-e731880352a4"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderIterations"
+					datasourceid="fb315422-f292-4395-90b8-a84acc5dd7d7"
+					variableid="28356f49-3ecf-4e67-b40c-4e2c494e61ce"
+					variablename="nameSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="52831fca-a75f-45cf-979e-014ea6e6f752"
 			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="5449b097-1c64-4453-b681-8fff69eb7b8b"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="5a426a1b-210c-4e89-86f3-38b4834e93f2"
+			name="ValidateThatExpectedLayersExist">
 			</smartfoldernode>
 			<testmodule
 			id="5bea3a46-13b6-4f52-9f0f-c0b111da9559"
@@ -335,7 +803,49 @@
 			</testcase>
 			<smartfoldernode
 			id="62182200-29fe-4215-8fe2-0d779f46885f"
-			name="b)FMRelatedDataLayers">
+			name="b)SectionAndFMRelatedDataLayers">
+			</smartfoldernode>
+			<testmodule
+			id="65023644-73fd-462a-a337-728c85743ccd"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelToBeShown"
+					datasourceid="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+			name="CloseOpenTabView">
+				<parameters>
+					<param
+					name="dataViewIndexToClose"
+					value="2">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="6ab69d21-7f04-426b-9d7f-572bab369af3"
+			name="OpenMapTraject">
+				<parameters>
+					<param
+					name="pathTraject"
+					value="Traject">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="6c9d01ed-6dbe-4931-a0db-834993385813"
@@ -343,10 +853,68 @@
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="6d343a66-0ae5-4240-8c0c-cf27757996c2"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="6e8c214f-2172-4fe6-9219-cc89c6330543"
+			name="ZoomToExtentAfterImportedShapeLayer">
+			</smartfoldernode>
+			<testmodule
+			id="6ea07ef3-7fac-4a6b-af44-bcbefe5a0eec"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationPressRightKeyToExpandAll"
+					datasourceid="edc95492-b369-44c4-bfb5-b9e6e7d010f7"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="durationRightKey"
+					datasourceid="27244f6b-5185-4fe9-b709-ded1ec69674b"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13"
 			name="a)BackgroundMap">
 			</smartfoldernode>
+			<testmodule
+			id="78cc0896-d54a-4518-bd8c-b21967eccdc6"
+			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
+			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="visibilityStatusAllLayers"
+					datasourceid="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+					variableid="aa67bace-369b-415d-9394-acf9d1836168"
+					variablename="valueOfParameter">
+					</var>
+					<var
+					dataname="nameParameterVisibility"
+					datasourceid="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="7a91f0ba-1ff7-479f-a1da-9dfbb0db3fe0"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="7d948916-5be4-456c-b8fa-514578862360"
 			name="MoveViewTabToNewVerticalGroup"
@@ -362,8 +930,83 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="7f9d79e3-cefc-4d2b-8844-707e864bb5fb"
+			name="SelectDynamicDropDownParameter">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="valueType"
+								id="e079db33-936e-4f23-80ce-3eb19b64441b">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="7ffbe541-b662-4542-8b2d-34c676c68468"
+			name="RemoveCurrentlySelectedMapLayer"
+			ref="2937bfe8-7297-4490-8b91-8914529fff94"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="808de86e-481f-4680-8584-f7547c1d80ab"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="81bfc6a6-f79f-4a05-9b78-4349ba9b1e4b"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="81e2b966-d40a-4ae3-992b-a694c8b92373"
+			name="ZoomToExtentCurrentView"
+			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
 			id="83107259-255e-4fb2-ba9a-dd152f82338f"
 			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="8506c517-055d-4c71-9998-423fe227b2c3"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="projectToOpen"
+					datasourceid="4733d22b-0942-4ced-9f2c-0c86127ab232"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="88391947-d461-4237-be4c-4987d4df7de6"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			datasource="script29b_LayerParameters"
+			errorbehavior="ContinueNextIteration"
+			id="88c33938-b0f0-4724-b5da-1bd94c9c5e54"
+			name="CustomizeLayerStyleParameter">
 			</smartfoldernode>
 			<testmodule
 			id="8a38fa2c-278a-402b-b04b-76be9a606eba"
@@ -379,6 +1022,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8e747b7d-798d-46b7-a8cb-52222b33a15b"
+			name="MakeMapLayersPanelVisible">
+				<parameters>
+					<param
+					name="nameProjectExplorerPanel"
+					value="Kaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="8eb43fa5-ba7d-4cb2-8f56-9719681b97f4"
 			name="CreateScreenShotEntireApplication"
@@ -390,6 +1043,96 @@
 			name="CreateScreenShotEntireApplication"
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
 			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="921fad87-68fc-4c0d-976a-2d972bf0fe49"
+			name="MakeCurrentLayerInvisible">
+				<parameters>
+					<param
+					name="pathToVisibilityParameter"
+					value="Kaartlaag>Weergeven">
+					</param>
+					<param
+					name="visibility"
+					value="False">
+					</param>
+					<param
+					name="typeParameter"
+					value="Text">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="92656838-26e6-4c9f-b31a-f9aca6d153ee"
+			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
+			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="visibilityStatusAllLayers"
+					datasourceid="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+					variableid="aa67bace-369b-415d-9394-acf9d1836168"
+					variablename="valueOfParameter">
+					</var>
+					<var
+					dataname="nameParameterVisibility"
+					datasourceid="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="9652d076-9748-4d87-b02d-c3edf2c377ea"
+			name="ZoomToExtentAfterImportedShapeLayer">
+			</smartfoldernode>
+			<testmodule
+			id="9817bc7c-1c12-46fe-b608-9e9b56af8e6f"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<smartfoldernode
+			id="9d6fac42-80f6-4e44-bbfe-49d0f78660d4"
+			name="MakeProjectExplorerPanelVisible">
+				<parameters>
+					<param
+					name="nameProjectExplorerPanel"
+					value="Projectverkenner">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="9e65b57b-81c5-4e0e-8b03-aca099846d71"
+			name="MakeCurrentLayerInvisible">
+				<parameters>
+					<param
+					name="pathToVisibilityParameter"
+					value="Kaartlaag>Weergeven">
+					</param>
+					<param
+					name="visibility"
+					value="False">
+					</param>
+					<param
+					name="typeParameter"
+					value="Text">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="9ef9c56c-2b6f-4331-8441-c8621d60dec7"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="projectToOpen"
+					datasourceid="a679f165-e456-4fa5-9ab6-493bf3f5f8ad"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="9f40aec7-a47e-487d-8c8e-ed686097e5ce"
@@ -417,13 +1160,91 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="9f66c504-848f-463e-ae94-ec372077e8f4"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="layerName"
+					datasourceid="aa9d7764-61b9-4353-9631-1aacd39521d6"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="a083e8e6-6afa-444a-817e-9d028fd98054"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameProjectExplorerPanel"
+					datasourceid="9d6fac42-80f6-4e44-bbfe-49d0f78660d4"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="a337bd57-bb7c-4f22-b9d1-649962bce3c7"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="a4f325a4-4976-43df-96e7-35a016efed41"
 			name="teardown">
 			</teardown>
 			<smartfoldernode
 			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2"
-			name="OpenMap">
+			name="OpenMapFM">
+			</smartfoldernode>
+			<smartfoldernode
+			id="a679f165-e456-4fa5-9ab6-493bf3f5f8ad"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="projectToOpen"
+					value="X:\script29\currentRelease\Project_andere.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="a71b9081-8e16-4165-89f3-c6f82ae9b4c7"
+			name="SetActiveTabView"
+			ref="69aec744-9ae4-44f8-8d63-455acdcf0f37"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexView"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840"
+			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
 			<testmodule
 			id="ac94291c-3234-4130-8b51-0986a496639a"
@@ -453,6 +1274,74 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="acda767c-35ba-4c12-8070-843f2d5aabb4"
+			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
+			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="visibilityStatusAllLayers"
+					datasourceid="3ab20c75-3831-4260-80c0-236ad92730a9"
+					variableid="aa67bace-369b-415d-9394-acf9d1836168"
+					variablename="valueOfParameter">
+					</var>
+					<var
+					dataname="nameParameterVisibility"
+					datasourceid="3ab20c75-3831-4260-80c0-236ad92730a9"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b093accd-d13a-4a30-b296-6e332b6d7577"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameProjectExplorerPanel"
+					datasourceid="e754095c-090c-48a5-a11f-8e8b3be6d0b7"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b32580fd-0053-4017-87f5-4c3b80be26f8"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueType"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b4366028-12be-4cd9-9e4b-a47189d0f18f"
 			name="OpenProject">
@@ -463,6 +1352,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b4daa907-f38a-4c4a-b06f-49da695e1214"
+			name="ZoomMapViewWithMouseWheel"
+			ref="2e681757-ed2c-40ba-a41e-d1f72438b832"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexViewToZoom"
+					datasourceid="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
+					variablename="indexContainerMap">
+					</var>
+					<var
+					dataname="deltaVerticalZoom"
+					datasourceid="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+					variableid="91462502-81dc-42f8-86ef-441b19386843"
+					variablename="deltaWheelMouseVertical">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -479,13 +1388,55 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder=""
+			reporttemplatefolder="ReportMoreInformativeIterations"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testcase
 			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
 			name="script00_MigrateProjectsFromPreviousVersions">
 			</testcase>
+			<smartfoldernode
+			id="b7ec233b-d824-4518-82bf-e7c2a78d1fe3"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="bff8084b-afb3-472c-91ac-1afa8d0f74b8"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderStylingLayer"
+					datasourceid="4204660d-d5a3-4d1a-aa8e-813fa0f3ea7c"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeStyleParameters"
+					datasourceid="aa9d7764-61b9-4353-9631-1aacd39521d6"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="c4fdacf6-be9d-4242-bc6c-0f1732c28eea"
+			name="MakeCurrentLayerVisible">
+				<parameters>
+					<param
+					name="pathToVisibilityParameter"
+					value="Kaartlaag>Weergeven">
+					</param>
+					<param
+					name="visibility"
+					value="True">
+					</param>
+					<param
+					name="typeParameter"
+					value="Text">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8"
 			name="OpenMapTraject">
@@ -496,6 +1447,66 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="c7c31a91-2a89-49b7-a188-0e50337b8534"
+			name="AddBackgroundLayer"
+			ref="46407bea-c0f2-409e-8831-e2e674d7fad1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="backgroundFileName"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="c9059f9b-2c9c-417c-8ba9-4be4295b4acd"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="typeParameter"
+					datasourceid="9e65b57b-81c5-4e0e-8b03-aca099846d71"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToVisibilityParameter"
+					datasourceid="9e65b57b-81c5-4e0e-8b03-aca099846d71"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="visibility"
+					datasourceid="9e65b57b-81c5-4e0e-8b03-aca099846d71"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueType"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="c91947e6-3202-4824-b5fd-572076e335cf"
 			name="nthStepFromPath"
@@ -522,6 +1533,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="d111ec2c-aba2-4ad7-9151-2bc33a478513"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameProjectExplorerPanel"
+					datasourceid="8e747b7d-798d-46b7-a8cb-52222b33a15b"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
@@ -538,6 +1571,26 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="d31a9781-3645-4c8d-ab48-5fa1a8f38780"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d385580f-bd59-40fc-92df-14829f9c3fe1"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -550,6 +1603,98 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+			name="HideAllLayers">
+				<parameters>
+					<param
+					name="visibilityStatusAllLayers"
+					value="">
+					</param>
+					<param
+					name="nameParameterVisibility"
+					value="Weergeven">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script29a_ZoomInZoomOut"
+			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6"
+			name="ZoomInZoomOut">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d5e21dbc-f440-4107-be85-e79fb8944279"
+			name="FMs">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d7001703-7063-4b14-bc0b-93b7c3de20ad"
+			name="Section(Traject)">
+			</smartfoldernode>
+			<testmodule
+			id="d7ae87e6-a2c1-492d-93bd-28685bacaab5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssemblyCombinedAssessmentSection"
+					datasourceid="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="d9e97916-207b-48b9-95e4-7e8a49c201f8"
+			name="ZoomToExtentCurrentView"
+			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="dc2b49a7-02b9-4c47-9eba-5c7be0e7fd9b"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="dd4cc6a8-6ff7-4b3a-8d2a-e13d6afd7dc5"
+			name="VisibilityNeedsToChange">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="visibilityStatusAllLayers"
+								id="3ab20c75-3831-4260-80c0-236ad92730a9">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Niet">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="e22558bf-7e58-4950-b8c1-0a466c3a5962"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="e3280708-ff7d-48ea-88c8-d720eed8791e"
@@ -570,10 +1715,121 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script29b_LoopHideAllLayers"
+			id="e5456703-bf74-456a-bcfa-6bb8fb953d4a"
+			name="LoopToHideAllLayers">
+			</smartfoldernode>
+			<smartfoldernode
+			id="e754095c-090c-48a5-a11f-8e8b3be6d0b7"
+			name="MakeProjectExplorerPanelVisible">
+				<parameters>
+					<param
+					name="nameProjectExplorerPanel"
+					value="Projectverkenner">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+			name="ShowMapLayersPanel">
+				<parameters>
+					<param
+					name="namePanelToBeShown"
+					value="Kaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
-			name="c)AssemblyMap">
+			name="c)ValidateLayersOfAssemblyMap">
+			</smartfoldernode>
+			<smartfoldernode
+			id="edc95492-b369-44c4-bfb5-b9e6e7d010f7"
+			name="MakeAllItemsInPropertiesPanelVisible">
+				<parameters>
+					<param
+					name="durationPressRightKeyToExpandAll"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="edf95061-8db3-476e-9593-3b69d956c7e0"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAddedLayer"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f16d2e96-3de9-4c36-bdd9-f1515abf56ef"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="typeParameter"
+					datasourceid="ff5242f4-16a9-4bb9-9eb6-15034f46f922"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToVisibilityParameter"
+					datasourceid="ff5242f4-16a9-4bb9-9eb6-15034f46f922"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="visibility"
+					datasourceid="ff5242f4-16a9-4bb9-9eb6-15034f46f922"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="parameterPath"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueType"
+					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script29_LayersInMapViewForAssemblyCombinedAssessmentSection"
+			id="f1af2faf-ca53-41e8-b16f-1360c988214d"
+			name="LoopValidateThatEachLayerExists">
+				<parameters>
+					<param
+					name="pathToRootFolder"
+					value="">
+					</param>
+					<param
+					name="isLayerExpected"
+					value="true">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			enabled="False"
 			id="f1d26e5d-3c8e-467b-abaa-219a2e90e895"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -584,6 +1840,20 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f1eaaa91-eee9-441a-b2c3-ca959d97b4be"
+			name="VerifyItemPresentInContextMenu"
+			ref="59075182-3627-4f07-a091-1ce36691ee66"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="optionToExportItem"
+					datasourceid="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+					variableid="ddcaf430-e452-4fc9-819d-4a31547a7865"
+					variablename="nameOfItem">
 					</var>
 				</databinding>
 			</testmodule>
@@ -601,10 +1871,70 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="f3933d5e-92fd-45c3-81fe-563f1ffba542"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathTraject"
+					datasourceid="6ab69d21-7f04-426b-9d7f-572bab369af3"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script29a_AddBackgroundLayer"
+			id="f44bca68-24dc-4702-bc19-0c4cee360d73"
+			name="AddBackgroundLayer">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script29b_LoopHideAllLayers"
+			id="f8ccfff5-874b-4714-aafb-222d0e57ca83"
+			name="LoopToHideAllLayers">
+			</smartfoldernode>
 			<smartfoldernode
 			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
+			<smartfoldernode
+			id="fb315422-f292-4395-90b8-a84acc5dd7d7"
+			name="SelectRandomFM">
+				<parameters>
+					<param
+					name="nameSmartFolderIterations"
+					value="LoopItemWithMap">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="fbb45401-6850-4019-a505-87995b217ef3"
+			name="ReportScreenShotOfApplication">
+			</smartfoldernode>
+			<testmodule
+			id="fc6c62ab-8e29-4ccc-8eeb-062d0077371e"
+			name="SelectGenericItemInMapLayersPanel"
+			ref="cf9c875a-ab88-4601-8761-ea9df4788e02"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="layerName"
+					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="layerName"
+					datasourceid="aa9d7764-61b9-4353-9631-1aacd39521d6"
+					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
+					variablename="pathToItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88"
 			name="DisableBackgroundMap">
@@ -620,6 +1950,46 @@
 					<param
 					name="newValueShowBackground"
 					value="False">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="feae535f-79b4-4b96-8888-1d11c1f61b17"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelToBeShown"
+					datasourceid="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="ff5242f4-16a9-4bb9-9eb6-15034f46f922"
+			name="MakeCurrentLayerVisible">
+				<parameters>
+					<param
+					name="pathToVisibilityParameter"
+					value="Kaartlaag>Weergeven">
+					</param>
+					<param
+					name="visibility"
+					value="True">
+					</param>
+					<param
+					name="typeParameter"
+					value="Text">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -690,6 +2060,14 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
+							id="fb315422-f292-4395-90b8-a84acc5dd7d7"
+							name="SelectRandomFM">
+								<testmodule
+								id="5175d73e-95d9-4313-acc3-466a98f32d42"
+								name="SetRandomRowWithinRangeSmartFolder">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
 							id="442336b7-dbb3-438a-b0ee-04153d608980"
 							name="LoopItemWithMap">
 								<smartfoldernode
@@ -706,7 +2084,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2"
-								name="OpenMap">
+								name="OpenMapFM">
 									<testmodule
 									id="5bea3a46-13b6-4f52-9f0f-c0b111da9559"
 									name="SelectGenericItemInProjectExplorer">
@@ -804,15 +2182,415 @@
 									name="CreateScreenShotEntireApplication">
 									</testmodule>
 								</smartfoldernode>
+								<smartfoldernode
+								id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6"
+								name="ZoomInZoomOut">
+									<testmodule
+									id="b4daa907-f38a-4c4a-b06f-49da695e1214"
+									name="ZoomMapViewWithMouseWheel">
+									</testmodule>
+									<testmodule
+									id="e22558bf-7e58-4950-b8c1-0a466c3a5962"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa"
+								name="AddExtraLayerBackground">
+									<smartfoldernode
+									id="04fb9157-0472-4c00-b35c-9b3eb3a68464"
+									name="ShowMapPanel">
+										<testmodule
+										id="dc2b49a7-02b9-4c47-9eba-5c7be0e7fd9b"
+										name="MakePanelOnLeftVisible">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f44bca68-24dc-4702-bc19-0c4cee360d73"
+									name="AddBackgroundLayer">
+										<testmodule
+										id="a71b9081-8e16-4165-89f3-c6f82ae9b4c7"
+										name="SetActiveTabView">
+										</testmodule>
+										<testmodule
+										id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
+										name="LogMessage">
+										</testmodule>
+										<testmodule
+										id="c7c31a91-2a89-49b7-a188-0e50337b8534"
+										name="AddBackgroundLayer">
+										</testmodule>
+										<smartfoldernode
+										id="9652d076-9748-4d87-b02d-c3edf2c377ea"
+										name="ZoomToExtentAfterImportedShapeLayer">
+											<testmodule
+											id="3a0c0599-3a24-456e-8532-9676b93f5e11"
+											name="ZoomToExtentCurrentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="474742a8-2148-4791-b8a2-896f572c1540"
+										name="ReportScreenShotOfApplication">
+											<testmodule
+											id="7a91f0ba-1ff7-479f-a1da-9dfbb0db3fe0"
+											name="CreateScreenShotEntireApplication">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7"
+								name="TryToExportMapLayer">
+									<testmodule
+									id="a337bd57-bb7c-4f22-b9d1-649962bce3c7"
+									name="SetActiveTabView">
+									</testmodule>
+									<testmodule
+									id="edf95061-8db3-476e-9593-3b69d956c7e0"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="f1eaaa91-eee9-441a-b2c3-ca959d97b4be"
+									name="VerifyItemPresentInContextMenu">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="4e426e5e-8a45-42b3-be56-872c597d634e"
+								name="RemoveAddedLayer">
+									<testmodule
+									id="1a23006f-798a-41bf-83e6-b6caf73202d2"
+									name="SetActiveTabView">
+									</testmodule>
+									<testmodule
+									id="24d49fd3-02b9-4ba6-88c0-c0c302f54071"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="7ffbe541-b662-4542-8b2d-34c676c68468"
+									name="RemoveCurrentlySelectedMapLayer">
+									</testmodule>
+									<smartfoldernode
+									id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840"
+									name="ReportScreenShotOfApplication">
+										<testmodule
+										id="808de86e-481f-4680-8584-f7547c1d80ab"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="67ba1c26-6b3e-429b-9c1c-4ca80730b054"
+								name="CloseOpenTabView">
+									<testmodule
+									id="4e6727e1-6135-4a9e-9f1a-6c8076908385"
+									name="CloseTabView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="9d6fac42-80f6-4e44-bbfe-49d0f78660d4"
+								name="MakeProjectExplorerPanelVisible">
+									<testmodule
+									id="a083e8e6-6afa-444a-817e-9d028fd98054"
+									name="MakePanelOnLeftVisible">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="62182200-29fe-4215-8fe2-0d779f46885f"
-						name="b)FMRelatedDataLayers">
+						name="b)SectionAndFMRelatedDataLayers">
+							<smartfoldernode
+							id="d7001703-7063-4b14-bc0b-93b7c3de20ad"
+							name="Section(Traject)">
+								<smartfoldernode
+								id="a679f165-e456-4fa5-9ab6-493bf3f5f8ad"
+								name="OpenProject">
+									<testmodule
+									id="9ef9c56c-2b6f-4331-8441-c8621d60dec7"
+									name="OpenProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e754095c-090c-48a5-a11f-8e8b3be6d0b7"
+								name="MakeProjectExplorerPanelVisible">
+									<testmodule
+									id="b093accd-d13a-4a30-b296-6e332b6d7577"
+									name="MakePanelOnLeftVisible">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="6ab69d21-7f04-426b-9d7f-572bab369af3"
+								name="OpenMapTraject">
+									<testmodule
+									id="f3933d5e-92fd-45c3-81fe-563f1ffba542"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="4938c2ae-8834-4b3c-a1de-ed553d8dd123"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8e747b7d-798d-46b7-a8cb-52222b33a15b"
+								name="MakeMapLayersPanelVisible">
+									<testmodule
+									id="d111ec2c-aba2-4ad7-9151-2bc33a478513"
+									name="MakePanelOnLeftVisible">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="20cc41d4-dead-4f32-a60d-3ea20716bf19"
+								name="AddBackgroundLayer(TypePolygon)">
+									<testmodule
+									id="0353497f-87be-42bc-ac38-e66593e71224"
+									name="AddBackgroundLayer">
+									</testmodule>
+									<smartfoldernode
+									id="6e8c214f-2172-4fe6-9219-cc89c6330543"
+									name="ZoomToExtentAfterImportedShapeLayer">
+										<testmodule
+										id="81e2b966-d40a-4ae3-992b-a694c8b92373"
+										name="ZoomToExtentCurrentView">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03"
+								name="HideAllLayers">
+									<testmodule
+									id="92656838-26e6-4c9f-b31a-f9aca6d153ee"
+									name="GetValueParameterCurrentlyVisibleInPropertiesPanel">
+									</testmodule>
+									<smartfoldernode
+									id="f8ccfff5-874b-4714-aafb-222d0e57ca83"
+									name="LoopToHideAllLayers">
+										<smartfoldernode
+										id="1cf35353-6189-499b-9bff-74e114578342"
+										name="VisibilityNeedsToChange">
+											<testmodule
+											id="4d67f097-7407-4c24-8cda-118d24d54ae9"
+											name="ToggleVisibilityAllLayers">
+											</testmodule>
+											<testmodule
+											id="78cc0896-d54a-4518-bd8c-b21967eccdc6"
+											name="GetValueParameterCurrentlyVisibleInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="4204660d-d5a3-4d1a-aa8e-813fa0f3ea7c"
+								name="LoopValidateLayersTraject">
+									<testmodule
+									id="47393bab-a31b-42bd-bd57-542597d7b9ee"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<smartfoldernode
+									id="ff5242f4-16a9-4bb9-9eb6-15034f46f922"
+									name="MakeCurrentLayerVisible">
+										<testmodule
+										id="f16d2e96-3de9-4c36-bdd9-f1515abf56ef"
+										name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="9f66c504-848f-463e-ae94-ec372077e8f4"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="2eba1cae-a43f-416e-8fa6-6102e4b51018"
+									name="ZoomToExtentCurrentView">
+									</testmodule>
+									<smartfoldernode
+									id="b7ec233b-d824-4518-82bf-e7c2a78d1fe3"
+									name="ReportScreenShotOfApplication">
+										<testmodule
+										id="6d343a66-0ae5-4240-8c0c-cf27757996c2"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="bff8084b-afb3-472c-91ac-1afa8d0f74b8"
+									name="SetRangeInSmartFolder">
+									</testmodule>
+									<smartfoldernode
+									id="88c33938-b0f0-4724-b5da-1bd94c9c5e54"
+									name="CustomizeLayerStyleParameter">
+										<testmodule
+										id="b32580fd-0053-4017-87f5-4c3b80be26f8"
+										name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+										</testmodule>
+										<smartfoldernode
+										id="7f9d79e3-cefc-4d2b-8844-707e864bb5fb"
+										name="SelectDynamicDropDownParameter">
+											<testmodule
+											id="d31a9781-3645-4c8d-ab48-5fa1a8f38780"
+											name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="fbb45401-6850-4019-a505-87995b217ef3"
+									name="ReportScreenShotOfApplication">
+										<testmodule
+										id="26cbab9a-9d43-4e73-94f0-a93ab7eedc63"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="921fad87-68fc-4c0d-976a-2d972bf0fe49"
+									name="MakeCurrentLayerInvisible">
+										<testmodule
+										id="3db18c42-a294-4eb7-8a80-b15bb0a7d809"
+										name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="d5e21dbc-f440-4107-be85-e79fb8944279"
+							name="FMs">
+							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4"
-						name="c)AssemblyMap">
+						name="c)ValidateLayersOfAssemblyMap">
+							<smartfoldernode
+							id="4733d22b-0942-4ced-9f2c-0c86127ab232"
+							name="OpenProject">
+								<testmodule
+								id="8506c517-055d-4c71-9998-423fe227b2c3"
+								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="2d484214-ae86-44e0-b900-d74e92ba5fb7"
+							name="ShowProjectExplorerPanel">
+								<testmodule
+								id="feae535f-79b4-4b96-8888-1d11c1f61b17"
+								name="MakePanelOnLeftVisible">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="1eeb3a34-0e30-4e05-8897-26543ec7ed73"
+							name="OpenViewForAssemblyCombinedAssessmentSection">
+								<testmodule
+								id="d7ae87e6-a2c1-492d-93bd-28685bacaab5"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="5449b097-1c64-4453-b681-8fff69eb7b8b"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a"
+							name="ShowMapLayersPanel">
+								<testmodule
+								id="65023644-73fd-462a-a337-728c85743ccd"
+								name="MakePanelOnLeftVisible">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5a426a1b-210c-4e89-86f3-38b4834e93f2"
+							name="ValidateThatExpectedLayersExist">
+								<smartfoldernode
+								id="02e4a835-ca5f-4fcb-9717-7ec4debae405"
+								name="ReportScreenShotOfApplication">
+									<testmodule
+									id="88391947-d461-4237-be4c-4987d4df7de6"
+									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="3ab20c75-3831-4260-80c0-236ad92730a9"
+								name="HideAllLayers">
+									<testmodule
+									id="4ec1ab1c-c8c9-43e6-b1dd-a9508b32fb75"
+									name="GetValueParameterCurrentlyVisibleInPropertiesPanel">
+									</testmodule>
+									<smartfoldernode
+									id="e5456703-bf74-456a-bcfa-6bb8fb953d4a"
+									name="LoopToHideAllLayers">
+										<smartfoldernode
+										id="dd4cc6a8-6ff7-4b3a-8d2a-e13d6afd7dc5"
+										name="VisibilityNeedsToChange">
+											<testmodule
+											id="17725f4f-5c0a-4ae4-bcdb-724cfc956e16"
+											name="ToggleVisibilityAllLayers">
+											</testmodule>
+											<testmodule
+											id="acda767c-35ba-4c12-8070-843f2d5aabb4"
+											name="GetValueParameterCurrentlyVisibleInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<testmodule
+								id="0dc37397-1c31-4a73-829c-aff2e003491c"
+								name="CreateScreenshotOfMapLayersPanel">
+								</testmodule>
+								<smartfoldernode
+								id="f1af2faf-ca53-41e8-b16f-1360c988214d"
+								name="LoopValidateThatEachLayerExists">
+									<testmodule
+									id="3f2a781e-e400-4c0c-a8ec-c2be8f3d050e"
+									name="ValidateWhetherFolderGivenPathContainsNode">
+									</testmodule>
+									<testmodule
+									id="07e96765-85ea-4bb0-9ca1-628fc2be1726"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<smartfoldernode
+									id="c4fdacf6-be9d-4242-bc6c-0f1732c28eea"
+									name="MakeCurrentLayerVisible">
+										<testmodule
+										id="3354142f-e9b5-4b53-9740-2d0a60142bb6"
+										name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="fc6c62ab-8e29-4ccc-8eeb-062d0077371e"
+									name="SelectGenericItemInMapLayersPanel">
+									</testmodule>
+									<testmodule
+									id="d9e97916-207b-48b9-95e4-7e8a49c201f8"
+									name="ZoomToExtentCurrentView">
+									</testmodule>
+									<testmodule
+									id="9817bc7c-1c12-46fe-b608-9e9b56af8e6f"
+									name="HideRanorexProgressDialog">
+									</testmodule>
+									<smartfoldernode
+									id="edc95492-b369-44c4-bfb5-b9e6e7d010f7"
+									name="MakeAllItemsInPropertiesPanelVisible">
+										<testmodule
+										id="6ea07ef3-7fac-4a6b-af44-bcbefe5a0eec"
+										name="ExpandAllRowItemsInPropertiesPanel">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="4671aadd-5c54-4a07-9d3d-5e46f30ba67f"
+									name="ReportScreenShotOfApplication">
+										<testmodule
+										id="81bfc6a6-f79f-4a05-9b78-4349ba9b1e4b"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="9e65b57b-81c5-4e0e-8b03-aca099846d71"
+									name="MakeCurrentLayerInvisible">
+										<testmodule
+										id="c9059f9b-2c9c-417c-8ba9-4be4295b4acd"
+										name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="3da291f2-278e-49d4-b592-9ae1d16e57b3"
+									name="ShowRanorexProgressDialog">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
 						id="a4f325a4-4976-43df-96e7-35a016efed41"
@@ -829,52 +2607,13 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="5a6ec20d-3177-4636-b682-724e13a26235"
+		id="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 		lastknownrowcount="3"
-		name="script12_LoopFMs"
+		name="script29_LayersInMapViewForAssemblyCombinedAssessmentSection"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
-				</column>
-				<column>
-					trajectToAdd
-				</column>
-				<column>
-					norm
-				</column>
-				<column>
-					originalFiles
-				</column>
-				<column>
-					filesModifiedElements
-				</column>
-				<column>
-					filesRemovedElements
-				</column>
-				<column>
-					pathToStructuresFolderItemInProjectExplorer
-				</column>
-				<column>
-					nameOfFileToImportStructures
-				</column>
-				<column>
-					rangeStructures
-				</column>
-				<column>
-					rangeModifiedStructures
-				</column>
-				<column>
-					rangeRemovedItems
-				</column>
-				<column>
-					rangeRemainingItems
-				</column>
-				<column>
-					disjointedTrajectToAdd
-				</column>
-				<column>
-					pathDisjointedTrajectToStructuresFolderItemInProjectExplorer
+					layerName
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -882,465 +2621,88 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
-					</th>
-					<th>
-						trajectToAdd
-					</th>
-					<th>
-						norm
-					</th>
-					<th>
-						originalFiles
-					</th>
-					<th>
-						filesModifiedElements
-					</th>
-					<th>
-						filesRemovedElements
-					</th>
-					<th>
-						pathToStructuresFolderItemInProjectExplorer
-					</th>
-					<th>
-						nameOfFileToImportStructures
-					</th>
-					<th>
-						rangeStructures
-					</th>
-					<th>
-						rangeModifiedStructures
-					</th>
-					<th>
-						rangeRemovedItems
-					</th>
-					<th>
-						rangeRemainingItems
-					</th>
-					<th>
-						disjointedTrajectToAdd
-					</th>
-					<th>
-						pathDisjointedTrajectToStructuresFolderItemInProjectExplorer
+						layerName
 					</th>
 				</tr>
 				<tr>
 					<td>
-						HTKW
+						Gecombineerd vakoordeel
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingen
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Referentielijn
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="3c6434b8-490e-433d-bfa3-1bce94643159"
+		lastknownrowcount="2"
+		name="script29a_AddBackgroundLayer"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					backgroundFileName
+				</column>
+				<column>
+					remark
+				</column>
+				<column>
+					indexView
+				</column>
+				<column>
+					pathToAddedLayer
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						backgroundFileName
+					</th>
+					<th>
+						remark
+					</th>
+					<th>
+						indexView
+					</th>
+					<th>
+						pathToAddedLayer
+					</th>
+				</tr>
+				<tr>
+					<td>
+						X:\script29\background\brt_2011_gn1.shp
 					</td>
 					<td>
-						36-2
-					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\original
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\modified
-					</td>
-					<td>
-						X:\script12\01_HTKW_36-2\removed
-					</td>
-					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						HTkw_traject_36-2.shp
-					</td>
-					<td>
-						1-2
-					</td>
-					<td>
-						1-2
+						Large (17 MB) shape file
 					</td>
 					<td>
 						1
 					</td>
 					<td>
-						1
-					</td>
-					<td>
-						8-5
-					</td>
-					<td>
-						8-5&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
+						brt_2011_gn1
 					</td>
 				</tr>
 				<tr>
 					<td>
-						BSKW
+						X:\script29\background\gem_2011_gn1.shp
 					</td>
 					<td>
-						34-1
+						Small (600kB) shape file
 					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\original
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\modified
-					</td>
-					<td>
-						X:\script12\02_BSKW_34-1\removed
-					</td>
-					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						BSkw_traject_34-1.shp
-					</td>
-					<td>
-						3-5
-					</td>
-					<td>
-						3-5
-					</td>
-					<td>
-						2-4
-					</td>
-					<td>
-					</td>
-					<td>
-						8-6
-					</td>
-					<td>
-						8-6&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						44-2
-					</td>
-					<td>
-						Signal
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\original
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\modified
-					</td>
-					<td>
-						X:\script12\03_STKWp_44-2\removed
-					</td>
-					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
-					</td>
-					<td>
-						STkwp_traject_44-2.shp
-					</td>
-					<td>
-						6-9
-					</td>
-					<td>
-						6-9
-					</td>
-					<td>
-						5-6
-					</td>
-					<td>
-						2-3
-					</td>
-					<td>
-						8-7
-					</td>
-					<td>
-						8-7&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="00d753e2-44a8-454e-a738-2c4ccf324e17"
-		lastknownrowcount="3"
-		name="script12_LoopRemainingStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Keersluis Cuijk'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk4
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="0a3ba0f8-7c5c-498a-aaab-28472b874202"
-		lastknownrowcount="6"
-		name="script12_LoopRemovedStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Gemaal van Sasse'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Amersluis'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Schuddebeurs'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Hollandsch Diep'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="90223a5e-5cb5-4236-9312-8a11c8d09863"
-		lastknownrowcount="9"
-		name="script12_LoopStructures"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					structureName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						structureName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Keersluis Cuijk'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						'Gemaal van Sasse'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Amersluis'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Schuddebeurs'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						'Gemaal Hollandsch Diep'
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Kunstwerk4
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="8efa361c-1d0c-4f48-9b36-444e0d55c784"
-		lastknownrowcount="5"
-		name="script12_substringsImportingStructuresOnWrongTraject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					substringMessage
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						substringMessage
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						Importeren van
-					</td>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						is mislukt.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						ligt niet op de referentielijn.
-					</td>
-				</tr>
-				<tr>
 					<td>
 						2
 					</td>
 					<td>
-						Importeren van
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-					<td>
-						is gestart.
+						gem_2011_gn1
 					</td>
 				</tr>
 			</table>
@@ -1515,6 +2877,542 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
+		lastknownrowcount="4"
+		name="script29a_ZoomInZoomOut"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationInfo
+				</column>
+				<column>
+					indexViewToZoom
+				</column>
+				<column>
+					deltaVerticalZoom
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationInfo
+					</th>
+					<th>
+						indexViewToZoom
+					</th>
+					<th>
+						deltaVerticalZoom
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Zooming out view 1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Zooming in view 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						-600
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Zooming in view 1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						-800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Zooming out view 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						600
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="e079db33-936e-4f23-80ce-3eb19b64441b"
+		lastknownrowcount="23"
+		name="script29b_LayerParameters"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					parameterPath
+				</column>
+				<column>
+					newValue
+				</column>
+				<column>
+					layerType
+				</column>
+				<column>
+					valueType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						parameterPath
+					</th>
+					<th>
+						newValue
+					</th>
+					<th>
+						layerType
+					</th>
+					<th>
+						valueType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Op basis van
+					</td>
+					<td>
+						GM_NAAM
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Kleur
+					</td>
+					<td>
+						Orange
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijnkleur
+					</td>
+					<td>
+						Red
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijndikte
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Polygons
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Op basis van
+					</td>
+					<td>
+						Naam
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Kleur
+					</td>
+					<td>
+						Aqua
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijndikte
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijnstijl
+					</td>
+					<td>
+						Streep-stip
+					</td>
+					<td>
+						Lines
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kaartlaag&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Weergeven
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Labels&gt;Op basis van
+					</td>
+					<td>
+						ID
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Kleur
+					</td>
+					<td>
+						Fuchsia
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijnkleur
+					</td>
+					<td>
+						Yellow
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Lijndikte
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Grootte
+					</td>
+					<td>
+						25
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Stijl&gt;Symbool
+					</td>
+					<td>
+						Ster
+					</td>
+					<td>
+						Points
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="9a5d4fe3-4512-4979-88cb-42000bfcf37c"
+		lastknownrowcount="3"
+		name="script29b_LoopHideAllLayers"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationIndex
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationIndex
+					</th>
+				</tr>
+				<tr>
+					<td>
+						First iteration to disable visibility of all layers
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Second iteration to disable visibility of all layers
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Third iteration to disable visibility of all layers
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="aa9d7764-61b9-4353-9631-1aacd39521d6"
+		lastknownrowcount="3"
+		name="script29b_LoopValidateLayersTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					layerType
+				</column>
+				<column>
+					layerName
+				</column>
+				<column>
+					rangeStyleParameters
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						layerType
+					</th>
+					<th>
+						layerName
+					</th>
+					<th>
+						rangeStyleParameters
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Polygons
+					</td>
+					<td>
+						gem_2011_gn1
+					</td>
+					<td>
+						1-7
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Lines
+					</td>
+					<td>
+						Referentielijn
+					</td>
+					<td>
+						8-14
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Points
+					</td>
+					<td>
+						Hydraulische belastingen
+					</td>
+					<td>
+						15-23
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -1524,22 +3422,67 @@
 			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a">
 			</testcontainer>
 			<testcontainer
+			id="02e4a835-ca5f-4fcb-9717-7ec4debae405">
+			</testcontainer>
+			<testcontainer
+			id="04fb9157-0472-4c00-b35c-9b3eb3a68464">
+			</testcontainer>
+			<testcontainer
+			id="1cf35353-6189-499b-9bff-74e114578342">
+			</testcontainer>
+			<testcontainer
 			id="1ee80c63-849a-4b5f-8410-a74fa190e80e">
+			</testcontainer>
+			<testcontainer
+			id="1eeb3a34-0e30-4e05-8897-26543ec7ed73">
+			</testcontainer>
+			<testcontainer
+			id="20cc41d4-dead-4f32-a60d-3ea20716bf19">
+			</testcontainer>
+			<testcontainer
+			id="24ec5c5d-7e90-483a-afbf-8ec94dc1a3aa">
 			</testcontainer>
 			<testcontainer
 			id="27b9cfbe-8a70-4010-9524-e98161ca7046">
 			</testcontainer>
 			<testcontainer
+			id="2d484214-ae86-44e0-b900-d74e92ba5fb7">
+			</testcontainer>
+			<testcontainer
+			id="3ab20c75-3831-4260-80c0-236ad92730a9">
+			</testcontainer>
+			<testcontainer
+			id="3d09c16f-b5de-4d27-bfa8-9ca1065b91b7">
+			</testcontainer>
+			<testcontainer
+			id="4204660d-d5a3-4d1a-aa8e-813fa0f3ea7c">
+			</testcontainer>
+			<testcontainer
 			id="442336b7-dbb3-438a-b0ee-04153d608980">
 			</testcontainer>
 			<testcontainer
+			id="4671aadd-5c54-4a07-9d3d-5e46f30ba67f">
+			</testcontainer>
+			<testcontainer
+			id="4733d22b-0942-4ced-9f2c-0c86127ab232">
+			</testcontainer>
+			<testcontainer
+			id="474742a8-2148-4791-b8a2-896f572c1540">
+			</testcontainer>
+			<testcontainer
 			id="495f95b1-d4d7-4756-9dd2-787f6c4266c2">
+			</testcontainer>
+			<testcontainer
+			id="4e426e5e-8a45-42b3-be56-872c597d634e">
 			</testcontainer>
 			<testcontainer
 			id="4f709825-2cec-444e-a2ab-12b182c76449">
 			</testcontainer>
 			<testcontainer
 			id="52831fca-a75f-45cf-979e-014ea6e6f752">
+			</testcontainer>
+			<testcontainer
+			id="5a426a1b-210c-4e89-86f3-38b4834e93f2">
 			</testcontainer>
 			<testcontainer
 			id="5c4cc499-3620-4694-b18d-20dc7338da3b">
@@ -1551,13 +3494,49 @@
 			id="62182200-29fe-4215-8fe2-0d779f46885f">
 			</testcontainer>
 			<testcontainer
+			id="67ba1c26-6b3e-429b-9c1c-4ca80730b054">
+			</testcontainer>
+			<testcontainer
+			id="6ab69d21-7f04-426b-9d7f-572bab369af3">
+			</testcontainer>
+			<testcontainer
+			id="6e8c214f-2172-4fe6-9219-cc89c6330543">
+			</testcontainer>
+			<testcontainer
 			id="7319e218-8ff0-43ec-bc96-4c489c4b3d13">
+			</testcontainer>
+			<testcontainer
+			id="7f9d79e3-cefc-4d2b-8844-707e864bb5fb">
 			</testcontainer>
 			<testcontainer
 			id="83107259-255e-4fb2-ba9a-dd152f82338f">
 			</testcontainer>
 			<testcontainer
+			id="88c33938-b0f0-4724-b5da-1bd94c9c5e54">
+			</testcontainer>
+			<testcontainer
+			id="8e747b7d-798d-46b7-a8cb-52222b33a15b">
+			</testcontainer>
+			<testcontainer
+			id="921fad87-68fc-4c0d-976a-2d972bf0fe49">
+			</testcontainer>
+			<testcontainer
+			id="9652d076-9748-4d87-b02d-c3edf2c377ea">
+			</testcontainer>
+			<testcontainer
+			id="9d6fac42-80f6-4e44-bbfe-49d0f78660d4">
+			</testcontainer>
+			<testcontainer
+			id="9e65b57b-81c5-4e0e-8b03-aca099846d71">
+			</testcontainer>
+			<testcontainer
 			id="a5eb1b3c-2943-4a9c-a39c-8a67a7380ef2">
+			</testcontainer>
+			<testcontainer
+			id="a679f165-e456-4fa5-9ab6-493bf3f5f8ad">
+			</testcontainer>
+			<testcontainer
+			id="aa8d98ff-ff43-4d29-9d67-3ec4d35c3840">
 			</testcontainer>
 			<testcontainer
 			id="b4366028-12be-4cd9-9e4b-a47189d0f18f">
@@ -1566,22 +3545,73 @@
 			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39">
 			</testcontainer>
 			<testcontainer
+			id="b7ec233b-d824-4518-82bf-e7c2a78d1fe3">
+			</testcontainer>
+			<testcontainer
+			id="c4fdacf6-be9d-4242-bc6c-0f1732c28eea">
+			</testcontainer>
+			<testcontainer
 			id="c6d47446-077c-4ac9-8ae4-3cd5dc76c8e8">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
+			id="d42c9fc6-6fb1-4889-a4b2-2693a8a13b03">
+			</testcontainer>
+			<testcontainer
+			id="d49c5a3a-0cec-40a0-9e25-9bfa821661a6">
+			</testcontainer>
+			<testcontainer
+			id="d5e21dbc-f440-4107-be85-e79fb8944279">
+			</testcontainer>
+			<testcontainer
+			id="d7001703-7063-4b14-bc0b-93b7c3de20ad">
+			</testcontainer>
+			<testcontainer
+			id="dd4cc6a8-6ff7-4b3a-8d2a-e13d6afd7dc5">
+			</testcontainer>
+			<testcontainer
 			id="e3280708-ff7d-48ea-88c8-d720eed8791e">
+			</testcontainer>
+			<testcontainer
+			id="e5456703-bf74-456a-bcfa-6bb8fb953d4a">
+			</testcontainer>
+			<testcontainer
+			id="e754095c-090c-48a5-a11f-8e8b3be6d0b7">
+			</testcontainer>
+			<testcontainer
+			id="ec4f8dfc-94d6-402c-a06e-7e3a8ffe729a">
 			</testcontainer>
 			<testcontainer
 			id="edc5b182-3d3e-4b47-a3d5-ed2d21bbdea4">
 			</testcontainer>
 			<testcontainer
+			id="edc95492-b369-44c4-bfb5-b9e6e7d010f7">
+			</testcontainer>
+			<testcontainer
+			id="f1af2faf-ca53-41e8-b16f-1360c988214d">
+			</testcontainer>
+			<testcontainer
+			id="f44bca68-24dc-4702-bc19-0c4cee360d73">
+			</testcontainer>
+			<testcontainer
+			id="f8ccfff5-874b-4714-aafb-222d0e57ca83">
+			</testcontainer>
+			<testcontainer
 			id="fa0de14a-4a8b-4bbc-bee5-431705298bb1">
 			</testcontainer>
 			<testcontainer
+			id="fb315422-f292-4395-90b8-a84acc5dd7d7">
+			</testcontainer>
+			<testcontainer
+			id="fbb45401-6850-4019-a505-87995b217ef3">
+			</testcontainer>
+			<testcontainer
 			id="fe2a8d19-3b5f-4664-a0ff-4c0ee7e7da88">
+			</testcontainer>
+			<testcontainer
+			id="ff5242f4-16a9-4bb9-9eb6-15034f46f922">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

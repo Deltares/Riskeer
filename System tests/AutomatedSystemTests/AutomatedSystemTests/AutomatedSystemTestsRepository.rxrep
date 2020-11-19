@@ -221,25 +221,6 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
 				</folder>
-				<item
-				addcaps="treeitem,accessible,accessibletreeitem"
-				capname="treeitem"
-				id="ffacadc8-ed6b-4a13-8ba6-ce183b1e9509"
-				name="HydraulischeBelastingen"
-				refimgid="984357d5-1648-434f-a4c2-baa3e3f73645"
-				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']
-				</item>
-				<item
-				addcaps="treeitem,accessible,accessibletreeitem"
-				capname="treeitem"
-				id="1bc4c7ac-b74a-4de0-a833-0787988276a2"
-				name="KopieVan12202500Segment120041D1"
-				refimgid="350d9228-5be4-4f87-a1df-c3e8ec1ea29f"
-				refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']"
-				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename&gt;'Kopie van 12_2_02500 Segm']
-				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</basepath>
@@ -365,7 +346,7 @@ name="AutomatedSystemTestsRepository">
 				addcaps="text,wpfelement"
 				capname="text"
 				id="71969c09-ef02-4547-bddc-6e74e1272049"
-				name="DijkenEnDammenPiping"
+				name="textHeaderPanel"
 				refimgid="eb4a8025-5cf6-4dd3-9fec-2688dceb885e"
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage/?/text[@text&gt;$nameMap]
@@ -1309,6 +1290,57 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
 				</basepath>
 			</folder>
+			<folder
+			capname="container"
+			id="b84d06d6-645e-4e5d-9705-593afd9b9f18"
+			isrooted="True"
+			name="MapLegendPanel"
+			refimgid="12af5f5f-be0b-4475-abfa-13a1dd32870c"
+			searchtimeout="30000ms"
+			usecache="False">
+				<folder
+				capname="treeitem"
+				id="2068096e-8bfc-444e-ad21-f3ee0812f9bf"
+				isrooted="True"
+				name="RootNode"
+				refimgid="69bdaf65-5e64-44d3-b426-5d5d361ce70f"
+				searchtimeout="30000ms"
+				usecache="False">
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container/tree/tree/treeitem
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container
+				</basepath>
+			</folder>
+			<item
+			addcaps="container,control,nativewindow"
+			capname="tabpagelist"
+			id="c3fa3e58-ebae-43e2-88e2-41bd6c9116ad"
+			name="GenericContainerMap"
+			refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]
+			</item>
+			<item
+			addcaps="container,control,nativewindow"
+			capname="button"
+			id="ce11034c-12e0-4686-8388-75ac745d1755"
+			name="CloseButtonGenericContainerMap"
+			refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
+			</item>
+			<item
+			addcaps="tabpage,wpfelement,wpfgroupelement"
+			capname="text"
+			id="e1c99c99-37e6-45b7-8ef7-3177828972c0"
+			name="TextLabelPanelOnLeft"
+			refimgid="51917487-9afd-4e25-bfb6-bb36e7475531"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/*/tabpagelist/container[@name='HeaderPanel']/tabpage/text[@text=$nameOfPanel]
+			</item>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']
 			</basepath>
@@ -1561,6 +1593,15 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
+			id="9bd893d7-2683-465a-b2e3-d056bce01a0c"
+			name="VoegKaartlaagToe"
+			refimgid="6e2ec83e-6f27-45a8-b58c-743fa28aa8cd"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Voeg kaartlaag toe...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
 			id="942ab870-bf62-4d88-8050-58255777c435"
 			name="WisAlleUitvoer"
 			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
@@ -1587,6 +1628,15 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis uitvoer...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="5acc1275-2883-4570-affa-a36a1d5dd4df"
+			name="ZoomNaarAlles"
+			refimgid="c27b49a6-45d7-4acf-b75a-9902052e55e9"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Zoom naar alles']
 			</item>
 			<item
 			addcaps="text,wpfelement,wpfgroupelement"
@@ -2357,19 +2407,29 @@ FjcAAAAASUVORK5CYII=
 			capname="container"
 			id="5ff51598-720e-48f4-9f45-0cd9533de867"
 			isrooted="True"
-			name="TableLayoutPanel1"
+			name="DialogSelectionBackground"
 			refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']"
 			searchtimeout="30000ms"
 			usecache="False">
 				<item
 				addcaps="button,control,nativewindow"
 				capname="button"
-				id="2df0475f-87b0-4c9a-957d-fe645d198f9b"
-				name="SelectButton"
-				refimgid="e0e96040-6181-41eb-b932-c87877143e9b"
-				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='flowLayoutPanel1']/button[@controlname='selectButton']"
+				id="c4d98bb1-8d9c-417d-b4f5-77c5c898556e"
+				name="CancelButton"
+				refimgid="14e82ebd-1f3e-4019-bf32-2407c40efac3"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='flowLayoutPanel1']/button[@controlname='cancelButton']"
 				searchtimeout="30000ms">
-					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/button[@controlname='selectButton']
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/button[@controlname='cancelButton']
+				</item>
+				<item
+				addcaps="button,control,nativewindow"
+				capname="button"
+				id="557fa973-5317-4d40-a856-2fd2b14140a4"
+				name="ConnectToButton"
+				refimgid="bf06e489-820f-49cc-b42e-74db30238369"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='connectToButton']"
+				searchtimeout="30000ms">
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']
 				</item>
 				<item
 				addcaps="combobox,control,nativewindow"
@@ -2384,42 +2444,12 @@ FjcAAAAASUVORK5CYII=
 				<item
 				addcaps="button,control,nativewindow"
 				capname="button"
-				id="3ec07123-82ef-4483-9d4c-12118ce86d6d"
-				name="AddLocationButton"
-				refimgid="335c32dc-0a18-466b-9807-11161fa0e1ba"
-				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='addLocationButton']"
+				id="2df0475f-87b0-4c9a-957d-fe645d198f9b"
+				name="SelectButton"
+				refimgid="e0e96040-6181-41eb-b932-c87877143e9b"
+				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='flowLayoutPanel1']/button[@controlname='selectButton']"
 				searchtimeout="30000ms">
-					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='addLocationButton']
-				</item>
-				<item
-				addcaps="button,control,nativewindow"
-				capname="button"
-				id="557fa973-5317-4d40-a856-2fd2b14140a4"
-				name="ConnectToButton"
-				refimgid="bf06e489-820f-49cc-b42e-74db30238369"
-				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='connectToButton']"
-				searchtimeout="30000ms">
-					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']
-				</item>
-				<item
-				addcaps="button,control,nativewindow"
-				capname="button"
-				id="09b07885-8ed3-48dd-99b1-2fc8ced4fe7c"
-				name="EditLocationButton"
-				refimgid="faed3dca-67bd-4b44-b297-9d983088bb14"
-				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='flowLayoutPanel2']/button[@controlname='editLocationButton']"
-				searchtimeout="30000ms">
-					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='editLocationButton']
-				</item>
-				<item
-				addcaps="combobox,control,nativewindow"
-				capname="combobox"
-				id="4b22e2b7-afac-4556-8708-15d3c256eeae"
-				name="UrlLocationComboBox"
-				refimgid="73c1258e-c728-4287-a372-9fdddc8b8f1b"
-				refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='tableLayoutPanel2']/combobox[@controlname='urlLocationComboBox']"
-				searchtimeout="30000ms">
-					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//combobox[@controlname='urlLocationComboBox']
+					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/button[@controlname='selectButton']
 				</item>
 				<basepath>
 					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']
@@ -2631,6 +2661,14 @@ QmCC
 		<var
 		id="13791650-2c19-4f34-90e3-ad1a9b57f766"
 		name="nameMap">
+		</var>
+		<var
+		id="e7772450-4ae6-4220-b179-f7318fbcd095"
+		name="indexContainerMap">
+		</var>
+		<var
+		id="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+		name="nameOfPanel">
 		</var>
 	</variables>
 </repository>

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -62,7 +61,7 @@ namespace Application.Riskeer.Integration.Test
                                                   "\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" +
                                                                                                "\"", @"$1$1\" + "\"");
 
-            string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
+            string directory = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
             string executable = Path.Combine(directory, "UnusedResourceSearcher.exe");
 
             var process = new Process

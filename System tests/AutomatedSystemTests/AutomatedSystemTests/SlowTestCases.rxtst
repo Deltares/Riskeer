@@ -7089,7 +7089,7 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder=""
+			reporttemplatefolder="ReportMoreInformativeIterations"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testmodule

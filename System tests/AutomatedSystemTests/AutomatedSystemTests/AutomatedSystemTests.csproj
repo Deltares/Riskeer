@@ -162,6 +162,30 @@
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.cs">
+      <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8b96dbb8-88de-4401-ba1f-dbd033dc1742</id>
+      <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.UserCode.cs">
+      <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
+      <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.cs">
+      <BoundTo>66ebac8f-8d87-492e-8948-25182866b345</BoundTo>
+      <DependentUpon>RemoveCurrentlySelectedMapLayer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>442d6d69-1ce4-4fd8-963b-f7577eb75f67</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.UserCode.cs">
+      <BoundTo>66ebac8f-8d87-492e-8948-25182866b345</BoundTo>
+      <DependentUpon>RemoveCurrentlySelectedMapLayer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>afe1d71d-1954-4728-ac75-ff1a4c4777d2</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SelectBackgroundMap.cs">
       <BoundTo>c38d8804-1846-4b55-8e4c-660c4c799a9c</BoundTo>
       <DependentUpon>SelectBackgroundMap.rxrec</DependentUpon>
@@ -185,6 +209,18 @@
       <DependentUpon>UpdateCurrentlySelectedItem.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>c2bd5b91-8358-4ec8-adde-aa4939fde88b</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.cs">
+      <DependentUpon>ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8e6180a6-8236-431b-a9a7-244e9987928d</id>
+      <BoundTo>d839d138-946e-44ab-bd09-ae3cd479119b</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.UserCode.cs">
+      <DependentUpon>ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>cc101b06-9526-4a3a-9cc6-994462ff9413</id>
+      <BoundTo>d839d138-946e-44ab-bd09-ae3cd479119b</BoundTo>
     </Compile>
     <Compile Include="Modules\ActionsDialogs\ConfirmActionInDialog.cs">
       <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
@@ -234,6 +270,18 @@
       <id>516989bc-37f5-4d53-8442-38a71ee85e4f</id>
       <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\CloseTabView.cs">
+      <BoundTo>644384dc-552b-4221-b47a-dc10974e350f</BoundTo>
+      <DependentUpon>CloseTabView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f147c16f-1f5e-4960-9e3e-3e1eae8756ac</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\CloseTabView.UserCode.cs">
+      <BoundTo>644384dc-552b-4221-b47a-dc10974e350f</BoundTo>
+      <DependentUpon>CloseTabView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fe5874a3-17b4-44f4-9d34-b028c489d7b8</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\CloseViewCentralPanelWithFocus.cs">
       <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -257,6 +305,30 @@
       <UserCode>true</UserCode>
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.cs">
+      <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
+      <DependentUpon>ZoomMapViewWithMouseWheel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>64d3c4ac-2b90-489f-91b3-e8363f89a369</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.UserCode.cs">
+      <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
+      <DependentUpon>ZoomMapViewWithMouseWheel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9657b84d-e984-472d-a1a5-69bcb14468ed</id>
+    </Compile>
+    <Compile Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.cs">
+      <BoundTo>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</BoundTo>
+      <DependentUpon>ToggleVisibilityAllLayers.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e10d39ea-8f5b-49b9-b24d-1c69bf67e900</id>
+    </Compile>
+    <Compile Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.UserCode.cs">
+      <BoundTo>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</BoundTo>
+      <DependentUpon>ToggleVisibilityAllLayers.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3ffb81e6-7244-4c09-8e0b-3de2aa64a020</id>
     </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
       <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
@@ -377,6 +449,18 @@
       <UserCode>true</UserCode>
       <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
       <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.cs">
+      <BoundTo>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</BoundTo>
+      <DependentUpon>GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ad249072-e008-42e1-b8c2-b26e92f750e8</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.UserCode.cs">
+      <BoundTo>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</BoundTo>
+      <DependentUpon>GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5ff88a6f-9100-4693-8203-9c8e81da33bb</id>
     </Compile>
     <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
       <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
@@ -675,6 +759,9 @@
     <Compile Include="Modules\ActionsContextMenu\VerifyItemPresentInContextMenu.cs">
       <id>6a737ffa-3e0c-4c81-bdc5-78b47fbd8ea6</id>
     </Compile>
+    <Compile Include="Modules\Calculation\SetRandomRowWithinRangeSmartFolder.cs">
+      <id>b20a1f0c-135a-46a7-935a-43e5165f32a7</id>
+    </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -786,6 +873,18 @@
       <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
       <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
     </Compile>
+    <Compile Include="Modules\OpenViews\MakePanelOnLeftVisible.cs">
+      <BoundTo>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</BoundTo>
+      <DependentUpon>MakePanelOnLeftVisible.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>90340800-fef7-4c2e-9594-6bfb9afe0e12</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\MakePanelOnLeftVisible.UserCode.cs">
+      <BoundTo>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</BoundTo>
+      <DependentUpon>MakePanelOnLeftVisible.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>105d5b0a-b4a9-40e5-a438-ca855892a079</id>
+    </Compile>
     <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
       <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -870,6 +969,18 @@
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
       <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
     </Compile>
+    <Compile Include="Modules\OpenViews\SetActiveTabView.cs">
+      <BoundTo>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</BoundTo>
+      <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>85994798-3410-44e9-8dda-e0708d5f89dd</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\SetActiveTabView.UserCode.cs">
+      <BoundTo>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</BoundTo>
+      <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d25d3134-9f2c-40ef-9f71-0b45d3a24890</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenShotEntireApplication.cs">
       <BoundTo>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</BoundTo>
       <DependentUpon>CreateScreenShotEntireApplication.rxrec</DependentUpon>
@@ -893,6 +1004,18 @@
       <DependentUpon>CreateScreenshotMessagesPanel.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>47ef003f-a4d7-4b56-a656-858372a8fc5b</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.cs">
+      <BoundTo>9132f069-1cc1-49e1-8163-ab0f9b279541</BoundTo>
+      <DependentUpon>CreateScreenshotOfMapLayersPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>24183eeb-327c-419b-80e6-e59a23637853</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.UserCode.cs">
+      <BoundTo>9132f069-1cc1-49e1-8163-ab0f9b279541</BoundTo>
+      <DependentUpon>CreateScreenshotOfMapLayersPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ffdb7e96-9f5b-435e-93d5-1ed4f5148b55</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\LogMessage.cs">
       <DependentUpon>LogMessage.rxrec</DependentUpon>
@@ -1097,6 +1220,18 @@
       <UserCode>true</UserCode>
       <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.cs">
+      <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
+      <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>67b3c92f-9ade-4620-8fce-1f9f482c4767</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.UserCode.cs">
+      <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
+      <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>48f098f5-2853-42b9-9615-d10ca759c4aa</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectGenericItemInProjectExplorer.cs">
       <DependentUpon>SelectGenericItemInProjectExplorer.rxrec</DependentUpon>
@@ -1493,6 +1628,9 @@
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\MapLayersPanel\ValidateWhetherFolderGivenPathContainsNode.cs">
+      <id>a76058a8-e278-448b-b98a-a83de005e0a5</id>
     </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
@@ -1952,6 +2090,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ReportMoreInformativeIterations\NewCustomTemplate1.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>eb1fb91c-c9aa-46f8-9697-396ff211ed6c</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>c89ebce6-ff3c-4c21-af17-e2bb8daecec8</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\RanorexReport.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\View.rxlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
+    </Content>
+    <Content Include="ReportMoreInformativeIterations\View.rxlog.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
+    </Content>
     <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
@@ -2000,6 +2162,16 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\AddBackgroundLayer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
+      <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\RemoveCurrentlySelectedMapLayer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>66ebac8f-8d87-492e-8948-25182866b345</id>
+      <recordtableid>2937bfe8-7297-4490-8b91-8914529fff94</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\SelectBackgroundMap.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c38d8804-1846-4b55-8e4c-660c4c799a9c</id>
@@ -2009,6 +2181,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b07d67c0-af5f-4ebb-8a16-4a3beb5550ef</id>
       <recordtableid>be610d83-0566-4237-980c-570b403e4ee8</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\ZoomToExtentCurrentlySelectedLayerInCurrentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d839d138-946e-44ab-bd09-ae3cd479119b</id>
+      <recordtableid>d2eff017-7298-4fed-9265-129a15ac24ff</recordtableid>
     </None>
     <None Include="Modules\ActionsDialogs\ConfirmActionInDialog.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2030,6 +2207,11 @@
       <id>c4b5ba37-93b9-4977-a67f-31b2e221b26f</id>
       <recordtableid>a0fb1576-cc6f-43a8-9e64-da0db902668d</recordtableid>
     </None>
+    <None Include="Modules\ActionsDocumentView\CloseTabView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>644384dc-552b-4221-b47a-dc10974e350f</id>
+      <recordtableid>eceb2ae3-640b-479d-9053-4728c2a6bb35</recordtableid>
+    </None>
     <None Include="Modules\ActionsDocumentView\CloseViewCentralPanelWithFocus.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
@@ -2039,6 +2221,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0654a5f3-7f4f-4513-a435-530a7709f072</id>
+      <recordtableid>2e681757-ed2c-40ba-a41e-d1f72438b832</recordtableid>
+    </None>
+    <None Include="Modules\ActionsMapLayersPanel\ToggleVisibilityAllLayers.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</id>
+      <recordtableid>fc3fbe79-ece7-4b7d-a17b-826b866c1686</recordtableid>
     </None>
     <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2114,6 +2306,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ebce4f06-318d-46f0-8678-c8e82cb57486</id>
       <recordtableid>6104469d-a535-47ca-b393-2256db12cca4</recordtableid>
+    </None>
+    <None Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</id>
+      <recordtableid>ff7d8015-0aa1-402e-bd87-ce4d514d5e39</recordtableid>
     </None>
     <None Include="Modules\Calculation\GetValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2235,6 +2432,11 @@
       <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
       <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
     </None>
+    <None Include="Modules\OpenViews\MakePanelOnLeftVisible.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</id>
+      <recordtableid>080c578e-b4cb-4bb4-945d-26465067449d</recordtableid>
+    </None>
     <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
@@ -2270,6 +2472,11 @@
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
     </None>
+    <None Include="Modules\OpenViews\SetActiveTabView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</id>
+      <recordtableid>69aec744-9ae4-44f8-8d63-455acdcf0f37</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\CreateScreenShotEntireApplication.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</id>
@@ -2279,6 +2486,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</id>
       <recordtableid>061e4f7d-17ae-44b5-8bfe-3d8ea937802d</recordtableid>
+    </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9132f069-1cc1-49e1-8163-ab0f9b279541</id>
+      <recordtableid>7b4b5931-d933-4dfd-92c3-207ab4e9306d</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\LogMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2364,6 +2576,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
       <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectGenericItemInMapLayersPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</id>
+      <recordtableid>cf9c875a-ab88-4601-8761-ea9df4788e02</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectGenericItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2753,6 +2970,9 @@
     <Folder Include="Modules\ActionsWithItemsInProjectExplorer">
       <id>fcb74411-cb5d-493b-a16c-dc59aed3884f</id>
     </Folder>
+    <Folder Include="Modules\ActionsMapLayersPanel">
+      <id>fe5d5f36-0d60-4a1a-8018-4e469c240742</id>
+    </Folder>
     <Folder Include="Modules\SettingsTestSuite">
       <id>70adccec-360c-4240-9723-fdc7d4f728df</id>
     </Folder>
@@ -2777,6 +2997,9 @@
     <Folder Include="Modules\Validation\Abstract">
       <id>3153ec44-4733-45ee-afef-35e0aaee4994</id>
     </Folder>
+    <Folder Include="Modules\Validation\MapLayersPanel">
+      <id>75b687df-7e33-47cf-92ce-9a12e15e17c6</id>
+    </Folder>
     <Folder Include="Modules\Validation\ProjectExplorer">
       <id>99ea1c19-fb3a-4ea5-8a98-7b10c3993598</id>
     </Folder>
@@ -2800,6 +3023,10 @@
     </Folder>
     <Folder Include="Modules\Validation">
       <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>
+    </Folder>
+    <Folder Include="ReportMoreInformativeIterations">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>27a8850a-9f7d-4bdd-8e37-bc212ac07f07</id>
     </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets">

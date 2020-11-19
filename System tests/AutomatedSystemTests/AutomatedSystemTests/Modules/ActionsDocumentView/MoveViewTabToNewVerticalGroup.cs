@@ -89,8 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.DijkenEnDammenPiping' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.DijkenEnDammenPipingInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.HeaderOpenViews.DijkenEnDammenPiping.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
             repo.ContextMenu.NieuweVerticaleTabgroep.Click();

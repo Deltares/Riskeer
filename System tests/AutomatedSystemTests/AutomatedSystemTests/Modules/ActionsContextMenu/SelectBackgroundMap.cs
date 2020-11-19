@@ -82,14 +82,14 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(1));
+            Delay.Duration(100, false);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Selecteren' at Center.", repo.ContextMenu.SelecterenInfo, new RecordItemIndex(2));
             repo.ContextMenu.Selecteren.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.TableLayoutPanel1.MapLayerComboBox' at Center.", repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.MapLayerComboBoxInfo, new RecordItemIndex(3));
-            repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.MapLayerComboBox.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.DialogSelectionBackground.MapLayerComboBox' at Center.", repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.MapLayerComboBoxInfo, new RecordItemIndex(3));
+            repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.MapLayerComboBox.Click();
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.WebMapTileServiceWMTS' at Center.", repo.DropDownMenuItemList.WebMapTileServiceWMTSInfo, new RecordItemIndex(4));
             repo.DropDownMenuItemList.WebMapTileServiceWMTS.Click();
@@ -97,14 +97,10 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(5));
             Delay.Duration(1000, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.TableLayoutPanel1.ConnectToButton' at Center.", repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.ConnectToButtonInfo, new RecordItemIndex(6));
-            repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.ConnectToButton.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.DialogSelectionBackground.ConnectToButton' at Center.", repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.ConnectToButtonInfo, new RecordItemIndex(6));
+            repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.ConnectToButton.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.Row0' at CenterLeft.", repo.BackgroundMapDataSelectionDialog.Row0Info, new RecordItemIndex(7));
-            repo.BackgroundMapDataSelectionDialog.Row0.Click(Location.CenterLeft);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'BackgroundMapDataSelectionDialog.TableLayoutPanel1.SelectButton' at Center.", repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.SelectButtonInfo, new RecordItemIndex(8));
-            repo.BackgroundMapDataSelectionDialog.TableLayoutPanel1.SelectButton.Click();
+            ProceedAccordingToReachabilityServer();
             
         }
 

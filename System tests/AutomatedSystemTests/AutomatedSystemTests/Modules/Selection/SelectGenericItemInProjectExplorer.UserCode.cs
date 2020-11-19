@@ -66,7 +66,8 @@ namespace AutomatedSystemTests.Modules.Selection
         				} else {
         				// child is last one in path
         			    stepChild.Focus();
-        			    stepChild.Click(Location.CenterLeft);
+        			    // Disable warning that clicked outside boundaries of object
+        			    stepChild.ClickWithoutBoundsCheck(new Location(-0.02, 0.5));
         			     }
         			}
         	return;
