@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.IO.FileImporters;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.TestUtil;
+using Rhino.Mocks;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Plugin.UpdateInfos;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -38,45 +34,32 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
     public class PipingUpdateInfoFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismSectionsUpdateInfo_VerifyUpdatesFuncNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionsUpdateInfo_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("verifyUpdatesFunc", exception.ParamName);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
         }
-        
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateFailureMechanismSectionsUpdateInfo_WithData_ReturnsUpdateInfo(bool isEnabled)
         {
             // Setup
-            PipingFailureMechanism failureMechanism = isEnabled
-                                                          ? TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels()
-                                                          : new PipingFailureMechanism();
-
-            var context = new PipingFailureMechanismSectionsContext(failureMechanism, new AssessmentSectionStub());
-            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc = c => true;
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
 
             // Call
-            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(verifyUpdatesFunc);
+            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
             // Assert
-            Assert.AreEqual("Vakindeling", updateInfo.Name);
-            Assert.AreEqual("Algemeen", updateInfo.Category);
-
-            FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
-
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, updateInfo.Image);
-
-            Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, updateInfo.CurrentPath(context));
-            Assert.AreEqual(isEnabled, updateInfo.IsEnabled(context));
-            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(context, ""));
-            Assert.AreSame(verifyUpdatesFunc, updateInfo.VerifyUpdates);
+            Assert.IsNotNull(updateInfo);
+            mocks.VerifyAll();
         }
     }
 }
