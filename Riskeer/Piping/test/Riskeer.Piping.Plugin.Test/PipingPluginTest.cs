@@ -243,7 +243,16 @@ namespace Riskeer.Piping.Plugin.Test
         public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
-            using (var plugin = new PipingPlugin())
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
@@ -254,6 +263,8 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingFailureMechanismSectionsContext)));
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
