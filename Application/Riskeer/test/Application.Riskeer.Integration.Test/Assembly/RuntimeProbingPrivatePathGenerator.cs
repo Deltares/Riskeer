@@ -21,8 +21,8 @@
 
 using System;
 using System.IO;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Util;
 
 namespace Application.Riskeer.Integration.Test.Assembly
 {
@@ -47,7 +47,7 @@ namespace Application.Riskeer.Integration.Test.Assembly
         public void WritePrivatePathStringToConsole()
         {
             var privatePath = string.Empty;
-            string assemblyDirectory = TestHelper.GetApplicationDirectory();
+            string assemblyDirectory = AssemblyHelper.GetApplicationDirectory();
             string rootDirectory = Directory.GetParent(assemblyDirectory).FullName;
 
             AddAssemblyPathsRecursively(assemblyDirectory, ref privatePath);
