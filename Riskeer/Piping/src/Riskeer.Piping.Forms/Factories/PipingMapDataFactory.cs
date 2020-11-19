@@ -28,6 +28,9 @@ using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.Factories
 {
+    /// <summary>
+    /// Piping specific factory for creating <see cref="FeatureBasedMapData"/> for data used as input in the assessment section.
+    /// </summary>
     public static class PipingMapDataFactory
     {
         /// <summary>

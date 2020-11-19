@@ -26,10 +26,9 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 
@@ -154,7 +153,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures((IEnumerable<SemiProbabilisticPipingCalculationScenario>) null);
+            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures<TestPipingCalculationScenario>(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -164,7 +163,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>());
+            IEnumerable<MapFeature> features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<TestPipingCalculationScenario>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -174,11 +173,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
-            var calculationA =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+            IPipingCalculationScenario<PipingInput> calculationA =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(
                     new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0));
-            var calculationB =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+            IPipingCalculationScenario<PipingInput> calculationB =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(
                     new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8));
 
             calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);

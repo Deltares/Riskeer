@@ -221,7 +221,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
                     hydraulicBoundaryLocation1);
             var calculationB =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
                     hydraulicBoundaryLocation2);
 
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
@@ -642,12 +642,15 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var semiProbabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
+                var probabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[semiProbabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -660,6 +663,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // Then
                 AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), semiProbabilisticCalculationMapData);
+                AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), probabilisticCalculationMapData);
                 mocks.VerifyAll();
             }
         }
@@ -756,10 +760,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When
@@ -864,10 +864,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When
@@ -1003,97 +999,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                     observers[semiProbabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    mocks.ReplayAll();
-
-                    // Precondition
-                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
-                                                                      originalDetailedAssembly,
-                                                                      originalTailorMadeAssembly,
-                                                                      originalCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-
-                    // When
-                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
-                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
-                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    calculation.NotifyObservers();
-
-                    // Then
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
-                                                                      updatedDetailedAssembly,
-                                                                      updatedTailorMadeAssembly,
-                                                                      updatedCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-                    mocks.VerifyAll();
-                }
-            }
-        }
-
-        [Test]
-        public void GivenViewWithAssemblyData_WhenProbabilisticCalculationNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var surfaceLineA = new PipingSurfaceLine(string.Empty);
-            surfaceLineA.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(3.0, 0.0, 1.7)
-            });
-
-            var surfaceLineB = new PipingSurfaceLine(string.Empty);
-            surfaceLineB.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 1.5),
-                new Point3D(3.0, 0.0, 1.8)
-            });
-            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-            surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-            var calculation =
-                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
-                    new TestHydraulicBoundaryLocation());
-
-            calculation.InputParameters.SurfaceLine = surfaceLineA;
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
-
-                using (var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
-                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                    var mocks = new MockRepository();
-                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                    observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
                     observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                     observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                     observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -1328,34 +1233,22 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void AssertSemiProbabilisticCalculationsMapData(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations, MapData mapData)
         {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var calculationsMapData = (MapLineData) mapData;
-            SemiProbabilisticPipingCalculationScenario[] calculationsArray = calculations.ToArray();
-            MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
-            Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
-
-            for (var index = 0; index < calculationsArray.Length; index++)
-            {
-                MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
-                Assert.AreEqual(1, geometries.Length);
-
-                SemiProbabilisticPipingCalculationScenario calculation = calculationsArray[index];
-                CollectionAssert.AreEquivalent(new[]
-                                               {
-                                                   calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
-                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
-                                               },
-                                               geometries[0].PointCollections.First());
-            }
-
             Assert.AreEqual("Semi-probabilistische berekeningen", mapData.Name);
+            AssertCalculationsMapData(calculations, mapData);
         }
 
         private static void AssertProbabilisticCalculationsMapData(IEnumerable<ProbabilisticPipingCalculationScenario> calculations, MapData mapData)
         {
+            Assert.AreEqual("Probabilistische berekeningen", mapData.Name);
+            AssertCalculationsMapData(calculations, mapData);
+        }
+
+        private static void AssertCalculationsMapData<TCalculationScenario>(IEnumerable<TCalculationScenario> calculations, MapData mapData)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>
+        {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var calculationsMapData = (MapLineData) mapData;
-            ProbabilisticPipingCalculationScenario[] calculationsArray = calculations.ToArray();
+            TCalculationScenario[] calculationsArray = calculations.ToArray();
             MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
@@ -1364,7 +1257,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
-                ProbabilisticPipingCalculationScenario calculation = calculationsArray[index];
+                TCalculationScenario calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
                                                {
                                                    calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
@@ -1372,8 +1265,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                },
                                                geometries[0].PointCollections.First());
             }
-
-            Assert.AreEqual("Probabilistische berekeningen", mapData.Name);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
@@ -1396,6 +1287,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             CollectionAssert.IsEmpty(surfaceLinesMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(semiProbabilisticCalculationsMapData.Features);
+            CollectionAssert.IsEmpty(probabilisticCalculationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsMapData.Name);

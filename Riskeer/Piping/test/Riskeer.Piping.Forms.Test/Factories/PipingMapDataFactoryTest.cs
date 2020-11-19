@@ -23,6 +23,7 @@ using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Factories;
 
 namespace Riskeer.Piping.Forms.Test.Factories
@@ -39,7 +40,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Semi-probabilistische berekeningen", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
+            RiskeerMapDataFactoryTestHelper.AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
         }
 
         [Test]
@@ -51,14 +52,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Probabilistische berekeningen", data.Name);
-            AssertEqualStyle(data.Style, Color.Pink, 2, LineDashStyle.Dash);
-        }
-
-        private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
-        {
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.DashStyle);
+            RiskeerMapDataFactoryTestHelper.AssertEqualStyle(data.Style, Color.Pink, 2, LineDashStyle.Dash);
         }
     }
 }

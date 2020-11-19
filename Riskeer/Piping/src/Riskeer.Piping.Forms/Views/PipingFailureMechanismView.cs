@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -38,7 +37,6 @@ using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Factories;
-using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
@@ -178,10 +176,8 @@ namespace Riskeer.Piping.Forms.Views
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
-            semiProbabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations,
-                                                                                                   Color.MediumPurple);
-            probabilisticCalculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations,
-                                                                                               Color.Pink);
+            semiProbabilisticCalculationsMapData = PipingMapDataFactory.CreateSemiProbabilisticCalculationsMapData();
+            probabilisticCalculationsMapData = PipingMapDataFactory.CreateProbabilisticCalculationsMapData();
 
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
@@ -268,7 +264,11 @@ namespace Riskeer.Piping.Forms.Views
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateSemiProbabilisticCalculationsMapData, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(() =>
+            {
+                UpdateSemiProbabilisticCalculationsMapData();
+                UpdateProbabilisticCalculationsMapData();
+            }, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
@@ -293,8 +293,8 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetAllMapDataFeatures()
         {
-            SetSemiProbabilisticCalculationsMapData();
-            SetProbabilisticCalculationsMapData();
+            SetCalculationsMapData<SemiProbabilisticPipingCalculationScenario>(semiProbabilisticCalculationsMapData);
+            SetCalculationsMapData<ProbabilisticPipingCalculationScenario>(probabilisticCalculationsMapData);
             SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
@@ -330,32 +330,24 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateSemiProbabilisticCalculationsMapData()
         {
-            SetSemiProbabilisticCalculationsMapData();
+            SetCalculationsMapData<SemiProbabilisticPipingCalculationScenario>(semiProbabilisticCalculationsMapData);
             semiProbabilisticCalculationsMapData.NotifyObservers();
 
             UpdateAssemblyMapData();
         }
 
-        private void SetSemiProbabilisticCalculationsMapData()
-        {
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations =
-                FailureMechanism.CalculationsGroup.GetCalculations().OfType<SemiProbabilisticPipingCalculationScenario>();
-            semiProbabilisticCalculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
-        }
-
         private void UpdateProbabilisticCalculationsMapData()
         {
-            SetProbabilisticCalculationsMapData();
+            SetCalculationsMapData<ProbabilisticPipingCalculationScenario>(probabilisticCalculationsMapData);
             probabilisticCalculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
-        private void SetProbabilisticCalculationsMapData()
+        private void SetCalculationsMapData<TCalculationScenario>(FeatureBasedMapData calculationsMapData)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>
         {
-            IEnumerable<ProbabilisticPipingCalculationScenario> calculations =
-                FailureMechanism.CalculationsGroup.GetCalculations().OfType<ProbabilisticPipingCalculationScenario>();
-            probabilisticCalculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
+            IEnumerable<TCalculationScenario> calculations =
+                FailureMechanism.CalculationsGroup.GetCalculations().OfType<TCalculationScenario>();
+            calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 
         #endregion
