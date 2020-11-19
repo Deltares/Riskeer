@@ -57,6 +57,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsNotNull(importInfo);
+            mocks.VerifyAll();
         }
     }
 }

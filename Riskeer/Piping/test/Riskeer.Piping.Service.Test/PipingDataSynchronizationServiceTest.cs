@@ -522,11 +522,10 @@ namespace Riskeer.Piping.Service.Test
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
-            TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                null, stochasticSoilProfile);
+            void Call() => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(null, stochasticSoilProfile);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -534,12 +533,10 @@ namespace Riskeer.Piping.Service.Test
         public void RemoveStochasticSoilProfileFromInput_WithoutSoilProfile_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                new PipingFailureMechanism(),
-                null);
+            void Call() => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(new PipingFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
@@ -657,11 +654,10 @@ namespace Riskeer.Piping.Service.Test
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
-            TestDelegate test = () => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(
-                null, stochasticSoilProfile);
+            void Call() => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(null, stochasticSoilProfile);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -669,12 +665,10 @@ namespace Riskeer.Piping.Service.Test
         public void ClearStochasticSoilProfileDependentData_WithoutSoilProfile_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(
-                new PipingFailureMechanism(),
-                null);
+            void Call() => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(new PipingFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 

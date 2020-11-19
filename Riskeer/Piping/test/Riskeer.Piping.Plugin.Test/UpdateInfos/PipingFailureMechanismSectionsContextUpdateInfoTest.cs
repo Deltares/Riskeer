@@ -68,7 +68,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", name);
             }
-            
             mocks.VerifyAll();
         }
 
@@ -151,7 +150,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
             mocks.VerifyAll();
         }
 
@@ -181,7 +179,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
             mocks.VerifyAll();
         }
 

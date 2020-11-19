@@ -72,6 +72,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -92,6 +93,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -115,6 +117,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsTrue(requireConfirmation);
+            mocks.VerifyAll();
         }
     }
 }
