@@ -65,6 +65,7 @@ using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Plugin.FileImporter;
+using Riskeer.Piping.Plugin.ImportInfos;
 using Riskeer.Piping.Plugin.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
@@ -510,6 +511,16 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<PipingFailureMechanismSectionsContext>
+            {
+                Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = context => RiskeerCommonFormsResources.SectionsIcon,
+                ForeColor = context => context.WrappedData.Sections.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
+            };
         }
 
         #region ViewInfos
@@ -631,6 +642,27 @@ namespace Riskeer.Piping.Plugin
         #endregion
 
         #region TreeNodeInfos
+
+        #region PipingFailureMechanismSectionsContext TreeNodeInfo
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(PipingFailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddImportItem(new ImportInfo[]
+                      {
+                          PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(inquiryHelper)
+                      })
+                      .AddUpdateItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
 
         #region PipingSurfaceLinesContext TreeNodeInfo
 
