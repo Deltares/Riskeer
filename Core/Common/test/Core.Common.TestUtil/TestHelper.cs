@@ -50,23 +50,6 @@ namespace Core.Common.TestUtil
         public static string SolutionRoot => Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
 
         /// <summary>
-        /// Returns a full path to the application directory, which contains all assemblies that are required for running
-        /// the application.
-        /// </summary>
-        /// <returns>A full path to the application directory.</returns>
-        public static string GetApplicationDirectory()
-        {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
-
-            while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
-            {
-                rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
-            }
-
-            return Path.Combine(rootDirectoryInfo.FullName, "Application");
-        }
-
-        /// <summary>
         /// Returns the location on disk that can be used safely for writing to disk temporarily.
         /// </summary>
         /// <returns>The folder path.</returns>

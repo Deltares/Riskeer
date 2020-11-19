@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Util;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Services;
@@ -33,7 +34,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
     public class HydraRingInitializationServiceTest
     {
         private static readonly string hydraRingDirectory = Path.Combine(
-            TestHelper.GetApplicationDirectory(), "Standalone",
+            AssemblyHelper.GetApplicationDirectory(), "Standalone",
             "Deltares", $"HydraRing-{HydraRingFileConstants.HydraRingVersionNumber}");
 
         [Test]

@@ -5390,7 +5390,7 @@ namespace AutomatedSystemTests
             /// Creates a new MapLegendPanel  folder.
             /// </summary>
             public MapLegendPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("MapLegendPanel", ".//container[@controlname='MapLegendView']/container", parentFolder, 30000, null, false, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
+                    base("MapLegendPanel", ".//container[@controlname='MapLegendView']/container", parentFolder, 30000, null, true, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
             {
                 _rootnode = new AutomatedSystemTestsRepositoryFolders.RootNodeFolder(this);
             }
