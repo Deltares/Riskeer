@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Service;
