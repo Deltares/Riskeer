@@ -25,7 +25,6 @@ using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {
