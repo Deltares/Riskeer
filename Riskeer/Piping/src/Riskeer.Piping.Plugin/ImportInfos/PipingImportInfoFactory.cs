@@ -21,13 +21,16 @@
 
 using System;
 using System.Linq;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Plugin.FileImporter;
+using Riskeer.Piping.Plugin.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -41,17 +44,16 @@ namespace Riskeer.Piping.Plugin.ImportInfos
         /// <summary>
         /// Creates a <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
-        /// <param name="verifyUpdatesFunc">The <see cref="Func{T1,TResult}"/> to verify whether changes that are
-        /// induced by the importer are allowed.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring required data.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="verifyUpdatesFunc"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHelper"/>
         /// is <c>null</c>.</exception>
         public static ImportInfo<PipingFailureMechanismSectionsContext> CreateFailureMechanismSectionsImportInfo(
-            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc)
+            IInquiryHelper inquiryHelper)
         {
-            if (verifyUpdatesFunc == null)
+            if (inquiryHelper == null)
             {
-                throw new ArgumentNullException(nameof(verifyUpdatesFunc));
+                throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
             return new ImportInfo<PipingFailureMechanismSectionsContext>
@@ -66,7 +68,14 @@ namespace Riskeer.Piping.Plugin.ImportInfos
                     context.WrappedData, context.AssessmentSection.ReferenceLine,
                     filePath, new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) context.WrappedData),
                     new ImportMessageProvider()),
-                VerifyUpdates = verifyUpdatesFunc 
+                VerifyUpdates = context =>
+                {
+                    var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
+                        (PipingFailureMechanism) context.WrappedData,
+                        Resources.PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm,
+                        inquiryHelper);
+                    return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+                }
             };
         }
     }

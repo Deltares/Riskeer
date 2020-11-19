@@ -118,6 +118,18 @@ namespace Riskeer.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingImportInfoFactory_VerifyFailureMechanismSectionImport_When_importing_Sectio" +
+                        "ns_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen met een profielschematisatie bijwerken..
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip {

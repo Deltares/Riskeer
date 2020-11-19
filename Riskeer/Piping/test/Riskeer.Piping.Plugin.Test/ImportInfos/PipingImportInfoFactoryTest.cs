@@ -20,15 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.IO.FileImporters;
-using Riskeer.Common.Primitives;
-using Riskeer.Piping.Data;
+using Rhino.Mocks;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Plugin.ImportInfos;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -39,51 +34,29 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
     public class PipingImportInfoFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismSectionsImportInfo_VerifyUpdatesFuncNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionsImportInfo_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("verifyUpdatesFunc", exception.ParamName);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
         }
-        
+
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateFailureMechanismSectionsImportInfo_WithData_ReturnsImportInfo(bool isEnabled)
+        public void CreateFailureMechanismSectionsImportInfo_WithData_ReturnsImportInfo()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            if (isEnabled)
-            {
-                assessmentSection.ReferenceLine.SetGeometry(new[]
-                {
-                    new Point2D(0, 0)
-                });
-            }
-
-            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
-
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
 
             // Call
-            Func<PipingFailureMechanismSectionsContext, bool> verifyUpdatesFunc = c => true;
-            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(
-                verifyUpdatesFunc);
+            ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(inquiryHelper);
 
             // Assert
-            Assert.AreEqual("Vakindeling", importInfo.Name);
-            Assert.AreEqual("Algemeen", importInfo.Category);
-
-            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
-
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, importInfo.Image);
-
-            Assert.AreEqual(isEnabled, importInfo.IsEnabled(context));
-            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importInfo.CreateFileImporter(context, ""));
-            Assert.AreSame(verifyUpdatesFunc, importInfo.VerifyUpdates);
+            Assert.IsNotNull(importInfo);
         }
     }
 }
