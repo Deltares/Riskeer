@@ -79,11 +79,17 @@ namespace AutomatedSystemTests.Modules.OpenViews
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(0));
+            Delay.Duration(300, false);
+            
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(1));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(2));
             repo.ContextMenu.Openen.Click();
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
+            Delay.Duration(300, false);
             
         }
 

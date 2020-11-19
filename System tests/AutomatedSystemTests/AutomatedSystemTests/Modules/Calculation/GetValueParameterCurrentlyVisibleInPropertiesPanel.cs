@@ -96,15 +96,14 @@ namespace AutomatedSystemTests.Modules.Calculation
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'AccessibleValue' from item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' and assigning its value to variable 'valueOfParameter'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
             valueOfParameter = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Element.GetAttributeValueText("AccessibleValue");
-            Delay.Milliseconds(0);
             
         }
 

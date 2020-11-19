@@ -33,5 +33,21 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             // Your recording specific initialization code goes here.
         }
 
+        public void ProceedAccordingToReachabilityServer()
+        {
+            AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
+            try {
+                repo.Fout.ButtonOKInfo.WaitForExists(1000);
+                // If fout dialog is shown, connection cannot be established with the server
+                Report.Log(ReportLevel.Warn, "Cannot retrieve data from WMTS server.");
+                repo.Fout.ButtonOK.Click();
+                repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.CancelButton.Click();
+            } catch (Exception) {
+                // Connection established with server and WMTS data retrieved
+                Report.Log(ReportLevel.Info, "Data received from WMTS server.");
+                repo.BackgroundMapDataSelectionDialog.Row0.Click();
+                repo.BackgroundMapDataSelectionDialog.DialogSelectionBackground.SelectButton.Click();
+            }
+        }
     }
 }

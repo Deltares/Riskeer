@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -25,30 +25,6 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
-		<mouseitem
-		action="Click"
-		button="Left"
-		duration="300ms"
-		enabled="True"
-		loc="Center"
-		movetime="300ms"
-		optional="False"
-		searchpropertyid="943bef5b-9eda-4986-866f-4b014ee0cc4c"
-		sx="95"
-		sy="177"
-		warnoutofbounds="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="2068096e-8bfc-444e-ad21-f3ee0812f9bf"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container/tree/tree/treeitem
-				</path>
-			</info>
-		</mouseitem>
 		<keysequenceitem
 		KeySequence=" "
 		duration="20ms"

@@ -73,19 +73,14 @@ namespace AutomatedSystemTests.Modules.ActionsMapLayersPanel
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.MapLegendPanel.RootNode' at Center.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.MapLegendPanel.RootNode.Self.Click();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence ' ' with focus on 'RiskeerMainWindow.MapLegendPanel.RootNode'.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence ' ' with focus on 'RiskeerMainWindow.MapLegendPanel.RootNode'.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.MapLegendPanel.RootNode.Self.PressKeys(" ");
-            Delay.Milliseconds(0);
             
         }
 

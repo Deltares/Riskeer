@@ -25,6 +25,15 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<keysequenceitem
 		KeySequence="{Apps}"
 		duration="20ms"
@@ -527,6 +536,15 @@ NfrTaKKAIpfvf9sn/pU0v3B/vL/MUUUARtZwNOZirFiQxG9tpI6HbnHYdqBZQDeArhZAQy+Y23nr
 xnAoooAdJbQy7t6Z3KFPJ6A5H696KKKAP//Z
 			</helperscreenshot>
 		</mouseitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

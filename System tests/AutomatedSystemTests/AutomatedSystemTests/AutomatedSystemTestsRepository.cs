@@ -902,8 +902,6 @@ namespace AutomatedSystemTests
         public partial class ProjectExplorerFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder _projectrootnode;
-            RepoItemInfo _hydraulischebelastingenInfo;
-            RepoItemInfo _kopievan12202500segment120041d1Info;
 
             /// <summary>
             /// Creates a new ProjectExplorer  folder.
@@ -912,8 +910,6 @@ namespace AutomatedSystemTests
                     base("ProjectExplorer", ".//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _projectrootnode = new AutomatedSystemTestsRepositoryFolders.ProjectRootNodeFolder(this);
-                _hydraulischebelastingenInfo = new RepoItemInfo(this, "HydraulischeBelastingen", "?/?/treeitem[@accessiblename='Traject 12-2 GEKB']/treeitem[@accessiblename='Hydraulische belastingen']", 30000, null, "ffacadc8-ed6b-4a13-8ba6-ce183b1e9509");
-                _kopievan12202500segment120041d1Info = new RepoItemInfo(this, "KopieVan12202500Segment120041D1", ".//treeitem[@accessiblename='Traject 12-2 STPH']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem[@accessiblename>'Kopie van 12_2_02500 Segm']", 30000, null, "1bc4c7ac-b74a-4de0-a833-0787988276a2");
             }
 
             /// <summary>
@@ -937,54 +933,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The HydraulischeBelastingen item.
-            /// </summary>
-            [RepositoryItem("ffacadc8-ed6b-4a13-8ba6-ce183b1e9509")]
-            public virtual Ranorex.TreeItem HydraulischeBelastingen
-            {
-                get
-                {
-                    return _hydraulischebelastingenInfo.CreateAdapter<Ranorex.TreeItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The HydraulischeBelastingen item info.
-            /// </summary>
-            [RepositoryItemInfo("ffacadc8-ed6b-4a13-8ba6-ce183b1e9509")]
-            public virtual RepoItemInfo HydraulischeBelastingenInfo
-            {
-                get
-                {
-                    return _hydraulischebelastingenInfo;
-                }
-            }
-
-            /// <summary>
-            /// The KopieVan12202500Segment120041D1 item.
-            /// </summary>
-            [RepositoryItem("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
-            public virtual Ranorex.TreeItem KopieVan12202500Segment120041D1
-            {
-                get
-                {
-                    return _kopievan12202500segment120041d1Info.CreateAdapter<Ranorex.TreeItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The KopieVan12202500Segment120041D1 item info.
-            /// </summary>
-            [RepositoryItemInfo("1bc4c7ac-b74a-4de0-a833-0787988276a2")]
-            public virtual RepoItemInfo KopieVan12202500Segment120041D1Info
-            {
-                get
-                {
-                    return _kopievan12202500segment120041d1Info;
                 }
             }
 
@@ -7812,7 +7760,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("4ed2421b-175c-4b4d-8733-b94793ed4133")]
         public partial class BackgroundMapDataSelectionDialogAppFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder _tablelayoutpanel1;
+            AutomatedSystemTestsRepositoryFolders.DialogSelectionBackgroundFolder _dialogselectionbackground;
             RepoItemInfo _flowlayoutpanel2Info;
             RepoItemInfo _row0Info;
 
@@ -7822,7 +7770,7 @@ namespace AutomatedSystemTests
             public BackgroundMapDataSelectionDialogAppFolder(RepoGenBaseFolder parentFolder) :
                     base("BackgroundMapDataSelectionDialog", "/form[@controlname='BackgroundMapDataSelectionDialog']", parentFolder, 30000, null, true, "4ed2421b-175c-4b4d-8733-b94793ed4133", "")
             {
-                _tablelayoutpanel1 = new AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder(this);
+                _dialogselectionbackground = new AutomatedSystemTestsRepositoryFolders.DialogSelectionBackgroundFolder(this);
                 _flowlayoutpanel2Info = new RepoItemInfo(this, "FlowLayoutPanel2", "?/?/container[@controlname='flowLayoutPanel2']", 30000, null, "5dcd874b-0399-4534-8388-8c7674656bc6");
                 _row0Info = new RepoItemInfo(this, "Row0", "?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']", 30000, null, "d0b3af51-09f6-49fb-89b1-52aafe114381");
             }
@@ -7900,40 +7848,36 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The TableLayoutPanel1 folder.
+            /// The DialogSelectionBackground folder.
             /// </summary>
             [RepositoryFolder("5ff51598-720e-48f4-9f45-0cd9533de867")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TableLayoutPanel1Folder TableLayoutPanel1
+            public virtual AutomatedSystemTestsRepositoryFolders.DialogSelectionBackgroundFolder DialogSelectionBackground
             {
-                get { return _tablelayoutpanel1; }
+                get { return _dialogselectionbackground; }
             }
         }
 
         /// <summary>
-        /// The TableLayoutPanel1Folder folder.
+        /// The DialogSelectionBackgroundFolder folder.
         /// </summary>
         [RepositoryFolder("5ff51598-720e-48f4-9f45-0cd9533de867")]
-        public partial class TableLayoutPanel1Folder : RepoGenBaseFolder
+        public partial class DialogSelectionBackgroundFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _selectbuttonInfo;
-            RepoItemInfo _maplayercomboboxInfo;
-            RepoItemInfo _addlocationbuttonInfo;
+            RepoItemInfo _cancelbuttonInfo;
             RepoItemInfo _connecttobuttonInfo;
-            RepoItemInfo _editlocationbuttonInfo;
-            RepoItemInfo _urllocationcomboboxInfo;
+            RepoItemInfo _maplayercomboboxInfo;
+            RepoItemInfo _selectbuttonInfo;
 
             /// <summary>
-            /// Creates a new TableLayoutPanel1  folder.
+            /// Creates a new DialogSelectionBackground  folder.
             /// </summary>
-            public TableLayoutPanel1Folder(RepoGenBaseFolder parentFolder) :
-                    base("TableLayoutPanel1", "container[@controlname='tableLayoutPanel1']", parentFolder, 30000, null, false, "5ff51598-720e-48f4-9f45-0cd9533de867", "")
+            public DialogSelectionBackgroundFolder(RepoGenBaseFolder parentFolder) :
+                    base("DialogSelectionBackground", "container[@controlname='tableLayoutPanel1']", parentFolder, 30000, null, false, "5ff51598-720e-48f4-9f45-0cd9533de867", "")
             {
-                _selectbuttonInfo = new RepoItemInfo(this, "SelectButton", "?/?/button[@controlname='selectButton']", 30000, null, "2df0475f-87b0-4c9a-957d-fe645d198f9b");
-                _maplayercomboboxInfo = new RepoItemInfo(this, "MapLayerComboBox", "?/?/combobox[@controlname='mapLayerComboBox']", 30000, null, "f74cd95e-8133-4695-8dc4-bf54ce2e9dc8");
-                _addlocationbuttonInfo = new RepoItemInfo(this, "AddLocationButton", "container[@controlname='propertiesGroupBox']//button[@controlname='addLocationButton']", 30000, null, "3ec07123-82ef-4483-9d4c-12118ce86d6d");
+                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/button[@controlname='cancelButton']", 30000, null, "c4d98bb1-8d9c-417d-b4f5-77c5c898556e");
                 _connecttobuttonInfo = new RepoItemInfo(this, "ConnectToButton", "container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']", 30000, null, "557fa973-5317-4d40-a856-2fd2b14140a4");
-                _editlocationbuttonInfo = new RepoItemInfo(this, "EditLocationButton", "container[@controlname='propertiesGroupBox']//button[@controlname='editLocationButton']", 30000, null, "09b07885-8ed3-48dd-99b1-2fc8ced4fe7c");
-                _urllocationcomboboxInfo = new RepoItemInfo(this, "UrlLocationComboBox", "container[@controlname='propertiesGroupBox']//combobox[@controlname='urlLocationComboBox']", 30000, null, "4b22e2b7-afac-4556-8708-15d3c256eeae");
+                _maplayercomboboxInfo = new RepoItemInfo(this, "MapLayerComboBox", "?/?/combobox[@controlname='mapLayerComboBox']", 30000, null, "f74cd95e-8133-4695-8dc4-bf54ce2e9dc8");
+                _selectbuttonInfo = new RepoItemInfo(this, "SelectButton", "?/?/button[@controlname='selectButton']", 30000, null, "2df0475f-87b0-4c9a-957d-fe645d198f9b");
             }
 
             /// <summary>
@@ -7961,74 +7905,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The SelectButton item.
+            /// The CancelButton item.
             /// </summary>
-            [RepositoryItem("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
-            public virtual Ranorex.Button SelectButton
+            [RepositoryItem("c4d98bb1-8d9c-417d-b4f5-77c5c898556e")]
+            public virtual Ranorex.Button CancelButton
             {
                 get
                 {
-                    return _selectbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                    return _cancelbuttonInfo.CreateAdapter<Ranorex.Button>(true);
                 }
             }
 
             /// <summary>
-            /// The SelectButton item info.
+            /// The CancelButton item info.
             /// </summary>
-            [RepositoryItemInfo("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
-            public virtual RepoItemInfo SelectButtonInfo
+            [RepositoryItemInfo("c4d98bb1-8d9c-417d-b4f5-77c5c898556e")]
+            public virtual RepoItemInfo CancelButtonInfo
             {
                 get
                 {
-                    return _selectbuttonInfo;
-                }
-            }
-
-            /// <summary>
-            /// The MapLayerComboBox item.
-            /// </summary>
-            [RepositoryItem("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
-            public virtual Ranorex.ComboBox MapLayerComboBox
-            {
-                get
-                {
-                    return _maplayercomboboxInfo.CreateAdapter<Ranorex.ComboBox>(true);
-                }
-            }
-
-            /// <summary>
-            /// The MapLayerComboBox item info.
-            /// </summary>
-            [RepositoryItemInfo("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
-            public virtual RepoItemInfo MapLayerComboBoxInfo
-            {
-                get
-                {
-                    return _maplayercomboboxInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AddLocationButton item.
-            /// </summary>
-            [RepositoryItem("3ec07123-82ef-4483-9d4c-12118ce86d6d")]
-            public virtual Ranorex.Button AddLocationButton
-            {
-                get
-                {
-                    return _addlocationbuttonInfo.CreateAdapter<Ranorex.Button>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AddLocationButton item info.
-            /// </summary>
-            [RepositoryItemInfo("3ec07123-82ef-4483-9d4c-12118ce86d6d")]
-            public virtual RepoItemInfo AddLocationButtonInfo
-            {
-                get
-                {
-                    return _addlocationbuttonInfo;
+                    return _cancelbuttonInfo;
                 }
             }
 
@@ -8057,50 +7953,50 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The EditLocationButton item.
+            /// The MapLayerComboBox item.
             /// </summary>
-            [RepositoryItem("09b07885-8ed3-48dd-99b1-2fc8ced4fe7c")]
-            public virtual Ranorex.Button EditLocationButton
+            [RepositoryItem("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
+            public virtual Ranorex.ComboBox MapLayerComboBox
             {
                 get
                 {
-                    return _editlocationbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                    return _maplayercomboboxInfo.CreateAdapter<Ranorex.ComboBox>(true);
                 }
             }
 
             /// <summary>
-            /// The EditLocationButton item info.
+            /// The MapLayerComboBox item info.
             /// </summary>
-            [RepositoryItemInfo("09b07885-8ed3-48dd-99b1-2fc8ced4fe7c")]
-            public virtual RepoItemInfo EditLocationButtonInfo
+            [RepositoryItemInfo("f74cd95e-8133-4695-8dc4-bf54ce2e9dc8")]
+            public virtual RepoItemInfo MapLayerComboBoxInfo
             {
                 get
                 {
-                    return _editlocationbuttonInfo;
+                    return _maplayercomboboxInfo;
                 }
             }
 
             /// <summary>
-            /// The UrlLocationComboBox item.
+            /// The SelectButton item.
             /// </summary>
-            [RepositoryItem("4b22e2b7-afac-4556-8708-15d3c256eeae")]
-            public virtual Ranorex.ComboBox UrlLocationComboBox
+            [RepositoryItem("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
+            public virtual Ranorex.Button SelectButton
             {
                 get
                 {
-                    return _urllocationcomboboxInfo.CreateAdapter<Ranorex.ComboBox>(true);
+                    return _selectbuttonInfo.CreateAdapter<Ranorex.Button>(true);
                 }
             }
 
             /// <summary>
-            /// The UrlLocationComboBox item info.
+            /// The SelectButton item info.
             /// </summary>
-            [RepositoryItemInfo("4b22e2b7-afac-4556-8708-15d3c256eeae")]
-            public virtual RepoItemInfo UrlLocationComboBoxInfo
+            [RepositoryItemInfo("2df0475f-87b0-4c9a-957d-fe645d198f9b")]
+            public virtual RepoItemInfo SelectButtonInfo
             {
                 get
                 {
-                    return _urllocationcomboboxInfo;
+                    return _selectbuttonInfo;
                 }
             }
         }

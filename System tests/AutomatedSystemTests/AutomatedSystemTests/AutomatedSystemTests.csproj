@@ -759,6 +759,9 @@
     <Compile Include="Modules\ActionsContextMenu\VerifyItemPresentInContextMenu.cs">
       <id>6a737ffa-3e0c-4c81-bdc5-78b47fbd8ea6</id>
     </Compile>
+    <Compile Include="Modules\Calculation\SetRandomRowWithinRangeSmartFolder.cs">
+      <id>b20a1f0c-135a-46a7-935a-43e5165f32a7</id>
+    </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
