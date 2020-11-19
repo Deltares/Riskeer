@@ -1297,7 +1297,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 			name="MapLegendPanel"
 			refimgid="12af5f5f-be0b-4475-abfa-13a1dd32870c"
 			searchtimeout="30000ms"
-			usecache="False">
+			usecache="True">
 				<folder
 				capname="treeitem"
 				id="2068096e-8bfc-444e-ad21-f3ee0812f9bf"

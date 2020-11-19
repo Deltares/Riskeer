@@ -34,26 +34,6 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</explicitdelayitem>
-		<loggingrecorditem
-		action="Screenshot"
-		category="User"
-		enabled="True"
-		message=""
-		optional="False"
-		reportlevel="Info;20"
-		searchpropertyid="82c2063f-5108-4aeb-97be-0185cb819baa">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
-				</path>
-			</info>
-		</loggingrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
