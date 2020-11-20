@@ -2853,7 +2853,7 @@
 			<testmodule
 			enabled="False"
 			id="cc512ba5-6e1b-4598-8380-87b08d23c7c4"
-			name="LogMessage"
+			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
 			type="Recording">
 				<description>
@@ -3530,7 +3530,7 @@
 							name="HydraulicBoundaryConditionCases">
 								<testmodule
 								id="cc512ba5-6e1b-4598-8380-87b08d23c7c4"
-								name="LogMessage">
+								name="LogInfoMessage">
 								</testmodule>
 								<smartfoldernode
 								id="08ec6f16-ccb8-4a06-a56c-b647003dd81b"

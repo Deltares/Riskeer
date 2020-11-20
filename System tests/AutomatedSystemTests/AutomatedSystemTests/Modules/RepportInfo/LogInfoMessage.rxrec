@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="LogMessage"
+	classname="LogInfoMessage"
 	namespace="AutomatedSystemTests.Modules.RepportInfo">
 	</codegen>
 	<variables>

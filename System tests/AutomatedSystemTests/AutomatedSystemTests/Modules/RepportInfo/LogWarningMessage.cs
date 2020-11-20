@@ -20,50 +20,50 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSubsurfaceSchematizationContributionInPropertiesPanel recording.
+    ///The LogWarningMessage recording.
     /// </summary>
-    [TestModule("d917bf46-7cb3-4724-b4ba-f8763b6c116a", ModuleType.Recording, 1)]
-    public partial class ValidateSubsurfaceSchematizationContributionInPropertiesPanel : ITestModule
+    [TestModule("ac560c61-46db-435c-aa8c-6cd15f93e120", ModuleType.Recording, 1)]
+    public partial class LogWarningMessage : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSubsurfaceSchematizationContributionInPropertiesPanel instance = new ValidateSubsurfaceSchematizationContributionInPropertiesPanel();
+        static LogWarningMessage instance = new LogWarningMessage();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSubsurfaceSchematizationContributionInPropertiesPanel()
+        public LogWarningMessage()
         {
-            contributionPercentage = "";
+            logMessage = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSubsurfaceSchematizationContributionInPropertiesPanel Instance
+        public static LogWarningMessage Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _contributionPercentage;
+        string _logMessage;
 
         /// <summary>
-        /// Gets or sets the value of variable contributionPercentage.
+        /// Gets or sets the value of variable logMessage.
         /// </summary>
-        [TestVariable("8df94070-254f-42b2-8866-1f4fbedd0238")]
-        public string contributionPercentage
+        [TestVariable("830a851f-ca57-4d7b-b036-ed8da63f3414")]
+        public string logMessage
         {
-            get { return _contributionPercentage; }
-            set { _contributionPercentage = value; }
+            get { return _logMessage; }
+            set { _logMessage = value; }
         }
 
 #endregion
@@ -92,10 +92,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentage, false, new RecordItemIndex(0));
-            
-            Validate_ContributionPercentage(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentageInfo);
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Warn, "User", logMessage, new RecordItemIndex(0));
             
         }
 

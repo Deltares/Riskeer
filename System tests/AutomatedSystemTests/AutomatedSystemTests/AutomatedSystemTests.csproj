@@ -330,30 +330,6 @@
       <UserCode>true</UserCode>
       <id>3ffb81e6-7244-4c09-8e0b-3de2aa64a020</id>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.cs">
-      <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>81ca1c75-ae31-4335-85ad-e3a741803dd0</id>
-      <BoundTo>5af8448c-2d95-42e6-b08c-b44b79eb28f0</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.UserCode.cs">
-      <DependentUpon>ExpandAllSubnodesStochasticSubsurfaceModels.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>95fa8625-50be-478a-85e2-39f77fcd1b96</id>
-      <BoundTo>5af8448c-2d95-42e6-b08c-b44b79eb28f0</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandUntilFMInput.cs">
-      <DependentUpon>ExpandUntilFMInput.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2a002dcb-9d56-4f00-9dd5-d167eaedcd7e</id>
-      <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandUntilFMInput.UserCode.cs">
-      <DependentUpon>ExpandUntilFMInput.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ebdb82ae-c816-411d-913b-a426c58ab31e</id>
-      <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
-    </Compile>
     <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAllRowItemsInPropertiesPanel.cs">
       <id>9a4c4116-ea50-4483-9928-f57623ba3542</id>
     </Compile>
@@ -720,30 +696,6 @@
       <id>b2be3309-72bf-4396-988b-5b88cd7cf647</id>
       <BoundTo>4696e5ae-8be0-4ab1-adca-9943fa2b230d</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.cs">
-      <DependentUpon>UpdateSubsurfaceSchematization.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6c63b2c9-c52f-4219-8437-55f52e4a244a</id>
-      <BoundTo>bea3f530-85c7-459c-a174-4593fea77c20</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.UserCode.cs">
-      <DependentUpon>UpdateSubsurfaceSchematization.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>02d6d6c9-db98-4ed4-a4a5-a9107ab2d7f6</id>
-      <BoundTo>bea3f530-85c7-459c-a174-4593fea77c20</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\UpdateSurfaceLines.cs">
-      <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>c916a031-a6ba-419f-8770-f467922b88af</id>
-      <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\UpdateSurfaceLines.UserCode.cs">
-      <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
-      <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
-    </Compile>
     <Compile Include="Modules\ActionsContextMenu\ValidateAllCalculationsInSelectedFolder.cs">
       <BoundTo>8a7c290a-c895-4ab6-8417-8c4f981c847e</BoundTo>
       <DependentUpon>ValidateAllCalculationsInSelectedFolder.rxrec</DependentUpon>
@@ -1017,17 +969,29 @@
       <UserCode>true</UserCode>
       <id>ffdb7e96-9f5b-435e-93d5-1ed4f5148b55</id>
     </Compile>
-    <Compile Include="Modules\RepportInfo\LogMessage.cs">
-      <DependentUpon>LogMessage.rxrec</DependentUpon>
+    <Compile Include="Modules\RepportInfo\LogInfoMessage.cs">
+      <DependentUpon>LogInfoMessage.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>115ff5d3-87f7-48eb-9462-7c47f1105933</id>
       <BoundTo>13439f4b-f332-4240-b490-e1dbd6823904</BoundTo>
     </Compile>
-    <Compile Include="Modules\RepportInfo\LogMessage.UserCode.cs">
-      <DependentUpon>LogMessage.rxrec</DependentUpon>
+    <Compile Include="Modules\RepportInfo\LogInfoMessage.UserCode.cs">
+      <DependentUpon>LogInfoMessage.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5677d087-2b48-43ca-aeea-8d63226eb8c0</id>
       <BoundTo>13439f4b-f332-4240-b490-e1dbd6823904</BoundTo>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\LogWarningMessage.cs">
+      <BoundTo>6cb64e68-74cb-4e04-9a43-507ecabb959a</BoundTo>
+      <DependentUpon>LogWarningMessage.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>50153764-433a-483a-90a6-bb784a71591d</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\LogWarningMessage.UserCode.cs">
+      <BoundTo>6cb64e68-74cb-4e04-9a43-507ecabb959a</BoundTo>
+      <DependentUpon>LogWarningMessage.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e39ebdf6-665b-4bf0-a858-9c935fc0111c</id>
     </Compile>
     <Compile Include="Modules\Ribbon\AddNewTraject.cs">
       <DependentUpon>AddNewTraject.rxrec</DependentUpon>
@@ -1704,18 +1668,6 @@
       <id>89a75722-a4cb-43dd-8134-1bd753fcead7</id>
       <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationName.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationName.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e9a0e895-c9e4-42b8-ba9f-9b9f236c77b7</id>
-      <BoundTo>e3c62291-3c07-4d20-ada3-e77ad39543e5</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationName.UserCode.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationName.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>fe0b95b1-dd63-452c-9a3d-02865e75200b</id>
-      <BoundTo>e3c62291-3c07-4d20-ada3-e77ad39543e5</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateSurfaceLineInProjectExplorer.cs">
       <DependentUpon>ValidateSurfaceLineInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1971,47 +1923,11 @@
       <id>4eb82aeb-b632-4f93-909d-ca316feea9cb</id>
       <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSubsurfaceStochasticModels.cs">
-      <DependentUpon>ValidateSourcePathSubsurfaceStochasticModels.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>fae96a43-306e-49e7-8e44-4e67a9da7d28</id>
-      <BoundTo>444519ad-5c0e-4f67-a471-590031bbe26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSubsurfaceStochasticModels.UserCode.cs">
-      <DependentUpon>ValidateSourcePathSubsurfaceStochasticModels.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f32f32d5-5dd1-4230-8609-59bb7c11ffac</id>
-      <BoundTo>444519ad-5c0e-4f67-a471-590031bbe26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSurfaceLines.cs">
-      <DependentUpon>ValidateSourcePathSurfaceLines.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>38b0a339-f485-49aa-8e49-16b1d8866f7b</id>
-      <BoundTo>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSurfaceLines.UserCode.cs">
-      <DependentUpon>ValidateSourcePathSurfaceLines.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>53492640-8a16-4a84-8839-03b44cbcfc43</id>
-      <BoundTo>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreEqual.cs">
       <id>007488a8-5d59-42df-8824-32336f400f51</id>
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreNotEqual.cs">
       <id>5d655704-eed1-40fa-a340-b0c2c0e2b5d4</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSubsurfaceSchematizationContributionInPropertiesPanel.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationContributionInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ba6bff09-cd15-4d59-a971-6ab40fff37f1</id>
-      <BoundTo>4656016c-0543-46c4-b0eb-cdfa1c1761a1</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSubsurfaceSchematizationContributionInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationContributionInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c07db5c4-a3b3-4fda-80d6-3d5364121b80</id>
-      <BoundTo>4656016c-0543-46c4-b0eb-cdfa1c1761a1</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.cs">
       <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
@@ -2232,16 +2148,6 @@
       <id>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</id>
       <recordtableid>fc3fbe79-ece7-4b7d-a17b-826b866c1686</recordtableid>
     </None>
-    <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandAllSubnodesStochasticSubsurfaceModels.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5af8448c-2d95-42e6-b08c-b44b79eb28f0</id>
-      <recordtableid>6b3643f7-60a2-455b-8131-739ad1d10355</recordtableid>
-    </None>
-    <None Include="Modules\ActionsVisibilityItemsProjectExplorer\ExpandUntilFMInput.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</id>
-      <recordtableid>758dd2d8-956a-46d7-a793-08dc2c8e08a7</recordtableid>
-    </None>
     <None Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAlphasGroup.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c0a92f2d-ef50-471d-8e1e-2102097c50ca</id>
@@ -2377,16 +2283,6 @@
       <id>4696e5ae-8be0-4ab1-adca-9943fa2b230d</id>
       <recordtableid>bbf874ea-d649-48f1-b9a6-08ca561100d3</recordtableid>
     </None>
-    <None Include="Modules\ActionsContextMenu\UpdateSubsurfaceSchematization.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bea3f530-85c7-459c-a174-4593fea77c20</id>
-      <recordtableid>32dc32fd-5a31-4bd3-96eb-7c8d70401ccb</recordtableid>
-    </None>
-    <None Include="Modules\ActionsContextMenu\UpdateSurfaceLines.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
-      <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
-    </None>
     <None Include="Modules\ActionsContextMenu\ValidateAllCalculationsInSelectedFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
@@ -2492,10 +2388,15 @@
       <id>9132f069-1cc1-49e1-8163-ab0f9b279541</id>
       <recordtableid>7b4b5931-d933-4dfd-92c3-207ab4e9306d</recordtableid>
     </None>
-    <None Include="Modules\RepportInfo\LogMessage.rxrec">
+    <None Include="Modules\RepportInfo\LogInfoMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>13439f4b-f332-4240-b490-e1dbd6823904</id>
       <recordtableid>da5c8215-39c8-4753-aad9-b17540fb9e4c</recordtableid>
+    </None>
+    <None Include="Modules\RepportInfo\LogWarningMessage.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>6cb64e68-74cb-4e04-9a43-507ecabb959a</id>
+      <recordtableid>ac560c61-46db-435c-aa8c-6cd15f93e120</recordtableid>
     </None>
     <None Include="Modules\Ribbon\AddNewTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2767,11 +2668,6 @@
       <id>765678f8-5ac0-425e-af7f-9586f16ef48a</id>
       <recordtableid>7b0aa06d-511c-46a3-a9a6-082f4011e57c</recordtableid>
     </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationName.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e3c62291-3c07-4d20-ada3-e77ad39543e5</id>
-      <recordtableid>560d0007-fd1b-471b-9883-19d6c73cf565</recordtableid>
-    </None>
     <None Include="Modules\Validation\ProjectExplorer\ValidateSurfaceLineInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b53e680-197b-47b4-82d7-5157b394bfcb</id>
@@ -2877,21 +2773,6 @@
       <id>3c75635e-8e82-4d23-ac92-7e2fe375ba43</id>
       <recordtableid>f7696db3-8395-4cde-9420-df76b7faa09a</recordtableid>
     </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSubsurfaceStochasticModels.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>444519ad-5c0e-4f67-a471-590031bbe26a</id>
-      <recordtableid>91eb0c4e-9253-4dc7-a692-cc3aca2d4649</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateSourcePathSurfaceLines.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</id>
-      <recordtableid>cb7662f3-2819-4dda-b3ec-c0e6a585160f</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateSubsurfaceSchematizationContributionInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4656016c-0543-46c4-b0eb-cdfa1c1761a1</id>
-      <recordtableid>d917bf46-7cb3-4724-b4ba-f8763b6c116a</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
@@ -2951,9 +2832,6 @@
     </Folder>
     <Folder Include="Modules\ActionsContextMenu">
       <id>2ae3426c-1569-41c9-8f63-62464e02e74f</id>
-    </Folder>
-    <Folder Include="Modules\ActionsVisibilityItemsProjectExplorer">
-      <id>6aa517bc-0984-4f2a-a1bb-e9a097dd597e</id>
     </Folder>
     <Folder Include="Modules\ActionsDocumentView">
       <id>ab7f0069-b843-4924-b1b9-e26996512605</id>

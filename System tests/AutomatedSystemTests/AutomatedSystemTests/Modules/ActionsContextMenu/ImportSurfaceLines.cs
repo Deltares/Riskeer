@@ -66,26 +66,6 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             set { _SurfaceLineCollectionFileName = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
-        {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
-        }
-
 #endregion
 
         /// <summary>
@@ -112,31 +92,22 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Select();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Click(System.Windows.Forms.MouseButtons.Right);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
             repo.ContextMenu.Importeren.Click();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$SurfaceLineCollectionFileName' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$SurfaceLineCollectionFileName' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(2));
             repo.Openen.FileNameField.Element.SetAttributeValue("Text", SurfaceLineCollectionFileName);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at 41;7.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(4));
-            repo.Openen.ButtonOpen.Click("41;7");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at Center.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(3));
+            repo.Openen.ButtonOpen.Click();
             
-            //Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(5));
-            //Delay.Duration(1000, false);
-            
-            //Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(6));
-            //repo.ActivityProgressDialog.ButtonCancelInfo.WaitForExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(4));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(5));
             Delay.Duration(2000, false);
             
         }

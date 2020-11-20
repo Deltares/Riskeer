@@ -482,7 +482,7 @@
 			</testmodule>
 			<testmodule
 			id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
-			name="LogMessage"
+			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
 			type="Recording">
 				<databinding>
@@ -2912,7 +2912,7 @@
 										</testmodule>
 										<testmodule
 										id="2e7cfc13-4c1e-48e0-a79f-815eac425444"
-										name="LogMessage">
+										name="LogInfoMessage">
 										</testmodule>
 										<testmodule
 										id="c7c31a91-2a89-49b7-a188-0e50337b8534"

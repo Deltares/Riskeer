@@ -29,30 +29,18 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
-		<mouseitem
-		action="Click"
-		button="Right"
-		duration="300ms"
+		<keysequenceitem
+		KeySequence="{Apps}"
+		duration="20ms"
 		enabled="True"
-		loc="Center"
-		movetime="300ms"
 		optional="False"
-		searchpropertyid="e8bf4312-765c-4066-922a-bb1fee2470c7"
-		sx="170"
-		sy="521"
-		warnoutofbounds="False">
+		presstime="20ms"
+		searchpropertyid="be62efd7-5701-4157-9a58-99e9a50aad3d">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
-			<info
-			id="03aba76a-aaa9-4a4f-afc6-7205205077c8"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
-				</path>
-			</info>
-		</mouseitem>
+		</keysequenceitem>
 		<mouseitem
 		action="Click"
 		button="Left"

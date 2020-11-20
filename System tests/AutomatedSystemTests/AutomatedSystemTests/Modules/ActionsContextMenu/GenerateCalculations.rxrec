@@ -25,31 +25,18 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
-		<mouseitem
-		action="Click"
-		button="Right"
-		duration="300ms"
+		<keysequenceitem
+		KeySequence="{Apps}"
+		duration="20ms"
 		enabled="True"
-		loc="Center"
-		movetime="300ms"
 		optional="False"
-		searchpropertyid="d1e3501f-9a59-4142-b76f-2530c0317512"
-		sx="143"
-		sy="466"
-		warnoutofbounds="False">
+		presstime="20ms"
+		searchpropertyid="27982ce2-f894-4c52-9a74-14b1096dfe92">
 			<comment>
-				Right click on generic (inside traject and FM defined by sunstrings) Calculations node
 			</comment>
 			<bindings>
 			</bindings>
-			<info
-			id="50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
-				</path>
-			</info>
-		</mouseitem>
+		</keysequenceitem>
 		<mouseitem
 		action="Click"
 		button="Left"

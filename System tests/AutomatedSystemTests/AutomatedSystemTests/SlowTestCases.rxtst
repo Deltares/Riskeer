@@ -6300,7 +6300,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="a632b4f8-d660-4036-bddb-16d1738ece7b"
-			name="LogMessage"
+			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
 			type="Recording">
 				<databinding>
@@ -8520,7 +8520,7 @@
 			</testmodule>
 			<testmodule
 			id="da594a80-79ec-4329-9327-9aa882b16aee"
-			name="LogMessage"
+			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
 			type="Recording">
 				<databinding>
@@ -10297,7 +10297,7 @@
 						name="b)Total_overview_of_the_assessment_results">
 							<testmodule
 							id="da594a80-79ec-4329-9327-9aa882b16aee"
-							name="LogMessage">
+							name="LogInfoMessage">
 							</testmodule>
 							<smartfoldernode
 							id="47823c90-061c-41ae-8fa5-ba0c5283c114"
@@ -11910,7 +11910,7 @@
 										</testmodule>
 										<testmodule
 										id="a632b4f8-d660-4036-bddb-16d1738ece7b"
-										name="LogMessage">
+										name="LogInfoMessage">
 										</testmodule>
 										<testmodule
 										id="26136db7-acb8-4a3a-9c2f-933ba44eb949"

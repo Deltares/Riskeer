@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The LogMessage recording.
+    ///The LogInfoMessage recording.
     /// </summary>
     [TestModule("da5c8215-39c8-4753-aad9-b17540fb9e4c", ModuleType.Recording, 1)]
-    public partial class LogMessage : ITestModule
+    public partial class LogInfoMessage : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static LogMessage instance = new LogMessage();
+        static LogInfoMessage instance = new LogInfoMessage();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public LogMessage()
+        public LogInfoMessage()
         {
             logMessage = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static LogMessage Instance
+        public static LogInfoMessage Instance
         {
             get { return instance; }
         }

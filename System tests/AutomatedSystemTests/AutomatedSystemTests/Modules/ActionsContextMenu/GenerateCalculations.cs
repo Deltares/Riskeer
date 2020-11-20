@@ -54,26 +54,6 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
-        {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable indexRow.
         /// </summary>
         [TestVariable("201b1d21-866e-4c9e-bf76-93ca440565ea")]
@@ -109,9 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            // Right click on generic (inside traject and FM defined by sunstrings) Calculations node
-            Report.Log(ReportLevel.Info, "Mouse", "Right click on generic (inside traject and FM defined by sunstrings) Calculations node\r\nMouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.Self.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
             // Select Genereer scenario's from context menu
             Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerScenarios' at Center.", repo.ContextMenu.GenereerScenariosInfo, new RecordItemIndex(1));

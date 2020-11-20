@@ -101,6 +101,8 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
         	if (nodeIsExpectedToBeContained=="true") {
         	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains one node with name '" + nameOfNode + "'.");
         	    Validate.IsTrue(numberOfChildrenWithNodeName==1);
+        	    stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(nameOfNode)).As<TreeItem>();
+        	    Report.Screenshot(stepChild.Element);
         	    } else {
         	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains no node with name '" + nameOfNode + "'.");
         	    Validate.IsTrue(numberOfChildrenWithNodeName==0);

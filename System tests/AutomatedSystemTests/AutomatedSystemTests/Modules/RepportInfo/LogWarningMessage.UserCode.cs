@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
-    public partial class ValidateSourcePathSurfaceLines
+    public partial class LogWarningMessage
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
