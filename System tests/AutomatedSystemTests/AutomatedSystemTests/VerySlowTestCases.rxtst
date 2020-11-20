@@ -70,7 +70,7 @@
 			id="062cf885-33f3-44f3-a93f-15c2012ba8cf"
 			maxrange="2"
 			minrange="1"
-			name="LoopSeparateCalculationsAfterChangeCLimateScenario">
+			name="LoopSeparateCalculationsAfterChangeClimateScenario">
 				<parameters>
 					<param
 					name="fullPathToSeparateCalculation"
@@ -441,6 +441,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="1be75c3c-e11b-49e0-a297-37a25b887e46"
+			name="SetRangeLoopSeparateCalculationsAfterChangeClimateScenario">
+				<parameters>
+					<param
+					name="nameSmartFolderToSetRange"
+					value="LoopSeparateCalculationsAfterChangeClimateScenario">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="1d45a5a9-0ba8-4d20-a02f-da70e48db883"
 			name="SetRangeInSmartFolder"
@@ -583,6 +593,34 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="23a656e7-2778-4f22-941a-1bc638afd878"
+			name="GenerateRandomIndexInRangeOfSmartFolder"
+			ref="57e8241e-e1ed-4068-a5f9-cf3c3a66e673"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="6e139230-f32a-477f-9f66-1873445f7d8d"
+					variableid="46e1126b-a8f6-47ec-81ed-ffabf616caff"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="3cab689e-3f7a-432e-ab02-e9bc92bd4e6d"
+					variableid="fc28675a-0851-49ee-90d4-85279ce6fa30"
+					variablename="generatedRandomIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="6915e22e-bc0e-4d7b-856f-ff4353d60766"
+					variableid="fc28675a-0851-49ee-90d4-85279ce6fa30"
+					variablename="generatedRandomIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="23b4c265-b2b3-405c-a2b9-e7beadce584b"
@@ -875,6 +913,12 @@
 			<smartfoldernode
 			id="3cab689e-3f7a-432e-ab02-e9bc92bd4e6d"
 			name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
+				<parameters>
+					<param
+					name="indexFMToCarryOutSeparateCalculation"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="3df70118-6157-4122-b293-9324ce2c7a42"
@@ -1729,6 +1773,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="6e139230-f32a-477f-9f66-1873445f7d8d"
+			name="DetermineRandomFMToCarryOutSeparateCalculation">
+				<parameters>
+					<param
+					name="nameSmartFolder"
+					value="LoopSeparateCalculationsBeforeChangeClimateScenario">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="6f5eab55-edfa-4a79-9ed6-b919a1d986c9"
 			name="SelectGenericItemInProjectExplorer"
@@ -2029,6 +2083,34 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="7e1720b8-8aeb-45b0-a5aa-d9e917f9bad1"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderToSetRange"
+					datasourceid="1be75c3c-e11b-49e0-a297-37a25b887e46"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="3cab689e-3f7a-432e-ab02-e9bc92bd4e6d"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="6915e22e-bc0e-4d7b-856f-ff4353d60766"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_c_ExpectedDoubleValuesInPropertiesPanel"
 			errorbehavior="ContinueNextIteration"
@@ -2170,6 +2252,28 @@
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="8d607048-cfac-4e64-aac1-f628e0ecf64c"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="d87be6b5-39e0-40aa-a798-1bda7d9cd289"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="902f64aa-5256-4434-a65f-a170b2f93c29"
@@ -2942,6 +3046,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="d87be6b5-39e0-40aa-a798-1bda7d9cd289"
+			name="SaveProjectScript15d">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="output\script15\script15d.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="d98ebd27-3f67-4500-9b30-9165afe68646"
 			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
@@ -3189,7 +3303,7 @@
 			id="e9d58148-c2a9-49fd-8a29-dc92fd95504b"
 			maxrange="2"
 			minrange="1"
-			name="LoopSeparateCalculations">
+			name="LoopSeparateCalculationsBeforeChangeClimateScenario">
 				<parameters>
 					<param
 					name="fullPathToSeparateCalculation"
@@ -3427,6 +3541,44 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="fb8994d2-e8ec-4c31-a2ec-89e7763535e6"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderToSetRange"
+					datasourceid="fc3d3cf2-a052-4312-8dd4-72ad712ba4eb"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="3cab689e-3f7a-432e-ab02-e9bc92bd4e6d"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexFMToCarryOutSeparateCalculation"
+					datasourceid="6915e22e-bc0e-4d7b-856f-ff4353d60766"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="fc3d3cf2-a052-4312-8dd4-72ad712ba4eb"
+			name="SetRangeLoopSeparateCalculationsBeforeChangeClimateScenario">
+				<parameters>
+					<param
+					name="nameSmartFolderToSetRange"
+					value="LoopSeparateCalculationsBeforeChangeClimateScenario">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="fc8d03ad-bbe7-46c7-b5c8-deb4eef07853"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
@@ -4074,6 +4226,14 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
+							id="6e139230-f32a-477f-9f66-1873445f7d8d"
+							name="DetermineRandomFMToCarryOutSeparateCalculation">
+								<testmodule
+								id="23a656e7-2778-4f22-941a-1bc638afd878"
+								name="GenerateRandomIndexInRangeOfSmartFolder">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
 							id="6915e22e-bc0e-4d7b-856f-ff4353d60766"
 							name="LoopCalculationHydraulicBoundaryConditionsForClimateScenario">
 								<smartfoldernode
@@ -4137,8 +4297,16 @@
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
+								id="fc3d3cf2-a052-4312-8dd4-72ad712ba4eb"
+								name="SetRangeLoopSeparateCalculationsBeforeChangeClimateScenario">
+									<testmodule
+									id="fb8994d2-e8ec-4c31-a2ec-89e7763535e6"
+									name="SetRangeInSmartFolder">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="e9d58148-c2a9-49fd-8a29-dc92fd95504b"
-								name="LoopSeparateCalculations">
+								name="LoopSeparateCalculationsBeforeChangeClimateScenario">
 									<testmodule
 									id="bb76284f-f64f-4c52-b714-1edadcee82f5"
 									name="CalculateFullPathToSeparateCalculation">
@@ -4237,8 +4405,16 @@
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
+								id="1be75c3c-e11b-49e0-a297-37a25b887e46"
+								name="SetRangeLoopSeparateCalculationsAfterChangeClimateScenario">
+									<testmodule
+									id="7e1720b8-8aeb-45b0-a5aa-d9e917f9bad1"
+									name="SetRangeInSmartFolder">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="062cf885-33f3-44f3-a93f-15c2012ba8cf"
-								name="LoopSeparateCalculationsAfterChangeCLimateScenario">
+								name="LoopSeparateCalculationsAfterChangeClimateScenario">
 									<testmodule
 									id="d3ef2186-0572-4686-a729-75d7d501d873"
 									name="CalculateFullPathToSeparateCalculation">
@@ -4296,6 +4472,14 @@
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="d87be6b5-39e0-40aa-a798-1bda7d9cd289"
+							name="SaveProjectScript15d">
+								<testmodule
+								id="8d607048-cfac-4e64-aac1-f628e0ecf64c"
+								name="SaveAs">
+								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -9891,7 +10075,7 @@
 		</DataSource>
 		<DataSource
 		id="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
-		lastknownrowcount="1"
+		lastknownrowcount="2"
 		name="script15d_CalculationHydraulicBoundaryConditionsForClimateScenario"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -9939,6 +10123,20 @@
 						X:\script15\External\WBI2017_IJsselmeer_12-2_v02_klimaat\hlcd_klimaat.sqlite
 					</td>
 				</tr>
+				<tr>
+					<td>
+						X:\script15\External\WBI2017_Europoort_14-4_v03_klimaat\WBI2017_Europoort_14-4_v03.sqlite
+					</td>
+					<td>
+						14-4&gt;Hydraulische belastingen
+					</td>
+					<td>
+						14-4
+					</td>
+					<td>
+						X:\script15\External\WBI2017_Europoort_14-4_v03_klimaat\hlcd_klimaat.sqlite
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
@@ -9950,6 +10148,9 @@
 				<column>
 					pathFromTrajectToHydraulicBCCalculationItem
 				</column>
+				<column>
+					fmLabel
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -9958,20 +10159,29 @@
 					<th>
 						pathFromTrajectToHydraulicBCCalculationItem
 					</th>
+					<th>
+						fmLabel
+					</th>
 				</tr>
 				<tr>
 					<td>
 						&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
 					</td>
+					<td>
+					</td>
 				</tr>
 				<tr>
 					<td>
 						&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
+					</td>
+					<td>
 					</td>
 				</tr>
 			</table>
@@ -10028,6 +10238,9 @@
 				<column>
 					pathFromTrajectToSeparateCalculationItem
 				</column>
+				<column>
+					labelFM
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -10036,20 +10249,32 @@
 					<th>
 						pathFromTrajectToSeparateCalculationItem
 					</th>
+					<th>
+						labelFM
+					</th>
 				</tr>
 				<tr>
 					<td>
 						&gt;steenzetting&gt;Hydraulische belastingen&gt;berekening
+					</td>
+					<td>
+						ZST
 					</td>
 				</tr>
 				<tr>
 					<td>
 						&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen&gt;berekening
 					</td>
+					<td>
+						AGK
+					</td>
 				</tr>
 				<tr>
 					<td>
 						&gt;erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;berekening
+					</td>
+					<td>
+						GEBU
 					</td>
 				</tr>
 			</table>
@@ -10088,6 +10313,9 @@
 			</testcontainer>
 			<testcontainer
 			id="1a67b900-f3a0-41e3-8116-e9e5de834e08">
+			</testcontainer>
+			<testcontainer
+			id="1be75c3c-e11b-49e0-a297-37a25b887e46">
 			</testcontainer>
 			<testcontainer
 			id="1d48d0d6-d762-4387-bb40-83abeb9a488a">
@@ -10192,6 +10420,9 @@
 			id="6d3655ba-a8a6-4b59-a9d9-3da4fd88ba9a">
 			</testcontainer>
 			<testcontainer
+			id="6e139230-f32a-477f-9f66-1873445f7d8d">
+			</testcontainer>
+			<testcontainer
 			id="73ec1dae-84e4-4194-8882-175b66bf58e2">
 			</testcontainer>
 			<testcontainer
@@ -10291,6 +10522,9 @@
 			id="ca8778d5-8360-4735-bd18-a9dfc6fe7668">
 			</testcontainer>
 			<testcontainer
+			id="d87be6b5-39e0-40aa-a798-1bda7d9cd289">
+			</testcontainer>
+			<testcontainer
 			id="dfd825af-9a87-455b-a42e-e626ae2d6ae5">
 			</testcontainer>
 			<testcontainer
@@ -10322,6 +10556,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f92713ed-66ea-4140-b4ef-2290b5c85d59">
+			</testcontainer>
+			<testcontainer
+			id="fc3d3cf2-a052-4312-8dd4-72ad712ba4eb">
 			</testcontainer>
 			<testcontainer
 			id="fd5af495-305e-4a28-9043-e2dd10737a77">
