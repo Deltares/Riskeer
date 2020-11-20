@@ -65,7 +65,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui, exception.Message);
+            StringAssert.StartsWith($"Kan geen '{nameof(ApplicationFeatureCommandHandler)}'-afhankelijk element " +
+                                    $"in het contextmenu creëren zonder een '{nameof(ApplicationFeatureCommandHandler)}'.",
+                                    exception.Message);
             StringAssert.EndsWith("applicationFeatureCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -92,7 +94,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler, exception.Message);
+            StringAssert.StartsWith($"Kan geen '{nameof(IImportCommandHandler)}'-afhankelijk element " +
+                                    $"in het contextmenu creëren zonder een '{nameof(IImportCommandHandler)}'.",
+                                    exception.Message);
             StringAssert.EndsWith("importCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -119,7 +123,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler, exception.Message);
+            StringAssert.StartsWith($"Kan geen '{nameof(IExportCommandHandler)}'-afhankelijk element " +
+                                    $"in het contextmenu creëren zonder een '{nameof(IExportCommandHandler)}'.",
+                                    exception.Message);
             StringAssert.EndsWith("exportCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -146,7 +152,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler, exception.Message);
+            StringAssert.StartsWith($"Kan geen '{nameof(IUpdateCommandHandler)}'-afhankelijk element " +
+                                    $"in het contextmenu creëren zonder een '{nameof(IUpdateCommandHandler)}'.",
+                                    exception.Message);
             StringAssert.EndsWith("updateCommandHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -173,7 +181,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands, exception.Message);
+            StringAssert.StartsWith($"Kan geen '{nameof(IViewCommands)}'-afhankelijk element " +
+                                    $"in het contextmenu creëren zonder een '{nameof(IViewCommands)}'.",
+                                    exception.Message);
             StringAssert.EndsWith("viewCommandsHandler", exception.Message);
 
             mocks.VerifyAll();
@@ -201,7 +211,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, exception.Message);
+            StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", exception.Message);
             StringAssert.EndsWith("dataObject", exception.Message);
 
             mocks.VerifyAll();
@@ -261,8 +271,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreateOpenItem();
 
             // Assert
-            Assert.AreEqual(Resources.Open, item.Text);
-            Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Openen", item.Text);
+            Assert.AreEqual("Open de gegevens in een nieuw documentvenster.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
             Assert.AreEqual(canOpenView, item.Enabled);
 
@@ -329,8 +339,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreateExportItem();
 
             // Assert
-            Assert.AreEqual(Resources.Export, item.Text);
-            Assert.AreEqual(Resources.Export_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Exporteren...", item.Text);
+            Assert.AreEqual("Exporteer de gegevens naar een bestand.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, item.Image);
             Assert.AreEqual(hasExportersForNodeData, item.Enabled);
 
@@ -402,8 +412,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreateImportItem();
 
             // Assert
-            Assert.AreEqual(Resources.Import, item.Text);
-            Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Importeren...", item.Text);
+            Assert.AreEqual("Importeer de gegevens vanuit een bestand.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
             Assert.AreEqual(hasImportersForNodeData, item.Enabled);
 
@@ -480,8 +490,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreateImportItem(importInfos);
 
             // Assert
-            Assert.AreEqual(Resources.Import, item.Text);
-            Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Importeren...", item.Text);
+            Assert.AreEqual("Importeer de gegevens vanuit een bestand.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
             Assert.AreEqual(hasImportersForNodeData, item.Enabled);
 
@@ -927,8 +937,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreateUpdateItem();
 
             // Assert
-            Assert.AreEqual(Resources.Update, item.Text);
-            Assert.AreEqual(Resources.Update_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Bijwerken...", item.Text);
+            Assert.AreEqual("Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.RefreshIcon, item.Image);
             Assert.AreEqual(canUpdateOn, item.Enabled);
 
@@ -994,8 +1004,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             ToolStripItem item = contextMenuFactory.CreatePropertiesItem();
 
             // Assert
-            Assert.AreEqual(Resources.Properties, item.Text);
-            Assert.AreEqual(Resources.Properties_ToolTip, item.ToolTipText);
+            Assert.AreEqual("Ei&genschappen", item.Text);
+            Assert.AreEqual("Toon de eigenschappen in het Eigenschappenpaneel.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.PropertiesHS, item.Image);
             Assert.AreEqual(hasPropertyInfoForNodeData, item.Enabled);
 
