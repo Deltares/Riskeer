@@ -27,8 +27,6 @@ using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -98,7 +96,8 @@ namespace Riskeer.Piping.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="SemiProbabilisticPipingCalculationScenario"/> to create the calculation features for.</param>
+        /// <param name="calculations">The collection of <see cref="TCalculationScenario"/> to create the calculation features for.</param>
+        /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
         /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
         public static IEnumerable<MapFeature> CreateCalculationFeatures<TCalculationScenario>(IEnumerable<TCalculationScenario> calculations)
             where TCalculationScenario : IPipingCalculationScenario<PipingInput>
