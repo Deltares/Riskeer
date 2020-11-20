@@ -36,7 +36,6 @@
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj" />
     <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj" />
-    <ProjectReference Include="..\..\..\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />

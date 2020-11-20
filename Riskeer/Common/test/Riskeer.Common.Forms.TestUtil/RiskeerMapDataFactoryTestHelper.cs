@@ -34,9 +34,9 @@ namespace Riskeer.Common.Forms.TestUtil
         /// Asserts the line style.
         /// </summary>
         /// <param name="lineStyle">The <see cref="LineStyle"/>to assert.</param>
-        /// <param name="color">The <see cref="Color"/>to assert.</param>
-        /// <param name="width">The width of the line to assert.</param>
-        /// <param name="style">The <see cref="LineDashStyle"/>to assert.</param>
+        /// <param name="color">The expected <see cref="Color"/>.</param>
+        /// <param name="width">The expected width of the line.</param>
+        /// <param name="style">The expected <see cref="LineDashStyle"/>.</param>
         /// <exception cref="AssertionException">Thrown when one of the parameters
         /// doesn't have the expected corresponding value.</exception>
         public static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
@@ -50,9 +50,9 @@ namespace Riskeer.Common.Forms.TestUtil
         /// Asserts the point style.
         /// </summary>
         /// <param name="pointStyle">The <see cref="PointStyle"/>to assert.</param>
-        /// <param name="color">The <see cref="Color"/>to assert.</param>
-        /// <param name="width">The width of the point to assert.</param>
-        /// <param name="symbol">The <see cref="PointSymbol"/>to assert.</param>
+        /// <param name="color">The expected <see cref="Color"/>.</param>
+        /// <param name="width">The expected width of the point.</param>
+        /// <param name="symbol">The expected <see cref="PointSymbol"/>.</param>
         /// <exception cref="AssertionException">Thrown when one of the parameters
         /// doesn't have the expected corresponding value.</exception>
         public static void AssertEqualStyle(PointStyle pointStyle, Color color, int width, PointSymbol symbol)
