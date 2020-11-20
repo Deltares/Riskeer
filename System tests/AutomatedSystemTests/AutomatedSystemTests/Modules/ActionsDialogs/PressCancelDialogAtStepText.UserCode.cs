@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.ActionsDialogs
 {
-    public partial class PressCancelDialog
+    public partial class PressCancelDialogAtStepText
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,5 +32,6 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
         {
             // Your recording specific initialization code goes here.
         }
+
     }
 }

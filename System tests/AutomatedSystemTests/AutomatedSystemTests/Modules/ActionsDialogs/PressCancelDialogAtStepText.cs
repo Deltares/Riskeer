@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The PressCancelDialog recording.
+    ///The PressCancelDialogAtStepText recording.
     /// </summary>
-    [TestModule("de80be27-ca55-476e-b824-e08916e3e0a3", ModuleType.Recording, 1)]
-    public partial class PressCancelDialog : ITestModule
+    [TestModule("ad8d58e7-525d-408e-9785-b0c4ab6dd07b", ModuleType.Recording, 1)]
+    public partial class PressCancelDialogAtStepText : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static PressCancelDialog instance = new PressCancelDialog();
+        static PressCancelDialogAtStepText instance = new PressCancelDialogAtStepText();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public PressCancelDialog()
+        public PressCancelDialogAtStepText()
         {
             substringProgressMessageToStopAt = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static PressCancelDialog Instance
+        public static PressCancelDialogAtStepText Instance
         {
             get { return instance; }
         }
@@ -59,7 +59,7 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
         /// <summary>
         /// Gets or sets the value of variable substringProgressMessageToStopAt.
         /// </summary>
-        [TestVariable("91698fd8-ac20-44a1-8d0d-eba65cb9570e")]
+        [TestVariable("70ae10b6-af9c-48bd-ab45-2033098501e7")]
         public string substringProgressMessageToStopAt
         {
             get { return _substringProgressMessageToStopAt; }
@@ -86,21 +86,22 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityCounter'", repo.ActivityProgressDialog.LabelActivityCounterInfo, new RecordItemIndex(1));
-            repo.ActivityProgressDialog.LabelActivityCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityStepCounter'", repo.ActivityProgressDialog.LabelActivityStepCounterInfo, new RecordItemIndex(1));
+            repo.ActivityProgressDialog.LabelActivityStepCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(2));
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ActivityProgressDialog.ButtonCancel' at Center.", repo.ActivityProgressDialog.ButtonCancelInfo, new RecordItemIndex(3));
             repo.ActivityProgressDialog.ButtonCancel.Click();
+            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(4));
             repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(5000);

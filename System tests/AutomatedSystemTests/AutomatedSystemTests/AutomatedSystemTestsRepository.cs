@@ -6337,8 +6337,8 @@ namespace AutomatedSystemTests
         {
             RepoItemInfo _progressbarInfo;
             RepoItemInfo _buttoncancelInfo;
-            RepoItemInfo _labelactivityprogresstextInfo;
-            RepoItemInfo _labelactivitycounterInfo;
+            RepoItemInfo _labelactivitystepcounterInfo;
+            RepoItemInfo _labelactivitytaskcounterInfo;
 
             /// <summary>
             /// Creates a new ActivityProgressDialog  folder.
@@ -6348,8 +6348,8 @@ namespace AutomatedSystemTests
             {
                 _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
                 _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
-                _labelactivityprogresstextInfo = new RepoItemInfo(this, "LabelActivityProgressText", "text[@controlname='labelActivityProgressText']", 30000, null, "22d15783-171e-4f23-a1f5-3ff2d3676111");
-                _labelactivitycounterInfo = new RepoItemInfo(this, "LabelActivityCounter", "text[@controlname='labelActivityCounter']", 30000, null, "dceeaae8-df9d-4e10-b9b8-7dcf1c822408");
+                _labelactivitystepcounterInfo = new RepoItemInfo(this, "LabelActivityStepCounter", "text[@controlname='labelActivityProgressText']", 30000, null, "22d15783-171e-4f23-a1f5-3ff2d3676111");
+                _labelactivitytaskcounterInfo = new RepoItemInfo(this, "LabelActivityTaskCounter", "text[@controlname='labelActivityCounter']", 30000, null, "dceeaae8-df9d-4e10-b9b8-7dcf1c822408");
             }
 
             /// <summary>
@@ -6425,50 +6425,50 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The LabelActivityProgressText item.
+            /// The LabelActivityStepCounter item.
             /// </summary>
             [RepositoryItem("22d15783-171e-4f23-a1f5-3ff2d3676111")]
-            public virtual Ranorex.Text LabelActivityProgressText
+            public virtual Ranorex.Text LabelActivityStepCounter
             {
                 get
                 {
-                    return _labelactivityprogresstextInfo.CreateAdapter<Ranorex.Text>(true);
+                    return _labelactivitystepcounterInfo.CreateAdapter<Ranorex.Text>(true);
                 }
             }
 
             /// <summary>
-            /// The LabelActivityProgressText item info.
+            /// The LabelActivityStepCounter item info.
             /// </summary>
             [RepositoryItemInfo("22d15783-171e-4f23-a1f5-3ff2d3676111")]
-            public virtual RepoItemInfo LabelActivityProgressTextInfo
+            public virtual RepoItemInfo LabelActivityStepCounterInfo
             {
                 get
                 {
-                    return _labelactivityprogresstextInfo;
+                    return _labelactivitystepcounterInfo;
                 }
             }
 
             /// <summary>
-            /// The LabelActivityCounter item.
+            /// The LabelActivityTaskCounter item.
             /// </summary>
             [RepositoryItem("dceeaae8-df9d-4e10-b9b8-7dcf1c822408")]
-            public virtual Ranorex.Text LabelActivityCounter
+            public virtual Ranorex.Text LabelActivityTaskCounter
             {
                 get
                 {
-                    return _labelactivitycounterInfo.CreateAdapter<Ranorex.Text>(true);
+                    return _labelactivitytaskcounterInfo.CreateAdapter<Ranorex.Text>(true);
                 }
             }
 
             /// <summary>
-            /// The LabelActivityCounter item info.
+            /// The LabelActivityTaskCounter item info.
             /// </summary>
             [RepositoryItemInfo("dceeaae8-df9d-4e10-b9b8-7dcf1c822408")]
-            public virtual RepoItemInfo LabelActivityCounterInfo
+            public virtual RepoItemInfo LabelActivityTaskCounterInfo
             {
                 get
                 {
-                    return _labelactivitycounterInfo;
+                    return _labelactivitytaskcounterInfo;
                 }
             }
         }

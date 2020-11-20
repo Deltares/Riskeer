@@ -474,27 +474,6 @@
 			<smartfoldernode
 			id="1d48d0d6-d762-4387-bb40-83abeb9a488a"
 			name="ValidateResultsNodeDoesNotExistForNotFinishedCalculation">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="relativePathToCalculationFromFolder"
-								id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value=">dam0voorland0">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
@@ -801,6 +780,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="32a9abb3-6d3e-48db-bead-8095281ea75c"
+			name="MakeScreenshotOfPropertiesPanel">
+			</smartfoldernode>
 			<testmodule
 			id="33efce2d-deaf-4012-8173-271fbcc06a0c"
 			name="SelectGenericItemInProjectExplorer"
@@ -823,31 +806,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="345487f9-0e32-45ea-8836-8941fcbf244b"
-			name="ValidateResultsNodeExistsForFinishedCalculation">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="relativePathToCalculationFromFolder"
-								id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value=">dam0voorland0">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
 			<testmodule
 			id="35318595-6719-4a75-801f-fb94ca742136"
 			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
@@ -1288,7 +1246,7 @@
 			<smartfoldernode
 			datasource="script15b_pathCalculationsToInspectChart"
 			id="54c68aa2-898a-44cf-8214-dcdad91fa40a"
-			name="ValidateOnlyOneCalculationHasResults">
+			name="ValidateNoCalculationHasResults">
 				<parameters>
 					<param
 					name="nameItemResultsInPropertiesPanel"
@@ -1737,20 +1695,6 @@
 			id="6ac5315a-667e-4eb7-88ca-dd65f747ce1b"
 			name="MakeScreenshotOfProgressDialog">
 			</smartfoldernode>
-			<testmodule
-			id="6b184200-bd31-4721-bb79-875e33c17786"
-			name="ValidateRowExistsInPropertiesPanel"
-			ref="f7696db3-8395-4cde-9420-df76b7faa09a"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameItemResultsInPropertiesPanel"
-					datasourceid="54c68aa2-898a-44cf-8214-dcdad91fa40a"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="6c864ac6-a20a-4a64-bae5-f2c4f3e23796"
 			name="StartCalculationsForFM">
@@ -1978,7 +1922,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="790d4c82-86b1-4ab5-ae78-665b6c4a061e"
-			name="PressCancelDialog"
+			name="PressCancelDialogAtTaskText"
 			ref="de80be27-ca55-476e-b824-e08916e3e0a3"
 			type="Recording">
 				<databinding>
@@ -2121,6 +2065,12 @@
 			id="7eabdb0f-d9ff-44b9-9849-d83c93541850"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="7edd4394-39de-4169-b968-cd0137e6054c"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -2404,28 +2354,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="964fb064-ea48-45a5-9b9c-03380fed5732"
-			name="PressCancelDialog"
-			ref="de80be27-ca55-476e-b824-e08916e3e0a3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="progressToStopAt"
-					datasourceid="aaf2460d-cabe-48b1-baf6-ad8956e149ba"
-					variableid="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
-					variablename="substringProgressMessageToStopAt">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="calculationIndexToStopAt"
-					datasourceid="411a68f2-694e-49df-afae-3ae4cc79c274"
-					variableid="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
-					variablename="calculationIndexToStopAt">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="98133ac0-6b91-4bba-b177-2a4cacdde6a0"
 			name="ValidateCalculationWaterLevelInDocumentViewDA"
 			ref="5f11c431-c5f5-43ed-9e90-4eb9ec533e75"
@@ -2477,12 +2405,6 @@
 			id="9a86a2c9-2943-4b5b-9861-c64764f98463"
 			name="SelectRowInTableDocumentView">
 			</smartfoldernode>
-			<testmodule
-			id="9d6f786d-e409-4523-a9d0-b42203f66332"
-			name="CreateScreenShotPropertiesPanel"
-			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script15d_LocationsToCalculateWaterLevels"
 			id="9df3c739-8b4b-4b5e-8d0c-0c35d72c7b47"
@@ -3083,6 +3005,20 @@
 					variablename="expectedValue">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d99c91ec-4df7-42dc-a335-5fab895c6a52"
+			name="PressCancelDialogAtStepText"
+			ref="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="progressToStopAt"
+					datasourceid="aaf2460d-cabe-48b1-baf6-ad8956e149ba"
+					variableid="70ae10b6-af9c-48bd-ab45-2033098501e7"
+					variablename="substringProgressMessageToStopAt">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="dcd6ad5e-4c6b-4ff6-a88d-7492c0f058e6"
@@ -3741,7 +3677,7 @@
 									</smartfoldernode>
 									<testmodule
 									id="790d4c82-86b1-4ab5-ae78-665b6c4a061e"
-									name="PressCancelDialog">
+									name="PressCancelDialogAtTaskText">
 									</testmodule>
 									<smartfoldernode
 									id="45b12bc0-838c-4a9b-b0ac-ddc2aac9a3af"
@@ -4048,8 +3984,8 @@
 								id="7cc68e03-d8eb-43f9-bf83-c5e5cf505aa2"
 								name="CancelCalculations">
 									<testmodule
-									id="964fb064-ea48-45a5-9b9c-03380fed5732"
-									name="PressCancelDialog">
+									id="d99c91ec-4df7-42dc-a335-5fab895c6a52"
+									name="PressCancelDialogAtStepText">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -4065,7 +4001,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="54c68aa2-898a-44cf-8214-dcdad91fa40a"
-									name="ValidateOnlyOneCalculationHasResults">
+									name="ValidateNoCalculationHasResults">
 										<smartfoldernode
 										id="1fe6185f-cfdc-4d59-8015-73c21a233048"
 										name="CalculateFullPathToCalculationItem">
@@ -4086,24 +4022,20 @@
 										id="7d6ebde1-9bac-4774-95a6-222b93e73265"
 										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
-										<testmodule
-										id="9d6f786d-e409-4523-a9d0-b42203f66332"
-										name="CreateScreenShotPropertiesPanel">
-										</testmodule>
-										<smartfoldernode
-										id="345487f9-0e32-45ea-8836-8941fcbf244b"
-										name="ValidateResultsNodeExistsForFinishedCalculation">
-											<testmodule
-											id="6b184200-bd31-4721-bb79-875e33c17786"
-											name="ValidateRowExistsInPropertiesPanel">
-											</testmodule>
-										</smartfoldernode>
 										<smartfoldernode
 										id="1d48d0d6-d762-4387-bb40-83abeb9a488a"
 										name="ValidateResultsNodeDoesNotExistForNotFinishedCalculation">
 											<testmodule
 											id="af69bf7c-2992-401b-8cfc-1dbf40d7b831"
 											name="ValidateRowDoesNotExistInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="32a9abb3-6d3e-48db-bead-8095281ea75c"
+										name="MakeScreenshotOfPropertiesPanel">
+											<testmodule
+											id="7edd4394-39de-4169-b968-cd0137e6054c"
+											name="CreateScreenShotPropertiesPanel">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -10336,7 +10268,7 @@
 			id="2e76d5a7-a44a-4a06-9335-d2f43fbbd160">
 			</testcontainer>
 			<testcontainer
-			id="345487f9-0e32-45ea-8836-8941fcbf244b">
+			id="32a9abb3-6d3e-48db-bead-8095281ea75c">
 			</testcontainer>
 			<testcontainer
 			id="37d99e11-0635-4c04-bec0-191fa870e60d">

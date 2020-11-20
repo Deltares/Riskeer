@@ -1771,7 +1771,7 @@ FjcAAAAASUVORK5CYII=
 			addcaps="text,control,nativewindow"
 			capname="text"
 			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
-			name="LabelActivityProgressText"
+			name="LabelActivityStepCounter"
 			refimgid="746c79e5-beba-443e-bbd7-a96d590e9951"
 			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']"
 			searchtimeout="30000ms">
@@ -1781,7 +1781,7 @@ FjcAAAAASUVORK5CYII=
 			addcaps="text,control,nativewindow"
 			capname="text"
 			id="dceeaae8-df9d-4e10-b9b8-7dcf1c822408"
-			name="LabelActivityCounter"
+			name="LabelActivityTaskCounter"
 			refimgid="5b0cfa9e-cf06-4acb-8430-e4a7c2690370"
 			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityCounter']"
 			searchtimeout="30000ms">

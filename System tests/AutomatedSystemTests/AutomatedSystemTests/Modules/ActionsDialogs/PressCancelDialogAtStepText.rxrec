@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="de80be27-ca55-476e-b824-e08916e3e0a3"
+id="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,12 +19,12 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="PressCancelDialog"
+	classname="PressCancelDialogAtStepText"
 	namespace="AutomatedSystemTests.Modules.ActionsDialogs">
 	</codegen>
 	<variables>
 		<var
-		id="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
+		id="70ae10b6-af9c-48bd-ab45-2033098501e7"
 		name="substringProgressMessageToStopAt">
 		</var>
 	</variables>
@@ -66,10 +66,10 @@ mode="Global">
 				</binding>
 			</bindings>
 			<info
-			id="dceeaae8-df9d-4e10-b9b8-7dcf1c822408"
+			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityCounter']
+					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']
 				</path>
 			</info>
 		</WaitForRecordItem>
@@ -1008,7 +1008,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		PressCancelDialog.UserCode.cs
+		PressCancelDialogAtStepText.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

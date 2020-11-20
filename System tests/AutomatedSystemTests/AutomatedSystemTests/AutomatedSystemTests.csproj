@@ -234,14 +234,26 @@
       <id>86c4b937-9777-45c9-893e-decc404f46d9</id>
       <BoundTo>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDialogs\PressCancelDialog.cs">
-      <DependentUpon>PressCancelDialog.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDialogs\PressCancelDialogAtStepText.cs">
+      <BoundTo>69ecdd6b-24e8-4f2d-a3bc-cdd528c54cac</BoundTo>
+      <DependentUpon>PressCancelDialogAtStepText.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3bf3f3fb-94ac-469a-90c9-0d236903e987</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\PressCancelDialogAtStepText.UserCode.cs">
+      <BoundTo>69ecdd6b-24e8-4f2d-a3bc-cdd528c54cac</BoundTo>
+      <DependentUpon>PressCancelDialogAtStepText.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f9528d02-c47c-47cc-9b51-f8fbe88fb9e2</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\PressCancelDialogAtTaskText.cs">
+      <DependentUpon>PressCancelDialogAtTaskText.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>e8e4b375-caea-4492-b8cd-b445c3bdd113</id>
       <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDialogs\PressCancelDialog.UserCode.cs">
-      <DependentUpon>PressCancelDialog.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDialogs\PressCancelDialogAtTaskText.UserCode.cs">
+      <DependentUpon>PressCancelDialogAtTaskText.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>3ee5481a-3806-4bd5-a9d9-97db758837fa</id>
       <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
@@ -2099,7 +2111,12 @@
       <id>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</id>
       <recordtableid>e1edec81-14b1-41ff-bcc7-e1f75797dd7b</recordtableid>
     </None>
-    <None Include="Modules\ActionsDialogs\PressCancelDialog.rxrec">
+    <None Include="Modules\ActionsDialogs\PressCancelDialogAtStepText.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>69ecdd6b-24e8-4f2d-a3bc-cdd528c54cac</id>
+      <recordtableid>ad8d58e7-525d-408e-9785-b0c4ab6dd07b</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDialogs\PressCancelDialogAtTaskText.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</id>
       <recordtableid>de80be27-ca55-476e-b824-e08916e3e0a3</recordtableid>
