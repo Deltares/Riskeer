@@ -993,18 +993,6 @@
       <UserCode>true</UserCode>
       <id>e39ebdf6-665b-4bf0-a858-9c935fc0111c</id>
     </Compile>
-    <Compile Include="Modules\Ribbon\AddNewTraject.cs">
-      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b601e2cd-3723-40b0-93b6-3cf860f81940</id>
-      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Ribbon\AddNewTraject.UserCode.cs">
-      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d9b326df-1ecb-46f0-993f-3e50f50a7c5d</id>
-      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
-    </Compile>
     <Compile Include="Modules\Ribbon\NewProject.cs">
       <DependentUpon>NewProject.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -2397,11 +2385,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>6cb64e68-74cb-4e04-9a43-507ecabb959a</id>
       <recordtableid>ac560c61-46db-435c-aa8c-6cd15f93e120</recordtableid>
-    </None>
-    <None Include="Modules\Ribbon\AddNewTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7c43bc11-7959-43bd-bf48-f3a663df94a1</id>
-      <recordtableid>549fb022-bf32-480a-ae5e-d3f6e14aa501</recordtableid>
     </None>
     <None Include="Modules\Ribbon\NewProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

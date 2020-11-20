@@ -79,15 +79,21 @@ namespace AutomatedSystemTests.Modules.Ribbon
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.Bestand.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at Center.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Self.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProjectInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+N' Press.", new RecordItemIndex(1));
+            Keyboard.Press(System.Windows.Forms.Keys.N | System.Windows.Forms.Keys.Control, 49, Keyboard.DefaultKeyPressTime, 1, true);
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(2));
+            //repo.RiskeerMainWindow.Ribbon.Bestand.Click();
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProjectInfo, new RecordItemIndex(3));
+            //repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject.Click();
             
             Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(5));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
             
         }
