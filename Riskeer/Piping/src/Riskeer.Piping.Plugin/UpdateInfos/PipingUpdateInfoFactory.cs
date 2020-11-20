@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                 {
                     var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
                         (PipingFailureMechanism) context.WrappedData,
-                        Resources.PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Sections_probabilistic_calculation_output_will_be_cleared_confirm,
+                        Resources.PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm,
                         inquiryHelper);
                     return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
                 }

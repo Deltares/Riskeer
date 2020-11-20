@@ -55,11 +55,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
-            
+
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -68,6 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", name);
             }
+
             mocks.VerifyAll();
         }
 
@@ -80,11 +81,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
-            
+
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -93,6 +94,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Algemeen", category);
             }
+
             mocks.VerifyAll();
         }
 
@@ -105,11 +107,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
-            
+
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -118,6 +120,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -141,7 +144,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -150,6 +153,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -170,7 +174,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -179,6 +183,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -191,11 +196,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
-            
+
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
-                
+
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
                 // Call
@@ -204,6 +209,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -233,6 +239,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
             }
+
             mocks.VerifyAll();
         }
 
@@ -264,6 +271,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual(sourcePath, currentFilePath);
             }
+
             mocks.VerifyAll();
         }
 
@@ -298,6 +306,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(updatesVerified);
             }
+
             mocks.VerifyAll();
         }
 
@@ -329,6 +338,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(updatesVerified);
             }
+
             mocks.VerifyAll();
         }
 
@@ -385,6 +395,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);
             }
+
             mocks.VerifyAll();
         }
 

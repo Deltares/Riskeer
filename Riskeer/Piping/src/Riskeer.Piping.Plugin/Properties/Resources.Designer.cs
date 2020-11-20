@@ -122,9 +122,9 @@ namespace Riskeer.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
+        public static string PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_sections_probabilistic_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_S" +
+                return ResourceManager.GetString("PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_s" +
                         "ections_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
@@ -230,9 +230,9 @@ namespace Riskeer.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Sections_probabilistic_calculation_output_will_be_cleared_confirm {
+        public static string PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_Se" +
+                return ResourceManager.GetString("PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_se" +
                         "ctions_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
