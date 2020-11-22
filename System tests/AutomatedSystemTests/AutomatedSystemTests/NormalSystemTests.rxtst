@@ -7803,12 +7803,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="a025dc58-c36b-45de-a34a-1a9af46c1517"
-			name="ReportToPDFModule"
-			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
-			type="UserCode">
-			</testmodule>
-			<testmodule
 			id="a1345703-465f-4a69-9294-50c95948e940"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -9375,10 +9369,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<teardown
-			id="bf5e3ba3-82bd-4285-8dcf-f1212140a6bf"
-			name="teardown">
-			</teardown>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="bf8dfd1e-e3e4-4482-be1e-f6b6c44f24aa"
@@ -14699,14 +14689,6 @@
 							</testmodule>
 						</teardown>
 					</testcase>
-					<teardown
-					id="bf5e3ba3-82bd-4285-8dcf-f1212140a6bf"
-					name="teardown">
-						<testmodule
-						id="a025dc58-c36b-45de-a34a-1a9af46c1517"
-						name="ReportToPDFModule">
-						</testmodule>
-					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
