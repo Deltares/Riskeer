@@ -249,6 +249,31 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="04790571-af4c-4959-be0d-1b0c9af590d9"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="f79e6c9f-1797-4766-92c5-426171dc4145"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="05258d42-54cb-4442-a5ed-b7e269d10576"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -523,6 +548,12 @@
 			<smartfoldernode
 			id="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
 			name="CopyFilesModifiedElements">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="0c34cacd-0bab-45e1-a910-94c6d9713136"
@@ -1212,6 +1243,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="15b4c082-9977-4796-95c8-0bdee6ea6058"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="99539122-30e5-4ed6-9aec-e0d98a011406"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="15f2a7fd-807b-48f7-a730-33a1279e7af1"
 			name="AddNewTrajectAppropriateForStructures">
@@ -1421,6 +1477,12 @@
 			<smartfoldernode
 			id="1cec723f-029d-46b1-8ec7-47ff862aa83a"
 			name="CopyFilesModifiedElements">
+				<parameters>
+					<param
+					name="waitTimeInMIliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="1d165de9-a4a4-4deb-a9cb-331f56682100"
@@ -2074,7 +2136,13 @@
 			</testmodule>
 			<smartfoldernode
 			id="27fb77dc-81e4-4822-823f-b5c299cd0838"
-			name="CopyFilesModifiedElements">
+			name="CopyFilesElementsRemoved">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="28168ca5-bff1-4689-8364-4bd0b21fb6b6"
@@ -3422,6 +3490,12 @@
 			<smartfoldernode
 			id="4649db8b-0ea6-4ca7-b7a8-3a977d0fc377"
 			name="CopyFilesWithElementsRemoved">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="466f7369-2ec9-4be4-ab04-8b7bc774facd"
@@ -3813,6 +3887,31 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="4f93ad72-ca80-4fbe-b849-a18803e862d3"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="4649db8b-0ea6-4ca7-b7a8-3a977d0fc377"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97"
 			name="ValidateSubsurfaceStochasticModels">
@@ -4524,6 +4623,31 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5cc68889-8ad7-4353-af56-2a498c067856"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="91fa33d4-0970-4ecb-b641-bd134c2ae03a"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
 			name="CalculateSectionCategoryBoundary"
@@ -5446,6 +5570,31 @@
 					variablename="concatenatedString">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="698fbc51-7d71-4583-9185-b8993d97ef65"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMIliseconds"
+					datasourceid="1cec723f-029d-46b1-8ec7-47ff862aa83a"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
@@ -6704,6 +6853,31 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="8aac6485-23a7-45c0-a2e5-fa300c80a357"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="8b9e928a-7415-4a15-b17b-dc41f97e280c"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
 			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
@@ -7135,6 +7309,12 @@
 			<smartfoldernode
 			id="91fa33d4-0970-4ecb-b641-bd134c2ae03a"
 			name="CopyFilesModifiedElements">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="92ef3e24-6909-46ca-b979-c805a68ba676"
@@ -7312,6 +7492,12 @@
 			<smartfoldernode
 			id="958716fd-2581-492f-b0ab-54e55b9ed92b"
 			name="CopyOriginalFiles">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="97318264-ba0c-4209-92b6-b183e795cbc5"
@@ -7493,6 +7679,12 @@
 			<smartfoldernode
 			id="99539122-30e5-4ed6-9aec-e0d98a011406"
 			name="CopyOriginalFiles">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="99933d10-cd8e-4060-bf31-6e443cff42cd"
@@ -9936,6 +10128,31 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="cc804197-1223-44fc-87ee-de08fb8e9bef"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="958716fd-2581-492f-b0ab-54e55b9ed92b"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="cd4e2431-7f03-4129-b87c-86e97d92c860"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -10117,6 +10334,23 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d14e26b0-b0e0-4603-a155-c2c68f349104"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="958716fd-2581-492f-b0ab-54e55b9ed92b"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="d26a7999-0c7f-44fe-8e00-b1a51cc37e82"
@@ -10568,6 +10802,12 @@
 			<smartfoldernode
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac"
 			name="CopyOriginalFiles">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testcase
 			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
@@ -11486,6 +11726,31 @@
 			name="ImportOriginalSchematizations">
 			</smartfoldernode>
 			<testmodule
+			id="f2e1a6df-0189-4c44-9e49-a8a2e623129f"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<description>
+					<![CDATA[To give enough time to copy action to be compltely finished]]>
+				</description>
+				<databinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="27fb77dc-81e4-4822-823f-b5c299cd0838"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeInMiliseconds"
+					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="f320fe1c-55ff-40d7-9d36-66ba7fc4ec67"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -11642,6 +11907,12 @@
 			<smartfoldernode
 			id="f79e6c9f-1797-4766-92c5-426171dc4145"
 			name="CopyEditedFiles">
+				<parameters>
+					<param
+					name="waitTimeInMiliseconds"
+					value="1000">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="f7cd5301-f0d6-4561-b86d-d7fa62077114"
@@ -12776,6 +13047,10 @@
 										id="b171fd61-8d83-4af4-a5ab-dbfaf2656c70"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="d14e26b0-b0e0-4603-a155-c2c68f349104"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="fa9546f1-7056-4d88-9abb-4b8d5fb6c5bd"
@@ -12936,6 +13211,10 @@
 										id="56599a7a-1f99-4ea5-8b70-4d0045b18586"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="cc804197-1223-44fc-87ee-de08fb8e9bef"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="cd8ff312-a64b-4d92-9931-8f1d3a10a60a"
@@ -13043,6 +13322,10 @@
 										<testmodule
 										id="ac43a1b1-fa47-41ed-a54e-bfecc5d83665"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+										<testmodule
+										id="698fbc51-7d71-4583-9185-b8993d97ef65"
+										name="WaitForXMiliseconds">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13288,6 +13571,10 @@
 										id="eddc8e94-a9ec-48cd-bba5-dbd49efbd269"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="8aac6485-23a7-45c0-a2e5-fa300c80a357"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
@@ -13532,6 +13819,10 @@
 										id="faa96867-76ca-4f62-8fc1-555f0f68b478"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="04790571-af4c-4959-be0d-1b0c9af590d9"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="47f3ace5-7a6b-4a52-b274-ce3887d63536"
@@ -13767,6 +14058,10 @@
 										<testmodule
 										id="5c20d0b8-c8b5-4ded-96e9-696dd9da9b13"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+										<testmodule
+										id="4f93ad72-ca80-4fbe-b849-a18803e862d3"
+										name="WaitForXMiliseconds">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -14120,6 +14415,10 @@
 										id="886b7dd0-cc67-4352-a517-ee6172ecba7e"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="15b4c082-9977-4796-95c8-0bdee6ea6058"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="1bcb0059-70c9-4b05-a411-d30ab8aaf6c4"
@@ -14280,6 +14579,10 @@
 										id="c4a8f082-0298-4fc4-a77d-7e4b734a4964"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
 										</testmodule>
+										<testmodule
+										id="5cc68889-8ad7-4353-af56-2a498c067856"
+										name="WaitForXMiliseconds">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="582d6baa-37a5-4e12-83c7-de684b905450"
@@ -14383,10 +14686,14 @@
 								name="SchematizationsWithElementsRemoved">
 									<smartfoldernode
 									id="27fb77dc-81e4-4822-823f-b5c299cd0838"
-									name="CopyFilesModifiedElements">
+									name="CopyFilesElementsRemoved">
 										<testmodule
 										id="97318264-ba0c-4209-92b6-b183e795cbc5"
 										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+										<testmodule
+										id="f2e1a6df-0189-4c44-9e49-a8a2e623129f"
+										name="WaitForXMiliseconds">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -18203,10 +18510,10 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
+					schematizationName
 				</column>
 				<column>
-					schematizationName
+					labelFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -18214,146 +18521,146 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
+						schematizationName
 					</th>
 					<th>
-						schematizationName
+						labelFM
 					</th>
 				</tr>
 				<tr>
-					<td>
-						GEKB
-					</td>
 					<td>
 						profiel001
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel002
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel003
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel004
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel005
 					</td>
+					<td>
+						GEKB
+					</td>
 				</tr>
 				<tr>
+					<td>
+						profiel1
+					</td>
 					<td>
 						ZST
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						AGK
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEBU
 					</td>
-					<td>
-						profiel1
-					</td>
 				</tr>
 				<tr>
+					<td>
+						profiel3
+					</td>
 					<td>
 						HTKW
 					</td>
-					<td>
-						profiel3
-					</td>
 				</tr>
 				<tr>
+					<td>
+						profiel4
+					</td>
 					<td>
 						HTKW
 					</td>
-					<td>
-						profiel4
-					</td>
 				</tr>
 				<tr>
-					<td>
-						BSKW
-					</td>
 					<td>
 						profiel2
 					</td>
-				</tr>
-				<tr>
 					<td>
 						BSKW
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel3
 					</td>
-				</tr>
-				<tr>
 					<td>
 						BSKW
 					</td>
-					<td>
-						profiel4
-					</td>
 				</tr>
 				<tr>
 					<td>
-						STKWp
+						profiel4
 					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						STKWp
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel2
 					</td>
-				</tr>
-				<tr>
 					<td>
 						STKWp
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel3
 					</td>
-				</tr>
-				<tr>
 					<td>
 						STKWp
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel4
+					</td>
+					<td>
+						STKWp
 					</td>
 				</tr>
 			</table>
@@ -18365,10 +18672,10 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
+					schematizationName
 				</column>
 				<column>
-					schematizationName
+					labelFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -18376,98 +18683,98 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
+						schematizationName
 					</th>
 					<th>
-						schematizationName
+						labelFM
 					</th>
 				</tr>
 				<tr>
-					<td>
-						GEKB
-					</td>
 					<td>
 						profiel001
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel002
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel003
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel004
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEKB
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel005
 					</td>
+					<td>
+						GEKB
+					</td>
 				</tr>
 				<tr>
+					<td>
+						profiel3
+					</td>
 					<td>
 						HTKW
 					</td>
-					<td>
-						profiel3
-					</td>
 				</tr>
 				<tr>
-					<td>
-						BSKW
-					</td>
 					<td>
 						profiel2
 					</td>
-				</tr>
-				<tr>
 					<td>
 						BSKW
 					</td>
-					<td>
-						profiel3
-					</td>
 				</tr>
 				<tr>
 					<td>
-						STKWp
+						profiel3
 					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						STKWp
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel2
 					</td>
-				</tr>
-				<tr>
 					<td>
 						STKWp
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel3
+					</td>
+					<td>
+						STKWp
 					</td>
 				</tr>
 			</table>
@@ -18479,10 +18786,10 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
+					schematizationName
 				</column>
 				<column>
-					schematizationName
+					labelFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -18490,58 +18797,58 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
+						schematizationName
 					</th>
 					<th>
-						schematizationName
+						labelFM
 					</th>
 				</tr>
 				<tr>
+					<td>
+						profiel1
+					</td>
 					<td>
 						ZST
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						AGK
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel1
 					</td>
-				</tr>
-				<tr>
 					<td>
 						GEBU
 					</td>
-					<td>
-						profiel1
-					</td>
 				</tr>
 				<tr>
+					<td>
+						profiel4
+					</td>
 					<td>
 						HTKW
 					</td>
+				</tr>
+				<tr>
 					<td>
 						profiel4
 					</td>
-				</tr>
-				<tr>
 					<td>
 						BSKW
 					</td>
-					<td>
-						profiel4
-					</td>
 				</tr>
 				<tr>
 					<td>
-						STKWp
+						profiel4
 					</td>
 					<td>
-						profiel4
+						STKWp
 					</td>
 				</tr>
 			</table>
