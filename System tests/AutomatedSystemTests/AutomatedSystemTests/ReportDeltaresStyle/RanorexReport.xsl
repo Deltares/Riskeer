@@ -1,4 +1,4 @@
-﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html"
               indent="no"
               encoding="utf-8"
@@ -54,6 +54,10 @@
                   </xsl:otherwise>
                 </xsl:choose>
                 <xsl:value-of select ="./activity/@runlabel" />
+                <xsl:if test="../activity/@sutversion">
+                    <br/>
+                    <xsl:value-of select ="../activity/@sutversion" />
+                </xsl:if>
               </p>
 
               <br />
@@ -114,7 +118,14 @@
 
               <xsl:if test=".//item[@level='Warn']">
                 <div class="warnmessage">
-                  <span class="ui-module-icon warn"></span> Warnings occurred. For additional information see the report of the individual modules, please.
+                  <span class="ui-module-icon warn"/> Warnings occurred. For additional information see the report of the individual modules, please.
+                </div>
+              </xsl:if>
+              <xsl:if test="./activity[@type='integration']">
+                <div class="integration-errormessage">
+                  <span class="ui-module-icon error"/>
+                    Integration service <xsl:value-of select="./activity[@type='integration']/@integrationtype" /> has encountered some errors.
+                  <a href="#integrationsection">Click here to navigate to the integration section.</a>
                 </div>
               </xsl:if>
 
@@ -172,9 +183,12 @@
 
                 <xsl:choose>
                   <xsl:when test="./activity[@type='test-suite']">
-                    <xsl:apply-templates select="./activity/activity">
-                      <xsl:with-param name="itemCount" select="$itemCount" />
-                    </xsl:apply-templates>
+                      <xsl:apply-templates select="./activity/activity | ./activity/item">
+                          <!-- Parameters for the activity type -->
+                          <xsl:with-param name="itemCount" select="$itemCount" />
+                          <!-- Parameters for the item type -->
+                          <xsl:with-param name="isSibling">true</xsl:with-param>
+                      </xsl:apply-templates>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:apply-templates select="./activity">
@@ -226,7 +240,43 @@
                   </li>
                 </xsl:if>
                 <!-- POST TEST SUITE END -->
-              </ul>
+
+                <!-- INTEGRATION SECTION BEGIN -->
+                <xsl:if test="./activity[@type='integration']">
+                  <a name="integrationsection"></a>
+                  <li class="ui-treeList-item" id="integration-testsuite">
+                    <h2>
+                      <xsl:value-of select="./activity[@type='integration']/@integrationtype" /> Report Section
+                    </h2>
+                    <ul class="pre-testsuite">
+                      <div class="module-report">
+                        <TABLE border="0" cellSpacing="0" class="Integration">
+                          <thead>
+                            <th>
+                              <b>Time</b>
+                            </th>
+                            <th>
+                              <b>Level</b>
+                            </th>
+                            <th>
+                              <b>Category</b>
+                            </th>
+                            <th>
+                              <b>Message</b>
+                            </th>
+                          </thead>
+                          <tbody>
+                            <xsl:apply-templates select="./activity[@type='integration']/item">
+                              <xsl:with-param name="type">standalone</xsl:with-param>
+                            </xsl:apply-templates>
+                          </tbody>
+                        </TABLE>
+                      </div>
+                    </ul>
+                  </li>
+                </xsl:if>
+                <!-- INTEGRATION SECTION END -->
+              </ul> 
             </xsl:when>
 
             <!-- Standalone Recording Template-->
@@ -288,7 +338,7 @@
               </xsl:choose>
             </xsl:otherwise>
           </xsl:choose>
-        </div>
+            </div>
         <xsl:choose>
           <xsl:when test="../@progress != '' ">
             <div style="width:99%; text-align:center;padding-bottom: 10px;">
@@ -316,12 +366,12 @@
     <xsl:variable name="activityclassname" select="concat(@type, ' ', @testentry-activity-type, ' ',@iteration-exectype, ' ', @activity-exectype)"/>
 
     <li class="{@result} ui-treeList-item {$activityclassname}" id="container{@rid}">
-      <xsl:variable name="success" select="@totalsuccesscount" />
-      <xsl:variable name="failed" select="@totalfailedcount" />
-      <xsl:variable name="ignored" select="@totalblockedcount" />
+      <xsl:variable name="success" select="@childsuccesscount" />
+      <xsl:variable name="failed" select="@childfailedcount" />
+      <xsl:variable name="ignored" select="@childblockedcount" />
       <xsl:variable name="max" select="$success + $failed + $ignored" />
 
-      
+
       <h2 class="{@result}" onclick="OnLoadContentDynamic('{@rid}','container',this);" onMouseOver="DisplayHoverMenu(this);" onMouseOut="HideHoverMenu(this)">
         <!--JUMP TO-->
         <xsl:if test="./@testcontainerid">
@@ -360,13 +410,20 @@
           <span class="ui-module-icon conditionnotmet ui-treeList-toggle-child" />
         </xsl:if>
 
-        <!-- SHOW STATUS ICON - WARN AND ERROR -->
+        <!-- SHOW STATUS ICON - WARN, ERROR AND MAINTENANCEMODE-->
         <xsl:if test=".//item[@level='Warn']">
           <span class="ui-module-icon warn ui-treeList-toggle-child" />
         </xsl:if>
-        <xsl:if test=".//item[@level='Error']">
+        <xsl:if test=".//item[@level='Error' or @level='Failure']">
           <span class="ui-module-icon error ui-treeList-toggle-child" />
         </xsl:if>
+        <xsl:if test="@totalmaintenancemodecount &gt; 0">
+            <span class="ui-module-icon MaintenanceMode" title="Maintenance mode"></span>
+        </xsl:if>
+
+		<xsl:call-template name="VideoLink" />
+
+		<xsl:call-template name="CustomLinks" />
 
         <!--ITERATION INFO TEXT-->
         <xsl:if test="@iteration-exectype or (@activity-exectype and @activity-exectype != 'execute')">
@@ -389,6 +446,14 @@
           <strong class="iterationinfo {$activityclassname} ui-treeList-toggle-child">
             <xsl:value-of select ="concat(@dataiterationcount, @iterationCount, @iteration)"/>
           </strong>
+        </xsl:if>
+
+        <!--RETRY INFO TEXT-->
+        <xsl:if test="@retry">
+           <span>
+               <span class="ui-module-icon retry ui-treeList-toggle-child" />
+               <span class="retryLabel"><xsl:value-of select="@retry"/></span>
+           </span>
         </xsl:if>
 
         <xsl:call-template name="ActivityDescription" />
@@ -414,6 +479,8 @@
       </h2>
 
       <ul>
+        <!-- this section is here as a back up when dynamic loading is not available (currently for other non-IE browser) -->
+        <!-- works the same for every UL in all the templates -->
         <xsl:call-template name="DetailedActivityDescription" />
 
         <xsl:if test="./errormessage">
@@ -436,10 +503,12 @@
         </xsl:if>
 
         <xsl:if test="$loadAll = 1">
-          <xsl:apply-templates select="./activity">
+          <xsl:apply-templates select="./activity | ./item">
             <xsl:with-param name="itemCount" select="$itemCount" />
+            <xsl:with-param name="isSibling">true</xsl:with-param>
           </xsl:apply-templates>
         </xsl:if>
+        <!-- section end -->
       </ul>
     </li>
   </xsl:template>
@@ -448,11 +517,11 @@
     <div class ="binding">
       <div onclick="showBinding(this)" class="showBinding">
         <span class="binding-icon binding-icon-expand"></span>
-        <a class="binding-header">Test Data</a>
+        <a class="binding-header">Test data</a>
       </div>
       <div onclick="hideBinding(this)" class="hideBinding binding-hidden">
         <span class="binding-icon binding-icon-collapse"></span>
-        <a class="binding-header">Test Data</a>
+        <a class="binding-header">Test data</a>
       </div>
       <table class="binding-hidden">
         <xsl:for-each select="(field|param)[position() mod $cellsPerRow = 1]">
@@ -474,6 +543,7 @@
     </td>
   </xsl:template>
 
+  <!-- SETUP and TEARDOWN TEMPLATE-->
 <!-- added by PKu - start -->
     <xsl:template match="activity[(@type='test-case' or @type='smart-folder') and @type!='iteration-container' and @activity-exectype='dataiteration']">
         <xsl:param name="itemCount" />
@@ -515,7 +585,6 @@
         </li>
     </xsl:template>
 <!-- added by PKu - end -->
-
   <xsl:template match="activity[@type='setup-container' or @type='teardown-container']">
     <xsl:param name="itemCount" />
     <li class="{@result} setup-teardown" id="container{@rid}">
@@ -523,12 +592,20 @@
         <span class="ui-status-icon"></span>
         <xsl:if test="@type='setup-container'">SETUP</xsl:if>
         <xsl:if test="@type='teardown-container'">TEARDOWN</xsl:if>
+
+        <!-- SHOW STATUS ICON - WARN, ERROR AND MAINTENANCEMODE-->
         <xsl:if test=".//item[@level='Warn']">
           <span class="ui-module-icon warn"></span>
         </xsl:if>
-        <xsl:if test=".//item[@level='Error']">
+        <xsl:if test=".//item[@level='Error' or @level='Failure']">
           <span class="ui-module-icon error"></span>
         </xsl:if>
+        <xsl:if test="@totalmaintenancemodecount &gt; 0">
+          <span class="ui-module-icon MaintenanceMode" title="Maintenance mode"></span>
+        </xsl:if>
+
+		<xsl:call-template name="VideoLink" />
+
         <span class="duration">
           <xsl:value-of select="./@duration" />
         </span>
@@ -544,6 +621,7 @@
     </li>
   </xsl:template>
 
+  <!-- TEST MODULE TEMPLATE -->
   <xsl:template match="activity[@type='test-module']">
     <xsl:param name="itemCount" />
     <li>
@@ -553,12 +631,18 @@
           <span class="ui-status-icon"></span>
           <span class="ui-module-icon {@moduletype}"></span>
           <xsl:value-of select="./@modulename" />
+
+          <!-- SHOW STATUS ICON - WARN, ERROR AND MAINTENANCEMODE-->
           <xsl:if test=".//item[@level='Warn']">
             <span class="ui-module-icon warn"></span>
           </xsl:if>
-          <xsl:if test=".//item[@level='Error']">
+          <xsl:if test=".//item[@level='Error' or @level='Failure']">
             <span class="ui-module-icon error"></span>
           </xsl:if>
+          <xsl:if test="@totalmaintenancemodecount &gt; 0">
+            <span class="ui-module-icon MaintenanceMode" title="Maintenance mode"></span>
+          </xsl:if>
+
           <i>
             <xsl:value-of select="./detail" />
           </i>
@@ -623,12 +707,18 @@
         <span class="ui-status-icon"></span>
         <span class="ui-icon modulegroup"></span>
         <xsl:value-of select="./@modulegroupname" />
+
+        <!-- SHOW STATUS ICON - WARN, ERROR AND MAINTENANCEMODE-->
         <xsl:if test=".//item[@level='Warn']">
           <span class="ui-module-icon warn"></span>
         </xsl:if>
-        <xsl:if test=".//item[@level='Error']">
+        <xsl:if test=".//item[@level='Error' or @level='Failure']">
           <span class="ui-module-icon error"></span>
         </xsl:if>
+        <xsl:if test="@totalmaintenancemodecount &gt; 0">
+          <span class="ui-module-icon MaintenanceMode" title="Maintenance mode"></span>
+        </xsl:if>
+
         <xsl:call-template name="ActivityDescription" />
 
         <span class="duration">
@@ -674,12 +764,18 @@
         <span class="ui-status-icon"></span>
         <span class="ui-icon folder"></span>
         <xsl:value-of select="./@foldername" />
+
+        <!-- SHOW STATUS ICON - WARN, ERROR AND MAINTENANCEMODE-->
         <xsl:if test=".//item[@level='Warn']">
           <span class="ui-module-icon warn"></span>
         </xsl:if>
-        <xsl:if test=".//item[@level='Error']">
+        <xsl:if test=".//item[@level='Error' or @level='Failure']">
           <span class="ui-module-icon error"></span>
         </xsl:if>
+        <xsl:if test="@totalmaintenancemodecount &gt; 0">
+          <span class="ui-module-icon MaintenanceMode" title="Maintenance mode"></span>
+        </xsl:if>
+
         <xsl:call-template name="ActivityDescription" />
 
         <span class="duration">
@@ -708,78 +804,134 @@
     -->
   <xsl:template match="item">
     <xsl:param name="type" />
-    <tr class="{translate(@level,' ','_')}" style="{@style}" onMouseOver="DisplayHoverMenu(this)"  onMouseOut="HideHoverMenu(this)">
-      <td class="timeCell">
-        <xsl:value-of select="./@time" />
-      </td>
-      <td class="levelCell">
-        <xsl:value-of select="./@level" />
-      </td>
-      <td class="categoryCell">
-        <xsl:value-of select="./@category" />
-      </td>
-      <td class="messageCell {$type}">
-        <xsl:if test='metainfo'>
-          <xsl:variable name="controls-class">
-            <xsl:choose>
-              <xsl:when test="./metainfo/@path and (@level='Error' or @level='Warn')">
-                <xsl:text>controls-container three-columns</xsl:text>
-              </xsl:when>
-              <xsl:when test="./metainfo/@path or @level='Error' or @level='Warn'">
-                <xsl:text>controls-container two-columns</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>controls-container</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:variable>
-
-          <!-- Jump-To Popup -->
-          <xsl:if test="not(@category = 'Popup Watcher')">
-            <!-- No jump-to possible for Popup Watcher -->
-            <xsl:if test="./metainfo/@id or ./metainfo/@path or ((./metainfo/@codefile and ./metainfo/@codeline) or  ./metainfo/@itemindex) or (@level='Error' or @level='Warn')">
-              <div class="{$controls-class}">
-                <xsl:if test="(./metainfo/@codefile and ./metainfo/@codeline) or  ./metainfo/@itemindex or ./metainfo/@id">
-                  <a href="#" class="jump-to">
-                    <xsl:copy-of select="./metainfo" /> <span class="ui-icon"></span>Jump to item
-                  </a>
-                </xsl:if>
-                <xsl:if test="./metainfo/@path">
-                  <a href="#" class="spy">
-                    <xsl:copy-of select="./metainfo" />
-                    <span class="ui-icon"></span>
-                    <span class="spytext">Edit in Spy</span>
-                  </a>
-                </xsl:if>
-                <xsl:if test="@level='Error' or @level='Warn'">
-                  <a href="#" class="help">
-                    <span class="ui-icon"></span>View Help
-                  </a>
-                </xsl:if>
+    <xsl:param name="isSibling"/>
+      <xsl:choose>
+          <xsl:when test="$isSibling='true'" >
+              <div class="integrationmessage">
+                  <xsl:if test="./metainfo/@logger='ReportLogger'">
+                      <span class="ui-module-icon jira"/>
+                  </xsl:if>
+                  <xsl:copy-of select="./message"/>
               </div>
-            </xsl:if>
-          </xsl:if>
-        </xsl:if>
+          </xsl:when>
+          <xsl:otherwise>
+              <xsl:variable name="tablerowclass">
+                  <xsl:choose>
+                      <xsl:when test="@category='MaintenanceMode'">
+                          <xsl:value-of select="concat(translate(@level,' ','_'),' ', @category)"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                          <xsl:value-of select="translate(@level,' ','_')"/>
+                      </xsl:otherwise>
+                  </xsl:choose>
+              </xsl:variable>
+              <tr class="{$tablerowclass}" style="{@style}" onMouseOver="DisplayHoverMenu(this)"  onMouseOut="HideHoverMenu(this)">
+                  <td class="timeCell">
+                      <xsl:value-of select="./@time" />
+                  </td>
+                  <td class="levelCell">
+                      <xsl:value-of select="./@level" />
+                  </td>
+                  <td class="categoryCell">
+                      <xsl:value-of select="./@category" />
+                  </td>
+                  <td class="messageCell {$type}">
+                      <xsl:if test='metainfo'>
+                          <xsl:variable name="controls-class">
+                              <xsl:choose>
+                                  <xsl:when test="./metainfo/@path and (@level='Error' or @level='Warn')">
+                                      <xsl:text>controls-container three-columns</xsl:text>
+                                  </xsl:when>
+                                  <xsl:when test="./metainfo/@path or @level='Error' or @level='Warn'">
+                                      <xsl:text>controls-container two-columns</xsl:text>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                      <xsl:text>controls-container</xsl:text>
+                                  </xsl:otherwise>
+                              </xsl:choose>
+                          </xsl:variable>
 
-        <xsl:copy-of select="./message" />
+                          <!-- Jump-To Popup -->
+                          <xsl:if test="not(@category = 'Popup Watcher')">
+                              <!-- No jump-to possible for Popup Watcher -->
+                              <xsl:if test="./metainfo/@id or ./metainfo/@path or ((./metainfo/@codefile and ./metainfo/@codeline) or  ./metainfo/@itemindex) or (@level='Error' or @level='Warn')">
+                                  <div class="{$controls-class}">
+                                      <xsl:if test="(./metainfo/@codefile and ./metainfo/@codeline) or  ./metainfo/@itemindex or ./metainfo/@id">
+                                          <a href="#" class="jump-to">
+                                              <xsl:copy-of select="./metainfo" /> <span class="ui-icon"></span>Jump to item
+                                          </a>
+                                          <xsl:if test="@errimg and ./metainfo/@replaceImage='true'">
+                                              <a href="#" class="replace-reference-img">
+                                                  <metainfo codefile="{./metainfo/@codefile}" itemindex="{./metainfo/@itemindex}" img="{@errimg}"/>
+                                                  <span class="ui-icon"></span>Replace expected image
+                                              </a>
+                                          </xsl:if>
+                                      </xsl:if>
+                                      <xsl:if test="./metainfo/@matchvalue and @level='Success' and @category='MaintenanceMode'">
+                                          <a href="#" class="apply-match">
+                                              <xsl:copy-of select="./metainfo" />
+                                              <span class="ui-icon"></span>Apply new value
+                                          </a>
+                                      </xsl:if>
+                                      <xsl:if test="./metainfo/@path and @level='Success' and @category='MaintenanceMode'">
+                                          <xsl:if test="./metainfo/@hasvars='True'">
+                                              <a href="#" class="edit-in-spy" id="hasVars">
+                                                  <xsl:copy-of select="./metainfo" />
+                                                  <span class="ui-icon"></span>Edit path manually
+                                              </a>
+                                          </xsl:if>
+                                          <xsl:if test="./metainfo/@hasvars='False'">
+                                              <a href="#" class="edit-in-spy" id="noVars">
+                                                  <xsl:copy-of select="./metainfo" />
+                                                  <span class="ui-icon"></span>Apply path changes
+                                              </a>
+                                          </xsl:if>
+                                      </xsl:if>
+                                      <xsl:if test="./metainfo/@path">
+                                          <a href="#" class="spy">
+                                              <xsl:copy-of select="./metainfo" />
+                                              <span class="ui-icon"></span>
+                                              <span class="spytext">Edit in Spy</span>
+                                          </a>
+                                      </xsl:if>
+                                      <xsl:if test="@level='Error' or @level='Warn'">
+                                          <a href="#" class="help">
+                                              <span class="ui-icon"></span>View Help
+                                          </a>
+                                      </xsl:if>
+                                  </div>
+                              </xsl:if>
+                          </xsl:if>
+                      </xsl:if>
 
-        <xsl:if test='./metainfo/@stacktrace'>
-          <div class="stacktrace">
-            <span onclick="$(this).next().toggle();">Show/Hide Stacktrace</span>
-            <p>
-              <xsl:value-of select="./metainfo/@stacktrace" />
-            </p>
-          </div>
-        </xsl:if>
+                      <xsl:copy-of select="./message" />
 
-        <xsl:if test='@errimg'>
-          <br />
-          <a href="{@errimg}" class="thickbox" rel="modulename">
-            <img src="{@errthumb}" alt="Screenshot" />
-          </a>
-        </xsl:if>
-      </td>
-    </tr>
+                      <xsl:if test='./metainfo/@stacktrace'>
+                          <div class="stacktrace">
+                              <span onclick="$(this).next().toggle();">Show/Hide Stacktrace</span>
+                              <p>
+                                  <xsl:value-of select="./metainfo/@stacktrace" />
+                              </p>
+                          </div>
+                      </xsl:if>
+
+                      <xsl:if test='@errimg'>
+                          <br />
+                          <a href="{@errimg}" class="thickbox" rel="modulename">
+                              <img src="{@errthumb}" alt="Screenshot" />
+                          </a>
+                      </xsl:if>
+
+                      <xsl:if test="./metainfo/@warningMessage">
+                          <div class="warningMessage">
+                            <span class="ui-icon"></span>
+                            <xsl:value-of select="./metainfo/@warningMessage" />
+                          </div>
+                      </xsl:if>
+                  </td>
+              </tr>
+          </xsl:otherwise>
+      </xsl:choose>
   </xsl:template>
 
   <xsl:template name="levelFilterSelector">
@@ -848,7 +1000,7 @@
 
   <xsl:template name ="globalCategorySelector">
     <div class="filter">
-      <span>Test Container Filter:</span>
+      <span>Test container filter:</span>
       <input type="checkbox" id="checkBoxTestCaseSuccess" name="checkBoxTestCaseSuccess" onClick="OnFilter(this,['li.Success'])" checked="1" />
       <label for="checkBoxTestCaseSuccess">Success</label>
       <input type="checkbox" id="checkBoxTestCaseFailed" name="checkBoxTestCaseFailed" onClick="OnFilter(this,['li.Failed','li.Active'])" checked="1" />
@@ -862,17 +1014,20 @@
     <div class="execution-information">
       <table>
         <tr>
-          <td>
+           <td>
             <i class="field">
-              Execution time <b>
-                <xsl:value-of select="@timestamp" />
+              Computer/Endpoint
+              <b>
+                <xsl:call-template name="break">
+                    <xsl:with-param name="text" select="@host" />
+                </xsl:call-template>
               </b>
             </i>
           </td>
           <td>
             <i class="field">
-              Computer/Endpoint <b>
-                <xsl:value-of select="@host" />
+              Execution time <b>
+                <xsl:value-of select="@timestamp" />
               </b>
             </i>
           </td>
@@ -951,8 +1106,9 @@
   </xsl:template>
 
   <xsl:template match="/" mode="TestCaseDetail">
-    <xsl:apply-templates select="//activity[@rid = $testcaserid]/activity">
+    <xsl:apply-templates select="//activity[@rid = $testcaserid]/activity | //activity[@rid = $testcaserid]/item">
       <xsl:with-param name="itemCount" select="$maxItems" />
+      <xsl:with-param name="isSibling">true</xsl:with-param>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -975,9 +1131,9 @@
 
     <i class="description">
       <xsl:if test="string-length(normalize-space(./conditionmsg)) > 0">
-        <xsl:value-of select="./conditionmsg"/>        
+        <xsl:value-of select="./conditionmsg"/>
       </xsl:if>
-      
+
       <xsl:value-of select="substring($detailstext,0,70)" />
       <xsl:if test="string-length($detailstext) &gt; 70">...</xsl:if>
     </i>
@@ -1011,4 +1167,47 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template name="break">
+  <xsl:param name="text" select="string(.)"/>
+  <xsl:choose>
+    <xsl:when test="contains($text, '&#xa;')">
+      <xsl:value-of select="substring-before($text, '&#xa;')"/>
+      <br/>
+      <xsl:call-template name="break">
+        <xsl:with-param
+          name="text"
+          select="substring-after($text, '&#xa;')"
+        />
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$text"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+  <xsl:template name="VideoLink">
+    <xsl:if test="./@videofile != ''">
+      <xsl:variable name="url" select="./@videofile" />
+        <span class="video-button"><a href="{$url}">
+            <span class="ui-module-icon video"></span><span class="video-button-label">Play video</span>
+        </a></span>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template name="CustomLinks">
+    <!-- Jira link for test case without iterations -->
+    <xsl:if test="./custom/@JiraManControlLink != '' and not(@activity-exectype and @activity-exectype != 'execute')">
+      <xsl:variable name="url" select="./custom/@JiraManControlLink" />
+      <span class="jira-button"><a href="{$url}">
+        <span class="ui-module-icon jira"></span><span class="jira-button-label">Create Jira issue</span>
+      </a></span>
+    </xsl:if>
+    <!-- Jira link for test case with iterations -->
+      <xsl:if test=".//custom/@JiraManControlLink != '' and @iteration-exectype and @testentry-activity-type='testcase'">
+        <xsl:variable name="url" select=".//custom/@JiraManControlLink" />
+        <span class="jira-button"><a href="{$url}">
+          <span class="ui-module-icon jira"></span><span class="jira-button-label">Create Jira issue</span>
+        </a></span>
+      </xsl:if>
+    </xsl:template>
 </xsl:stylesheet>

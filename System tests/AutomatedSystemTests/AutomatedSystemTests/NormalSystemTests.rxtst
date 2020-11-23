@@ -3300,6 +3300,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopSchematizations"
+			errorbehavior="ContinueNextIteration"
 			id="439fd803-5bef-41cb-be97-10a49307ed9b"
 			name="LoopSchematizationsItemsModified">
 				<parameters>
@@ -9347,6 +9348,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script12_LoopStructures"
+			errorbehavior="ContinueNextIteration"
 			id="bb34d1f8-ec66-436e-a2b1-6a99f2780bad"
 			name="LoopStructuresItemsModified">
 				<parameters>
@@ -9835,7 +9837,7 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder="ReportMoreInformativeIterations"
+			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<testmodule
@@ -11561,6 +11563,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopFMs"
+			errorbehavior="ContinueNextIteration"
 			id="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
 			maxrange="0"
 			minrange="0"

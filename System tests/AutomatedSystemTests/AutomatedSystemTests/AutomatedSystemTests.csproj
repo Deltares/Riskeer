@@ -2009,27 +2009,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ReportMoreInformativeIterations\NewCustomTemplate1.rar">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>eb1fb91c-c9aa-46f8-9697-396ff211ed6c</id>
-    </Content>
-    <Content Include="ReportMoreInformativeIterations\RanorexReport.css">
+    <Content Include="ReportDeltaresStyle\RanorexReport.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
     </Content>
-    <Content Include="ReportMoreInformativeIterations\RanorexReport.png">
+    <Content Include="ReportDeltaresStyle\RanorexReport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>c89ebce6-ff3c-4c21-af17-e2bb8daecec8</id>
     </Content>
-    <Content Include="ReportMoreInformativeIterations\RanorexReport.xsl">
+    <Content Include="ReportDeltaresStyle\RanorexReport.xsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
     </Content>
-    <Content Include="ReportMoreInformativeIterations\View.rxlog">
+    <Content Include="ReportDeltaresStyle\RanorexReport.xsl.bak">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <id>4c89b49b-7158-4a4d-ba69-9f5e46df5a26</id>
+    </Content>
+    <Content Include="ReportDeltaresStyle\View.rxlog">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
     </Content>
-    <Content Include="ReportMoreInformativeIterations\View.rxlog.data">
+    <Content Include="ReportDeltaresStyle\View.rxlog.data">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
     </Content>
@@ -2070,6 +2070,9 @@
       <id>8b6648ca-2429-462f-8074-96184700bbed</id>
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
+    </None>
+    <None Include="DeltaresRiskeer.png">
+      <id>03625790-54b2-4b4e-b41c-64e986f21c5f</id>
     </None>
     <None Include="Modules\ActionsAUT\CloseAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2806,6 +2809,26 @@
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
     </None>
+    <None Include="ReportDeltaresStyle\DeltaresRiskeer.png">
+      <id>70712808-59ab-4f6f-90fe-14c5966a4370</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\LogoDeltaresRiskeer.png">
+      <id>f6e5ccf3-8150-41dd-9eb0-659772c7ade9</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\LogoDeltaresRiskeerLightBG.png">
+      <id>7cc7b432-68fb-4ae4-b844-f84f59230578</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\openReport.bat">
+      <id>63fb9523-42c3-4db5-9031-7791c33add7c</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\prepareReport.bat">
+      <id>38a629fe-c230-41b4-bad8-6c025199c595</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AutomatedSystemTests.rxtmg">
@@ -2905,7 +2928,7 @@
     <Folder Include="Modules\Validation">
       <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>
     </Folder>
-    <Folder Include="ReportMoreInformativeIterations">
+    <Folder Include="ReportDeltaresStyle">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>27a8850a-9f7d-4bdd-8e37-bc212ac07f07</id>
     </Folder>

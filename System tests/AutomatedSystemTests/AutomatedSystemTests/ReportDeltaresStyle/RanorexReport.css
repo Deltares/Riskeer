@@ -1603,7 +1603,6 @@ h3#testCasesHeader {
     display: none !important;
 }
 
-/* Uncomment to customize your report
         body {
             background-color: #EEEEEE;
             background-image: url(YourBackgroundImage.png);
@@ -1611,9 +1610,11 @@ h3#testCasesHeader {
        }
 
         #header-top #logo span {
-            height: 32px;
-            width: 128px;
-            background-image: url(YourLogo.png);
+            height: 123px;
+            width: 576px;
+            background-image: url(LogoDeltaresRiskeerLightBG.png);
             background-position: 0;
         }
-        */
+        div#page {
+        margin-top: 100px;
+        }
