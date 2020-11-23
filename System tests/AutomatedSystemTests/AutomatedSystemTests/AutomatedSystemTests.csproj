@@ -2021,10 +2021,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>3ab45427-cb41-4ab9-a734-faca61cec2bd</id>
     </Content>
-    <Content Include="ReportDeltaresStyle\RanorexReport.xsl.bak">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <id>4c89b49b-7158-4a4d-ba69-9f5e46df5a26</id>
-    </Content>
     <Content Include="ReportDeltaresStyle\View.rxlog">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>f79289de-867b-47b6-837c-a80a5fe6cbff</id>
