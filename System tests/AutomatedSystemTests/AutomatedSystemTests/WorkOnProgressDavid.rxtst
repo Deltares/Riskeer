@@ -125,6 +125,56 @@
 			name="StartImportTraject">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
+			id="21807676-9743-445d-80dc-7f55132f0ef9"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="2378775d-8092-4f7e-8215-07ae52d7d57c"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="238a77cc-55aa-4749-a0f4-62670c03cbfa"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add .csv]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="extensionCsv"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="239eb44f-e895-42ec-a340-5803bbe88ec9"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -156,9 +206,97 @@
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988"
 			name="1)Cancel">
 			</smartfoldernode>
+			<testmodule
+			id="29590d92-9702-4787-87a3-c8413b93e0d3"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8"
+			name="HBCs">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="indexRowHBCItem"
+								id="93d26bb6-56db-400b-b0b9-712ab1c4172f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="2f250e16-3609-4588-968b-3142de2215c5"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitAfterExpandingPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="314210e6-5202-4bc2-a9a7-52e10e871d53"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change <space> into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="spaceChar"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="35b84802-07c5-4306-857e-fe2b7b404695"
-			name="Import">
+			name="ImportMerge">
 			</smartfoldernode>
 			<testmodule
 			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
@@ -224,6 +362,28 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="497754e6-e749-47fc-99bb-7d9456aa36cd"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="timeToExpandPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="durationToExpandAllParametersInItem"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -240,6 +400,61 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="54fd9397-3ba2-4c5d-9176-8c1d849dbfb0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add row index, if any]]>
+				</description>
+				<databinding>
+					<var
+					dataname="substringAB"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="55ec0e75-0726-4ee4-bc70-03a41b58c9dc"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="indexRowHBCItem"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 			</testmodule>
@@ -370,6 +585,19 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script28_b_2_LoopGenerateCSVsItems"
+			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+			maxrange="3"
+			minrange="0"
+			name="LoopGenerateCSVsItems">
+				<parameters>
+					<param
+					name="separatorCharInCsvFile"
+					value=";">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
 			name="a)MergeCancelledDueToDifferentDataInSections">
 				<parameters>
@@ -379,6 +607,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="895b8d38-5b44-4442-94a0-152c1a60a99e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="8a38fa2c-278a-402b-b04b-76be9a606eba"
 			name="WaitForXMiliseconds"
@@ -390,6 +632,26 @@
 					datasourceid="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="8c5344e3-5acf-4bec-8643-ba59c4dc838f"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorCharInCsvFile"
+					datasourceid="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -484,13 +746,41 @@
 			id="a1a44b66-ede9-4063-aa45-57993d636bc4"
 			name="ImportProjectOld">
 			</smartfoldernode>
+			<testmodule
+			id="a3388db7-af96-43bd-b856-9a25b60f844a"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRowHBCItem"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="aa559d97-8936-424d-ab29-c9ddf690226d"
 			name="OpenProject">
 			</smartfoldernode>
 			<smartfoldernode
 			id="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
-			name="2)Merge">
+			name="2)ImportedMergeCompleted">
+				<parameters>
+					<param
+					name="pathExportedCsvFile"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="b406bf8a-8022-4acb-a54d-5647f8e8228a"
@@ -500,6 +790,35 @@
 			id="b4d83f21-0650-420c-a769-54b6f614d4c8"
 			name="StartImportProjectAndCancel">
 			</smartfoldernode>
+			<testmodule
+			id="b5b11384-e350-4531-a9fd-f634e30a0fea"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[prepend output  folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -543,6 +862,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c"
+			name="ExportPropertiesPanelToCsv">
+			</smartfoldernode>
 			<smartfoldernode
 			id="c668a98a-a5aa-43c8-977d-df8154507f6d"
 			name="b)MergeFMsInSameSection">
@@ -647,6 +970,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb"
+			name="MakeAllParametersInPropertiesPanelVisible">
+			</smartfoldernode>
 			<testmodule
 			id="d9d3373a-e436-4cf8-ae0f-870bd3e594ba"
 			name="ValidateTextMesage"
@@ -671,6 +998,41 @@
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc"
 			name="1)OldVersionProject">
 			</smartfoldernode>
+			<testmodule
+			id="e14fe433-a587-4587-b0a1-39df6d8accac"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change > into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="pathSeparatorChar"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="e7b49815-3faf-449b-8e33-8536c0759777"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="e3f7a459-aceb-4da5-8306-4d75894a6adf"
 			name="ValidateTextMesage"
@@ -705,6 +1067,44 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="e7b49815-3faf-449b-8e33-8536c0759777"
+			name="CalculateFileName">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="spaceChar"
+					value=" ">
+					</param>
+					<param
+					name="pathSeparatorChar"
+					value=">">
+					</param>
+					<param
+					name="underscoreChar"
+					value="_">
+					</param>
+					<param
+					name="substringAB"
+					value="AB">
+					</param>
+					<param
+					name="extensionCsv"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script28_b_2_ValidateMessagesMergeProject"
 			id="e90b15c5-38e8-4c35-b96b-5066fa874916"
@@ -752,6 +1152,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f5a5bf92-ad41-43f1-b887-088bc51615f2"
+			name="SelectItem">
+			</smartfoldernode>
 			<testmodule
 			id="fe1ba3cb-c9f3-41ae-9602-dd6fafffa9c6"
 			name="NewProject"
@@ -942,10 +1346,10 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
-							name="2)Merge">
+							name="2)ImportedMergeCompleted">
 								<smartfoldernode
 								id="35b84802-07c5-4306-857e-fe2b7b404695"
-								name="Import">
+								name="ImportMerge">
 									<smartfoldernode
 									id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f"
 									name="StartImportTraject">
@@ -974,14 +1378,94 @@
 										name="PressImportDialogSelectionInformationImportMergeProject">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e90b15c5-38e8-4c35-b96b-5066fa874916"
+								name="ValidateMessagesMergeProject">
+									<testmodule
+									id="36e849ce-0ef7-4aab-84ac-5c69493e589b"
+									name="ValidateTextMesage">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+								name="LoopGenerateCSVsItems">
 									<smartfoldernode
-									id="e90b15c5-38e8-4c35-b96b-5066fa874916"
-									name="ValidateMessagesMergeProject">
+									id="f5a5bf92-ad41-43f1-b887-088bc51615f2"
+									name="SelectItem">
 										<testmodule
-										id="36e849ce-0ef7-4aab-84ac-5c69493e589b"
-										name="ValidateTextMesage">
+										id="895b8d38-5b44-4442-94a0-152c1a60a99e"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<smartfoldernode
+										id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8"
+										name="HBCs">
+											<testmodule
+											id="29590d92-9702-4787-87a3-c8413b93e0d3"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="a3388db7-af96-43bd-b856-9a25b60f844a"
+											name="SelectRowCalculation">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb"
+									name="MakeAllParametersInPropertiesPanelVisible">
+										<testmodule
+										id="497754e6-e749-47fc-99bb-7d9456aa36cd"
+										name="ExpandAllRowItemsInPropertiesPanel">
+										</testmodule>
+										<testmodule
+										id="2f250e16-3609-4588-968b-3142de2215c5"
+										name="WaitForXMiliseconds">
 										</testmodule>
 									</smartfoldernode>
+									<smartfoldernode
+									id="e7b49815-3faf-449b-8e33-8536c0759777"
+									name="CalculateFileName">
+										<testmodule
+										id="e14fe433-a587-4587-b0a1-39df6d8accac"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="314210e6-5202-4bc2-a9a7-52e10e871d53"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="b5b11384-e350-4531-a9fd-f634e30a0fea"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="55ec0e75-0726-4ee4-bc70-03a41b58c9dc"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="54fd9397-3ba2-4c5d-9176-8c1d849dbfb0"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="238a77cc-55aa-4749-a0f4-62670c03cbfa"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="c28a504a-d5ca-4817-a26b-0ee2df78be3c"
+									name="ExportPropertiesPanelToCsv">
+										<testmodule
+										id="8c5344e3-5acf-4bec-8643-ba59c4dc838f"
+										name="ExportPropertiesPanelToCsv">
+										</testmodule>
+										<testmodule
+										id="2378775d-8092-4f7e-8215-07ae52d7d57c"
+										name="LogInfoMessage">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="21807676-9743-445d-80dc-7f55132f0ef9"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -1107,6 +1591,774 @@
 					</td>
 					<td>
 						12
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+		lastknownrowcount="48"
+		name="script28_b_2_LoopGenerateCSVsItems"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathToItemInProjectExplorer
+				</column>
+				<column>
+					indexRowHBCItem
+				</column>
+				<column>
+					pathReferenceFile
+				</column>
+				<column>
+					timeToExpandPropertiesPanel
+				</column>
+				<column>
+					waitAfterExpandingPropertiesPanel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathToItemInProjectExplorer
+					</th>
+					<th>
+						indexRowHBCItem
+					</th>
+					<th>
+						pathReferenceFile
+					</th>
+					<th>
+						timeToExpandPropertiesPanel
+					</th>
+					<th>
+						waitAfterExpandingPropertiesPanel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
+						45
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Invoer
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						300
+					</td>
+					<td>
+						300
 					</td>
 				</tr>
 			</table>
@@ -2888,6 +4140,9 @@
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988">
 			</testcontainer>
 			<testcontainer
+			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8">
+			</testcontainer>
+			<testcontainer
 			id="35b84802-07c5-4306-857e-fe2b7b404695">
 			</testcontainer>
 			<testcontainer
@@ -2904,6 +4159,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7a117450-114a-485c-88a7-4115513e55ce">
+			</testcontainer>
+			<testcontainer
+			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45">
 			</testcontainer>
 			<testcontainer
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1">
@@ -2927,6 +4185,9 @@
 			id="b4d83f21-0650-420c-a769-54b6f614d4c8">
 			</testcontainer>
 			<testcontainer
+			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c">
+			</testcontainer>
+			<testcontainer
 			id="c668a98a-a5aa-43c8-977d-df8154507f6d">
 			</testcontainer>
 			<testcontainer
@@ -2939,10 +4200,19 @@
 			id="d49a73ef-45a9-47ce-b1e3-266341be6b6b">
 			</testcontainer>
 			<testcontainer
+			id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb">
+			</testcontainer>
+			<testcontainer
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc">
 			</testcontainer>
 			<testcontainer
+			id="e7b49815-3faf-449b-8e33-8536c0759777">
+			</testcontainer>
+			<testcontainer
 			id="e90b15c5-38e8-4c35-b96b-5066fa874916">
+			</testcontainer>
+			<testcontainer
+			id="f5a5bf92-ad41-43f1-b887-088bc51615f2">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

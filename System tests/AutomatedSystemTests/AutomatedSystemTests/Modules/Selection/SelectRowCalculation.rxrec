@@ -45,6 +45,26 @@ mode="Global">
 			id="95c1e14f-4c7e-442c-9444-f585a9f7892a">
 			</arguments>
 		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="039edf65-3124-4e5d-b1b2-804b1cc252b1">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+				</path>
+			</info>
+			<arguments
+			id="9f0a244f-3aa8-43bf-9fa6-08fbbb2ec49c">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
