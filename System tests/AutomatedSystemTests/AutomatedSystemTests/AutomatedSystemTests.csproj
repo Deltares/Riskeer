@@ -2834,9 +2834,11 @@
       <id>7cc7b432-68fb-4ae4-b844-f84f59230578</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportDeltaresStyle\openReport.bat">
-      <id>63fb9523-42c3-4db5-9031-7791c33add7c</id>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="ReportDeltaresStyle\openReportWithChrome.bat">
+      <id>7c5c52d6-4608-4c76-8b15-6428380ea1ca</id>
+    </None>
+    <None Include="ReportDeltaresStyle\openReportWithInternetExplorer.bat">
+      <id>6ba120b9-6a1e-4a67-a528-4acd743f4255</id>
     </None>
     <None Include="ReportDeltaresStyle\prepareReport.bat">
       <id>38a629fe-c230-41b4-bad8-6c025199c595</id>
