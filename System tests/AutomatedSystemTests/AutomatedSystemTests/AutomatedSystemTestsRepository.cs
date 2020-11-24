@@ -44,6 +44,7 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.BackgroundMapDataSelectionDialogAppFolder _backgroundmapdataselectiondialog;
         AutomatedSystemTestsRepositoryFolders.FoutAppFolder _fout;
         AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder _wmtsconnectiondialog;
+        AutomatedSystemTestsRepositoryFolders.DialogSelectionInformationImportMergeProjectAppFolder _dialogselectioninformationimportmergeproject;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace AutomatedSystemTests
             _backgroundmapdataselectiondialog = new AutomatedSystemTestsRepositoryFolders.BackgroundMapDataSelectionDialogAppFolder(this);
             _fout = new AutomatedSystemTestsRepositoryFolders.FoutAppFolder(this);
             _wmtsconnectiondialog = new AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder(this);
+            _dialogselectioninformationimportmergeproject = new AutomatedSystemTestsRepositoryFolders.DialogSelectionInformationImportMergeProjectAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -680,6 +682,15 @@ namespace AutomatedSystemTests
         public virtual AutomatedSystemTestsRepositoryFolders.WmtsConnectionDialogAppFolder WmtsConnectionDialog
         {
             get { return _wmtsconnectiondialog; }
+        }
+
+        /// <summary>
+        /// The DialogSelectionInformationImportMergeProject folder.
+        /// </summary>
+        [RepositoryFolder("a38813aa-c0d2-4abf-809e-aca709f1371e")]
+        public virtual AutomatedSystemTestsRepositoryFolders.DialogSelectionInformationImportMergeProjectAppFolder DialogSelectionInformationImportMergeProject
+        {
+            get { return _dialogselectioninformationimportmergeproject; }
         }
     }
 
@@ -8129,6 +8140,175 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _actionbuttonInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The DialogSelectionInformationImportMergeProjectAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("a38813aa-c0d2-4abf-809e-aca709f1371e")]
+        public partial class DialogSelectionInformationImportMergeProjectAppFolder : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.TableFMsFolder _tablefms;
+            RepoItemInfo _cancelbuttonInfo;
+            RepoItemInfo _importbuttonInfo;
+
+            /// <summary>
+            /// Creates a new DialogSelectionInformationImportMergeProject  folder.
+            /// </summary>
+            public DialogSelectionInformationImportMergeProjectAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("DialogSelectionInformationImportMergeProject", "/form[@controlname='AssessmentSectionMergeDataProviderDialog']", parentFolder, 30000, null, true, "a38813aa-c0d2-4abf-809e-aca709f1371e", "")
+            {
+                _tablefms = new AutomatedSystemTestsRepositoryFolders.TableFMsFolder(this);
+                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']", 30000, null, "89a71866-d976-497c-a752-3afb1a05083b");
+                _importbuttonInfo = new RepoItemInfo(this, "ImportButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']", 30000, null, "2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("a38813aa-c0d2-4abf-809e-aca709f1371e")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("a38813aa-c0d2-4abf-809e-aca709f1371e")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CancelButton item.
+            /// </summary>
+            [RepositoryItem("89a71866-d976-497c-a752-3afb1a05083b")]
+            public virtual Ranorex.Button CancelButton
+            {
+                get
+                {
+                    return _cancelbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CancelButton item info.
+            /// </summary>
+            [RepositoryItemInfo("89a71866-d976-497c-a752-3afb1a05083b")]
+            public virtual RepoItemInfo CancelButtonInfo
+            {
+                get
+                {
+                    return _cancelbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ImportButton item.
+            /// </summary>
+            [RepositoryItem("2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a")]
+            public virtual Ranorex.Button ImportButton
+            {
+                get
+                {
+                    return _importbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ImportButton item info.
+            /// </summary>
+            [RepositoryItemInfo("2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a")]
+            public virtual RepoItemInfo ImportButtonInfo
+            {
+                get
+                {
+                    return _importbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TableFMs folder.
+            /// </summary>
+            [RepositoryFolder("15fe51ee-f2a2-4404-a313-53b35aded5fd")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableFMsFolder TableFMs
+            {
+                get { return _tablefms; }
+            }
+        }
+
+        /// <summary>
+        /// The TableFMsFolder folder.
+        /// </summary>
+        [RepositoryFolder("15fe51ee-f2a2-4404-a313-53b35aded5fd")]
+        public partial class TableFMsFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _selectcellgenericrowInfo;
+
+            /// <summary>
+            /// Creates a new TableFMs  folder.
+            /// </summary>
+            public TableFMsFolder(RepoGenBaseFolder parentFolder) :
+                    base("TableFMs", ".//table[@controlname='dataGridView']", parentFolder, 30000, null, false, "15fe51ee-f2a2-4404-a313-53b35aded5fd", "")
+            {
+                _selectcellgenericrowInfo = new RepoItemInfo(this, "SelectCellGenericRow", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Selecteer']", 30000, null, "67bc4452-c4a1-459b-8ab9-a476e489359f");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("15fe51ee-f2a2-4404-a313-53b35aded5fd")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("15fe51ee-f2a2-4404-a313-53b35aded5fd")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SelectCellGenericRow item.
+            /// </summary>
+            [RepositoryItem("67bc4452-c4a1-459b-8ab9-a476e489359f")]
+            public virtual Ranorex.Cell SelectCellGenericRow
+            {
+                get
+                {
+                    return _selectcellgenericrowInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SelectCellGenericRow item info.
+            /// </summary>
+            [RepositoryItemInfo("67bc4452-c4a1-459b-8ab9-a476e489359f")]
+            public virtual RepoItemInfo SelectCellGenericRowInfo
+            {
+                get
+                {
+                    return _selectcellgenericrowInfo;
                 }
             }
         }

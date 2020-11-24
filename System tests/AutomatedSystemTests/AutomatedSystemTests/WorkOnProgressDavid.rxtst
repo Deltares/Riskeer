@@ -3,6 +3,10 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<smartfoldernode
+			id="015f5134-143d-4977-9a39-47915f41f0a0"
+			name="NewProject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="0213ebfa-fb26-4893-89d2-0d5f5a37ab9a"
 			name="WaitSomeTime">
 				<parameters>
@@ -12,6 +16,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="0737c832-bd00-4510-9c6b-c53d7ff381ba"
+			name="ProceedToImport">
+			</smartfoldernode>
+			<testmodule
+			id="0a1d7dbf-8da8-4b00-9347-9d5dcea21494"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathRootTraject"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathRootTraject"
+					datasourceid="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<setup
 			id="0a79950c-55a5-429b-a9d2-d678b3c1e31c"
 			name="setup">
@@ -90,6 +120,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f"
+			name="StartImportTraject">
+			</smartfoldernode>
 			<testmodule
 			id="239eb44f-e895-42ec-a340-5803bbe88ec9"
 			name="SelectGenericItemInProjectExplorer"
@@ -122,6 +156,10 @@
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988"
 			name="1)Cancel">
 			</smartfoldernode>
+			<smartfoldernode
+			id="35b84802-07c5-4306-857e-fe2b7b404695"
+			name="Import">
+			</smartfoldernode>
 			<testmodule
 			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
 			name="CloseAUT"
@@ -133,6 +171,26 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
 					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="36e849ce-0ef7-4aab-84ac-5c69493e589b"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedMessage"
+					datasourceid="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
 					</var>
 				</databinding>
 			</testmodule>
@@ -160,6 +218,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="41c6c336-466f-45a0-8f96-fa003565cc13"
+			name="CancelDialogSelectionInformationImportMergeProject"
+			ref="c317efbd-2c02-4e14-9a26-323afc914ecf"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -178,6 +242,12 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="5602871c-e281-465e-8a48-81855afb9650"
+			name="PressImportDialogSelectionInformationImportMergeProject"
+			ref="0b4b70f2-eb5f-4a5e-972a-c191b344cb2d"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="628066a8-9af3-49dd-814d-3910b5a80937"
@@ -262,6 +332,20 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="79880a24-d19b-4755-9306-30af8cc039b4"
+			name="ValidateWarningMessage">
+				<parameters>
+					<param
+					name="indexRowMessage"
+					value="0">
+					</param>
+					<param
+					name="expectedMessage"
+					value="Importeren van gegevens is geannuleerd.">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="7a117450-114a-485c-88a7-4115513e55ce"
 			name="ValidateErrorMessagesMergeOldProject">
 				<parameters>
@@ -271,6 +355,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="7f1ae511-8395-424d-a516-6fd7a70ddab2"
+			name="SelectTrajectToImportByIndex"
+			ref="7215ea0a-6021-493d-a8b6-e4f22012da8a"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="e0667100-320d-40b6-ae06-db162b2abe65"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
 			name="a)MergeCancelledDueToDifferentDataInSections">
@@ -364,9 +462,13 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="96030009-3e9b-43f2-9ee1-06482497b92c"
+			name="OpenProject">
+			</smartfoldernode>
 			<testmodule
 			id="9e57e454-b574-41bb-968e-eb122915e72a"
-			name="ImportMergeProject"
+			name="SpecifyFileToImportMergeProject"
 			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
 			type="Recording">
 				<databinding>
@@ -393,6 +495,10 @@
 			<smartfoldernode
 			id="b406bf8a-8022-4acb-a54d-5647f8e8228a"
 			name="2)MergeModifiedTraject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b4d83f21-0650-420c-a769-54b6f614d4c8"
+			name="StartImportProjectAndCancel">
 			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -440,6 +546,12 @@
 			<smartfoldernode
 			id="c668a98a-a5aa-43c8-977d-df8154507f6d"
 			name="b)MergeFMsInSameSection">
+				<parameters>
+					<param
+					name="pathRootTraject"
+					value="Traject 50-1">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="c7ed8685-254a-4347-b0ee-6c426c7bd624"
@@ -460,6 +572,47 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script28_b_2_FMsToImport"
+			id="cab602fa-8618-4fd8-bb1a-98ff16f9756b"
+			name="SelectFMsToImport">
+			</smartfoldernode>
+			<testmodule
+			id="ceec6712-9e19-471f-a571-b56646acf4d7"
+			name="SpecifyFileToImportMergeProject"
+			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathProjectB"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
+					variablename="nameProjectFile">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="cf4cca7e-0982-4db3-ac83-df330ddc2e07"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathRootTraject"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathRootTraject"
+					datasourceid="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
@@ -494,6 +647,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="d9d3373a-e436-4cf8-ae0f-870bd3e594ba"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRowMessage"
+					datasourceid="79880a24-d19b-4755-9306-30af8cc039b4"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedMessage"
+					datasourceid="79880a24-d19b-4755-9306-30af8cc039b4"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc"
 			name="1)OldVersionProject">
@@ -532,9 +705,14 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script28_b_2_ValidateMessagesMergeProject"
+			id="e90b15c5-38e8-4c35-b96b-5066fa874916"
+			name="ValidateMessagesMergeProject">
+			</smartfoldernode>
 			<testmodule
-			id="f41bef84-3f80-4122-9ad4-1668fc371be0"
-			name="ImportMergeProject"
+			id="ec22ea96-47a0-498a-8cee-4335d392c651"
+			name="SpecifyFileToImportMergeProject"
 			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
 			type="Recording">
 				<databinding>
@@ -545,6 +723,40 @@
 					variablename="nameProjectFile">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="ed981cc6-9fef-4742-a77f-71cfaa644584"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathProjectA"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f41bef84-3f80-4122-9ad4-1668fc371be0"
+			name="SpecifyFileToImportMergeProject"
+			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathProjectB"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
+					variablename="nameProjectFile">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="fe1ba3cb-c9f3-41ae-9602-dd6fafffa9c6"
+			name="NewProject"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
 			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
@@ -624,7 +836,7 @@
 									</testmodule>
 									<testmodule
 									id="9e57e454-b574-41bb-968e-eb122915e72a"
-									name="ImportMergeProject">
+									name="SpecifyFileToImportMergeProject">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -664,7 +876,7 @@
 									</testmodule>
 									<testmodule
 									id="f41bef84-3f80-4122-9ad4-1668fc371be0"
-									name="ImportMergeProject">
+									name="SpecifyFileToImportMergeProject">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -682,15 +894,95 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
+						id="015f5134-143d-4977-9a39-47915f41f0a0"
+						name="NewProject">
+							<testmodule
+							id="fe1ba3cb-c9f3-41ae-9602-dd6fafffa9c6"
+							name="NewProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
 						id="c668a98a-a5aa-43c8-977d-df8154507f6d"
 						name="b)MergeFMsInSameSection">
 							<smartfoldernode
 							id="25b8f99a-1093-401d-a7c9-56819a7d5988"
 							name="1)Cancel">
+								<smartfoldernode
+								id="96030009-3e9b-43f2-9ee1-06482497b92c"
+								name="OpenProject">
+									<testmodule
+									id="ed981cc6-9fef-4742-a77f-71cfaa644584"
+									name="OpenProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b4d83f21-0650-420c-a769-54b6f614d4c8"
+								name="StartImportProjectAndCancel">
+									<testmodule
+									id="cf4cca7e-0982-4db3-ac83-df330ddc2e07"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="ec22ea96-47a0-498a-8cee-4335d392c651"
+									name="SpecifyFileToImportMergeProject">
+									</testmodule>
+									<testmodule
+									id="41c6c336-466f-45a0-8f96-fa003565cc13"
+									name="CancelDialogSelectionInformationImportMergeProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="79880a24-d19b-4755-9306-30af8cc039b4"
+								name="ValidateWarningMessage">
+									<testmodule
+									id="d9d3373a-e436-4cf8-ae0f-870bd3e594ba"
+									name="ValidateTextMesage">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
 							id="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
 							name="2)Merge">
+								<smartfoldernode
+								id="35b84802-07c5-4306-857e-fe2b7b404695"
+								name="Import">
+									<smartfoldernode
+									id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f"
+									name="StartImportTraject">
+										<testmodule
+										id="0a1d7dbf-8da8-4b00-9347-9d5dcea21494"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="ceec6712-9e19-471f-a571-b56646acf4d7"
+										name="SpecifyFileToImportMergeProject">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="cab602fa-8618-4fd8-bb1a-98ff16f9756b"
+									name="SelectFMsToImport">
+										<testmodule
+										id="7f1ae511-8395-424d-a516-6fd7a70ddab2"
+										name="SelectTrajectToImportByIndex">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="0737c832-bd00-4510-9c6b-c53d7ff381ba"
+									name="ProceedToImport">
+										<testmodule
+										id="5602871c-e281-465e-8a48-81855afb9650"
+										name="PressImportDialogSelectionInformationImportMergeProject">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="e90b15c5-38e8-4c35-b96b-5066fa874916"
+									name="ValidateMessagesMergeProject">
+										<testmodule
+										id="36e849ce-0ef7-4aab-84ac-5c69493e589b"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -757,6 +1049,173 @@
 					</td>
 					<td>
 						Fout bij het lezen van bestand
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="e0667100-320d-40b6-ae06-db162b2abe65"
+		lastknownrowcount="4"
+		name="script28_b_2_FMsToImport"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelFM
+				</column>
+				<column>
+					indexRow
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelFM
+					</th>
+					<th>
+						indexRow
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						5
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						12
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+		lastknownrowcount="7"
+		name="script28_b_2_ValidateMessagesMergeProject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					expectedMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						expectedMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Message start import
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						Samenvoegen van trajectinformatie is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging Hydraulic Boundary conditions
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Gegevens van toetsspoor 'Dijken en dammen - Piping' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie kruin en binnentalud' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Gegevens van toetsspoor 'Dijken en dammen - Stabiliteit steenzetting' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Gegevens van toetsspoor 'Kunstwerken - Betrouwbaarheid sluiting kunstwerk' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message end import
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Samenvoegen van trajectinformatie is gelukt.
 					</td>
 				</tr>
 			</table>
@@ -2414,10 +2873,22 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="015f5134-143d-4977-9a39-47915f41f0a0">
+			</testcontainer>
+			<testcontainer
+			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
+			</testcontainer>
+			<testcontainer
 			id="0c062571-6ea5-4e25-82c7-f386f8dcf391">
 			</testcontainer>
 			<testcontainer
+			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f">
+			</testcontainer>
+			<testcontainer
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988">
+			</testcontainer>
+			<testcontainer
+			id="35b84802-07c5-4306-857e-fe2b7b404695">
 			</testcontainer>
 			<testcontainer
 			id="3c74b8de-d31e-4275-858f-5fe74bce04c9">
@@ -2429,10 +2900,16 @@
 			id="74e1107c-fd4a-459e-b954-95ad91766e2d">
 			</testcontainer>
 			<testcontainer
+			id="79880a24-d19b-4755-9306-30af8cc039b4">
+			</testcontainer>
+			<testcontainer
 			id="7a117450-114a-485c-88a7-4115513e55ce">
 			</testcontainer>
 			<testcontainer
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1">
+			</testcontainer>
+			<testcontainer
+			id="96030009-3e9b-43f2-9ee1-06482497b92c">
 			</testcontainer>
 			<testcontainer
 			id="a1a44b66-ede9-4063-aa45-57993d636bc4">
@@ -2447,7 +2924,13 @@
 			id="b406bf8a-8022-4acb-a54d-5647f8e8228a">
 			</testcontainer>
 			<testcontainer
+			id="b4d83f21-0650-420c-a769-54b6f614d4c8">
+			</testcontainer>
+			<testcontainer
 			id="c668a98a-a5aa-43c8-977d-df8154507f6d">
+			</testcontainer>
+			<testcontainer
+			id="cab602fa-8618-4fd8-bb1a-98ff16f9756b">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
@@ -2457,6 +2940,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc">
+			</testcontainer>
+			<testcontainer
+			id="e90b15c5-38e8-4c35-b96b-5066fa874916">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

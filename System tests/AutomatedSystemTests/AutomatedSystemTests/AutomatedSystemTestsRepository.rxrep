@@ -2530,6 +2530,66 @@ URBfCI4C/GRKAdgKrFmZA/ip5QD/YxQhIAyxb8COMMTK4omyWLTNCyCPWr3n462QAAAAAElFTkSu
 QmCC
 			</icon>
 		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="a38813aa-c0d2-4abf-809e-aca709f1371e"
+		isrooted="True"
+		name="DialogSelectionInformationImportMergeProject"
+		refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="89a71866-d976-497c-a752-3afb1a05083b"
+			name="CancelButton"
+			refimgid="e20b05c9-385f-4641-b460-fe88beba5810"
+			refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']/container/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']
+			</item>
+			<folder
+			capname="table"
+			id="15fe51ee-f2a2-4404-a313-53b35aded5fd"
+			isrooted="True"
+			name="TableFMs"
+			refimgid="35b71bf1-dc8c-4a7c-8a12-3a54500c610f"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="67bc4452-c4a1-459b-8ab9-a476e489359f"
+				name="SelectCellGenericRow"
+				refimgid="5b768348-ce22-4f13-a467-1d05bbb53b21"
+				searchtimeout="30000ms">
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Selecteer']
+				</item>
+				<basepath>
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']
+				</basepath>
+			</folder>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a"
+			name="ImportButton"
+			refimgid="bd5ed1a7-097d-4190-ab55-a4c38a02a0f4"
+			refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']/container/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']
+			</item>
+			<basepath>
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABpSURBVDhPrY6BCoAwCAX36X7a/sz2EiXmNi07
+uALJyzbgosS996NE5MTeHVgtZJTIX4EvhIHn32aBC2CgAp3vSF1wIgxEWEBPnkF4J3ABvFWgH+5w
+gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>

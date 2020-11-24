@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.ActionsDialogs
 {
-    public partial class ImportMergeProject
+    public partial class CancelDialogSelectionInformationImportMergeProject
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

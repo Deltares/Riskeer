@@ -20,51 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.ActionsDialogs
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ImportMergeProject recording.
+    ///The CancelDialogSelectionInformationImportMergeProject recording.
     /// </summary>
-    [TestModule("2b53940f-3568-41dc-aabc-7f0b5a0af314", ModuleType.Recording, 1)]
-    public partial class ImportMergeProject : ITestModule
+    [TestModule("c317efbd-2c02-4e14-9a26-323afc914ecf", ModuleType.Recording, 1)]
+    public partial class CancelDialogSelectionInformationImportMergeProject : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ImportMergeProject instance = new ImportMergeProject();
+        static CancelDialogSelectionInformationImportMergeProject instance = new CancelDialogSelectionInformationImportMergeProject();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ImportMergeProject()
+        public CancelDialogSelectionInformationImportMergeProject()
         {
-            nameProjectFile = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ImportMergeProject Instance
+        public static CancelDialogSelectionInformationImportMergeProject Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _nameProjectFile;
-
-        /// <summary>
-        /// Gets or sets the value of variable nameProjectFile.
-        /// </summary>
-        [TestVariable("68237560-fe38-4b7b-90b6-bdaca4eb9e6f")]
-        public string nameProjectFile
-        {
-            get { return _nameProjectFile; }
-            set { _nameProjectFile = value; }
-        }
 
 #endregion
 
@@ -92,30 +79,9 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogSelectionInformationImportMergeProject.CancelButton' at Center.", repo.DialogSelectionInformationImportMergeProject.CancelButtonInfo, new RecordItemIndex(0));
+            repo.DialogSelectionInformationImportMergeProject.CancelButton.Click();
             Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Importeren.Click();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameProjectFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(2));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameProjectFile);
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(3));
-            repo.OpenDialog.ButtonOpen.Click();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(6));
-            Delay.Duration(1000, false);
             
         }
 

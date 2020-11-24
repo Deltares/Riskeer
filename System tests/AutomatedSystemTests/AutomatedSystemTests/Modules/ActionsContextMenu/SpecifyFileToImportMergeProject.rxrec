@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ImportMergeProject"
+	classname="SpecifyFileToImportMergeProject"
 	namespace="AutomatedSystemTests.Modules.ActionsContextMenu">
 	</codegen>
 	<variables>
@@ -41,6 +41,15 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</keysequenceitem>
+		<explicitdelayitem
+		duration="100ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -727,15 +736,6 @@ ooA//9k=
 				</path>
 			</info>
 		</WaitForRecordItem>
-		<explicitdelayitem
-		duration="1000ms"
-		enabled="True"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
@@ -752,7 +752,7 @@ ooA//9k=
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ImportMergeProject.UserCode.cs
+		SpecifyFileToImportMergeProject.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

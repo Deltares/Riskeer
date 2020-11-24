@@ -174,15 +174,15 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\ImportMergeProject.cs">
+    <Compile Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.cs">
       <BoundTo>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</BoundTo>
-      <DependentUpon>ImportMergeProject.rxrec</DependentUpon>
+      <DependentUpon>SpecifyFileToImportMergeProject.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>dacd21bc-f61d-49c6-b1d8-d61bb616e763</id>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\ImportMergeProject.UserCode.cs">
+    <Compile Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.UserCode.cs">
       <BoundTo>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</BoundTo>
-      <DependentUpon>ImportMergeProject.rxrec</DependentUpon>
+      <DependentUpon>SpecifyFileToImportMergeProject.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>2d6abd07-9c5f-4384-936d-2ad6e5aca609</id>
     </Compile>
@@ -234,6 +234,18 @@
       <id>cc101b06-9526-4a3a-9cc6-994462ff9413</id>
       <BoundTo>d839d138-946e-44ab-bd09-ae3cd479119b</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsDialogs\CancelDialogSelectionInformationImportMergeProject.cs">
+      <BoundTo>a9d8fe00-cd0c-4978-b746-9bce17cf139e</BoundTo>
+      <DependentUpon>CancelDialogSelectionInformationImportMergeProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>98a60c1f-63d1-44d1-9698-7c1c85936922</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\CancelDialogSelectionInformationImportMergeProject.UserCode.cs">
+      <BoundTo>a9d8fe00-cd0c-4978-b746-9bce17cf139e</BoundTo>
+      <DependentUpon>CancelDialogSelectionInformationImportMergeProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b55a942c-2277-4e73-a6c8-c86c602e534b</id>
+    </Compile>
     <Compile Include="Modules\ActionsDialogs\ConfirmActionInDialog.cs">
       <DependentUpon>ConfirmActionInDialog.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -269,6 +281,30 @@
       <UserCode>true</UserCode>
       <id>3ee5481a-3806-4bd5-a9d9-97db758837fa</id>
       <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\PressImportDialogSelectionInformationImportMergeProject.cs">
+      <BoundTo>a8f6a258-b5c2-4e46-87f8-802d4a8223d7</BoundTo>
+      <DependentUpon>PressImportDialogSelectionInformationImportMergeProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>28dc5ed0-b1dc-4f8c-bc92-98a9c75387ef</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\PressImportDialogSelectionInformationImportMergeProject.UserCode.cs">
+      <BoundTo>a8f6a258-b5c2-4e46-87f8-802d4a8223d7</BoundTo>
+      <DependentUpon>PressImportDialogSelectionInformationImportMergeProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c18bdf43-803f-4434-a194-41dec181287d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\SelectTrajectToImportByIndex.cs">
+      <BoundTo>a3654dc6-285b-49ee-bbe6-36b98eecb55c</BoundTo>
+      <DependentUpon>SelectTrajectToImportByIndex.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>4e8c1085-67ef-4388-aba6-71132e72cf98</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDialogs\SelectTrajectToImportByIndex.UserCode.cs">
+      <BoundTo>a3654dc6-285b-49ee-bbe6-36b98eecb55c</BoundTo>
+      <DependentUpon>SelectTrajectToImportByIndex.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5ef55a60-1f68-49e1-9e3b-e6641051b3b3</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.cs">
       <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
@@ -2097,7 +2133,7 @@
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
     </None>
-    <None Include="Modules\ActionsContextMenu\ImportMergeProject.rxrec">
+    <None Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</id>
       <recordtableid>2b53940f-3568-41dc-aabc-7f0b5a0af314</recordtableid>
@@ -2122,6 +2158,11 @@
       <id>d839d138-946e-44ab-bd09-ae3cd479119b</id>
       <recordtableid>d2eff017-7298-4fed-9265-129a15ac24ff</recordtableid>
     </None>
+    <None Include="Modules\ActionsDialogs\CancelDialogSelectionInformationImportMergeProject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a9d8fe00-cd0c-4978-b746-9bce17cf139e</id>
+      <recordtableid>c317efbd-2c02-4e14-9a26-323afc914ecf</recordtableid>
+    </None>
     <None Include="Modules\ActionsDialogs\ConfirmActionInDialog.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1c7b36ab-c9a5-4bbc-8e0d-5350a2115a68</id>
@@ -2136,6 +2177,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</id>
       <recordtableid>de80be27-ca55-476e-b824-e08916e3e0a3</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDialogs\PressImportDialogSelectionInformationImportMergeProject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a8f6a258-b5c2-4e46-87f8-802d4a8223d7</id>
+      <recordtableid>0b4b70f2-eb5f-4a5e-972a-c191b344cb2d</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDialogs\SelectTrajectToImportByIndex.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a3654dc6-285b-49ee-bbe6-36b98eecb55c</id>
+      <recordtableid>7215ea0a-6021-493d-a8b6-e4f22012da8a</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2825,6 +2876,9 @@
     <None Include="ReportDeltaresStyle\DeltaresRiskeer.png">
       <id>70712808-59ab-4f6f-90fe-14c5966a4370</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\enableMozillaFirefoxToOpenReport.png">
+      <id>fa83646c-f7c4-4033-bedc-7007342e4e50</id>
     </None>
     <None Include="ReportDeltaresStyle\LogoDeltaresRiskeer.png">
       <id>f6e5ccf3-8150-41dd-9eb0-659772c7ade9</id>
