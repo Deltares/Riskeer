@@ -2873,26 +2873,21 @@
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
     </None>
-    <None Include="ReportDeltaresStyle\DeltaresRiskeer.png">
-      <id>70712808-59ab-4f6f-90fe-14c5966a4370</id>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ReportDeltaresStyle\enableMozillaFirefoxToOpenReport.png">
+    <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReport.png">
       <id>fa83646c-f7c4-4033-bedc-7007342e4e50</id>
-    </None>
-    <None Include="ReportDeltaresStyle\LogoDeltaresRiskeer.png">
-      <id>f6e5ccf3-8150-41dd-9eb0-659772c7ade9</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportDeltaresStyle\LogoDeltaresRiskeerLightBG.png">
+    <None Include="ReportDeltaresStyle\LogoReport.png">
       <id>7cc7b432-68fb-4ae4-b844-f84f59230578</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportDeltaresStyle\openReportWithChrome.bat">
       <id>7c5c52d6-4608-4c76-8b15-6428380ea1ca</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportDeltaresStyle\openReportWithInternetExplorer.bat">
       <id>6ba120b9-6a1e-4a67-a528-4acd743f4255</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportDeltaresStyle\prepareReport.bat">
       <id>38a629fe-c230-41b4-bad8-6c025199c595</id>
