@@ -489,6 +489,9 @@
     <Compile Include="Modules\Calculation\GenerateRandomIndexInRangeOfSmartFolder.cs">
       <id>2947d802-669d-4fe7-b29a-5e6dc63f0123</id>
     </Compile>
+    <Compile Include="Modules\Calculation\GenerateSomeRandomIntegersInRange.cs">
+      <id>c2ea6379-2db0-4fe1-b5d8-3a1545f6e19f</id>
+    </Compile>
     <Compile Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.cs">
       <BoundTo>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</BoundTo>
       <DependentUpon>GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec</DependentUpon>

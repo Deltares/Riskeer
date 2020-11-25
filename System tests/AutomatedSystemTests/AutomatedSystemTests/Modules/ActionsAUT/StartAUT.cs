@@ -115,6 +115,9 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
             Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(2));
             repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(3));
+            Delay.Duration(1000, false);
+            
         }
 
 #region Image Feature Data
