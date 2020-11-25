@@ -200,6 +200,20 @@
 			name="ValidateMessagesInterruption">
 			</smartfoldernode>
 			<testmodule
+			id="104f66b4-ce72-4b5d-8c53-598996020de8"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemHBCDatabaseInProjectExplorer"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="108c9c79-4914-40e9-8f1c-8fe2cb1f2d25"
 			name="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
 			ref="3314c841-2400-467a-8ba2-57b55ddfeec2"
@@ -4275,6 +4289,10 @@
 								<smartfoldernode
 								id="063eeda2-b874-4410-90cc-971e67742c64"
 								name="CoupleHBCWithScenarioInformation">
+									<testmodule
+									id="104f66b4-ce72-4b5d-8c53-598996020de8"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
 									<testmodule
 									id="a664e445-0e64-4fed-a5fe-1ac98ee6d86e"
 									name="SetNewHBCScenario">
