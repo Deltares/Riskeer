@@ -201,7 +201,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988"
-			name="1)Cancel">
+			name="1)CancelByUser">
 			</smartfoldernode>
 			<testmodule
 			id="27d24630-02fd-4bb9-97f9-919fe8ec4e70"
@@ -689,7 +689,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script28_b_2_LoopGenerateCSVsItems"
 			errorbehavior="ContinueNextIteration"
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
@@ -705,7 +704,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
-			name="a)MergeCancelledDueToDifferentDataInSections">
+			name="a)MergeCancelledByRiskeer">
 				<parameters>
 					<param
 					name="pathRootTraject"
@@ -1003,7 +1002,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="c7ed8685-254a-4347-b0ee-6c426c7bd624"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1358,7 +1356,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
-						name="a)MergeCancelledDueToDifferentDataInSections">
+						name="a)MergeCancelledByRiskeer">
 							<smartfoldernode
 							id="e119a3cd-bf7a-4bea-b533-a137d95a02cc"
 							name="1)OldVersionProject">
@@ -1453,7 +1451,7 @@
 						name="b)MergeFMsInSameSection">
 							<smartfoldernode
 							id="25b8f99a-1093-401d-a7c9-56819a7d5988"
-							name="1)Cancel">
+							name="1)CancelByUser">
 								<smartfoldernode
 								id="b4d83f21-0650-420c-a769-54b6f614d4c8"
 								name="StartImportProjectAndCancel">
@@ -5019,6 +5017,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="015f5134-143d-4977-9a39-47915f41f0a0">
+			</testcontainer>
+			<testcontainer
 			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
 			</testcontainer>
 			<testcontainer
@@ -5028,10 +5029,19 @@
 			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f">
 			</testcontainer>
 			<testcontainer
+			id="25b8f99a-1093-401d-a7c9-56819a7d5988">
+			</testcontainer>
+			<testcontainer
 			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8">
 			</testcontainer>
 			<testcontainer
 			id="35b84802-07c5-4306-857e-fe2b7b404695">
+			</testcontainer>
+			<testcontainer
+			id="3c74b8de-d31e-4275-858f-5fe74bce04c9">
+			</testcontainer>
+			<testcontainer
+			id="628066a8-9af3-49dd-814d-3910b5a80937">
 			</testcontainer>
 			<testcontainer
 			id="65f01426-0e84-4456-9463-439acf66ea15">
@@ -5040,10 +5050,37 @@
 			id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e">
 			</testcontainer>
 			<testcontainer
+			id="74e1107c-fd4a-459e-b954-95ad91766e2d">
+			</testcontainer>
+			<testcontainer
+			id="79880a24-d19b-4755-9306-30af8cc039b4">
+			</testcontainer>
+			<testcontainer
+			id="7a117450-114a-485c-88a7-4115513e55ce">
+			</testcontainer>
+			<testcontainer
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45">
 			</testcontainer>
 			<testcontainer
+			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1">
+			</testcontainer>
+			<testcontainer
+			id="96030009-3e9b-43f2-9ee1-06482497b92c">
+			</testcontainer>
+			<testcontainer
+			id="a1a44b66-ede9-4063-aa45-57993d636bc4">
+			</testcontainer>
+			<testcontainer
+			id="aa559d97-8936-424d-ab29-c9ddf690226d">
+			</testcontainer>
+			<testcontainer
 			id="aa80eeb9-cf03-4479-a7c5-a79569e326a7">
+			</testcontainer>
+			<testcontainer
+			id="b406bf8a-8022-4acb-a54d-5647f8e8228a">
+			</testcontainer>
+			<testcontainer
+			id="b4d83f21-0650-420c-a769-54b6f614d4c8">
 			</testcontainer>
 			<testcontainer
 			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c">
@@ -5058,10 +5095,19 @@
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
+			id="d49a73ef-45a9-47ce-b1e3-266341be6b6b">
+			</testcontainer>
+			<testcontainer
 			id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb">
 			</testcontainer>
 			<testcontainer
+			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc">
+			</testcontainer>
+			<testcontainer
 			id="e7b49815-3faf-449b-8e33-8536c0759777">
+			</testcontainer>
+			<testcontainer
+			id="e90b15c5-38e8-4c35-b96b-5066fa874916">
 			</testcontainer>
 			<testcontainer
 			id="f5a5bf92-ad41-43f1-b887-088bc51615f2">
