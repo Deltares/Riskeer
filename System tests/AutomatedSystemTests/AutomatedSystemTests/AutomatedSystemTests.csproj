@@ -2876,8 +2876,12 @@
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
     </None>
-    <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReport.png">
-      <id>fa83646c-f7c4-4033-bedc-7007342e4e50</id>
+    <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReportStap1Van2.png">
+      <id>33bfacb4-10d7-4c99-ab52-0f94bd94b857</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReportStap2Van2.png">
+      <id>375f9762-d4f0-4b72-b4a3-9ef27f445667</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportDeltaresStyle\LogoReport.png">
@@ -2890,6 +2894,14 @@
     </None>
     <None Include="ReportDeltaresStyle\openReportWithInternetExplorer.bat">
       <id>6ba120b9-6a1e-4a67-a528-4acd743f4255</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\openReportWithMicrosoftEdge.bat">
+      <id>37d198a5-8e99-4007-86cd-d00257b2dd7e</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\openReportWithMozillaFirefox.bat">
+      <id>2fec8cca-cd14-4213-9a79-c04740176d44</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportDeltaresStyle\prepareReport.bat">
