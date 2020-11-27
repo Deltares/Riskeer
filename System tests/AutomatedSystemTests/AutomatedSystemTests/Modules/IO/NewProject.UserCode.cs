@@ -20,7 +20,7 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Ribbon
+namespace AutomatedSystemTests.Modules.IO
 {
     public partial class NewProject
     {

@@ -20,7 +20,7 @@ mode="Global">
 	</useDefaultItemLogging>
 	<codegen
 	classname="NewProject"
-	namespace="AutomatedSystemTests.Modules.Ribbon">
+	namespace="AutomatedSystemTests.Modules.IO">
 	</codegen>
 	<variables>
 	</variables>
@@ -550,7 +550,7 @@ iigAooooAKKKKACiiigAooooAKKKKAP/2Q==
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Mouse_Click_ButtonNoIfConformationDialogAppears"
-		namespace="AutomatedSystemTests.Modules.Ribbon"
+		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>

@@ -20,7 +20,7 @@ mode="Global">
 	</useDefaultItemLogging>
 	<codegen
 	classname="SaveAs"
-	namespace="AutomatedSystemTests.Modules.Ribbon">
+	namespace="AutomatedSystemTests.Modules.IO">
 	</codegen>
 	<variables>
 		<var
@@ -638,7 +638,7 @@ naLgXumYbgcL
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
-		namespace="AutomatedSystemTests.Modules.Ribbon"
+		namespace="AutomatedSystemTests.Modules.IO"
 		optional="False">
 			<comment>
 			</comment>

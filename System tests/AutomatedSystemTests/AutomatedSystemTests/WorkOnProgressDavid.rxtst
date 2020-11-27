@@ -17,6 +17,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="0669c662-d44b-49c2-91ef-ea176ede554a"
+			name="ValidateAgainPropertiesOfAllPresenttems">
+			</smartfoldernode>
+			<smartfoldernode
 			id="0737c832-bd00-4510-9c6b-c53d7ff381ba"
 			name="ProceedToImport">
 			</smartfoldernode>
@@ -50,6 +54,12 @@
 			id="0a79950c-55a5-429b-a9d2-d678b3c1e31c"
 			name="setup">
 			</setup>
+			<testmodule
+			id="0b3b07ac-557a-4b1e-898d-fff23080f8fc"
+			name="NewProject"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+			</testmodule>
 			<testcase
 			id="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 			name="script28_Projecten_samenvoegen">
@@ -127,6 +137,28 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="123ffd17-e6ed-4a59-a776-aa5999605e5c"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitAfterExpandingPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitTimeUntilReadingPropertiesPanelContent"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="15f8c259-27b6-49e6-9146-e23556623444"
 			name="CreateScreenshotMessagesPanel"
 			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
@@ -187,6 +219,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="1fdb0d60-7f50-4bbe-bffc-8782d41ad35e"
+			name="SetRangeAgain">
+				<parameters>
+					<param
+					name="nameSmartFolderAgain"
+					value="LoopValidationPropertiesAgain">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f"
 			name="StartImportTraject">
 			</smartfoldernode>
@@ -246,6 +288,28 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="23ec4a70-e437-40a2-8940-dc3845285ee5"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="timeToExpandPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="durationToExpandAllParametersInItem"
+					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2401e305-65d2-4cfd-8256-54dba3aef006"
@@ -446,6 +510,42 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="37b785ba-0270-4499-8224-dc042f5786a3"
+			name="SetRowIndexReferenceCSVFile"
+			ref="73c238ec-c63e-43b3-b646-f6bfa96076b7"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="8abe37d8-5faf-45be-96a5-edfef4d1bed2"
+					variablename="indecesMergedFMs">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="8746b048-5dca-4d0a-b11d-79abd58e8436"
+					variablename="indexCurrentIterationInValidation">
+					</var>
+					<var
+					dataname="rowIndexForReferenceCSVFile"
+					datasourceid="c42e738a-ffdf-41c7-985e-788ebeb724dd"
+					variableid="2c0340fb-270a-4816-bbc4-00a411012d8a"
+					variablename="rowIndexReferenceCSV">
+					</var>
+					<var
+					dataname="indexReferencePPCSVFile"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="98332cf8-d5fc-471d-a107-de11fabee4d8"
+					variablename="originalRowIndexReferenceCSV">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="387c37ec-b7cc-4988-9d5a-50ed16f5c174"
+			name="NewProject">
+			</smartfoldernode>
 			<setup
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
 			name="setup">
@@ -556,6 +656,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="4c7c5088-5a78-494e-9be2-c4862c218669"
+			name="ExportPropertiesPanelToCsv">
+			</smartfoldernode>
 			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
@@ -573,6 +677,55 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="5140ffe4-c515-43a7-9a63-9423c88efc9d"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change <space> into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="spaceChar"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="521fa10a-60af-438f-9aeb-b52b068c9c16"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
 					</var>
 				</databinding>
 			</testmodule>
@@ -672,6 +825,53 @@
 			ref="0b4b70f2-eb5f-4a5e-972a-c191b344cb2d"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="56e9221c-06ac-4618-8946-179af7b1edd8"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="5d2b07be-6e17-4cbb-808f-4aea4dadbe81"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<description>
+					<![CDATA[Compare dumped PropertiesPanel content]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="f2bf6531-f64b-456a-8531-987c51060fcb"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToOutputCsvFile"
+					datasourceid="bb34d1f8-ec66-436e-a2b1-6a99f2780bad"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="41914192-1134-4c81-8878-eeecc3e50480"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="5eea3557-7788-4cfe-92cc-7fbf27764782"
+			name="SelectItem">
+			</smartfoldernode>
 			<smartfoldernode
 			id="628066a8-9af3-49dd-814d-3910b5a80937"
 			name="ImportProjectOriginalTrajectInformation">
@@ -737,6 +937,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="64dcb058-1b28-486d-87f3-ea118ecdfdda"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="64fb83ef-f209-4cec-9cc7-e1dd6ee666b2"
 			name="EvaluateIfSubstringIsPartOfString"
 			ref="2821380d-7d9d-4518-9f9d-29776bf9fac9"
@@ -788,7 +1002,7 @@
 					</param>
 					<param
 					name="minimumRangeLoopValidations"
-					value="5">
+					value="1-44">
 					</param>
 					<param
 					name="substringZSTPropertiesPanelMustBeValidated"
@@ -804,10 +1018,6 @@
 					</param>
 					<param
 					name="intermediateRange"
-					value="">
-					</param>
-					<param
-					name="finalRangeLoopValidations"
 					value="">
 					</param>
 				</parameters>
@@ -839,10 +1049,61 @@
 			id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e"
 			name="ValidateCSVEqualToReference">
 			</smartfoldernode>
+			<testmodule
+			id="6a9e7bc9-ded4-458f-b89f-cb904c59dc17"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRowHBCItem"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7"
-			name="ValidatePropertiesOfAllIPresenttems">
+			name="ValidatePropertiesOfAllPresenttems">
 			</smartfoldernode>
+			<testmodule
+			id="6c3a72d5-75d3-45ca-ac9a-5b2d86bf62d2"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add row index, if any]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="indexRowHBCItem"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e"
 			name="BSKWIsOriginalFromProjectA">
@@ -875,6 +1136,16 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
+			id="73ce7071-89d3-4b8f-b1e1-a84851b0f729"
+			name="SetRowValidationCSVAgain">
+				<parameters>
+					<param
+					name="nameSmartFolder"
+					value="ValidateAgainCSVEqualToReference">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="74e1107c-fd4a-459e-b954-95ad91766e2d"
 			name="ValidateErrorMessagesMergeOldProject">
 				<parameters>
@@ -892,6 +1163,35 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="751afd87-9364-451b-b88e-01727b8654f5"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[add suffix merged case (AB)]]>
+				</description>
+				<databinding>
+					<var
+					dataname="suffixProject"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="763c6546-4567-4c6e-b4fc-446a78fbca24"
 			name="ConcatenateStrings"
@@ -938,6 +1238,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="783b09d5-0fd9-4e26-ac90-284777a5617f"
+			name="HBCs">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="indexRowHBCItem"
+								id="93d26bb6-56db-400b-b0b9-712ab1c4172f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			id="79880a24-d19b-4755-9306-30af8cc039b4"
 			name="ValidateWarningMessage">
@@ -1034,7 +1359,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script28_b_2_LoopValidationProperties"
 			errorbehavior="ContinueNextIteration"
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
@@ -1066,6 +1390,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="8298a07b-4bd5-40a3-8e76-c45bafb912e1"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="73ce7071-89d3-4b8f-b1e1-a84851b0f729"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rowIndexForReferenceCSVFile"
+					datasourceid="c42e738a-ffdf-41c7-985e-788ebeb724dd"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
 			name="a)MergeCancelledByRiskeer">
@@ -1218,6 +1562,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="95be4f3b-28f7-4d0a-b7a6-83d9e2dedcb3"
+			name="OpenProject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="96030009-3e9b-43f2-9ee1-06482497b92c"
 			name="OpenProject">
 			</smartfoldernode>
@@ -1244,6 +1592,30 @@
 					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="9d3de7b3-f983-4a63-b20d-8994df1be20a"
+			name="MakeAllParametersInPropertiesPanelVisible">
+			</smartfoldernode>
+			<testmodule
+			id="9e169eef-640b-442b-926e-34e139b2d574"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorCharInCsvFile"
+					datasourceid="c42e738a-ffdf-41c7-985e-788ebeb724dd"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1337,6 +1709,34 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="abf032d0-2132-405d-aad7-9fa338cad07a"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderAgain"
+					datasourceid="1fdb0d60-7f50-4bbe-bffc-8782d41ad35e"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="finalRangeLoopValidations"
+					datasourceid="de37d61b-4d6d-4cfb-82dd-e051a05eb191"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeLoopValidationPropertiesZSTFromProjectB"
+					datasourceid="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="b0d7b51a-83e4-4283-8740-94aab083bb73"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1356,9 +1756,46 @@
 					</var>
 					<var
 					dataname="finalRangeLoopValidations"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="finalRangeLoopValidations"
 					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b2bbc75b-95b6-43cb-9723-c0a3f1622571"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add .csv]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="extensionCsv"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1423,6 +1860,41 @@
 			name="script00_MigrateProjectsFromPreviousVersions">
 			</testcase>
 			<testmodule
+			id="bef3b829-2e5f-47ca-8f30-415a5625ab9b"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change > into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="pathSeparatorChar"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="bf774b82-ab3f-4abd-aada-58422b7a2804"
 			name="ValidateTextMesage"
 			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
@@ -1443,9 +1915,60 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="bfbbee9a-9b1e-4629-84b4-fefe104fdcc8"
+			name="SaveProject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c"
 			name="ExportPropertiesPanelToCsv">
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script28_b_2_LoopValidationProperties"
+			errorbehavior="ContinueNextIteration"
+			id="c42e738a-ffdf-41c7-985e-788ebeb724dd"
+			maxrange="43"
+			minrange="36"
+			name="LoopValidationPropertiesAgain">
+				<parameters>
+					<param
+					name="separatorCharInCsvFile"
+					value=";">
+					</param>
+					<param
+					name="rowIndexForReferenceCSVFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="c4433811-fd9c-40f0-9915-3e5b68e55479"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[prepend output  folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="d28036c3-a755-4956-8e02-57172d50b707"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="c4817699-2d7a-4265-bdec-35989aa3cf83"
 			name="HideRanorexProgressDialog"
@@ -1460,10 +1983,17 @@
 					name="pathRootTraject"
 					value="Traject 50-1">
 					</param>
+					<param
+					name="mergedFileNameToSave"
+					value="Project_samenvoegen_AandB.risk">
+					</param>
+					<param
+					name="finalRangeLoopValidations"
+					value="">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="c7ed8685-254a-4347-b0ee-6c426c7bd624"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1574,6 +2104,44 @@
 				</parameters>
 			</testcase>
 			<smartfoldernode
+			id="d28036c3-a755-4956-8e02-57172d50b707"
+			name="CalculateFileNameAgain">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="spaceChar"
+					value=" ">
+					</param>
+					<param
+					name="pathSeparatorChar"
+					value=">">
+					</param>
+					<param
+					name="underscoreChar"
+					value="_">
+					</param>
+					<param
+					name="suffixProject"
+					value="AB_After_Save_And_Open">
+					</param>
+					<param
+					name="extensionCsv"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="d49a73ef-45a9-47ce-b1e3-266341be6b6b"
 			name="ModifyTraject">
 				<parameters>
@@ -1596,6 +2164,17 @@
 			name="MakeAllParametersInPropertiesPanelVisible">
 			</smartfoldernode>
 			<testmodule
+			id="d5650586-c0c3-4553-8096-35d304a8b727"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<smartfoldernode
+			datasource="script28_2_2_ValidateCSVEqualToReference"
+			id="d889a87a-ab96-489d-a015-42c78de157bb"
+			name="ValidateAgainCSVEqualToReference">
+			</smartfoldernode>
+			<testmodule
 			id="d9d3373a-e436-4cf8-ae0f-870bd3e594ba"
 			name="ValidateTextMesage"
 			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
@@ -1616,6 +2195,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="db2b7cb7-d487-47df-ab6f-7e5c7e777212"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="dca1d639-ca68-4e46-954f-05cd5e0f2491"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -1629,20 +2214,70 @@
 					</var>
 					<var
 					dataname="finalRangeLoopValidations"
-					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="rangeLoopValidationPropertiesZSTFromProjectB"
-					datasourceid="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+					dataname="finalRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="de37d61b-4d6d-4cfb-82dd-e051a05eb191"
+			name="SetRangeLoopValidationPropertiesAgain">
+				<parameters>
+					<param
+					name="indexZST"
+					value="3">
+					</param>
+					<param
+					name="hasZSTBeenMergedFromB"
+					value="">
+					</param>
+					<param
+					name="indexBSKW"
+					value="4">
+					</param>
+					<param
+					name="hasBSKWBeenMergedFromB"
+					value="">
+					</param>
+					<param
+					name="nameFolderLoopValidationProperties"
+					value="LoopValidationProperties">
+					</param>
+					<param
+					name="minimumRangeLoopValidations"
+					value="1-44">
+					</param>
+					<param
+					name="substringZSTPropertiesPanelMustBeValidated"
+					value=",45-46">
+					</param>
+					<param
+					name="substringBSKWPropertiesPanelMustBeValidated"
+					value=",47-48">
+					</param>
+					<param
+					name="substringChangeNothing"
+					value="">
+					</param>
+					<param
+					name="intermediateRange"
+					value="">
+					</param>
+					<param
+					name="finalRangeLoopValidations"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc"
 			name="1)OldVersionProject">
@@ -1746,7 +2381,7 @@
 					</param>
 					<param
 					name="suffixProject"
-					value="A">
+					value="AB">
 					</param>
 					<param
 					name="extensionCsv"
@@ -1766,6 +2401,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="e99f69f8-f3bb-45b9-9c98-c05836045968"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="mergedFileNameToSave"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="ec22ea96-47a0-498a-8cee-4335d392c651"
 			name="SpecifyFileToImportMergeProject"
@@ -1813,6 +2462,20 @@
 			name="SelectItem">
 			</smartfoldernode>
 			<testmodule
+			id="f93a033b-b37c-416c-a1da-993bb555f8cb"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="mergedFileNameToSave"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="fccb698f-9621-490c-aac3-d5d9a3c0aff6"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1832,11 +2495,19 @@
 					</var>
 					<var
 					dataname="finalRangeLoopValidations"
-					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="finalRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="fe1ba3cb-c9f3-41ae-9602-dd6fafffa9c6"
@@ -2103,7 +2774,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7"
-								name="ValidatePropertiesOfAllIPresenttems">
+								name="ValidatePropertiesOfAllPresenttems">
 									<smartfoldernode
 									id="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
 									name="SetRangeLoopValidationProperties">
@@ -2264,6 +2935,150 @@
 										name="ValidateCSVEqualToReference">
 											<testmodule
 											id="297a1aa7-ebef-4175-83db-12f8c079ea47"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="bfbbee9a-9b1e-4629-84b4-fefe104fdcc8"
+								name="SaveProject">
+									<testmodule
+									id="e99f69f8-f3bb-45b9-9c98-c05836045968"
+									name="SaveAs">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="387c37ec-b7cc-4988-9d5a-50ed16f5c174"
+								name="NewProject">
+									<testmodule
+									id="0b3b07ac-557a-4b1e-898d-fff23080f8fc"
+									name="NewProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="95be4f3b-28f7-4d0a-b7a6-83d9e2dedcb3"
+								name="OpenProject">
+									<testmodule
+									id="f93a033b-b37c-416c-a1da-993bb555f8cb"
+									name="OpenProject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="0669c662-d44b-49c2-91ef-ea176ede554a"
+								name="ValidateAgainPropertiesOfAllPresenttems">
+									<smartfoldernode
+									id="de37d61b-4d6d-4cfb-82dd-e051a05eb191"
+									name="SetRangeLoopValidationPropertiesAgain">
+										<smartfoldernode
+										id="1fdb0d60-7f50-4bbe-bffc-8782d41ad35e"
+										name="SetRangeAgain">
+											<testmodule
+											id="abf032d0-2132-405d-aad7-9fa338cad07a"
+											name="SetRangeInSmartFolder">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="c42e738a-ffdf-41c7-985e-788ebeb724dd"
+									name="LoopValidationPropertiesAgain">
+										<testmodule
+										id="d5650586-c0c3-4553-8096-35d304a8b727"
+										name="HideRanorexProgressDialog">
+										</testmodule>
+										<smartfoldernode
+										id="5eea3557-7788-4cfe-92cc-7fbf27764782"
+										name="SelectItem">
+											<testmodule
+											id="64dcb058-1b28-486d-87f3-ea118ecdfdda"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<smartfoldernode
+											id="783b09d5-0fd9-4e26-ac90-284777a5617f"
+											name="HBCs">
+												<testmodule
+												id="db2b7cb7-d487-47df-ab6f-7e5c7e777212"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="6a9e7bc9-ded4-458f-b89f-cb904c59dc17"
+												name="SelectRowCalculation">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<smartfoldernode
+										id="9d3de7b3-f983-4a63-b20d-8994df1be20a"
+										name="MakeAllParametersInPropertiesPanelVisible">
+											<testmodule
+											id="23ec4a70-e437-40a2-8940-dc3845285ee5"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="123ffd17-e6ed-4a59-a776-aa5999605e5c"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="56e9221c-06ac-4618-8946-179af7b1edd8"
+											name="CreateScreenShotPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="d28036c3-a755-4956-8e02-57172d50b707"
+										name="CalculateFileNameAgain">
+											<testmodule
+											id="bef3b829-2e5f-47ca-8f30-415a5625ab9b"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="5140ffe4-c515-43a7-9a63-9423c88efc9d"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="c4433811-fd9c-40f0-9915-3e5b68e55479"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="6c3a72d5-75d3-45ca-ac9a-5b2d86bf62d2"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="751afd87-9364-451b-b88e-01727b8654f5"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="b2bbc75b-95b6-43cb-9723-c0a3f1622571"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="4c7c5088-5a78-494e-9be2-c4862c218669"
+										name="ExportPropertiesPanelToCsv">
+											<testmodule
+											id="9e169eef-640b-442b-926e-34e139b2d574"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+											<testmodule
+											id="521fa10a-60af-438f-9aeb-b52b068c9c16"
+											name="LogInfoMessage">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="73ce7071-89d3-4b8f-b1e1-a84851b0f729"
+										name="SetRowValidationCSVAgain">
+											<testmodule
+											id="37b785ba-0270-4499-8224-dc042f5786a3"
+											name="SetRowIndexReferenceCSVFile">
+											</testmodule>
+											<testmodule
+											id="8298a07b-4bd5-40a3-8e76-c45bafb912e1"
+											name="SetRangeInSmartFolder">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="d889a87a-ab96-489d-a015-42c78de157bb"
+										name="ValidateAgainCSVEqualToReference">
+											<testmodule
+											id="5d2b07be-6e17-4cbb-808f-4aea4dadbe81"
 											name="ComparePlainTextFiles">
 											</testmodule>
 										</smartfoldernode>
@@ -5812,6 +6627,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0669c662-d44b-49c2-91ef-ea176ede554a">
+			</testcontainer>
+			<testcontainer
 			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
 			</testcontainer>
 			<testcontainer
@@ -5819,6 +6637,9 @@
 			</testcontainer>
 			<testcontainer
 			id="0c062571-6ea5-4e25-82c7-f386f8dcf391">
+			</testcontainer>
+			<testcontainer
+			id="1fdb0d60-7f50-4bbe-bffc-8782d41ad35e">
 			</testcontainer>
 			<testcontainer
 			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f">
@@ -5833,13 +6654,19 @@
 			id="35b84802-07c5-4306-857e-fe2b7b404695">
 			</testcontainer>
 			<testcontainer
+			id="387c37ec-b7cc-4988-9d5a-50ed16f5c174">
+			</testcontainer>
+			<testcontainer
+			id="4c7c5088-5a78-494e-9be2-c4862c218669">
+			</testcontainer>
+			<testcontainer
+			id="5eea3557-7788-4cfe-92cc-7fbf27764782">
+			</testcontainer>
+			<testcontainer
 			id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
 			</testcontainer>
 			<testcontainer
 			id="65f01426-0e84-4456-9463-439acf66ea15">
-			</testcontainer>
-			<testcontainer
-			id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e">
 			</testcontainer>
 			<testcontainer
 			id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7">
@@ -5848,16 +6675,25 @@
 			id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e">
 			</testcontainer>
 			<testcontainer
+			id="73ce7071-89d3-4b8f-b1e1-a84851b0f729">
+			</testcontainer>
+			<testcontainer
+			id="783b09d5-0fd9-4e26-ac90-284777a5617f">
+			</testcontainer>
+			<testcontainer
 			id="7dc97b16-6638-4807-891b-0b0567edd35b">
 			</testcontainer>
 			<testcontainer
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45">
 			</testcontainer>
 			<testcontainer
-			id="86742939-c386-45d9-ba6e-2515d9bf43e8">
+			id="95be4f3b-28f7-4d0a-b7a6-83d9e2dedcb3">
 			</testcontainer>
 			<testcontainer
 			id="96030009-3e9b-43f2-9ee1-06482497b92c">
+			</testcontainer>
+			<testcontainer
+			id="9d3de7b3-f983-4a63-b20d-8994df1be20a">
 			</testcontainer>
 			<testcontainer
 			id="9fae87da-c968-47a5-8d69-051ed855217c">
@@ -5869,7 +6705,10 @@
 			id="aa80eeb9-cf03-4479-a7c5-a79569e326a7">
 			</testcontainer>
 			<testcontainer
-			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c">
+			id="bfbbee9a-9b1e-4629-84b4-fefe104fdcc8">
+			</testcontainer>
+			<testcontainer
+			id="c42e738a-ffdf-41c7-985e-788ebeb724dd">
 			</testcontainer>
 			<testcontainer
 			id="c668a98a-a5aa-43c8-977d-df8154507f6d">
@@ -5884,7 +6723,13 @@
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
-			id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb">
+			id="d28036c3-a755-4956-8e02-57172d50b707">
+			</testcontainer>
+			<testcontainer
+			id="d889a87a-ab96-489d-a015-42c78de157bb">
+			</testcontainer>
+			<testcontainer
+			id="de37d61b-4d6d-4cfb-82dd-e051a05eb191">
 			</testcontainer>
 			<testcontainer
 			id="e7b49815-3faf-449b-8e33-8536c0759777">
