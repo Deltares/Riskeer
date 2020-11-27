@@ -137,6 +137,9 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(6));
             repo.Bevestigen.ButtonOK.Click();
             
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(7));
+            Delay.Duration(1000, false);
+            
         }
 
 #region Image Feature Data

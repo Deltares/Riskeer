@@ -20,6 +20,10 @@
 			id="0737c832-bd00-4510-9c6b-c53d7ff381ba"
 			name="ProceedToImport">
 			</smartfoldernode>
+			<smartfoldernode
+			id="09dd2aa5-b54c-48d8-b691-9bb6853713c3"
+			name="EvaluateIfZSTHasBeenMerged">
+			</smartfoldernode>
 			<testmodule
 			id="0a1d7dbf-8da8-4b00-9347-9d5dcea21494"
 			name="SelectGenericItemInProjectExplorer"
@@ -92,6 +96,32 @@
 			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
 			name="teardown">
 			</teardown>
+			<testmodule
+			id="0fab6c69-80d5-44ce-9a8d-dc09973ef1d0"
+			name="EvaluateIfSubstringIsPartOfString"
+			ref="2821380d-7d9d-4518-9f9d-29776bf9fac9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="hasZSTBeenMergedFromB"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="abea2477-2374-4dd2-986e-f39a2710d226"
+					variablename="isSubstringPartOfFullString">
+					</var>
+					<var
+					dataname="indexZST"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="08ebd391-0eb0-4215-8215-b9007ce05ccb"
+					variablename="substring">
+					</var>
+					<var
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="aea74b5d-5d51-4ae1-9c93-13d270879cc3"
+					variablename="fullString">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="116705f4-dc5e-41d5-a651-22e02159baeb"
 			name="teardown">
@@ -121,6 +151,38 @@
 					datasourceid="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="1c5719a4-38b9-467f-be53-114128dfa7b2"
+			name="SetRowIndexReferenceCSVFile"
+			ref="73c238ec-c63e-43b3-b646-f6bfa96076b7"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="8abe37d8-5faf-45be-96a5-edfef4d1bed2"
+					variablename="indecesMergedFMs">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="8746b048-5dca-4d0a-b11d-79abd58e8436"
+					variablename="indexCurrentIterationInValidation">
+					</var>
+					<var
+					dataname="rowIndexForReferenceCSVFile"
+					datasourceid="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+					variableid="2c0340fb-270a-4816-bbc4-00a411012d8a"
+					variablename="rowIndexReferenceCSV">
+					</var>
+					<var
+					dataname="indexReferencePPCSVFile"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="98332cf8-d5fc-471d-a107-de11fabee4d8"
+					variablename="originalRowIndexReferenceCSV">
 					</var>
 				</databinding>
 			</testmodule>
@@ -200,6 +262,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="24c901e5-dc29-4da9-8216-dee043cb0f3f"
+			name="SetRange">
+			</smartfoldernode>
+			<smartfoldernode
 			id="25b8f99a-1093-401d-a7c9-56819a7d5988"
 			name="1)CancelByUser">
 			</smartfoldernode>
@@ -222,6 +288,43 @@
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="297a1aa7-ebef-4175-83db-12f8c079ea47"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<description>
+					<![CDATA[Compare dumped PropertiesPanel content]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="f2bf6531-f64b-456a-8531-987c51060fcb"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="aa80eeb9-cf03-4479-a7c5-a79569e326a7"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToOutputCsvFile"
+					datasourceid="bb34d1f8-ec66-436e-a2b1-6a99f2780bad"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="fullPathReferenceCSVFile"
+					datasourceid="41914192-1134-4c81-8878-eeecc3e50480"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8"
@@ -337,7 +440,7 @@
 					</var>
 					<var
 					dataname="expectedMessage"
-					datasourceid="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+					datasourceid="e90b15c5-38e8-4c35-b96b-5066fa874916"
 					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
 					variablename="expectedMessage">
 					</var>
@@ -352,6 +455,26 @@
 			id="3c74b8de-d31e-4275-858f-5fe74bce04c9"
 			name="LoopErrorMessages">
 			</smartfoldernode>
+			<testmodule
+			id="3f6fa2db-1bdf-466f-8f5c-497f08400d1f"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="86742939-c386-45d9-ba6e-2515d9bf43e8"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rowIndexForReferenceCSVFile"
+					datasourceid="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="3fecd503-d333-48ce-b70e-cdd8c2becc00"
 			name="GenerateSomeRandomIntegersInRange"
@@ -377,8 +500,8 @@
 					variablename="numberOfIntegersToGenerate">
 					</var>
 					<var
-					dataname="generatedNumbers"
-					datasourceid="65f01426-0e84-4456-9463-439acf66ea15"
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 					variableid="94368669-746c-4899-95a8-e9dd390495ca"
 					variablename="generatedNumbers">
 					</var>
@@ -450,6 +573,38 @@
 					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="53c04c05-ede4-4250-ba89-4b0dd4ef64fe"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="expectedMessage"
+					datasourceid="e90b15c5-38e8-4c35-b96b-5066fa874916"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="fmMessageToReplace"
+					datasourceid="809a0861-56d9-46c7-920c-cefd0554f83b"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="templateExpectedMessage"
+					datasourceid="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="809a0861-56d9-46c7-920c-cefd0554f83b"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
 					</var>
 				</databinding>
 			</testmodule>
@@ -581,6 +736,82 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="64fb83ef-f209-4cec-9cc7-e1dd6ee666b2"
+			name="EvaluateIfSubstringIsPartOfString"
+			ref="2821380d-7d9d-4518-9f9d-29776bf9fac9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="indexBSKW"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="08ebd391-0eb0-4215-8215-b9007ce05ccb"
+					variablename="substring">
+					</var>
+					<var
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="aea74b5d-5d51-4ae1-9c93-13d270879cc3"
+					variablename="fullString">
+					</var>
+					<var
+					dataname="hasBSKWBeenMergedFromB"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="abea2477-2374-4dd2-986e-f39a2710d226"
+					variablename="isSubstringPartOfFullString">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+			name="SetRangeLoopValidationProperties">
+				<parameters>
+					<param
+					name="indexZST"
+					value="3">
+					</param>
+					<param
+					name="hasZSTBeenMergedFromB"
+					value="">
+					</param>
+					<param
+					name="indexBSKW"
+					value="4">
+					</param>
+					<param
+					name="hasBSKWBeenMergedFromB"
+					value="">
+					</param>
+					<param
+					name="nameFolderLoopValidationProperties"
+					value="LoopValidationProperties">
+					</param>
+					<param
+					name="minimumRangeLoopValidations"
+					value="5">
+					</param>
+					<param
+					name="substringZSTPropertiesPanelMustBeValidated"
+					value=",45-46">
+					</param>
+					<param
+					name="substringBSKWPropertiesPanelMustBeValidated"
+					value=",47-48">
+					</param>
+					<param
+					name="substringChangeNothing"
+					value="">
+					</param>
+					<param
+					name="intermediateRange"
+					value="">
+					</param>
+					<param
+					name="finalRangeLoopValidations"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="65f01426-0e84-4456-9463-439acf66ea15"
 			name="RandomChoiceFMsToImport">
@@ -598,10 +829,6 @@
 					value="2">
 					</param>
 					<param
-					name="generatedNumbers"
-					value="">
-					</param>
-					<param
 					name="nameSmartFolderToSetRange"
 					value="SelectFMsToImportInDialog">
 					</param>
@@ -611,6 +838,41 @@
 			datasource="script28_2_2_ValidateCSVEqualToReference"
 			id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e"
 			name="ValidateCSVEqualToReference">
+			</smartfoldernode>
+			<smartfoldernode
+			id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7"
+			name="ValidatePropertiesOfAllIPresenttems">
+			</smartfoldernode>
+			<smartfoldernode
+			id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e"
+			name="BSKWIsOriginalFromProjectA">
+				<parameters>
+					<param
+					name="rangePropertiesForZSTFromProjectA"
+					value="1-46">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="hasBSKWBeenMergedFromB"
+								id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="false">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
 			id="74e1107c-fd4a-459e-b954-95ad91766e2d"
@@ -631,6 +893,32 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="763c6546-4567-4c6e-b4fc-446a78fbca24"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="minimumRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substringZSTPropertiesPanelMustBeValidated"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateRange"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="76cd5be0-81b2-41a3-be38-2f0f802acd4c"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -643,8 +931,8 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="generatedNumbers"
-					datasourceid="65f01426-0e84-4456-9463-439acf66ea15"
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
@@ -675,6 +963,63 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="7d847894-0963-45de-b756-8af85906fa87"
+			name="DetermineFMSubstring"
+			ref="af24474b-66cd-4c26-8686-3330de69a789"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fmSubstring"
+					datasourceid="809a0861-56d9-46c7-920c-cefd0554f83b"
+					variableid="a7042996-7d10-4ac0-bcdf-abe588f4ce90"
+					variablename="fmSubstring">
+					</var>
+					<var
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="18483c93-2abb-4e08-a63b-fa2798ff5e0a"
+					variablename="indecesFMsSelected">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+					variableid="7e8acb99-c918-4e36-8340-db04a45b62f8"
+					variablename="indexOrderMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="7dc97b16-6638-4807-891b-0b0567edd35b"
+			name="ZSTHasBeenReplacedByProjectB">
+				<parameters>
+					<param
+					name="rangeLoopValidationPropertiesZSTFromProjectB"
+					value="1-44,47-48">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="hasZSTBeenMergedFromB"
+								id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="true">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
 			id="7f1ae511-8395-424d-a516-6fd7a70ddab2"
 			name="SelectTrajectToImportByIndex"
 			ref="7215ea0a-6021-493d-a8b6-e4f22012da8a"
@@ -689,16 +1034,35 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script28_b_2_LoopGenerateCSVsItems"
+			datarangeactive="True"
+			datasource="script28_b_2_LoopValidationProperties"
 			errorbehavior="ContinueNextIteration"
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
-			maxrange="45"
-			minrange="0"
-			name="LoopGenerateCSVsItems">
+			maxrange="43"
+			minrange="36"
+			name="LoopValidationProperties">
 				<parameters>
 					<param
 					name="separatorCharInCsvFile"
 					value=";">
+					</param>
+					<param
+					name="rowIndexForReferenceCSVFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="809a0861-56d9-46c7-920c-cefd0554f83b"
+			name="BuildExpectedMessage">
+				<parameters>
+					<param
+					name="fmMessageToReplace"
+					value="&lt;FM>">
+					</param>
+					<param
+					name="fmSubstring"
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -709,6 +1073,16 @@
 					<param
 					name="pathRootTraject"
 					value="Traject 50-1">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="86742939-c386-45d9-ba6e-2515d9bf43e8"
+			name="SetRowValidationCSV">
+				<parameters>
+					<param
+					name="nameSmartFolder"
+					value="ValidateCSVEqualToReference">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -733,8 +1107,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="generatedNumbers"
-					datasourceid="65f01426-0e84-4456-9463-439acf66ea15"
+					dataname="indecesAddedFMs"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
 					variablename="logMessage">
 					</var>
@@ -848,6 +1222,32 @@
 			name="OpenProject">
 			</smartfoldernode>
 			<testmodule
+			id="99fe0744-3ed7-423d-bacd-d5a597708484"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="minimumRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substringChangeNothing"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateRange"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="9e57e454-b574-41bb-968e-eb122915e72a"
 			name="SpecifyFileToImportMergeProject"
 			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
@@ -862,8 +1262,43 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="9fae87da-c968-47a5-8d69-051ed855217c"
+			name="EvaluateIfBSKWHasBeenMerged">
+			</smartfoldernode>
+			<smartfoldernode
 			id="a1a44b66-ede9-4063-aa45-57993d636bc4"
 			name="ImportProjectOld">
+			</smartfoldernode>
+			<smartfoldernode
+			id="a1b33e25-1b1b-43ef-8633-b7fbb5f54a5e"
+			name="ZSTIsOriginalFromProjectA">
+				<parameters>
+					<param
+					name="rangePropertiesForZSTFromProjectA"
+					value="1-46">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="hasZSTBeenMergedFromB"
+								id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="false">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="a3388db7-af96-43bd-b856-9a25b60f844a"
@@ -901,6 +1336,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b0d7b51a-83e4-4283-8740-94aab083bb73"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateRange"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substringBSKWPropertiesPanelMustBeValidated"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="finalRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b406bf8a-8022-4acb-a54d-5647f8e8228a"
 			name="2)ModifiedTraject">
@@ -1002,6 +1463,7 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="c7ed8685-254a-4347-b0ee-6c426c7bd624"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1022,7 +1484,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datarangeset="1,2,4"
 			datasource="script28_b_2_FMsToImport"
 			id="cab602fa-8618-4fd8-bb1a-98ff16f9756b"
@@ -1044,6 +1505,37 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+			name="BSKWHasBeenReplacedByProjectB">
+				<parameters>
+					<param
+					name="rangeLoopValidationPropertiesZSTFromProjectB"
+					value="1-44,47-48">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="Parameter"
+								dataname="hasBSKWBeenMergedFromB"
+								id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="true">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="cf4cca7e-0982-4db3-ac83-df330ddc2e07"
 			name="SelectGenericItemInProjectExplorer"
@@ -1122,6 +1614,34 @@
 					variablename="expectedMessage">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="dca1d639-ca68-4e46-954f-05cd5e0f2491"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameFolderLoopValidationProperties"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="finalRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeLoopValidationPropertiesZSTFromProjectB"
+					datasourceid="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc"
@@ -1236,8 +1756,15 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script28_b_2_ValidateMessagesMergeProject"
+			errorbehavior="ContinueNextIteration"
 			id="e90b15c5-38e8-4c35-b96b-5066fa874916"
 			name="ValidateMessagesMergeProject">
+				<parameters>
+					<param
+					name="expectedMessage"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="ec22ea96-47a0-498a-8cee-4335d392c651"
@@ -1285,6 +1812,32 @@
 			id="f5a5bf92-ad41-43f1-b887-088bc51615f2"
 			name="SelectItem">
 			</smartfoldernode>
+			<testmodule
+			id="fccb698f-9621-490c-aac3-d5d9a3c0aff6"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateRange"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="substringChangeNothing"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="finalRangeLoopValidations"
+					datasourceid="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="fe1ba3cb-c9f3-41ae-9602-dd6fafffa9c6"
 			name="NewProject"
@@ -1531,97 +2084,189 @@
 								<smartfoldernode
 								id="e90b15c5-38e8-4c35-b96b-5066fa874916"
 								name="ValidateMessagesMergeProject">
+									<smartfoldernode
+									id="809a0861-56d9-46c7-920c-cefd0554f83b"
+									name="BuildExpectedMessage">
+										<testmodule
+										id="7d847894-0963-45de-b756-8af85906fa87"
+										name="DetermineFMSubstring">
+										</testmodule>
+										<testmodule
+										id="53c04c05-ede4-4250-ba89-4b0dd4ef64fe"
+										name="ReplaceSubstring">
+										</testmodule>
+									</smartfoldernode>
 									<testmodule
 									id="36e849ce-0ef7-4aab-84ac-5c69493e589b"
 									name="ValidateTextMesage">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
-								name="LoopGenerateCSVsItems">
-									<testmodule
-									id="c4817699-2d7a-4265-bdec-35989aa3cf83"
-									name="HideRanorexProgressDialog">
-									</testmodule>
+								id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7"
+								name="ValidatePropertiesOfAllIPresenttems">
 									<smartfoldernode
-									id="f5a5bf92-ad41-43f1-b887-088bc51615f2"
-									name="SelectItem">
-										<testmodule
-										id="895b8d38-5b44-4442-94a0-152c1a60a99e"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
+									id="65d49d85-9e67-4468-a44a-cc931c3a8cd1"
+									name="SetRangeLoopValidationProperties">
 										<smartfoldernode
-										id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8"
-										name="HBCs">
+										id="09dd2aa5-b54c-48d8-b691-9bb6853713c3"
+										name="EvaluateIfZSTHasBeenMerged">
 											<testmodule
-											id="29590d92-9702-4787-87a3-c8413b93e0d3"
-											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											id="0fab6c69-80d5-44ce-9a8d-dc09973ef1d0"
+											name="EvaluateIfSubstringIsPartOfString">
 											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="a1b33e25-1b1b-43ef-8633-b7fbb5f54a5e"
+										name="ZSTIsOriginalFromProjectA">
 											<testmodule
-											id="a3388db7-af96-43bd-b856-9a25b60f844a"
-											name="SelectRowCalculation">
+											id="763c6546-4567-4c6e-b4fc-446a78fbca24"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="7dc97b16-6638-4807-891b-0b0567edd35b"
+										name="ZSTHasBeenReplacedByProjectB">
+											<testmodule
+											id="99fe0744-3ed7-423d-bacd-d5a597708484"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="9fae87da-c968-47a5-8d69-051ed855217c"
+										name="EvaluateIfBSKWHasBeenMerged">
+											<testmodule
+											id="64fb83ef-f209-4cec-9cc7-e1dd6ee666b2"
+											name="EvaluateIfSubstringIsPartOfString">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e"
+										name="BSKWIsOriginalFromProjectA">
+											<testmodule
+											id="fccb698f-9621-490c-aac3-d5d9a3c0aff6"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+										name="BSKWHasBeenReplacedByProjectB">
+											<testmodule
+											id="b0d7b51a-83e4-4283-8740-94aab083bb73"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="24c901e5-dc29-4da9-8216-dee043cb0f3f"
+										name="SetRange">
+											<testmodule
+											id="dca1d639-ca68-4e46-954f-05cd5e0f2491"
+											name="SetRangeInSmartFolder">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
-									id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb"
-									name="MakeAllParametersInPropertiesPanelVisible">
+									id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45"
+									name="LoopValidationProperties">
 										<testmodule
-										id="497754e6-e749-47fc-99bb-7d9456aa36cd"
-										name="ExpandAllRowItemsInPropertiesPanel">
+										id="c4817699-2d7a-4265-bdec-35989aa3cf83"
+										name="HideRanorexProgressDialog">
 										</testmodule>
-										<testmodule
-										id="2f250e16-3609-4588-968b-3142de2215c5"
-										name="WaitForXMiliseconds">
-										</testmodule>
-										<testmodule
-										id="403802b6-1528-4db7-b16b-9a8feeaa2292"
-										name="CreateScreenShotPropertiesPanel">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="e7b49815-3faf-449b-8e33-8536c0759777"
-									name="CalculateFileName">
-										<testmodule
-										id="e14fe433-a587-4587-b0a1-39df6d8accac"
-										name="ReplaceSubstring">
-										</testmodule>
-										<testmodule
-										id="314210e6-5202-4bc2-a9a7-52e10e871d53"
-										name="ReplaceSubstring">
-										</testmodule>
-										<testmodule
-										id="b5b11384-e350-4531-a9fd-f634e30a0fea"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="55ec0e75-0726-4ee4-bc70-03a41b58c9dc"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="54fd9397-3ba2-4c5d-9176-8c1d849dbfb0"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="238a77cc-55aa-4749-a0f4-62670c03cbfa"
-										name="ConcatenateStrings">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="c28a504a-d5ca-4817-a26b-0ee2df78be3c"
-									name="ExportPropertiesPanelToCsv">
-										<testmodule
-										id="8c5344e3-5acf-4bec-8643-ba59c4dc838f"
+										<smartfoldernode
+										id="f5a5bf92-ad41-43f1-b887-088bc51615f2"
+										name="SelectItem">
+											<testmodule
+											id="895b8d38-5b44-4442-94a0-152c1a60a99e"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<smartfoldernode
+											id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8"
+											name="HBCs">
+												<testmodule
+												id="29590d92-9702-4787-87a3-c8413b93e0d3"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="a3388db7-af96-43bd-b856-9a25b60f844a"
+												name="SelectRowCalculation">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<smartfoldernode
+										id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb"
+										name="MakeAllParametersInPropertiesPanelVisible">
+											<testmodule
+											id="497754e6-e749-47fc-99bb-7d9456aa36cd"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="2f250e16-3609-4588-968b-3142de2215c5"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="403802b6-1528-4db7-b16b-9a8feeaa2292"
+											name="CreateScreenShotPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="e7b49815-3faf-449b-8e33-8536c0759777"
+										name="CalculateFileName">
+											<testmodule
+											id="e14fe433-a587-4587-b0a1-39df6d8accac"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="314210e6-5202-4bc2-a9a7-52e10e871d53"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="b5b11384-e350-4531-a9fd-f634e30a0fea"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="55ec0e75-0726-4ee4-bc70-03a41b58c9dc"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="54fd9397-3ba2-4c5d-9176-8c1d849dbfb0"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="238a77cc-55aa-4749-a0f4-62670c03cbfa"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="c28a504a-d5ca-4817-a26b-0ee2df78be3c"
 										name="ExportPropertiesPanelToCsv">
-										</testmodule>
-										<testmodule
-										id="2378775d-8092-4f7e-8215-07ae52d7d57c"
-										name="LogInfoMessage">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e"
-									name="ValidateCSVEqualToReference">
+											<testmodule
+											id="8c5344e3-5acf-4bec-8643-ba59c4dc838f"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+											<testmodule
+											id="2378775d-8092-4f7e-8215-07ae52d7d57c"
+											name="LogInfoMessage">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="86742939-c386-45d9-ba6e-2515d9bf43e8"
+										name="SetRowValidationCSV">
+											<testmodule
+											id="1c5719a4-38b9-467f-be53-114128dfa7b2"
+											name="SetRowIndexReferenceCSVFile">
+											</testmodule>
+											<testmodule
+											id="3f6fa2db-1bdf-466f-8f5c-497f08400d1f"
+											name="SetRangeInSmartFolder">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e"
+										name="ValidateCSVEqualToReference">
+											<testmodule
+											id="297a1aa7-ebef-4175-83db-12f8c079ea47"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -1762,7 +2407,7 @@
 		</DataSource>
 		<DataSource
 		id="f2bf6531-f64b-456a-8531-987c51060fcb"
-		lastknownrowcount="89"
+		lastknownrowcount="92"
 		name="script28_2_2_ValidateCSVEqualToReference"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -1780,6 +2425,21 @@
 				</tr>
 				<tr>
 					<td>
+						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A0A.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A0B.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A45A.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
 						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A45B.csv
 					</td>
 				</tr>
@@ -1790,12 +2450,12 @@
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A1A.csv
+						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A0B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A0B.csv
+						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A1A.csv
 					</td>
 				</tr>
 				<tr>
@@ -2340,20 +3000,20 @@
 		<DataSource
 		id="93d26bb6-56db-400b-b0b9-712ab1c4172f"
 		lastknownrowcount="48"
-		name="script28_b_2_LoopGenerateCSVsItems"
+		name="script28_b_2_LoopValidationProperties"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
 					pathToItemInProjectExplorer
 				</column>
 				<column>
+					rowIndex
+				</column>
+				<column>
 					indexReferencePPCSVFile
 				</column>
 				<column>
 					indexRowHBCItem
-				</column>
-				<column>
-					pathReferenceFile
 				</column>
 				<column>
 					timeToExpandPropertiesPanel
@@ -2370,13 +3030,13 @@
 						pathToItemInProjectExplorer
 					</th>
 					<th>
+						rowIndex
+					</th>
+					<th>
 						indexReferencePPCSVFile
 					</th>
 					<th>
 						indexRowHBCItem
-					</th>
-					<th>
-						pathReferenceFile
 					</th>
 					<th>
 						timeToExpandPropertiesPanel
@@ -2390,23 +3050,27 @@
 						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
 					</td>
 					<td>
-						3
+						1
+					</td>
+					<td>
+						2
 					</td>
 					<td>
 						0
 					</td>
 					<td>
+						2500
 					</td>
 					<td>
-						1000
-					</td>
-					<td>
-						500
+						2000
 					</td>
 				</tr>
 				<tr>
 					<td>
 						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
+						2
 					</td>
 					<td>
 						4
@@ -2415,12 +3079,10 @@
 						45
 					</td>
 					<td>
+						2500
 					</td>
 					<td>
-						1000
-					</td>
-					<td>
-						500
+						2000
 					</td>
 				</tr>
 				<tr>
@@ -2428,37 +3090,39 @@
 						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
 					</td>
 					<td>
-						7
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-					</td>
-					<td>
-						1000
-					</td>
-					<td>
-						500
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+						3
 					</td>
 					<td>
 						6
 					</td>
 					<td>
+						0
+					</td>
+					<td>
+						3000
+					</td>
+					<td>
+						2500
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						7
+					</td>
+					<td>
 						1
 					</td>
 					<td>
+						3000
 					</td>
 					<td>
-						1000
-					</td>
-					<td>
-						500
+						2500
 					</td>
 				</tr>
 				<tr>
@@ -2466,9 +3130,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Invoer
 					</td>
 					<td>
-						9
+						5
 					</td>
 					<td>
+						9
 					</td>
 					<td>
 					</td>
@@ -2484,9 +3149,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Resultaat
 					</td>
 					<td>
-						10
+						6
 					</td>
 					<td>
+						10
 					</td>
 					<td>
 					</td>
@@ -2502,9 +3168,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Invoer
 					</td>
 					<td>
-						11
+						7
 					</td>
 					<td>
+						11
 					</td>
 					<td>
 					</td>
@@ -2520,9 +3187,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Resultaat
 					</td>
 					<td>
-						12
+						8
 					</td>
 					<td>
+						12
 					</td>
 					<td>
 					</td>
@@ -2538,9 +3206,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Invoer
 					</td>
 					<td>
-						13
+						9
 					</td>
 					<td>
+						13
 					</td>
 					<td>
 					</td>
@@ -2556,9 +3225,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Resultaat
 					</td>
 					<td>
-						14
+						10
 					</td>
 					<td>
+						14
 					</td>
 					<td>
 					</td>
@@ -2574,9 +3244,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Invoer
 					</td>
 					<td>
-						15
+						11
 					</td>
 					<td>
+						15
 					</td>
 					<td>
 					</td>
@@ -2592,9 +3263,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Resultaat
 					</td>
 					<td>
-						16
+						12
 					</td>
 					<td>
+						16
 					</td>
 					<td>
 					</td>
@@ -2610,9 +3282,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Invoer
 					</td>
 					<td>
-						17
+						13
 					</td>
 					<td>
+						17
 					</td>
 					<td>
 					</td>
@@ -2628,9 +3301,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Resultaat
 					</td>
 					<td>
-						18
+						14
 					</td>
 					<td>
+						18
 					</td>
 					<td>
 					</td>
@@ -2646,9 +3320,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Invoer
 					</td>
 					<td>
-						19
+						15
 					</td>
 					<td>
+						19
 					</td>
 					<td>
 					</td>
@@ -2664,9 +3339,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Resultaat
 					</td>
 					<td>
-						20
+						16
 					</td>
 					<td>
+						20
 					</td>
 					<td>
 					</td>
@@ -2682,9 +3358,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Invoer
 					</td>
 					<td>
-						21
+						17
 					</td>
 					<td>
+						21
 					</td>
 					<td>
 					</td>
@@ -2700,9 +3377,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Resultaat
 					</td>
 					<td>
-						22
+						18
 					</td>
 					<td>
+						22
 					</td>
 					<td>
 					</td>
@@ -2718,9 +3396,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Invoer
 					</td>
 					<td>
-						23
+						19
 					</td>
 					<td>
+						23
 					</td>
 					<td>
 					</td>
@@ -2736,9 +3415,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Resultaat
 					</td>
 					<td>
-						24
+						20
 					</td>
 					<td>
+						24
 					</td>
 					<td>
 					</td>
@@ -2754,9 +3434,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Invoer
 					</td>
 					<td>
-						25
+						21
 					</td>
 					<td>
+						25
 					</td>
 					<td>
 					</td>
@@ -2772,9 +3453,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Resultaat
 					</td>
 					<td>
-						26
+						22
 					</td>
 					<td>
+						26
 					</td>
 					<td>
 					</td>
@@ -2790,9 +3472,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Invoer
 					</td>
 					<td>
-						27
+						23
 					</td>
 					<td>
+						27
 					</td>
 					<td>
 					</td>
@@ -2808,9 +3491,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Resultaat
 					</td>
 					<td>
-						28
+						24
 					</td>
 					<td>
+						28
 					</td>
 					<td>
 					</td>
@@ -2826,9 +3510,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Invoer
 					</td>
 					<td>
-						29
+						25
 					</td>
 					<td>
+						29
 					</td>
 					<td>
 					</td>
@@ -2844,9 +3529,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Resultaat
 					</td>
 					<td>
-						30
+						26
 					</td>
 					<td>
+						30
 					</td>
 					<td>
 					</td>
@@ -2862,9 +3548,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Invoer
 					</td>
 					<td>
-						31
+						27
 					</td>
 					<td>
+						31
 					</td>
 					<td>
 					</td>
@@ -2880,9 +3567,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Resultaat
 					</td>
 					<td>
-						32
+						28
 					</td>
 					<td>
+						32
 					</td>
 					<td>
 					</td>
@@ -2898,9 +3586,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Invoer
 					</td>
 					<td>
-						33
+						29
 					</td>
 					<td>
+						33
 					</td>
 					<td>
 					</td>
@@ -2916,9 +3605,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Resultaat
 					</td>
 					<td>
-						34
+						30
 					</td>
 					<td>
+						34
 					</td>
 					<td>
 					</td>
@@ -2934,9 +3624,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Invoer
 					</td>
 					<td>
-						35
+						31
 					</td>
 					<td>
+						35
 					</td>
 					<td>
 					</td>
@@ -2952,9 +3643,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Resultaat
 					</td>
 					<td>
-						36
+						32
 					</td>
 					<td>
+						36
 					</td>
 					<td>
 					</td>
@@ -2970,9 +3662,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Invoer
 					</td>
 					<td>
-						37
+						33
 					</td>
 					<td>
+						37
 					</td>
 					<td>
 					</td>
@@ -2988,9 +3681,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Resultaat
 					</td>
 					<td>
-						38
+						34
 					</td>
 					<td>
+						38
 					</td>
 					<td>
 					</td>
@@ -3006,9 +3700,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Invoer
 					</td>
 					<td>
-						39
+						35
 					</td>
 					<td>
+						39
 					</td>
 					<td>
 					</td>
@@ -3024,9 +3719,10 @@
 						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Resultaat
 					</td>
 					<td>
-						40
+						36
 					</td>
 					<td>
+						40
 					</td>
 					<td>
 					</td>
@@ -3042,9 +3738,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Invoer
 					</td>
 					<td>
-						73
+						37
 					</td>
 					<td>
+						73
 					</td>
 					<td>
 					</td>
@@ -3060,9 +3757,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Resultaat&gt;Sterkte berekening
 					</td>
 					<td>
-						74
+						38
 					</td>
 					<td>
+						74
 					</td>
 					<td>
 					</td>
@@ -3078,9 +3776,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Invoer
 					</td>
 					<td>
-						75
+						39
 					</td>
 					<td>
+						75
 					</td>
 					<td>
 					</td>
@@ -3096,9 +3795,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Resultaat&gt;Sterkte berekening
 					</td>
 					<td>
-						76
+						40
 					</td>
 					<td>
+						76
 					</td>
 					<td>
 					</td>
@@ -3114,9 +3814,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Invoer
 					</td>
 					<td>
-						77
+						41
 					</td>
 					<td>
+						77
 					</td>
 					<td>
 					</td>
@@ -3132,9 +3833,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Resultaat&gt;Sterkte berekening
 					</td>
 					<td>
-						78
+						42
 					</td>
 					<td>
+						78
 					</td>
 					<td>
 					</td>
@@ -3150,9 +3852,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Invoer
 					</td>
 					<td>
-						79
+						43
 					</td>
 					<td>
+						79
 					</td>
 					<td>
 					</td>
@@ -3168,9 +3871,10 @@
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Resultaat&gt;Sterkte berekening
 					</td>
 					<td>
-						80
+						44
 					</td>
 					<td>
+						80
 					</td>
 					<td>
 					</td>
@@ -3186,9 +3890,10 @@
 						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Invoer
 					</td>
 					<td>
-						89
+						45
 					</td>
 					<td>
+						89
 					</td>
 					<td>
 					</td>
@@ -3204,9 +3909,10 @@
 						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Resultaat
 					</td>
 					<td>
-						90
+						46
 					</td>
 					<td>
+						90
 					</td>
 					<td>
 					</td>
@@ -3222,9 +3928,10 @@
 						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Invoer
 					</td>
 					<td>
-						91
+						47
 					</td>
 					<td>
+						91
 					</td>
 					<td>
 					</td>
@@ -3240,25 +3947,26 @@
 						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Resultaat
 					</td>
 					<td>
+						48
+					</td>
+					<td>
 						92
 					</td>
 					<td>
 					</td>
 					<td>
+						14000
 					</td>
 					<td>
-						12000
-					</td>
-					<td>
-						60000
+						80000
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
-		id="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+		id="c21f40b2-80b9-4fec-9efc-8ecf61ceb229"
 		lastknownrowcount="7"
-		name="script28_b_2_ValidateMessagesMergeProject"
+		name="script28_b_2_NamesFmsInValidateMessagesMergeProject"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -3349,6 +4057,93 @@
 					</td>
 					<td>
 						Gegevens van toetsspoor 'Kunstwerken - Betrouwbaarheid sluiting kunstwerk' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message end import
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Samenvoegen van trajectinformatie is gelukt.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
+		lastknownrowcount="5"
+		name="script28_b_2_ValidateMessagesMergeProject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					templateExpectedMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						templateExpectedMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Message start import
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Samenvoegen van trajectinformatie is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging Hydraulic Boundary conditions
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Hydraulische belastingen zijn samengevoegd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Gegevens van toetsspoor '&lt;FM&gt;' zijn vervangen.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message merging&#32;
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Gegevens van toetsspoor '&lt;FM&gt;' zijn vervangen.
 					</td>
 				</tr>
 				<tr>
@@ -5017,10 +5812,10 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="015f5134-143d-4977-9a39-47915f41f0a0">
+			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
 			</testcontainer>
 			<testcontainer
-			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
+			id="09dd2aa5-b54c-48d8-b691-9bb6853713c3">
 			</testcontainer>
 			<testcontainer
 			id="0c062571-6ea5-4e25-82c7-f386f8dcf391">
@@ -5029,7 +5824,7 @@
 			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f">
 			</testcontainer>
 			<testcontainer
-			id="25b8f99a-1093-401d-a7c9-56819a7d5988">
+			id="24c901e5-dc29-4da9-8216-dee043cb0f3f">
 			</testcontainer>
 			<testcontainer
 			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8">
@@ -5038,10 +5833,7 @@
 			id="35b84802-07c5-4306-857e-fe2b7b404695">
 			</testcontainer>
 			<testcontainer
-			id="3c74b8de-d31e-4275-858f-5fe74bce04c9">
-			</testcontainer>
-			<testcontainer
-			id="628066a8-9af3-49dd-814d-3910b5a80937">
+			id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
 			</testcontainer>
 			<testcontainer
 			id="65f01426-0e84-4456-9463-439acf66ea15">
@@ -5050,37 +5842,31 @@
 			id="699a7b7c-c8a2-4348-aeb9-81ad730c8b3e">
 			</testcontainer>
 			<testcontainer
-			id="74e1107c-fd4a-459e-b954-95ad91766e2d">
+			id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7">
 			</testcontainer>
 			<testcontainer
-			id="79880a24-d19b-4755-9306-30af8cc039b4">
+			id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e">
 			</testcontainer>
 			<testcontainer
-			id="7a117450-114a-485c-88a7-4115513e55ce">
+			id="7dc97b16-6638-4807-891b-0b0567edd35b">
 			</testcontainer>
 			<testcontainer
 			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45">
 			</testcontainer>
 			<testcontainer
-			id="83bbe1f1-fc2d-4555-ab4a-df52d726a6b1">
+			id="86742939-c386-45d9-ba6e-2515d9bf43e8">
 			</testcontainer>
 			<testcontainer
 			id="96030009-3e9b-43f2-9ee1-06482497b92c">
 			</testcontainer>
 			<testcontainer
-			id="a1a44b66-ede9-4063-aa45-57993d636bc4">
+			id="9fae87da-c968-47a5-8d69-051ed855217c">
 			</testcontainer>
 			<testcontainer
-			id="aa559d97-8936-424d-ab29-c9ddf690226d">
+			id="a1b33e25-1b1b-43ef-8633-b7fbb5f54a5e">
 			</testcontainer>
 			<testcontainer
 			id="aa80eeb9-cf03-4479-a7c5-a79569e326a7">
-			</testcontainer>
-			<testcontainer
-			id="b406bf8a-8022-4acb-a54d-5647f8e8228a">
-			</testcontainer>
-			<testcontainer
-			id="b4d83f21-0650-420c-a769-54b6f614d4c8">
 			</testcontainer>
 			<testcontainer
 			id="c28a504a-d5ca-4817-a26b-0ee2df78be3c">
@@ -5092,22 +5878,16 @@
 			id="cab602fa-8618-4fd8-bb1a-98ff16f9756b">
 			</testcontainer>
 			<testcontainer
-			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
+			id="cf1c66a4-6361-467d-84cb-1381a4401e2f">
 			</testcontainer>
 			<testcontainer
-			id="d49a73ef-45a9-47ce-b1e3-266341be6b6b">
+			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
 			id="d4a8d7a6-505d-4407-b7c7-53f7c6480bcb">
 			</testcontainer>
 			<testcontainer
-			id="e119a3cd-bf7a-4bea-b533-a137d95a02cc">
-			</testcontainer>
-			<testcontainer
 			id="e7b49815-3faf-449b-8e33-8536c0759777">
-			</testcontainer>
-			<testcontainer
-			id="e90b15c5-38e8-4c35-b96b-5066fa874916">
 			</testcontainer>
 			<testcontainer
 			id="f5a5bf92-ad41-43f1-b887-088bc51615f2">

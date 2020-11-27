@@ -486,6 +486,12 @@
       <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
       <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\DetermineFMSubstring.cs">
+      <id>c807de12-f3ea-4ea4-95e9-8fd69f98fb19</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\EvaluateIfSubstringIsPartOfString.cs">
+      <id>b9b36ed5-9078-4036-a3cb-d2ec92c34573</id>
+    </Compile>
     <Compile Include="Modules\Calculation\GenerateRandomIndexInRangeOfSmartFolder.cs">
       <id>2947d802-669d-4fe7-b29a-5e6dc63f0123</id>
     </Compile>
@@ -779,6 +785,9 @@
     </Compile>
     <Compile Include="Modules\Calculation\SetRandomRowWithinRangeSmartFolder.cs">
       <id>b20a1f0c-135a-46a7-935a-43e5165f32a7</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\SetRowIndexReferenceCSVFile.cs">
+      <id>98c10d51-5c74-423b-b2da-02f05bc02aef</id>
     </Compile>
     <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
       <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
