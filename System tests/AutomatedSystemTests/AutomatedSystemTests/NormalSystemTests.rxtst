@@ -777,6 +777,10 @@
 			id="0e1a77bb-3d81-4e4a-a6d9-33e9891819ee"
 			name="SchematizationsWithElementsModified">
 			</smartfoldernode>
+			<smartfoldernode
+			id="0e6e2b58-f157-4040-8537-6986dd359395"
+			name="ScreenshotFM">
+			</smartfoldernode>
 			<testmodule
 			id="0edadedc-158f-48e1-9897-bac462a5dcef"
 			name="ConcatenateStrings"
@@ -2751,6 +2755,28 @@
 			name="ImportStructures">
 			</smartfoldernode>
 			<testmodule
+			id="2aa4e43d-c5f5-478b-9ec6-d01cb74c9278"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="be471a64-ad76-41f3-b539-4b208b0c378e"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="a3deddb5-ab48-4a6d-8501-80fbde5bc326"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="2b9bd66d-b1e7-46ec-b78a-ad603e79aae3"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -3248,6 +3274,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="3499c46f-4b87-4f10-9103-a458130507c9"
+			name="DeleteAllFilesInInputFolder">
+			</smartfoldernode>
 			<testmodule
 			id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
 			name="CloseAUT"
@@ -3515,6 +3545,10 @@
 					value="X:\script12\reference\original\">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="39507c13-04d9-4689-83c2-32aff2b408c8"
+			name="ScreenshotTraject">
 			</smartfoldernode>
 			<testmodule
 			id="396d41a0-7ece-42c7-994d-6d1c49f7abe0"
@@ -5523,6 +5557,10 @@
 					value=".csv">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="5714f059-5eaa-4cee-8c46-9f96e9a75569"
+			name="DeleteAllFilesInInputFolder">
 			</smartfoldernode>
 			<smartfoldernode
 			id="575bd733-1394-4257-8e53-add71d265fd6"
@@ -7726,6 +7764,12 @@
 					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="7a06562d-55c5-45b8-824e-21dad8eb7574"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="7a60d026-91ef-4711-b6b3-b992067a4f63"
@@ -10359,7 +10403,7 @@
 				<parameters>
 					<param
 					name="warningMessage"
-					value="Please, control the screen shots in this section.">
+					value="Please, control the screenshots in the sections below.">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -12154,7 +12198,13 @@
 			</testmodule>
 			<smartfoldernode
 			id="be471a64-ad76-41f3-b539-4b208b0c378e"
-			name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfStructure">
+			name="ScreenshotsToEvaluatePresenceOfStructure">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, control the screenshots in the sections below.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="be6f1094-8700-42fb-8ffe-96a4a55cf1dd"
@@ -13119,6 +13169,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="ce8aa5d0-eba0-4eb2-a68a-bdafd7805a66"
+			name="CloseDocumentView">
+			</smartfoldernode>
 			<testmodule
 			id="ce91961a-aef7-47b7-81f6-24abf7a796f8"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
@@ -15009,6 +15063,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="ed170086-a61e-44e1-81f2-f02d1155ddb7"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="755c98d4-941d-40ca-be87-19547daea2aa"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="755c98d4-941d-40ca-be87-19547daea2aa"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="eddc8e94-a9ec-48cd-bba5-dbd49efbd269"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
 			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
@@ -15441,6 +15529,40 @@
 			id="f68dc210-0b6e-4557-b08f-7eb65f81a5d3"
 			name="setup">
 			</setup>
+			<testmodule
+			id="f6e82199-f87f-4d00-af2d-ae989f9deb96"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="755c98d4-941d-40ca-be87-19547daea2aa"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="755c98d4-941d-40ca-be87-19547daea2aa"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="f731cc82-56ee-4c40-b4aa-23ebfe13960a"
@@ -16078,6 +16200,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="fe8cb14a-9e88-41df-85ac-c9fe5dd15d7a"
+			name="CleanUp">
+			</smartfoldernode>
 			<testmodule
 			id="feabdaea-be7b-44fd-9a80-68f5ed56916f"
 			name="SetRangeInSmartFolder"
@@ -18288,35 +18414,47 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="be471a64-ad76-41f3-b539-4b208b0c378e"
-									name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfStructure">
+									name="ScreenshotsToEvaluatePresenceOfStructure">
 										<testmodule
-										id="1d63904c-91aa-4313-8cf9-5b9f1690f544"
-										name="CreateScreenshotDocumentView">
+										id="2aa4e43d-c5f5-478b-9ec6-d01cb74c9278"
+										name="LogWarningMessage">
 										</testmodule>
-										<testmodule
-										id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
-										<testmodule
-										id="f9f9de1e-d986-4bac-b77e-b9e9f383b0c8"
-										name="CalculateFullPathToFMFromFullPathToSubitem">
-										</testmodule>
-										<testmodule
-										id="534825c4-347d-49f1-882d-1442c9c29bc1"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="3c53391b-6e6e-4949-b21e-4f51b40e863d"
-										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="c27d824a-8a9e-4302-aeb3-878cef5eb1f9"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="8f3ddb31-aefe-4a12-9ca7-5f8aeb418907"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
+										<smartfoldernode
+										id="39507c13-04d9-4689-83c2-32aff2b408c8"
+										name="ScreenshotTraject">
+											<testmodule
+											id="1d63904c-91aa-4313-8cf9-5b9f1690f544"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+											<testmodule
+											id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="0e6e2b58-f157-4040-8537-6986dd359395"
+										name="ScreenshotFM">
+											<testmodule
+											id="f9f9de1e-d986-4bac-b77e-b9e9f383b0c8"
+											name="CalculateFullPathToFMFromFullPathToSubitem">
+											</testmodule>
+											<testmodule
+											id="534825c4-347d-49f1-882d-1442c9c29bc1"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="3c53391b-6e6e-4949-b21e-4f51b40e863d"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="c27d824a-8a9e-4302-aeb3-878cef5eb1f9"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+											<testmodule
+											id="8f3ddb31-aefe-4a12-9ca7-5f8aeb418907"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="575bd733-1394-4257-8e53-add71d265fd6"
@@ -18671,6 +18809,14 @@
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
+								<smartfoldernode
+								id="3499c46f-4b87-4f10-9103-a458130507c9"
+								name="DeleteAllFilesInInputFolder">
+									<testmodule
+									id="ed170086-a61e-44e1-81f2-f02d1155ddb7"
+									name="DeleteAllSearchFilteredFiles">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
 							id="b1aa1457-65a2-4d85-a8d4-b26c75a45d97"
@@ -18722,6 +18868,26 @@
 									id="97c8dde7-78e4-4bc1-9db1-b949a52a25c4"
 									name="ValidateTextMesage">
 									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="fe8cb14a-9e88-41df-85ac-c9fe5dd15d7a"
+								name="CleanUp">
+									<smartfoldernode
+									id="5714f059-5eaa-4cee-8c46-9f96e9a75569"
+									name="DeleteAllFilesInInputFolder">
+										<testmodule
+										id="f6e82199-f87f-4d00-af2d-ae989f9deb96"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="ce8aa5d0-eba0-4eb2-a68a-bdafd7805a66"
+									name="CloseDocumentView">
+										<testmodule
+										id="7a06562d-55c5-45b8-824e-21dad8eb7574"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -35470,6 +35636,9 @@
 			id="0e1a77bb-3d81-4e4a-a6d9-33e9891819ee">
 			</testcontainer>
 			<testcontainer
+			id="0e6e2b58-f157-4040-8537-6986dd359395">
+			</testcontainer>
+			<testcontainer
 			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb">
 			</testcontainer>
 			<testcontainer
@@ -35599,6 +35768,9 @@
 			id="3442e960-8978-490a-8a4b-f3dbea48ab86">
 			</testcontainer>
 			<testcontainer
+			id="3499c46f-4b87-4f10-9103-a458130507c9">
+			</testcontainer>
+			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
 			</testcontainer>
 			<testcontainer
@@ -35606,6 +35778,9 @@
 			</testcontainer>
 			<testcontainer
 			id="38c12ad4-a899-4539-98a2-acb79bd6c646">
+			</testcontainer>
+			<testcontainer
+			id="39507c13-04d9-4689-83c2-32aff2b408c8">
 			</testcontainer>
 			<testcontainer
 			id="3a348b89-618b-40c0-9fdd-ddd65dcdcc94">
@@ -35714,6 +35889,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5694bd07-ff69-4150-a5f6-10275850bac6">
+			</testcontainer>
+			<testcontainer
+			id="5714f059-5eaa-4cee-8c46-9f96e9a75569">
 			</testcontainer>
 			<testcontainer
 			id="575bd733-1394-4257-8e53-add71d265fd6">
@@ -36103,6 +36281,9 @@
 			id="ce80c407-e442-48f3-b15c-303dbd80c8c2">
 			</testcontainer>
 			<testcontainer
+			id="ce8aa5d0-eba0-4eb2-a68a-bdafd7805a66">
+			</testcontainer>
+			<testcontainer
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">
 			</testcontainer>
 			<testcontainer
@@ -36287,6 +36468,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
+			</testcontainer>
+			<testcontainer
+			id="fe8cb14a-9e88-41df-85ac-c9fe5dd15d7a">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
