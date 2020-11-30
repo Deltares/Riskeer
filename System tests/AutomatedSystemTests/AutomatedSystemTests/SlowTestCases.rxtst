@@ -907,6 +907,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="1da4a2b9-29ad-4f47-b93f-f16fd856b60f"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="39417ae9-8d22-4d2b-a119-86cc2e8f0d93"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="1db2de26-9a84-4d74-aa67-d984a62046d8"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1436,6 +1450,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="2a9d6e06-b38d-48f7-be14-b2d573328c74"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="outputDetailedAssessment"
 			id="2aba1b8d-adbc-4ba2-8ee9-6543db0f141e"
@@ -1947,6 +1967,17 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script21b_FMsGroup5NoDetailedAssessment"
+			id="39417ae9-8d22-4d2b-a119-86cc2e8f0d93"
+			name="FMsGroup5NoDetailedAssessment">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Validate in the screenshot beneath that there is no data for detailed assessment (Gedetailleerde toets).">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="398fc5c6-0650-437e-bf65-7a8ed7dd2722"
 			name="CreateScreenShotEntireApplication"
@@ -5344,6 +5375,12 @@
 			id="8ae51c4f-9c74-41de-aae8-1c0138f57154"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="8b28965a-5367-483e-b6f4-b8b6c3b9b750"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="8bf1d4a4-5f8f-4cb7-b5a5-ed261580f131"
 			name="ConcatenateStrings"
@@ -9470,6 +9507,16 @@
 			id="ec7f88fa-19af-46db-9594-5711bb1b1eb5"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
+			<smartfoldernode
+			id="ec85760b-17c0-4fbe-93cb-1026ab3a0111"
+			name="DetailedAssessmentFMsGroup5WithoutDetailedAssessment">
+			</smartfoldernode>
+			<testmodule
+			id="ec9078d8-b5fd-4538-9cc7-327a606f05cb"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="ed59ecc2-0678-440b-a080-f8b75167a4de"
 			name="CreateScreenShotEntireApplication"
@@ -10136,6 +10183,20 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="fd543dda-4f70-4757-8f39-b8eac789ddb4"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssessmentResultItem"
+					datasourceid="01685578-4eab-41ba-96c8-c7e71965eb73"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="fe401626-93ac-4d4d-8aad-22c2d375f8ec"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -10696,6 +10757,34 @@
 										</smartfoldernode>
 										<testmodule
 										id="b45dca95-f171-4ebe-b5fe-fa8e85f1a531"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="ec85760b-17c0-4fbe-93cb-1026ab3a0111"
+								name="DetailedAssessmentFMsGroup5WithoutDetailedAssessment">
+									<smartfoldernode
+									id="39417ae9-8d22-4d2b-a119-86cc2e8f0d93"
+									name="FMsGroup5NoDetailedAssessment">
+										<testmodule
+										id="fd543dda-4f70-4757-8f39-b8eac789ddb4"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="ec9078d8-b5fd-4538-9cc7-327a606f05cb"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="1da4a2b9-29ad-4f47-b93f-f16fd856b60f"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="8b28965a-5367-483e-b6f4-b8b6c3b9b750"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="2a9d6e06-b38d-48f7-be14-b2d573328c74"
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
@@ -17669,6 +17758,56 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="01685578-4eab-41ba-96c8-c7e71965eb73"
+		lastknownrowcount="3"
+		name="script21b_FMsGroup5NoDetailedAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelFM_
+				</column>
+				<column>
+					pathToAssessmentResultItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelFM_
+					</th>
+					<th>
+						pathToAssessmentResultItem
+					</th>
+				</tr>
+				<tr>
+					<td>
+						AWO
+					</td>
+					<td>
+						Traject 12-2 Overig&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding&gt;Oordeel&gt;Resultaat
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWl
+					</td>
+					<td>
+						Traject 12-2 Overig&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies&gt;Oordeel&gt;Resultaat
+					</td>
+				</tr>
+				<tr>
+					<td>
+						INN
+					</td>
+					<td>
+						Traject 12-2 Overig&gt;Technische innovaties - Technische innovaties&gt;Oordeel&gt;Resultaat
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="7d0ad035-5052-4901-bc91-913ef3498490"
 		lastknownrowcount="20"
 		name="script27a_ItemsToValidateInCalculation"
@@ -20528,6 +20667,9 @@
 			id="390a84ae-13a8-402d-b7da-02d55eb4065f">
 			</testcontainer>
 			<testcontainer
+			id="39417ae9-8d22-4d2b-a119-86cc2e8f0d93">
+			</testcontainer>
+			<testcontainer
 			id="39b8b3f8-c479-44ba-be2f-cac54f02712a">
 			</testcontainer>
 			<testcontainer
@@ -21078,6 +21220,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ec7f88fa-19af-46db-9594-5711bb1b1eb5">
+			</testcontainer>
+			<testcontainer
+			id="ec85760b-17c0-4fbe-93cb-1026ab3a0111">
 			</testcontainer>
 			<testcontainer
 			id="ef055d03-b3dc-448e-965f-51fa80cb2332">
