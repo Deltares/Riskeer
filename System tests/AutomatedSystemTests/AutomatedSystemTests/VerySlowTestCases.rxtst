@@ -383,7 +383,13 @@
 					dataname="fielNameToOpen"
 					datasourceid="a5961606-7985-4233-b8a3-cc10e3329eef"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -950,7 +956,7 @@
 				<parameters>
 					<param
 					name="fileNameToSave"
-					value="output\script15\script15abc.risk">
+					value="script15abc.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2227,7 +2233,13 @@
 					dataname="fileNameToSave"
 					datasourceid="d87be6b5-39e0-40aa-a798-1bda7d9cd289"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2403,7 +2415,13 @@
 					dataname="fileNameToSave"
 					datasourceid="3f9a6829-afc5-4cf5-aa15-f2c7a5f42623"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2624,7 +2642,13 @@
 					dataname="fielNameToOpen"
 					datasourceid="589114f0-07ea-46ed-9b42-75ff7def58e4"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2988,7 +3012,7 @@
 				<parameters>
 					<param
 					name="fileNameToSave"
-					value="output\script15\script15d.risk">
+					value="script15d.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>

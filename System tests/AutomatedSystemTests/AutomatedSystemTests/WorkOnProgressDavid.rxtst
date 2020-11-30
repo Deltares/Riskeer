@@ -321,7 +321,13 @@
 					dataname="pathProjectA"
 					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -614,7 +620,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="40c553d3-9330-4bf1-a537-f40b41227626"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1722,15 +1727,15 @@
 					</var>
 					<var
 					dataname="finalRangeLoopValidations"
-					datasourceid="de37d61b-4d6d-4cfb-82dd-e051a05eb191"
+					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="rangeLoopValidationPropertiesZSTFromProjectB"
-					datasourceid="cf1c66a4-6361-467d-84cb-1381a4401e2f"
+					dataname="finalRangeLoopValidations"
+					datasourceid="de37d61b-4d6d-4cfb-82dd-e051a05eb191"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
@@ -2272,10 +2277,6 @@
 					name="intermediateRange"
 					value="">
 					</param>
-					<param
-					name="finalRangeLoopValidations"
-					value="">
-					</param>
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
@@ -2411,7 +2412,13 @@
 					dataname="mergedFileNameToSave"
 					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2439,7 +2446,13 @@
 					dataname="pathProjectA"
 					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2471,7 +2484,13 @@
 					dataname="mergedFileNameToSave"
 					datasourceid="c668a98a-a5aa-43c8-977d-df8154507f6d"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="0c062571-6ea5-4e25-82c7-f386f8dcf391"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -6626,117 +6645,6 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
-			<testcontainer
-			id="0669c662-d44b-49c2-91ef-ea176ede554a">
-			</testcontainer>
-			<testcontainer
-			id="0737c832-bd00-4510-9c6b-c53d7ff381ba">
-			</testcontainer>
-			<testcontainer
-			id="09dd2aa5-b54c-48d8-b691-9bb6853713c3">
-			</testcontainer>
-			<testcontainer
-			id="0c062571-6ea5-4e25-82c7-f386f8dcf391">
-			</testcontainer>
-			<testcontainer
-			id="1fdb0d60-7f50-4bbe-bffc-8782d41ad35e">
-			</testcontainer>
-			<testcontainer
-			id="2112f0d0-fc51-4bfa-b8e0-a4dcccb34d7f">
-			</testcontainer>
-			<testcontainer
-			id="24c901e5-dc29-4da9-8216-dee043cb0f3f">
-			</testcontainer>
-			<testcontainer
-			id="2a9aa5c6-8c59-46c9-9333-45fb21e4e0e8">
-			</testcontainer>
-			<testcontainer
-			id="35b84802-07c5-4306-857e-fe2b7b404695">
-			</testcontainer>
-			<testcontainer
-			id="387c37ec-b7cc-4988-9d5a-50ed16f5c174">
-			</testcontainer>
-			<testcontainer
-			id="4c7c5088-5a78-494e-9be2-c4862c218669">
-			</testcontainer>
-			<testcontainer
-			id="5eea3557-7788-4cfe-92cc-7fbf27764782">
-			</testcontainer>
-			<testcontainer
-			id="65d49d85-9e67-4468-a44a-cc931c3a8cd1">
-			</testcontainer>
-			<testcontainer
-			id="65f01426-0e84-4456-9463-439acf66ea15">
-			</testcontainer>
-			<testcontainer
-			id="6ad508c1-6a0a-4b80-9155-b2ea87d9e2e7">
-			</testcontainer>
-			<testcontainer
-			id="6c5e4b1c-cfa9-41e0-8e8b-74a767282c8e">
-			</testcontainer>
-			<testcontainer
-			id="73ce7071-89d3-4b8f-b1e1-a84851b0f729">
-			</testcontainer>
-			<testcontainer
-			id="783b09d5-0fd9-4e26-ac90-284777a5617f">
-			</testcontainer>
-			<testcontainer
-			id="7dc97b16-6638-4807-891b-0b0567edd35b">
-			</testcontainer>
-			<testcontainer
-			id="7f7c64f5-3636-4461-b50e-4dd66a2f0b45">
-			</testcontainer>
-			<testcontainer
-			id="95be4f3b-28f7-4d0a-b7a6-83d9e2dedcb3">
-			</testcontainer>
-			<testcontainer
-			id="96030009-3e9b-43f2-9ee1-06482497b92c">
-			</testcontainer>
-			<testcontainer
-			id="9d3de7b3-f983-4a63-b20d-8994df1be20a">
-			</testcontainer>
-			<testcontainer
-			id="9fae87da-c968-47a5-8d69-051ed855217c">
-			</testcontainer>
-			<testcontainer
-			id="a1b33e25-1b1b-43ef-8633-b7fbb5f54a5e">
-			</testcontainer>
-			<testcontainer
-			id="aa80eeb9-cf03-4479-a7c5-a79569e326a7">
-			</testcontainer>
-			<testcontainer
-			id="bfbbee9a-9b1e-4629-84b4-fefe104fdcc8">
-			</testcontainer>
-			<testcontainer
-			id="c42e738a-ffdf-41c7-985e-788ebeb724dd">
-			</testcontainer>
-			<testcontainer
-			id="c668a98a-a5aa-43c8-977d-df8154507f6d">
-			</testcontainer>
-			<testcontainer
-			id="cab602fa-8618-4fd8-bb1a-98ff16f9756b">
-			</testcontainer>
-			<testcontainer
-			id="cf1c66a4-6361-467d-84cb-1381a4401e2f">
-			</testcontainer>
-			<testcontainer
-			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
-			</testcontainer>
-			<testcontainer
-			id="d28036c3-a755-4956-8e02-57172d50b707">
-			</testcontainer>
-			<testcontainer
-			id="d889a87a-ab96-489d-a015-42c78de157bb">
-			</testcontainer>
-			<testcontainer
-			id="de37d61b-4d6d-4cfb-82dd-e051a05eb191">
-			</testcontainer>
-			<testcontainer
-			id="e7b49815-3faf-449b-8e33-8536c0759777">
-			</testcontainer>
-			<testcontainer
-			id="f5a5bf92-ad41-43f1-b887-088bc51615f2">
-			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>

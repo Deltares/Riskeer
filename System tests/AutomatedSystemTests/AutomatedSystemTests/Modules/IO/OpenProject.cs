@@ -41,7 +41,8 @@ namespace AutomatedSystemTests.Modules.IO
         /// </summary>
         public OpenProject()
         {
-            fileNameToOpen = "";
+            fileName = "";
+            scriptOutputPath = "";
         }
 
         /// <summary>
@@ -54,16 +55,28 @@ namespace AutomatedSystemTests.Modules.IO
 
 #region Variables
 
-        string _fileNameToOpen;
+        string _fileName;
 
         /// <summary>
-        /// Gets or sets the value of variable fileNameToOpen.
+        /// Gets or sets the value of variable fileName.
         /// </summary>
         [TestVariable("3c870d6e-0774-4179-b1f4-65350b234510")]
-        public string fileNameToOpen
+        public string fileName
         {
-            get { return _fileNameToOpen; }
-            set { _fileNameToOpen = value; }
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
+        string _scriptOutputPath;
+
+        /// <summary>
+        /// Gets or sets the value of variable scriptOutputPath.
+        /// </summary>
+        [TestVariable("b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6")]
+        public string scriptOutputPath
+        {
+            get { return _scriptOutputPath; }
+            set { _scriptOutputPath = value; }
         }
 
 #endregion
@@ -103,11 +116,11 @@ namespace AutomatedSystemTests.Modules.IO
             
             Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(3));
             
-            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "User", fileName, new RecordItemIndex(4));
             
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(5));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileName' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(5));
+            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileName);
             
             // Click on open button
             Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(6));

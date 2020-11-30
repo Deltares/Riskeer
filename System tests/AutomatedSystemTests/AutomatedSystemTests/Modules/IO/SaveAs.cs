@@ -41,7 +41,8 @@ namespace AutomatedSystemTests.Modules.IO
         /// </summary>
         public SaveAs()
         {
-            fileNameToSave = "kkdelavaca.risk";
+            fileName = "";
+            scriptOutputPath = "";
         }
 
         /// <summary>
@@ -54,16 +55,28 @@ namespace AutomatedSystemTests.Modules.IO
 
 #region Variables
 
-        string _fileNameToSave;
+        string _fileName;
 
         /// <summary>
-        /// Gets or sets the value of variable fileNameToSave.
+        /// Gets or sets the value of variable fileName.
         /// </summary>
         [TestVariable("d40271fe-a08b-44b0-bb48-a991f40e104b")]
-        public string fileNameToSave
+        public string fileName
         {
-            get { return _fileNameToSave; }
-            set { _fileNameToSave = value; }
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
+        string _scriptOutputPath;
+
+        /// <summary>
+        /// Gets or sets the value of variable scriptOutputPath.
+        /// </summary>
+        [TestVariable("75a65d50-6a8f-4582-9f63-7c20d0f1ae9f")]
+        public string scriptOutputPath
+        {
+            get { return _scriptOutputPath; }
+            set { _scriptOutputPath = value; }
         }
 
 #endregion
@@ -92,33 +105,39 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.Bestand.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAsInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+Shift+S' Press.", new RecordItemIndex(1));
+            Keyboard.Press(System.Windows.Forms.Keys.S | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Control, 31, Keyboard.DefaultKeyPressTime, 1, true);
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(2));
+            //repo.RiskeerMainWindow.Ribbon.Bestand.Click();
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAsInfo, new RecordItemIndex(3));
+            //repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs.Click();
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "User", "Name of file to save:", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "User", "Name of file to save:", new RecordItemIndex(5));
             
-            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "User", fileName, new RecordItemIndex(6));
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(5));
-            repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileName' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(7));
+            repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileName);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(8));
             repo.OpslaanAls.SaveButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(9));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(11));
             Delay.Duration(250, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(12));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

@@ -96,7 +96,6 @@ namespace AutomatedSystemTests.Modules.Calculation
             }
             randomList.Sort();
             generatedNumbers = string.Join(",", randomList);
-            generatedNumbers = "3,4";
         }
     }
 }

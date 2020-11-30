@@ -962,7 +962,13 @@
 					dataname="filename"
 					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1818,7 +1824,13 @@
 					dataname="filename"
 					datasourceid="6d5c2af6-f42a-44d0-85b4-0f43d5b8c339"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2386,7 +2398,13 @@
 					dataname="filename"
 					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2812,7 +2830,13 @@
 					dataname="projectToOpen"
 					datasourceid="69a5261f-d8be-4f1c-a848-318feaa9a91c"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="eaded2be-e2ca-41e6-88e4-36b9ab87418d"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3906,7 +3930,13 @@
 					dataname="filename"
 					datasourceid="dac21371-c5c4-410e-a9a2-87cd43944a85"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -4260,7 +4290,13 @@
 					dataname="relativePathFileToOpen"
 					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -4643,7 +4679,13 @@
 					dataname="filename"
 					datasourceid="831e4289-a337-434c-9753-aa59d1c77819"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5280,7 +5322,13 @@
 					dataname="fileNameOfProject"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="stringifiedInputOriginalFolderCalculation"
+					datasourceid="8326d424-9df5-478b-8b13-f4c8060d08b9"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5357,7 +5405,13 @@
 					dataname="relativePathFileToOpen"
 					datasourceid="b8d4cd98-c368-4f81-a1b8-d36930cb6da9"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5469,7 +5523,13 @@
 					dataname="projectToOpen"
 					datasourceid="08b33e93-3f07-4b84-bfe6-74f838565c29"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="eaded2be-e2ca-41e6-88e4-36b9ab87418d"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -5490,7 +5550,13 @@
 					dataname="relativePathFileToOpen"
 					datasourceid="b8d4cd98-c368-4f81-a1b8-d36930cb6da9"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5817,7 +5883,13 @@
 					dataname="filename"
 					datasourceid="49f5b0fe-d36f-411e-9ca9-50e9eaeabc28"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -7685,7 +7757,13 @@
 					dataname="relativePathFileToOpen"
 					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -8438,7 +8516,13 @@
 					dataname="pathProjectRequired"
 					datasourceid="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="eaded2be-e2ca-41e6-88e4-36b9ab87418d"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -8547,7 +8631,13 @@
 					dataname="fileNameOfProject"
 					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="00973e14-db0c-4044-a111-f59381213fe5"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -9616,7 +9706,13 @@
 					dataname="filename"
 					datasourceid="831e4289-a337-434c-9753-aa59d1c77819"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78257329-2d7a-4142-9162-56c8573b90f0"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -9750,7 +9846,13 @@
 					dataname="projectToOpen"
 					datasourceid="7b37d2b1-3abd-4a68-92f9-f85b27243cfb"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="eaded2be-e2ca-41e6-88e4-36b9ab87418d"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -12731,7 +12833,7 @@
 				</tr>
 				<tr>
 					<td>
-						output\script21\customAssessment.risk
+						customAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -12756,7 +12858,7 @@
 				</tr>
 				<tr>
 					<td>
-						output\script21\detailedAssessment.risk
+						detailedAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -12781,7 +12883,7 @@
 				</tr>
 				<tr>
 					<td>
-						output\script21\relevanceModifiedInFMCView.risk
+						relevanceModifiedInFMCView.risk
 					</td>
 				</tr>
 			</table>
@@ -12806,7 +12908,7 @@
 				</tr>
 				<tr>
 					<td>
-						output\script21\relevanceModifiedInPE.risk
+						relevanceModifiedInPE.risk
 					</td>
 				</tr>
 			</table>
@@ -12831,7 +12933,7 @@
 				</tr>
 				<tr>
 					<td>
-						output\script21\simpleAssessment.risk
+						simpleAssessment.risk
 					</td>
 				</tr>
 			</table>

@@ -36,12 +36,17 @@ namespace AutomatedSystemTests.Modules.IO
 
         public void AddWorkingDirectoryToFileNameIfRelativeFileName()
         {
-        	if (fileNameToOpen.Substring(1,2) == @":\") {
-            	// fileNameToOpen has been declared using absolute path
-            	return;
+            if (fileName.Substring(1,2) == @":\") {
+                // fileName has been declared using absolute path
+                return;
             }
-        	// fileNameToOpen has been declared using relative path 
-        	fileNameToOpen = Directory.GetCurrentDirectory() + "\\" + fileNameToOpen;
+            string prefixPath = "";
+            if (scriptOutputPath!="") {
+                prefixPath = scriptOutputPath;
+            } else {
+                prefixPath = Directory.GetCurrentDirectory() + @"\" ;
+            }
+            fileName = prefixPath + fileName;
         }
 
         public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)

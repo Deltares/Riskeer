@@ -45,12 +45,18 @@ namespace AutomatedSystemTests.Modules.IO
 
         public void AddWorkingDirectoryToFileNameIfRelativeFileName()
         {
-        	if (fileNameToSave.Substring(1,2) == @":\") {
-            	// fileNameToSave has been declared using absolute path
-            	return;
+            if (fileName.Substring(1,2) == @":\") {
+                // fileName has been declared using absolute path
+                return;
             }
-        	// fileNameToSave has been declared using relative path 
-        	fileNameToSave = Directory.GetCurrentDirectory() + "\\" + fileNameToSave;
+            // fileName has been declared using relative path 
+            string prefixPath = "";
+            if (scriptOutputPath!="") {
+                prefixPath = scriptOutputPath;
+            } else {
+                prefixPath = Directory.GetCurrentDirectory() + @"\";
+            }
+            fileName = prefixPath + fileName;
         }
 
     }
