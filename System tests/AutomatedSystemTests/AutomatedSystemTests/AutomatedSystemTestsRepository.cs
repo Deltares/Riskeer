@@ -5495,7 +5495,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _duplicerenInfo;
             RepoItemInfo _eigenschappenInfo;
             RepoItemInfo _exporterenInfo;
-            RepoItemInfo _genereerscenariosInfo;
+            RepoItemInfo _genereercalculationandscenariosInfo;
             RepoItemInfo _genericitemincontextmenuInfo;
             RepoItemInfo _importerenInfo;
             RepoItemInfo _isrelevantInfo;
@@ -5531,7 +5531,7 @@ namespace AutomatedSystemTests
                 _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
                 _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
                 _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
-                _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
+                _genereercalculationandscenariosInfo = new RepoItemInfo(this, "GenereerCalculationAndScenarios", "menuitem[@accessiblename>'Genereer']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
@@ -5794,26 +5794,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenereerScenarios item.
+            /// The GenereerCalculationAndScenarios item.
             /// </summary>
             [RepositoryItem("17056c41-6629-4a0e-8ab2-93470db9fa27")]
-            public virtual Ranorex.MenuItem GenereerScenarios
+            public virtual Ranorex.MenuItem GenereerCalculationAndScenarios
             {
                 get
                 {
-                    return _genereerscenariosInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _genereercalculationandscenariosInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The GenereerScenarios item info.
+            /// The GenereerCalculationAndScenarios item info.
             /// </summary>
             [RepositoryItemInfo("17056c41-6629-4a0e-8ab2-93470db9fa27")]
-            public virtual RepoItemInfo GenereerScenariosInfo
+            public virtual RepoItemInfo GenereerCalculationAndScenariosInfo
             {
                 get
                 {
-                    return _genereerscenariosInfo;
+                    return _genereercalculationandscenariosInfo;
                 }
             }
 
@@ -7118,6 +7118,7 @@ namespace AutomatedSystemTests
         {
             RepoItemInfo _usecellrowindexthInfo;
             RepoItemInfo _generatebuttonInfo;
+            RepoItemInfo _selectallbuttonInfo;
 
             /// <summary>
             /// Creates a new DialogGenerateCalculations  folder.
@@ -7127,6 +7128,7 @@ namespace AutomatedSystemTests
             {
                 _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", ".//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
                 _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
+                _selectallbuttonInfo = new RepoItemInfo(this, "SelectAllButton", "container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']", 30000, null, "66fd60b5-d7a8-43eb-82cb-e4707b8474de");
             }
 
             /// <summary>
@@ -7198,6 +7200,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _generatebuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SelectAllButton item.
+            /// </summary>
+            [RepositoryItem("66fd60b5-d7a8-43eb-82cb-e4707b8474de")]
+            public virtual Ranorex.Button SelectAllButton
+            {
+                get
+                {
+                    return _selectallbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SelectAllButton item info.
+            /// </summary>
+            [RepositoryItemInfo("66fd60b5-d7a8-43eb-82cb-e4707b8474de")]
+            public virtual RepoItemInfo SelectAllButtonInfo
+            {
+                get
+                {
+                    return _selectallbuttonInfo;
                 }
             }
         }

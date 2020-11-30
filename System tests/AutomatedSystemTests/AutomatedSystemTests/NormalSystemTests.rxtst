@@ -233,7 +233,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeSchematizations"
+					dataname="rangeOriginalSchematizations"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -376,6 +376,12 @@
 					variablename="fileName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="07412b73-749c-418a-8b32-ed48169604cd"
+			name="GenerateAllCalculations"
+			ref="901ef1a1-99bd-46f9-b3e7-943b0327353c"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="07657b58-f063-4eab-a0b7-78074cd84e7a"
@@ -738,6 +744,10 @@
 					<param
 					name="errorMessage"
 					value="Er zijn geen trajecten gevonden die samengevoegd kunnen worden.">
+					</param>
+					<param
+					name="waitPeriodUntilErrorMessageHasBeenProduced"
+					value="3000">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1140,6 +1150,20 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="12d0493c-13a0-4145-94cb-b217cadb44b6"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="13851a8a-a87f-4496-b912-74004675d141"
@@ -1700,6 +1724,10 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="1c4f8537-73a3-4598-9b49-9951563df124"
+			name="GenerateCalculation">
+			</smartfoldernode>
+			<smartfoldernode
 			id="1c88934b-2813-4b3a-97ab-4db4711dee65"
 			name="LoopsStructuresSomeItemsRemoved">
 			</smartfoldernode>
@@ -2110,6 +2138,28 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="2269c416-3153-451f-ad18-6198d711f9a9"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolderInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="c3321720-07cb-4a9f-9614-4cb01db2d4aa"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="22cfd3fd-8668-4dca-b2b6-a2648c746916"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -2183,6 +2233,20 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="24e7a902-60f1-4fa4-a1e5-d0dda8fc015f"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="intermediateString4"
+					datasourceid="8ad00d3f-a182-44cf-892b-d96d2b7b5d28"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="250c1a93-1f54-4aac-8449-cb05ce082e2d"
@@ -2805,7 +2869,7 @@
 			</testmodule>
 			<testmodule
 			id="2c870f2e-8b60-4df3-b194-7ff69db5a826"
-			name="GenerateCalculations"
+			name="GenerateSomeScenarios"
 			ref="8513f955-1cc5-4468-875c-d51ce8a545ba"
 			type="Recording">
 				<databinding>
@@ -2933,6 +2997,20 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="301912ef-9188-40f4-8528-1f2af829b3c5"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="intermediateString4"
+					datasourceid="982c8e3b-5650-4f06-a310-f89a3a4be332"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="3045ffe0-bdc5-4d3a-a55e-59847fd92932"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -3007,6 +3085,12 @@
 			name="SelectInputOfCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="30cbcae8-5d18-4ed1-8fd6-891fe4c6e827"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="30ea5dde-1bfc-4769-998b-673283d28f0e"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -3020,6 +3104,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="315ccb36-8406-49f0-9352-0ffc71dc3d87"
+			name="GEKB">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="31d118d2-089b-4257-9f73-ebd6fbb92d75"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -3042,6 +3151,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="31e51195-a126-4ba5-a260-f6fbc91828f8"
+			name="ScreenShotOfFMMapView">
+			</smartfoldernode>
 			<testmodule
 			id="320dd2bd-0fd6-49db-90a5-bef41a87a3e9"
 			name="LogInfoMessage"
@@ -3560,6 +3673,12 @@
 			name="ValidateAgainPropertiesOfAllPresenttems">
 			</smartfoldernode>
 			<testmodule
+			id="3bd06185-b82d-43d0-8f95-7a82dc1ffa51"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="3c13d237-cfdf-47e8-bcc1-5c9bc6b58f9f"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -3930,6 +4049,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="43f0d6e8-00a4-4598-bce1-6999fcecd081"
+			name="OpenViewWithChartAndCreateScreenshot">
+			</smartfoldernode>
 			<testmodule
 			id="43f3f27a-2eb6-41ff-9605-4dde27108a16"
 			name="CreateScreenshotDocumentView"
@@ -4097,6 +4220,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="4617bc7a-cf1a-48a5-a0de-c45808535212"
+			name="GenerateSomeScenarios"
+			ref="8513f955-1cc5-4468-875c-d51ce8a545ba"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="index"
+					datasourceid="c2798510-fa56-4f5a-9f61-9c660a0f741e"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4619134d-1a5d-493a-8a2e-2f82c76b615e"
 			name="CloseAUT"
@@ -4582,6 +4719,10 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
+			id="4d086c20-b346-4fe2-a69e-9001027bb5c2"
+			name="CoupleHBC">
+			</smartfoldernode>
+			<smartfoldernode
 			id="4d200627-dfbb-48ec-863c-f4e07d1effee"
 			name="AddNewTrajectNotAppropriateForSchematization">
 				<parameters>
@@ -4740,6 +4881,28 @@
 					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="50b43eb7-f7ea-4c59-915d-d278c87731d9"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolderInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="c3321720-07cb-4a9f-9614-4cb01db2d4aa"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -5438,6 +5601,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="5a80c790-6ab8-41e6-81b5-410a048ac3a0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="messageToLogForScreenshotChartCalculation"
+					datasourceid="ef915d13-c7af-430b-983b-d2f611186093"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString4"
+					datasourceid="d1abd6bb-72d2-40c8-977b-3727875a1d18"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="calculationName"
+					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5a95a633-1286-417d-95b9-754e78da100c"
 			name="CreateOutputFolder"
 			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
@@ -5499,6 +5696,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5bf52942-5143-4b6d-ab1c-d532c9e6b73b"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="5c20d0b8-c8b5-4ded-96e9-696dd9da9b13"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
@@ -5947,29 +6150,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="607af621-b23d-4c19-a129-d7d2b1394b09"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="waitTime"
-					datasourceid="27244f6b-5185-4fe9-b709-ded1ec69674b"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="607cfc6b-e454-428b-9bdc-3673c6353afa"
 			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
 			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
@@ -6404,6 +6584,22 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script09_LoopOriginalCharts"
+			errorbehavior="ContinueNextIteration"
+			id="64f675b0-3d0b-4f7b-a9d0-8a7a22be4648"
+			name="LoopChartsRemovedItems">
+				<parameters>
+					<param
+					name="messageToLogForScreenshotChartCalculation"
+					value="Original chart for calculation: ">
+					</param>
+					<param
+					name="nameInputFolder"
+					value="Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script12_substringsImportingStructuresOnWrongTraject"
 			errorbehavior="ContinueNextIteration"
 			id="65439b4f-6eb7-4062-b09f-e92d7c5b75d6"
@@ -6658,6 +6854,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="6b07606e-7786-4411-91c1-21644b0ef180"
+			name="OpenViewWithChartAndCreateScreenshot">
+			</smartfoldernode>
 			<testmodule
 			id="6b662658-3148-41e0-8df4-b5523ada99ca"
 			name="GetValueParameterForItemInTraject"
@@ -7081,6 +7281,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="75996215-5470-42cf-9a98-3f5e83e6db3c"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="75bad5c9-1194-4f6f-b9a7-03f81194210d"
 			name="BSKWHasBeenReplacedByProjectB">
@@ -7107,6 +7313,75 @@
 						<rightvalue>
 							<simplevaluesource
 							value="true">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="7679fec5-5b7e-4fef-bfd3-b4c28d528624"
+			name="AssignProfile(ZST,AGK,GEBU)">
+				<parameters>
+					<param
+					name="pathToProfileItemInPropertiesPanel"
+					value="Schematisatie>Voorlandprofiel">
+					</param>
+					<param
+					name="profileToSelect"
+					value="profiel1">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="fmLabel"
+								id="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="fmLabel"
+								id="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="fmLabel"
+								id="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -7453,6 +7728,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="7a60d026-91ef-4711-b6b3-b992067a4f63"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="7a76f0a4-c58b-4593-8c07-f178a6a6293f"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -7474,6 +7763,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="7aa65ab3-e494-45ab-959b-7afb1a12bbcc"
+			name="CleanUpInputFolder">
+			</smartfoldernode>
 			<testmodule
 			id="7aed27df-53a9-400d-945c-c02c5f36e568"
 			name="ConcatenateStrings"
@@ -7901,10 +8194,75 @@
 			id="8247a7fd-fbe4-466c-bdc5-e7a63785d0a3"
 			name="TrajectContainingStructures">
 			</smartfoldernode>
+			<smartfoldernode
+			id="8298c8c9-2508-4fc8-aae0-d2a2416f59d5"
+			name="ZST,AGK,GEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<setup
 			id="82a2a832-dfe2-4a84-8528-6fbc467cc47e"
 			name="setup">
 			</setup>
+			<testmodule
+			id="82dae4d4-7210-4b5b-aa02-dedf589021ae"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="83577ba1-8411-443a-a421-9b5674e02a50"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
@@ -7925,6 +8283,22 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script09_LoopOriginalCharts"
+			errorbehavior="ContinueNextIteration"
+			id="83a01b87-626a-4f75-b2ab-dea719aa92dd"
+			name="LoopOriginalCharts">
+				<parameters>
+					<param
+					name="messageToLogForScreenshotChartCalculation"
+					value="Original chart for calculation: ">
+					</param>
+					<param
+					name="nameInputFolder"
+					value="Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="840b6647-42b6-4dda-8743-ad6b52db3474"
 			name="RandomChoiceFMsToImport">
@@ -7981,9 +8355,47 @@
 			name="ValidateSourcePath">
 			</smartfoldernode>
 			<smartfoldernode
+			id="84ca9391-147d-46a9-ab7e-45a5722bbf82"
+			name="GenerateCalculations">
+			</smartfoldernode>
+			<smartfoldernode
 			id="85368837-2aad-4048-bd53-0143d14c5b6b"
 			name="PrepareRiskeer">
 			</smartfoldernode>
+			<testmodule
+			id="856cfeb0-ecce-4ec3-a99c-b1152f61dce9"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderLoopChartsModfied"
+					datasourceid="d1abd6bb-72d2-40c8-977b-3727875a1d18"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeOriginalSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopOriginalCharts"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="85e2be78-640f-4499-932a-6ef7d8fec87b"
 			name="SetRangeInSmartFolder"
@@ -8282,6 +8694,112 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28"
+			name="ScreenshotsOfChartsInCalculations(GEKB,ZST,AGK,GEBU)">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="intermediateString4"
+					value="">
+					</param>
+					<param
+					name="fullPathToSingleCalculationInput"
+					value="">
+					</param>
+					<param
+					name="charSeparatorPath"
+					value=">">
+					</param>
+					<param
+					name="nameSmartFolderLoopOriginalCharts"
+					value="LoopOriginalCharts">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="8b9e928a-7415-4a15-b17b-dc41f97e280c"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
@@ -8751,6 +9269,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="91e807e0-b5a9-4acb-b39d-beb2a96f7302"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitPeriodUntilErrorMessageHasBeenProduced"
+					datasourceid="0da37e16-d891-4d5f-a9be-147a7f8a520a"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="91fa33d4-0970-4ecb-b641-bd134c2ae03a"
 			name="CopyFilesModifiedElements">
@@ -8968,6 +9500,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="954c3ed6-165c-4839-87ee-dbba97688e2f"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="958716fd-2581-492f-b0ab-54e55b9ed92b"
 			name="CopyOriginalFiles">
@@ -9124,6 +9662,112 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="982c8e3b-5650-4f06-a310-f89a3a4be332"
+			name="ScreenshotsOfChartsInCalculationsRemovedItems(GEKB,ZST,AGK,GEBU)">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="intermediateString4"
+					value="">
+					</param>
+					<param
+					name="fullPathToSingleCalculationInput"
+					value="">
+					</param>
+					<param
+					name="charSeparatorPath"
+					value=">">
+					</param>
+					<param
+					name="nameSmartFolderLoopChartsRemovedItems"
+					value="LoopChartsRemovedItems">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="982e5f2f-a2e2-43af-8b0c-d5033aa68334"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -9250,6 +9894,20 @@
 			id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
 			name="setup">
 			</setup>
+			<testmodule
+			id="9add6acd-75d7-4d90-b05f-e9a7874a3dfe"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="intermediateString4"
+					datasourceid="d1abd6bb-72d2-40c8-977b-3727875a1d18"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="9b3d512c-b4c6-4f52-8239-cb93302de0fb"
 			name="CreateOutputFolder"
@@ -9697,7 +10355,13 @@
 			</testmodule>
 			<smartfoldernode
 			id="a3deddb5-ab48-4a6d-8501-80fbde5bc326"
-			name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
+			name="ScreenshotsToEvaluatePresenceOfSchematizations">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, control the screen shots in this section.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a42057e3-eca0-4eed-8a1e-b9408652464a"
@@ -9936,6 +10600,20 @@
 					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
 					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
 					variablename="fileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="a8115f26-2e67-46ae-8b44-1169e653aac1"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="a3deddb5-ab48-4a6d-8501-80fbde5bc326"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
 					</var>
 				</databinding>
 			</testmodule>
@@ -10401,6 +11079,12 @@
 					variablename="string2">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b16f63fd-0d09-4887-8b1a-0c9f65fe5e5c"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="b171fd61-8d83-4af4-a5ab-dbfaf2656c70"
@@ -11500,6 +12184,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="bf70154e-7b2e-494b-bf69-23bfbcaef395"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathHBCInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="bf8dfd1e-e3e4-4482-be1e-f6b6c44f24aa"
@@ -11662,6 +12360,92 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="c2798510-fa56-4f5a-9f61-9c660a0f741e"
+			name="GenerateCalculations(GEKB,ZST,AGK,GEBU)">
+				<parameters>
+					<param
+					name="index"
+					value="0">
+					</param>
+					<param
+					name="messageToLog"
+					value="Screenshot after importing surface lines and subsurface stochastic schematizations, and generating calculations">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="c27d824a-8a9e-4302-aeb3-878cef5eb1f9"
 			name="CreateScreenshotDocumentView"
@@ -11725,6 +12509,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="c367ebd3-4ef0-4d17-adcf-44fec12805b2"
+			name="CleanUp">
+			</smartfoldernode>
 			<testmodule
 			id="c3744923-020e-4304-b830-2ea9ca446b46"
 			name="GetValueParameterForItemInTraject"
@@ -11997,6 +12785,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="c65de29d-2390-46ef-b199-9c1f51a2f4ea"
+			name="DeleteAllFilesInInputFolder">
+			</smartfoldernode>
+			<smartfoldernode
 			id="c6708ce1-b12a-47da-997f-96835283f968"
 			name="b)MergeFMsInSameSection">
 				<parameters>
@@ -12040,6 +12832,40 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 			</smartfoldernode>
 			<testmodule
+			id="c7ca950e-8653-4bbc-815c-8d38491959d8"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderLoopChartsRemovedItems"
+					datasourceid="982c8e3b-5650-4f06-a310-f89a3a4be332"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeOriginalSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopOriginalCharts"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="c821f8df-50fc-4a76-a4b2-3502e4f48382"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -12048,6 +12874,10 @@
 			<smartfoldernode
 			id="c86750b3-30c3-461f-b163-a9dc6bf843fa"
 			name="2)ModifiedTraject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="c8b5d3cd-0bad-467f-a5dd-0f528a760987"
+			name="CloseDocumentView">
 			</smartfoldernode>
 			<testmodule
 			id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
@@ -12148,6 +12978,20 @@
 					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="cc265f15-49d9-42eb-90db-e9f2744646e1"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -12386,6 +13230,74 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="d06e5459-3f8c-48c1-9d06-a69493a69b7f"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="messageToLogForScreenshotChartCalculation"
+					datasourceid="64f675b0-3d0b-4f7b-a9d0-8a7a22be4648"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString4"
+					datasourceid="982c8e3b-5650-4f06-a310-f89a3a4be332"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="calculationName"
+					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d08717c5-5bd4-4c38-9a69-d3b35891b9d3"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="messageToLogForScreenshotChartCalculation"
+					datasourceid="83a01b87-626a-4f75-b2ab-dea719aa92dd"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString4"
+					datasourceid="8ad00d3f-a182-44cf-892b-d96d2b7b5d28"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="calculationName"
+					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="tableNValueInFMsForTraject12_2"
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
@@ -12470,6 +13382,112 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="d1abd6bb-72d2-40c8-977b-3727875a1d18"
+			name="ScreenshotsOfChartsInCalculationsModified(GEKB,ZST,AGK,GEBU)">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="intermediateString4"
+					value="">
+					</param>
+					<param
+					name="fullPathToSingleCalculationInput"
+					value="">
+					</param>
+					<param
+					name="charSeparatorPath"
+					value=">">
+					</param>
+					<param
+					name="nameSmartFolderLoopChartsModfied"
+					value="LoopChartsModified">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="ZST">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="AGK">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			id="d1b1a748-5931-495f-8724-a42c04084d7e"
 			name="EvaluateIfBSKWHasBeenMerged">
@@ -12589,6 +13607,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="d3877823-872c-4250-80cb-6407a13ecc2d"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
 			name="ControlFailureMechanismContributions">
@@ -12624,6 +13648,12 @@
 					variablename="trajectType">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="d6bb1b95-022c-4091-ace2-82420d62a264"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="d7131151-bc08-4239-8a8a-e332b8633dcb"
@@ -12707,6 +13737,10 @@
 			<smartfoldernode
 			id="d8105d50-96be-4ba8-ae47-13d69c58d01f"
 			name="StartImportMergeProject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d8fafd69-0d89-4eb1-92fb-8ef9a267242d"
+			name="OpenViewWithChartAndCreateScreenshot">
 			</smartfoldernode>
 			<testmodule
 			id="d9805b18-7d94-4344-8e11-9faba7cfa1cd"
@@ -13105,6 +14139,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="df5a8098-0b92-4cd3-a1eb-439e233c9bcc"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationInput"
+					datasourceid="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -13255,6 +14303,46 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="e21ddcf9-3f95-4abc-ab39-809306a3317e"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="e273bdae-9fac-46ec-b75d-dea3d0f41da8"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathInputFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="searchFilterAllFiles"
+					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
 			name="ValidateValueParameterForItemInTraject"
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
@@ -13392,6 +14480,40 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="e46c7e30-4fc4-4cd6-89dd-777fb4d6ad1b"
+			name="CoupleCurrentItemToHBCDatabase"
+			ref="354b1a8c-c247-4b13-920b-24ee0b2b997d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFileHBC"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="39671c14-75a2-44bf-95e5-209ad4946b5e"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="e4c7d7a4-60a6-4e59-961f-8bad93a06ec4"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToProfileItemInPropertiesPanel"
+					datasourceid="7679fec5-5b7e-4fef-bfd3-b4c28d528624"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+					<var
+					dataname="profileToSelect"
+					datasourceid="7679fec5-5b7e-4fef-bfd3-b4c28d528624"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="e52a0a6e-c918-4e89-82a2-3e0b2c35fb69"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -13452,6 +14574,40 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="e6ac17d2-c46e-4281-90b7-9df6e3aab98f"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderLoopOriginalCharts"
+					datasourceid="8ad00d3f-a182-44cf-892b-d96d2b7b5d28"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeOriginalSchematizations"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopOriginalCharts"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e703345f-5401-4a0c-9d01-d4fb5bd6eeca"
@@ -13824,6 +14980,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="ec4ccc8c-d057-4ec8-bffe-ca6f92b2d593"
+			name="ScreenShotOfTraject">
+			</smartfoldernode>
+			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="ecac70ee-51ea-4866-90c3-a05414ad3aab"
 			name="ValidateCSVEqualToModifiedReference">
@@ -13922,6 +15082,22 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script09_LoopOriginalCharts"
+			errorbehavior="ContinueNextIteration"
+			id="ef915d13-c7af-430b-983b-d2f611186093"
+			name="LoopChartsModified">
+				<parameters>
+					<param
+					name="messageToLogForScreenshotChartCalculation"
+					value="Original chart for calculation: ">
+					</param>
+					<param
+					name="nameInputFolder"
+					value="Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="f046935a-0913-46a4-8f9f-9f96b0cbbb3d"
 			name="SetRangeInSmartFolder"
@@ -13954,8 +15130,8 @@
 			datasource="script09_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
-			maxrange="0"
-			minrange="0"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -14509,6 +15685,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="fae8d4b7-7d68-4b1b-bbc2-437c492702b7"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="fb2fe203-9747-4d13-b13e-a7aa6515b207"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -14766,7 +15948,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeSchematizations"
+					dataname="rangeOriginalSchematizations"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -15522,35 +16704,47 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="a3deddb5-ab48-4a6d-8501-80fbde5bc326"
-									name="ScreenshotsOfTrajectAndFMForHumanTesterToEvaluatePresenceOfSchematization">
+									name="ScreenshotsToEvaluatePresenceOfSchematizations">
 										<testmodule
-										id="2fd41670-c26f-4e87-a94f-48c0014ca21d"
-										name="CreateScreenshotDocumentView">
+										id="a8115f26-2e67-46ae-8b44-1169e653aac1"
+										name="LogWarningMessage">
 										</testmodule>
-										<testmodule
-										id="a46d286b-755f-4d71-a550-38206c1dbf78"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
-										<testmodule
-										id="8cb8369d-4a1b-40e8-a3f4-6e73735c224d"
-										name="CalculateFullPathToFMFromFullPathToSubitem">
-										</testmodule>
-										<testmodule
-										id="db483d36-0a40-4661-b7cb-124f89a3ab30"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="f17a0e27-987a-487d-82f7-85fd82a9a796"
-										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="0d26c018-9b61-4f33-a638-f72c0973973b"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="849ded77-4c16-4ef7-89b3-c6b6aff0a147"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
+										<smartfoldernode
+										id="ec4ccc8c-d057-4ec8-bffe-ca6f92b2d593"
+										name="ScreenShotOfTraject">
+											<testmodule
+											id="2fd41670-c26f-4e87-a94f-48c0014ca21d"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+											<testmodule
+											id="a46d286b-755f-4d71-a550-38206c1dbf78"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="31e51195-a126-4ba5-a260-f6fbc91828f8"
+										name="ScreenShotOfFMMapView">
+											<testmodule
+											id="8cb8369d-4a1b-40e8-a3f4-6e73735c224d"
+											name="CalculateFullPathToFMFromFullPathToSubitem">
+											</testmodule>
+											<testmodule
+											id="db483d36-0a40-4661-b7cb-124f89a3ab30"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="f17a0e27-987a-487d-82f7-85fd82a9a796"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="0d26c018-9b61-4f33-a638-f72c0973973b"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+											<testmodule
+											id="849ded77-4c16-4ef7-89b3-c6b6aff0a147"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="c25d568e-684c-4ddd-a3bb-db6e7efad143"
@@ -15593,10 +16787,6 @@
 											<testmodule
 											id="26d7a8df-ccc2-4ab5-9d42-739df2add8b5"
 											name="ExpandAllRowItemsInPropertiesPanel">
-											</testmodule>
-											<testmodule
-											id="607af621-b23d-4c19-a129-d7d2b1394b09"
-											name="WaitForXMiliseconds">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -15642,6 +16832,106 @@
 											id="62247137-6253-4336-84f6-bbb96f0e1f85"
 											name="ComparePlainTextFiles">
 											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="c2798510-fa56-4f5a-9f61-9c660a0f741e"
+									name="GenerateCalculations(GEKB,ZST,AGK,GEBU)">
+										<smartfoldernode
+										id="315ccb36-8406-49f0-9352-0ffc71dc3d87"
+										name="GEKB">
+											<smartfoldernode
+											id="84ca9391-147d-46a9-ab7e-45a5722bbf82"
+											name="GenerateCalculations">
+												<testmodule
+												id="50b43eb7-f7ea-4c59-915d-d278c87731d9"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="07412b73-749c-418a-8b32-ed48169604cd"
+												name="GenerateAllCalculations">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<smartfoldernode
+										id="8298c8c9-2508-4fc8-aae0-d2a2416f59d5"
+										name="ZST,AGK,GEBU">
+											<smartfoldernode
+											id="4d086c20-b346-4fe2-a69e-9001027bb5c2"
+											name="CoupleHBC">
+												<testmodule
+												id="bf70154e-7b2e-494b-bf69-23bfbcaef395"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="e46c7e30-4fc4-4cd6-89dd-777fb4d6ad1b"
+												name="CoupleCurrentItemToHBCDatabase">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="1c4f8537-73a3-4598-9b49-9951563df124"
+											name="GenerateCalculation">
+												<testmodule
+												id="2269c416-3153-451f-ad18-6198d711f9a9"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="4617bc7a-cf1a-48a5-a0de-c45808535212"
+												name="GenerateSomeScenarios">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28"
+									name="ScreenshotsOfChartsInCalculations(GEKB,ZST,AGK,GEBU)">
+										<testmodule
+										id="e6ac17d2-c46e-4281-90b7-9df6e3aab98f"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+										<smartfoldernode
+										id="83a01b87-626a-4f75-b2ab-dea719aa92dd"
+										name="LoopOriginalCharts">
+											<smartfoldernode
+											id="7679fec5-5b7e-4fef-bfd3-b4c28d528624"
+											name="AssignProfile(ZST,AGK,GEBU)">
+												<testmodule
+												id="cc265f15-49d9-42eb-90db-e9f2744646e1"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="e4c7d7a4-60a6-4e59-961f-8bad93a06ec4"
+												name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="6b07606e-7786-4411-91c1-21644b0ef180"
+											name="OpenViewWithChartAndCreateScreenshot">
+												<testmodule
+												id="df5a8098-0b92-4cd3-a1eb-439e233c9bcc"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="75996215-5470-42cf-9a98-3f5e83e6db3c"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="d08717c5-5bd4-4c38-9a69-d3b35891b9d3"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="24e7a902-60f1-4fa4-a1e5-d0dda8fc015f"
+												name="LogWarningMessage">
+												</testmodule>
+												<testmodule
+												id="d6bb1b95-022c-4091-ace2-82420d62a264"
+												name="CreateScreenshotDocumentView">
+												</testmodule>
+												<testmodule
+												id="d3877823-872c-4250-80cb-6407a13ecc2d"
+												name="CloseViewCentralPanelWithFocus">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -15754,6 +17044,46 @@
 											id="a7d93ecf-4686-4223-b53c-1ee6725c8a31"
 											name="ComparePlainTextFiles">
 											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="d1abd6bb-72d2-40c8-977b-3727875a1d18"
+									name="ScreenshotsOfChartsInCalculationsModified(GEKB,ZST,AGK,GEBU)">
+										<testmodule
+										id="856cfeb0-ecce-4ec3-a99c-b1152f61dce9"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+										<smartfoldernode
+										id="ef915d13-c7af-430b-983b-d2f611186093"
+										name="LoopChartsModified">
+											<smartfoldernode
+											id="d8fafd69-0d89-4eb1-92fb-8ef9a267242d"
+											name="OpenViewWithChartAndCreateScreenshot">
+												<testmodule
+												id="7a60d026-91ef-4711-b6b3-b992067a4f63"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="82dae4d4-7210-4b5b-aa02-dedf589021ae"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="5a80c790-6ab8-41e6-81b5-410a048ac3a0"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="9add6acd-75d7-4d90-b05f-e9a7874a3dfe"
+												name="LogWarningMessage">
+												</testmodule>
+												<testmodule
+												id="954c3ed6-165c-4839-87ee-dbba97688e2f"
+												name="CreateScreenshotDocumentView">
+												</testmodule>
+												<testmodule
+												id="3bd06185-b82d-43d0-8f95-7a82dc1ffa51"
+												name="CloseViewCentralPanelWithFocus">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -15904,6 +17234,54 @@
 											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
+									<smartfoldernode
+									id="982c8e3b-5650-4f06-a310-f89a3a4be332"
+									name="ScreenshotsOfChartsInCalculationsRemovedItems(GEKB,ZST,AGK,GEBU)">
+										<testmodule
+										id="c7ca950e-8653-4bbc-815c-8d38491959d8"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+										<smartfoldernode
+										id="64f675b0-3d0b-4f7b-a9d0-8a7a22be4648"
+										name="LoopChartsRemovedItems">
+											<smartfoldernode
+											id="43f0d6e8-00a4-4598-bce1-6999fcecd081"
+											name="OpenViewWithChartAndCreateScreenshot">
+												<testmodule
+												id="12d0493c-13a0-4145-94cb-b217cadb44b6"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="b16f63fd-0d09-4887-8b1a-0c9f65fe5e5c"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="d06e5459-3f8c-48c1-9d06-a69493a69b7f"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="301912ef-9188-40f4-8528-1f2af829b3c5"
+												name="LogWarningMessage">
+												</testmodule>
+												<testmodule
+												id="30cbcae8-5d18-4ed1-8fd6-891fe4c6e827"
+												name="CreateScreenshotDocumentView">
+												</testmodule>
+												<testmodule
+												id="5bf52942-5143-4b6d-ab1c-d532c9e6b73b"
+												name="CloseViewCentralPanelWithFocus">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="7aa65ab3-e494-45ab-959b-7afb1a12bbcc"
+								name="CleanUpInputFolder">
+									<testmodule
+									id="e21ddcf9-3f95-4abc-ab39-809306a3317e"
+									name="DeleteAllSearchFilteredFiles">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
@@ -15956,6 +17334,26 @@
 									id="cc2d28b1-b972-4645-a6f1-753186ec5039"
 									name="ValidateTextMesage">
 									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="c367ebd3-4ef0-4d17-adcf-44fec12805b2"
+								name="CleanUp">
+									<smartfoldernode
+									id="c65de29d-2390-46ef-b199-9c1f51a2f4ea"
+									name="DeleteAllFilesInInputFolder">
+										<testmodule
+										id="e273bdae-9fac-46ec-b75d-dea3d0f41da8"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="c8b5d3cd-0bad-467f-a5dd-0f528a760987"
+									name="CloseDocumentView">
+										<testmodule
+										id="fae8d4b7-7d68-4b1b-bbc2-437c492702b7"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -16085,7 +17483,7 @@
 										</testmodule>
 										<testmodule
 										id="2c870f2e-8b60-4df3-b194-7ff69db5a826"
-										name="GenerateCalculations">
+										name="GenerateSomeScenarios">
 										</testmodule>
 										<testmodule
 										id="1a8b95c1-4097-49b4-9018-9a6bbf489d9a"
@@ -17532,6 +18930,10 @@
 								<smartfoldernode
 								id="0da37e16-d891-4d5f-a9be-147a7f8a520a"
 								name="ValidateErrorMessagesMergeOldProject">
+									<testmodule
+									id="91e807e0-b5a9-4acb-b39d-beb2a96f7302"
+									name="WaitForXMiliseconds">
+									</testmodule>
 									<testmodule
 									id="860c32ca-b201-4829-9e84-13eb19c2bbff"
 									name="CreateScreenshotMessagesPanel">
@@ -21121,10 +22523,13 @@
 					pathToSchematizationsFolderItemInProjectExplorer
 				</column>
 				<column>
+					pathToCalculationsFolderInProjectExplorer
+				</column>
+				<column>
 					nameOfFileToImportSchematizations
 				</column>
 				<column>
-					rangeSchematizations
+					rangeOriginalSchematizations
 				</column>
 				<column>
 					rangeModifiedSchematizations
@@ -21140,6 +22545,12 @@
 				</column>
 				<column>
 					pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
+				</column>
+				<column>
+					pathHBCInProjectExplorer
+				</column>
+				<column>
+					pathToFileHBC
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -21168,10 +22579,13 @@
 						pathToSchematizationsFolderItemInProjectExplorer
 					</th>
 					<th>
+						pathToCalculationsFolderInProjectExplorer
+					</th>
+					<th>
 						nameOfFileToImportSchematizations
 					</th>
 					<th>
-						rangeSchematizations
+						rangeOriginalSchematizations
 					</th>
 					<th>
 						rangeModifiedSchematizations
@@ -21187,6 +22601,12 @@
 					</th>
 					<th>
 						pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
+					</th>
+					<th>
+						pathHBCInProjectExplorer
+					</th>
+					<th>
+						pathToFileHBC
 					</th>
 				</tr>
 				<tr>
@@ -21212,6 +22632,9 @@
 						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
 					</td>
 					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+					</td>
+					<td>
 						Dijkprofielen 12-2.shp
 					</td>
 					<td>
@@ -21230,6 +22653,10 @@
 					</td>
 					<td>
 						8-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -21255,6 +22682,9 @@
 						28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+						28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
+					</td>
+					<td>
 						voorland_28-1.shp
 					</td>
 					<td>
@@ -21273,6 +22703,12 @@
 					</td>
 					<td>
 						8-2&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+						28-1&gt;Hydraulische belastingen
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Oosterschelde_28-1_v02\WBI2017_Oosterschelde_28-1_v02.sqlite
 					</td>
 				</tr>
 				<tr>
@@ -21298,6 +22734,9 @@
 						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+					</td>
+					<td>
 						voorland_8-3.shp
 					</td>
 					<td>
@@ -21316,6 +22755,12 @@
 					</td>
 					<td>
 						6-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+						8-3&gt;Hydraulische belastingen
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_IJsselmeer_8-3a_v02\WBI2017_IJsselmeer_8-3a_v02.sqlite
 					</td>
 				</tr>
 				<tr>
@@ -21341,6 +22786,9 @@
 						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+					</td>
+					<td>
 						voorland_6-6.shp
 					</td>
 					<td>
@@ -21359,6 +22807,12 @@
 					</td>
 					<td>
 						8-4&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+						6-6&gt;Hydraulische belastingen
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Waddenzee_Oost_6-6_v03\WBI2017_Waddenzee_Oost_6-6_v03.sqlite
 					</td>
 				</tr>
 				<tr>
@@ -21384,6 +22838,8 @@
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+					</td>
+					<td>
 						voorland_traject_36-2.shp
 					</td>
 					<td>
@@ -21403,6 +22859,10 @@
 					</td>
 					<td>
 						8-5&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -21428,6 +22888,8 @@
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+					</td>
+					<td>
 						voorland_traject_34-1.shp
 					</td>
 					<td>
@@ -21447,6 +22909,10 @@
 					</td>
 					<td>
 						8-6&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -21472,6 +22938,8 @@
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
+					</td>
+					<td>
 						voorland_traject_44-2.shp
 					</td>
 					<td>
@@ -21491,6 +22959,130 @@
 					</td>
 					<td>
 						8-7&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="f1a6ae5f-0b09-4df3-8823-154bbf84eaf7"
+		lastknownrowcount="8"
+		name="script09_LoopOriginalCharts"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					calculationName
+				</column>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					pathToCalculationInput
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						calculationName
+					</th>
+					<th>
+						fmLabel
+					</th>
+					<th>
+						pathToCalculationInput
+					</th>
+				</tr>
+				<tr>
+					<td>
+						profiel001
+					</td>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel002
+					</td>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel002&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel003
+					</td>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel003&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel004
+					</td>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel004&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005
+					</td>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel005&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						OS_2_28-1_dk_00234
+					</td>
+					<td>
+						ZST
+					</td>
+					<td>
+						Traject 28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;OS_2_28-1_dk_00234&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						YM_2_8-3a_dk_00472
+					</td>
+					<td>
+						AGK
+					</td>
+					<td>
+						Traject 8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen&gt;YM_2_8-3a_dk_00472&gt;Invoer
+					</td>
+				</tr>
+				<tr>
+					<td>
+						WZ_1_6-6_dk_00001
+					</td>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Traject 6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;WZ_1_6-6_dk_00001&gt;Invoer
 					</td>
 				</tr>
 			</table>
@@ -31579,598 +33171,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
-		includefile="Unchecked"
-		lastknownrowcount="11"
-		name="setRelevance44_2FailureMechanismContributionView"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					TextInTraject
-				</column>
-				<column>
-					Label
-				</column>
-				<column>
-					NameFM
-				</column>
-				<column>
-					IsRelevant
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
-		includefile="Unchecked"
-		lastknownrowcount="8"
-		name="simpleAssessmentGroup1"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					SimpleAssessmentItem
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\simpleAssessmentFMsGroup1.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="f49c9f26-0231-4942-adea-d0914532efb0"
-		includefile="Unchecked"
-		lastknownrowcount="5"
-		name="simpleAssessmentGroup2"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					SimpleAssessmentItem
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\simpleAssessmentFMsGroup2.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="0b466300-a11b-4ace-860a-c951a79db2c2"
-		lastknownrowcount="6"
-		name="tableCategoriesPrefixes"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					prefix
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						prefix
-					</th>
-				</tr>
-				<tr>
-					<td>
-						I
-					</td>
-				</tr>
-				<tr>
-					<td>
-						II
-					</td>
-				</tr>
-				<tr>
-					<td>
-						III
-					</td>
-				</tr>
-				<tr>
-					<td>
-						IV
-					</td>
-				</tr>
-				<tr>
-					<td>
-						V
-					</td>
-				</tr>
-				<tr>
-					<td>
-						VI
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-		lastknownrowcount="3"
-		name="tableFMsFormulaGroup1N"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-		lastknownrowcount="3"
-		name="tableFMsForNewValueParameter_a"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="b45bfffb-5bba-474f-b237-c2f41613bb15"
-		lastknownrowcount="4"
-		name="tableFMsNValue"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					NValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						NValue
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						4
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-		lastknownrowcount="1"
-		name="tableFMsToAdjustValueDeltaL"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-		lastknownrowcount="1"
-		name="tableFMsToSetAndValidateValueFor_2NA"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6d42c555-b56d-4896-8200-5e6619488fd5"
-		lastknownrowcount="4"
-		name="tableFMsToValidateTrajectLength"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="12e9dff7-d117-4313-9d7d-2edf4975608f"
-		lastknownrowcount="6"
-		name="tableFMsWithNoNParameter"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Microstabiliteit&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Wateroverdruk bij asfaltbekleding&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding afschuiven buitentalud&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding afschuiven binnentalud&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit langsconstructies&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Technische innovaties - Technische innovaties&#10;
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-		lastknownrowcount="11"
-		name="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					fmLabel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						fmLabel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-					<td>
-						STPH
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-					<td>
-						STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						ZST
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-					<td>
-						AGK
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						HTKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-					<td>
-						BSKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						PKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						DA
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="903b5ff4-9ed4-4974-8688-9c279ca9633c"
-		lastknownrowcount="3"
-		name="tableNValueInFMsForTraject12_2"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					NValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						NValue
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-		lastknownrowcount="2"
-		name="tableScopeBoundaries"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					suffixScope
-				</column>
-				<column>
-					substringScope
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						suffixScope
-					</th>
-					<th>
-						substringScope
-					</th>
-				</tr>
-				<tr>
-					<td>
-						t
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						v
-					</td>
-					<td>
-						Section
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="f2bf6531-f64b-456a-8531-987c51060fcb"
 		lastknownrowcount="92"
 		name="script28_2_2_ValidateCSVEqualToReference"
@@ -33815,6 +34815,598 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+		includefile="Unchecked"
+		lastknownrowcount="11"
+		name="setRelevance44_2FailureMechanismContributionView"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					TextInTraject
+				</column>
+				<column>
+					Label
+				</column>
+				<column>
+					NameFM
+				</column>
+				<column>
+					IsRelevant
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+		includefile="Unchecked"
+		lastknownrowcount="8"
+		name="simpleAssessmentGroup1"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\simpleAssessmentFMsGroup1.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="f49c9f26-0231-4942-adea-d0914532efb0"
+		includefile="Unchecked"
+		lastknownrowcount="5"
+		name="simpleAssessmentGroup2"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\simpleAssessmentFMsGroup2.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="0b466300-a11b-4ace-860a-c951a79db2c2"
+		lastknownrowcount="6"
+		name="tableCategoriesPrefixes"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					prefix
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						prefix
+					</th>
+				</tr>
+				<tr>
+					<td>
+						I
+					</td>
+				</tr>
+				<tr>
+					<td>
+						II
+					</td>
+				</tr>
+				<tr>
+					<td>
+						III
+					</td>
+				</tr>
+				<tr>
+					<td>
+						IV
+					</td>
+				</tr>
+				<tr>
+					<td>
+						V
+					</td>
+				</tr>
+				<tr>
+					<td>
+						VI
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="62781130-fdeb-4216-af7f-09bd61e2f1a7"
+		lastknownrowcount="3"
+		name="tableFMsFormulaGroup1N"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
+		lastknownrowcount="3"
+		name="tableFMsForNewValueParameter_a"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="b45bfffb-5bba-474f-b237-c2f41613bb15"
+		lastknownrowcount="4"
+		name="tableFMsNValue"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					NValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						NValue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						4
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						3
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6dd3da41-63a0-417f-af27-bce097b7b5b7"
+		lastknownrowcount="1"
+		name="tableFMsToAdjustValueDeltaL"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
+		lastknownrowcount="1"
+		name="tableFMsToSetAndValidateValueFor_2NA"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6d42c555-b56d-4896-8200-5e6619488fd5"
+		lastknownrowcount="4"
+		name="tableFMsToValidateTrajectLength"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="12e9dff7-d117-4313-9d7d-2edf4975608f"
+		lastknownrowcount="6"
+		name="tableFMsWithNoNParameter"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Microstabiliteit&#10;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding&#10;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven buitentalud&#10;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven binnentalud&#10;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit langsconstructies&#10;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Technische innovaties - Technische innovaties&#10;
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
+		lastknownrowcount="11"
+		name="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					fmLabel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						fmLabel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						PKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						DA
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+		lastknownrowcount="3"
+		name="tableNValueInFMsForTraject12_2"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					NValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						NValue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+		lastknownrowcount="2"
+		name="tableScopeBoundaries"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					suffixScope
+				</column>
+				<column>
+					substringScope
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						suffixScope
+					</th>
+					<th>
+						substringScope
+					</th>
+				</tr>
+				<tr>
+					<td>
+						t
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						v
+					</td>
+					<td>
+						Section
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -33914,6 +35506,9 @@
 			id="1bcb0059-70c9-4b05-a411-d30ab8aaf6c4">
 			</testcontainer>
 			<testcontainer
+			id="1c4f8537-73a3-4598-9b49-9951563df124">
+			</testcontainer>
+			<testcontainer
 			id="1c88934b-2813-4b3a-97ab-4db4711dee65">
 			</testcontainer>
 			<testcontainer
@@ -33995,6 +35590,12 @@
 			id="309d665f-5b2e-43df-9472-0faae45c7fd0">
 			</testcontainer>
 			<testcontainer
+			id="315ccb36-8406-49f0-9352-0ffc71dc3d87">
+			</testcontainer>
+			<testcontainer
+			id="31e51195-a126-4ba5-a260-f6fbc91828f8">
+			</testcontainer>
+			<testcontainer
 			id="3442e960-8978-490a-8a4b-f3dbea48ab86">
 			</testcontainer>
 			<testcontainer
@@ -34037,6 +35638,9 @@
 			id="439fd803-5bef-41cb-be97-10a49307ed9b">
 			</testcontainer>
 			<testcontainer
+			id="43f0d6e8-00a4-4598-bce1-6999fcecd081">
+			</testcontainer>
+			<testcontainer
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
 			</testcontainer>
 			<testcontainer
@@ -34065,6 +35669,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
+			</testcontainer>
+			<testcontainer
+			id="4d086c20-b346-4fe2-a69e-9001027bb5c2">
 			</testcontainer>
 			<testcontainer
 			id="4d200627-dfbb-48ec-863c-f4e07d1effee">
@@ -34139,7 +35746,13 @@
 			id="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e">
 			</testcontainer>
 			<testcontainer
+			id="64f675b0-3d0b-4f7b-a9d0-8a7a22be4648">
+			</testcontainer>
+			<testcontainer
 			id="65439b4f-6eb7-4062-b09f-e92d7c5b75d6">
+			</testcontainer>
+			<testcontainer
+			id="6b07606e-7786-4411-91c1-21644b0ef180">
 			</testcontainer>
 			<testcontainer
 			id="6c1791c0-8489-4e65-a53f-286476db7375">
@@ -34166,6 +35779,9 @@
 			id="75bad5c9-1194-4f6f-b9a7-03f81194210d">
 			</testcontainer>
 			<testcontainer
+			id="7679fec5-5b7e-4fef-bfd3-b4c28d528624">
+			</testcontainer>
+			<testcontainer
 			id="77116ac1-99e0-4980-bbc7-a47571455387">
 			</testcontainer>
 			<testcontainer
@@ -34185,6 +35801,9 @@
 			</testcontainer>
 			<testcontainer
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
+			</testcontainer>
+			<testcontainer
+			id="7aa65ab3-e494-45ab-959b-7afb1a12bbcc">
 			</testcontainer>
 			<testcontainer
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
@@ -34214,16 +35833,28 @@
 			id="8247a7fd-fbe4-466c-bdc5-e7a63785d0a3">
 			</testcontainer>
 			<testcontainer
+			id="8298c8c9-2508-4fc8-aae0-d2a2416f59d5">
+			</testcontainer>
+			<testcontainer
+			id="83a01b87-626a-4f75-b2ab-dea719aa92dd">
+			</testcontainer>
+			<testcontainer
 			id="840b6647-42b6-4dda-8743-ad6b52db3474">
 			</testcontainer>
 			<testcontainer
 			id="84aa5111-00b7-4f95-8d59-9cd9c16bdb6a">
 			</testcontainer>
 			<testcontainer
+			id="84ca9391-147d-46a9-ab7e-45a5722bbf82">
+			</testcontainer>
+			<testcontainer
 			id="85368837-2aad-4048-bd53-0143d14c5b6b">
 			</testcontainer>
 			<testcontainer
 			id="88d1cf2f-edc6-4218-a2d1-a86f86380bd2">
+			</testcontainer>
+			<testcontainer
+			id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28">
 			</testcontainer>
 			<testcontainer
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
@@ -34260,6 +35891,9 @@
 			</testcontainer>
 			<testcontainer
 			id="97ed6c5f-f59a-4421-8650-2db42ce1fd3e">
+			</testcontainer>
+			<testcontainer
+			id="982c8e3b-5650-4f06-a310-f89a3a4be332">
 			</testcontainer>
 			<testcontainer
 			id="9947014f-3667-4ddc-8cbb-6c3862210409">
@@ -34406,7 +36040,13 @@
 			id="c25d568e-684c-4ddd-a3bb-db6e7efad143">
 			</testcontainer>
 			<testcontainer
+			id="c2798510-fa56-4f5a-9f61-9c660a0f741e">
+			</testcontainer>
+			<testcontainer
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
+			</testcontainer>
+			<testcontainer
+			id="c367ebd3-4ef0-4d17-adcf-44fec12805b2">
 			</testcontainer>
 			<testcontainer
 			id="c3bc7386-c184-4d2a-a330-c9df483c5363">
@@ -34416,6 +36056,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c55d35f7-5fcc-47b5-ab9f-93bd1370680d">
+			</testcontainer>
+			<testcontainer
+			id="c65de29d-2390-46ef-b199-9c1f51a2f4ea">
 			</testcontainer>
 			<testcontainer
 			id="c6708ce1-b12a-47da-997f-96835283f968">
@@ -34434,6 +36077,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c86750b3-30c3-461f-b163-a9dc6bf843fa">
+			</testcontainer>
+			<testcontainer
+			id="c8b5d3cd-0bad-467f-a5dd-0f528a760987">
 			</testcontainer>
 			<testcontainer
 			id="cba875f7-dd82-4f1c-90e8-8e4a17538212">
@@ -34469,6 +36115,9 @@
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
+			id="d1abd6bb-72d2-40c8-977b-3727875a1d18">
+			</testcontainer>
+			<testcontainer
 			id="d1b1a748-5931-495f-8724-a42c04084d7e">
 			</testcontainer>
 			<testcontainer
@@ -34488,6 +36137,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d8105d50-96be-4ba8-ae47-13d69c58d01f">
+			</testcontainer>
+			<testcontainer
+			id="d8fafd69-0d89-4eb1-92fb-8ef9a267242d">
 			</testcontainer>
 			<testcontainer
 			id="da304b02-5560-47e1-946e-1b62fa2532f1">
@@ -34547,6 +36199,9 @@
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
 			</testcontainer>
 			<testcontainer
+			id="ec4ccc8c-d057-4ec8-bffe-ca6f92b2d593">
+			</testcontainer>
+			<testcontainer
 			id="ecac70ee-51ea-4866-90c3-a05414ad3aab">
 			</testcontainer>
 			<testcontainer
@@ -34554,6 +36209,9 @@
 			</testcontainer>
 			<testcontainer
 			id="eed5b284-a7de-497d-87f3-dd3d9b23cbb5">
+			</testcontainer>
+			<testcontainer
+			id="ef915d13-c7af-430b-983b-d2f611186093">
 			</testcontainer>
 			<testcontainer
 			id="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1">

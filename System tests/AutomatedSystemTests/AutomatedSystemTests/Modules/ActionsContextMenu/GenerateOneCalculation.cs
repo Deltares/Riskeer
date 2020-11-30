@@ -24,29 +24,29 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The GenerateCalculations recording.
+    ///The GenerateOneCalculation recording.
     /// </summary>
     [TestModule("8513f955-1cc5-4468-875c-d51ce8a545ba", ModuleType.Recording, 1)]
-    public partial class GenerateCalculations : ITestModule
+    public partial class GenerateSomeScenarios : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static GenerateCalculations instance = new GenerateCalculations();
+        static GenerateSomeScenarios instance = new GenerateSomeScenarios();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public GenerateCalculations()
+        public GenerateSomeScenarios()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static GenerateCalculations Instance
+        public static GenerateSomeScenarios Instance
         {
             get { return instance; }
         }
@@ -93,8 +93,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Keyboard.Press("{Apps}");
             
             // Select Genereer scenario's from context menu
-            Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerScenarios' at Center.", repo.ContextMenu.GenereerScenariosInfo, new RecordItemIndex(1));
-            repo.ContextMenu.GenereerScenarios.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerCalculationAndScenarios' at Center.", repo.ContextMenu.GenereerCalculationAndScenariosInfo, new RecordItemIndex(1));
+            repo.ContextMenu.GenereerCalculationAndScenarios.Click();
             
             // Select the Indexth row, cell Use
             Report.Log(ReportLevel.Info, "Mouse", "Select the Indexth row, cell Use\r\nMouse Left Click item 'DialogGenerateCalculations.UseCellRowIndexth' at Center.", repo.DialogGenerateCalculations.UseCellRowIndexthInfo, new RecordItemIndex(2));

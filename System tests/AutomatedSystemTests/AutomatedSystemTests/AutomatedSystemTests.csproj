@@ -174,6 +174,18 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\GenerateAllCalculations.cs">
+      <BoundTo>1d761484-ac08-4004-afd8-6786aeacfa22</BoundTo>
+      <DependentUpon>GenerateAllCalculations.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a0e934e3-d202-4eec-beba-13630755015c</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\GenerateAllCalculations.UserCode.cs">
+      <BoundTo>1d761484-ac08-4004-afd8-6786aeacfa22</BoundTo>
+      <DependentUpon>GenerateAllCalculations.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>bf34dfb3-2fa9-449f-b312-bb8165f11478</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.cs">
       <BoundTo>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</BoundTo>
       <DependentUpon>SpecifyFileToImportMergeProject.rxrec</DependentUpon>
@@ -696,14 +708,14 @@
       <id>8ae21ef3-342a-4c9c-a7ac-809ad8717eba</id>
       <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\GenerateCalculations.cs">
-      <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsContextMenu\GenerateOneCalculation.cs">
+      <DependentUpon>GenerateOneCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>85c917e3-c5a0-4695-ae37-f3958d58710c</id>
       <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\GenerateCalculations.UserCode.cs">
-      <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsContextMenu\GenerateOneCalculation.UserCode.cs">
+      <DependentUpon>GenerateOneCalculation.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6d50e1d1-3b95-4960-a2dc-05b4f670fe34</id>
       <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
@@ -2145,6 +2157,11 @@
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\GenerateAllCalculations.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1d761484-ac08-4004-afd8-6786aeacfa22</id>
+      <recordtableid>901ef1a1-99bd-46f9-b3e7-943b0327353c</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</id>
@@ -2340,7 +2357,7 @@
       <id>59490521-b0d6-4832-b342-9035761334e8</id>
       <recordtableid>a2bd227a-e006-4e77-9c0d-21fc549d097c</recordtableid>
     </None>
-    <None Include="Modules\ActionsContextMenu\GenerateCalculations.rxrec">
+    <None Include="Modules\ActionsContextMenu\GenerateOneCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
       <recordtableid>8513f955-1cc5-4468-875c-d51ce8a545ba</recordtableid>

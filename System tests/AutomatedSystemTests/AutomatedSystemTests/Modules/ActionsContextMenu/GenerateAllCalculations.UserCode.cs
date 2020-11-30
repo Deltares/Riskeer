@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
-    public partial class GenerateCalculations
+    public partial class GenerateAllCalculations
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

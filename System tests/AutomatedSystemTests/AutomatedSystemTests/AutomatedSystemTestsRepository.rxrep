@@ -1456,11 +1456,10 @@ FjcAAAAASUVORK5CYII=
 			addcaps="menuitem,accessible"
 			capname="menuitem"
 			id="17056c41-6629-4a0e-8ab2-93470db9fa27"
-			name="GenereerScenarios"
+			name="GenereerCalculationAndScenarios"
 			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Genereer']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -2118,6 +2117,16 @@ gg==
 			refimgid="cd642f45-a153-4427-a178-331abd3f56c1"
 			searchtimeout="30000ms">
 				/form[@controlname='SelectionDialogBase']/container/button[@controlname='DoForSelectedButton']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="66fd60b5-d7a8-43eb-82cb-e4707b8474de"
+			name="SelectAllButton"
+			refimgid="f43f6a31-512f-466a-8850-7b899e38fe4f"
+			refpath="/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container[@controlname='panel2']/button[@controlname='SelectAllButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']
 			</item>
 			<basepath>
 				/form[@controlname='SelectionDialogBase']
