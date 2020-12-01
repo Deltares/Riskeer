@@ -16,6 +16,10 @@
 			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
 			name="teardown">
 			</teardown>
+			<smartfoldernode
+			id="20a6e075-f09e-4cb5-b555-34f997a169f5"
+			name="SelectRandomFMToAddSections">
+			</smartfoldernode>
 			<testmodule
 			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
 			name="CloseAUT"
@@ -34,6 +38,12 @@
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
 			name="setup">
 			</setup>
+			<testmodule
+			id="4064dede-ce25-4af3-a977-8b3e2c81c5b4"
+			name="GenerateRandomIndexInRangeOfSmartFolder"
+			ref="57e8241e-e1ed-4068-a5f9-cf3c3a66e673"
+			type="UserCode">
+			</testmodule>
 			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
@@ -55,6 +65,30 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="558b037f-7d0d-471c-aab0-758af8e854bf"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="8030f9bf-3e4f-4a91-8978-506e0640dbab"
+			name="ImportFMSections">
+			</smartfoldernode>
+			<testmodule
 			id="8a38fa2c-278a-402b-b04b-76be9a606eba"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -68,6 +102,68 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="9671c903-7a43-4efc-96cf-7eae0495431d"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="98f648f4-9163-4513-aa3b-64f3a84cd8a8"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="ae85447c-a4cd-441b-83a0-0cacbfc91dcd"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+					<var
+					dataname="caseNumber"
+					datasourceid="ae85447c-a4cd-441b-83a0-0cacbfc91dcd"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="a207db84-cc87-413b-b17b-1e116bda0769"
+			name="1)ImportIncompatibleFMSections">
+			</smartfoldernode>
+			<setup
+			id="a251f62c-48a6-4e79-afce-8ab9d3be741b"
+			name="setup">
+			</setup>
+			<testcase
+			id="ae85447c-a4cd-441b-83a0-0cacbfc91dcd"
+			name="script06_Vakindeling_maken_of_aanpassen">
+				<parameters>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
+					<param
+					name="caseNumber"
+					value="06">
+					</param>
+				</parameters>
+			</testcase>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -91,6 +187,14 @@
 			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
 			name="script00_MigrateProjectsFromPreviousVersions">
 			</testcase>
+			<smartfoldernode
+			id="be344e2b-f01d-4537-99e0-28dae31577e9"
+			name="2)ImportAndAdaptCompatibleFMSections">
+			</smartfoldernode>
+			<teardown
+			id="c0668967-0c5d-4bc7-9e00-2cbb924d3f40"
+			name="teardown">
+			</teardown>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkOnProgressDavid"
@@ -106,6 +210,51 @@
 					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			datasource="script06_PathToSectionsInAllFMs"
+			id="e788cec6-0977-46b3-a572-308da46e5ac4"
+			name="AddSections">
+			</smartfoldernode>
+			<testmodule
+			id="e7ab0e1e-94fb-4a8b-b2e0-c92a76a2b62a"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="ea51fbda-40e9-4a13-a394-7ca93d660570"
+			name="b)ImportModifiedReferenceLineAsFMSections">
+			</smartfoldernode>
+			<smartfoldernode
+			id="efa4a2aa-9a1a-4736-a511-778fc8f9c49f"
+			name="AddTraject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="f60bc3b3-6e6d-4e18-bf84-8ad0887e09fa"
+			name="ValidateErrorMessages">
+			</smartfoldernode>
+			<smartfoldernode
+			id="fb3a38c5-7ab8-418a-a0f8-43c20d7383f5"
+			name="a)ImportAndAdaptFMSections">
+				<parameters>
+					<param
+					name="trajectCompatibleWithFMSections"
+					value="12-2">
+					</param>
+					<param
+					name="trajectIncompatibleWithFMSections"
+					value="12-1">
+					</param>
+				</parameters>
+			</smartfoldernode>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -142,676 +291,90 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<testcase
+					id="ae85447c-a4cd-441b-83a0-0cacbfc91dcd"
+					name="script06_Vakindeling_maken_of_aanpassen">
+						<setup
+						id="a251f62c-48a6-4e79-afce-8ab9d3be741b"
+						name="setup">
+							<testmodule
+							id="558b037f-7d0d-471c-aab0-758af8e854bf"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="98f648f4-9163-4513-aa3b-64f3a84cd8a8"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="fb3a38c5-7ab8-418a-a0f8-43c20d7383f5"
+						name="a)ImportAndAdaptFMSections">
+							<smartfoldernode
+							id="a207db84-cc87-413b-b17b-1e116bda0769"
+							name="1)ImportIncompatibleFMSections">
+								<smartfoldernode
+								id="efa4a2aa-9a1a-4736-a511-778fc8f9c49f"
+								name="AddTraject">
+									<testmodule
+									id="9671c903-7a43-4efc-96cf-7eae0495431d"
+									name="AddNewTrajectUsingContextMenu">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8030f9bf-3e4f-4a91-8978-506e0640dbab"
+								name="ImportFMSections">
+									<smartfoldernode
+									id="20a6e075-f09e-4cb5-b555-34f997a169f5"
+									name="SelectRandomFMToAddSections">
+										<testmodule
+										id="4064dede-ce25-4af3-a977-8b3e2c81c5b4"
+										name="GenerateRandomIndexInRangeOfSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="e788cec6-0977-46b3-a572-308da46e5ac4"
+									name="AddSections">
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="f60bc3b3-6e6d-4e18-bf84-8ad0887e09fa"
+								name="ValidateErrorMessages">
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="be344e2b-f01d-4537-99e0-28dae31577e9"
+							name="2)ImportAndAdaptCompatibleFMSections">
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="ea51fbda-40e9-4a13-a394-7ca93d660570"
+						name="b)ImportModifiedReferenceLineAsFMSections">
+						</smartfoldernode>
+						<teardown
+						id="c0668967-0c5d-4bc7-9e00-2cbb924d3f40"
+						name="teardown">
+							<testmodule
+							id="e7ab0e1e-94fb-4a8b-b2e0-c92a76a2b62a"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="1c3e3dc8-65e4-4597-9ddb-4435bfc3ea8d"
-		lastknownrowcount="20"
-		name="kkdelavaca"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					index
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						index
-					</th>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						4
-					</td>
-				</tr>
-				<tr>
-					<td>
-						5
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6
-					</td>
-				</tr>
-				<tr>
-					<td>
-						7
-					</td>
-				</tr>
-				<tr>
-					<td>
-						8
-					</td>
-				</tr>
-				<tr>
-					<td>
-						9
-					</td>
-				</tr>
-				<tr>
-					<td>
-						10
-					</td>
-				</tr>
-				<tr>
-					<td>
-						11
-					</td>
-				</tr>
-				<tr>
-					<td>
-						12
-					</td>
-				</tr>
-				<tr>
-					<td>
-						13
-					</td>
-				</tr>
-				<tr>
-					<td>
-						14
-					</td>
-				</tr>
-				<tr>
-					<td>
-						15
-					</td>
-				</tr>
-				<tr>
-					<td>
-						16
-					</td>
-				</tr>
-				<tr>
-					<td>
-						17
-					</td>
-				</tr>
-				<tr>
-					<td>
-						18
-					</td>
-				</tr>
-				<tr>
-					<td>
-						19
-					</td>
-				</tr>
-				<tr>
-					<td>
-						20
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="f2bf6531-f64b-456a-8531-987c51060fcb"
-		lastknownrowcount="92"
-		name="script28_2_2_ValidateCSVEqualToReference"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathReferenceFile
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathReferenceFile
-					</th>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A0A.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A0B.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A45A.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Waterstanden_Categoriegrens_A45B.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A0A.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A0B.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A1A.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Hydraulische_belastingen_Golfhoogten_Categoriegrens_A1B.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D4_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D4_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D5_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D5_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D1_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D1_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D2_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D2_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D6_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D6_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D3_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D3_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D4_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D4_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D5_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D5_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D1_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D1_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D2_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D2_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D6_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D6_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D3_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D3_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D3_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D3_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D4_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D4_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D1_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D1_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D2_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D2_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D4_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D4_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D5_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D5_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D1_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D1_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D2_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D2_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D6_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D6_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D3_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak1_Vak1_Segment_50005_1D3_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D4_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D4_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D5_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D5_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D1_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D1_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D2_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D2_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D6_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D6_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D3_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak2_Vak2_Segment_50005_1D3_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D3_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D3_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D4_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D4_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D1_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D1_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D2_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Berekeningen_Vak3_Vak3_Segment_50006_1D2_ResultaatB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile1_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile1_Resultaat_Sterkte_berekeningA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile2_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile2_Resultaat_Sterkte_berekeningA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile3_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile3_Resultaat_Sterkte_berekeningA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile4_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile4_Resultaat_Sterkte_berekeningA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile1_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile1_Resultaat_Sterkte_berekeningB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile2_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile2_Resultaat_Sterkte_berekeningB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile3_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile3_Resultaat_Sterkte_berekeningB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile4_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Berekeningen_profile4_Resultaat_Sterkte_berekeningB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Hydraulische_belastingen_050-01_0048_1_IJ_km0926_InvoerA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Hydraulische_belastingen_050-01_0048_1_IJ_km0926_ResultaatA.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Berekeningen_Gemaal_Helbergen_InvoerB.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script28\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Berekeningen_Gemaal_Helbergen_ResultaatB.csv
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="69757b7b-7335-414d-be55-5dd602e14247"
-		lastknownrowcount="2"
-		name="script28_a_1_ErrorMessagesMergeOldProject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationMessage
-				</column>
-				<column>
-					row_index
-				</column>
-				<column>
-					message
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationMessage
-					</th>
-					<th>
-						row_index
-					</th>
-					<th>
-						message
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Validation message row 0
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Inlezen van project is mislukt.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Validation message row 1
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						Fout bij het lezen van bestand
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="e0667100-320d-40b6-ae06-db162b2abe65"
-		lastknownrowcount="4"
-		name="script28_b_2_FMsToImport"
+		id="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+		lastknownrowcount="18"
+		name="script06_PathToSectionsInAllFMs"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
 					labelFM
 				</column>
 				<column>
-					indexRow
+					pathToSections
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -822,7 +385,7 @@
 						labelFM
 					</th>
 					<th>
-						indexRow
+						pathToSections
 					</th>
 				</tr>
 				<tr>
@@ -830,1301 +393,7 @@
 						STPH
 					</td>
 					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB
-					</td>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						ZST
-					</td>
-					<td>
-						5
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						12
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="93d26bb6-56db-400b-b0b9-712ab1c4172f"
-		lastknownrowcount="48"
-		name="script28_b_2_LoopValidationProperties"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathToItemInProjectExplorer
-				</column>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					indexReferencePPCSVFile
-				</column>
-				<column>
-					indexRowHBCItem
-				</column>
-				<column>
-					timeToExpandPropertiesPanel
-				</column>
-				<column>
-					waitAfterExpandingPropertiesPanel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathToItemInProjectExplorer
-					</th>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						indexReferencePPCSVFile
-					</th>
-					<th>
-						indexRowHBCItem
-					</th>
-					<th>
-						timeToExpandPropertiesPanel
-					</th>
-					<th>
-						waitAfterExpandingPropertiesPanel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						2500
-					</td>
-					<td>
-						2000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						45
-					</td>
-					<td>
-						2500
-					</td>
-					<td>
-						2000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						3000
-					</td>
-					<td>
-						2500
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						7
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						3000
-					</td>
-					<td>
-						2500
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Invoer
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						9
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D4&gt;Resultaat
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						10
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Invoer
-					</td>
-					<td>
-						7
-					</td>
-					<td>
-						11
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D5&gt;Resultaat
-					</td>
-					<td>
-						8
-					</td>
-					<td>
-						12
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Invoer
-					</td>
-					<td>
-						9
-					</td>
-					<td>
-						13
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D1&gt;Resultaat
-					</td>
-					<td>
-						10
-					</td>
-					<td>
-						14
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Invoer
-					</td>
-					<td>
-						11
-					</td>
-					<td>
-						15
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D2&gt;Resultaat
-					</td>
-					<td>
-						12
-					</td>
-					<td>
-						16
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Invoer
-					</td>
-					<td>
-						13
-					</td>
-					<td>
-						17
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D6&gt;Resultaat
-					</td>
-					<td>
-						14
-					</td>
-					<td>
-						18
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Invoer
-					</td>
-					<td>
-						15
-					</td>
-					<td>
-						19
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak1&gt;Vak1 Segment_50005_1D3&gt;Resultaat
-					</td>
-					<td>
-						16
-					</td>
-					<td>
-						20
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Invoer
-					</td>
-					<td>
-						17
-					</td>
-					<td>
-						21
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D4&gt;Resultaat
-					</td>
-					<td>
-						18
-					</td>
-					<td>
-						22
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Invoer
-					</td>
-					<td>
-						19
-					</td>
-					<td>
-						23
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D5&gt;Resultaat
-					</td>
-					<td>
-						20
-					</td>
-					<td>
-						24
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Invoer
-					</td>
-					<td>
-						21
-					</td>
-					<td>
-						25
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D1&gt;Resultaat
-					</td>
-					<td>
-						22
-					</td>
-					<td>
-						26
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Invoer
-					</td>
-					<td>
-						23
-					</td>
-					<td>
-						27
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D2&gt;Resultaat
-					</td>
-					<td>
-						24
-					</td>
-					<td>
-						28
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Invoer
-					</td>
-					<td>
-						25
-					</td>
-					<td>
-						29
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D6&gt;Resultaat
-					</td>
-					<td>
-						26
-					</td>
-					<td>
-						30
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Invoer
-					</td>
-					<td>
-						27
-					</td>
-					<td>
-						31
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak2&gt;Vak2 Segment_50005_1D3&gt;Resultaat
-					</td>
-					<td>
-						28
-					</td>
-					<td>
-						32
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Invoer
-					</td>
-					<td>
-						29
-					</td>
-					<td>
-						33
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D3&gt;Resultaat
-					</td>
-					<td>
-						30
-					</td>
-					<td>
-						34
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Invoer
-					</td>
-					<td>
-						31
-					</td>
-					<td>
-						35
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D4&gt;Resultaat
-					</td>
-					<td>
-						32
-					</td>
-					<td>
-						36
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Invoer
-					</td>
-					<td>
-						33
-					</td>
-					<td>
-						37
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D1&gt;Resultaat
-					</td>
-					<td>
-						34
-					</td>
-					<td>
-						38
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Invoer
-					</td>
-					<td>
-						35
-					</td>
-					<td>
-						39
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;Vak3&gt;Vak3 Segment_50006_1D2&gt;Resultaat
-					</td>
-					<td>
-						36
-					</td>
-					<td>
-						40
-					</td>
-					<td>
-					</td>
-					<td>
-						100
-					</td>
-					<td>
-						100
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Invoer
-					</td>
-					<td>
-						37
-					</td>
-					<td>
-						73
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile1&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						38
-					</td>
-					<td>
-						74
-					</td>
-					<td>
-					</td>
-					<td>
-						10000
-					</td>
-					<td>
-						14000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Invoer
-					</td>
-					<td>
-						39
-					</td>
-					<td>
-						75
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile2&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						40
-					</td>
-					<td>
-						76
-					</td>
-					<td>
-					</td>
-					<td>
-						10000
-					</td>
-					<td>
-						14000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Invoer
-					</td>
-					<td>
-						41
-					</td>
-					<td>
-						77
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile3&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						42
-					</td>
-					<td>
-						78
-					</td>
-					<td>
-					</td>
-					<td>
-						10000
-					</td>
-					<td>
-						14000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Invoer
-					</td>
-					<td>
-						43
-					</td>
-					<td>
-						79
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profile4&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						44
-					</td>
-					<td>
-						80
-					</td>
-					<td>
-					</td>
-					<td>
-						10000
-					</td>
-					<td>
-						14000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Invoer
-					</td>
-					<td>
-						45
-					</td>
-					<td>
-						89
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;050-01_0048_1_IJ_km0926&gt;Resultaat
-					</td>
-					<td>
-						46
-					</td>
-					<td>
-						90
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Invoer
-					</td>
-					<td>
-						47
-					</td>
-					<td>
-						91
-					</td>
-					<td>
-					</td>
-					<td>
-						300
-					</td>
-					<td>
-						300
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;Gemaal Helbergen&gt;Resultaat
-					</td>
-					<td>
-						48
-					</td>
-					<td>
-						92
-					</td>
-					<td>
-					</td>
-					<td>
-						14000
-					</td>
-					<td>
-						80000
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="c21f40b2-80b9-4fec-9efc-8ecf61ceb229"
-		lastknownrowcount="7"
-		name="script28_b_2_NamesFmsInValidateMessagesMergeProject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationLabel
-				</column>
-				<column>
-					indexRow
-				</column>
-				<column>
-					expectedMessage
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationLabel
-					</th>
-					<th>
-						indexRow
-					</th>
-					<th>
-						expectedMessage
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Message start import
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						Samenvoegen van trajectinformatie is gestart.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging Hydraulic Boundary conditions
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						Gegevens van toetsspoor 'Dijken en dammen - Piping' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie kruin en binnentalud' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						Gegevens van toetsspoor 'Dijken en dammen - Stabiliteit steenzetting' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						Gegevens van toetsspoor 'Kunstwerken - Betrouwbaarheid sluiting kunstwerk' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message end import
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Samenvoegen van trajectinformatie is gelukt.
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="2b469d58-2d4d-443d-b0e5-6cf4bef9173b"
-		lastknownrowcount="5"
-		name="script28_b_2_ValidateMessagesMergeProject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationLabel
-				</column>
-				<column>
-					indexRow
-				</column>
-				<column>
-					templateExpectedMessage
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationLabel
-					</th>
-					<th>
-						indexRow
-					</th>
-					<th>
-						templateExpectedMessage
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Message start import
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						Samenvoegen van trajectinformatie is gestart.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging Hydraulic Boundary conditions
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						Hydraulische belastingen zijn samengevoegd.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						Gegevens van toetsspoor '&lt;FM&gt;' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message merging&#32;
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						Gegevens van toetsspoor '&lt;FM&gt;' zijn vervangen.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Message end import
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Samenvoegen van trajectinformatie is gelukt.
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="3c6434b8-490e-433d-bfa3-1bce94643159"
-		lastknownrowcount="2"
-		name="script29a_AddBackgroundLayer"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					backgroundFileName
-				</column>
-				<column>
-					remark
-				</column>
-				<column>
-					indexView
-				</column>
-				<column>
-					pathToAddedLayer
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						backgroundFileName
-					</th>
-					<th>
-						remark
-					</th>
-					<th>
-						indexView
-					</th>
-					<th>
-						pathToAddedLayer
-					</th>
-				</tr>
-				<tr>
-					<td>
-						X:\script29\background\brt_2011_gn1.shp
-					</td>
-					<td>
-						Large (17 MB) shape file
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						brt_2011_gn1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						X:\script29\background\gem_2011_gn1.shp
-					</td>
-					<td>
-						Small (600kB) shape file
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						gem_2011_gn1
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
-		lastknownrowcount="18"
-		name="script29a_LoopItemWithMap"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelItem
-				</column>
-				<column>
-					pathToItemWithMap
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelItem
-					</th>
-					<th>
-						pathToItemWithMap
-					</th>
-				</tr>
-				<tr>
-					<td>
-						STPH
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+						Traject&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -2132,79 +401,15 @@
 						STBI
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
 					<td>
-						STBU
+						GEKB
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STMI
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Microstabiliteit
-					</td>
-				</tr>
-				<tr>
-					<td>
-						ZST
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Stabiliteit steenzetting
-					</td>
-				</tr>
-				<tr>
-					<td>
-						AGK
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-				</tr>
-				<tr>
-					<td>
-						AWO
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GABU
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GABI
-					</td>
-					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
-					</td>
-				</tr>
-				<tr>
-					<td>
-						HTKW
-					</td>
-					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -2212,1085 +417,7 @@
 						BSKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-				</tr>
-				<tr>
-					<td>
-						PKW
-					</td>
-					<td>
-						Traject&gt;Kunstwerken - Piping bij kunstwerk
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWp
-					</td>
-					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWl
-					</td>
-					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						Traject&gt;Duinwaterkering - Duinafslag
-					</td>
-				</tr>
-				<tr>
-					<td>
-						INN
-					</td>
-					<td>
-						Traject&gt;Technische innovaties - Technische innovaties
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="90f8438a-2a25-4a1b-96af-11a120a6ecb0"
-		lastknownrowcount="4"
-		name="script29a_ZoomInZoomOut"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationInfo
-				</column>
-				<column>
-					indexViewToZoom
-				</column>
-				<column>
-					deltaVerticalZoom
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationInfo
-					</th>
-					<th>
-						indexViewToZoom
-					</th>
-					<th>
-						deltaVerticalZoom
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Zooming out view 1
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						800
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Zooming in view 2
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						-600
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Zooming in view 1
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						-800
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Zooming out view 2
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						600
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="e079db33-936e-4f23-80ce-3eb19b64441b"
-		lastknownrowcount="23"
-		name="script29b_LayerParameters"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					parameterPath
-				</column>
-				<column>
-					newValue
-				</column>
-				<column>
-					layerType
-				</column>
-				<column>
-					valueType
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						parameterPath
-					</th>
-					<th>
-						newValue
-					</th>
-					<th>
-						layerType
-					</th>
-					<th>
-						valueType
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						False
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Op basis van
-					</td>
-					<td>
-						GM_NAAM
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						DropDown
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Kleur
-					</td>
-					<td>
-						Orange
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijnkleur
-					</td>
-					<td>
-						Red
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijndikte
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						Polygons
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						False
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Op basis van
-					</td>
-					<td>
-						Naam
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						DropDown
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Kleur
-					</td>
-					<td>
-						Aqua
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijndikte
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijnstijl
-					</td>
-					<td>
-						Streep-stip
-					</td>
-					<td>
-						Lines
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						False
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kaartlaag&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Weergeven
-					</td>
-					<td>
-						True
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Labels&gt;Op basis van
-					</td>
-					<td>
-						ID
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						DropDown
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Kleur
-					</td>
-					<td>
-						Fuchsia
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijnkleur
-					</td>
-					<td>
-						Yellow
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Lijndikte
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Grootte
-					</td>
-					<td>
-						25
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stijl&gt;Symbool
-					</td>
-					<td>
-						Ster
-					</td>
-					<td>
-						Points
-					</td>
-					<td>
-						Text
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
-		lastknownrowcount="58"
-		name="script29b_LayersInMapViewForTrajectAndFailureMechanisms"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					layerName
-				</column>
-				<column>
-					labelFMTraject
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						layerName
-					</th>
-					<th>
-						labelFMTraject
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						Traject
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						Traject
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Berekeningen
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (eindpunten)
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (startpunten)
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Profielschematisaties
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Stochastische ondergrondmodellen
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Berekeningen
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Voorlandprofielen
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijkprofielen
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (eindpunten)
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (startpunten)
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Berekeningen
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Voorlandprofielen
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (eindpunten)
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (startpunten)
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Berekeningen
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Voorlandprofielen
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (eindpunten)
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (startpunten)
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STBU, STMI, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (eindpunten)
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling (startpunten)
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vakindeling&gt;Vakindeling
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
-		lastknownrowcount="18"
-		name="script29b_LoopFMs"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					pathProjectRequired
-				</column>
-				<column>
-					rangeLayersToValidate
-				</column>
-				<column>
-					pathToFMItemInProjectExplorer
-				</column>
-				<column>
-					pathToBackgroundItemInProjectExplorer
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						pathProjectRequired
-					</th>
-					<th>
-						rangeLayersToValidate
-					</th>
-					<th>
-						pathToFMItemInProjectExplorer
-					</th>
-					<th>
-						pathToBackgroundItemInProjectExplorer
-					</th>
-				</tr>
-				<tr>
-					<td>
-						STPH
-					</td>
-					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						3-14
-					</td>
-					<td>
-						Traject 12-2 STPH&gt;Dijken en dammen - Piping
-					</td>
-					<td>
-						Traject 12-2 STPH&gt;Achtergrondkaart
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STBI
-					</td>
-					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						3-14
-					</td>
-					<td>
-						Traject 41-1 STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-					<td>
-						Traject 41-1 STBI&gt;Achtergrondkaart
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB
-					</td>
-					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						15-26
-					</td>
-					<td>
-						Traject 12-2 GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						Traject 12-2 GEKB&gt;Achtergrondkaart
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						27-38
-					</td>
-					<td>
-						Traject 34-1 BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-					<td>
-						Traject 34-1 BSKW&gt;Achtergrondkaart
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3298,16 +425,7 @@
 						HTKW
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						27-38
-					</td>
-					<td>
-						Traject 36-2 HTKW&gt;Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						Traject 36-2 HTKW&gt;Achtergrondkaart
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3315,16 +433,7 @@
 						STKWp
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_20a_met_resultaten.risk
-					</td>
-					<td>
-						27-38
-					</td>
-					<td>
-						Traject 44-2 STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						Traject 44-2 STKWp&gt;Achtergrondkaart
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3332,16 +441,7 @@
 						ZST
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_15c_met_resultaten.risk
-					</td>
-					<td>
-						39-49
-					</td>
-					<td>
-						Traject 28-1 (ZST)&gt;Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						Traject 28-1 (ZST)&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3349,16 +449,7 @@
 						AGK
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_15c_met_resultaten.risk
-					</td>
-					<td>
-						39-49
-					</td>
-					<td>
-						Traject 8-3 (AGK)&gt;Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-					<td>
-						Traject 8-3 (AGK)&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3366,16 +457,7 @@
 						GEBU
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_15c_met_resultaten.risk
-					</td>
-					<td>
-						39-49
-					</td>
-					<td>
-						Traject 6-6 (GEBU)&gt;Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						Traject 6-6 (GEBU)&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3383,16 +465,7 @@
 						DA
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_15c_met_resultaten.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 14-9 (DA)&gt;Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						Traject 14-9 (DA)&gt;Achtergrondkaart
+						Traject&gt;Duinwaterkering - Duinafslag&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3400,16 +473,7 @@
 						STBU
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3417,16 +481,7 @@
 						STMI
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3434,16 +489,7 @@
 						AWO
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-52,54-58
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3451,16 +497,7 @@
 						GABU
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3468,16 +505,7 @@
 						GABI
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3485,16 +513,7 @@
 						PKW
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-58
-					</td>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Kunstwerken - Piping bij kunstwerk&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3502,16 +521,7 @@
 						STKWl
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-52,54-58
-					</td>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 				<tr>
@@ -3519,151 +529,7 @@
 						INN
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
-					</td>
-					<td>
-						50-52,54-58
-					</td>
-					<td>
-						Traject 50-1&gt;Technische innovaties - Technische innovaties
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="9a5d4fe3-4512-4979-88cb-42000bfcf37c"
-		lastknownrowcount="3"
-		name="script29b_LoopHideAllLayers"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationIndex
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationIndex
-					</th>
-				</tr>
-				<tr>
-					<td>
-						First iteration to disable visibility of all layers
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Second iteration to disable visibility of all layers
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Third iteration to disable visibility of all layers
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="aa9d7764-61b9-4353-9631-1aacd39521d6"
-		lastknownrowcount="3"
-		name="script29b_LoopValidateLayersTraject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					layerType
-				</column>
-				<column>
-					layerName
-				</column>
-				<column>
-					rangeStyleParameters
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						layerType
-					</th>
-					<th>
-						layerName
-					</th>
-					<th>
-						rangeStyleParameters
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Polygons
-					</td>
-					<td>
-						gem_2011_gn1
-					</td>
-					<td>
-						1-7
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Lines
-					</td>
-					<td>
-						Referentielijn
-					</td>
-					<td>
-						8-14
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Points
-					</td>
-					<td>
-						Hydraulische belastingen
-					</td>
-					<td>
-						15-23
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
-		lastknownrowcount="3"
-		name="script29c_LayersInMapViewForAssemblyCombinedAssessmentSection"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					layerName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						layerName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Gecombineerd vakoordeel
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische belastingen
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Referentielijn
+						Traject&gt;Technische innovaties - Technische innovaties&gt;Invoer&gt;Vakindeling
 					</td>
 				</tr>
 			</table>
@@ -3673,6 +539,39 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="20a6e075-f09e-4cb5-b555-34f997a169f5">
+			</testcontainer>
+			<testcontainer
+			id="8030f9bf-3e4f-4a91-8978-506e0640dbab">
+			</testcontainer>
+			<testcontainer
+			id="a207db84-cc87-413b-b17b-1e116bda0769">
+			</testcontainer>
+			<testcontainer
+			id="ae85447c-a4cd-441b-83a0-0cacbfc91dcd">
+			</testcontainer>
+			<testcontainer
+			id="be344e2b-f01d-4537-99e0-28dae31577e9">
+			</testcontainer>
+			<testcontainer
+			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
+			</testcontainer>
+			<testcontainer
+			id="e788cec6-0977-46b3-a572-308da46e5ac4">
+			</testcontainer>
+			<testcontainer
+			id="ea51fbda-40e9-4a13-a394-7ca93d660570">
+			</testcontainer>
+			<testcontainer
+			id="efa4a2aa-9a1a-4736-a511-778fc8f9c49f">
+			</testcontainer>
+			<testcontainer
+			id="f60bc3b3-6e6d-4e18-bf84-8ad0887e09fa">
+			</testcontainer>
+			<testcontainer
+			id="fb3a38c5-7ab8-418a-a0f8-43c20d7383f5">
+			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>
