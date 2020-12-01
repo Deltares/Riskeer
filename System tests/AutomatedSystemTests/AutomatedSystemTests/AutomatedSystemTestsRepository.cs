@@ -2140,7 +2140,6 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder _viewcategoryboundaries;
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewFolder _designwaterlevelcalculationsview;
             AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder _hydraulicbcdunes;
-            RepoItemInfo _insidedocument_isfmrelevantcellInfo;
             RepoItemInfo _btndialogInfo;
             RepoItemInfo _dropdownbuttoninrowpropertiespanelInfo;
 
@@ -2154,7 +2153,6 @@ namespace AutomatedSystemTests
                 _viewcategoryboundaries = new AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder(this);
                 _designwaterlevelcalculationsview = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelCalculationsViewFolder(this);
                 _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder(this);
-                _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "db215a7f-7857-4f38-b16c-d96366f08703");
                 _btndialogInfo = new RepoItemInfo(this, "BtnDialog", "?/?/button[@controlname='btnDialog']", 30000, null, "cefba828-ea6b-4e9d-a97a-641324e9af42");
                 _dropdownbuttoninrowpropertiespanelInfo = new RepoItemInfo(this, "DropDownButtonInRowPropertiesPanel", "?/?/button[@controlname='btnDropDown']", 30000, null, "3bf645bc-b589-440e-9827-e97c895e810b");
             }
@@ -2180,30 +2178,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The insideDocument_IsFMRelevantCell item.
-            /// </summary>
-            [RepositoryItem("db215a7f-7857-4f38-b16c-d96366f08703")]
-            public virtual Ranorex.Cell insideDocument_IsFMRelevantCell
-            {
-                get
-                {
-                    return _insidedocument_isfmrelevantcellInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The insideDocument_IsFMRelevantCell item info.
-            /// </summary>
-            [RepositoryItemInfo("db215a7f-7857-4f38-b16c-d96366f08703")]
-            public virtual RepoItemInfo insideDocument_IsFMRelevantCellInfo
-            {
-                get
-                {
-                    return _insidedocument_isfmrelevantcellInfo;
                 }
             }
 
@@ -2520,7 +2494,7 @@ namespace AutomatedSystemTests
             /// Creates a new CategoryBoundariesTraject  folder.
             /// </summary>
             public CategoryBoundariesTrajectFolder(RepoGenBaseFolder parentFolder) :
-                    base("CategoryBoundariesTraject", "?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table", parentFolder, 30000, null, false, "4745d840-a581-449e-847e-f550c8da8ab1", "")
+                    base("CategoryBoundariesTraject", "container[@controlname='tableLayoutPanel']/container[@controlname='failureMechanismAssemblyGroupBox']/container/table", parentFolder, 30000, null, false, "4745d840-a581-449e-847e-f550c8da8ab1", "")
             {
                 _trajectcategoryboundarycellInfo = new RepoItemInfo(this, "TrajectCategoryBoundaryCell", "row[@accessiblevalue>$categoryName]/cell[@accessiblename>$boundaryTypeSubstring]", 30000, null, "7a00fb5d-66a4-40e8-8a63-145f885e2cc1");
             }

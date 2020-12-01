@@ -363,15 +363,6 @@ name="AutomatedSystemTestsRepository">
 			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
 			searchtimeout="30000ms"
 			usecache="False">
-				<item
-				addcaps="cell,accessible"
-				capname="cell"
-				id="db215a7f-7857-4f38-b16c-d96366f08703"
-				name="insideDocument_IsFMRelevantCell"
-				refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
-				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
-				</item>
 				<folder
 				capname="container"
 				id="66d5c3ad-ea35-4782-8889-9aefcb8059a9"
@@ -437,10 +428,10 @@ name="AutomatedSystemTestsRepository">
 						name="TrajectCategoryBoundaryCell"
 						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/container[@controlname='tableLayoutPanel']/container[@controlname='failureMechanismAssemblyGroupBox']/container/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/container[@controlname='tableLayoutPanel']/container[@controlname='failureMechanismAssemblyGroupBox']/container/table
 						</basepath>
 					</folder>
 					<folder

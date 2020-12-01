@@ -444,20 +444,11 @@
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateExpectedCategoriesBoundaries.cs">
+      <id>d2419161-241f-4ece-8633-548539a41aca</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CalculateFullPathToFMFromFullPathToSubitem.cs">
       <id>7d817ded-00c9-4649-b93d-66f4b86400b6</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculateSectionCategoryBoundary.cs">
-      <DependentUpon>CalculateSectionCategoryBoundary.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e6e89825-6bd5-445d-a2b3-c5c8a0cdc970</id>
-      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculateSectionCategoryBoundary.UserCode.cs">
-      <DependentUpon>CalculateSectionCategoryBoundary.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6217e391-5ede-44c5-97f8-aa4b0d6a63b0</id>
-      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
     </Compile>
     <Compile Include="Modules\Calculation\CalculateFullPathToHydraulicBCcalculation.cs">
       <id>73ecd7bc-dfc1-425d-88b2-c8e4648b302c</id>
@@ -560,18 +551,6 @@
       <UserCode>true</UserCode>
       <id>3508caa8-41c7-4a29-b095-c69ec2c6f45b</id>
       <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
-      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>baec6999-9bb8-4ef5-990c-cdf55ac97b71</id>
-      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.UserCode.cs">
-      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
-      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
     </Compile>
     <Compile Include="Modules\Calculation\CalculateValueParameterN.cs">
       <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
@@ -1581,17 +1560,8 @@
       <id>0ff1e861-1102-41de-9f2b-90d77af2f13f</id>
       <BoundTo>98d503cc-6c1d-4e11-b39c-823ac4106391</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.cs">
-      <DependentUpon>ValidateSectionCategoryBoundaryInDocumentView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
-      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.UserCode.cs">
-      <DependentUpon>ValidateSectionCategoryBoundaryInDocumentView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
-      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundary.cs">
+      <id>452096ad-9aec-4f1f-b5b9-5a9f507ce492</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.cs">
       <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -1757,18 +1727,6 @@
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateWhetherFolderGivenPathContainsNode.cs">
       <id>89cc3807-c64e-4752-aaf6-996a110e3a06</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateCategoryBoundaryInPropertiesPanel.cs">
-      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f617a859-903d-4326-a423-a5b02bf60a59</id>
-      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateCategoryBoundaryInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d7fac196-e1dd-4d34-ad29-fa17def25d19</id>
-      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.cs">
       <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
@@ -2267,11 +2225,6 @@
       <id>1a2c2ff6-3175-4621-8731-c6b45579fc0c</id>
       <recordtableid>909ea538-c662-4239-a56a-672c6d28b694</recordtableid>
     </None>
-    <None Include="Modules\Calculation\CalculateSectionCategoryBoundary.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
-      <recordtableid>b235cebd-3495-47c7-96d9-f82c3092f4cb</recordtableid>
-    </None>
     <None Include="Modules\Calculation\CalculateLinearTransformationOfValue.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
@@ -2291,11 +2244,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>59d3b275-2ad2-49f7-81c7-3af9ffd72495</id>
       <recordtableid>cd64e64b-746a-4846-8490-369760278039</recordtableid>
-    </None>
-    <None Include="Modules\Calculation\CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
-      <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
     </None>
     <None Include="Modules\Calculation\CalculateTrajectCategoryBoundary.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2702,11 +2650,6 @@
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
       <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundaryInDocumentView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
-      <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>
-    </None>
     <None Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
@@ -2771,11 +2714,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b53e680-197b-47b4-82d7-5157b394bfcb</id>
       <recordtableid>2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateCategoryBoundaryInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
-      <recordtableid>80ee3780-ce84-4fd2-bf57-10594c61bb9b</recordtableid>
     </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
