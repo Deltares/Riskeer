@@ -382,6 +382,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="071a8c4d-f8a2-47fe-b782-86a55e821b77"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="07412b73-749c-418a-8b32-ed48169604cd"
 			name="GenerateAllCalculations"
 			ref="901ef1a1-99bd-46f9-b3e7-943b0327353c"
@@ -10452,6 +10458,20 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="9d6b9714-e4fe-4bec-914d-f9b18007568e"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warnMessageToLog"
+					datasourceid="a9476a5d-b871-4277-9188-1ebfe572836e"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="9dcd448b-9de2-4781-b293-0e84efa42dfc"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -10767,20 +10787,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="a4ea3db0-c17d-4323-bc85-b8c7f794576e"
-			name="ValidateErrorIcon"
-			ref="85bd5588-c795-4a99-aeaf-4daebe835849"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="index"
-					datasourceid="3a3fe5b2-2445-4628-a06e-c22d892c8271"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="a5791ed2-a3f1-4111-9d52-443ec5d8073f"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -11077,6 +11083,12 @@
 			errorbehavior="ContinueNextIteration"
 			id="a9476a5d-b871-4277-9188-1ebfe572836e"
 			name="ValidateErrorMessages">
+				<parameters>
+					<param
+					name="warnMessageToLog"
+					value="Please, notice that an error icon is present with the error message.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a9f9adcd-3761-4ad9-8b35-fef9d6d026e4"
@@ -15293,6 +15305,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="eab182bb-a30b-4371-8ff8-59e0f7e422bc"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="eab6f3e2-1a34-479c-9326-113e75d92dff"
 			name="SetRowIndexReferenceCSVFile"
 			ref="73c238ec-c63e-43b3-b646-f6bfa96076b7"
@@ -18895,12 +18913,20 @@
 								id="a9476a5d-b871-4277-9188-1ebfe572836e"
 								name="ValidateErrorMessages">
 									<testmodule
+									id="071a8c4d-f8a2-47fe-b782-86a55e821b77"
+									name="HideRanorexProgressDialog">
+									</testmodule>
+									<testmodule
+									id="9d6b9714-e4fe-4bec-914d-f9b18007568e"
+									name="CreateScreenshotMessagesPanel">
+									</testmodule>
+									<testmodule
 									id="f2946722-e181-4961-87d0-d0c9a9e795ff"
 									name="ValidateTextMesage">
 									</testmodule>
 									<testmodule
-									id="a4ea3db0-c17d-4323-bc85-b8c7f794576e"
-									name="ValidateErrorIcon">
+									id="eab182bb-a30b-4371-8ff8-59e0f7e422bc"
+									name="ShowRanorexProgressDialog">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
