@@ -20,38 +20,51 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.IO
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The NewProject recording.
+    ///The ExportReferenceLine recording.
     /// </summary>
-    [TestModule("f0658d7f-65e3-4f38-afe8-97fd942c1478", ModuleType.Recording, 1)]
-    public partial class NewProject : ITestModule
+    [TestModule("7acd185f-f9c3-4702-8878-ffbb40c9a942", ModuleType.Recording, 1)]
+    public partial class ExportReferenceLine : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static NewProject instance = new NewProject();
+        static ExportReferenceLine instance = new ExportReferenceLine();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public NewProject()
+        public ExportReferenceLine()
         {
+            fileName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static NewProject Instance
+        public static ExportReferenceLine Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _fileName;
+
+        /// <summary>
+        /// Gets or sets the value of variable fileName.
+        /// </summary>
+        [TestVariable("2388f28c-ae4b-45e9-b397-a025ce295d3d")]
+        public string fileName
+        {
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
 
 #endregion
 
@@ -73,22 +86,36 @@ namespace AutomatedSystemTests.Modules.IO
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+N' Press.", new RecordItemIndex(1));
-            Keyboard.Press(System.Windows.Forms.Keys.N | System.Windows.Forms.Keys.Control, 49, Keyboard.DefaultKeyPressTime, 1, true);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Exporteren' at Center.", repo.ContextMenu.ExporterenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Exporteren.Click();
+            Delay.Milliseconds(0);
             
-            Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileName' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(2));
+            repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileName);
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(3));
+            repo.OpslaanAls.SaveButton.Click();
+            Delay.Milliseconds(0);
+            
+            ConfirmOverwrite(repo.ButtonYesInfo);
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
+            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(6));
+            Delay.Duration(500, false);
             
         }
 

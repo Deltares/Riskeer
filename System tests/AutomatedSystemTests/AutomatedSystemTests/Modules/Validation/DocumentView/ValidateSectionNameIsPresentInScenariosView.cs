@@ -20,38 +20,62 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.IO
+namespace AutomatedSystemTests.Modules.Validation.DocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The NewProject recording.
+    ///The ValidateSectionNameIsPresentInScenariosView recording.
     /// </summary>
-    [TestModule("f0658d7f-65e3-4f38-afe8-97fd942c1478", ModuleType.Recording, 1)]
-    public partial class NewProject : ITestModule
+    [TestModule("d6dc6f64-7811-49ba-a886-f91dd25287cd", ModuleType.Recording, 1)]
+    public partial class ValidateSectionNameIsPresentInScenariosView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static NewProject instance = new NewProject();
+        static ValidateSectionNameIsPresentInScenariosView instance = new ValidateSectionNameIsPresentInScenariosView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public NewProject()
+        public ValidateSectionNameIsPresentInScenariosView()
         {
+            indexRow = "";
+            sectionName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static NewProject Instance
+        public static ValidateSectionNameIsPresentInScenariosView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _sectionName;
+
+        /// <summary>
+        /// Gets or sets the value of variable sectionName.
+        /// </summary>
+        [TestVariable("ec9217de-b696-41e7-8e2a-d0c9cf42dc15")]
+        public string sectionName
+        {
+            get { return _sectionName; }
+            set { _sectionName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRow.
+        /// </summary>
+        [TestVariable("383a1697-234a-4496-acec-2881391ae3f9")]
+        public string indexRow
+        {
+            get { return repo.indexRow; }
+            set { repo.indexRow = value; }
+        }
 
 #endregion
 
@@ -73,22 +97,14 @@ namespace AutomatedSystemTests.Modules.IO
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+N' Press.", new RecordItemIndex(1));
-            Keyboard.Press(System.Windows.Forms.Keys.N | System.Windows.Forms.Keys.Control, 49, Keyboard.DefaultKeyPressTime, 1, true);
-            
-            Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+            ValidateSectionNameIsPresentInListSectionsNames(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.ListSectionsNames);
+            Delay.Milliseconds(0);
             
         }
 

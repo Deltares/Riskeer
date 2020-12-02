@@ -20,38 +20,51 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.IO
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The NewProject recording.
+    ///The ImportSections recording.
     /// </summary>
-    [TestModule("f0658d7f-65e3-4f38-afe8-97fd942c1478", ModuleType.Recording, 1)]
-    public partial class NewProject : ITestModule
+    [TestModule("c56e0a4d-4cde-4648-9071-4d509432751d", ModuleType.Recording, 1)]
+    public partial class ImportSections : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static NewProject instance = new NewProject();
+        static ImportSections instance = new ImportSections();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public NewProject()
+        public ImportSections()
         {
+            nameFileToImport = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static NewProject Instance
+        public static ImportSections Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _nameFileToImport;
+
+        /// <summary>
+        /// Gets or sets the value of variable nameFileToImport.
+        /// </summary>
+        [TestVariable("6a282b30-91dc-4b89-8f20-ee9883a4a2e0")]
+        public string nameFileToImport
+        {
+            get { return _nameFileToImport; }
+            set { _nameFileToImport = value; }
+        }
 
 #endregion
 
@@ -79,16 +92,23 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+N' Press.", new RecordItemIndex(1));
-            Keyboard.Press(System.Windows.Forms.Keys.N | System.Windows.Forms.Keys.Control, 49, Keyboard.DefaultKeyPressTime, 1, true);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Importeren.Click();
             
-            Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameFileToImport' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(2));
+            repo.Openen.FileNameField.Element.SetAttributeValue("Text", nameFileToImport);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at Center.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(3));
+            repo.Openen.ButtonOpen.Click();
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(4));
+            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(5));
+            Delay.Duration(500, false);
             
         }
 

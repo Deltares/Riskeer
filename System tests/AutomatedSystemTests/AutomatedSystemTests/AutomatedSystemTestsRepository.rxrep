@@ -407,6 +407,194 @@ name="AutomatedSystemTestsRepository">
 				</folder>
 				<folder
 				capname="container"
+				id="9f847d0f-b605-48f5-b38e-9eb9bbefddb9"
+				isrooted="True"
+				name="FailureMechanismResultView"
+				refimgid="7e319871-37f1-4b74-b100-c8695681a8e2"
+				searchtimeout="10000ms"
+				usecache="True">
+					<folder
+					capname="table"
+					id="a41c39c2-763f-4195-aef0-17e3e2be8655"
+					isrooted="True"
+					name="TableDataGridView"
+					refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
+					searchtimeout="10000ms"
+					usecache="True">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="8033307f-3336-4988-948c-afb2b363647a"
+						name="SimpleAssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Eenvoudige toets Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a753973e-8008-4c12-8a3e-0d6003ec54fe"
+						name="DetailedAsssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="82f83abc-85cd-4e41-9a52-f2d6c8bdbe13"
+						name="DetailedAssessmentValueRowNth"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vakfaalkans Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a90b9026-beb4-464e-b648-e8b12dbef040"
+						name="CustomAsssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a435f5f1-7526-4d18-8abd-05c2e19337cf"
+						name="CustomAssessmentValueRowNth"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="46acdfee-348d-47f3-9bc5-f0b5c54d48b9"
+						name="DetailedAssessmentValueCategories"
+						refimgid="d5e7cd57-012e-45dc-a780-ed3166ba405c"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="6da47677-b322-4dab-bd59-6d55f602ab83"
+						name="DetailedAssessmentTypeCategoryIv"
+						refimgid="39de783d-7558-4f5e-9fdb-05f8989ba096"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Iv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="1694ab98-586a-430d-91f5-bc0b182c962a"
+						name="DetailedAssessmentTypeCategoryIIv"
+						refimgid="2aa90b9d-fda2-459a-be90-da306a333eed"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="9b2d5e63-ef2b-43e1-9a8f-0c211d4c05a5"
+						name="DetailedAssessmentTypeCategoryIIIv"
+						refimgid="d0fa67ad-25dd-4ca8-8494-1a42898951ab"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIIv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="d8d04833-e9a9-4ed0-82b2-dc9758d0b5d1"
+						name="DetailedAssessmentTypeCategoryIVv"
+						refimgid="642ac44d-2681-4e71-9031-94963114ca9e"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IVv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="9cc2d03f-bf48-471d-aa0d-c06809856bec"
+						name="DetailedAssessmentTypeCategoryVv"
+						refimgid="12bba804-248e-47cb-a6c3-fb6f2cfd7206"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Vv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="c02abfa6-20a8-451b-bda2-d55ecba2c807"
+						name="DetailedAssessmentValuePerSection"
+						refimgid="d7e79c29-a957-4625-8c4e-34e7f02b5c5f"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="5294fa8f-603b-466a-8599-fee257cc7b00"
+						name="DetailedAssessmentTypePerSection"
+						refimgid="ee631e46-3cea-46d3-9674-172b07516265"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="b0807c54-11d3-43fb-9287-bc528a1e89f2"
+						name="ManualAssessmentCheckbox"
+						refimgid="b46c7af8-2afc-4f3e-a087-bc1a4342b3c0"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Overschrijftoetsoordeel']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="00d80699-7fd6-4fb9-be65-1e7c0cb1d4cf"
+						name="ManualAssessmentProbability"
+						refimgid="9de06033-118b-4cb0-b892-d8d4ba07a7c9"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<item
+						addcaps="combobox,control,nativewindow"
+						capname="cell"
+						id="1ebb3e88-ed39-4a21-a541-00ca708a5129"
+						name="ManualAssessmentCategory"
+						refimgid="8fdb0378-b350-43ef-9d97-28b858f41157"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="2773dad3-50a9-4090-9be6-2ec71350b97d"
+						name="ColumnRight"
+						refimgid="421f3d5c-1450-41c9-847d-0bc97f067c1b"
+						refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']
+						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="64da24be-52b8-48ac-a0f5-bfa6d71db9d3"
+						name="ColumnLeft"
+						refimgid="1c2085e3-641d-48b4-bbd7-51575a0f4d91"
+						refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
 				id="a7a59ba5-6496-4ab2-b44f-ade262080acc"
 				isrooted="True"
 				name="ViewCategoryBoundaries"
@@ -583,6 +771,27 @@ name="AutomatedSystemTestsRepository">
 				</folder>
 				<folder
 				capname="container"
+				id="8d70b984-d778-4632-99c5-59000fa3b167"
+				isrooted="True"
+				name="ScenariosView"
+				refimgid="cb38f769-ac88-4b4e-945f-cbfdc1db2911"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					addcaps="list,accessible"
+					capname="list"
+					id="f3cd16ba-c2de-4890-b253-71355634e232"
+					name="ListSectionsNames"
+					refimgid="716f941d-5fa6-416e-a48a-d923436ecbed"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='ScenariosView']/container[@controlname='splitContainer']/container[@controlname='panel1']/?/list/list
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='ScenariosView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
 				id="5463a298-04f2-4ecb-81d1-9702c5733f45"
 				isrooted="True"
 				name="HydraulicBCDunes"
@@ -658,6 +867,15 @@ name="AutomatedSystemTestsRepository">
 				refpath="/form[@automationid='RiskeerMainWindow']/list/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDropDown']"
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDropDown']
+				</item>
+				<item
+				addcaps="cell,accessible"
+				capname="table"
+				id="e1c75820-980f-411c-9ada-a9dcd59572ae"
+				name="TableVakindeling"
+				refimgid="0c3dda7b-fc8d-4d81-90cb-b69e67b32fc5"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/table[@controlname='dataGridView']
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']

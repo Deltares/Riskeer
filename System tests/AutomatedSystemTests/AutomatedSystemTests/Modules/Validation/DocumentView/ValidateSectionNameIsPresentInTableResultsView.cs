@@ -20,38 +20,75 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.IO
+namespace AutomatedSystemTests.Modules.Validation.DocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The NewProject recording.
+    ///The ValidateSectionNameIsPresentInTableResultsView recording.
     /// </summary>
-    [TestModule("f0658d7f-65e3-4f38-afe8-97fd942c1478", ModuleType.Recording, 1)]
-    public partial class NewProject : ITestModule
+    [TestModule("11dc3edb-dbfe-4ce7-9bdc-1b55dd842556", ModuleType.Recording, 1)]
+    public partial class ValidateSectionNameIsPresentInTableResultsView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static NewProject instance = new NewProject();
+        static ValidateSectionNameIsPresentInTableResultsView instance = new ValidateSectionNameIsPresentInTableResultsView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public NewProject()
+        public ValidateSectionNameIsPresentInTableResultsView()
         {
+            indexRow = "";
+            sectionName = "";
+            indexColumnSectionName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static NewProject Instance
+        public static ValidateSectionNameIsPresentInTableResultsView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _sectionName;
+
+        /// <summary>
+        /// Gets or sets the value of variable sectionName.
+        /// </summary>
+        [TestVariable("3725fd78-b946-4c20-93a4-7c9c6c4d64ae")]
+        public string sectionName
+        {
+            get { return _sectionName; }
+            set { _sectionName = value; }
+        }
+
+        string _indexColumnSectionName;
+
+        /// <summary>
+        /// Gets or sets the value of variable indexColumnSectionName.
+        /// </summary>
+        [TestVariable("c52e6b76-c6c3-4945-9195-413db7256a14")]
+        public string indexColumnSectionName
+        {
+            get { return _indexColumnSectionName; }
+            set { _indexColumnSectionName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRow.
+        /// </summary>
+        [TestVariable("b8a4b430-38fb-43cf-b88c-f9d88a798f25")]
+        public string indexRow
+        {
+            get { return repo.indexRow; }
+            set { repo.indexRow = value; }
+        }
 
 #endregion
 
@@ -79,16 +116,7 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+N' Press.", new RecordItemIndex(1));
-            Keyboard.Press(System.Windows.Forms.Keys.N | System.Windows.Forms.Keys.Control, 49, Keyboard.DefaultKeyPressTime, 1, true);
-            
-            Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+            ValidateCellContainsSectionName(repo.RiskeerMainWindow.DocumentViewContainerUncached.FailureMechanismResultView.TableDataGridView.Self);
             
         }
 

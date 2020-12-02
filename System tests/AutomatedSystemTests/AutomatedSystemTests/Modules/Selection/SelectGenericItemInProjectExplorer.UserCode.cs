@@ -36,7 +36,10 @@ namespace AutomatedSystemTests.Modules.Selection
 
         public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
         	{
-        	var stepsPathItem = pathItem.Split('>').ToList();
+        	Mouse.DefaultMoveTime = 0;
+            Keyboard.DefaultKeyPressTime = 0;
+            Delay.SpeedFactor = 0.00;
+            var stepsPathItem = pathItem.Split('>').ToList();
         	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
         	// start up variable stepChild
         	var stepChild = children[0].As<TreeItem>();
