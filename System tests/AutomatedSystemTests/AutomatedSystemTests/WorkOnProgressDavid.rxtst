@@ -2453,7 +2453,6 @@
 			name="AddSectionsIncompatibleWithTraject">
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="e7ab0e1e-94fb-4a8b-b2e0-c92a76a2b62a"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"

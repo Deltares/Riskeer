@@ -49,6 +49,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="013d4f40-f93b-4a46-8ed2-a4243a1acb8f"
+			maxrange="3"
+			minrange="1"
+			name="ValidateSectionsInResultView">
+			</smartfoldernode>
 			<testmodule
 			id="015cd884-5fcc-4eba-ba91-95027c150de1"
 			name="HideRanorexProgressDialog"
@@ -94,6 +100,12 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="0209262f-adb1-4c73-baf1-ccf573b86231"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="02a6f501-86ea-4be7-999f-d2326441c33a"
@@ -343,6 +355,20 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="055d8792-b449-4232-9108-18799bed74bd"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="05977025-865f-4be8-95c3-b6d9318ee53e"
 			name="ImportSchematizationForCurrentlySelectedItem"
 			ref="70e43517-d352-4149-9ec3-90e95cb9cbf0"
@@ -381,6 +407,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="06d5292c-2cee-46bd-bab1-24f387804d24"
+			name="DeleteAllFilesInputFolder">
+			</smartfoldernode>
 			<testmodule
 			id="071a8c4d-f8a2-47fe-b782-86a55e821b77"
 			name="HideRanorexProgressDialog"
@@ -529,6 +559,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="09303386-ab0c-4a53-965b-dc94ea43f802"
+			name="ValidateSectionsInPropertiesPanel">
+				<parameters>
+					<param
+					name="pathCSVFileSections"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="093a8d97-f6ce-487b-b898-966c2f250a75"
 			name="ScreenshotsOfChartsInCalculations">
 				<parameters>
@@ -601,6 +641,14 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="0a4b23e3-1a0d-4e33-b474-1c253e692785"
+			name="CloseScenariosView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="0a54d675-a3ef-4f56-ad61-7e9dd6e611c6"
+			name="CleanUp">
+			</smartfoldernode>
+			<smartfoldernode
 			id="0a57be93-765c-4c1d-b82b-41fa47b1de47"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
@@ -623,6 +671,20 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="0aebc199-df3c-4374-83e8-f076241d6227"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResults"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="0aece50a-d2f7-48ed-ac7a-1e2b11de998c"
@@ -753,6 +815,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0dce02de-fddc-40bc-81a3-dc7d360852fb"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="0e0a4391-bda6-4172-89b2-16246fb8eae4"
 			name="ValidateSubsurfaceStochasticModels">
@@ -919,6 +1001,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="1062d2f6-f90b-4f77-ae82-92e064af93a8"
+			name="DeleteAllFilesInputFolder">
+			</smartfoldernode>
 			<testmodule
 			id="107da9ad-145a-4cc0-9a33-e1681cabc134"
 			name="UpdateCurrentlySelectedItem"
@@ -1044,6 +1130,12 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="116d7c0d-28ee-4ef6-afe7-899f144f80f0"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="117ce64c-294c-48c7-ae64-cdec9a44dd06"
@@ -1177,6 +1269,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="130de167-7780-4323-b228-581191591c4d"
+			name="2)ImportAndAdaptCompatibleFMSections">
+			</smartfoldernode>
 			<testmodule
 			id="13851a8a-a87f-4496-b912-74004675d141"
 			name="StartAUT"
@@ -1409,6 +1505,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="153bed26-cd9f-40dc-890f-30530635e517"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessageScreenshotBeforeImportingSections"
+					datasourceid="7c1c95aa-d547-47d1-a4a6-b113764c390c"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="155bdc31-e995-4b75-860c-31c3e605b304"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1477,6 +1587,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="161afe1d-05be-47ed-bb8c-4e5e9be82585"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="168ba32a-a3d3-4db9-a236-1e97b45e0b35"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1530,6 +1646,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="173e8983-e010-4e9e-847a-7301bebc2cac"
+			name="MakeFMDARelevant">
+				<parameters>
+					<param
+					name="fmShouldBeRelevant"
+					value="True">
+					</param>
+					<param
+					name="substringFm"
+					value="Duinwaterkering - Duinafslag">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="179d64df-9ef2-416a-b5d8-ff1b08b5df41"
 			name="SetRangeInTableForFMCViewBasedOnTrajectType"
@@ -1573,6 +1703,12 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="18d2fd49-8b30-4c72-901f-2734a633db59"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="18e78e9a-c8fb-4f6e-a1cd-a76e61cd09e7"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
 			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
@@ -1609,6 +1745,58 @@
 					<param
 					name="expectedMessage"
 					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="18edf61a-5b92-4e6f-9a01-fd9ffc0420bc"
+			name="MakeAllParametersInPropertiesPanelVisible">
+				<parameters>
+					<param
+					name="durationPressRightKey"
+					value="1000">
+					</param>
+					<param
+					name="waitDurationAfterExpanding"
+					value="500">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+			name="a)ImportAndAdaptFMSections">
+				<parameters>
+					<param
+					name="trajectCompatibleWithFMSections"
+					value="12-2">
+					</param>
+					<param
+					name="trajectIncompatibleWithFMSections"
+					value="12-1">
+					</param>
+					<param
+					name="pathFolderReferenceLine"
+					value="X:\script06\referenceLine12-2">
+					</param>
+					<param
+					name="pathFolderReferenceLine3Sections"
+					value="X:\script06\referenceLine12-2DividedIn3Sections">
+					</param>
+					<param
+					name="pathFolderReferenceLine5Sections"
+					value="X:\script06\referenceLine12-2DividedIn5Sections">
+					</param>
+					<param
+					name="pathFolderInput"
+					value="X:\script06\input">
+					</param>
+					<param
+					name="filterAllFiles"
+					value="*.*">
+					</param>
+					<param
+					name="pathToSectionsFileToImport"
+					value="X:\script06\input\referentielijn 12-2.shp">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1743,6 +1931,20 @@
 			id="1c88934b-2813-4b3a-97ab-4db4711dee65"
 			name="LoopsStructuresSomeItemsRemoved">
 			</smartfoldernode>
+			<testmodule
+			id="1cbaf957-1aca-4bdf-811d-9925ee11cddd"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="1cec723f-029d-46b1-8ec7-47ff862aa83a"
 			name="CopyFilesModifiedElements">
@@ -1756,6 +1958,10 @@
 			<smartfoldernode
 			id="1d165de9-a4a4-4deb-a9cb-331f56682100"
 			name="CalculatePathToInputCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="1d5ec65d-60c5-4d5d-97fe-0833eda47f19"
+			name="CloseResultsView">
 			</smartfoldernode>
 			<testmodule
 			id="1d63904c-91aa-4313-8cf9-5b9f1690f544"
@@ -2058,6 +2264,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="20ee6021-101e-4c7e-ad89-d23ac0f7c8ee"
+			maxrange="3"
+			minrange="1"
+			name="ValidateSectionsInResultView">
+			</smartfoldernode>
+			<testmodule
+			id="2170744e-05af-451d-a0c4-e891e72062f2"
+			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
+			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameParameterSourceLocation"
+					datasourceid="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueParameterSourceLocation"
+					datasourceid="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+					variableid="5642b8a6-821a-4701-9c40-24555e5f8c14"
+					variablename="expectedTextValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="219db77f-8900-4a09-a3a5-b6c5afcb5093"
 			name="TrajectContainingSurfaceLines">
@@ -2386,6 +2618,52 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="25d071cd-74a0-475a-88c9-eb664cf49bf7"
+			name="SetRelevanceFMInProjectExplorer"
+			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringFm"
+					datasourceid="173e8983-e010-4e9e-847a-7301bebc2cac"
+					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="trajectCompatibleWithFMSections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmShouldBeRelevant"
+					datasourceid="173e8983-e010-4e9e-847a-7301bebc2cac"
+					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
+					variablename="fmShouldBeRelevant">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="substringInTrajectName"
+					datasourceid="a40187db-bfd4-4485-baf4-2d5b0775220e"
+					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="NameFM"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
+					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="IsRelevant"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
+					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
+					variablename="fmShouldBeRelevant">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="25e61f0c-4bf7-4850-97b6-131962b44097"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2645,6 +2923,14 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			datarangeactive="True"
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_5Sections"
+			id="280eb4e0-9c7a-4e99-8957-1cea944f7c0a"
+			maxrange="5"
+			minrange="1"
+			name="ValidateSectionIsShownInResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="28168ca5-bff1-4689-8364-4bd0b21fb6b6"
 			name="GetValueParameterForItemInTraject"
@@ -2691,6 +2977,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="28c14bc8-1ee5-464f-a709-af42e7e0cea6"
+			name="CloseSectionsView">
+			</smartfoldernode>
 			<smartfoldernode
 			id="2936391c-917c-41b8-bc50-7eaafb7189b7"
 			name="BSKWIsOriginalFromProjectA">
@@ -2742,6 +3032,40 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="29e43680-a92f-476d-9975-e3f7e609861f"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+					<var
+					dataname="caseNumber"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="2a4a3cc3-a3a5-40f2-a657-e32c198385fd"
 			name="ValidateSurfaceLines">
@@ -2783,6 +3107,12 @@
 			name="ImportStructures">
 			</smartfoldernode>
 			<testmodule
+			id="2a7270c4-e0ff-49e6-8814-200aa82ed712"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="2aa4e43d-c5f5-478b-9ec6-d01cb74c9278"
 			name="LogWarningMessage"
 			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
@@ -2803,6 +3133,26 @@
 					variablename="logMessage">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="2b24bff9-8d7c-41f3-9d81-b1080f016c20"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="2b9bd66d-b1e7-46ec-b78a-ad603e79aae3"
@@ -2862,6 +3212,11 @@
 					value="">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script06_DataForSectionsInAllFMs"
+			id="2bf0edbf-7762-4bd4-a620-c1ff5995058d"
+			name="AddSectionsIncompatibleWithTraject">
 			</smartfoldernode>
 			<smartfoldernode
 			id="2c4732c7-a9f0-4016-a572-2876c684ea78"
@@ -2950,6 +3305,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="2cbfd051-3714-4ffa-a24b-85fdd290d6d2"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="2d8fb324-482e-49f9-94cb-40f41a81b87c"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -2982,6 +3343,42 @@
 					value="Bronlocatie">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="2e4b9f86-4fcb-4748-a778-bb3f13ca0fba"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateFileName"
+					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="extensionFile"
+					datasourceid="6bd6c767-478a-4cb9-9f71-8edb54605bc0"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathCreatedFile"
+					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="2ed25b3a-969e-482b-83fc-f5afe979762c"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="2efdb023-fe44-4eb1-939a-7dd9073ca6ce"
+			name="UpdateSections">
 			</smartfoldernode>
 			<testmodule
 			id="2f30a98b-47dc-42a3-8cee-a15f7b7d7ea4"
@@ -3334,6 +3731,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="353c5a75-2d23-4d9f-a58e-d6e02a5806de"
+			name="CloseResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="353f4728-5c78-4e6d-be84-e1121510453e"
 			name="DeleteAllSearchFilteredFiles"
@@ -3355,6 +3756,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="356753ce-7df0-462b-be6b-a837cb227a7d"
+			name="ValidateSectionNameIsPresentInScenariosView"
+			ref="d6dc6f64-7811-49ba-a886-f91dd25287cd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="383a1697-234a-4496-acec-2881391ae3f9"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="ec9217de-b696-41e7-8e2a-d0c9cf42dc15"
+					variablename="sectionName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="366caf7d-49b6-4631-bb0b-13f4c7ba62f0"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -3365,6 +3786,32 @@
 					datasourceid="add565ef-a3c0-4dc2-820b-345cbaff57d2"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3686f323-b754-401e-81d2-7d671da377e8"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="pathFolderReferenceLine3Sections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3489,6 +3936,17 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="37cc03e8-d0b6-4414-9c03-db3f75e9cebd"
+			name="ValidateCSVEqualTo5sectionsReference">
+			</smartfoldernode>
+			<testmodule
+			id="37d315e0-d02a-4c77-8a7e-96f5851ba251"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="3875cd75-8f51-41f9-bda8-8d50817821fb"
@@ -3618,6 +4076,20 @@
 					datasourceid="093a8d97-f6ce-487b-b898-966c2f250a75"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="39e92765-48e4-4db2-b14d-0963c3df89dc"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToScenarios"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3801,6 +4273,12 @@
 			id="3e87e3f8-952e-4f96-ad62-2c48094d7dbd"
 			name="ValidateItemNameInProjectExplorer">
 			</smartfoldernode>
+			<testmodule
+			id="3e8afae0-0207-4ba1-8e84-fa0587dcf187"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="3e978cbf-feab-40ea-b00b-e55e764f9465"
 			name="SaveProject">
@@ -3834,6 +4312,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="3f43e558-964a-4210-87d0-1a1debd443e6"
+			name="TakeScreenshotMapBeforeImportingSections">
+			</smartfoldernode>
+			<testmodule
+			id="3fa62cb0-e343-4315-9799-648fb66b17df"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="3fcc9b4a-69bb-4e75-b76e-6e010eac74cc"
 			name="ExportConfigurationSelectedCalculationToXMLFile"
@@ -3861,6 +4349,12 @@
 					variablename="SurfaceLineCollectionFileName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="4019bf3d-48af-4438-96a9-f78fbb474a06"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="4023cd1c-901f-4ce7-a858-f42918649215"
@@ -4081,6 +4575,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="437b667b-0066-4ea9-adc5-b1301f9577ef"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="438ae292-d53c-4623-a9a1-a77cfc751b8d"
+			name="OpenSectionsView">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script09_LoopSchematizations"
 			errorbehavior="ContinueNextIteration"
@@ -4133,6 +4637,12 @@
 			id="43f3f27a-2eb6-41ff-9605-4dde27108a16"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="44989e8b-21a4-48e9-91bf-3e30a43e926c"
+			name="UpdateCurrentlySelectedItem"
+			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -4232,6 +4742,44 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+			name="CalculateFileName3Sections">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="spaceChar"
+					value=" ">
+					</param>
+					<param
+					name="pathSeparatorChar"
+					value=">">
+					</param>
+					<param
+					name="underscoreChar"
+					value="_">
+					</param>
+					<param
+					name="suffixNumberOfSections"
+					value="_3Sections">
+					</param>
+					<param
+					name="extensionCsv"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="453268d1-00b9-431f-b958-4d32fe42f32a"
 			name="VerifyItemPresentInContextMenu"
@@ -4325,6 +4873,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="461df00d-2f0d-4752-9494-335d3ec6aedf"
+			name="ValidateSectionsInPropertiesPanel">
+				<parameters>
+					<param
+					name="pathCSVFileSections"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="4649db8b-0ea6-4ca7-b7a8-3a977d0fc377"
 			name="CopyFilesWithElementsRemoved">
 				<parameters>
@@ -4334,6 +4892,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="465607ae-52c1-411a-853e-c7f99b9c1930"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateFileName"
+					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="extensionFile"
+					datasourceid="6bd6c767-478a-4cb9-9f71-8edb54605bc0"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathReferenceFile"
+					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="466f7369-2ec9-4be4-ab04-8b7bc774facd"
 			name="ConcatenateStrings"
@@ -4371,6 +4955,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="469103c1-e938-4503-bd7c-0d9440b4a0d0"
+			name="ReferenceFile">
+			</smartfoldernode>
 			<smartfoldernode
 			id="46a23393-25eb-47af-ac00-83d5880c2a72"
 			name="ZSTHasBeenReplacedByProjectB">
@@ -4420,6 +5008,49 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="47391e71-4036-4b58-9927-8bd59bc9b445"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="47479d26-261b-4b12-b636-c1ee97947fce"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add .csv]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionCsv"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="461df00d-2f0d-4752-9494-335d3ec6aedf"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="4764f9ba-1c7d-455d-accb-8da729e5e0b2"
 			name="a)MergeCancelledByRiskeer">
@@ -4429,6 +5060,10 @@
 					value="Traject 50-1">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="47c34ad6-5589-4d27-ab60-f85324e97e4e"
+			name="DeleteAllFilesInputFolder">
 			</smartfoldernode>
 			<smartfoldernode
 			id="47f3ace5-7a6b-4a52-b274-ce3887d63536"
@@ -4711,6 +5346,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="4ade49c6-7c06-4053-89de-a54bb10371f2"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessageScreenshotAfterImportingSections"
+					datasourceid="8d460b47-f981-4a73-957a-73f1096322ae"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="4ae7556e-4930-43f7-8794-8679450f77c8"
 			name="CalculateLinearTransformationOfValue"
 			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
@@ -4746,6 +5395,28 @@
 			id="4b7c0206-4542-4ea4-b035-9ea6e566baf8"
 			name="TrajectNotContainingSchematizations">
 			</smartfoldernode>
+			<testmodule
+			id="4b8ffb24-9e4e-4ebe-9995-4db15847fa20"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitDurationAfterExpanding"
+					datasourceid="afd42c83-505d-4c73-a25f-627b4463b754"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitAfterExpandingPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="4ca4f10a-4dc5-484a-a05d-d566aa0cf1e9"
 			name="ValidateWhetherFolderGivenPathContainsNode"
@@ -4858,6 +5529,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="4d2c269d-76e1-42bc-84f0-b4af9c1fc81e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testcase
 			id="4d492061-048f-4be2-ab20-d63a8870b77a"
 			name="script00_StartUpApplicationForFirstTime">
@@ -5007,6 +5692,57 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="4fd685af-e7b2-427f-90c4-311c852e2817"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<description>
+					<![CDATA[Compare dumped PropertiesPanel content]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathTo5sectionsCSVReferenceFile"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="09303386-ab0c-4a53-965b-dc94ea43f802"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="f2bf6531-f64b-456a-8531-987c51060fcb"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+			name="SelectRandomFMToAddSections">
+				<parameters>
+					<param
+					name="nameSmartFolder"
+					value="AddSectionsIncompatibleWithTraject">
+					</param>
+					<param
+					name="rangeToSetInSmartFolder"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
 			id="50b43eb7-f7ea-4c59-915d-d278c87731d9"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -5050,6 +5786,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="50cce15b-661e-44b5-b352-cc72e6caa705"
+			name="1)ImportIncompatibleFMSections">
+			</smartfoldernode>
 			<testmodule
 			id="51330cc3-8fc6-4da8-ad51-229af37158ca"
 			name="SetValueParameterForItemInTraject"
@@ -5079,6 +5819,36 @@
 					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
 					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
 					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="518741a8-2165-42ee-9919-e99999fc0bc8"
+			name="OpenResultsView">
+			</smartfoldernode>
+			<testmodule
+			id="51cdf81c-8627-4b8e-bdc7-117f8ee427cd"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateFilename"
+					datasourceid="870a7258-4093-4db4-ba44-6d6d77115847"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="shapeFileExtension"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathReferenceFileToExport"
+					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -5229,6 +5999,166 @@
 					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="53a0efae-10a3-42d4-a6fc-0b1ad6b25d9c"
+			name="ValidateDataSectionsView"
+			ref="7bc728af-f14c-4f8b-8354-b59262002f99"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="labelFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a276a6e8-f9e8-4229-bf49-f21246cd4eb3"
+					variablename="fmLabel">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="b402278a-75e2-40fc-9633-be986e1bbf0e"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="indexColumnName"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="b0ef184f-2ca2-49f5-9766-98f057103c8b"
+					variablename="indexColumnName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="7d554af0-8bd7-4bba-9d0f-6f3cdfc67456"
+					variablename="valueColumnName">
+					</var>
+					<var
+					dataname="indexColumnOffsetFrom"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="bcbd5522-e112-4cc4-b85d-04c472338a33"
+					variablename="indexColumnOffsetFrom">
+					</var>
+					<var
+					dataname="valueColumnOffsetFrom"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="98919dd1-a992-46e8-bc0c-62598de99c02"
+					variablename="valueColumnOffsetFrom">
+					</var>
+					<var
+					dataname="indexColumnOffsetTo"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="07669391-705d-4b70-ad18-44c2aa9bbdc5"
+					variablename="indexColumnOffsetTo">
+					</var>
+					<var
+					dataname="valueColumnOffsetTo"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="1857284e-6211-49da-a202-a89450ebecfc"
+					variablename="valueColumnOffsetTo">
+					</var>
+					<var
+					dataname="indexColumnLength"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="03afcd51-ee84-41d5-b1cd-a39542f6dcf2"
+					variablename="indexColumnLength">
+					</var>
+					<var
+					dataname="valueColumnLength"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="036da4e5-60a6-4f75-a02a-e9463ec7d825"
+					variablename="valueColumnLength">
+					</var>
+					<var
+					dataname="indexColumnNvak"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="977fc215-146b-4555-b9b3-cd50e088cf01"
+					variablename="indexColumnNvak">
+					</var>
+					<var
+					dataname="valueColumnNvakSTPH"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="c18cb98c-19ce-4e97-8ec7-6c0fdeb8a0e2"
+					variablename="valueColumnNvakSTPH">
+					</var>
+					<var
+					dataname="valueColumnNvakSTBI"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="a8f4dcdf-17a8-4c78-9f64-98273491f169"
+					variablename="valueColumnNvakSTBI">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b402278a-75e2-40fc-9633-be986e1bbf0e"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="indexColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b0ef184f-2ca2-49f5-9766-98f057103c8b"
+					variablename="indexColumnName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="7d554af0-8bd7-4bba-9d0f-6f3cdfc67456"
+					variablename="valueColumnName">
+					</var>
+					<var
+					dataname="indexColumnOffsetFrom"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="bcbd5522-e112-4cc4-b85d-04c472338a33"
+					variablename="indexColumnOffsetFrom">
+					</var>
+					<var
+					dataname="valueColumnOffsetFrom"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="98919dd1-a992-46e8-bc0c-62598de99c02"
+					variablename="valueColumnOffsetFrom">
+					</var>
+					<var
+					dataname="indexColumnOffsetTo"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="07669391-705d-4b70-ad18-44c2aa9bbdc5"
+					variablename="indexColumnOffsetTo">
+					</var>
+					<var
+					dataname="valueColumnOffsetTo"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="1857284e-6211-49da-a202-a89450ebecfc"
+					variablename="valueColumnOffsetTo">
+					</var>
+					<var
+					dataname="indexColumnLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="03afcd51-ee84-41d5-b1cd-a39542f6dcf2"
+					variablename="indexColumnLength">
+					</var>
+					<var
+					dataname="valueColumnLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="036da4e5-60a6-4f75-a02a-e9463ec7d825"
+					variablename="valueColumnLength">
+					</var>
+					<var
+					dataname="indexColumnNvak"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="977fc215-146b-4555-b9b3-cd50e088cf01"
+					variablename="indexColumnNvak">
+					</var>
+					<var
+					dataname="valueColumnNvakSTPH"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c18cb98c-19ce-4e97-8ec7-6c0fdeb8a0e2"
+					variablename="valueColumnNvakSTPH">
+					</var>
+					<var
+					dataname="valueColumnNvakSTBI"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="a8f4dcdf-17a8-4c78-9f64-98273491f169"
+					variablename="valueColumnNvakSTBI">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -5624,6 +6554,44 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+			name="CalculateFileName">
+				<parameters>
+					<param
+					name="intermediateString1"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="intermediateString3"
+					value="">
+					</param>
+					<param
+					name="spaceChar"
+					value=" ">
+					</param>
+					<param
+					name="pathSeparatorChar"
+					value=">">
+					</param>
+					<param
+					name="underscoreChar"
+					value="_">
+					</param>
+					<param
+					name="suffixNumberOfSections"
+					value="_5Sections">
+					</param>
+					<param
+					name="extensionCsv"
+					value=".csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="56599a7a-1f99-4ea5-8b70-4d0045b18586"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
@@ -5750,6 +6718,16 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="5761c203-4f3d-446d-9d4b-46b4a1cc8a77"
+			name="PrepareFiles">
+			</smartfoldernode>
+			<testmodule
+			id="577363de-3589-4a3f-bd91-fd5c24c4b126"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="582d6baa-37a5-4e12-83c7-de684b905450"
 			name="UpdateStructures">
@@ -6079,6 +7057,27 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="5e13e804-ae59-4004-8c05-8f4e2d7c58be"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			datasource="script06_b_LoopExtensionFilesCreatedExportingReferenceLine"
+			id="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+			name="CompareWithReferenceReferenceLine">
+				<parameters>
+					<param
+					name="fullPathReferenceFile"
+					value="">
+					</param>
+					<param
+					name="fullPathCreatedFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
 			id="5e42a4e7-2596-4f23-a30b-8ed162567eeb"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -6149,6 +7148,20 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="5e911893-24bd-49cd-b1db-231d6d3eb2cf"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToScenarios"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="5ee87c9d-3e7c-48e5-adc0-218c8fda758f"
@@ -6281,6 +7294,43 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="5f92e7e3-f43b-4c1e-aa4d-7aac4238544b"
+			name="ComparePlainTextFiles"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<description>
+					<![CDATA[Compare dumped PropertiesPanel content]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathTo3sectionsCSVReferenceFile"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="461df00d-2f0d-4752-9494-335d3ec6aedf"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathReferenceFile"
+					datasourceid="f2bf6531-f64b-456a-8531-987c51060fcb"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="5f95ce06-adb9-415e-9d25-8d36708cfcc8"
 			name="ChangeNormToRandomValues">
@@ -6299,6 +7349,83 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5fc14f35-042d-4f5c-8a69-43d664ede0bf"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="09303386-ab0c-4a53-965b-dc94ea43f802"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorChar"
+					datasourceid="ebfcd51d-8076-4ea4-80eb-546c6eb1e82e"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="separatorCharInCsvFile"
+					datasourceid="bc06068a-7a31-495a-847a-d9ef5370feb6"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="600c11c5-e9fa-44e4-9611-0a29d9c1bc11"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change > into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathSeparatorChar"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="603d37f2-5151-4af3-aaac-2cace29ce971"
 			name="SelectTrajectToImportByIndex"
@@ -6454,6 +7581,12 @@
 			id="613a6b5e-aa02-4f12-89d0-8eed1b33f290"
 			name="OpenProject">
 			</smartfoldernode>
+			<testmodule
+			id="61430bb7-3288-4f94-aeb2-321bfc1a0391"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="61a3c232-ceec-4a8c-a03b-c97ff03911f2"
 			name="ChangeBoundaries">
@@ -6472,6 +7605,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="61cd5ba5-180f-4ce7-8e36-7ebbcc3232ec"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="pathFolderReferenceLine3Sections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="62247137-6253-4336-84f6-bbb96f0e1f85"
 			name="ComparePlainTextFiles"
@@ -6555,6 +7714,36 @@
 					value="Screenshot of FM view after updating surface lines and subsurface stochastic schematizations to files with elements removed">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="62f96c0c-34f3-41ca-920b-212220e3a42a"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToFolderReferenceFileForReferenceLine"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileNameReferenceLineToExport"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateFileName"
+					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="6304c83b-512c-4f0c-8a6f-a03f57dd74e2"
+			name="TakeScreenshotMapAfterImportingSections">
 			</smartfoldernode>
 			<testmodule
 			id="6331a00c-93df-4d70-aee3-bd18e4752bd5"
@@ -6869,6 +8058,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="66f4876f-a9df-4297-8881-2342f7c23c82"
+			name="ImportSections"
+			ref="c56e0a4d-4cde-4648-9071-4d509432751d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSectionsFileToImport"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="6a282b30-91dc-4b89-8f20-ee9883a4a2e0"
+					variablename="nameFileToImport">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="66fdacf1-9bba-4240-909a-a2e0015cafcd"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -6960,6 +8163,99 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="68302d1d-985c-40c6-984d-7011a7704caa"
+			name="TakeScreenshotMapBeforeImportingSections">
+			</smartfoldernode>
+			<testmodule
+			id="686526b6-82e4-49dc-8104-bd61dced56c4"
+			name="ValidateSectionNameIsPresentInTableResultsView"
+			ref="11dc3edb-dbfe-4ce7-9bdc-1b55dd842556"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="b8a4b430-38fb-43cf-b88c-f9d88a798f25"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="indexColumnName"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="c52e6b76-c6c3-4945-9195-413db7256a14"
+					variablename="indexColumnSectionName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="3725fd78-b946-4c20-93a4-7c9c6c4d64ae"
+					variablename="sectionName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c52e6b76-c6c3-4945-9195-413db7256a14"
+					variablename="indexColumnSectionName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="3725fd78-b946-4c20-93a4-7c9c6c4d64ae"
+					variablename="sectionName">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b8a4b430-38fb-43cf-b88c-f9d88a798f25"
+					variablename="indexRow">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6915a9eb-9070-4d58-bfbc-e56408120452"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change > into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathSeparatorChar"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="695eb49a-d9de-429d-8336-c595f14d6f8b"
 			name="ConcatenateStrings"
@@ -7018,6 +8314,20 @@
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
 			name="setup">
 			</setup>
+			<testcase
+			id="6a877048-89b6-4b16-8e16-fd8de63831cb"
+			name="script06_Vakindeling_maken_of_aanpassen">
+				<parameters>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
+					<param
+					name="caseNumber"
+					value="06">
+					</param>
+				</parameters>
+			</testcase>
 			<testmodule
 			id="6ad9e90b-4c16-4729-bdc2-ecae972f2c13"
 			name="SelectGenericItemInProjectExplorer"
@@ -7044,6 +8354,20 @@
 			id="6b07606e-7786-4411-91c1-21644b0ef180"
 			name="OpenViewWithChartAndCreateScreenshot">
 			</smartfoldernode>
+			<testmodule
+			id="6b34b401-857c-4f91-bb4c-27a5a392f9ae"
+			name="ImportSections"
+			ref="c56e0a4d-4cde-4648-9071-4d509432751d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSectionsFileToImport"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="6a282b30-91dc-4b89-8f20-ee9883a4a2e0"
+					variablename="nameFileToImport">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="6b662658-3148-41e0-8df4-b5523ada99ca"
 			name="GetValueParameterForItemInTraject"
@@ -7096,6 +8420,24 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="6b777e00-480c-4498-a891-13599cefaff7"
+			name="CalculateFilesNames">
+				<parameters>
+					<param
+					name="intermediateFileName"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datarangeactive="True"
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
+			id="6be7c3cb-0bb4-4632-b155-6fab5d9b1282"
+			maxrange="3"
+			minrange="1"
+			name="ValidateSectionIsShownInResultsView">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script12_LoopRemainingStructures"
 			errorbehavior="ContinueNextIteration"
@@ -7151,6 +8493,35 @@
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="6c85ada9-44ff-4928-beaf-5e1547620ba1"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[add suffix numer sections]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString3"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNumberOfSections"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -7228,6 +8599,24 @@
 			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="6e28ba97-b3fa-4513-9731-9febe7584e5d"
+			name="AddTraject">
+				<parameters>
+					<param
+					name="normType"
+					value="Signal">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
+					</param>
+					<param
+					name="lowerLimit"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="6ee760cf-0a51-4f6d-a69a-a585b0fba2aa"
 			name="SetValueWithKeyPressParameterForItemInTraject"
@@ -7291,6 +8680,12 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="70d0c776-03c5-4608-880f-f603be7add82"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="70deae14-0437-4d90-a226-97156bd7d760"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -7314,6 +8709,32 @@
 					<var
 					dataname="fullPathToSingleCalculationInput"
 					datasourceid="c2835620-b926-49c7-95b5-58ccb48f4e0e"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="70f8eee1-9943-4229-9449-dcc01210b84e"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileNameReferenceLineToExport"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateFileName"
+					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
@@ -7433,6 +8854,14 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datarangeactive="True"
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
+			id="72cdd43d-46ec-48fc-a614-f60d89d72bb3"
+			maxrange="3"
+			minrange="1"
+			name="ValidateSectionIsShownInScenariosView">
+			</smartfoldernode>
+			<smartfoldernode
 			id="7303e49b-393b-461c-8ddd-602529b61f6b"
 			name="SignallingValue">
 			</smartfoldernode>
@@ -7479,6 +8908,20 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="73b2a7b0-88ea-44fd-89fc-4c68bf906fd1"
+			name="ExportReferenceLine"
+			ref="7acd185f-f9c3-4702-8878-ffbb40c9a942"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathReferenceFileToExport"
+					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					variableid="2388f28c-ae4b-45e9-b397-a025ce295d3d"
+					variablename="fileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="73c088e4-c78f-4cd9-bd68-d1cf0452861e"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -7504,6 +8947,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="73dfaf55-eac9-4560-b4aa-51ffbb0a2270"
+			name="Export">
+				<parameters>
+					<param
+					name="pathToReferenceLineItemInProjectExplorer"
+					value="Traject>Referentielijn">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="74035977-a3a8-4e38-aeec-56af9c1bde9f"
 			name="setup">
@@ -7641,6 +9094,12 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
+			id="768203a1-25ae-487f-9c35-75ab3487fbde"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="76836ed0-e1a1-4564-94a1-ec22e5d78222"
 			name="ComparePlainTextFiles"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
@@ -7677,6 +9136,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="768ae488-cc72-4955-9425-b49c87a88746"
+			name="setup">
+			</setup>
 			<testmodule
 			id="76e20c09-5865-481c-a272-a9892467fcc2"
 			name="ReplaceSubstring"
@@ -7894,6 +9357,20 @@
 			name="SelectTrajectType">
 			</smartfoldernode>
 			<testmodule
+			id="78b3fb7f-2f54-4393-a7d2-9f5aade42062"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="78bf989d-d577-454e-8c9f-98fbfed4ccd1"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -7988,6 +9465,43 @@
 					<var
 					dataname="csvFileName"
 					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="79c43922-cde6-43e4-b2e3-40958e9059bf"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[Add .csv]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionCsv"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="09303386-ab0c-4a53-965b-dc94ea43f802"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
@@ -8112,12 +9626,33 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script06_DataForSectionsInAllFMs"
+			id="7c1c95aa-d547-47d1-a4a6-b113764c390c"
+			maxrange="3"
+			minrange="0"
+			name="LoopFMs5Sections">
+				<parameters>
+					<param
+					name="logMessageScreenshotBeforeImportingSections"
+					value="Plese, take a look at the map of the FM before importing the file with 5 sections (vakindeling).">
+					</param>
+					<param
+					name="logMessageScreenshotAfterImportingSections"
+					value="Plese, take a look at the map of the FM after importing the file with 5 sections (vakindeling).">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datarangeset="1,2,4"
 			datasource="script28_b_2_FMsToImport"
 			id="7c978246-0305-4288-ae9e-62e3e278f2e1"
 			maxrange="3"
 			minrange="0"
 			name="SelectFMsToImportInDialog">
+			</smartfoldernode>
+			<smartfoldernode
+			id="7c9adae9-d2b4-4cdc-8bde-70d8df140eab"
+			name="AddSectionsCompatibleWithTraject">
 			</smartfoldernode>
 			<smartfoldernode
 			id="7c9b9046-a29e-496e-bc0a-56bf4e5681e4"
@@ -8389,6 +9924,10 @@
 			id="7f638b8b-b98b-4b5c-9ed5-1811866af221"
 			name="SchematizationsWithElementsRemoved">
 			</smartfoldernode>
+			<smartfoldernode
+			id="7f85b222-1903-4de6-8bdf-467dc62c38b3"
+			name="ImportFMSections">
+			</smartfoldernode>
 			<testmodule
 			id="808f5306-0ee1-4179-afa4-d43b38dfc9ba"
 			name="SelectGenericItemInProjectExplorer"
@@ -8462,6 +10001,12 @@
 			id="81ea0df2-e684-46cb-be15-b365c8220892"
 			name="CopyOriginalFiles">
 			</smartfoldernode>
+			<testmodule
+			id="820cb290-5f7b-4c6a-9f1b-402c4d7ed496"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="8247a7fd-fbe4-466c-bdc5-e7a63785d0a3"
 			name="TrajectContainingStructures">
@@ -8555,6 +10100,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="8369b59d-1b32-4ab6-aa83-65b2841f2659"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="waitDurationAfterExpanding"
+					datasourceid="18edf61a-5b92-4e6f-9a01-fd9ffc0420bc"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="waitAfterExpandingPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopOriginalCharts"
 			errorbehavior="ContinueNextIteration"
@@ -8571,6 +10138,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="83f84b5c-f5d2-418d-84b5-83c56276f219"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="840b6647-42b6-4dda-8743-ad6b52db3474"
 			name="RandomChoiceFMsToImport">
@@ -8630,6 +10217,12 @@
 			id="84ca9391-147d-46a9-ab7e-45a5722bbf82"
 			name="GenerateCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="84cd6b42-7fdc-41ce-8ecb-15a952554b37"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="85368837-2aad-4048-bd53-0143d14c5b6b"
 			name="PrepareRiskeer">
@@ -8785,6 +10378,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="870a7258-4093-4db4-ba44-6d6d77115847"
+			name="CalculateFileName">
+				<parameters>
+					<param
+					name="intermediateFilename"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="8733f52a-6c99-4718-bf88-69a7da457428"
 			name="CalculateExpectedCategoriesBoundaries"
@@ -8882,6 +10485,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="8922e9d7-e3b8-4c9c-bada-62f124d80356"
+			name="CreatedFile">
+			</smartfoldernode>
 			<testmodule
 			id="898406e9-0429-4244-b957-7f023b63d551"
 			name="SetRangeInSmartFolder"
@@ -8901,6 +10508,12 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="89cfe102-25e4-448b-b6f5-957c1eb2c5ac"
+			name="CreateScreenShotPropertiesPanel"
+			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="89dffbf7-b6b5-445b-a57f-af383a97ef3d"
@@ -9111,6 +10724,70 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
+			id="8b534206-7cb5-4653-bb79-2637d3f61ed1"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change <space> into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="spaceChar"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="8b9cd31c-0131-4828-94fa-6314eb03a254"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[prepend output folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8b9e928a-7415-4a15-b17b-dc41f97e280c"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
 			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
@@ -9276,6 +10953,23 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script06_DataForSectionsInAllFMs"
+			id="8d460b47-f981-4a73-957a-73f1096322ae"
+			maxrange="3"
+			minrange="0"
+			name="LoopFMs3Sections">
+				<parameters>
+					<param
+					name="logMessageScreenshotBeforeImportingSections"
+					value="Plese, take a look at the map of the FM before importing the file with 3 sections (vakindeling).">
+					</param>
+					<param
+					name="logMessageScreenshotAfterImportingSections"
+					value="Plese, take a look at the map of the FM after importing the file with 3 sections (vakindeling).">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="8e1b46c8-4cf8-4f35-ac23-bf747d4d77a5"
 			name="ComparePlainTextFiles"
@@ -9435,6 +11129,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="8f009fcf-7177-42c1-bb24-4cf205c0f56d"
+			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
+			ref="be67159d-b95e-4ab7-8583-e9482fd3475d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameParameterSections"
+					datasourceid="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedValueParameterSections"
+					datasourceid="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+					variableid="5642b8a6-821a-4701-9c40-24555e5f8c14"
+					variablename="expectedTextValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8f030b48-2d84-4982-8665-bdc10d0ccb71"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -9503,6 +11217,24 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="906308bf-e6bd-45f9-8b99-8c14c843aeac"
+			name="AddTraject">
+				<parameters>
+					<param
+					name="normType"
+					value="Signal">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
+					</param>
+					<param
+					name="lowerLimit"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="9080cf65-a250-45f2-980e-546044b71f4e"
 			name="CreateScreenShotPropertiesPanel"
@@ -9576,6 +11308,12 @@
 					variablename="logMessage">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="913ca945-7854-4b84-a913-a06e8358470a"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="91807f40-b409-4e4b-a55e-e077841baa87"
@@ -9673,6 +11411,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="92db7cc6-01af-468c-996d-05158b009670"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="92dea502-6257-4bde-bc42-dc12a7b38074"
 			name="SpecifyFileToImportMergeProject"
@@ -9780,6 +11522,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="92f7b6dd-cb81-4dd9-86c5-3e101cc99892"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineItemInProjectExplorer"
+					datasourceid="73dfaf55-eac9-4560-b4aa-51ffbb0a2270"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="93224d6a-18ee-438b-902b-7b10fa9aaaaa"
 			name="HideRanorexProgressDialog"
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
@@ -9880,6 +11636,24 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+			name="b)ImportModifiedReferenceLineAsFMSections">
+				<parameters>
+					<param
+					name="fileNameReferenceLineToExport"
+					value="referenceLineExported">
+					</param>
+					<param
+					name="pathToFolderReferenceFileForReferenceLine"
+					value="X:\script06\reference\">
+					</param>
+					<param
+					name="shapeFileExtension"
+					value=".shp">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="954c3ed6-165c-4839-87ee-dbba97688e2f"
 			name="CreateScreenshotDocumentView"
@@ -10186,6 +11960,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="98ca9369-f0f8-41ce-ba4d-25606617f8bb"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationPressRightKey"
+					datasourceid="afd42c83-505d-4c73-a25f-627b4463b754"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="timeToExpandPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="9947014f-3667-4ddc-8cbb-6c3862210409"
 			name="SetRowValidationCSVAgain">
@@ -10249,6 +12045,32 @@
 			id="99ca5bee-7d1f-4ceb-b4cc-ce33cfc2aacb"
 			name="1)OldVersionProject">
 			</smartfoldernode>
+			<testmodule
+			id="9a528f19-483d-4b23-804f-e6139bbe2761"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+					<var
+					dataname="pathFolderReferenceLine5Sections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="9a5c4808-2611-4724-8a6d-65f24e608a1c"
@@ -10362,6 +12184,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="9cf7d2de-db60-47e3-b8a5-c8261d31448a"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessageScreenshotBeforeImportingSections"
+					datasourceid="8d460b47-f981-4a73-957a-73f1096322ae"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="9d05f2e1-ed03-48f0-9f57-f0c36e70420e"
 			name="SpecifyFileToImportMergeProject"
@@ -10514,6 +12350,11 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			errorbehavior="ContinueNextIteration"
+			id="9e503c0d-3304-473f-a7ef-238a8e9a3a46"
+			name="ValidateCSVEqualTo3sectionsReference">
+			</smartfoldernode>
+			<smartfoldernode
 			id="9e8eca0a-ff9a-4e31-832f-4d72a500ba81"
 			name="MakeAllItemsInPropertiesPanelVisible">
 			</smartfoldernode>
@@ -10607,6 +12448,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="9fd7050f-0cf6-4f35-8e71-dafaca82a9e9"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="9fef915e-3c91-4890-b61e-fc7cad92a75d"
 			name="ExportPropertiesPanelToCsv"
 			ref="0024b22f-d58b-4ef0-a67d-463153071618"
@@ -10647,6 +12494,12 @@
 			id="a08e47f1-1840-4726-8582-2aa29c47a8d9"
 			name="CancelImportMerge">
 			</smartfoldernode>
+			<testmodule
+			id="a0f4b226-52f7-4b48-a8ed-e1b82dc2e950"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="a1345703-465f-4a69-9294-50c95948e940"
 			name="ConcatenateStrings"
@@ -10787,6 +12640,24 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="a4fff103-ad0b-4ae9-8651-7d76a14c9c32"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="a51eac73-35ff-4cec-9de4-4636e98286e8"
+			name="OpenScenariosView">
+			</smartfoldernode>
+			<testmodule
 			id="a5791ed2-a3f1-4111-9d52-443ec5d8073f"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -10893,11 +12764,29 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="a6adeb5b-e741-4b37-bf7b-c7153d3047a5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="a6fed1ae-4fdd-41f2-a6ef-3ccef2e9b34c"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7"
+			name="PrepareFiles3sections">
+			</smartfoldernode>
 			<testmodule
 			id="a7b21ed5-8b7b-4614-9582-9bb43bc8b2ed"
 			name="SelectGenericItemInProjectExplorer"
@@ -11281,6 +13170,31 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="ad98fbb9-ff54-498c-9c5d-b2637b8251d6"
+			name="ValidateSectionsInScenariosView">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="pathToScenarios"
+								id="9bfb73df-276d-4d0f-b99d-55d1e58e5552">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			id="add565ef-a3c0-4dc2-820b-345cbaff57d2"
 			name="ModifyTraject">
 				<parameters>
@@ -11318,10 +13232,36 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="afd42c83-505d-4c73-a25f-627b4463b754"
+			name="MakeAllParametersInPropertiesPanelVisible">
+				<parameters>
+					<param
+					name="durationPressRightKey"
+					value="1000">
+					</param>
+					<param
+					name="waitDurationAfterExpanding"
+					value="500">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="b01e611d-96e8-45ef-a5fe-8ac0536805fd"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="b025e14d-e99d-4886-a896-cb18b574c9a8"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="b048c984-533c-4da8-8ba4-eb0323fc9576"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -11373,6 +13313,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="b159c954-881e-4d28-a7f3-58f8c6f49fc0"
+			name="OpenResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="b16f63fd-0d09-4887-8b1a-0c9f65fe5e5c"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -11419,6 +13363,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b17d2b41-d217-4d4e-9539-40b79391f7b9"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="b51bcdde-7605-4b7f-80c2-6cd819047001"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedMessage"
+					datasourceid="b51bcdde-7605-4b7f-80c2-6cd819047001"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b1aa1457-65a2-4d85-a8d4-b26c75a45d97"
 			name="TrajectNotContainingStructures">
@@ -11654,6 +13618,92 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="b3fe9d09-72c3-4da2-9f24-a23aa539eed7"
+			name="ValidateDataSectionsView"
+			ref="7bc728af-f14c-4f8b-8354-b59262002f99"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="labelFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a276a6e8-f9e8-4229-bf49-f21246cd4eb3"
+					variablename="fmLabel">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b402278a-75e2-40fc-9633-be986e1bbf0e"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="indexColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b0ef184f-2ca2-49f5-9766-98f057103c8b"
+					variablename="indexColumnName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="7d554af0-8bd7-4bba-9d0f-6f3cdfc67456"
+					variablename="valueColumnName">
+					</var>
+					<var
+					dataname="indexColumnOffsetFrom"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="bcbd5522-e112-4cc4-b85d-04c472338a33"
+					variablename="indexColumnOffsetFrom">
+					</var>
+					<var
+					dataname="valueColumnOffsetFrom"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="98919dd1-a992-46e8-bc0c-62598de99c02"
+					variablename="valueColumnOffsetFrom">
+					</var>
+					<var
+					dataname="indexColumnOffsetTo"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="07669391-705d-4b70-ad18-44c2aa9bbdc5"
+					variablename="indexColumnOffsetTo">
+					</var>
+					<var
+					dataname="valueColumnOffsetTo"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="1857284e-6211-49da-a202-a89450ebecfc"
+					variablename="valueColumnOffsetTo">
+					</var>
+					<var
+					dataname="indexColumnLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="03afcd51-ee84-41d5-b1cd-a39542f6dcf2"
+					variablename="indexColumnLength">
+					</var>
+					<var
+					dataname="valueColumnLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="036da4e5-60a6-4f75-a02a-e9463ec7d825"
+					variablename="valueColumnLength">
+					</var>
+					<var
+					dataname="indexColumnNvak"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="977fc215-146b-4555-b9b3-cd50e088cf01"
+					variablename="indexColumnNvak">
+					</var>
+					<var
+					dataname="valueColumnNvakSTPH"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c18cb98c-19ce-4e97-8ec7-6c0fdeb8a0e2"
+					variablename="valueColumnNvakSTPH">
+					</var>
+					<var
+					dataname="valueColumnNvakSTBI"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="a8f4dcdf-17a8-4c78-9f64-98273491f169"
+					variablename="valueColumnNvakSTBI">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b420fd50-b3de-4b34-a456-3648bf9b093d"
 			name="ImportOriginalStructures">
@@ -11712,6 +13762,26 @@
 					datasourceid="5694bd07-ff69-4150-a5f6-10275850bac6"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b5c03591-fbfe-49c7-b2e5-e6764c1158ed"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
 			</testmodule>
@@ -11794,6 +13864,26 @@
 					variablename="milisecondsToWait">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b6e3dd3a-a140-4777-8895-1cdc8607fc0a"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeToSetInSmartFolder"
+					datasourceid="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="b6f34685-fd1f-4fe7-a6ac-d49be6757108"
@@ -11895,6 +13985,10 @@
 					value="LoopStructuresRemainingItems">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="b7d97cbc-8a74-460b-9aaa-a1a311c7f862"
+			name="PrepareFiles5sections">
 			</smartfoldernode>
 			<testmodule
 			id="b803a090-abdd-4bb2-af7d-6184eaee89b9"
@@ -12112,6 +14206,26 @@
 			id="b8f252d0-e982-48d5-b0b3-c0afc39e2851"
 			name="LoopsSchematizationsSomeItemsRemoved">
 			</smartfoldernode>
+			<testmodule
+			id="b97d0810-d0f3-4ee8-99da-a7580a81e3e0"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessageScreenshotAfterImportingSections"
+					datasourceid="7c1c95aa-d547-47d1-a4a6-b113764c390c"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b9d72f6f-c7a0-4d84-8af2-03297aa3eb29"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="b9dce29f-ab40-499d-9a8c-ed2074bd40e0"
 			name="ConcatenateStrings"
@@ -12365,6 +14479,26 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="bc2841c5-2a84-47dc-b235-7eb42ce17c00"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterAllFiles"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="pathFolderInput"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="bc659d8b-6d37-40d4-b0b6-26299db988a1"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -12443,9 +14577,37 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+			name="ValidateNoSectionsHaveBeenImported">
+				<parameters>
+					<param
+					name="nameParameterSourceLocation"
+					value="Bronlocatie">
+					</param>
+					<param
+					name="expectedValueParameterSourceLocation"
+					value="">
+					</param>
+					<param
+					name="nameParameterSections"
+					value="Vakindeling">
+					</param>
+					<param
+					name="expectedValueParameterSections"
+					value="Aantal (0)">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="bdb6824b-28dc-4f2f-987b-572c1325bca4"
 			name="MakeAllParametersInPropertiesPanelVisible">
 			</smartfoldernode>
+			<testmodule
+			id="bdf6e19b-53fe-4293-9bb1-36fbbbc3bcf7"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="be0b9283-39bf-4507-9486-5e9083ca9207"
 			name="SetRangeInSmartFolder"
@@ -12544,6 +14706,10 @@
 			<smartfoldernode
 			id="bf3b2b23-c737-43fb-9220-4444f3d2bb6d"
 			name="CheckWithOriginalValues">
+			</smartfoldernode>
+			<smartfoldernode
+			id="bf644a75-8663-4758-ac80-72c862bfda7f"
+			name="OpenSectionsView">
 			</smartfoldernode>
 			<testmodule
 			id="bf70154e-7b2e-494b-bf69-23bfbcaef395"
@@ -12900,6 +15066,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="c319d35b-78ea-400a-b69e-e33aae8e7fd3"
+			name="NewProject"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			enabled="False"
 			id="c34f1b51-4dd6-4313-a233-1c5b2ba37533"
 			name="WaitForXMiliseconds"
@@ -13144,6 +15316,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="c5f5fdf6-28f9-411f-9bb5-771e44260e06"
+			name="ExpandAllRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="durationPressRightKey"
+					datasourceid="18edf61a-5b92-4e6f-9a01-fd9ffc0420bc"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="timeToExpandPropertiesPanel"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="durationPressRightKey">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="c61c8260-8964-44a5-a6d4-6e7099bd5d18"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -13200,6 +15394,10 @@
 			<smartfoldernode
 			id="c65de29d-2390-46ef-b199-9c1f51a2f4ea"
 			name="DeleteAllFilesInInputFolder">
+			</smartfoldernode>
+			<smartfoldernode
+			id="c66042da-a406-4d2b-8ab1-e28f5d542992"
+			name="OpenScenariosView">
 			</smartfoldernode>
 			<smartfoldernode
 			id="c6708ce1-b12a-47da-997f-96835283f968"
@@ -13297,6 +15495,26 @@
 			name="CloseDocumentView">
 			</smartfoldernode>
 			<testmodule
+			id="c9e32a33-47e1-411b-8115-d09ae3723565"
+			name="CompareBinaryFiles"
+			ref="cb89280b-35e8-42fb-87cd-2ea111d129ea"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathReferenceFile"
+					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+					variableid="ae3a6124-5ee3-4e4a-b390-80ccfd69f924"
+					variablename="filePath2">
+					</var>
+					<var
+					dataname="fullPathCreatedFile"
+					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+					variableid="4cfcb494-35d9-42a7-b61c-90a926f27948"
+					variablename="filePath1">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -13379,6 +15597,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="cc1c7da1-c136-4e00-9af7-6b531a8396f4"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="cc24b12c-438b-4635-aff7-a36d0d89c69d"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -13453,6 +15677,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="cc71785f-2e88-4a07-9d3a-1f54f9f866f1"
+			name="TakeScreenshotMapAfterImportingSections">
+			</smartfoldernode>
 			<testmodule
 			id="cc804197-1223-44fc-87ee-de08fb8e9bef"
 			name="WaitForXMiliseconds"
@@ -13478,6 +15706,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="cc9ac67a-6e46-4f5e-84a7-934354e2516d"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="cd426bed-66bb-48be-99d6-84455c65b049"
+			name="CompareFiles">
+			</smartfoldernode>
 			<testmodule
 			id="cd4e2431-7f03-4129-b87c-86e97d92c860"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -13523,6 +15761,10 @@
 			<smartfoldernode
 			id="ce2ef195-19db-49cf-8333-1976e77b145a"
 			name="ExportPropertiesPanelToCsv">
+			</smartfoldernode>
+			<smartfoldernode
+			id="ce6db45c-1e6d-4077-8a28-e42f2140259b"
+			name="DeleteAllFilesInputFolder">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ce80c407-e442-48f3-b15c-303dbd80c8c2"
@@ -13581,6 +15823,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="cefc9bf0-29ee-4766-8ea8-864b4b7c6ac0"
+			name="NewProject">
+			</smartfoldernode>
 			<smartfoldernode
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c"
 			name="SetRangeOfLoopModificationParametersInCalculation">
@@ -14028,6 +16274,38 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d302ecfb-c66a-4493-b026-d998f034db41"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectIncompatibleWithFMSections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="normType"
+					datasourceid="906308bf-e6bd-45f9-8b99-8c14c843aeac"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="906308bf-e6bd-45f9-8b99-8c14c843aeac"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowerLimit"
+					datasourceid="906308bf-e6bd-45f9-8b99-8c14c843aeac"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d3795f4b-7ba7-468b-a507-36a51efa033d"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -14055,6 +16333,16 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+			name="ExportReferenceLine">
+				<parameters>
+					<param
+					name="fullPathReferenceFileToExport"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
 			name="ControlFailureMechanismContributions">
@@ -14097,6 +16385,12 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_5Sections"
+			errorbehavior="ContinueNextIteration"
+			id="d6d8c6d4-8351-465e-bf03-48aaf728f5a7"
+			name="ValidateDataInSectionsView">
+			</smartfoldernode>
 			<testmodule
 			id="d7131151-bc08-4239-8a8a-e332b8633dcb"
 			name="CalculateTrajectCategoryBoundary"
@@ -14180,10 +16474,73 @@
 			id="d8105d50-96be-4ba8-ae47-13d69c58d01f"
 			name="StartImportMergeProject">
 			</smartfoldernode>
+			<testmodule
+			id="d853c2ce-37fe-49e0-ba93-0d8870bd88cc"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[add suffix 5 sections]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString3"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNumberOfSections"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateString1"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="d8fafd69-0d89-4eb1-92fb-8ef9a267242d"
 			name="OpenViewWithChartAndCreateScreenshot">
 			</smartfoldernode>
+			<testmodule
+			id="d9497fde-475e-4c87-8a2b-3bd5b7d919a7"
+			name="ValidateSectionNameIsPresentInScenariosView"
+			ref="d6dc6f64-7811-49ba-a886-f91dd25287cd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="383a1697-234a-4496-acec-2881391ae3f9"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="ec9217de-b696-41e7-8e2a-d0c9cf42dc15"
+					variablename="sectionName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="383a1697-234a-4496-acec-2881391ae3f9"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="ec9217de-b696-41e7-8e2a-d0c9cf42dc15"
+					variablename="sectionName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="d9805b18-7d94-4344-8e11-9faba7cfa1cd"
 			name="ComparePlainTextFiles"
@@ -14304,6 +16661,20 @@
 					datasourceid="755c98d4-941d-40ca-be87-19547daea2aa"
 					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
 					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="da52ed4e-9828-4e0f-b96c-090b0c041557"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSections"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -14429,6 +16800,55 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="dbf53bd0-f480-4765-87be-338f2c291fd7"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change <space> into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString1"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="spaceChar"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
+			errorbehavior="ContinueNextIteration"
+			id="dc1ac18d-a209-4eb7-96ae-204ddc8f958b"
+			name="ValidateDataInSectionsView">
+			</smartfoldernode>
+			<smartfoldernode
+			datarangeactive="True"
+			datasource="script06_a_2_dataInSectionsViewTraject12_2_5Sections"
+			id="dc95179b-ca5d-409a-ad5c-99b0e4559223"
+			maxrange="5"
+			minrange="1"
+			name="ValidateSectionIsShownInScenariosView">
+			</smartfoldernode>
 			<testmodule
 			id="dd28594c-661d-4d34-8683-1664894bc253"
 			name="UpdateCurrentlySelectedItem"
@@ -14595,6 +17015,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="df6e681a-933f-401b-9b8e-e035fd22455e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -14710,6 +17144,11 @@
 			<smartfoldernode
 			id="e11d8e1c-a450-4ef5-a908-be6487023d0f"
 			name="DeletePreviousFiles">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script06_a_1_ErrorMessagesWhenIncompatibleSectionWRTTraject"
+			id="e12cf6ec-ccbd-489e-acd7-3e5a1e55a1c7"
+			name="ValidateErrorMessages">
 			</smartfoldernode>
 			<testmodule
 			id="e197e5c5-1597-4284-ba46-8d4748d754e6"
@@ -15197,6 +17636,12 @@
 			id="e8d0e98b-c2d1-4e82-a451-a5e7e05193d5"
 			name="OpenViewAndCreateScreenshot">
 			</smartfoldernode>
+			<testmodule
+			id="e90c7a81-6020-457a-b2c0-6cacfd8209b0"
+			name="ShowRanorexProgressDialog"
+			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			datasource="script10_listEditedSurfaceLines"
 			errorbehavior="ContinueNextIteration"
@@ -15480,6 +17925,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="ebfcd51d-8076-4ea4-80eb-546c6eb1e82e"
+			name="ExportPropertiesPanelToCsv">
+				<parameters>
+					<param
+					name="separatorChar"
+					value=";">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="ec4ccc8c-d057-4ec8-bffe-ca6f92b2d593"
 			name="ScreenShotOfTraject">
 			</smartfoldernode>
@@ -15556,6 +18011,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="edc546da-ab34-4488-8faa-1bf9a7db4a15"
+			name="ExportPropertiesPanelToCsv">
+				<parameters>
+					<param
+					name="separatorChar"
+					value=";">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="eddc8e94-a9ec-48cd-bba5-dbd49efbd269"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
@@ -15607,10 +18072,58 @@
 			name="OpenCategoryBoundariesView">
 			</smartfoldernode>
 			<testmodule
+			id="ee815739-126f-42cd-bf21-bf05d2f6629a"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResults"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="eea4695c-9c98-41f8-8838-b7b51321f30f"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="eed2e800-b88c-4a64-9abc-101000a27da7"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCSVFileSections"
+					datasourceid="461df00d-2f0d-4752-9494-335d3ec6aedf"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorChar"
+					datasourceid="edc546da-ab34-4488-8faa-1bf9a7db4a15"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="separatorCharInCsvFile"
+					datasourceid="bc06068a-7a31-495a-847a-d9ef5370feb6"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathExportedCsvFile"
+					datasourceid="f92c3132-b36d-405e-9871-d12f9ecbc9f0"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="eed5b284-a7de-497d-87f3-dd3d9b23cbb5"
@@ -15673,6 +18186,35 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f04c96eb-c0b3-4422-afba-e158a6862031"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[prepend output folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopFMs"
@@ -15742,6 +18284,38 @@
 			id="f0ba4f16-d208-44be-a7a1-ba567a3c8d86"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
+			<testmodule
+			id="f0d292ec-f755-4481-9085-4c3300878a23"
+			name="AddNewTrajectUsingContextMenu"
+			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectCompatibleWithFMSections"
+					datasourceid="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="normType"
+					datasourceid="6e28ba97-b3fa-4513-9731-9febe7584e5d"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="6e28ba97-b3fa-4513-9731-9febe7584e5d"
+					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowerLimit"
+					datasourceid="6e28ba97-b3fa-4513-9731-9febe7584e5d"
+					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
 			name="ConvertToCurrentCulture"
@@ -15898,6 +18472,26 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="f3967fda-b802-4190-8ca8-fa37a48cef6a"
+			name="GenerateRandomIndexInRangeOfSmartFolder"
+			ref="57e8241e-e1ed-4068-a5f9-cf3c3a66e673"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+					variableid="46e1126b-a8f6-47ec-81ed-ffabf616caff"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeToSetInSmartFolder"
+					datasourceid="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+					variableid="fc28675a-0851-49ee-90d4-85279ce6fa30"
+					variablename="generatedRandomIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="f3ad0be0-2112-491f-a20f-c73d3e587e37"
 			name="MakeAllItemsInPropertiesPanelVisible">
@@ -15915,6 +18509,10 @@
 			<smartfoldernode
 			id="f45af137-1dcb-4876-8e9e-de678d5680ee"
 			name="OpenViewAndCreateScreenshot">
+			</smartfoldernode>
+			<smartfoldernode
+			id="f46d6410-de88-46e4-8973-7f704dcd1003"
+			name="CloseSectionsView">
 			</smartfoldernode>
 			<testmodule
 			id="f474a714-1af0-4eee-a788-4483bfd6d230"
@@ -15989,6 +18587,10 @@
 			id="f68dc210-0b6e-4557-b08f-7eb65f81a5d3"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="f6dfc1de-a0c4-4d6f-a015-fc50508c4c1c"
+			name="CloseScenariosView">
+			</smartfoldernode>
 			<testmodule
 			id="f6e82199-f87f-4d00-af2d-ae989f9deb96"
 			name="DeleteAllSearchFilteredFiles"
@@ -16183,6 +18785,57 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="f98068ef-9f73-443b-8d9c-fc4c560afedc"
+			name="ValidateSectionNameIsPresentInTableResultsView"
+			ref="11dc3edb-dbfe-4ce7-9bdc-1b55dd842556"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c52e6b76-c6c3-4945-9195-413db7256a14"
+					variablename="indexColumnSectionName">
+					</var>
+					<var
+					dataname="valueColumnName"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="3725fd78-b946-4c20-93a4-7c9c6c4d64ae"
+					variablename="sectionName">
+					</var>
+					<var
+					dataname="indexRow"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="b8a4b430-38fb-43cf-b88c-f9d88a798f25"
+					variablename="indexRow">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="f9899403-5eca-408a-b939-00d65c157f46"
+			name="ValidateSectionsInScenariosView">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="pathToScenarios"
+								id="9bfb73df-276d-4d0f-b99d-55d1e58e5552">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
 			id="f98c92b4-7bdf-4df5-b10f-0c87b2a9aa22"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -16215,6 +18868,12 @@
 					variablename="fullPathToSubitemOfFM">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f9fc7b46-8e6b-4450-8417-69a0bba3ea14"
+			name="HideRanorexProgressDialog"
+			ref="c755c323-fb6e-4704-8789-dd16a021e929"
+			type="UserCode">
 			</testmodule>
 			<smartfoldernode
 			id="fa305fa9-d22d-41b5-af75-5c1315e2df2f"
@@ -16621,6 +19280,32 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="fe053f99-93be-4d79-b09c-ea1b7a79ec82"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileNameReferenceLineToExport"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="intermediateFilename"
+					datasourceid="870a7258-4093-4db4-ba44-6d6d77115847"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="fe18c8e9-1920-43fa-96f9-d1e75fe12190"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -16808,6 +19493,702 @@
 						name="teardown">
 							<testmodule
 							id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					name="script06_Vakindeling_maken_of_aanpassen">
+						<setup
+						id="768ae488-cc72-4955-9425-b49c87a88746"
+						name="setup">
+							<testmodule
+							id="83f84b5c-f5d2-418d-84b5-83c56276f219"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="29e43680-a92f-476d-9975-e3f7e609861f"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="19309f38-1097-4037-b8a7-0c8ac9ae04a0"
+						name="a)ImportAndAdaptFMSections">
+							<smartfoldernode
+							id="50cce15b-661e-44b5-b352-cc72e6caa705"
+							name="1)ImportIncompatibleFMSections">
+								<smartfoldernode
+								id="906308bf-e6bd-45f9-8b99-8c14c843aeac"
+								name="AddTraject">
+									<testmodule
+									id="d302ecfb-c66a-4493-b026-d998f034db41"
+									name="AddNewTrajectUsingContextMenu">
+									</testmodule>
+									<testmodule
+									id="b9d72f6f-c7a0-4d84-8af2-03297aa3eb29"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="7f85b222-1903-4de6-8bdf-467dc62c38b3"
+								name="ImportFMSections">
+									<smartfoldernode
+									id="1062d2f6-f90b-4f77-ae82-92e064af93a8"
+									name="DeleteAllFilesInputFolder">
+										<testmodule
+										id="b5c03591-fbfe-49c7-b2e5-e6764c1158ed"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="5761c203-4f3d-446d-9d4b-46b4a1cc8a77"
+									name="PrepareFiles">
+										<testmodule
+										id="61cd5ba5-180f-4ce7-8e36-7ebbcc3232ec"
+										name="CopyAllSearchFilteredFilesFromSourceToTarget">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7"
+									name="SelectRandomFMToAddSections">
+										<testmodule
+										id="f3967fda-b802-4190-8ca8-fa37a48cef6a"
+										name="GenerateRandomIndexInRangeOfSmartFolder">
+										</testmodule>
+										<testmodule
+										id="b6e3dd3a-a140-4777-8895-1cdc8607fc0a"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="2bf0edbf-7762-4bd4-a620-c1ff5995058d"
+									name="AddSectionsIncompatibleWithTraject">
+										<testmodule
+										id="da52ed4e-9828-4e0f-b96c-090b0c041557"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="66f4876f-a9df-4297-8881-2342f7c23c82"
+										name="ImportSections">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e12cf6ec-ccbd-489e-acd7-3e5a1e55a1c7"
+								name="ValidateErrorMessages">
+									<testmodule
+									id="b17d2b41-d217-4d4e-9539-40b79391f7b9"
+									name="ValidateTextMesage">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
+								name="ValidateNoSectionsHaveBeenImported">
+									<testmodule
+									id="2170744e-05af-451d-a0c4-e891e72062f2"
+									name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="8f009fcf-7177-42c1-bb24-4cf205c0f56d"
+									name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="0a54d675-a3ef-4f56-ad61-7e9dd6e611c6"
+								name="CleanUp">
+									<smartfoldernode
+									id="47c34ad6-5589-4d27-ab60-f85324e97e4e"
+									name="DeleteAllFilesInputFolder">
+										<testmodule
+										id="2b24bff9-8d7c-41f3-9d81-b1080f016c20"
+										name="DeleteAllSearchFilteredFiles">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="cefc9bf0-29ee-4766-8ea8-864b4b7c6ac0"
+									name="NewProject">
+										<testmodule
+										id="c319d35b-78ea-400a-b69e-e33aae8e7fd3"
+										name="NewProject">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="130de167-7780-4323-b228-581191591c4d"
+							name="2)ImportAndAdaptCompatibleFMSections">
+								<smartfoldernode
+								id="6e28ba97-b3fa-4513-9731-9febe7584e5d"
+								name="AddTraject">
+									<testmodule
+									id="f0d292ec-f755-4481-9085-4c3300878a23"
+									name="AddNewTrajectUsingContextMenu">
+									</testmodule>
+									<testmodule
+									id="84cd6b42-7fdc-41ce-8ecb-15a952554b37"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="173e8983-e010-4e9e-847a-7301bebc2cac"
+								name="MakeFMDARelevant">
+									<testmodule
+									id="25d071cd-74a0-475a-88c9-eb664cf49bf7"
+									name="SetRelevanceFMInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="ce6db45c-1e6d-4077-8a28-e42f2140259b"
+								name="DeleteAllFilesInputFolder">
+									<testmodule
+									id="bc2841c5-2a84-47dc-b235-7eb42ce17c00"
+									name="DeleteAllSearchFilteredFiles">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7"
+								name="PrepareFiles3sections">
+									<testmodule
+									id="3686f323-b754-401e-81d2-7d671da377e8"
+									name="CopyAllSearchFilteredFilesFromSourceToTarget">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8d460b47-f981-4a73-957a-73f1096322ae"
+								name="LoopFMs3Sections">
+									<smartfoldernode
+									id="3f43e558-964a-4210-87d0-1a1debd443e6"
+									name="TakeScreenshotMapBeforeImportingSections">
+										<testmodule
+										id="4d2c269d-76e1-42bc-84f0-b4af9c1fc81e"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="47391e71-4036-4b58-9927-8bd59bc9b445"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="9cf7d2de-db60-47e3-b8a5-c8261d31448a"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="cc9ac67a-6e46-4f5e-84a7-934354e2516d"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="7c9adae9-d2b4-4cdc-8bde-70d8df140eab"
+									name="AddSectionsCompatibleWithTraject">
+										<testmodule
+										id="a6adeb5b-e741-4b37-bf7b-c7153d3047a5"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="6b34b401-857c-4f91-bb4c-27a5a392f9ae"
+										name="ImportSections">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="cc71785f-2e88-4a07-9d3a-1f54f9f866f1"
+									name="TakeScreenshotMapAfterImportingSections">
+										<testmodule
+										id="4ade49c6-7c06-4053-89de-a54bb10371f2"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="2ed25b3a-969e-482b-83fc-f5afe979762c"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="116d7c0d-28ee-4ef6-afe7-899f144f80f0"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="bf644a75-8663-4758-ac80-72c862bfda7f"
+									name="OpenSectionsView">
+										<testmodule
+										id="78b3fb7f-2f54-4393-a7d2-9f5aade42062"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="913ca945-7854-4b84-a913-a06e8358470a"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="dc1ac18d-a209-4eb7-96ae-204ddc8f958b"
+									name="ValidateDataInSectionsView">
+										<testmodule
+										id="b3fe9d09-72c3-4da2-9f24-a23aa539eed7"
+										name="ValidateDataSectionsView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f46d6410-de88-46e4-8973-7f704dcd1003"
+									name="CloseSectionsView">
+										<testmodule
+										id="18d2fd49-8b30-4c72-901f-2734a633db59"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="461df00d-2f0d-4752-9494-335d3ec6aedf"
+									name="ValidateSectionsInPropertiesPanel">
+										<testmodule
+										id="2cbfd051-3714-4ffa-a24b-85fdd290d6d2"
+										name="HideRanorexProgressDialog">
+										</testmodule>
+										<smartfoldernode
+										id="afd42c83-505d-4c73-a25f-627b4463b754"
+										name="MakeAllParametersInPropertiesPanelVisible">
+											<testmodule
+											id="98ca9369-f0f8-41ce-ba4d-25606617f8bb"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="4b8ffb24-9e4e-4ebe-9995-4db15847fa20"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="89cfe102-25e4-448b-b6f5-957c1eb2c5ac"
+											name="CreateScreenShotPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="4531e1a9-bc21-4bae-b190-ca93e3da934a"
+										name="CalculateFileName3Sections">
+											<testmodule
+											id="600c11c5-e9fa-44e4-9611-0a29d9c1bc11"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="8b534206-7cb5-4653-bb79-2637d3f61ed1"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="f04c96eb-c0b3-4422-afba-e158a6862031"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="6c85ada9-44ff-4928-beaf-5e1547620ba1"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="47479d26-261b-4b12-b636-c1ee97947fce"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="edc546da-ab34-4488-8faa-1bf9a7db4a15"
+										name="ExportPropertiesPanelToCsv">
+											<testmodule
+											id="eed2e800-b88c-4a64-9abc-101000a27da7"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="9e503c0d-3304-473f-a7ef-238a8e9a3a46"
+										name="ValidateCSVEqualTo3sectionsReference">
+											<testmodule
+											id="5f92e7e3-f43b-4c1e-aa4d-7aac4238544b"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+										<testmodule
+										id="e90c7a81-6020-457a-b2c0-6cacfd8209b0"
+										name="ShowRanorexProgressDialog">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="ad98fbb9-ff54-498c-9c5d-b2637b8251d6"
+									name="ValidateSectionsInScenariosView">
+										<smartfoldernode
+										id="c66042da-a406-4d2b-8ab1-e28f5d542992"
+										name="OpenScenariosView">
+											<testmodule
+											id="39e92765-48e4-4db2-b14d-0963c3df89dc"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="3fa62cb0-e343-4315-9799-648fb66b17df"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="161afe1d-05be-47ed-bb8c-4e5e9be82585"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="72cdd43d-46ec-48fc-a614-f60d89d72bb3"
+										name="ValidateSectionIsShownInScenariosView">
+											<testmodule
+											id="356753ce-7df0-462b-be6b-a837cb227a7d"
+											name="ValidateSectionNameIsPresentInScenariosView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="0a4b23e3-1a0d-4e33-b474-1c253e692785"
+										name="CloseScenariosView">
+											<testmodule
+											id="9fd7050f-0cf6-4f35-8e71-dafaca82a9e9"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="013d4f40-f93b-4a46-8ed2-a4243a1acb8f"
+									name="ValidateSectionsInResultView">
+										<smartfoldernode
+										id="518741a8-2165-42ee-9919-e99999fc0bc8"
+										name="OpenResultsView">
+											<testmodule
+											id="0aebc199-df3c-4374-83e8-f076241d6227"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="b048c984-533c-4da8-8ba4-eb0323fc9576"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="70d0c776-03c5-4608-880f-f603be7add82"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="6be7c3cb-0bb4-4632-b155-6fab5d9b1282"
+										name="ValidateSectionIsShownInResultsView">
+											<testmodule
+											id="f98068ef-9f73-443b-8d9c-fc4c560afedc"
+											name="ValidateSectionNameIsPresentInTableResultsView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="1d5ec65d-60c5-4d5d-97fe-0833eda47f19"
+										name="CloseResultsView">
+											<testmodule
+											id="2a7270c4-e0ff-49e6-8814-200aa82ed712"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="06d5292c-2cee-46bd-bab1-24f387804d24"
+								name="DeleteAllFilesInputFolder">
+									<testmodule
+									id="0dce02de-fddc-40bc-81a3-dc7d360852fb"
+									name="DeleteAllSearchFilteredFiles">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b7d97cbc-8a74-460b-9aaa-a1a311c7f862"
+								name="PrepareFiles5sections">
+									<testmodule
+									id="9a528f19-483d-4b23-804f-e6139bbe2761"
+									name="CopyAllSearchFilteredFilesFromSourceToTarget">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="7c1c95aa-d547-47d1-a4a6-b113764c390c"
+								name="LoopFMs5Sections">
+									<smartfoldernode
+									id="68302d1d-985c-40c6-984d-7011a7704caa"
+									name="TakeScreenshotMapBeforeImportingSections">
+										<testmodule
+										id="df6e681a-933f-401b-9b8e-e035fd22455e"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="577363de-3589-4a3f-bd91-fd5c24c4b126"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="153bed26-cd9f-40dc-890f-30530635e517"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="3e8afae0-0207-4ba1-8e84-fa0587dcf187"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="2efdb023-fe44-4eb1-939a-7dd9073ca6ce"
+									name="UpdateSections">
+										<testmodule
+										id="a4fff103-ad0b-4ae9-8651-7d76a14c9c32"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="44989e8b-21a4-48e9-91bf-3e30a43e926c"
+										name="UpdateCurrentlySelectedItem">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="6304c83b-512c-4f0c-8a6f-a03f57dd74e2"
+									name="TakeScreenshotMapAfterImportingSections">
+										<testmodule
+										id="b97d0810-d0f3-4ee8-99da-a7580a81e3e0"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="4019bf3d-48af-4438-96a9-f78fbb474a06"
+										name="CreateScreenshotDocumentView">
+										</testmodule>
+										<testmodule
+										id="5e13e804-ae59-4004-8c05-8f4e2d7c58be"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="438ae292-d53c-4623-a9a1-a77cfc751b8d"
+									name="OpenSectionsView">
+										<testmodule
+										id="055d8792-b449-4232-9108-18799bed74bd"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="b01e611d-96e8-45ef-a5fe-8ac0536805fd"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="d6d8c6d4-8351-465e-bf03-48aaf728f5a7"
+									name="ValidateDataInSectionsView">
+										<testmodule
+										id="53a0efae-10a3-42d4-a6fc-0b1ad6b25d9c"
+										name="ValidateDataSectionsView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="28c14bc8-1ee5-464f-a709-af42e7e0cea6"
+									name="CloseSectionsView">
+										<testmodule
+										id="cc1c7da1-c136-4e00-9af7-6b531a8396f4"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="09303386-ab0c-4a53-965b-dc94ea43f802"
+									name="ValidateSectionsInPropertiesPanel">
+										<testmodule
+										id="f9fc7b46-8e6b-4450-8417-69a0bba3ea14"
+										name="HideRanorexProgressDialog">
+										</testmodule>
+										<smartfoldernode
+										id="18edf61a-5b92-4e6f-9a01-fd9ffc0420bc"
+										name="MakeAllParametersInPropertiesPanelVisible">
+											<testmodule
+											id="c5f5fdf6-28f9-411f-9bb5-771e44260e06"
+											name="ExpandAllRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
+											id="8369b59d-1b32-4ab6-aa83-65b2841f2659"
+											name="WaitForXMiliseconds">
+											</testmodule>
+											<testmodule
+											id="37d315e0-d02a-4c77-8a7e-96f5851ba251"
+											name="CreateScreenShotPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1"
+										name="CalculateFileName">
+											<testmodule
+											id="6915a9eb-9070-4d58-bfbc-e56408120452"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="dbf53bd0-f480-4765-87be-338f2c291fd7"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="8b9cd31c-0131-4828-94fa-6314eb03a254"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="d853c2ce-37fe-49e0-ba93-0d8870bd88cc"
+											name="ConcatenateStrings">
+											</testmodule>
+											<testmodule
+											id="79c43922-cde6-43e4-b2e3-40958e9059bf"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="ebfcd51d-8076-4ea4-80eb-546c6eb1e82e"
+										name="ExportPropertiesPanelToCsv">
+											<testmodule
+											id="5fc14f35-042d-4f5c-8a69-43d664ede0bf"
+											name="ExportPropertiesPanelToCsv">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="37cc03e8-d0b6-4414-9c03-db3f75e9cebd"
+										name="ValidateCSVEqualTo5sectionsReference">
+											<testmodule
+											id="4fd685af-e7b2-427f-90c4-311c852e2817"
+											name="ComparePlainTextFiles">
+											</testmodule>
+										</smartfoldernode>
+										<testmodule
+										id="768203a1-25ae-487f-9c35-75ab3487fbde"
+										name="ShowRanorexProgressDialog">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f9899403-5eca-408a-b939-00d65c157f46"
+									name="ValidateSectionsInScenariosView">
+										<smartfoldernode
+										id="a51eac73-35ff-4cec-9de4-4636e98286e8"
+										name="OpenScenariosView">
+											<testmodule
+											id="5e911893-24bd-49cd-b1db-231d6d3eb2cf"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="820cb290-5f7b-4c6a-9f1b-402c4d7ed496"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="61430bb7-3288-4f94-aeb2-321bfc1a0391"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="dc95179b-ca5d-409a-ad5c-99b0e4559223"
+										name="ValidateSectionIsShownInScenariosView">
+											<testmodule
+											id="d9497fde-475e-4c87-8a2b-3bd5b7d919a7"
+											name="ValidateSectionNameIsPresentInScenariosView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="f6dfc1de-a0c4-4d6f-a015-fc50508c4c1c"
+										name="CloseScenariosView">
+											<testmodule
+											id="a0f4b226-52f7-4b48-a8ed-e1b82dc2e950"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="20ee6021-101e-4c7e-ad89-d23ac0f7c8ee"
+									name="ValidateSectionsInResultView">
+										<smartfoldernode
+										id="b159c954-881e-4d28-a7f3-58f8c6f49fc0"
+										name="OpenResultsView">
+											<testmodule
+											id="ee815739-126f-42cd-bf21-bf05d2f6629a"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="437b667b-0066-4ea9-adc5-b1301f9577ef"
+											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="bdf6e19b-53fe-4293-9bb1-36fbbbc3bcf7"
+											name="CreateScreenshotDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="280eb4e0-9c7a-4e99-8957-1cea944f7c0a"
+										name="ValidateSectionIsShownInResultsView">
+											<testmodule
+											id="686526b6-82e4-49dc-8104-bd61dced56c4"
+											name="ValidateSectionNameIsPresentInTableResultsView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="353c5a75-2d23-4d9f-a58e-d6e02a5806de"
+										name="CloseResultsView">
+											<testmodule
+											id="0209262f-adb1-4c73-baf1-ccf573b86231"
+											name="CloseViewCentralPanelWithFocus">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+						name="b)ImportModifiedReferenceLineAsFMSections">
+							<smartfoldernode
+							id="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+							name="ExportReferenceLine">
+								<smartfoldernode
+								id="870a7258-4093-4db4-ba44-6d6d77115847"
+								name="CalculateFileName">
+									<testmodule
+									id="fe053f99-93be-4d79-b09c-ea1b7a79ec82"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="51cdf81c-8627-4b8e-bdc7-117f8ee427cd"
+									name="ConcatenateStrings">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="73dfaf55-eac9-4560-b4aa-51ffbb0a2270"
+								name="Export">
+									<testmodule
+									id="92f7b6dd-cb81-4dd9-86c5-3e101cc99892"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="73b2a7b0-88ea-44fd-89fc-4c68bf906fd1"
+									name="ExportReferenceLine">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5e2c0718-5bba-46c7-b732-0d58f44e38da"
+							name="CompareWithReferenceReferenceLine">
+								<smartfoldernode
+								id="6b777e00-480c-4498-a891-13599cefaff7"
+								name="CalculateFilesNames">
+									<smartfoldernode
+									id="469103c1-e938-4503-bd7c-0d9440b4a0d0"
+									name="ReferenceFile">
+										<testmodule
+										id="62f96c0c-34f3-41ca-920b-212220e3a42a"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="465607ae-52c1-411a-853e-c7f99b9c1930"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="8922e9d7-e3b8-4c9c-bada-62f124d80356"
+									name="CreatedFile">
+										<testmodule
+										id="70f8eee1-9943-4229-9449-dcc01210b84e"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="2e4b9f86-4fcb-4748-a778-bb3f13ca0fba"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="cd426bed-66bb-48be-99d6-84455c65b049"
+								name="CompareFiles">
+									<testmodule
+									id="c9e32a33-47e1-411b-8115-d09ae3723565"
+									name="CompareBinaryFiles">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="92db7cc6-01af-468c-996d-05158b009670"
+						name="teardown">
+							<testmodule
+							id="1cbaf957-1aca-4bdf-811d-9925ee11cddd"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -36181,6 +39562,1143 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="b51bcdde-7605-4b7f-80c2-6cd819047001"
+		lastknownrowcount="3"
+		name="script06_a_1_ErrorMessagesWhenIncompatibleSectionWRTTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					expectedMessage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						expectedMessage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						Importeren van 'Vakindeling' is gestart.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Het importeren van de vakindeling is mislukt: De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. Geen gegevens gewijzigd.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van 'Vakindeling' is mislukt.
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="4964f3d5-6dc7-439e-906e-19684153dbda"
+		lastknownrowcount="4"
+		name="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					indexColumnName
+				</column>
+				<column>
+					valueColumnName
+				</column>
+				<column>
+					indexColumnOffsetFrom
+				</column>
+				<column>
+					valueColumnOffsetFrom
+				</column>
+				<column>
+					indexColumnOffsetTo
+				</column>
+				<column>
+					valueColumnOffsetTo
+				</column>
+				<column>
+					indexColumnLength
+				</column>
+				<column>
+					valueColumnLength
+				</column>
+				<column>
+					indexColumnNvak
+				</column>
+				<column>
+					valueColumnNvakSTPH
+				</column>
+				<column>
+					valueColumnNvakSTBI
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						indexColumnName
+					</th>
+					<th>
+						valueColumnName
+					</th>
+					<th>
+						indexColumnOffsetFrom
+					</th>
+					<th>
+						valueColumnOffsetFrom
+					</th>
+					<th>
+						indexColumnOffsetTo
+					</th>
+					<th>
+						valueColumnOffsetTo
+					</th>
+					<th>
+						indexColumnLength
+					</th>
+					<th>
+						valueColumnLength
+					</th>
+					<th>
+						indexColumnNvak
+					</th>
+					<th>
+						valueColumnNvakSTPH
+					</th>
+					<th>
+						valueColumnNvakSTBI
+					</th>
+				</tr>
+				<tr>
+					<td>
+						header
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vaknaam
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Metrering van* [m]
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Metrering tot* [m]
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Lengte* [m]
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						0.00
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						8.21
+					</td>
+					<td>
+						4.57
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						14813.63
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						9403.50
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						13.54
+					</td>
+					<td>
+						7.21
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 3
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 3
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						14813.63
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						20847.86
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						6034.23
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						9.05
+					</td>
+					<td>
+						4.98
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+		lastknownrowcount="6"
+		name="script06_a_2_dataInSectionsViewTraject12_2_5Sections"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					indexColumnName
+				</column>
+				<column>
+					valueColumnName
+				</column>
+				<column>
+					indexColumnOffsetFrom
+				</column>
+				<column>
+					valueColumnOffsetFrom
+				</column>
+				<column>
+					indexColumnOffsetTo
+				</column>
+				<column>
+					valueColumnOffsetTo
+				</column>
+				<column>
+					indexColumnLength
+				</column>
+				<column>
+					valueColumnLength
+				</column>
+				<column>
+					indexColumnNvak
+				</column>
+				<column>
+					valueColumnNvakSTPH
+				</column>
+				<column>
+					valueColumnNvakSTBI
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						indexColumnName
+					</th>
+					<th>
+						valueColumnName
+					</th>
+					<th>
+						indexColumnOffsetFrom
+					</th>
+					<th>
+						valueColumnOffsetFrom
+					</th>
+					<th>
+						indexColumnOffsetTo
+					</th>
+					<th>
+						valueColumnOffsetTo
+					</th>
+					<th>
+						indexColumnLength
+					</th>
+					<th>
+						valueColumnLength
+					</th>
+					<th>
+						indexColumnNvak
+					</th>
+					<th>
+						valueColumnNvakSTPH
+					</th>
+					<th>
+						valueColumnNvakSTBI
+					</th>
+				</tr>
+				<tr>
+					<td>
+						column header
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vaknaam
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Metrering van* [m]
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Metrering tot* [m]
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Lengte* [m]
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						0.00
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						8.21
+					</td>
+					<td>
+						4.57
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						7768.29
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						2358.15
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						4.14
+					</td>
+					<td>
+						2.56
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 3
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 2a
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						7768.29
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						14813.63
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						7045.34
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						10.39
+					</td>
+					<td>
+						5.65
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 4
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 3
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						14813.63
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						19500.23
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						4686.60
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						7.25
+					</td>
+					<td>
+						4.09
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row 5
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Vak 3a
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						19500.23
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						20847.86
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1347.63
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						2.80
+					</td>
+					<td>
+						1.89
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6bd6c767-478a-4cb9-9f71-8edb54605bc0"
+		lastknownrowcount="3"
+		name="script06_b_LoopExtensionFilesCreatedExportingReferenceLine"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					extensionFile
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						extensionFile
+					</th>
+				</tr>
+				<tr>
+					<td>
+						.dbf
+					</td>
+				</tr>
+				<tr>
+					<td>
+						.shp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						.shx
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+		lastknownrowcount="18"
+		name="script06_DataForSectionsInAllFMs"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelFM
+				</column>
+				<column>
+					pathToSections
+				</column>
+				<column>
+					pathToFM
+				</column>
+				<column>
+					pathToResults
+				</column>
+				<column>
+					pathToScenarios
+				</column>
+				<column>
+					pathTo3sectionsCSVReferenceFile
+				</column>
+				<column>
+					pathTo5sectionsCSVReferenceFile
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelFM
+					</th>
+					<th>
+						pathToSections
+					</th>
+					<th>
+						pathToFM
+					</th>
+					<th>
+						pathToResults
+					</th>
+					<th>
+						pathToScenarios
+					</th>
+					<th>
+						pathTo3sectionsCSVReferenceFile
+					</th>
+					<th>
+						pathTo5sectionsCSVReferenceFile
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\STPH_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\STPH_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\STBI_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\STBI_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STMI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Microstabiliteit
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Microstabiliteit&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AWO
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GABU
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GABI
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Piping bij kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Piping bij kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWl
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						Traject&gt;Duinwaterkering - Duinafslag&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						Traject&gt;Duinwaterkering - Duinafslag&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						INN
+					</td>
+					<td>
+						Traject&gt;Technische innovaties - Technische innovaties&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						Traject&gt;Technische innovaties - Technische innovaties
+					</td>
+					<td>
+						Traject&gt;Technische innovaties - Technische innovaties&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script06\reference\Generic_3Sections.csv
+					</td>
+					<td>
+						X:\script06\reference\Generic_5Sections.csv
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -36188,6 +40706,9 @@
 		name="TestRun">
 			<testcontainer
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
+			</testcontainer>
+			<testcontainer
+			id="013d4f40-f93b-4a46-8ed2-a4243a1acb8f">
 			</testcontainer>
 			<testcontainer
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
@@ -36208,7 +40729,13 @@
 			id="05b5e63d-ad9c-4aed-b02e-4a58a92dbba6">
 			</testcontainer>
 			<testcontainer
+			id="06d5292c-2cee-46bd-bab1-24f387804d24">
+			</testcontainer>
+			<testcontainer
 			id="0788f469-4596-41b8-9b63-3d3c97224786">
+			</testcontainer>
+			<testcontainer
+			id="09303386-ab0c-4a53-965b-dc94ea43f802">
 			</testcontainer>
 			<testcontainer
 			id="093a8d97-f6ce-487b-b898-966c2f250a75">
@@ -36218,6 +40745,12 @@
 			</testcontainer>
 			<testcontainer
 			id="0a0d9792-5b24-45f6-ae6d-dc982e3702be">
+			</testcontainer>
+			<testcontainer
+			id="0a4b23e3-1a0d-4e33-b474-1c253e692785">
+			</testcontainer>
+			<testcontainer
+			id="0a54d675-a3ef-4f56-ad61-7e9dd6e611c6">
 			</testcontainer>
 			<testcontainer
 			id="0a57be93-765c-4c1d-b82b-41fa47b1de47">
@@ -36253,6 +40786,9 @@
 			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
+			id="1062d2f6-f90b-4f77-ae82-92e064af93a8">
+			</testcontainer>
+			<testcontainer
 			id="11152c85-fa73-4bf8-a6bd-d0f1d9ce4cba">
 			</testcontainer>
 			<testcontainer
@@ -36260,6 +40796,9 @@
 			</testcontainer>
 			<testcontainer
 			id="12382045-28fd-468b-b72b-9998e9e5589e">
+			</testcontainer>
+			<testcontainer
+			id="130de167-7780-4323-b228-581191591c4d">
 			</testcontainer>
 			<testcontainer
 			id="139cf382-9dbf-4e30-8c6a-409936c3ffa2">
@@ -36271,7 +40810,16 @@
 			id="15f2a7fd-807b-48f7-a730-33a1279e7af1">
 			</testcontainer>
 			<testcontainer
+			id="173e8983-e010-4e9e-847a-7301bebc2cac">
+			</testcontainer>
+			<testcontainer
 			id="18ecae73-8b61-4726-8522-a46580163cbf">
+			</testcontainer>
+			<testcontainer
+			id="18edf61a-5b92-4e6f-9a01-fd9ffc0420bc">
+			</testcontainer>
+			<testcontainer
+			id="19309f38-1097-4037-b8a7-0c8ac9ae04a0">
 			</testcontainer>
 			<testcontainer
 			id="19a83869-f880-4cd2-a607-7562692aacad">
@@ -36295,6 +40843,9 @@
 			id="1d165de9-a4a4-4deb-a9cb-331f56682100">
 			</testcontainer>
 			<testcontainer
+			id="1d5ec65d-60c5-4d5d-97fe-0833eda47f19">
+			</testcontainer>
+			<testcontainer
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
 			</testcontainer>
 			<testcontainer
@@ -36305,6 +40856,9 @@
 			</testcontainer>
 			<testcontainer
 			id="20ca259d-f9d6-4a4b-b5dd-bf86d68e3250">
+			</testcontainer>
+			<testcontainer
+			id="20ee6021-101e-4c7e-ad89-d23ac0f7c8ee">
 			</testcontainer>
 			<testcontainer
 			id="219db77f-8900-4a09-a3a5-b6c5afcb5093">
@@ -36337,6 +40891,12 @@
 			id="27fb77dc-81e4-4822-823f-b5c299cd0838">
 			</testcontainer>
 			<testcontainer
+			id="280eb4e0-9c7a-4e99-8957-1cea944f7c0a">
+			</testcontainer>
+			<testcontainer
+			id="28c14bc8-1ee5-464f-a709-af42e7e0cea6">
+			</testcontainer>
+			<testcontainer
 			id="2936391c-917c-41b8-bc50-7eaafb7189b7">
 			</testcontainer>
 			<testcontainer
@@ -36352,6 +40912,9 @@
 			id="2bed0d6f-0b22-4531-b552-490fe595ed1a">
 			</testcontainer>
 			<testcontainer
+			id="2bf0edbf-7762-4bd4-a620-c1ff5995058d">
+			</testcontainer>
+			<testcontainer
 			id="2c4732c7-a9f0-4016-a572-2876c684ea78">
 			</testcontainer>
 			<testcontainer
@@ -36359,6 +40922,9 @@
 			</testcontainer>
 			<testcontainer
 			id="2e0ee5f5-d2ae-41c3-9d92-591c6d382929">
+			</testcontainer>
+			<testcontainer
+			id="2efdb023-fe44-4eb1-939a-7dd9073ca6ce">
 			</testcontainer>
 			<testcontainer
 			id="2f520007-23e6-4bd2-89a1-6b43cf925e60">
@@ -36382,10 +40948,16 @@
 			id="3499c46f-4b87-4f10-9103-a458130507c9">
 			</testcontainer>
 			<testcontainer
+			id="353c5a75-2d23-4d9f-a58e-d6e02a5806de">
+			</testcontainer>
+			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
 			</testcontainer>
 			<testcontainer
 			id="37814fc8-e175-41d5-b4e7-ab3e4ca9db7a">
+			</testcontainer>
+			<testcontainer
+			id="37cc03e8-d0b6-4414-9c03-db3f75e9cebd">
 			</testcontainer>
 			<testcontainer
 			id="38c12ad4-a899-4539-98a2-acb79bd6c646">
@@ -36415,10 +40987,16 @@
 			id="3e978cbf-feab-40ea-b00b-e55e764f9465">
 			</testcontainer>
 			<testcontainer
+			id="3f43e558-964a-4210-87d0-1a1debd443e6">
+			</testcontainer>
+			<testcontainer
 			id="41914192-1134-4c81-8878-eeecc3e50480">
 			</testcontainer>
 			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
+			</testcontainer>
+			<testcontainer
+			id="438ae292-d53c-4623-a9a1-a77cfc751b8d">
 			</testcontainer>
 			<testcontainer
 			id="439fd803-5bef-41cb-be97-10a49307ed9b">
@@ -36430,10 +41008,19 @@
 			id="44f46814-6990-4cf7-a952-322a09d85d43">
 			</testcontainer>
 			<testcontainer
+			id="4531e1a9-bc21-4bae-b190-ca93e3da934a">
+			</testcontainer>
+			<testcontainer
 			id="45dd9ddc-117c-4cee-928c-6717af860856">
 			</testcontainer>
 			<testcontainer
+			id="461df00d-2f0d-4752-9494-335d3ec6aedf">
+			</testcontainer>
+			<testcontainer
 			id="4649db8b-0ea6-4ca7-b7a8-3a977d0fc377">
+			</testcontainer>
+			<testcontainer
+			id="469103c1-e938-4503-bd7c-0d9440b4a0d0">
 			</testcontainer>
 			<testcontainer
 			id="46a23393-25eb-47af-ac00-83d5880c2a72">
@@ -36443,6 +41030,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4764f9ba-1c7d-455d-accb-8da729e5e0b2">
+			</testcontainer>
+			<testcontainer
+			id="47c34ad6-5589-4d27-ab60-f85324e97e4e">
 			</testcontainer>
 			<testcontainer
 			id="47f3ace5-7a6b-4a52-b274-ce3887d63536">
@@ -36475,7 +41065,16 @@
 			id="4f5ae6c4-b46a-48f6-a818-b25e0dc32391">
 			</testcontainer>
 			<testcontainer
+			id="500ce448-fb1b-4ec4-a1a8-e1e5ecbc21b7">
+			</testcontainer>
+			<testcontainer
 			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
+			</testcontainer>
+			<testcontainer
+			id="50cce15b-661e-44b5-b352-cc72e6caa705">
+			</testcontainer>
+			<testcontainer
+			id="518741a8-2165-42ee-9919-e99999fc0bc8">
 			</testcontainer>
 			<testcontainer
 			id="52d41549-bf95-4315-a5fb-219349fc96cc">
@@ -36496,6 +41095,9 @@
 			id="550b329a-5327-46bd-ae7c-5e1b71561819">
 			</testcontainer>
 			<testcontainer
+			id="5655a37c-27fc-46b6-bf5d-a47b1a8fe6d1">
+			</testcontainer>
+			<testcontainer
 			id="56686535-e9c1-4dee-937e-6edd48e15b86">
 			</testcontainer>
 			<testcontainer
@@ -36506,6 +41108,9 @@
 			</testcontainer>
 			<testcontainer
 			id="575bd733-1394-4257-8e53-add71d265fd6">
+			</testcontainer>
+			<testcontainer
+			id="5761c203-4f3d-446d-9d4b-46b4a1cc8a77">
 			</testcontainer>
 			<testcontainer
 			id="582d6baa-37a5-4e12-83c7-de684b905450">
@@ -36523,6 +41128,9 @@
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
 			</testcontainer>
 			<testcontainer
+			id="5e2c0718-5bba-46c7-b732-0d58f44e38da">
+			</testcontainer>
+			<testcontainer
 			id="5f95ce06-adb9-415e-9d25-8d36708cfcc8">
 			</testcontainer>
 			<testcontainer
@@ -36533,6 +41141,9 @@
 			</testcontainer>
 			<testcontainer
 			id="62e39cf2-5d2b-4490-b373-af3e8ad6bd4b">
+			</testcontainer>
+			<testcontainer
+			id="6304c83b-512c-4f0c-8a6f-a03f57dd74e2">
 			</testcontainer>
 			<testcontainer
 			id="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e">
@@ -36547,13 +41158,28 @@
 			id="65439b4f-6eb7-4062-b09f-e92d7c5b75d6">
 			</testcontainer>
 			<testcontainer
+			id="68302d1d-985c-40c6-984d-7011a7704caa">
+			</testcontainer>
+			<testcontainer
+			id="6a877048-89b6-4b16-8e16-fd8de63831cb">
+			</testcontainer>
+			<testcontainer
 			id="6b07606e-7786-4411-91c1-21644b0ef180">
+			</testcontainer>
+			<testcontainer
+			id="6b777e00-480c-4498-a891-13599cefaff7">
+			</testcontainer>
+			<testcontainer
+			id="6be7c3cb-0bb4-4632-b155-6fab5d9b1282">
 			</testcontainer>
 			<testcontainer
 			id="6c1791c0-8489-4e65-a53f-286476db7375">
 			</testcontainer>
 			<testcontainer
 			id="6cdbda10-d136-4aef-b933-0c636d80f040">
+			</testcontainer>
+			<testcontainer
+			id="6e28ba97-b3fa-4513-9731-9febe7584e5d">
 			</testcontainer>
 			<testcontainer
 			id="71100ee3-7d8f-496d-a0d3-309c0967f4ec">
@@ -36565,10 +41191,16 @@
 			id="729b6eb3-b9db-467c-9eef-fd44574e08e4">
 			</testcontainer>
 			<testcontainer
+			id="72cdd43d-46ec-48fc-a614-f60d89d72bb3">
+			</testcontainer>
+			<testcontainer
 			id="7303e49b-393b-461c-8ddd-602529b61f6b">
 			</testcontainer>
 			<testcontainer
 			id="736e861c-1887-4e43-88b2-60622379fdc6">
+			</testcontainer>
+			<testcontainer
+			id="73dfaf55-eac9-4560-b4aa-51ffbb0a2270">
 			</testcontainer>
 			<testcontainer
 			id="755c98d4-941d-40ca-be87-19547daea2aa">
@@ -36610,7 +41242,13 @@
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
 			</testcontainer>
 			<testcontainer
+			id="7c1c95aa-d547-47d1-a4a6-b113764c390c">
+			</testcontainer>
+			<testcontainer
 			id="7c978246-0305-4288-ae9e-62e3e278f2e1">
+			</testcontainer>
+			<testcontainer
+			id="7c9adae9-d2b4-4cdc-8bde-70d8df140eab">
 			</testcontainer>
 			<testcontainer
 			id="7c9b9046-a29e-496e-bc0a-56bf4e5681e4">
@@ -36626,6 +41264,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7f638b8b-b98b-4b5c-9ed5-1811866af221">
+			</testcontainer>
+			<testcontainer
+			id="7f85b222-1903-4de6-8bdf-467dc62c38b3">
 			</testcontainer>
 			<testcontainer
 			id="81ea0df2-e684-46cb-be15-b365c8220892">
@@ -36652,7 +41293,13 @@
 			id="85368837-2aad-4048-bd53-0143d14c5b6b">
 			</testcontainer>
 			<testcontainer
+			id="870a7258-4093-4db4-ba44-6d6d77115847">
+			</testcontainer>
+			<testcontainer
 			id="88d1cf2f-edc6-4218-a2d1-a86f86380bd2">
+			</testcontainer>
+			<testcontainer
+			id="8922e9d7-e3b8-4c9c-bada-62f124d80356">
 			</testcontainer>
 			<testcontainer
 			id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28">
@@ -36662,6 +41309,12 @@
 			</testcontainer>
 			<testcontainer
 			id="8d08ded5-5000-421a-a545-132e1b92f332">
+			</testcontainer>
+			<testcontainer
+			id="8d460b47-f981-4a73-957a-73f1096322ae">
+			</testcontainer>
+			<testcontainer
+			id="906308bf-e6bd-45f9-8b99-8c14c843aeac">
 			</testcontainer>
 			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
@@ -36680,6 +41333,9 @@
 			</testcontainer>
 			<testcontainer
 			id="93e5d218-fb96-49f4-aaa6-e327da63e21a">
+			</testcontainer>
+			<testcontainer
+			id="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93">
 			</testcontainer>
 			<testcontainer
 			id="958716fd-2581-492f-b0ab-54e55b9ed92b">
@@ -36721,6 +41377,9 @@
 			id="9d633933-ecb7-4eae-9185-950b58961201">
 			</testcontainer>
 			<testcontainer
+			id="9e503c0d-3304-473f-a7ef-238a8e9a3a46">
+			</testcontainer>
+			<testcontainer
 			id="9e8eca0a-ff9a-4e31-832f-4d72a500ba81">
 			</testcontainer>
 			<testcontainer
@@ -36734,6 +41393,12 @@
 			</testcontainer>
 			<testcontainer
 			id="a3deddb5-ab48-4a6d-8501-80fbde5bc326">
+			</testcontainer>
+			<testcontainer
+			id="a51eac73-35ff-4cec-9de4-4636e98286e8">
+			</testcontainer>
+			<testcontainer
+			id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7">
 			</testcontainer>
 			<testcontainer
 			id="a819a079-65da-438e-9cc3-6d3e009ed1bb">
@@ -36760,7 +41425,16 @@
 			id="ac765453-aba8-4b5c-9c4a-b79a11109aa5">
 			</testcontainer>
 			<testcontainer
+			id="ad98fbb9-ff54-498c-9c5d-b2637b8251d6">
+			</testcontainer>
+			<testcontainer
 			id="add565ef-a3c0-4dc2-820b-345cbaff57d2">
+			</testcontainer>
+			<testcontainer
+			id="afd42c83-505d-4c73-a25f-627b4463b754">
+			</testcontainer>
+			<testcontainer
+			id="b159c954-881e-4d28-a7f3-58f8c6f49fc0">
 			</testcontainer>
 			<testcontainer
 			id="b1720ad9-b29e-4a01-8d41-5adb9a299abd">
@@ -36787,6 +41461,9 @@
 			id="b7d943f0-868d-403e-9ac6-d9232403a413">
 			</testcontainer>
 			<testcontainer
+			id="b7d97cbc-8a74-460b-9aaa-a1a311c7f862">
+			</testcontainer>
+			<testcontainer
 			id="b8f252d0-e982-48d5-b0b3-c0afc39e2851">
 			</testcontainer>
 			<testcontainer
@@ -36802,6 +41479,9 @@
 			id="bc06068a-7a31-495a-847a-d9ef5370feb6">
 			</testcontainer>
 			<testcontainer
+			id="bd7a3e70-4474-4cb8-aad9-6211ba0d2016">
+			</testcontainer>
+			<testcontainer
 			id="bdb6824b-28dc-4f2f-987b-572c1325bca4">
 			</testcontainer>
 			<testcontainer
@@ -36815,6 +41495,9 @@
 			</testcontainer>
 			<testcontainer
 			id="bf3b2b23-c737-43fb-9220-4444f3d2bb6d">
+			</testcontainer>
+			<testcontainer
+			id="bf644a75-8663-4758-ac80-72c862bfda7f">
 			</testcontainer>
 			<testcontainer
 			id="bf8dfd1e-e3e4-4482-be1e-f6b6c44f24aa">
@@ -36856,6 +41539,9 @@
 			id="c65de29d-2390-46ef-b199-9c1f51a2f4ea">
 			</testcontainer>
 			<testcontainer
+			id="c66042da-a406-4d2b-8ab1-e28f5d542992">
+			</testcontainer>
+			<testcontainer
 			id="c6708ce1-b12a-47da-997f-96835283f968">
 			</testcontainer>
 			<testcontainer
@@ -36889,6 +41575,12 @@
 			id="cc2642f7-53a8-4043-a6b2-88a43cb41e20">
 			</testcontainer>
 			<testcontainer
+			id="cc71785f-2e88-4a07-9d3a-1f54f9f866f1">
+			</testcontainer>
+			<testcontainer
+			id="cd426bed-66bb-48be-99d6-84455c65b049">
+			</testcontainer>
+			<testcontainer
 			id="cd8636bb-f4aa-4baa-8a0a-a38358678ac3">
 			</testcontainer>
 			<testcontainer
@@ -36901,10 +41593,16 @@
 			id="ce2ef195-19db-49cf-8333-1976e77b145a">
 			</testcontainer>
 			<testcontainer
+			id="ce6db45c-1e6d-4077-8a28-e42f2140259b">
+			</testcontainer>
+			<testcontainer
 			id="ce80c407-e442-48f3-b15c-303dbd80c8c2">
 			</testcontainer>
 			<testcontainer
 			id="ce8aa5d0-eba0-4eb2-a68a-bdafd7805a66">
+			</testcontainer>
+			<testcontainer
+			id="cefc9bf0-29ee-4766-8ea8-864b4b7c6ac0">
 			</testcontainer>
 			<testcontainer
 			id="cf1d6a8b-7616-4026-adee-a8079fb5777c">
@@ -36928,6 +41626,9 @@
 			id="d26a7999-0c7f-44fe-8e00-b1a51cc37e82">
 			</testcontainer>
 			<testcontainer
+			id="d4109a49-5c22-4671-b7ee-2d795e1a37db">
+			</testcontainer>
+			<testcontainer
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
 			</testcontainer>
 			<testcontainer
@@ -36935,6 +41636,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d52ab112-010d-47f8-9b50-7718f8c2fa7d">
+			</testcontainer>
+			<testcontainer
+			id="d6d8c6d4-8351-465e-bf03-48aaf728f5a7">
 			</testcontainer>
 			<testcontainer
 			id="d774da56-ce05-46ec-8dff-9ac3a43227b8">
@@ -36961,6 +41665,12 @@
 			id="db2bff93-44c6-4717-9c92-9b638712361f">
 			</testcontainer>
 			<testcontainer
+			id="dc1ac18d-a209-4eb7-96ae-204ddc8f958b">
+			</testcontainer>
+			<testcontainer
+			id="dc95179b-ca5d-409a-ad5c-99b0e4559223">
+			</testcontainer>
+			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
 			</testcontainer>
 			<testcontainer
@@ -36977,6 +41687,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e11d8e1c-a450-4ef5-a908-be6487023d0f">
+			</testcontainer>
+			<testcontainer
+			id="e12cf6ec-ccbd-489e-acd7-3e5a1e55a1c7">
 			</testcontainer>
 			<testcontainer
 			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038">
@@ -37006,10 +41719,16 @@
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
 			</testcontainer>
 			<testcontainer
+			id="ebfcd51d-8076-4ea4-80eb-546c6eb1e82e">
+			</testcontainer>
+			<testcontainer
 			id="ec4ccc8c-d057-4ec8-bffe-ca6f92b2d593">
 			</testcontainer>
 			<testcontainer
 			id="ecac70ee-51ea-4866-90c3-a05414ad3aab">
+			</testcontainer>
+			<testcontainer
+			id="edc546da-ab34-4488-8faa-1bf9a7db4a15">
 			</testcontainer>
 			<testcontainer
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
@@ -37048,10 +41767,16 @@
 			id="f45af137-1dcb-4876-8e9e-de678d5680ee">
 			</testcontainer>
 			<testcontainer
+			id="f46d6410-de88-46e4-8973-7f704dcd1003">
+			</testcontainer>
+			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
 			</testcontainer>
 			<testcontainer
 			id="f52ca730-3c84-4322-b44b-17ab9a08ff70">
+			</testcontainer>
+			<testcontainer
+			id="f6dfc1de-a0c4-4d6f-a015-fc50508c4c1c">
 			</testcontainer>
 			<testcontainer
 			id="f731cc82-56ee-4c40-b4aa-23ebfe13960a">
@@ -37070,6 +41795,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f92c3132-b36d-405e-9871-d12f9ecbc9f0">
+			</testcontainer>
+			<testcontainer
+			id="f9899403-5eca-408a-b939-00d65c157f46">
 			</testcontainer>
 			<testcontainer
 			id="fa305fa9-d22d-41b5-af75-5c1315e2df2f">
