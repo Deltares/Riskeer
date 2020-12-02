@@ -12350,8 +12350,8 @@
 			datasource="script28_b_2_LoopValidationProperties"
 			errorbehavior="ContinueNextIteration"
 			id="bc06068a-7a31-495a-847a-d9ef5370feb6"
-			maxrange="43"
-			minrange="36"
+			maxrange="47"
+			minrange="0"
 			name="LoopValidationProperties">
 				<parameters>
 					<param
@@ -34598,10 +34598,10 @@
 						0
 					</td>
 					<td>
-						2500
+						4000
 					</td>
 					<td>
-						2000
+						4000
 					</td>
 				</tr>
 				<tr>
@@ -34618,10 +34618,10 @@
 						45
 					</td>
 					<td>
-						2500
+						4000
 					</td>
 					<td>
-						2000
+						4000
 					</td>
 				</tr>
 				<tr>
@@ -34638,10 +34638,10 @@
 						0
 					</td>
 					<td>
-						3000
+						5000
 					</td>
 					<td>
-						2500
+						4000
 					</td>
 				</tr>
 				<tr>
@@ -34658,10 +34658,10 @@
 						1
 					</td>
 					<td>
-						3000
+						5000
 					</td>
 					<td>
-						2500
+						4000
 					</td>
 				</tr>
 				<tr>
