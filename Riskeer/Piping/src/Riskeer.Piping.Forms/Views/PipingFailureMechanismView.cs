@@ -206,8 +206,8 @@ namespace Riskeer.Piping.Forms.Views
             mapDataCollection.Add(assemblyMapDataCollection);
 
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(semiProbabilisticCalculationsMapData);
             mapDataCollection.Add(probabilisticCalculationsMapData);
+            mapDataCollection.Add(semiProbabilisticCalculationsMapData);
         }
 
         private void CreateObservers()

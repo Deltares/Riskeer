@@ -64,9 +64,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         private const int sectionsCollectionIndex = 3;
         private const int assemblyResultsIndex = 4;
         private const int hydraulicBoundaryLocationsIndex = 5;
-        private const int semiProbabilisticCalculationsIndex = 6;
-        private const int probabilisticCalculationsIndex = 7;
-
+        private const int probabilisticCalculationsIndex = 6;
+        private const int semiProbabilisticCalculationsIndex = 7;
+        
         private const int sectionsIndex = 0;
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
