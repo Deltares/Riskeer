@@ -732,6 +732,28 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="0bfe6820-f406-4b3c-97f7-373385b6ebb0"
+			name="AddBackgroundLayer"
+			ref="46407bea-c0f2-409e-8831-e2e674d7fad1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathReferenceFileToExport"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="backgroundFileName"
+					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
+					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
+					variablename="backgroundFileNameToAdd">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="0c34cacd-0bab-45e1-a910-94c6d9713136"
 			name="ValidateTrajectCategoryBoundaryInDocumentView"
 			ref="bb8a13eb-104a-4991-a3e8-ff6db9bce7b6"
@@ -865,6 +887,26 @@
 			id="0e6e2b58-f157-4040-8537-6986dd359395"
 			name="ScreenshotFM">
 			</smartfoldernode>
+			<testmodule
+			id="0ed2b02b-312e-40c1-b874-883195d1d16a"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="8f08f0ff-8df6-45e5-bec9-f1fa6a953527"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="expectedMessageSubstring"
+					datasourceid="8f08f0ff-8df6-45e5-bec9-f1fa6a953527"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="0edadedc-158f-48e1-9897-bac462a5dcef"
 			name="ConcatenateStrings"
@@ -1633,6 +1675,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="16baa904-d916-4bc2-9d97-6482effba011"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessage"
+					datasourceid="7fed30e9-08bd-44e5-822c-a8680b799560"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1659,6 +1715,10 @@
 					value="Duinwaterkering - Duinafslag">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="1784a7a6-4361-426a-983b-2e1ed60845ce"
+			name="AddBackgroundLayerExportedShapeFile">
 			</smartfoldernode>
 			<testmodule
 			id="179d64df-9ef2-416a-b5d8-ff1b08b5df41"
@@ -3345,32 +3405,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="2e4b9f86-4fcb-4748-a778-bb3f13ca0fba"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediateFileName"
-					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="extensionFile"
-					datasourceid="6bd6c767-478a-4cb9-9f71-8edb54605bc0"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathCreatedFile"
-					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="2ed25b3a-969e-482b-83fc-f5afe979762c"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -3475,6 +3509,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="3044ea49-f46c-4a2d-a08a-db58103edf47"
+			name="ShowMapPanel">
+			</smartfoldernode>
 			<testmodule
 			id="3045ffe0-bdc5-4d3a-a55e-59847fd92932"
 			name="LogInfoMessage"
@@ -3569,6 +3607,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="3146d943-ab46-4698-b57d-c5c9b74ffc43"
+			name="MakeScreenshot">
+				<parameters>
+					<param
+					name="logMessage1"
+					value="Check screenshot of map after exported reference line has been added as an extra layer.">
+					</param>
+					<param
+					name="logMessage2"
+					value="Check screenshot of messages panel after exported reference line has been added as an extra layer.">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="315ccb36-8406-49f0-9352-0ffc71dc3d87"
 			name="GEKB">
@@ -4893,32 +4945,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="465607ae-52c1-411a-853e-c7f99b9c1930"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediateFileName"
-					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="extensionFile"
-					datasourceid="6bd6c767-478a-4cb9-9f71-8edb54605bc0"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathReferenceFile"
-					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="466f7369-2ec9-4be4-ab04-8b7bc774facd"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -4955,10 +4981,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="469103c1-e938-4503-bd7c-0d9440b4a0d0"
-			name="ReferenceFile">
-			</smartfoldernode>
 			<smartfoldernode
 			id="46a23393-25eb-47af-ac00-83d5880c2a72"
 			name="ZSTHasBeenReplacedByProjectB">
@@ -5614,6 +5636,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="4ea2b600-15a0-4e22-b09f-266ecfb07672"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToTrajectItem"
+					datasourceid="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script18ParametersToModifyInCalculations"
 			errorbehavior="ContinueNextIteration"
@@ -5846,11 +5882,19 @@
 					</var>
 					<var
 					dataname="fullPathReferenceFileToExport"
-					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathReferenceFileToExport"
+					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5209921e-36d1-4f5f-a408-0586942282eb"
@@ -7062,21 +7106,6 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			datasource="script06_b_LoopExtensionFilesCreatedExportingReferenceLine"
-			id="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-			name="CompareWithReferenceReferenceLine">
-				<parameters>
-					<param
-					name="fullPathReferenceFile"
-					value="">
-					</param>
-					<param
-					name="fullPathCreatedFile"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="5e42a4e7-2596-4f23-a30b-8ed162567eeb"
 			name="ConcatenateStrings"
@@ -7461,6 +7490,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="6097acff-23ab-4f4f-8bb7-2b7389de20b6"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="60a3b7d4-cec8-4db1-9c0a-fde0e86eb428"
 			name="SetValueWithKeyPressParameterForItemInTraject"
 			ref="e550d732-7780-4b40-a989-f787f458a7c7"
@@ -7715,32 +7750,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="62f96c0c-34f3-41ca-920b-212220e3a42a"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToFolderReferenceFileForReferenceLine"
-					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="fileNameReferenceLineToExport"
-					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateFileName"
-					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="6304c83b-512c-4f0c-8a6f-a03f57dd74e2"
 			name="TakeScreenshotMapAfterImportingSections">
@@ -8328,6 +8337,11 @@
 					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			datasource="script06_b_ValidationMessagesAddingReferenceLineAsExtraLayer"
+			id="6a973635-237b-4806-ba15-ea3651c9ed01"
+			name="ValidateTheExportedReferenceLineHasBeenAddedWithoutErrors">
+			</smartfoldernode>
 			<testmodule
 			id="6ad9e90b-4c16-4729-bdc2-ecae972f2c13"
 			name="SelectGenericItemInProjectExplorer"
@@ -8420,16 +8434,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="6b777e00-480c-4498-a891-13599cefaff7"
-			name="CalculateFilesNames">
-				<parameters>
-					<param
-					name="intermediateFileName"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			datarangeactive="True"
 			datasource="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
@@ -8714,32 +8718,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="70f8eee1-9943-4229-9449-dcc01210b84e"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="fileNameReferenceLineToExport"
-					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateFileName"
-					datasourceid="6b777e00-480c-4498-a891-13599cefaff7"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
 			<teardown
 			id="710136e9-de8e-48b2-b63c-c91e105501bc"
 			name="teardown">
@@ -8915,11 +8893,19 @@
 				<databinding>
 					<var
 					dataname="fullPathReferenceFileToExport"
-					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					datasourceid="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93"
 					variableid="2388f28c-ae4b-45e9-b397-a025ce295d3d"
 					variablename="fileName">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathReferenceFileToExport"
+					datasourceid="d4109a49-5c22-4671-b7ee-2d795e1a37db"
+					variableid="2388f28c-ae4b-45e9-b397-a025ce295d3d"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="73c088e4-c78f-4cd9-bd68-d1cf0452861e"
@@ -9927,6 +9913,16 @@
 			id="7f85b222-1903-4de6-8bdf-467dc62c38b3"
 			name="ImportFMSections">
 			</smartfoldernode>
+			<smartfoldernode
+			id="7fed30e9-08bd-44e5-822c-a8680b799560"
+			name="MakeScreenshot">
+				<parameters>
+					<param
+					name="logMessage"
+					value="Check screenshot of map before exported reference line has been added as an extra layer.">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="808f5306-0ee1-4179-afa4-d43b38dfc9ba"
 			name="SelectGenericItemInProjectExplorer"
@@ -10483,10 +10479,6 @@
 					value="true">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="8922e9d7-e3b8-4c9c-bada-62f124d80356"
-			name="CreatedFile">
 			</smartfoldernode>
 			<testmodule
 			id="898406e9-0429-4244-b957-7f023b63d551"
@@ -11185,6 +11177,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="8f32deb2-62ee-4623-bac2-9f660517bf0a"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessage1"
+					datasourceid="3146d943-ab46-4698-b57d-c5c9b74ffc43"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8f3ddb31-aefe-4a12-9ca7-5f8aeb418907"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -11651,7 +11657,15 @@
 					name="shapeFileExtension"
 					value=".shp">
 					</param>
+					<param
+					name="fullPathReferenceFileToExport"
+					value="">
+					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="94fa1364-3db5-4133-beee-ad7ea4d329dd"
+			name="OpenMapTraject">
 			</smartfoldernode>
 			<testmodule
 			id="954c3ed6-165c-4839-87ee-dbba97688e2f"
@@ -13263,6 +13277,10 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="b0a34dce-c254-4833-aa19-fc97eb811e81"
+			name="ValidateExportedFile">
+			</smartfoldernode>
 			<testmodule
 			id="b112d32b-9675-4b2e-889a-0fc7f3937d6a"
 			name="ConcatenateStrings"
@@ -13827,6 +13845,20 @@
 			name="ConfirmActionInDialog"
 			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="b66bcfc0-1ffe-41f0-802c-df19792d778f"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessage2"
+					datasourceid="3146d943-ab46-4698-b57d-c5c9b74ffc43"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="b6b9d8ad-fe36-4168-8aa8-162969f77095"
@@ -15494,26 +15526,6 @@
 			name="CloseDocumentView">
 			</smartfoldernode>
 			<testmodule
-			id="c9e32a33-47e1-411b-8115-d09ae3723565"
-			name="CompareBinaryFiles"
-			ref="cb89280b-35e8-42fb-87cd-2ea111d129ea"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="fullPathReferenceFile"
-					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-					variableid="ae3a6124-5ee3-4e4a-b390-80ccfd69f924"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="fullPathCreatedFile"
-					datasourceid="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-					variableid="4cfcb494-35d9-42a7-b61c-90a926f27948"
-					variablename="filePath1">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -15711,10 +15723,6 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			id="cd426bed-66bb-48be-99d6-84455c65b049"
-			name="CompareFiles">
-			</smartfoldernode>
 			<testmodule
 			id="cd4e2431-7f03-4129-b87c-86e97d92c860"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -16335,12 +16343,6 @@
 			<smartfoldernode
 			id="d4109a49-5c22-4671-b7ee-2d795e1a37db"
 			name="ExportReferenceLine">
-				<parameters>
-					<param
-					name="fullPathReferenceFileToExport"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
@@ -17346,6 +17348,12 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="e33c6733-7907-491c-8f5f-44d8276fc4e3"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
 			name="GenerateCalculations">
@@ -18066,6 +18074,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="ee5d8350-f621-4b5f-b755-031d9e5d959e"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
 			name="OpenCategoryBoundariesView">
@@ -18436,6 +18450,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0"
+			name="AddExtraLayerBackground">
+				<parameters>
+					<param
+					name="namePanelMap"
+					value="Kaart">
+					</param>
+					<param
+					name="pathToTrajectItem"
+					value="Traject">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="f2e15766-da12-4567-a8bf-286816ef74cd"
 			name="ImportOriginalSchematizations">
@@ -18839,6 +18867,20 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="f99b4efe-b63a-42c4-8fb7-b099e00fb8eb"
+			name="MakePanelOnLeftVisible"
+			ref="080c578e-b4cb-4bb4-945d-26465067449d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="namePanelMap"
+					datasourceid="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0"
+					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
+					variablename="nameOfPanel">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="f9f9de1e-d986-4bac-b77e-b9e9f383b0c8"
@@ -20143,43 +20185,75 @@
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
-							id="5e2c0718-5bba-46c7-b732-0d58f44e38da"
-							name="CompareWithReferenceReferenceLine">
+							id="b0a34dce-c254-4833-aa19-fc97eb811e81"
+							name="ValidateExportedFile">
 								<smartfoldernode
-								id="6b777e00-480c-4498-a891-13599cefaff7"
-								name="CalculateFilesNames">
+								id="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0"
+								name="AddExtraLayerBackground">
 									<smartfoldernode
-									id="469103c1-e938-4503-bd7c-0d9440b4a0d0"
-									name="ReferenceFile">
+									id="94fa1364-3db5-4133-beee-ad7ea4d329dd"
+									name="OpenMapTraject">
 										<testmodule
-										id="62f96c0c-34f3-41ca-920b-212220e3a42a"
-										name="ConcatenateStrings">
+										id="4ea2b600-15a0-4e22-b09f-266ecfb07672"
+										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
 										<testmodule
-										id="465607ae-52c1-411a-853e-c7f99b9c1930"
-										name="ConcatenateStrings">
+										id="6097acff-23ab-4f4f-8bb7-2b7389de20b6"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
-									id="8922e9d7-e3b8-4c9c-bada-62f124d80356"
-									name="CreatedFile">
+									id="3044ea49-f46c-4a2d-a08a-db58103edf47"
+									name="ShowMapPanel">
 										<testmodule
-										id="70f8eee1-9943-4229-9449-dcc01210b84e"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="2e4b9f86-4fcb-4748-a778-bb3f13ca0fba"
-										name="ConcatenateStrings">
+										id="f99b4efe-b63a-42c4-8fb7-b099e00fb8eb"
+										name="MakePanelOnLeftVisible">
 										</testmodule>
 									</smartfoldernode>
-								</smartfoldernode>
-								<smartfoldernode
-								id="cd426bed-66bb-48be-99d6-84455c65b049"
-								name="CompareFiles">
-									<testmodule
-									id="c9e32a33-47e1-411b-8115-d09ae3723565"
-									name="CompareBinaryFiles">
-									</testmodule>
+									<smartfoldernode
+									id="7fed30e9-08bd-44e5-822c-a8680b799560"
+									name="MakeScreenshot">
+										<testmodule
+										id="16baa904-d916-4bc2-9d97-6482effba011"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="e33c6733-7907-491c-8f5f-44d8276fc4e3"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="1784a7a6-4361-426a-983b-2e1ed60845ce"
+									name="AddBackgroundLayerExportedShapeFile">
+										<testmodule
+										id="0bfe6820-f406-4b3c-97f7-373385b6ebb0"
+										name="AddBackgroundLayer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="3146d943-ab46-4698-b57d-c5c9b74ffc43"
+									name="MakeScreenshot">
+										<testmodule
+										id="8f32deb2-62ee-4623-bac2-9f660517bf0a"
+										name="LogWarningMessage">
+										</testmodule>
+										<testmodule
+										id="ee5d8350-f621-4b5f-b755-031d9e5d959e"
+										name="CreateScreenShotEntireApplication">
+										</testmodule>
+										<testmodule
+										id="b66bcfc0-1ffe-41f0-802c-df19792d778f"
+										name="CreateScreenshotMessagesPanel">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="6a973635-237b-4806-ba15-ea3651c9ed01"
+									name="ValidateTheExportedReferenceLineHasBeenAddedWithoutErrors">
+										<testmodule
+										id="0ed2b02b-312e-40c1-b874-883195d1d16a"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -27171,6 +27245,71 @@
 				<tr>
 					<td>
 						.shx
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="8f08f0ff-8df6-45e5-bec9-f1fa6a953527"
+		lastknownrowcount="3"
+		name="script06_b_ValidationMessagesAddingReferenceLineAsExtraLayer"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelIteration
+				</column>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					expectedMessageSubstring
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelIteration
+					</th>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						expectedMessageSubstring
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Validating message 1
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van 'Kaartlaag' is gelukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Validating message 2
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Gegevens zijn geïmporteerd vanuit bestand
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Validating message 3
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Importeren van 'Kaartlaag' is gestart.
 					</td>
 				</tr>
 			</table>
@@ -40107,6 +40246,72 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="3c6434b8-490e-433d-bfa3-1bce94643159"
+		lastknownrowcount="2"
+		name="script29a_AddBackgroundLayer"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					backgroundFileName
+				</column>
+				<column>
+					remark
+				</column>
+				<column>
+					indexView
+				</column>
+				<column>
+					pathToAddedLayer
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						backgroundFileName
+					</th>
+					<th>
+						remark
+					</th>
+					<th>
+						indexView
+					</th>
+					<th>
+						pathToAddedLayer
+					</th>
+				</tr>
+				<tr>
+					<td>
+						X:\script29\background\brt_2011_gn1.shp
+					</td>
+					<td>
+						Large (17 MB) shape file
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						brt_2011_gn1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						X:\script29\background\gem_2011_gn1.shp
+					</td>
+					<td>
+						Small (600kB) shape file
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						gem_2011_gn1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
 		includefile="Unchecked"
 		lastknownrowcount="11"
@@ -40812,6 +41017,9 @@
 			id="173e8983-e010-4e9e-847a-7301bebc2cac">
 			</testcontainer>
 			<testcontainer
+			id="1784a7a6-4361-426a-983b-2e1ed60845ce">
+			</testcontainer>
+			<testcontainer
 			id="18ecae73-8b61-4726-8522-a46580163cbf">
 			</testcontainer>
 			<testcontainer
@@ -40929,10 +41137,16 @@
 			id="2f520007-23e6-4bd2-89a1-6b43cf925e60">
 			</testcontainer>
 			<testcontainer
+			id="3044ea49-f46c-4a2d-a08a-db58103edf47">
+			</testcontainer>
+			<testcontainer
 			id="30727f16-9ba4-4656-94bd-64ffdd023219">
 			</testcontainer>
 			<testcontainer
 			id="309d665f-5b2e-43df-9472-0faae45c7fd0">
+			</testcontainer>
+			<testcontainer
+			id="3146d943-ab46-4698-b57d-c5c9b74ffc43">
 			</testcontainer>
 			<testcontainer
 			id="315ccb36-8406-49f0-9352-0ffc71dc3d87">
@@ -41017,9 +41231,6 @@
 			</testcontainer>
 			<testcontainer
 			id="4649db8b-0ea6-4ca7-b7a8-3a977d0fc377">
-			</testcontainer>
-			<testcontainer
-			id="469103c1-e938-4503-bd7c-0d9440b4a0d0">
 			</testcontainer>
 			<testcontainer
 			id="46a23393-25eb-47af-ac00-83d5880c2a72">
@@ -41127,9 +41338,6 @@
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
 			</testcontainer>
 			<testcontainer
-			id="5e2c0718-5bba-46c7-b732-0d58f44e38da">
-			</testcontainer>
-			<testcontainer
 			id="5f95ce06-adb9-415e-9d25-8d36708cfcc8">
 			</testcontainer>
 			<testcontainer
@@ -41163,10 +41371,10 @@
 			id="6a877048-89b6-4b16-8e16-fd8de63831cb">
 			</testcontainer>
 			<testcontainer
-			id="6b07606e-7786-4411-91c1-21644b0ef180">
+			id="6a973635-237b-4806-ba15-ea3651c9ed01">
 			</testcontainer>
 			<testcontainer
-			id="6b777e00-480c-4498-a891-13599cefaff7">
+			id="6b07606e-7786-4411-91c1-21644b0ef180">
 			</testcontainer>
 			<testcontainer
 			id="6be7c3cb-0bb4-4632-b155-6fab5d9b1282">
@@ -41268,6 +41476,9 @@
 			id="7f85b222-1903-4de6-8bdf-467dc62c38b3">
 			</testcontainer>
 			<testcontainer
+			id="7fed30e9-08bd-44e5-822c-a8680b799560">
+			</testcontainer>
+			<testcontainer
 			id="81ea0df2-e684-46cb-be15-b365c8220892">
 			</testcontainer>
 			<testcontainer
@@ -41296,9 +41507,6 @@
 			</testcontainer>
 			<testcontainer
 			id="88d1cf2f-edc6-4218-a2d1-a86f86380bd2">
-			</testcontainer>
-			<testcontainer
-			id="8922e9d7-e3b8-4c9c-bada-62f124d80356">
 			</testcontainer>
 			<testcontainer
 			id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28">
@@ -41335,6 +41543,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9414b00d-9b9d-4c4e-85d1-bf4da42e6c93">
+			</testcontainer>
+			<testcontainer
+			id="94fa1364-3db5-4133-beee-ad7ea4d329dd">
 			</testcontainer>
 			<testcontainer
 			id="958716fd-2581-492f-b0ab-54e55b9ed92b">
@@ -41431,6 +41642,9 @@
 			</testcontainer>
 			<testcontainer
 			id="afd42c83-505d-4c73-a25f-627b4463b754">
+			</testcontainer>
+			<testcontainer
+			id="b0a34dce-c254-4833-aa19-fc97eb811e81">
 			</testcontainer>
 			<testcontainer
 			id="b159c954-881e-4d28-a7f3-58f8c6f49fc0">
@@ -41575,9 +41789,6 @@
 			</testcontainer>
 			<testcontainer
 			id="cc71785f-2e88-4a07-9d3a-1f54f9f866f1">
-			</testcontainer>
-			<testcontainer
-			id="cd426bed-66bb-48be-99d6-84455c65b049">
 			</testcontainer>
 			<testcontainer
 			id="cd8636bb-f4aa-4baa-8a0a-a38358678ac3">
@@ -41752,6 +41963,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f1b902f6-3c4c-400d-b54f-a0cedc37602e">
+			</testcontainer>
+			<testcontainer
+			id="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0">
 			</testcontainer>
 			<testcontainer
 			id="f2e15766-da12-4567-a8bf-286816ef74cd">
