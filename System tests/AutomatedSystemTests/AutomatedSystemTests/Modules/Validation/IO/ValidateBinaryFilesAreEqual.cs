@@ -24,7 +24,7 @@ namespace AutomatedSystemTests.Modules.IO
     /// Description of CompareBinaryFiles.
     /// </summary>
     [TestModule("CB89280B-35E8-42FB-87CD-2EA111D129EA", ModuleType.UserCode, 1)]
-    public class CompareBinaryFiles : ITestModule
+    public class ValidateBinaryFilesAreEqual : ITestModule
     {
         
         
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.IO
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CompareBinaryFiles()
+        public ValidateBinaryFilesAreEqual()
         {
             // Do not delete - a parameterless constructor is required!
         }

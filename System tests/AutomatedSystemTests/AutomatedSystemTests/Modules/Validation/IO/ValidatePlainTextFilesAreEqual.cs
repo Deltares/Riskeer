@@ -20,26 +20,26 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.IO
+namespace AutomatedSystemTests.Modules.Validation.IO
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ComparePlainTextFiles recording.
+    ///The ValidatePlainTextFilesAreEqual recording.
     /// </summary>
     [TestModule("d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8", ModuleType.Recording, 1)]
-    public partial class ComparePlainTextFiles : ITestModule
+    public partial class ValidatePlainTextFilesAreEqual : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ComparePlainTextFiles instance = new ComparePlainTextFiles();
+        static ValidatePlainTextFilesAreEqual instance = new ValidatePlainTextFilesAreEqual();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ComparePlainTextFiles()
+        public ValidatePlainTextFilesAreEqual()
         {
             filePath1 = "";
             filePath2 = "";
@@ -48,7 +48,7 @@ namespace AutomatedSystemTests.Modules.IO
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ComparePlainTextFiles Instance
+        public static ValidatePlainTextFilesAreEqual Instance
         {
             get { return instance; }
         }

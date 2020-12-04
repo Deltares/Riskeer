@@ -116,7 +116,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidateCellContainsSectionName(repo.RiskeerMainWindow.DocumentViewContainerUncached.FailureMechanismResultView.TableDataGridView.Self);
+            ValidateCellContainsSectionName(repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.Self);
             
         }
 

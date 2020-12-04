@@ -1862,7 +1862,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="19648fdb-640d-40fd-865a-c484ef4a7c9b"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -2607,7 +2607,7 @@
 			</testmodule>
 			<testmodule
 			id="256c1bb8-2535-464d-8251-e5ddffef2882"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<databinding>
@@ -5729,7 +5729,7 @@
 			</testmodule>
 			<testmodule
 			id="4fd685af-e7b2-427f-90c4-311c852e2817"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -7325,7 +7325,7 @@
 			</testmodule>
 			<testmodule
 			id="5f92e7e3-f43b-4c1e-aa4d-7aac4238544b"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -7668,7 +7668,7 @@
 			</testmodule>
 			<testmodule
 			id="62247137-6253-4336-84f6-bbb96f0e1f85"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<databinding>
@@ -9087,7 +9087,7 @@
 			</testmodule>
 			<testmodule
 			id="76836ed0-e1a1-4564-94a1-ec22e5d78222"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -10800,7 +10800,7 @@
 			</testmodule>
 			<testmodule
 			id="8c7af6f1-9955-464c-b6dc-89f3e466e4c4"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -10963,7 +10963,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="8e1b46c8-4cf8-4f35-ac23-bf747d4d77a5"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -11000,7 +11000,7 @@
 			</testmodule>
 			<testmodule
 			id="8e294005-9089-4a14-a607-9e7e76f20568"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -12824,7 +12824,7 @@
 			</testmodule>
 			<testmodule
 			id="a7d93ecf-4686-4223-b53c-1ee6725c8a31"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<databinding>
@@ -16544,7 +16544,7 @@
 			</testmodule>
 			<testmodule
 			id="d9805b18-7d94-4344-8e11-9faba7cfa1cd"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<description>
@@ -19834,7 +19834,7 @@
 										name="ValidateCSVEqualTo3sectionsReference">
 											<testmodule
 											id="5f92e7e3-f43b-4c1e-aa4d-7aac4238544b"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 										<testmodule
@@ -20070,7 +20070,7 @@
 										name="ValidateCSVEqualTo5sectionsReference">
 											<testmodule
 											id="4fd685af-e7b2-427f-90c4-311c852e2817"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 										<testmodule
@@ -21010,7 +21010,7 @@
 											</testmodule>
 											<testmodule
 											id="62247137-6253-4336-84f6-bbb96f0e1f85"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -21222,7 +21222,7 @@
 											</testmodule>
 											<testmodule
 											id="a7d93ecf-4686-4223-b53c-1ee6725c8a31"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -21384,7 +21384,7 @@
 													</testmodule>
 													<testmodule
 													id="d9805b18-7d94-4344-8e11-9faba7cfa1cd"
-													name="ComparePlainTextFiles">
+													name="ValidatePlainTextFilesAreEqual">
 													</testmodule>
 												</smartfoldernode>
 											</smartfoldernode>
@@ -22606,7 +22606,7 @@
 											</testmodule>
 											<testmodule
 											id="8e294005-9089-4a14-a607-9e7e76f20568"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -22718,7 +22718,7 @@
 											</testmodule>
 											<testmodule
 											id="8c7af6f1-9955-464c-b6dc-89f3e466e4c4"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -22840,7 +22840,7 @@
 													</testmodule>
 													<testmodule
 													id="8e1b46c8-4cf8-4f35-ac23-bf747d4d77a5"
-													name="ComparePlainTextFiles">
+													name="ValidatePlainTextFilesAreEqual">
 													</testmodule>
 												</smartfoldernode>
 											</smartfoldernode>
@@ -23053,7 +23053,7 @@
 							name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 								<testmodule
 								id="256c1bb8-2535-464d-8251-e5ddffef2882"
-								name="ComparePlainTextFiles">
+								name="ValidatePlainTextFilesAreEqual">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -23458,7 +23458,7 @@
 										name="ValidateCSVEqualToReference">
 											<testmodule
 											id="19648fdb-640d-40fd-865a-c484ef4a7c9b"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -23602,7 +23602,7 @@
 										name="ValidateAgainCSVEqualToReference">
 											<testmodule
 											id="76836ed0-e1a1-4564-94a1-ec22e5d78222"
-											name="ComparePlainTextFiles">
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>

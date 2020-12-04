@@ -19,8 +19,8 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ComparePlainTextFiles"
-	namespace="AutomatedSystemTests.Modules.IO">
+	classname="ValidatePlainTextFilesAreEqual"
+	namespace="AutomatedSystemTests.Modules.Validation.IO">
 	</codegen>
 	<variables>
 		<var
@@ -72,7 +72,7 @@ mode="Global">
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 	name="AutomatedSystemTestsRepository"
-	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
 		<codegen
 		classname="AutomatedSystemTestsRepository"
 		namespace="AutomatedSystemTests">

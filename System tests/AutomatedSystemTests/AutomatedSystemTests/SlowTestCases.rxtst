@@ -1616,7 +1616,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="2e619408-de7a-441c-b07c-ede7288c5015"
-			name="ComparePlainTextFiles"
+			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
 			type="Recording">
 				<databinding>
@@ -11337,7 +11337,7 @@
 									name="CompareSavedCalculationConfigurationFileWithReferenceFile">
 										<testmodule
 										id="2e619408-de7a-441c-b07c-ede7288c5015"
-										name="ComparePlainTextFiles">
+										name="ValidatePlainTextFilesAreEqual">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode

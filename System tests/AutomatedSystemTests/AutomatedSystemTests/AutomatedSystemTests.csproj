@@ -402,6 +402,12 @@
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadCombinedAssessmentPerSectionFromResultView.cs">
+      <id>93fc40b2-25f2-4a04-9470-ea76f13116f0</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
+      <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.cs">
       <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
       <DependentUpon>ZoomMapViewWithMouseWheel.rxrec</DependentUpon>
@@ -804,21 +810,6 @@
     <Compile Include="Modules\Calculation\SetRowIndexReferenceCSVFile.cs">
       <id>98c10d51-5c74-423b-b2da-02f05bc02aef</id>
     </Compile>
-    <Compile Include="Modules\IO\CompareBinaryFiles.cs">
-      <id>7f3b1afc-4280-4923-8a4a-8d0136ed50b7</id>
-    </Compile>
-    <Compile Include="Modules\IO\ComparePlainTextFiles.cs">
-      <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>c092b834-b7a7-4f89-be1c-bb9463d97e7b</id>
-      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\IO\ComparePlainTextFiles.UserCode.cs">
-      <DependentUpon>ComparePlainTextFiles.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
-      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
-    </Compile>
     <Compile Include="Modules\IO\CopyAllSearchFilteredFilesFromSourceToTarget.cs">
       <id>90092fd2-c944-452f-aa63-aa9eaf1e2b12</id>
     </Compile>
@@ -890,6 +881,9 @@
     </Compile>
     <Compile Include="Modules\IO\ExportPropertiesPanelToCsv.cs">
       <id>d3e045f6-fd35-400e-8864-ce9627abde51</id>
+    </Compile>
+    <Compile Include="Modules\IO\ExportTableInFMResultsViewToCSVFile.cs">
+      <id>e2bb8df9-4e88-4971-a098-cc291c45a0ba</id>
     </Compile>
     <Compile Include="Modules\IO\ImportConfigurationCalculationsFromXMLFile.cs">
       <BoundTo>fb360840-4623-47a1-a936-f62b3f14df39</BoundTo>
@@ -1701,6 +1695,21 @@
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\IO\ValidateBinaryFilesAreEqual.cs">
+      <id>7f3b1afc-4280-4923-8a4a-8d0136ed50b7</id>
+    </Compile>
+    <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreEqual.cs">
+      <DependentUpon>ValidatePlainTextFilesAreEqual.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c092b834-b7a7-4f89-be1c-bb9463d97e7b</id>
+      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreEqual.UserCode.cs">
+      <DependentUpon>ValidatePlainTextFilesAreEqual.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
+      <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
+    </Compile>
     <Compile Include="Modules\Validation\MapLayersPanel\ValidateWhetherFolderGivenPathContainsNode.cs">
       <id>a76058a8-e278-448b-b98a-a83de005e0a5</id>
     </Compile>
@@ -2160,9 +2169,6 @@
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
     </None>
-    <None Include="DeltaresRiskeer.png">
-      <id>03625790-54b2-4b4e-b41c-64e986f21c5f</id>
-    </None>
     <None Include="Modules\ActionsAUT\CloseAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
@@ -2412,11 +2418,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
       <recordtableid>4e9bdd58-dcf1-424d-a224-1d30c86d102b</recordtableid>
-    </None>
-    <None Include="Modules\IO\ComparePlainTextFiles.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
-      <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
     </None>
     <None Include="Modules\IO\CopyFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2768,6 +2769,11 @@
       <id>b6c2ba00-63e3-4440-af0f-320297649b7e</id>
       <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
     </None>
+    <None Include="Modules\Validation\IO\ValidatePlainTextFilesAreEqual.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
+      <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
+    </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.rxrec">
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
       <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
@@ -3034,6 +3040,9 @@
     </Folder>
     <Folder Include="Modules\Validation\MapLayersPanel">
       <id>75b687df-7e33-47cf-92ce-9a12e15e17c6</id>
+    </Folder>
+    <Folder Include="Modules\Validation\IO">
+      <id>3c319368-d1f1-4a18-810f-cde21b77210f</id>
     </Folder>
     <Folder Include="Modules\Validation\ProjectExplorer">
       <id>99ea1c19-fb3a-4ea5-8a98-7b10c3993598</id>
