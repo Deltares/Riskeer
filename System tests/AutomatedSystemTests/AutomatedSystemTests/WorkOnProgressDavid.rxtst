@@ -421,6 +421,7 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			enabled="False"
 			id="7b13250c-ee75-454e-a4cb-585632a9f767"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1367,9 +1368,6 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="04b251ac-8df1-4c85-855e-73c7e6bb166d">
-			</testcontainer>
-			<testcontainer
 			id="09250f11-b38a-48f7-a2fd-57a3c4a6481c">
 			</testcontainer>
 			<testcontainer
@@ -1391,12 +1389,6 @@
 			id="331303ea-9b13-4de1-9d76-d1f1aedde5bc">
 			</testcontainer>
 			<testcontainer
-			id="3678fb16-1578-4564-9e46-2ddcd2fed718">
-			</testcontainer>
-			<testcontainer
-			id="39c733dc-ed2e-4787-9560-2b7759723111">
-			</testcontainer>
-			<testcontainer
 			id="5ea20338-a950-4af2-9f97-a5133ec75a01">
 			</testcontainer>
 			<testcontainer
@@ -1416,9 +1408,6 @@
 			</testcontainer>
 			<testcontainer
 			id="8e597ffb-9c80-4177-8840-568c787cd889">
-			</testcontainer>
-			<testcontainer
-			id="a5db2bdf-e1b3-4447-bd90-e6c06c14d4ea">
 			</testcontainer>
 			<testcontainer
 			id="a90fabce-1b10-49c7-be26-ffce8f441e69">

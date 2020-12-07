@@ -7,6 +7,8 @@
  * To change this template use Tools > Options > Coding > Edit standard headers.
  */
 using System;
+using System.Globalization;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -57,10 +59,90 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
-            
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-
+            
+            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblySectionsView.Table;
+            List<double> allSubsections = new List<double>();
+            allSubsections.Add(0);
+            foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsAssessmentInformation) {
+                foreach (var section in fmTrjAssInfo.SectionList) {
+                    allSubsections.Add(section.EndDistance);
+                }
+            }
+            allSubsections.Sort();
+            var allSubsectionsUnique = allSubsections.Distinct().ToList();
+            var rowsToIterate = table.Rows.ToList();
+            var headerRow = rowsToIterate[0];
+            
+            List<string> fmsToValidate = trajectAssessmentInformation.ListFMsAssessmentInformation.Select(it=>it.Label).ToList();
+            int indexSectionNumber       = GetIndex(headerRow, "Vaknummer");
+            int indexDistanceStart       = GetIndex(headerRow, "van* [m]");
+            int indexDistanceEnd         = GetIndex(headerRow, "tot* [m]");
+            int indexCombinedAssessment  = GetIndex(headerRow, "Gecombineerd");
+            List<int> indecesColumnsFMsToValidate = fmsToValidate.Select(fmLabel=>GetIndex(headerRow, fmLabel)).ToList();
+            
+            Dictionary<string,int> dicAssemblyLabels = new Dictionary<string, int> {
+                {"-",    0},
+                {"Iv",   1},
+                {"IIv",  2},
+                {"IIIv", 3},
+                {"IVv",  4},
+                {"Vv",   5},
+                {"VIv",  6},
+                {"VIIv", 7}
+            };
+            
+            rowsToIterate.RemoveAt(0);
+            int indexRow = 0;
+            foreach (var row in rowsToIterate) {
+                var cells = row.Cells.ToList();
+                double expectedDistanceStart = allSubsectionsUnique[indexRow];
+                double expectedDistanceEnd   = allSubsectionsUnique[indexRow + 1];
+                double expectedDistanceMiddle = (expectedDistanceStart + expectedDistanceEnd)/2.0;
+                string CombinedAssessmentSectionLabel = "";
+                int worstFMLabel = 0;
+                for (int i = 0; i < fmsToValidate.Count; i++) {
+                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
+                    var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
+                    if (dicAssemblyLabels[expectedFMAssessmentLabel]>worstFMLabel) {
+                        worstFMLabel = dicAssemblyLabels[expectedFMAssessmentLabel];
+                        CombinedAssessmentSectionLabel = expectedFMAssessmentLabel;
+                    }
+                }
+                Report.Info("Validation for row " + (indexRow + 1).ToString() + ".");
+                ValidateCell(cells[indexSectionNumber], (indexRow + 1).ToString(), "Validation section number.");
+                ValidateCell(cells[indexDistanceStart], expectedDistanceStart.ToString("N2"), "Validation section start");
+                ValidateCell(cells[indexDistanceEnd], expectedDistanceEnd.ToString("N2"), "Validation section end");
+                ValidateCell(cells[indexCombinedAssessment], CombinedAssessmentSectionLabel, "Validation combined assessment label.");
+                
+                
+                for (int i = 0; i < fmsToValidate.Count; i++) {
+                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
+                    var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
+                    
+                    ValidateCell(cells[indecesColumnsFMsToValidate[i]], expectedFMAssessmentLabel, "Validation assessment label FM " + fmsToValidate[i]);
+                }
+                indexRow++;
+            }
+        }
+        
+        private void ValidateCell(Cell cell, string expectedValue, string message) 
+        {
+            Report.Info(message);
+            cell.Select();
+            string actualValue = GetAV(cell);
+            Validate.AreEqual(actualValue, expectedValue);
+        }
+        
+        private string GetAssessmentLabelForDistance(FailureMechanismAssessmentInformation fmAssInfo, double distance)
+        {
+            var endSections = fmAssInfo.SectionList.Select(it=>it.EndDistance).ToList();
+            int index = endSections.FindIndex(it=> distance<it);
+            var label = fmAssInfo.SectionList[index].CombinedAssessmentLabel;
+            return label;
         }
         
         private TrajectAssessmentInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
@@ -87,5 +169,16 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
             return trajectAssessmentInformation;
         }
+        
+        private string GetAV(Cell cl)
+        {
+            return cl.Element.GetAttributeValueText("AccessibleValue");
+        }
+        
+        private int GetIndex(Row row, string name)
+        {
+            return row.Cells.ToList().FindIndex(cl=>GetAV(cl).Contains(name));
+        }
+
     }
 }

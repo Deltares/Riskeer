@@ -204,7 +204,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         }
         
         /// <summary>
-        /// Label fo the FM
+        /// Label of the FM
         /// </summary>
         public string Label{get; set;}
         

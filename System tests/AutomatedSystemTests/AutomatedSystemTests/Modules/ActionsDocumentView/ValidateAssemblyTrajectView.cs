@@ -78,18 +78,26 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1and2(trajectAssessmentInformation);
             string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;
-            ValidateAssessmentProb1and2(actualAssessmentProb1and2, expectedAssessmentProb1and2);
+            ValidateAreEqualWithMessage(actualAssessmentProb1and2, expectedAssessmentProb1and2, "Validation Assembly probability groups 1 and 2.");
             
+            string expectedAssessmentLabel1and2 = CalculateAssessmentLabelGroups1and2(expectedAssessmentProb1and2, categoryBoundariesTraject);
             string actualAssessmentLabel1and2 = summaryTraject.AssessmentLabelGroups1And2.TextValue;
-            ValidateAssessmentLabel1and2(actualAssessmentLabel1and2, expectedAssessmentProb1and2, categoryBoundariesTraject);
+            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 1 and 2.");
+            
+            string expectedAssessmentLabel3and4 = CalculateAssessmentLabelGroups3and4(trajectAssessmentInformation);
+            string actualAssessmentLabel3and4 = summaryTraject.AssessmentGroups3And4.TextValue;
+            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 3 and 4.");
+            
+            string expectedSecurityAssessmentLabel = CalculateSecurityAssessmentLabel(expectedAssessmentLabel1and2, expectedAssessmentLabel3and4);
+            string actualSecurityAssessmentLabel = summaryTraject.SecurityAssessment.TextValue;
+            ValidateAreEqualWithMessage(actualSecurityAssessmentLabel, expectedSecurityAssessmentLabel, "Validation Security Assembly Label.");
             
 
         }
-        private void ValidateAssessmentLabel1and2(string actualValue, string expectedProb, string categoryBoundariesTraject)
+        private void ValidateAreEqualWithMessage(string actualValue, string expectedValue, string message)
         {
-            string expectedAssessmentLabel1and2 = CalculateAssessmentLabelGroups1and2(expectedProb, categoryBoundariesTraject);
-            Report.Info("Validating Assembly probability groups 1 and 2...");
-            Validate.AreEqual(actualValue, expectedAssessmentLabel1and2);
+            Report.Info(message);
+            Validate.AreEqual(actualValue, expectedValue);
         }
 
         private string CalculateAssessmentLabelGroups1and2(string expectedProb, string categoryBoundariesTraject)
@@ -128,49 +136,79 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
         }
 
-        private string CalculateSecurityAssessmentLabel(string expectedProb, string categoryBoundariesTraject, TrajectAssessmentInformation trjAssInfo)
+        private string CalculateAssessmentLabelGroups3and4(TrajectAssessmentInformation trjAssInfo)
         {
-            if (expectedProb=="1/Oneindig") {
-                return "C";
-            } else {
-                System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-                var boundaries = categoryBoundariesTraject.Split(';').ToList();
-                var boundariesValues = boundaries.Select(bd=>1.0/Double.Parse(bd.Substring(2,bd.Length-2), currentCulture)).ToList();
-                boundariesValues.Add(1.0);
-                double expectedProbValue = 1.0/Double.Parse(expectedProb.Substring(2, expectedProb.Length-2), currentCulture);
-                string label = "";
-                var indexFirstBoundaryAbove = boundariesValues.FindIndex(bd=>bd>expectedProbValue);
-                switch (indexFirstBoundaryAbove) {
-                    case 0:
-                        label = "It";
-                        break;
-                    case 1:
-                        label = "IIt";
-                        break;
-                    case 2:
-                        label = "IIIt";
-                        break;
-                    case 3:
-                        label = "IVt";
-                        break;
-                    case 4:
-                        label = "Vt";
-                        break;
-                    case 5:
-                        label = "VIt";
-                        break;
+            Dictionary<string,int> dicAssemblyLabels = new Dictionary<string, int> {
+                {"-",    0},
+                {"It",   1},
+                {"IIt",  2},
+                {"IIIt", 3},
+                {"IVt",  4},
+                {"Vt",   5},
+                {"VIt",  6},
+                {"VIIt", 7}
+            };
+            int maxLabel = 0;
+            string labelGroup3and4 ="";
+            var trjAssInfoFMsGroup3and4 = trjAssInfo.ListFMsAssessmentInformation.Where(tai=>tai.Group==3 || tai.Group==4);
+            foreach (var fmTrjAssInfo in trjAssInfoFMsGroup3and4) {
+                if (dicAssemblyLabels[fmTrjAssInfo.AssessmentLabel]>maxLabel) {
+                    maxLabel = dicAssemblyLabels[fmTrjAssInfo.AssessmentLabel];
+                    labelGroup3and4 = fmTrjAssInfo.AssessmentLabel;
                 }
-                return label;
+            }
+            return labelGroup3and4;
+        }
+
+        private string CalculateSecurityAssessmentLabel(string expectedLabel12, string expectedLabel34)
+        {
+            Dictionary<string,int> dicAssemblyLabels = new Dictionary<string, int> {
+                {"-",    0},
+                {"It",   1},
+                {"IIt",  2},
+                {"IIIt", 3},
+                {"IVt",  4},
+                {"Vt",   5},
+                {"VIt",  6},
+                {"VIIt", 7}
+            };
+            int value12 = dicAssemblyLabels[expectedLabel12];
+            int value34 = dicAssemblyLabels[expectedLabel34];
+            int labelValueWorst = -1;
+            if (value12>value34) {
+                labelValueWorst = value12;
+            } else{
+                labelValueWorst = value34;
+            }
+            
+            switch (labelValueWorst) {
+                case 0:
+                    return "NGO";
+                case 1:
+                    return "A+";
+                case 2:
+                    return "A";
+                case 3:
+                    return "B";
+                case 4:
+                    return "C";
+                case 5:
+                    return "C";
+                case 6:
+                    return "D";
+                case 7:
+                    return "NGO";
+                default:
+                    return "ERROR";
             }
         }
 
-        
         private void ValidateAssessmentProb1and2(string actualValue, string  expectedValue)
         {
             Report.Info("Validating Assembly probability groups 1 and 2...");
             Validate.AreEqual(actualValue, expectedValue);
         }
-        
+
         private string CalculateAssessmentProbabilityGroups1and2(TrajectAssessmentInformation trjAssInfo)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
@@ -188,11 +226,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 return "1/Oneindig";
             } else {
                 double prob = 1 - productInvProbs;
-                string denominator = (1/prob).ToString(currentCulture);
+                int denomInt= Convert.ToInt32(1/prob);
+                string denominator = String.Format("{0:n0}", denomInt);
                 return "1/" + denominator;
             }
         }
-        
+
         private void ValidateTableAssemblyTrajectView(Table table, TrajectAssessmentInformation trjAssInfo)
         {
             var headerRow = table.Rows[0];
@@ -210,7 +249,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     Report.Info("Validation for FM = " + currentFM);
                     Report.Info("Validating group...");
                     row.Cells[indexGroup].Select();
-                    Validate.AreEqual(GetAV(row.Cells[indexGroup]), assInfo.Group);
+                    Validate.AreEqual(GetAV(row.Cells[indexGroup]), assInfo.Group.ToString());
                     Report.Info("Validating assessment label...");
                     row.Cells[indexAssessmentLabel].Select();
                     Validate.AreEqual(GetAV(row.Cells[indexAssessmentLabel]), assInfo.AssessmentLabel);

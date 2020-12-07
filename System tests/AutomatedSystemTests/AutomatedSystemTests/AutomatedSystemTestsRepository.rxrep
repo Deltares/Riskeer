@@ -1008,6 +1008,25 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultCategoriesView']
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="5a151305-72de-45f8-b2e3-6fcfc226f361"
+				isrooted="True"
+				name="AssemblySectionsView"
+				refimgid="16857980-eb80-4181-be65-0dcafebd443e"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					capname="table"
+					id="e21708c5-fec0-48a4-a781-9a094d1d956a"
+					name="Table"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
