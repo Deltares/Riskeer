@@ -589,6 +589,45 @@ name="AutomatedSystemTestsRepository">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
 					</folder>
+					<folder
+					capname="container"
+					id="3a553cf8-c13d-4d90-ac0f-fc1cb3a8c6a9"
+					isrooted="True"
+					name="AssemblyWithProb"
+					refimgid="b38f6402-d6a8-45f1-86f4-58cbdef86c96"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="555de67d-51df-407a-8568-fd4103465a3d"
+						name="Label"
+						refimgid="cff20c4c-f968-4e52-8f56-b83181df4a04"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']/container[@controlname='GroupPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6"
+						name="Probability"
+						refimgid="25125f59-3167-4e83-964d-f177d497aa21"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']/container[@controlname='probabilityPanel']/text/text
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']
+						</basepath>
+					</folder>
+					<item
+					addcaps="text,accessible"
+					capname="text"
+					id="c399e33b-877b-44d3-b11d-669c5860639a"
+					name="LabelNoProb"
+					refimgid="4d180fc1-d7b8-4306-a023-4b409260a1d2"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container/container/text/text
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']
 					</basepath>
@@ -877,6 +916,98 @@ name="AutomatedSystemTestsRepository">
 				searchtimeout="30000ms">
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/table[@controlname='dataGridView']
 				</item>
+				<folder
+				capname="container"
+				id="82c9e9d8-a1cb-491c-82a8-73b6890efdc7"
+				isrooted="True"
+				name="AssemblyResult"
+				refimgid="62aca4fb-14dc-491a-94c4-a620e9ce23e2"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="container"
+					id="b6c16815-7d2e-4c8f-a729-4eb72e26ccdd"
+					isrooted="True"
+					name="Summary"
+					refimgid="486358d6-82e0-46c6-9d16-197756608c63"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="06fa95f1-b47a-4a0e-a616-04091c02e9cb"
+						name="SecurityAssessment"
+						refimgid="6a5ca846-96eb-4938-aed5-b2deca41d5d3"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='totalAssemblyCategoryGroupControl']/container/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="41d87314-6a5d-4b48-bb76-cee7c6f57537"
+						name="AssessmentLabelGroups1And2"
+						refimgid="70c0b344-15e8-4a3f-ad47-37af1d3c05f6"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='GroupPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="1d9add26-2df5-4fe6-b94b-07f83cce63eb"
+						name="AssessmentProbabilityGroups1And2"
+						refimgid="be718cae-ad0b-4416-881e-761eeaab51c4"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='probabilityPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="82e26559-e7f0-45f2-822d-cb7a9db63950"
+						name="AssessmentGroups3And4"
+						refimgid="2535c3a4-cb02-4a80-a788-ca0cb2812d14"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithoutProbabilityAssemblyControl']/container/text
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="4c15a955-c1b0-48c4-bcdc-7150cc96054e"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="5c34ec61-2a27-47dd-9034-14bc035f18c4"
+				isrooted="True"
+				name="AssemblyResultsCategoryView"
+				refimgid="7239c463-9844-43f6-ad10-b385821da8f9"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					addcaps="container,control,nativewindow"
+					capname="table"
+					id="d5f0ab31-e18f-41da-99e1-2baef3b7cc43"
+					name="Table"
+					refimgid="70233775-6dbb-42d8-a4fc-a397809721fd"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultCategoriesView']/container/container/container/table
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultCategoriesView']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>

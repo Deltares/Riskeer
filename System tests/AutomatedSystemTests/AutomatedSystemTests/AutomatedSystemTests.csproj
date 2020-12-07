@@ -39,6 +39,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ranorex.Bootstrapper">
       <Private>False</Private>
     </Reference>
@@ -402,11 +405,20 @@
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ReadCombinedAssessmentPerSectionFromResultView.cs">
+    <Compile Include="Modules\ActionsDocumentView\ReadCombinedAssessmentInformationFMFromResultView.cs">
       <id>93fc40b2-25f2-4a04-9470-ea76f13116f0</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadDataCategoryBoundariesTrajectView.cs">
+      <id>8e53cfa4-7861-4ae3-aad4-f06b1aeea7e1</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
       <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
+      <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateSectionsCombinationsView.cs">
+      <id>5a8d1d39-770a-499a-bd2b-f165e9451f94</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.cs">
       <BoundTo>0654a5f3-7f4f-4513-a435-530a7709f072</BoundTo>
@@ -2111,6 +2123,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AutomatedSystemTests.cd">
+      <id>66fe0cf2-33f8-4d9e-b13c-c2ffd8b9ec02</id>
+    </Content>
     <Content Include="ReportDeltaresStyle\RanorexReport.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>9b851ffe-ba07-4571-9820-ec050a6ab8f0</id>
@@ -2933,6 +2948,9 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
+    </None>
+    <None Include="packages.config">
+      <id>dfd3a3f5-0e6a-4028-8144-ed4d6153f833</id>
     </None>
     <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReportStap1Van2.png">
       <id>33bfacb4-10d7-4c99-ab52-0f94bd94b857</id>

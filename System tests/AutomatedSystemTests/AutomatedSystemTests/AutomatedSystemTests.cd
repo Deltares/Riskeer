@@ -1,0 +1,1593 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ClassDiagram Zoom="1" MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.ClickOnRunSelectedCalculationsHydraulicBCDA" Collapsed="False">
+    <Position X="0.5" Y="0.5" Width="5.487692" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.SetActiveTabView" Collapsed="False">
+    <Position X="0.5" Y="3.2" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.CloseViewCentralPanelWithFocus" Collapsed="False">
+    <Position X="0.5" Y="6.1" Width="4.035456" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRow" Collapsed="False">
+    <Position X="0.5" Y="8.9" Width="4.638952" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetDetailedAssessmentForRowPerSection" Collapsed="False">
+    <Position X="0.5" Y="12.2" Width="4.889245" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ContextMenuActions.VerifyItemPresentInContextMenu" Collapsed="False">
+    <Position X="0.5" Y="15.3" Width="3.916862" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetCustomAssessmentValueAtRow" Collapsed="False">
+    <Position X="0.5" Y="17.6" Width="4.181334" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateValueParameterN" Collapsed="False">
+    <Position X="0.5" Y="20.8" Width="3.327653" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.UpdateCurrentlySelectedItem" Collapsed="False">
+    <Position X="0.5" Y="24.8" Width="3.553024" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.PressImportDialogSelectionInformationImportMergeProject" Collapsed="False">
+    <Position X="0.5" Y="27.5" Width="6.504762" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.ReadSectionsDivisionsFromSectionsView" Collapsed="False">
+    <Position X="0.5" Y="30.2" Width="4.792458" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateFullPathToFMFromFullPathToSubitem" Collapsed="False">
+    <Position X="0.5" Y="32.5" Width="5.41067" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.ConvertPropertiesPanelToString" Collapsed="False">
+    <Position X="0.5" Y="35.1" Width="3.84403" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.CreateNameReferenceCSVFile" Collapsed="False">
+    <Position X="0.5" Y="37.4" Width="3.741657" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Wait.WaitForXMiliseconds" Collapsed="False">
+    <Position X="0.5" Y="40.3" Width="2.711588" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.ReplaceSubstring" Collapsed="False">
+    <Position X="0.5" Y="43.3" Width="2.36945" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ImportSections" Collapsed="False">
+    <Position X="0.5" Y="46.6" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateResultsArePresentInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="49.7" Width="5.093776" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateContributionInFailureMechanismContributionView" Collapsed="False">
+    <Position X="0.5" Y="52.6" Width="6.384772" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.PressCancelDialogAtStepText" Collapsed="False">
+    <Position X="0.5" Y="55.9" Width="3.630045" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="Jitbit.Utils.CsvExport" Collapsed="False">
+    <Position X="0.5" Y="59" Width="3.064255" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.MoveViewTabToNewVerticalGroup" Collapsed="False">
+    <Position X="0.5" Y="63" Width="4.120856" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenViewForGenericFM" Collapsed="False">
+    <Position X="0.5" Y="65.9" Width="3.086813" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.SetRowIndexReferenceCSVFile" Collapsed="False">
+    <Position X="0.5" Y="69.3" Width="3.804928" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateSurfaceLineNameInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="72.5" Width="5.018366" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateWhetherFolderGivenPathContainsNode" Collapsed="False">
+    <Position X="0.5" Y="75.6" Width="5.396168" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsAUT.CloseAUT" Collapsed="False">
+    <Position X="0.5" Y="78.7" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.AddBackgroundLayer" Collapsed="False">
+    <Position X="0.5" Y="81.9" Width="2.757457" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateSectionNameIsPresentInScenariosView" Collapsed="False">
+    <Position X="0.5" Y="84.9" Width="5.408629" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenshotMessagesPanel" Collapsed="False">
+    <Position X="0.5" Y="88.3" Width="4.018053" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectRowCalculationHydraulicBCDune" Collapsed="False">
+    <Position X="0.5" Y="91.4" Width="4.590934" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateDataSectionsView" Collapsed="False">
+    <Position X="0.5" Y="94.3" Width="3.241178" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectManualAssessment" Collapsed="False">
+    <Position X="0.5" Y="101.4" Width="3.188004" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ExportReferenceLine" Collapsed="False">
+    <Position X="0.5" Y="104.3" Width="3.459084" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.SettingsTestSuite.HideRanorexProgressDialog" Collapsed="False">
+    <Position X="0.5" Y="107.7" Width="3.453551" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetManualAssessmentProbability" Collapsed="False">
+    <Position X="0.5" Y="109.2" Width="3.958864" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.ConcatenateStrings" Collapsed="False">
+    <Position X="0.5" Y="112.5" Width="2.569684" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.EmptySelectedFolder" Collapsed="False">
+    <Position X="0.5" Y="115.4" Width="2.747145" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateNFormula1" Collapsed="False">
+    <Position X="0.5" Y="118.1" Width="2.647458" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.DeleteFileIfExists" Collapsed="False">
+    <Position X="0.5" Y="122.3" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer.DragAndDropItemOntoAnotherItem" Collapsed="False">
+    <Position X="0.5" Y="125.5" Width="4.129557" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateSubsurfaceSchematizationInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="129.3" Width="5.838209" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.CalculateFullPathToSeparateCalculation" Collapsed="False">
+    <Position X="0.5" Y="132.1" Width="4.668386" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.CopyFile" Collapsed="False">
+    <Position X="0.5" Y="135" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ExportPropertiesPanelToCsv" Collapsed="False">
+    <Position X="0.5" Y="138.5" Width="3.502643" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetValueTextParameterVisibleInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="141.1" Width="5.472867" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.CreateOutputFolder" Collapsed="False">
+    <Position X="0.5" Y="144.4" Width="2.582038" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectSimpleAssessmentForRow" Collapsed="False">
+    <Position X="0.5" Y="148.1" Width="3.931901" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Program" Collapsed="False">
+    <Position X="0.5" Y="151.1" Width="1.029215" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.CalculateFullPathToResultsFromFullPathToCalculation" Collapsed="False">
+    <Position X="0.5" Y="152.5" Width="6.13276" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetValueWithKeyPressParameterForItemInTraject" Collapsed="False">
+    <Position X="0.5" Y="155.1" Width="5.64442" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.AddNewTrajectUsingContextMenu" Collapsed="False">
+    <Position X="0.5" Y="158.7" Width="4.056725" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ExportTableInFMResultsViewToCSVFile" Collapsed="False">
+    <Position X="0.5" Y="162.5" Width="4.664948" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectItemBelow" Collapsed="False">
+    <Position X="0.5" Y="165.1" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateNFormula2" Collapsed="False">
+    <Position X="0.5" Y="167.8" Width="2.647458" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentValueAtRowPerCategory" Collapsed="False">
+    <Position X="0.5" Y="171.7" Width="5.987848" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.EvaluateIfSubstringIsPartOfString" Collapsed="False">
+    <Position X="0.5" Y="174.9" Width="3.970036" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.CaculateFullPathToCalculationItem" Collapsed="False">
+    <Position X="0.5" Y="177.8" Width="4.137829" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ImportConfigurationCalculationsFromXMLFile" Collapsed="False">
+    <Position X="0.5" Y="181.4" Width="5.171227" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetDetailedAssessmentValueForRow" Collapsed="False">
+    <Position X="0.5" Y="184.9" Width="4.360407" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenshotDocumentView" Collapsed="False">
+    <Position X="0.5" Y="188.3" Width="3.929538" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenViewForCategoryBoundaries" Collapsed="False">
+    <Position X="0.5" Y="191.1" Width="4.031803" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.RemoveCurrentlySelectedMapLayer" Collapsed="False">
+    <Position X="0.5" Y="194.6" Width="4.233005" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateValueInTableOfHBCDocumentView" Collapsed="False">
+    <Position X="0.5" Y="197.3" Width="4.980339" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateExpectedCategoriesBoundaries" Collapsed="False">
+    <Position X="0.5" Y="200.9" Width="4.714899" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateNormalDoubleCurrentlyShownInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="204.7" Width="6.26736" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateNFormula3" Collapsed="False">
+    <Position X="0.5" Y="208" Width="2.647458" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectTrajectType" Collapsed="False">
+    <Position X="0.5" Y="211.9" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentForRowCategoryIIIv" Collapsed="False">
+    <Position X="0.5" Y="215.1" Width="5.292077" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.GetRandomNorm" Collapsed="False">
+    <Position X="0.5" Y="218.2" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenChartCalculation" Collapsed="False">
+    <Position X="0.5" Y="221.9" Width="2.811491" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateCalculationWaterLevelInDocumentViewDA" Collapsed="False">
+    <Position X="0.5" Y="225.5" Width="5.700709" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Abstract.ValidateCategoryBoundary" Collapsed="False">
+    <Position X="0.5" Y="228.9" Width="3.435827" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetManualAssessmentCategory" Collapsed="False">
+    <Position X="0.5" Y="230.3" Width="3.816315" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.SelectTrajectToImportByIndex" Collapsed="False">
+    <Position X="0.5" Y="233.6" Width="3.628541" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentValueAtRowPerCategoryGroup4" Collapsed="False">
+    <Position X="0.5" Y="236.5" Width="6.743561" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectCalculationsToRunDA" Collapsed="False">
+    <Position X="0.5" Y="239.8" Width="3.442487" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="243.3" Width="7.17443" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.StartAllCalculationsInSelectedFolderInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="246.7" Width="6.005572" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateSectionNameIsPresentInTableResultsView" Collapsed="False">
+    <Position X="0.5" Y="249.4" Width="5.724771" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.AutomatedSystemTestsRepository" Collapsed="False">
+    <Position X="0.5" Y="253.1" Width="5.836842" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetRangeInSmartFolder" Collapsed="False">
+    <Position X="0.5" Y="273.1" Width="3.02279" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.DetermineFMSubstring" Collapsed="False">
+    <Position X="0.5" Y="275.7" Width="2.910426" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.ConfirmActionInDialog" Collapsed="False">
+    <Position X="0.5" Y="278.6" Width="2.837702" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowGroup4" Collapsed="False">
+    <Position X="0.5" Y="281.4" Width="5.394664" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.CopyAllSearchFilteredFilesFromSourceToTarget" Collapsed="False">
+    <Position X="0.5" Y="284.6" Width="5.484791" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateWaterLevelWaveHeightInDocumentView" Collapsed="False">
+    <Position X="0.5" Y="287.5" Width="5.4965" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.PressCancelDialogAtTaskText" Collapsed="False">
+    <Position X="0.5" Y="290.9" Width="3.655075" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ExportConfigurationSelectedCalculationToXMLFile" Collapsed="False">
+    <Position X="0.5" Y="294" Width="5.689645" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.ZoomMapViewWithMouseWheel" Collapsed="False">
+    <Position X="0.5" Y="297.5" Width="3.868844" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectGenericItemInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="300.7" Width="4.185202" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.DuplicateCalculationItem" Collapsed="False">
+    <Position X="0.5" Y="304.1" Width="3.09111" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateValueParameterForItemInTraject" Collapsed="False">
+    <Position X="0.5" Y="306.8" Width="4.701579" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateRelevanceFMInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="310.5" Width="4.539371" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.AutomatedSystemTestsRepositoryFolders" Collapsed="False">
+    <Position X="0.5" Y="314.2" Width="6.630201" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.MapLayersPanel.ValidateWhetherFolderGivenPathContainsNode" Collapsed="False">
+    <Position X="0.5" Y="569.1" Width="5.396168" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateCustomAssessmentTypeAtRow" Collapsed="False">
+    <Position X="0.5" Y="572.2" Width="4.58567" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateRowExistsInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="575.4" Width="4.262438" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateFMRelevanceInFMCView" Collapsed="False">
+    <Position X="0.5" Y="578.3" Width="3.97111" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentValueAtRow" Collapsed="False">
+    <Position X="0.5" Y="581.7" Width="4.715973" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateSurfaceLineInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="585.1" Width="4.350739" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenViewForFailureMechanismContribution" Collapsed="False">
+    <Position X="0.5" Y="588.7" Width="5.044254" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.GenerateSomeRandomIntegersInRange" Collapsed="False">
+    <Position X="0.5" Y="591.6" Width="4.646471" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.LogWarningMessage" Collapsed="False">
+    <Position X="0.5" Y="594.8" Width="2.720719" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.SaveAs" Collapsed="False">
+    <Position X="0.5" Y="597.9" Width="3.436364" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenViewForCurrentlySelectedItemInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="601.6" Width="5.949498" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetNewHBCScenario" Collapsed="False">
+    <Position X="0.5" Y="604.3" Width="2.955544" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Abstract.ValidateStringsAreNotEqual" Collapsed="False">
+    <Position X="0.5" Y="608.2" Width="3.392213" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentForRowCategoryIIv" Collapsed="False">
+    <Position X="0.5" Y="610.8" Width="5.229127" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentForRowCategoryIv" Collapsed="False">
+    <Position X="0.5" Y="613.8" Width="5.166178" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ExpandAllSubNodesCalculations" Collapsed="False">
+    <Position X="0.5" Y="616.9" Width="3.897633" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.NewProject" Collapsed="False">
+    <Position X="0.5" Y="620" Width="3.459084" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenshotOfMapLayersPanel" Collapsed="False">
+    <Position X="0.5" Y="622.9" Width="4.345368" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.SelectBackgroundMap" Collapsed="False">
+    <Position X="0.5" Y="625.6" Width="2.859401" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectGenericItemInMapLayersPanel" Collapsed="False">
+    <Position X="0.5" Y="628.5" Width="4.335378" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.MessagesPanel.ValidateErrorIcon" Collapsed="False">
+    <Position X="0.5" Y="631.8" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.OpenProject" Collapsed="False">
+    <Position X="0.5" Y="634.9" Width="3.459084" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateLinearTransformationOfValue" Collapsed="False">
+    <Position X="0.5" Y="638.6" Width="4.501667" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.GetValueParameterForItemInTraject" Collapsed="False">
+    <Position X="0.5" Y="642.8" Width="4.245358" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.ClickOnRunSelectedCalculations" Collapsed="False">
+    <Position X="0.5" Y="646.5" Width="3.911169" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowCategoryIIIv" Collapsed="False">
+    <Position X="0.5" Y="649.2" Width="5.860445" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDialogs.CancelDialogSelectionInformationImportMergeProject" Collapsed="False">
+    <Position X="0.5" Y="652.5" Width="5.990104" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.SettingsTestSuite.ShowRanorexProgressDialog" Collapsed="False">
+    <Position X="0.5" Y="655.2" Width="3.553024" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.SpecifyFileToImportMergeProject" Collapsed="False">
+    <Position X="0.5" Y="656.7" Width="3.945758" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ExportCurrentItemToCSVFile" Collapsed="False">
+    <Position X="0.5" Y="659.8" Width="3.52735" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.InsertPreffixInLastStepOfPath" Collapsed="False">
+    <Position X="0.5" Y="663" Width="3.577086" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.ReadCombinedAssessmentPerSectionFromResultView" Collapsed="False">
+    <Position X="0.5" Y="665.9" Width="6.162408" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Wait.WaitUntilAllCalculationsHaveBeenCarriedOut" Collapsed="False">
+    <Position X="0.5" Y="668.5" Width="5.148883" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.ConvertToCurrentCulture" Collapsed="False">
+    <Position X="0.5" Y="671.2" Width="3.123122" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.CalculateFullPathToHydraulicBCcalculation" Collapsed="False">
+    <Position X="0.5" Y="674.8" Width="4.960358" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateTrajectCategoryBoundaryInDocumentView" Collapsed="False">
+    <Position X="0.5" Y="677.7" Width="5.696842" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowCategoryIIv" Collapsed="False">
+    <Position X="0.5" Y="681.1" Width="5.797496" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.DeleteAllSearchFilteredFiles" Collapsed="False">
+    <Position X="0.5" Y="684.4" Width="3.446247" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateStructureProjectExplorerNode" Collapsed="False">
+    <Position X="0.5" Y="687" Width="4.537868" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.GetValueParameterCurrentlyVisibleInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="690" Width="5.977643" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.GenerateAllCalculations" Collapsed="False">
+    <Position X="0.5" Y="693.2" Width="3.0157" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ZoomToExtentCurrentView" Collapsed="False">
+    <Position X="0.5" Y="696" Width="3.312184" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ImportSurfaceLines" Collapsed="False">
+    <Position X="0.5" Y="698.7" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.MakePanelOnLeftVisible" Collapsed="False">
+    <Position X="0.5" Y="701.8" Width="3.064899" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenShotEntireApplication" Collapsed="False">
+    <Position X="0.5" Y="704.7" Width="4.147926" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ImportStochasticSoilModelCollection" Collapsed="False">
+    <Position X="0.5" Y="707.4" Width="4.264909" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectRowCalculation" Collapsed="False">
+    <Position X="0.5" Y="710.4" Width="2.787536" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenTrajectNormenView" Collapsed="False">
+    <Position X="0.5" Y="713.3" Width="3.124625" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentForRowCategoryVv" Collapsed="False">
+    <Position X="0.5" Y="716.2" Width="5.254371" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateNode" Collapsed="False">
+    <Position X="0.5" Y="719.3" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.AddCalculationFolder" Collapsed="False">
+    <Position X="0.5" Y="722.4" Width="2.749938" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenShotProgressDialog" Collapsed="False">
+    <Position X="0.5" Y="725.1" Width="3.993883" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectItemFromDynamicDropDownMenuInPropertiesPanelRow" Collapsed="False">
+    <Position X="0.5" Y="727.9" Width="6.955289" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.GenerateRandomIndexInRangeOfSmartFolder" Collapsed="False">
+    <Position X="0.5" Y="731.4" Width="5.277252" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsDocumentView.CloseTabView" Collapsed="False">
+    <Position X="0.5" Y="734" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectRootProject" Collapsed="False">
+    <Position X="0.5" Y="736.9" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue" Collapsed="False">
+    <Position X="0.5" Y="739.6" Width="7.361022" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.GenerateRandomNumberInRangeCases" Collapsed="False">
+    <Position X="0.5" Y="743.2" Width="4.683961" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentForRowCategoryIVv" Collapsed="False">
+    <Position X="0.5" Y="746.7" Width="5.31732" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ValidateStringsPropertiesPanelAreEqual" Collapsed="False">
+    <Position X="0.5" Y="749.8" Width="4.65442" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.LogInfoMessage" Collapsed="False">
+    <Position X="0.5" Y="752.7" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetRelevanceFMInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="755.8" Width="4.058014" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.IO.ValidatePlainTextFilesAreEqual" Collapsed="False">
+    <Position X="0.5" Y="759.3" Width="3.76153" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetRangeInTableForPEBasedOnTrajectType" Collapsed="False">
+    <Position X="0.5" Y="762.7" Width="5.127721" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ValidateAllCalculationsInSelectedFolder" Collapsed="False">
+    <Position X="0.5" Y="765.8" Width="4.608122" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateIfProjectMustBeOpened" Collapsed="False">
+    <Position X="0.5" Y="768.5" Width="3.932438" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.ProjectExplorer.ValidateContributionOfFMInProjectExplorer" Collapsed="False">
+    <Position X="0.5" Y="771.2" Width="4.930924" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.CalculateTrajectCategoryBoundary" Collapsed="False">
+    <Position X="0.5" Y="774.7" Width="4.10861" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Abstract.ValidateStringsAreEqual" Collapsed="False">
+    <Position X="0.5" Y="779" Width="3.039655" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelectCalculationsAndIllustrationPoints" Collapsed="False">
+    <Position X="0.5" Y="781.6" Width="4.518532" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetRangeInTableForFMCViewBasedOnTrajectType" Collapsed="False">
+    <Position X="0.5" Y="785.5" Width="5.808668" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.Assembly.SelectDetailedAssessmentTypeForRow" Collapsed="False">
+    <Position X="0.5" Y="788.6" Width="4.574391" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateSectionCategoryBoundary" Collapsed="False">
+    <Position X="0.5" Y="791.6" Width="4.046091" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetRelevanceFMInFailureMechanismContributionView" Collapsed="False">
+    <Position X="0.5" Y="794.5" Width="6.078297" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowCategoryIVv" Collapsed="False">
+    <Position X="0.5" Y="797.9" Width="5.88569" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.Assembly.SetCustomAssessmentAtRow" Collapsed="False">
+    <Position X="0.5" Y="801.1" Width="3.600504" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.OpenViews.OpenResultView" Collapsed="False">
+    <Position X="0.5" Y="804.2" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.RepportInfo.CreateScreenShotPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="807.7" Width="4.057047" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.GenerateSomeScenarios" Collapsed="False">
+    <Position X="0.5" Y="810.5" Width="3.123766" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Selection.SelecteSingleCaseInRange" Collapsed="False">
+    <Position X="0.5" Y="813.4" Width="3.353434" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel.ExpandAllRowItemsInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="816.9" Width="4.412184" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Set_Assign.SetValueParameterForItemInTraject" Collapsed="False">
+    <Position X="0.5" Y="819.2" Width="4.220221" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateWaterLevelWaveHeightNotEqualToValueInDocumentView" Collapsed="False">
+    <Position X="0.5" Y="822.8" Width="7.275192" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsMapLayersPanel.ToggleVisibilityAllLayers" Collapsed="False">
+    <Position X="0.5" Y="826" Width="3.032135" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.nthStepFromPath" Collapsed="False">
+    <Position X="0.5" Y="828.7" Width="2.354089" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.ImportSchematizationForCurrentlySelectedItem" Collapsed="False">
+    <Position X="0.5" Y="831.8" Width="5.356207" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.StartSingleCalculation" Collapsed="False">
+    <Position X="0.5" Y="834.9" Width="2.814176" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsAUT.StartAUT" Collapsed="False">
+    <Position X="0.5" Y="837.6" Width="2.549865" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowCategoryVv" Collapsed="False">
+    <Position X="0.5" Y="841.1" Width="5.822741" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateParameterDoesNotExistForItemInTraject" Collapsed="False">
+    <Position X="0.5" Y="844.4" Width="5.494674" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateDetailedAssessmentTypeAtRowCategoryIv" Collapsed="False">
+    <Position X="0.5" Y="847.8" Width="5.734547" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateDoubleValueparameterInPropertiesPanelGivenPath" Collapsed="False">
+    <Position X="0.5" Y="851" Width="6.595533" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.DocumentView.ValidateProbabilitySpaceInFailureMechanismContributionView" Collapsed="False">
+    <Position X="0.5" Y="854.7" Width="6.86484" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel.ExpandAlphasGroup" Collapsed="False">
+    <Position X="0.5" Y="859.4" Width="2.719674" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel.ExpandDamInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="862.3" Width="3.628864" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateTextValueParameterCurrentlyShownInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="865.4" Width="6.895885" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.ValidateBinaryFilesAreEqual" Collapsed="False">
+    <Position X="0.5" Y="868.7" Width="3.457848" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.MessagesPanel.ValidateTextMesage" Collapsed="False">
+    <Position X="0.5" Y="871.3" Width="2.646598" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Calculation.SetRandomRowWithinRangeSmartFolder" Collapsed="False">
+    <Position X="0.5" Y="874.6" Width="4.775592" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Wait.WaitUntilCalculationsFinished_NoScreenShotOfDialog" Collapsed="False">
+    <Position X="0.5" Y="876.9" Width="6.068952" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.ActionsContextMenu.CoupleCurrentItemToHBCDatabase" Collapsed="False">
+    <Position X="0.5" Y="879.6" Width="4.206364" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateStringsPropertiesPanelAreNotEqual" Collapsed="False">
+    <Position X="0.5" Y="882.8" Width="5.006979" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.IO.MigrateAllFilesInFolderUsingCommandLineTool" Collapsed="False">
+    <Position X="0.5" Y="885.7" Width="5.400787" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.Assembly.ValidateCustomAssessmentValue" Collapsed="False">
+    <Position X="0.5" Y="888.3" Width="3.995387" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="AutomatedSystemTests.Modules.Validation.PropertiesPanel.ValidateRowDoesNotExistInPropertiesPanel" Collapsed="False">
+    <Position X="0.5" Y="891.7" Width="5.030612" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+</ClassDiagram>
