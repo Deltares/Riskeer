@@ -7,6 +7,7 @@
  * To change this template use Tools > Options > Coding > Edit standard headers.
  */
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,18 +69,50 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Delay.SpeedFactor = 0.0;
             
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
-            var listAssembliesFMs = trajectAssessmentInformation.ListFMsAssessmentInformation;
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
             var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.Self;
             ValidateTableAssemblyTrajectView(table, trajectAssessmentInformation);
             
+            var summaryTraject = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary;
+            
+            string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;
+            ValidateAssessmentProb1and2(trajectAssessmentInformation, actualAssessmentProb1and2);
             
             
 
         }
         
-        private void ValidateTableAssemblyTrajectView(Table table, TrajectAssessmentInformation trajectAssessmentInfo)
+        private void ValidateAssessmentProb1and2(TrajectAssessmentInformation trjAssInfo, string actualValue)
+        {
+            string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1And2(trjAssInfo);
+            Report.Info("Validating Assembly probability groups 1 and 2...");
+            Validate.AreEqual(actualValue, expectedAssessmentProb1and2);
+        }
+        
+        private string CalculateAssessmentProbabilityGroups1And2(TrajectAssessmentInformation trjAssInfo)
+        {
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            double productInvProbs = 1;
+            int numberFmsProb = 0;
+            foreach (var assInfo in trjAssInfo.ListFMsAssessmentInformation) {
+                if (assInfo.Group==1 || assInfo.Group==2) {
+                    string denominator = assInfo.AssessmentProbability.Substring(2, assInfo.AssessmentProbability.Length-2);
+                    double currentProb = 1/Double.Parse(denominator, currentCulture);
+                    productInvProbs*= 1- currentProb;
+                    numberFmsProb++;
+                }
+            }
+            if (numberFmsProb==0) {
+                return "1/Oneindig";
+            } else {
+                double prob = 1 - productInvProbs;
+                string denominator = (1/prob).ToString(currentCulture);
+                return "1/" + denominator;
+            }
+        }
+        
+        private void ValidateTableAssemblyTrajectView(Table table, TrajectAssessmentInformation trjAssInfo)
         {
             var headerRow = table.Rows[0];
             int indexLabel = GetIndex(headerRow, "Label");
@@ -91,7 +124,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 var row = table.Rows[i];
                 row.Cells[indexLabel].Select();
                 string currentFM = GetAV(row.Cells[indexLabel]);
-                var assInfo = trajectAssessmentInfo.ListFMsAssessmentInformation.Where(ai=>ai.Label==currentFM).FirstOrDefault();
+                var assInfo = trjAssInfo.ListFMsAssessmentInformation.Where(ai=>ai.Label==currentFM).FirstOrDefault();
                 if (assInfo!=null) {
                     Report.Info("Validation for FM = " + currentFM);
                     Report.Info("Validating group...");
