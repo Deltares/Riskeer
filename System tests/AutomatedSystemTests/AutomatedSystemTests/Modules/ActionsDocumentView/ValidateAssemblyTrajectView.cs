@@ -76,21 +76,102 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             var summaryTraject = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary;
             
+            string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1and2(trajectAssessmentInformation);
             string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;
-            ValidateAssessmentProb1and2(trajectAssessmentInformation, actualAssessmentProb1and2);
+            ValidateAssessmentProb1and2(actualAssessmentProb1and2, expectedAssessmentProb1and2);
             
+            string actualAssessmentLabel1and2 = summaryTraject.AssessmentLabelGroups1And2.TextValue;
+            ValidateAssessmentLabel1and2(actualAssessmentLabel1and2, expectedAssessmentProb1and2, categoryBoundariesTraject);
             
 
         }
-        
-        private void ValidateAssessmentProb1and2(TrajectAssessmentInformation trjAssInfo, string actualValue)
+        private void ValidateAssessmentLabel1and2(string actualValue, string expectedProb, string categoryBoundariesTraject)
         {
-            string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1And2(trjAssInfo);
+            string expectedAssessmentLabel1and2 = CalculateAssessmentLabelGroups1and2(expectedProb, categoryBoundariesTraject);
             Report.Info("Validating Assembly probability groups 1 and 2...");
-            Validate.AreEqual(actualValue, expectedAssessmentProb1and2);
+            Validate.AreEqual(actualValue, expectedAssessmentLabel1and2);
+        }
+
+        private string CalculateAssessmentLabelGroups1and2(string expectedProb, string categoryBoundariesTraject)
+        {
+            if (expectedProb=="1/Oneindig") {
+                return "-";
+            } else {
+                System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                var boundaries = categoryBoundariesTraject.Split(';').ToList();
+                var boundariesValues = boundaries.Select(bd=>1.0/Double.Parse(bd.Substring(2,bd.Length-2), currentCulture)).ToList();
+                boundariesValues.Add(1.0);
+                double expectedProbValue = 1.0/Double.Parse(expectedProb.Substring(2, expectedProb.Length-2), currentCulture);
+                string label = "";
+                var indexFirstBoundaryAbove = boundariesValues.FindIndex(bd=>bd>expectedProbValue);
+                switch (indexFirstBoundaryAbove) {
+                    case 0:
+                        label = "It";
+                        break;
+                    case 1:
+                        label = "IIt";
+                        break;
+                    case 2:
+                        label = "IIIt";
+                        break;
+                    case 3:
+                        label = "IVt";
+                        break;
+                    case 4:
+                        label = "Vt";
+                        break;
+                    case 5:
+                        label = "VIt";
+                        break;
+                }
+                return label;
+            }
+        }
+
+        private string CalculateSecurityAssessmentLabel(string expectedProb, string categoryBoundariesTraject, TrajectAssessmentInformation trjAssInfo)
+        {
+            if (expectedProb=="1/Oneindig") {
+                return "C";
+            } else {
+                System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                var boundaries = categoryBoundariesTraject.Split(';').ToList();
+                var boundariesValues = boundaries.Select(bd=>1.0/Double.Parse(bd.Substring(2,bd.Length-2), currentCulture)).ToList();
+                boundariesValues.Add(1.0);
+                double expectedProbValue = 1.0/Double.Parse(expectedProb.Substring(2, expectedProb.Length-2), currentCulture);
+                string label = "";
+                var indexFirstBoundaryAbove = boundariesValues.FindIndex(bd=>bd>expectedProbValue);
+                switch (indexFirstBoundaryAbove) {
+                    case 0:
+                        label = "It";
+                        break;
+                    case 1:
+                        label = "IIt";
+                        break;
+                    case 2:
+                        label = "IIIt";
+                        break;
+                    case 3:
+                        label = "IVt";
+                        break;
+                    case 4:
+                        label = "Vt";
+                        break;
+                    case 5:
+                        label = "VIt";
+                        break;
+                }
+                return label;
+            }
+        }
+
+        
+        private void ValidateAssessmentProb1and2(string actualValue, string  expectedValue)
+        {
+            Report.Info("Validating Assembly probability groups 1 and 2...");
+            Validate.AreEqual(actualValue, expectedValue);
         }
         
-        private string CalculateAssessmentProbabilityGroups1And2(TrajectAssessmentInformation trjAssInfo)
+        private string CalculateAssessmentProbabilityGroups1and2(TrajectAssessmentInformation trjAssInfo)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
             double productInvProbs = 1;
