@@ -17,6 +17,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="00171ffc-9777-4eef-a430-1a6fe7f29a98"
+			name="a)AssemblingAssessmentsFMLevel">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="tableFMsToSetAndValidateValueFor_2NA"
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
 			name="SetAndValidateNewValueFor_2NA">
@@ -49,6 +53,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="012103d9-4d7c-44eb-bd0e-e1d78038a848"
+			name="CloseAssemblyMap">
+			</smartfoldernode>
 			<smartfoldernode
 			id="013d4f40-f93b-4a46-8ed2-a4243a1acb8f"
 			maxrange="3"
@@ -407,6 +415,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="06be07dc-d754-41d2-b016-2c5b99a59086"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="06d5292c-2cee-46bd-bab1-24f387804d24"
 			name="DeleteAllFilesInputFolder">
@@ -417,6 +431,10 @@
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<smartfoldernode
+			id="0737b733-e95f-4fa0-ba8b-5ed72fbe258d"
+			name="OpenAssemblyTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="07412b73-749c-418a-8b32-ed48169604cd"
 			name="GenerateAllCalculations"
@@ -722,6 +740,16 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="0b0e986e-d536-4522-a775-f6f9eedd3cc9"
+			name="DumpContentsViewToCSVFile">
+				<parameters>
+					<param
+					name="separator"
+					value=";">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
 			name="CopyFilesModifiedElements">
 				<parameters>
@@ -815,6 +843,10 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="0d37db51-9bb6-49e7-b6cd-73b988c2350c"
+			name="ResultsView">
+			</smartfoldernode>
 			<smartfoldernode
 			id="0da37e16-d891-4d5f-a9be-147a7f8a520a"
 			name="ValidateErrorMessagesMergeOldProject">
@@ -1315,6 +1347,16 @@
 			id="130de167-7780-4323-b228-581191591c4d"
 			name="2)ImportAndAdaptCompatibleFMSections">
 			</smartfoldernode>
+			<smartfoldernode
+			id="135f838d-a8b5-400a-9d0a-bf7f1b1ca06b"
+			name="TakeScreenshot">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, check the screenshot of the Assembly combined  sections assessment">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="13851a8a-a87f-4496-b912-74004675d141"
 			name="StartAUT"
@@ -1589,6 +1631,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="15814730-7475-4cd0-9966-6072c33e93ed"
+			name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
+				<parameters>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
+					<param
+					name="caseNumber"
+					value="22">
+					</param>
+					<param
+					name="trajectAssessmentInformation"
+					value="">
+					</param>
+					<param
+					name="categoryBoundariesTraject"
+					value="">
+					</param>
+				</parameters>
+			</testcase>
 			<testmodule
 			id="15b4c082-9977-4796-95c8-0bdee6ea6058"
 			name="WaitForXMiliseconds"
@@ -1904,6 +1968,26 @@
 			name="LoopSchematizationsRemovedItems">
 			</smartfoldernode>
 			<testmodule
+			id="19b2183c-a031-467a-a31b-e7bdac6647e4"
+			name="ValidateFMAssessmentLabelAndProbabilityInResultView"
+			ref="778be806-02a6-4d3b-92ce-fe995369ab6d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedNewAssessmentLabelTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="875ee1b7-eb07-4532-8192-60e4f44b7cfa"
+					variablename="expectedFMAssesmentLabel">
+					</var>
+					<var
+					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="1f9f18e7-7e25-45be-a927-8906d1000322"
+					variablename="expectedFMAssesmentProbability">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
 			name="CalculateNFormula1"
 			ref="41b2435b-9741-4e36-b6b5-e09633ca92af"
@@ -1940,6 +2024,26 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="1ad4f73f-7967-470e-8891-7c556312becf"
+			name="ExportTableInFMResultsViewToCSVFile"
+			ref="ef7b61ea-a83b-469c-9970-e4c28a5c1809"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separator"
+					datasourceid="0b0e986e-d536-4522-a775-f6f9eedd3cc9"
+					variableid="f7ea4d83-6da6-4c33-a02e-40cea90d13a5"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="fullPathToCSVFile"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="429af26b-315c-4200-bf60-9d143f9ca28a"
+					variablename="fileName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="1b13ade2-489e-4924-aacb-1f47657a7b4e"
@@ -1982,6 +2086,20 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="1c351c1c-ce94-4c77-9b2b-b464aea91e32"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="135f838d-a8b5-400a-9d0a-bf7f1b1ca06b"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="1c4f8537-73a3-4598-9b49-9951563df124"
@@ -2144,6 +2262,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="1f3c5ed8-1c3e-4ade-aff3-64ba7c60d7be"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="1f5fe7fd-4d3c-451c-b8c1-40b5e2b24f08"
 			name="DetermineFMSubstring"
 			ref="af24474b-66cd-4c26-8686-3330de69a789"
@@ -2195,6 +2319,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="1fc40b54-c046-4846-9e94-c277f32c224d"
+			name="b)AssemblingAssessmentsTrajectLevel">
+				<parameters>
+					<param
+					name="pathToOpenAssemblyTrajectInProjectExplorer"
+					value="Traject>Assemblage>Gecombineerd toetsoordeel">
+					</param>
+					<param
+					name="pathToOpenCategoryBpoundariesTrajectInProjectExplorer"
+					value="Traject>Assemblage>Categoriegrenzen">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="1fc42a83-ee53-48c0-ab5d-3f53bca837b7"
 			name="CreateScreenShotPropertiesPanel"
@@ -2447,6 +2585,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="225ac1ae-6d2f-4d63-b73e-0e933fed4417"
+			name="TakeScreenshot">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, check the screenshot before setting manual assessment.">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="2269c416-3153-451f-ad18-6198d711f9a9"
 			name="SelectGenericItemInProjectExplorer"
@@ -2537,6 +2685,26 @@
 			name="ValidateContributionInPropertiesPanel">
 			</smartfoldernode>
 			<testmodule
+			id="23eed9d6-4e19-4f5c-996c-4e1784ed41f6"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="24119667-2dc6-4728-88a0-8425d3dfa4bb"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -2571,6 +2739,28 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="2507d20d-336d-4b24-9bef-8f85a5243b8b"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOpenSectionsCombinatiosInProjectExplorer"
+					datasourceid="fc1c6dc7-e05b-4bd1-9e43-c17667a24212"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
+					datasourceid="1fc40b54-c046-4846-9e94-c277f32c224d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="250c1a93-1f54-4aac-8449-cb05ce082e2d"
@@ -2947,6 +3137,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="2727f61b-ccd8-4a93-8ca4-017a343160a6"
+			name="ValidateSectionsCombination">
+			</smartfoldernode>
+			<testmodule
+			id="2745694a-4ee1-4ba6-970a-e915088c6797"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="2779ec9e-2329-497e-8bc7-dcb8c3fbefde"
+			name="ValidateAssemblySectionsCombinedView">
+			</smartfoldernode>
 			<testmodule
 			id="278557d2-b8e0-4032-a24c-f4ebef97ee3c"
 			name="ConcatenateStrings"
@@ -3023,6 +3235,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="2833569d-5cb5-4a19-9c3e-d5a8d02508e6"
+			name="CloseSectionsCombinedView">
+			</smartfoldernode>
 			<testmodule
 			id="2844a3be-c050-49e2-9e28-e2e5a8b565f9"
 			name="SelectGenericItemInProjectExplorer"
@@ -3370,6 +3586,16 @@
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<smartfoldernode
+			id="2d640e0a-8313-4426-a5c3-2624f4f369a6"
+			name="ReadDivisionInSections">
+				<parameters>
+					<param
+					name="intermediateVariable"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="2d8fb324-482e-49f9-94cb-40f41a81b87c"
 			name="StartAUT"
@@ -3405,6 +3631,22 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="2e2cabb9-d128-4d50-afc5-009a7e7a2011"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="2e77be79-2178-4b39-bf1e-81ba6f156da6"
+			name="TakeScreenshot">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, check the screenshot of the Assembly combined  traject FM assessment">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
 			id="2ed25b3a-969e-482b-83fc-f5afe979762c"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -3413,6 +3655,10 @@
 			<smartfoldernode
 			id="2efdb023-fe44-4eb1-939a-7dd9073ca6ce"
 			name="UpdateSections">
+			</smartfoldernode>
+			<smartfoldernode
+			id="2f307f45-2294-4781-8b81-350846d4263c"
+			name="CloseCategoryBoundariesTrajectView">
 			</smartfoldernode>
 			<testmodule
 			id="2f30a98b-47dc-42a3-8cee-a15f7b7d7ea4"
@@ -3708,6 +3954,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="33d39f12-0e84-4e29-bf47-639634d4d680"
+			name="ReadDataCategoryBoundariesTrajectView"
+			ref="2078e4e4-9e0d-4396-a14a-8d19b9465bca"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="categoryBoundariesTraject"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="3848b12b-0450-4651-8089-385b98ccb5db"
+					variablename="categoryBoundariesTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="3442e960-8978-490a-8a4b-f3dbea48ab86"
@@ -3765,6 +4025,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="34802bec-424a-47fe-a627-7e43439d5c98"
+			name="OpenView">
+			</smartfoldernode>
 			<smartfoldernode
 			id="3499c46f-4b87-4f10-9103-a458130507c9"
 			name="DeleteAllFilesInInputFolder">
@@ -4195,6 +4459,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="3b0534bd-107e-45db-b09b-04a277a506f7"
+			name="OpenSectionsCombinationMap">
+			</smartfoldernode>
 			<testmodule
 			id="3b26afc2-7a6f-48b0-ab72-92fe8256a84f"
 			name="ConcatenateStrings"
@@ -4316,6 +4584,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="3e035292-2942-45de-83b2-5cf7fa1888fb"
+			name="ValidateAssemblyTrajectView"
+			ref="38d69b05-5ca8-43a0-afcf-16d6df183738"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="4188b6a9-c5aa-4416-9731-a4fba6fa5dbb"
+					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="categoryBoundariesTraject"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="fb2221fa-c3ce-41c4-a074-6e2cbece5657"
+					variablename="categoryBoundariesTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="3e3294b8-c19f-4fbc-94fb-3522a38ee660"
 			name="ImportSchematizations">
@@ -4334,6 +4622,10 @@
 			<smartfoldernode
 			id="3e978cbf-feab-40ea-b00b-e55e764f9465"
 			name="SaveProject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="3eaef3fb-6746-43ec-8563-aade53bd06ae"
+			name="AssemblySectionsCombinedView">
 			</smartfoldernode>
 			<testmodule
 			id="3f068190-2b19-41ba-bd4a-44d07cbe754f"
@@ -4522,6 +4814,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="41dc521e-8142-4888-897a-2a92987e1ed5"
+			name="CloseSectionsCombinationView">
+			</smartfoldernode>
 			<teardown
 			id="4241c2f1-b584-4ef4-b9cd-cd73257d6e88"
 			name="teardown">
@@ -4633,6 +4929,20 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="437d86bd-a9bd-425e-897e-29f22781bfdc"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssemblyCombinedFMTrajectView"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="438ae292-d53c-4623-a9a1-a77cfc751b8d"
 			name="OpenSectionsView">
@@ -4743,6 +5053,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="44f55bc9-dfe6-4ea5-a3a5-27ed0f7e015a"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
 			name="SetValueParameterForItemInTraject"
 			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
@@ -4793,6 +5109,12 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="451db495-4c76-40a3-9681-4b2f613ef699"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="4531e1a9-bc21-4bae-b190-ca93e3da934a"
@@ -5192,6 +5514,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="494bd454-edad-4139-8210-cee1c768b49a"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="2e77be79-2178-4b39-bf1e-81ba6f156da6"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="495da254-e030-4faf-9993-c91f71c3f626"
 			name="ValidateSectionCategoryBoundary"
 			ref="7db319a1-061b-489d-a466-cc166afeb2e0"
@@ -5413,6 +5749,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="4b6b457f-8e4d-4798-b17b-32e6deea7801"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="4b7c0206-4542-4ea4-b035-9ea6e566baf8"
 			name="TrajectNotContainingSchematizations">
@@ -5438,6 +5780,12 @@
 					variablename="milisecondsToWait">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="4c082800-3048-4688-8538-e84744cfff95"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="4ca4f10a-4dc5-484a-a05d-d566aa0cf1e9"
@@ -5507,6 +5855,14 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="4cdb7d76-e6b3-414f-b7ab-37a35699d9d8"
+			name="ReadDataCategoryBoundariesTraject">
+			</smartfoldernode>
+			<teardown
+			id="4ce7292a-7511-481c-8a0b-302d6c119756"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="contributionsFMsInProjectExplorerVisibleInPropertiesPanel"
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e"
@@ -5826,6 +6182,10 @@
 			id="50cce15b-661e-44b5-b352-cc72e6caa705"
 			name="1)ImportIncompatibleFMSections">
 			</smartfoldernode>
+			<smartfoldernode
+			id="51004f63-f1ed-4890-9eb0-cb5eb0d4341d"
+			name="CloseAssemblyTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="51330cc3-8fc6-4da8-ad51-229af37158ca"
 			name="SetValueParameterForItemInTraject"
@@ -5923,6 +6283,26 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="5267198a-dcb2-4e40-815c-c7db919a1f23"
+			name="ReadCombinedAssessmentInformationFMFromResultView"
+			ref="0d324e02-5dae-41d7-8ee9-9352a1327e9c"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="9ac12269-a27c-4f0c-9b29-11857490bb77"
+					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="37288c18-36a9-4f7e-840d-7627a311f6a8"
+					variablename="labelFM">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="5291bb3e-6b6f-4207-8033-8a508955cb84"
@@ -6239,6 +6619,12 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="5411fc34-abb9-41eb-9564-a63ad987a840"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="546b46a6-de84-4e9a-8a88-8033e80df5c7"
@@ -6749,6 +7135,48 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+			name="d)OverruleAssessmentManually">
+				<parameters>
+					<param
+					name="pathToResultSTPH"
+					value="Traject>Dijken en dammen - Piping>Oordeel>Resultaat">
+					</param>
+					<param
+					name="pathToAssemblyCombinedFMTrajectView"
+					value="Traject>Assemblage>Gecombineerd toetsoordeel">
+					</param>
+					<param
+					name="pathToAssemblyCombinedSectionsView"
+					value="Traject>Assemblage>Gecombineerd vakoordeel">
+					</param>
+					<param
+					name="pathToAssemblyMap"
+					value="Traject>Assemblage>Assemblagekaart">
+					</param>
+					<param
+					name="newValueManualAssessment"
+					value="1/10">
+					</param>
+					<param
+					name="expectedNewAssessmentLabelTrajectSTPH"
+					value="VIt">
+					</param>
+					<param
+					name="expectedNewAssessmentProbabilityTrajectSTPH"
+					value="1/3">
+					</param>
+					<param
+					name="expectedSecurityAssessment"
+					value="D">
+					</param>
+					<param
+					name="expectedAssessmentLabelGroups3and4"
+					value="IVt">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="5714f059-5eaa-4cee-8c46-9f96e9a75569"
 			name="DeleteAllFilesInInputFolder">
 			</smartfoldernode>
@@ -6776,6 +7204,20 @@
 			id="582d6baa-37a5-4e12-83c7-de684b905450"
 			name="UpdateStructures">
 			</smartfoldernode>
+			<testmodule
+			id="584772ec-5368-45f0-bd88-95c2c83bd57a"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="58b2d51d-7187-4ada-9f7c-7e08938a704a"
 			name="SelectRowCalculation"
@@ -6824,6 +7266,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="595ab602-cf3a-4911-8e42-d6beb0c3d0e7"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
 			name="WaitForXMiliseconds"
@@ -6934,6 +7382,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="5bedfc3a-558e-417c-9bff-862078950b46"
+			name="TakeScreenshot">
+			</smartfoldernode>
 			<testmodule
 			id="5bf52942-5143-4b6d-ab1c-d532c9e6b73b"
 			name="CloseViewCentralPanelWithFocus"
@@ -7005,6 +7457,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="5d3cc3ca-4af0-4bc6-aca3-caf33292589d"
+			name="CloseResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="5d7650c5-e335-47ed-9049-57624085bdf0"
 			name="ConcatenateStrings"
@@ -7874,6 +8330,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="641d0391-8fa2-4117-8f65-5b24ce2dfe67"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="645862ab-167d-4835-a525-a4ea21939724"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -8035,6 +8497,24 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="66c334af-870e-4f2f-8a55-ee3fb3f2ec6e"
+			name="ValidateIconManualAssessment">
+			</smartfoldernode>
+			<testmodule
+			id="66c5e932-0604-4f90-ac6c-2c1091614625"
+			name="ValidateSectionsCombinationsView"
+			ref="4aef939a-35a6-4173-a921-c521453b760a"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="5dda9c28-3af1-49bc-b8d6-81c994d32f4d"
+					variablename="trajectAssessmentInformationString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -8265,6 +8745,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="69432bd5-2bc9-4fc5-9323-380b9f00d83b"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="fileToOpen"
+					value="X:\script22\currentVersion\Project_assemblage_22.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="695eb49a-d9de-429d-8336-c595f14d6f8b"
 			name="ConcatenateStrings"
@@ -8319,10 +8809,36 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="69b72eb3-fa51-43ce-9460-0dad38d5c965"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOpenCategoryBpoundariesTrajectInProjectExplorer"
+					datasourceid="1fc40b54-c046-4846-9e94-c277f32c224d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
 			name="setup">
 			</setup>
+			<testmodule
+			id="6a047848-8df8-488e-b41e-07e55d2d1cbd"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="6a40497a-23ca-4fb9-a866-a6552f000f40"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testcase
 			id="6a877048-89b6-4b16-8e16-fd8de63831cb"
 			name="script06_Vakindeling_maken_of_aanpassen">
@@ -8364,6 +8880,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="6af62eb3-2f34-4247-b4cb-763f5d66349f"
+			name="CompareWithReferenceCSVFile">
+			</smartfoldernode>
 			<smartfoldernode
 			id="6b07606e-7786-4411-91c1-21644b0ef180"
 			name="OpenViewWithChartAndCreateScreenshot">
@@ -8622,6 +9142,26 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="6e6bb223-eb80-4364-bd40-f5674c9dba60"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="6eda7e26-2d47-440b-b3dc-a3c5ec9fe344"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssemblyCombinedSectionsView"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="6ee760cf-0a51-4f6d-a69a-a585b0fba2aa"
 			name="SetValueWithKeyPressParameterForItemInTraject"
 			ref="e550d732-7780-4b40-a989-f787f458a7c7"
@@ -8678,6 +9218,38 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6fcbaf00-0b68-4d9f-a21a-9c1789aadcd6"
+			name="ValidateSummaryValuesAssemblyTrajectView"
+			ref="18ea53f5-f6f7-4204-952e-dfe48e0f31ac"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedSecurityAssessment"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="3ba6c693-3923-47b2-834a-927b69bb0a7e"
+					variablename="expectedSecurityAssessment">
+					</var>
+					<var
+					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="1f22f6bc-3385-41b3-8270-bc2a8f39f954"
+					variablename="expectedAssessmentProbabilityGroups1And2">
+					</var>
+					<var
+					dataname="expectedNewAssessmentLabelTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="fd984f83-62fe-4074-b5f7-1f932aa489a2"
+					variablename="expectedAssessmentLabelGroups1And2">
+					</var>
+					<var
+					dataname="expectedAssessmentLabelGroups3and4"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="2662c8f9-bdfa-4112-b481-74749dea43f2"
+					variablename="expectedAssessmentGroups3And4">
+					</var>
+				</databinding>
 			</testmodule>
 			<teardown
 			id="6ff118a7-4dca-4bb9-83fb-4b9ece7dddb4"
@@ -9078,6 +9650,10 @@
 						</rightvalue>
 					</condition>
 				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="767df29c-0cea-452d-b228-88be26da989e"
+			name="CloseView">
 			</smartfoldernode>
 			<testmodule
 			id="768203a1-25ae-487f-9c35-75ab3487fbde"
@@ -9834,6 +10410,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="7e0309a5-cdbc-42c1-a840-058cb468b8df"
+			name="ValidateAssemblyTraject">
+			</smartfoldernode>
 			<testmodule
 			id="7ecb3cde-3b84-438a-9e0f-2fb2092e2c7d"
 			name="ConcatenateStrings"
@@ -9913,6 +10493,20 @@
 			id="7f85b222-1903-4de6-8bdf-467dc62c38b3"
 			name="ImportFMSections">
 			</smartfoldernode>
+			<testmodule
+			id="7fc4d5f1-5085-4eda-87ec-0f88a210b622"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAssemblyMap"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="7fed30e9-08bd-44e5-822c-a8680b799560"
 			name="MakeScreenshot">
@@ -9990,6 +10584,12 @@
 			id="813a2436-f29c-4d0c-84c9-16bdbe560c11"
 			name="NewProject"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="813d0c9b-0801-4047-92d9-d8e1418ea261"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
@@ -10421,6 +11021,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="879bd581-0b57-4af9-835d-2cabfab55c0e"
+			name="OpenAssemblyMap">
+			</smartfoldernode>
 			<testmodule
 			id="886b7dd0-cc67-4352-a517-ee6172ecba7e"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
@@ -10480,6 +11084,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="89769f69-37f1-481b-9145-0c7cdc4535e8"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="c8fe3d4f-6d33-445f-ba35-33c83369844f"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="898406e9-0429-4244-b957-7f023b63d551"
 			name="SetRangeInSmartFolder"
@@ -10549,6 +11167,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="8a5930be-d564-42ec-9a66-ba21c104d545"
+			name="OpenCategoryBoundariesTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="8a9083ee-5541-453d-8595-62bd839f4ee1"
 			name="CreateOutputFolder"
@@ -10749,6 +11371,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8b910519-3ee2-4d7e-bf1c-7c16a6825aa8"
+			name="ValidateAssemblyTrajectView">
+				<parameters>
+					<param
+					name="indexRow"
+					value="0">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="8b9cd31c-0131-4828-94fa-6314eb03a254"
 			name="ConcatenateStrings"
@@ -11176,6 +11808,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="8f1fe818-10d7-4c6f-9c0c-5ef3ae42842a"
+			name="OpenAssemblyTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="8f32deb2-62ee-4623-bac2-9f660517bf0a"
 			name="LogWarningMessage"
@@ -11196,6 +11832,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="900efa39-2d27-4782-a250-b9578ffdee19"
+			name="AssemblyFMTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="900fa74f-d254-4b75-a7b7-1b43fc17448e"
 			name="UpdateCurrentlySelectedItem"
@@ -11321,6 +11961,12 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="915ece2e-20db-4f00-8e26-270e72461734"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="91807f40-b409-4e4b-a55e-e077841baa87"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -11379,6 +12025,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="921a5eea-f820-4288-b051-cc228429f974"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="92c57ad9-e69e-42c6-826b-0955726215c2"
 			name="CalculateValueParameterN"
 			ref="2fdf315c-3bbf-4b7a-b901-e88b144bf94e"
@@ -11416,6 +12068,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<setup
+			id="92d7df83-a352-4161-8b68-7a41f3da9f76"
+			name="setup">
+			</setup>
 			<teardown
 			id="92db7cc6-01af-468c-996d-05158b009670"
 			name="teardown">
@@ -11589,6 +12245,32 @@
 			id="93c90616-c7f9-403b-9fda-d867f3d4b82d"
 			name="FilesWithElementsEdited">
 			</smartfoldernode>
+			<testmodule
+			id="93d766af-20e2-46d9-be6c-2eed0ab4d489"
+			name="ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView"
+			ref="0a4d8d5f-1427-4a9b-9ba1-ee5acbb844db"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="8b910519-3ee2-4d7e-bf1c-7c16a6825aa8"
+					variableid="949ae0e5-2a92-4a0a-a329-2c6c7394803c"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="expectedNewAssessmentLabelTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="63a214be-a9ec-4338-bca0-2d229c5bcf23"
+					variablename="expectedAssessmentLabel">
+					</var>
+					<var
+					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="e609f034-4a18-4251-9f83-dbee6f37fe3f"
+					variablename="expectedAssessmentApproxProb">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="93d89b95-f24c-4cfc-b3a0-025011d0237e"
 			name="ValidateWarningMessage">
@@ -11682,6 +12364,32 @@
 					value="1000">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="970e784e-78e2-45a0-99d8-f871d0012917"
+			name="ValidateValuesResultsView">
+				<parameters>
+					<param
+					name="intermediateName1"
+					value="">
+					</param>
+					<param
+					name="intermediateName2"
+					value="">
+					</param>
+					<param
+					name="intermediateName3"
+					value="">
+					</param>
+					<param
+					name="fullPathToCSVFile"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="97180b6d-f830-4c92-be3b-ab41ca7b0c23"
+			name="CloseSectionsCombinationMap">
 			</smartfoldernode>
 			<testmodule
 			id="97318264-ba0c-4209-92b6-b183e795cbc5"
@@ -11974,6 +12682,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="985f360a-cdd6-4cf9-a577-89ff9170b312"
+			name="ValidatePlainTextFilesAreEqual"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fullPathToCSVFile"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathToReferenceCSVFile"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="98ca9369-f0f8-41ce-ba4d-25606617f8bb"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -11995,6 +12723,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="98f6b338-5f16-4ef6-b361-d9024a5d056b"
+			name="ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView"
+			ref="186f0bae-a0e0-45d0-8a1f-fb35c0689c6c"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="99429f12-3502-4468-b3b4-873ba018501a"
+			name="ReadData">
+			</smartfoldernode>
 			<smartfoldernode
 			id="9947014f-3667-4ddc-8cbb-6c3862210409"
 			name="SetRowValidationCSVAgain">
@@ -12040,6 +12778,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="9987225a-185c-4089-beaa-48ad1303004c"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="99933d10-cd8e-4060-bf31-6e443cff42cd"
 			name="CloseAUT"
@@ -12198,6 +12942,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="9bba9638-83be-4315-b8ee-a9aefb4abd70"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="9cf7d2de-db60-47e3-b8a5-c8261d31448a"
 			name="LogWarningMessage"
 			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
@@ -12225,6 +12975,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="9d4a671b-5a79-4a51-b90b-0b2298830847"
+			name="OpenResultViewSTPH">
+			</smartfoldernode>
 			<testmodule
 			id="9d4c2f41-3a48-4b08-a9b9-8d86947f4049"
 			name="ConcatenateStrings"
@@ -12262,6 +13016,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="9d5fc45c-71f0-41a7-bf81-10e3455d1cbc"
+			name="ValidateValuesAssessment">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script09_LoopSchematizationsRemainingItems"
 			errorbehavior="ContinueNextIteration"
@@ -12551,6 +13309,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="a16fcc63-ea71-4be9-8b50-b7d9caf8d762"
+			name="TakeCreateScreenshot">
+			</smartfoldernode>
+			<smartfoldernode
 			id="a2e84f8f-4423-47f5-be0d-7d910d2cff10"
 			name="SetRangeLoopValidationProperties">
 				<parameters>
@@ -12624,6 +13386,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="a325bcc5-6247-4ccb-9f6f-9cca73e9ca2a"
+			name="CloseAssemblyTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="a34f9fe4-406b-44f0-9f19-27f7cd781b26"
 			name="UpdateCurrentlySelectedItem"
@@ -12754,6 +13520,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="a680f701-a869-4c60-bbb2-f1277cc66736"
+			name="OpenResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="a6873085-9e08-4b7b-9105-4038b2af4e24"
 			name="SelectGenericItemInProjectExplorer"
@@ -12993,10 +13763,50 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="a968bf8c-c9f1-4192-b777-6ec1d04a0ed6"
+			name="ValidateSingleValueInTableAssemblyCombinedSections"
+			ref="d0701ab4-190e-4120-9a9a-54b9e846f336"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRow"
+					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
+					variableid="7959e868-1ed0-4f86-9d41-4db494a6da8e"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="substringColumnHeader"
+					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
+					variableid="82c7fabd-024c-4cd6-bf76-46e72cb40281"
+					variablename="substringColumnHeader">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="a9f9adcd-3761-4ad9-8b35-fef9d6d026e4"
 			name="ConfirmActionInDialog"
 			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="aa2fdf09-47c3-4c31-bf1b-664e6057e9fb"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
+					datasourceid="1fc40b54-c046-4846-9e94-c277f32c224d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="aa38424a-bd44-4a23-ab94-2191b2cf566c"
@@ -13043,9 +13853,51 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="aa7c2da6-9298-4d92-b5a8-2e2b56815234"
+			name="TakeScreenshot">
+			</smartfoldernode>
+			<smartfoldernode
+			id="aac8c6b3-423e-4a56-9a87-eaa053b7b20a"
+			name="AssemblyMap">
+			</smartfoldernode>
+			<smartfoldernode
 			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
 			name="b)LengthEffectParameters">
 			</smartfoldernode>
+			<testmodule
+			id="ab3d7781-c2f1-4317-9477-3e8f16f8be4a"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+					<var
+					dataname="caseNumber"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="ab76d683-a7fc-4562-8588-bdce63eb2e59"
 			name="ConcatenateStrings"
@@ -13246,6 +14098,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="aeeb0719-09cf-48c8-9f0e-a6615390dc95"
+			name="TakeScreenshot">
+			</smartfoldernode>
+			<smartfoldernode
 			id="afd42c83-505d-4c73-a25f-627b4463b754"
 			name="MakeAllParametersInPropertiesPanelVisible">
 				<parameters>
@@ -13400,9 +14256,41 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="b1809891-bdee-49ba-a912-fa12082d2c46"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateName3"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="extension"
+					datasourceid="bde408f9-0e41-45b0-94ed-e7959227c34f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathToCSVFile"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b1aa1457-65a2-4d85-a8d4-b26c75a45d97"
 			name="TrajectNotContainingStructures">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script22_a_LoopFMs"
+			errorbehavior="ContinueNextIteration"
+			id="b1f07eaa-dbff-4944-a9a5-8fe6678b9fda"
+			name="LoopFms">
 			</smartfoldernode>
 			<testmodule
 			id="b20b379b-a063-4f6a-ad83-879d201f6e71"
@@ -14022,6 +14910,12 @@
 			name="PrepareFiles5sections">
 			</smartfoldernode>
 			<testmodule
+			id="b7e3e1c9-2ec8-4f7c-aae6-9eddb6a65e4d"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="b803a090-abdd-4bb2-af7d-6184eaee89b9"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -14156,6 +15050,32 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b888201b-3285-4d18-9183-1e5b8814f0d0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateName2"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="intermediateName3"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="b8a31d06-5a39-418d-bd85-c08e5baf724d"
@@ -14431,6 +15351,32 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="bb8026cc-93e6-4037-8726-d72c7bca7a52"
+			name="ReadSectionsDivisionsFromSectionsView"
+			ref="f63ed64a-db92-435d-a38e-21a7dc8e6f54"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="f6ff4e12-a192-49bd-9f9e-85c8899a2f7b"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="b4271fc1-5724-4698-85e2-3434ee79f78f"
+					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="group"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
+					variablename="groupFM">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="bb8a01be-7681-4122-b073-3432156c0b2f"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -14530,6 +15476,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="bc349293-078f-4f0c-82d4-796b30fb9ff7"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="bc659d8b-6d37-40d4-b0b6-26299db988a1"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -14607,6 +15559,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="bd21df24-04b6-4f11-ad86-01d07b6f18e2"
+			name="ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView"
+			ref="89914775-4f38-4b49-a34b-1f99c7016275"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="bd7a3e70-4474-4cb8-aad9-6211ba0d2016"
 			name="ValidateNoSectionsHaveBeenImported">
@@ -14632,6 +15590,28 @@
 			<smartfoldernode
 			id="bdb6824b-28dc-4f2f-987b-572c1325bca4"
 			name="MakeAllParametersInPropertiesPanelVisible">
+			</smartfoldernode>
+			<smartfoldernode
+			id="bde408f9-0e41-45b0-94ed-e7959227c34f"
+			name="CalculateCSVFileName">
+				<parameters>
+					<param
+					name="pathSeparator"
+					value=">">
+					</param>
+					<param
+					name="space"
+					value=" ">
+					</param>
+					<param
+					name="extension"
+					value=".csv">
+					</param>
+					<param
+					name="underscoreChar"
+					value="_">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="bdf6e19b-53fe-4293-9bb1-36fbbbc3bcf7"
@@ -14706,6 +15686,38 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="be5197d8-439d-4bf5-94d6-01912c2a572f"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="intermediateName1"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="space"
+					datasourceid="bde408f9-0e41-45b0-94ed-e7959227c34f"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="bde408f9-0e41-45b0-94ed-e7959227c34f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateName2"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="be6f1094-8700-42fb-8ffe-96a4a55cf1dd"
 			name="OriginalSchematizations">
@@ -14970,6 +15982,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="c2767fe1-62f0-4ea1-b36d-053da6e059fb"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToOpenSectionsCombinatiosMapInProjectExplorer"
+					datasourceid="fc1c6dc7-e05b-4bd1-9e43-c17667a24212"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
+					datasourceid="1fc40b54-c046-4846-9e94-c277f32c224d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c2798510-fa56-4f5a-9f61-9c660a0f741e"
 			name="GenerateCalculations(GEKB,ZST,AGK,GEBU)">
@@ -15097,6 +16131,18 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="c2a2780b-ffda-4dfd-8c38-09f357690e3f"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="c2f057c6-8e84-4030-b860-c3e9f172786e"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="c319d35b-78ea-400a-b69e-e33aae8e7fd3"
 			name="NewProject"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
@@ -15190,6 +16236,10 @@
 					value="LoopSchematizationsItemsModified">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="c417e9bf-bed0-4d41-8d81-5153f6d891a4"
+			name="ChangeManuallyAssessment">
 			</smartfoldernode>
 			<smartfoldernode
 			id="c4207caf-42e6-464e-a2e8-6250cf545959"
@@ -15517,6 +16567,12 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="c8670d0c-0735-4d15-8c91-8550c766d5a9"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="c86750b3-30c3-461f-b163-a9dc6bf843fa"
 			name="2)ModifiedTraject">
@@ -15524,6 +16580,20 @@
 			<smartfoldernode
 			id="c8b5d3cd-0bad-467f-a5dd-0f528a760987"
 			name="CloseDocumentView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="c8fe3d4f-6d33-445f-ba35-33c83369844f"
+			name="TakeScreenshot">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, check the screenshot before setting manual assessment.">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="c981c583-9624-4929-bafc-be264a2e4d0a"
+			name="OpenSectionsCombinedView">
 			</smartfoldernode>
 			<testmodule
 			id="c9ecc607-cc5c-4162-8667-b4f2668bb35e"
@@ -15564,6 +16634,20 @@
 					variablename="caseNumberVar">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="ca96f3ba-f22c-4741-862f-5d912e70f505"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="cb23fb3c-715b-4931-9145-68a048f3b77f"
@@ -15632,6 +16716,12 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="cc256124-d4df-41ba-947c-e4708d5273da"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
@@ -16381,6 +17471,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d63155e2-aea0-46df-9a65-1c53651a445a"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="d6bb1b95-022c-4091-ace2-82420d62a264"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -16434,6 +17530,12 @@
 			id="d774da56-ce05-46ec-8dff-9ac3a43227b8"
 			name="OriginalFiles">
 			</smartfoldernode>
+			<testmodule
+			id="d7c44cf9-e8c9-43ca-90c6-d7795610b489"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="d7ebd86f-b04f-455e-b4ab-e8046c5f8ecf"
 			name="ExportPropertiesPanelToCsv"
@@ -16508,6 +17610,20 @@
 			id="d8fafd69-0d89-4eb1-92fb-8ef9a267242d"
 			name="OpenViewWithChartAndCreateScreenshot">
 			</smartfoldernode>
+			<testmodule
+			id="d90bfd24-c88e-4842-907b-e3f68a8a6195"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="225ac1ae-6d2f-4d63-b73e-0e933fed4417"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="d9497fde-475e-4c87-8a2b-3bd5b7d919a7"
 			name="ValidateSectionNameIsPresentInScenariosView"
@@ -16759,6 +17875,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="daeba195-3195-4438-bdb6-643c555802f7"
+			name="ValidatePresenceIconWarningManualAssessment"
+			ref="eda96359-8672-43bd-b08e-6668567acb0a"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="daf19c59-fc9a-4c83-9494-713840ef72af"
 			name="SaveConfigurationXMLFileForCalculation">
@@ -16837,6 +17959,11 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script22_d_ValidationAfterManualAssessment"
+			id="dc064e9f-65a0-4d47-b9b5-1a9dab63cbc7"
+			name="ValidateValuesInTable">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script06_a_2_dataInSectionsViewTraject12_2_3Sections"
 			errorbehavior="ContinueNextIteration"
 			id="dc1ac18d-a209-4eb7-96ae-204ddc8f958b"
@@ -16851,11 +17978,47 @@
 			name="ValidateSectionIsShownInScenariosView">
 			</smartfoldernode>
 			<testmodule
+			id="dcf39215-6948-43c0-94f6-99a351e8c10f"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="bde408f9-0e41-45b0-94ed-e7959227c34f"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="bde408f9-0e41-45b0-94ed-e7959227c34f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateName1"
+					datasourceid="970e784e-78e2-45a0-99d8-f871d0012917"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="dd28594c-661d-4d34-8683-1664894bc253"
 			name="UpdateCurrentlySelectedItem"
 			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="dd7a9edf-3cee-4eb5-85e2-6f50a25404a4"
+			name="CloseResultViewSTPH">
+			</smartfoldernode>
 			<testmodule
 			id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
 			name="ValidateValueParameterForItemInTraject"
@@ -17002,6 +18165,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="dedb3336-76dc-4449-bbee-d8676708747d"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="df5a8098-0b92-4cd3-a1eb-439e233c9bcc"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -17046,6 +18215,20 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="dfad3199-53f7-40fd-b878-28971c6a1a07"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResultSTPH"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -17142,6 +18325,20 @@
 			id="e0c56d52-bb91-47a9-8888-4a4806977d1f"
 			name="ExportPropertiesPanelToCsv">
 			</smartfoldernode>
+			<testmodule
+			id="e10a3546-2a92-4e98-b297-4b1392ad0a1e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToVakindelingInProjectExplorer"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="e11d8e1c-a450-4ef5-a908-be6487023d0f"
 			name="DeletePreviousFiles">
@@ -17355,6 +18552,10 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="e35e72c0-3b8c-42cf-a68d-29f326476619"
+			name="ValidateTrajectAssessmentForSTPH">
+			</smartfoldernode>
+			<smartfoldernode
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
 			name="GenerateCalculations">
 				<parameters>
@@ -17423,6 +18624,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="e4c5d8ea-5e00-4ef8-8fe4-df4cc04db93e"
+			name="ReadCombinedAssessmentInformationForFM">
+			</smartfoldernode>
 			<testmodule
 			id="e4c7d7a4-60a6-4e59-961f-8bad93a06ec4"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
@@ -17504,6 +18709,12 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="e671358c-e52d-4348-abb9-30e322f47e6c"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="e6ac17d2-c46e-4281-90b7-9df6e3aab98f"
@@ -18019,6 +19230,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="ed7f9039-6ff9-48ec-8647-91c187538f0a"
+			name="TakeScreenshot">
+				<parameters>
+					<param
+					name="warningMessage"
+					value="Please, check the screenshot of the Assembly combined  sections assessment">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="edc546da-ab34-4488-8faa-1bf9a7db4a15"
 			name="ExportPropertiesPanelToCsv">
 				<parameters>
@@ -18450,6 +19671,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="f2b1576f-0160-41d0-aaa5-bcdf42986c65"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="f2c6a1a8-8edf-4b5d-8701-c4d1e3e2d1a0"
 			name="AddExtraLayerBackground">
@@ -18610,6 +19837,20 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="f598225e-d5f8-4d0e-8890-88b764d7f3ad"
+			name="AssignManualAssessmentFirstRowResultView"
+			ref="46249ce6-a33a-4ebb-a47f-9e06323cafdb"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newValueManualAssessment"
+					datasourceid="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+					variableid="61c18fe0-f95a-442c-9d6f-f4c057869d37"
+					variablename="newValueManualAssessmentRow0">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="f68dc210-0b6e-4557-b08f-7eb65f81a5d3"
 			name="setup">
@@ -18652,6 +19893,30 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="f6ef1eab-5044-4151-a1fe-3938a12749f4"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileToOpen"
+					datasourceid="69432bd5-2bc9-4fc5-9323-380b9f00d83b"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="f6f2154e-07b4-4b6a-9cce-c13fd43739c8"
+			name="OpenSectionsCombinationView">
+			</smartfoldernode>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="f731cc82-56ee-4c40-b4aa-23ebfe13960a"
@@ -18714,6 +19979,12 @@
 					variablename="string2">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f78bba5f-5531-43e0-b1fe-40f61be14b48"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="f79e6c9f-1797-4766-92c5-426171dc4145"
@@ -19090,6 +20361,38 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="fbc91e93-67ba-4dc2-a82e-a943dfa6989c"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="warningMessage"
+					datasourceid="ed7f9039-6ff9-48ec-8647-91c187538f0a"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="fbd40a99-b6b3-4606-95e6-0a73c4dbdae0"
+			name="TakeScreenshot">
+			</smartfoldernode>
+			<smartfoldernode
+			id="fc1c6dc7-e05b-4bd1-9e43-c17667a24212"
+			name="c)AssemblingSectionsCombination">
+				<parameters>
+					<param
+					name="pathToOpenSectionsCombinatiosInProjectExplorer"
+					value="Traject>Assemblage>Gecombineerd vakoordeel">
+					</param>
+					<param
+					name="pathToOpenSectionsCombinatiosMapInProjectExplorer"
+					value="Traject>Assemblage>Assemblagekaart">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="fc6eee10-d749-42ff-8630-fcfa49c52a12"
 			name="OpenProject">
@@ -23062,6 +24365,522 @@
 						name="teardown">
 							<testmodule
 							id="34e027b6-96d9-4f0f-a276-51d69fb020cc"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="15814730-7475-4cd0-9966-6072c33e93ed"
+					name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
+						<setup
+						id="92d7df83-a352-4161-8b68-7a41f3da9f76"
+						name="setup">
+							<testmodule
+							id="23eed9d6-4e19-4f5c-996c-4e1784ed41f6"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="ab3d7781-c2f1-4317-9477-3e8f16f8be4a"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="69432bd5-2bc9-4fc5-9323-380b9f00d83b"
+						name="OpenProject">
+							<testmodule
+							id="f6ef1eab-5044-4151-a1fe-3938a12749f4"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="00171ffc-9777-4eef-a430-1a6fe7f29a98"
+						name="a)AssemblingAssessmentsFMLevel">
+							<smartfoldernode
+							id="b1f07eaa-dbff-4944-a9a5-8fe6678b9fda"
+							name="LoopFms">
+								<smartfoldernode
+								id="2d640e0a-8313-4426-a5c3-2624f4f369a6"
+								name="ReadDivisionInSections">
+									<smartfoldernode
+									id="34802bec-424a-47fe-a627-7e43439d5c98"
+									name="OpenView">
+										<testmodule
+										id="e10a3546-2a92-4e98-b297-4b1392ad0a1e"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="451db495-4c76-40a3-9681-4b2f613ef699"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="99429f12-3502-4468-b3b4-873ba018501a"
+									name="ReadData">
+										<testmodule
+										id="bb8026cc-93e6-4037-8726-d72c7bca7a52"
+										name="ReadSectionsDivisionsFromSectionsView">
+										</testmodule>
+										<testmodule
+										id="2745694a-4ee1-4ba6-970a-e915088c6797"
+										name="LogInfoMessage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="767df29c-0cea-452d-b228-88be26da989e"
+									name="CloseView">
+										<testmodule
+										id="f78bba5f-5531-43e0-b1fe-40f61be14b48"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="a680f701-a869-4c60-bbb2-f1277cc66736"
+								name="OpenResultsView">
+									<testmodule
+									id="ca96f3ba-f22c-4741-862f-5d912e70f505"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="9bba9638-83be-4315-b8ee-a9aefb4abd70"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="aa7c2da6-9298-4d92-b5a8-2e2b56815234"
+								name="TakeScreenshot">
+									<testmodule
+									id="2e2cabb9-d128-4d50-afc5-009a7e7a2011"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="970e784e-78e2-45a0-99d8-f871d0012917"
+								name="ValidateValuesResultsView">
+									<smartfoldernode
+									id="bde408f9-0e41-45b0-94ed-e7959227c34f"
+									name="CalculateCSVFileName">
+										<testmodule
+										id="dcf39215-6948-43c0-94f6-99a351e8c10f"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="be5197d8-439d-4bf5-94d6-01912c2a572f"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="b888201b-3285-4d18-9183-1e5b8814f0d0"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
+										id="b1809891-bdee-49ba-a912-fa12082d2c46"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="0b0e986e-d536-4522-a775-f6f9eedd3cc9"
+									name="DumpContentsViewToCSVFile">
+										<testmodule
+										id="1ad4f73f-7967-470e-8891-7c556312becf"
+										name="ExportTableInFMResultsViewToCSVFile">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="6af62eb3-2f34-4247-b4cb-763f5d66349f"
+									name="CompareWithReferenceCSVFile">
+										<testmodule
+										id="985f360a-cdd6-4cf9-a577-89ff9170b312"
+										name="ValidatePlainTextFilesAreEqual">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e4c5d8ea-5e00-4ef8-8fe4-df4cc04db93e"
+								name="ReadCombinedAssessmentInformationForFM">
+									<testmodule
+									id="5267198a-dcb2-4e40-815c-c7db919a1f23"
+									name="ReadCombinedAssessmentInformationFMFromResultView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="5d3cc3ca-4af0-4bc6-aca3-caf33292589d"
+								name="CloseResultsView">
+									<testmodule
+									id="4b6b457f-8e4d-4798-b17b-32e6deea7801"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="1fc40b54-c046-4846-9e94-c277f32c224d"
+						name="b)AssemblingAssessmentsTrajectLevel">
+							<smartfoldernode
+							id="8a5930be-d564-42ec-9a66-ba21c104d545"
+							name="OpenCategoryBoundariesTrajectView">
+								<testmodule
+								id="69b72eb3-fa51-43ce-9460-0dad38d5c965"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="915ece2e-20db-4f00-8e26-270e72461734"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="aeeb0719-09cf-48c8-9f0e-a6615390dc95"
+							name="TakeScreenshot">
+								<testmodule
+								id="813d0c9b-0801-4047-92d9-d8e1418ea261"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="4cdb7d76-e6b3-414f-b7ab-37a35699d9d8"
+							name="ReadDataCategoryBoundariesTraject">
+								<testmodule
+								id="33d39f12-0e84-4e29-bf47-639634d4d680"
+								name="ReadDataCategoryBoundariesTrajectView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="2f307f45-2294-4781-8b81-350846d4263c"
+							name="CloseCategoryBoundariesTrajectView">
+								<testmodule
+								id="b7e3e1c9-2ec8-4f7c-aae6-9eddb6a65e4d"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="0737b733-e95f-4fa0-ba8b-5ed72fbe258d"
+							name="OpenAssemblyTrajectView">
+								<testmodule
+								id="aa2fdf09-47c3-4c31-bf1b-664e6057e9fb"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="4c082800-3048-4688-8538-e84744cfff95"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="fbd40a99-b6b3-4606-95e6-0a73c4dbdae0"
+							name="TakeScreenshot">
+								<testmodule
+								id="bc349293-078f-4f0c-82d4-796b30fb9ff7"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="7e0309a5-cdbc-42c1-a840-058cb468b8df"
+							name="ValidateAssemblyTraject">
+								<testmodule
+								id="3e035292-2942-45de-83b2-5cf7fa1888fb"
+								name="ValidateAssemblyTrajectView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="a325bcc5-6247-4ccb-9f6f-9cca73e9ca2a"
+							name="CloseAssemblyTrajectView">
+								<testmodule
+								id="c8670d0c-0735-4d15-8c91-8550c766d5a9"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="fc1c6dc7-e05b-4bd1-9e43-c17667a24212"
+						name="c)AssemblingSectionsCombination">
+							<smartfoldernode
+							id="f6f2154e-07b4-4b6a-9cce-c13fd43739c8"
+							name="OpenSectionsCombinationView">
+								<testmodule
+								id="2507d20d-336d-4b24-9bef-8f85a5243b8b"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="06be07dc-d754-41d2-b016-2c5b99a59086"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="a16fcc63-ea71-4be9-8b50-b7d9caf8d762"
+							name="TakeCreateScreenshot">
+								<testmodule
+								id="cc256124-d4df-41ba-947c-e4708d5273da"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="2727f61b-ccd8-4a93-8ca4-017a343160a6"
+							name="ValidateSectionsCombination">
+								<testmodule
+								id="66c5e932-0604-4f90-ac6c-2c1091614625"
+								name="ValidateSectionsCombinationsView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="41dc521e-8142-4888-897a-2a92987e1ed5"
+							name="CloseSectionsCombinationView">
+								<testmodule
+								id="641d0391-8fa2-4117-8f65-5b24ce2dfe67"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="3b0534bd-107e-45db-b09b-04a277a506f7"
+							name="OpenSectionsCombinationMap">
+								<testmodule
+								id="c2767fe1-62f0-4ea1-b36d-053da6e059fb"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="d7c44cf9-e8c9-43ca-90c6-d7795610b489"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5bedfc3a-558e-417c-9bff-862078950b46"
+							name="TakeScreenshot">
+								<testmodule
+								id="c2a2780b-ffda-4dfd-8c38-09f357690e3f"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="97180b6d-f830-4c92-be3b-ab41ca7b0c23"
+							name="CloseSectionsCombinationMap">
+								<testmodule
+								id="6e6bb223-eb80-4364-bd40-f5674c9dba60"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a"
+						name="d)OverruleAssessmentManually">
+							<smartfoldernode
+							id="0d37db51-9bb6-49e7-b6cd-73b988c2350c"
+							name="ResultsView">
+								<smartfoldernode
+								id="9d4a671b-5a79-4a51-b90b-0b2298830847"
+								name="OpenResultViewSTPH">
+									<testmodule
+									id="dfad3199-53f7-40fd-b878-28971c6a1a07"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="6a40497a-23ca-4fb9-a866-a6552f000f40"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="225ac1ae-6d2f-4d63-b73e-0e933fed4417"
+								name="TakeScreenshot">
+									<testmodule
+									id="d90bfd24-c88e-4842-907b-e3f68a8a6195"
+									name="LogWarningMessage">
+									</testmodule>
+									<testmodule
+									id="6a047848-8df8-488e-b41e-07e55d2d1cbd"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="c417e9bf-bed0-4d41-8d81-5153f6d891a4"
+								name="ChangeManuallyAssessment">
+									<testmodule
+									id="f598225e-d5f8-4d0e-8890-88b764d7f3ad"
+									name="AssignManualAssessmentFirstRowResultView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="c8fe3d4f-6d33-445f-ba35-33c83369844f"
+								name="TakeScreenshot">
+									<testmodule
+									id="89769f69-37f1-481b-9145-0c7cdc4535e8"
+									name="LogWarningMessage">
+									</testmodule>
+									<testmodule
+									id="c2f057c6-8e84-4030-b860-c3e9f172786e"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e35e72c0-3b8c-42cf-a68d-29f326476619"
+								name="ValidateTrajectAssessmentForSTPH">
+									<smartfoldernode
+									id="9d5fc45c-71f0-41a7-bf81-10e3455d1cbc"
+									name="ValidateValuesAssessment">
+										<testmodule
+										id="19b2183c-a031-467a-a31b-e7bdac6647e4"
+										name="ValidateFMAssessmentLabelAndProbabilityInResultView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="66c334af-870e-4f2f-8a55-ee3fb3f2ec6e"
+									name="ValidateIconManualAssessment">
+										<testmodule
+										id="daeba195-3195-4438-bdb6-643c555802f7"
+										name="ValidatePresenceIconWarningManualAssessment">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="dd7a9edf-3cee-4eb5-85e2-6f50a25404a4"
+								name="CloseResultViewSTPH">
+									<testmodule
+									id="44f55bc9-dfe6-4ea5-a3a5-27ed0f7e015a"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="900efa39-2d27-4782-a250-b9578ffdee19"
+							name="AssemblyFMTrajectView">
+								<smartfoldernode
+								id="8f1fe818-10d7-4c6f-9c0c-5ef3ae42842a"
+								name="OpenAssemblyTrajectView">
+									<testmodule
+									id="437d86bd-a9bd-425e-897e-29f22781bfdc"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="9987225a-185c-4089-beaa-48ad1303004c"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="2e77be79-2178-4b39-bf1e-81ba6f156da6"
+								name="TakeScreenshot">
+									<testmodule
+									id="494bd454-edad-4139-8210-cee1c768b49a"
+									name="LogWarningMessage">
+									</testmodule>
+									<testmodule
+									id="595ab602-cf3a-4911-8e42-d6beb0c3d0e7"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8b910519-3ee2-4d7e-bf1c-7c16a6825aa8"
+								name="ValidateAssemblyTrajectView">
+									<testmodule
+									id="6fcbaf00-0b68-4d9f-a21a-9c1789aadcd6"
+									name="ValidateSummaryValuesAssemblyTrajectView">
+									</testmodule>
+									<testmodule
+									id="bd21df24-04b6-4f11-ad86-01d07b6f18e2"
+									name="ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView">
+									</testmodule>
+									<testmodule
+									id="93d766af-20e2-46d9-be6c-2eed0ab4d489"
+									name="ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="51004f63-f1ed-4890-9eb0-cb5eb0d4341d"
+								name="CloseAssemblyTrajectView">
+									<testmodule
+									id="f2b1576f-0160-41d0-aaa5-bcdf42986c65"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="3eaef3fb-6746-43ec-8563-aade53bd06ae"
+							name="AssemblySectionsCombinedView">
+								<smartfoldernode
+								id="c981c583-9624-4929-bafc-be264a2e4d0a"
+								name="OpenSectionsCombinedView">
+									<testmodule
+									id="6eda7e26-2d47-440b-b3dc-a3c5ec9fe344"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="dedb3336-76dc-4449-bbee-d8676708747d"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="135f838d-a8b5-400a-9d0a-bf7f1b1ca06b"
+								name="TakeScreenshot">
+									<testmodule
+									id="1c351c1c-ce94-4c77-9b2b-b464aea91e32"
+									name="LogWarningMessage">
+									</testmodule>
+									<testmodule
+									id="1f3c5ed8-1c3e-4ade-aff3-64ba7c60d7be"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="2779ec9e-2329-497e-8bc7-dcb8c3fbefde"
+								name="ValidateAssemblySectionsCombinedView">
+									<testmodule
+									id="98f6b338-5f16-4ef6-b361-d9024a5d056b"
+									name="ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView">
+									</testmodule>
+									<smartfoldernode
+									id="dc064e9f-65a0-4d47-b9b5-1a9dab63cbc7"
+									name="ValidateValuesInTable">
+										<testmodule
+										id="a968bf8c-c9f1-4192-b777-6ec1d04a0ed6"
+										name="ValidateSingleValueInTableAssemblyCombinedSections">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="2833569d-5cb5-4a19-9c3e-d5a8d02508e6"
+								name="CloseSectionsCombinedView">
+									<testmodule
+									id="921a5eea-f820-4288-b051-cc228429f974"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="aac8c6b3-423e-4a56-9a87-eaa053b7b20a"
+							name="AssemblyMap">
+								<smartfoldernode
+								id="879bd581-0b57-4af9-835d-2cabfab55c0e"
+								name="OpenAssemblyMap">
+									<testmodule
+									id="7fc4d5f1-5085-4eda-87ec-0f88a210b622"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="d63155e2-aea0-46df-9a65-1c53651a445a"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="ed7f9039-6ff9-48ec-8647-91c187538f0a"
+								name="TakeScreenshot">
+									<testmodule
+									id="fbc91e93-67ba-4dc2-a82e-a943dfa6989c"
+									name="LogWarningMessage">
+									</testmodule>
+									<testmodule
+									id="e671358c-e52d-4348-abb9-30e322f47e6c"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="012103d9-4d7c-44eb-bd0e-e1d78038a848"
+								name="CloseAssemblyMap">
+									<testmodule
+									id="5411fc34-abb9-41eb-9564-a63ad987a840"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="4ce7292a-7511-481c-8a0b-302d6c119756"
+						name="teardown">
+							<testmodule
+							id="584772ec-5368-45f0-bd88-95c2c83bd57a"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -40903,13 +42722,326 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+		lastknownrowcount="5"
+		name="script22_a_LoopFMs"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					pathToResultItem
+				</column>
+				<column>
+					pathToReferenceCSVFile
+				</column>
+				<column>
+					pathToVakindelingInProjectExplorer
+				</column>
+				<column>
+					group
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmLabel
+					</th>
+					<th>
+						pathToResultItem
+					</th>
+					<th>
+						pathToReferenceCSVFile
+					</th>
+					<th>
+						pathToVakindelingInProjectExplorer
+					</th>
+					<th>
+						group
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STMI
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						4
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						3
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6889055a-abbd-4351-b55a-d3ffcfdb8312"
+		lastknownrowcount="10"
+		name="script22_d_ValidationAfterManualAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					substringColumnHeader
+				</column>
+				<column>
+					expectedValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						substringColumnHeader
+					</th>
+					<th>
+						expectedValue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 1, Gecombineerd vakoordeel
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 1, STPH vakoordeel
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 2, Gecombineerd vakoordeel
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 2, STPH vakoordeel
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 3, Gecombineerd vakoordeel
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 3, STPH vakoordeel
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 4, Gecombineerd vakoordeel
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 4, STPH vakoordeel
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 5, Gecombineerd vakoordeel
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 5, STPH vakoordeel
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="00171ffc-9777-4eef-a430-1a6fe7f29a98">
+			</testcontainer>
+			<testcontainer
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
+			</testcontainer>
+			<testcontainer
+			id="012103d9-4d7c-44eb-bd0e-e1d78038a848">
 			</testcontainer>
 			<testcontainer
 			id="013d4f40-f93b-4a46-8ed2-a4243a1acb8f">
@@ -40934,6 +43066,9 @@
 			</testcontainer>
 			<testcontainer
 			id="06d5292c-2cee-46bd-bab1-24f387804d24">
+			</testcontainer>
+			<testcontainer
+			id="0737b733-e95f-4fa0-ba8b-5ed72fbe258d">
 			</testcontainer>
 			<testcontainer
 			id="0788f469-4596-41b8-9b63-3d3c97224786">
@@ -40966,10 +43101,16 @@
 			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
 			</testcontainer>
 			<testcontainer
+			id="0b0e986e-d536-4522-a775-f6f9eedd3cc9">
+			</testcontainer>
+			<testcontainer
 			id="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1">
 			</testcontainer>
 			<testcontainer
 			id="0c43c027-2b5d-4ae6-b7d6-5fd0553658ca">
+			</testcontainer>
+			<testcontainer
+			id="0d37db51-9bb6-49e7-b6cd-73b988c2350c">
 			</testcontainer>
 			<testcontainer
 			id="0da37e16-d891-4d5f-a9be-147a7f8a520a">
@@ -41005,10 +43146,16 @@
 			id="130de167-7780-4323-b228-581191591c4d">
 			</testcontainer>
 			<testcontainer
+			id="135f838d-a8b5-400a-9d0a-bf7f1b1ca06b">
+			</testcontainer>
+			<testcontainer
 			id="139cf382-9dbf-4e30-8c6a-409936c3ffa2">
 			</testcontainer>
 			<testcontainer
 			id="144fd6a9-bb18-4e8f-a8f0-8815e0c45bdc">
+			</testcontainer>
+			<testcontainer
+			id="15814730-7475-4cd0-9966-6072c33e93ed">
 			</testcontainer>
 			<testcontainer
 			id="15f2a7fd-807b-48f7-a730-33a1279e7af1">
@@ -41059,6 +43206,9 @@
 			id="1dcedd04-c3f5-4b23-96ce-f4db44fca362">
 			</testcontainer>
 			<testcontainer
+			id="1fc40b54-c046-4846-9e94-c277f32c224d">
+			</testcontainer>
+			<testcontainer
 			id="2049f710-f464-4306-8792-331fc00825d6">
 			</testcontainer>
 			<testcontainer
@@ -41072,6 +43222,9 @@
 			</testcontainer>
 			<testcontainer
 			id="2222e017-0d04-40dc-a0fb-804958f00d19">
+			</testcontainer>
+			<testcontainer
+			id="225ac1ae-6d2f-4d63-b73e-0e933fed4417">
 			</testcontainer>
 			<testcontainer
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
@@ -41095,10 +43248,19 @@
 			id="27244f6b-5185-4fe9-b709-ded1ec69674b">
 			</testcontainer>
 			<testcontainer
+			id="2727f61b-ccd8-4a93-8ca4-017a343160a6">
+			</testcontainer>
+			<testcontainer
+			id="2779ec9e-2329-497e-8bc7-dcb8c3fbefde">
+			</testcontainer>
+			<testcontainer
 			id="27fb77dc-81e4-4822-823f-b5c299cd0838">
 			</testcontainer>
 			<testcontainer
 			id="280eb4e0-9c7a-4e99-8957-1cea944f7c0a">
+			</testcontainer>
+			<testcontainer
+			id="2833569d-5cb5-4a19-9c3e-d5a8d02508e6">
 			</testcontainer>
 			<testcontainer
 			id="28c14bc8-1ee5-464f-a709-af42e7e0cea6">
@@ -41125,13 +43287,22 @@
 			id="2c4732c7-a9f0-4016-a572-2876c684ea78">
 			</testcontainer>
 			<testcontainer
+			id="2d640e0a-8313-4426-a5c3-2624f4f369a6">
+			</testcontainer>
+			<testcontainer
 			id="2dee4bb5-dd51-432a-afb3-6f3281f67022">
 			</testcontainer>
 			<testcontainer
 			id="2e0ee5f5-d2ae-41c3-9d92-591c6d382929">
 			</testcontainer>
 			<testcontainer
+			id="2e77be79-2178-4b39-bf1e-81ba6f156da6">
+			</testcontainer>
+			<testcontainer
 			id="2efdb023-fe44-4eb1-939a-7dd9073ca6ce">
+			</testcontainer>
+			<testcontainer
+			id="2f307f45-2294-4781-8b81-350846d4263c">
 			</testcontainer>
 			<testcontainer
 			id="2f520007-23e6-4bd2-89a1-6b43cf925e60">
@@ -41158,6 +43329,9 @@
 			id="3442e960-8978-490a-8a4b-f3dbea48ab86">
 			</testcontainer>
 			<testcontainer
+			id="34802bec-424a-47fe-a627-7e43439d5c98">
+			</testcontainer>
+			<testcontainer
 			id="3499c46f-4b87-4f10-9103-a458130507c9">
 			</testcontainer>
 			<testcontainer
@@ -41182,6 +43356,9 @@
 			id="3a348b89-618b-40c0-9fdd-ddd65dcdcc94">
 			</testcontainer>
 			<testcontainer
+			id="3b0534bd-107e-45db-b09b-04a277a506f7">
+			</testcontainer>
+			<testcontainer
 			id="3ba60a8c-0b66-4323-ad21-f3c5fc2cf5c4">
 			</testcontainer>
 			<testcontainer
@@ -41200,10 +43377,16 @@
 			id="3e978cbf-feab-40ea-b00b-e55e764f9465">
 			</testcontainer>
 			<testcontainer
+			id="3eaef3fb-6746-43ec-8563-aade53bd06ae">
+			</testcontainer>
+			<testcontainer
 			id="3f43e558-964a-4210-87d0-1a1debd443e6">
 			</testcontainer>
 			<testcontainer
 			id="41914192-1134-4c81-8878-eeecc3e50480">
+			</testcontainer>
+			<testcontainer
+			id="41dc521e-8142-4888-897a-2a92987e1ed5">
 			</testcontainer>
 			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
@@ -41254,6 +43437,9 @@
 			id="4b7c0206-4542-4ea4-b035-9ea6e566baf8">
 			</testcontainer>
 			<testcontainer
+			id="4cdb7d76-e6b3-414f-b7ab-37a35699d9d8">
+			</testcontainer>
+			<testcontainer
 			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
 			</testcontainer>
 			<testcontainer
@@ -41282,6 +43468,9 @@
 			</testcontainer>
 			<testcontainer
 			id="50cce15b-661e-44b5-b352-cc72e6caa705">
+			</testcontainer>
+			<testcontainer
+			id="51004f63-f1ed-4890-9eb0-cb5eb0d4341d">
 			</testcontainer>
 			<testcontainer
 			id="518741a8-2165-42ee-9919-e99999fc0bc8">
@@ -41314,6 +43503,9 @@
 			id="5694bd07-ff69-4150-a5f6-10275850bac6">
 			</testcontainer>
 			<testcontainer
+			id="56ef5c5f-24b1-4110-9bcc-3ff70f391d3a">
+			</testcontainer>
+			<testcontainer
 			id="5714f059-5eaa-4cee-8c46-9f96e9a75569">
 			</testcontainer>
 			<testcontainer
@@ -41335,7 +43527,13 @@
 			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9">
 			</testcontainer>
 			<testcontainer
+			id="5bedfc3a-558e-417c-9bff-862078950b46">
+			</testcontainer>
+			<testcontainer
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
+			</testcontainer>
+			<testcontainer
+			id="5d3cc3ca-4af0-4bc6-aca3-caf33292589d">
 			</testcontainer>
 			<testcontainer
 			id="5f95ce06-adb9-415e-9d25-8d36708cfcc8">
@@ -41365,13 +43563,22 @@
 			id="65439b4f-6eb7-4062-b09f-e92d7c5b75d6">
 			</testcontainer>
 			<testcontainer
+			id="66c334af-870e-4f2f-8a55-ee3fb3f2ec6e">
+			</testcontainer>
+			<testcontainer
 			id="68302d1d-985c-40c6-984d-7011a7704caa">
+			</testcontainer>
+			<testcontainer
+			id="69432bd5-2bc9-4fc5-9323-380b9f00d83b">
 			</testcontainer>
 			<testcontainer
 			id="6a877048-89b6-4b16-8e16-fd8de63831cb">
 			</testcontainer>
 			<testcontainer
 			id="6a973635-237b-4806-ba15-ea3651c9ed01">
+			</testcontainer>
+			<testcontainer
+			id="6af62eb3-2f34-4247-b4cb-763f5d66349f">
 			</testcontainer>
 			<testcontainer
 			id="6b07606e-7786-4411-91c1-21644b0ef180">
@@ -41417,6 +43624,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7679fec5-5b7e-4fef-bfd3-b4c28d528624">
+			</testcontainer>
+			<testcontainer
+			id="767df29c-0cea-452d-b228-88be26da989e">
 			</testcontainer>
 			<testcontainer
 			id="77116ac1-99e0-4980-bbc7-a47571455387">
@@ -41470,6 +43680,9 @@
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
 			</testcontainer>
 			<testcontainer
+			id="7e0309a5-cdbc-42c1-a840-058cb468b8df">
+			</testcontainer>
+			<testcontainer
 			id="7f638b8b-b98b-4b5c-9ed5-1811866af221">
 			</testcontainer>
 			<testcontainer
@@ -41506,10 +43719,19 @@
 			id="870a7258-4093-4db4-ba44-6d6d77115847">
 			</testcontainer>
 			<testcontainer
+			id="879bd581-0b57-4af9-835d-2cabfab55c0e">
+			</testcontainer>
+			<testcontainer
 			id="88d1cf2f-edc6-4218-a2d1-a86f86380bd2">
 			</testcontainer>
 			<testcontainer
+			id="8a5930be-d564-42ec-9a66-ba21c104d545">
+			</testcontainer>
+			<testcontainer
 			id="8ad00d3f-a182-44cf-892b-d96d2b7b5d28">
+			</testcontainer>
+			<testcontainer
+			id="8b910519-3ee2-4d7e-bf1c-7c16a6825aa8">
 			</testcontainer>
 			<testcontainer
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
@@ -41519,6 +43741,12 @@
 			</testcontainer>
 			<testcontainer
 			id="8d460b47-f981-4a73-957a-73f1096322ae">
+			</testcontainer>
+			<testcontainer
+			id="8f1fe818-10d7-4c6f-9c0c-5ef3ae42842a">
+			</testcontainer>
+			<testcontainer
+			id="900efa39-2d27-4782-a250-b9578ffdee19">
 			</testcontainer>
 			<testcontainer
 			id="906308bf-e6bd-45f9-8b99-8c14c843aeac">
@@ -41551,6 +43779,12 @@
 			id="958716fd-2581-492f-b0ab-54e55b9ed92b">
 			</testcontainer>
 			<testcontainer
+			id="970e784e-78e2-45a0-99d8-f871d0012917">
+			</testcontainer>
+			<testcontainer
+			id="97180b6d-f830-4c92-be3b-ab41ca7b0c23">
+			</testcontainer>
+			<testcontainer
 			id="9742cd08-acf0-4460-92de-ad30cd24e40e">
 			</testcontainer>
 			<testcontainer
@@ -41561,6 +43795,9 @@
 			</testcontainer>
 			<testcontainer
 			id="982c8e3b-5650-4f06-a310-f89a3a4be332">
+			</testcontainer>
+			<testcontainer
+			id="99429f12-3502-4468-b3b4-873ba018501a">
 			</testcontainer>
 			<testcontainer
 			id="9947014f-3667-4ddc-8cbb-6c3862210409">
@@ -41584,6 +43821,12 @@
 			id="9b79463d-b7d3-4f8c-9c8d-9f0eab037cc7">
 			</testcontainer>
 			<testcontainer
+			id="9d4a671b-5a79-4a51-b90b-0b2298830847">
+			</testcontainer>
+			<testcontainer
+			id="9d5fc45c-71f0-41a7-bf81-10e3455d1cbc">
+			</testcontainer>
+			<testcontainer
 			id="9d633933-ecb7-4eae-9185-950b58961201">
 			</testcontainer>
 			<testcontainer
@@ -41596,16 +43839,25 @@
 			id="a08e47f1-1840-4726-8582-2aa29c47a8d9">
 			</testcontainer>
 			<testcontainer
+			id="a16fcc63-ea71-4be9-8b50-b7d9caf8d762">
+			</testcontainer>
+			<testcontainer
 			id="a2e84f8f-4423-47f5-be0d-7d910d2cff10">
 			</testcontainer>
 			<testcontainer
 			id="a3095b3c-7d7e-46dd-bf02-0e9e424bef53">
 			</testcontainer>
 			<testcontainer
+			id="a325bcc5-6247-4ccb-9f6f-9cca73e9ca2a">
+			</testcontainer>
+			<testcontainer
 			id="a3deddb5-ab48-4a6d-8501-80fbde5bc326">
 			</testcontainer>
 			<testcontainer
 			id="a51eac73-35ff-4cec-9de4-4636e98286e8">
+			</testcontainer>
+			<testcontainer
+			id="a680f701-a869-4c60-bbb2-f1277cc66736">
 			</testcontainer>
 			<testcontainer
 			id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7">
@@ -41629,6 +43881,12 @@
 			id="aa4c3c5d-b0b0-4def-a517-e6f940868c90">
 			</testcontainer>
 			<testcontainer
+			id="aa7c2da6-9298-4d92-b5a8-2e2b56815234">
+			</testcontainer>
+			<testcontainer
+			id="aac8c6b3-423e-4a56-9a87-eaa053b7b20a">
+			</testcontainer>
+			<testcontainer
 			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155">
 			</testcontainer>
 			<testcontainer
@@ -41639,6 +43897,9 @@
 			</testcontainer>
 			<testcontainer
 			id="add565ef-a3c0-4dc2-820b-345cbaff57d2">
+			</testcontainer>
+			<testcontainer
+			id="aeeb0719-09cf-48c8-9f0e-a6615390dc95">
 			</testcontainer>
 			<testcontainer
 			id="afd42c83-505d-4c73-a25f-627b4463b754">
@@ -41654,6 +43915,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b1aa1457-65a2-4d85-a8d4-b26c75a45d97">
+			</testcontainer>
+			<testcontainer
+			id="b1f07eaa-dbff-4944-a9a5-8fe6678b9fda">
 			</testcontainer>
 			<testcontainer
 			id="b2eeec84-fe8b-4308-9f61-43ce200edf28">
@@ -41696,6 +43960,9 @@
 			</testcontainer>
 			<testcontainer
 			id="bdb6824b-28dc-4f2f-987b-572c1325bca4">
+			</testcontainer>
+			<testcontainer
+			id="bde408f9-0e41-45b0-94ed-e7959227c34f">
 			</testcontainer>
 			<testcontainer
 			id="be471a64-ad76-41f3-b539-4b208b0c378e">
@@ -41743,6 +44010,9 @@
 			id="c3bc7386-c184-4d2a-a330-c9df483c5363">
 			</testcontainer>
 			<testcontainer
+			id="c417e9bf-bed0-4d41-8d81-5153f6d891a4">
+			</testcontainer>
+			<testcontainer
 			id="c4207caf-42e6-464e-a2e8-6250cf545959">
 			</testcontainer>
 			<testcontainer
@@ -41777,6 +44047,12 @@
 			</testcontainer>
 			<testcontainer
 			id="c8b5d3cd-0bad-467f-a5dd-0f528a760987">
+			</testcontainer>
+			<testcontainer
+			id="c8fe3d4f-6d33-445f-ba35-33c83369844f">
+			</testcontainer>
+			<testcontainer
+			id="c981c583-9624-4929-bafc-be264a2e4d0a">
 			</testcontainer>
 			<testcontainer
 			id="cba875f7-dd82-4f1c-90e8-8e4a17538212">
@@ -41875,10 +44151,16 @@
 			id="db2bff93-44c6-4717-9c92-9b638712361f">
 			</testcontainer>
 			<testcontainer
+			id="dc064e9f-65a0-4d47-b9b5-1a9dab63cbc7">
+			</testcontainer>
+			<testcontainer
 			id="dc1ac18d-a209-4eb7-96ae-204ddc8f958b">
 			</testcontainer>
 			<testcontainer
 			id="dc95179b-ca5d-409a-ad5c-99b0e4559223">
+			</testcontainer>
+			<testcontainer
+			id="dd7a9edf-3cee-4eb5-85e2-6f50a25404a4">
 			</testcontainer>
 			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
@@ -41905,10 +44187,16 @@
 			id="e2972406-d6f7-4ba7-8de2-9e928bd5e038">
 			</testcontainer>
 			<testcontainer
+			id="e35e72c0-3b8c-42cf-a68d-29f326476619">
+			</testcontainer>
+			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
 			</testcontainer>
 			<testcontainer
 			id="e3e9eeda-8af5-4f9a-80f4-12effaf0417b">
+			</testcontainer>
+			<testcontainer
+			id="e4c5d8ea-5e00-4ef8-8fe4-df4cc04db93e">
 			</testcontainer>
 			<testcontainer
 			id="e8214a59-d2f9-4214-9deb-b562c11fcf37">
@@ -41936,6 +44224,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ecac70ee-51ea-4866-90c3-a05414ad3aab">
+			</testcontainer>
+			<testcontainer
+			id="ed7f9039-6ff9-48ec-8647-91c187538f0a">
 			</testcontainer>
 			<testcontainer
 			id="edc546da-ab34-4488-8faa-1bf9a7db4a15">
@@ -41992,6 +44283,9 @@
 			id="f6dfc1de-a0c4-4d6f-a015-fc50508c4c1c">
 			</testcontainer>
 			<testcontainer
+			id="f6f2154e-07b4-4b6a-9cce-c13fd43739c8">
+			</testcontainer>
+			<testcontainer
 			id="f731cc82-56ee-4c40-b4aa-23ebfe13960a">
 			</testcontainer>
 			<testcontainer
@@ -42020,6 +44314,12 @@
 			</testcontainer>
 			<testcontainer
 			id="fa9546f1-7056-4d88-9abb-4b8d5fb6c5bd">
+			</testcontainer>
+			<testcontainer
+			id="fbd40a99-b6b3-4606-95e6-0a73c4dbdae0">
+			</testcontainer>
+			<testcontainer
+			id="fc1c6dc7-e05b-4bd1-9e43-c17667a24212">
 			</testcontainer>
 			<testcontainer
 			id="fc6eee10-d749-42ff-8630-fcfa49c52a12">
