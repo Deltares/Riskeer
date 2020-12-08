@@ -837,6 +837,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="0c9f9531-92fb-45a4-b708-d6a309c13b21"
+			name="SetBackToOriginalValue">
+			</smartfoldernode>
 			<testmodule
 			id="0d26c018-9b61-4f33-a638-f72c0973973b"
 			name="CreateScreenshotDocumentView"
@@ -1011,6 +1015,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="0f2ac96d-26c3-4115-95f2-40a24d7c90fd"
+			name="ValidateOriginalValue">
+			</smartfoldernode>
 			<smartfoldernode
 			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb"
 			name="SelectListItemFromDropDownMenuInPropertiesPanel">
@@ -1406,7 +1414,7 @@
 					variablename="substringNameItemInTraject">
 					</var>
 					<var
-					dataname="NValue"
+					dataname="expectedNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
 					variablename="expectedValueOfParameterForItemInTraject">
@@ -2149,7 +2157,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
-			name="ValidateLengthEffectParameterN">
+			name="SetValidateLengthEffectParameterN">
 			</smartfoldernode>
 			<testmodule
 			id="1da174b2-de83-4794-98d4-0442480ba673"
@@ -3308,6 +3316,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="29763a32-f4b0-4d63-99c5-5a855a4b2a79"
+			name="SetN">
+			</smartfoldernode>
 			<testmodule
 			id="29e43680-a92f-476d-9975-e3f7e609861f"
 			name="CreateOutputFolder"
@@ -3954,6 +3966,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="33cce73c-d7ea-4e4c-8967-d337db89f45e"
+			name="ValidateOriginalValue">
+			</smartfoldernode>
 			<testmodule
 			id="33d39f12-0e84-4e29-bf47-639634d4d680"
 			name="ReadDataCategoryBoundariesTrajectView"
@@ -4825,7 +4841,7 @@
 			<smartfoldernode
 			datasource="tableFMsFormulaGroup1N"
 			id="42425944-15c7-418b-b5cd-a582e15b80df"
-			name="FormulaType1_(STPH,STBI,STBU)">
+			name="Validate_FormulaType1_(STPH,STBI,STBU)">
 				<parameters>
 					<param
 					name="a"
@@ -5992,6 +6008,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="4e07ed22-b5cd-4201-9849-aad154c1c8f2"
+			name="Validate">
+			</smartfoldernode>
 			<testmodule
 			id="4ea2b600-15a0-4e22-b09f-266ecfb07672"
 			name="SelectGenericItemInProjectExplorer"
@@ -6337,7 +6357,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="5328d042-0c00-4277-af0a-8c5ec2f49435"
-			name="FormulaType2_(AGK)">
+			name="Validate_FormulaType2_(AGK)">
 				<parameters>
 					<param
 					name="lengthValue"
@@ -6680,7 +6700,7 @@
 			<smartfoldernode
 			datasource="tableFMsNValue"
 			id="548bde8b-44b7-4508-aaf3-3824011d3029"
-			name="FormulaType4_(ZST,PKW,STKWp,DA)">
+			name="SetAndValidate_FormulaType4_(ZST,PKW,STKWp,DA)">
 				<parameters>
 					<param
 					name="convertedValue"
@@ -6689,6 +6709,14 @@
 					<param
 					name="NNameInPropertiesPanel"
 					value="N [-]">
+					</param>
+					<param
+					name="pathToNParemeterInPropertiesPanel"
+					value="Lengte-effect parameters>N [-]">
+					</param>
+					<param
+					name="valueTypeNParameter"
+					value="Text">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -7076,7 +7104,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="56686535-e9c1-4dee-937e-6edd48e15b86"
-			name="FormulaType3_(BSKW)">
+			name="Validate_FormulaType3_(BSKW)">
 				<parameters>
 					<param
 					name="fmName"
@@ -7867,6 +7895,26 @@
 					variablename="fileName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="5fcb7676-3ffe-4ee8-9661-451f22ca7130"
+			name="ConvertToCurrentCulture"
+			ref="c1edbea9-a1e3-45d7-835b-452fd53ec06b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newNValue"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
+					variablename="valueToBeConverted">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="ac108b35-e8c3-4c50-8517-867ecd23a44d"
+					variablename="convertedValue">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="600c11c5-e9fa-44e4-9611-0a29d9c1bc11"
@@ -8827,6 +8875,10 @@
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="69e25496-f4cf-4fad-873a-de9127cb320a"
+			name="ValidateNewValue">
+			</smartfoldernode>
 			<testmodule
 			id="6a047848-8df8-488e-b41e-07e55d2d1cbd"
 			name="CreateScreenshotDocumentView"
@@ -10518,6 +10570,32 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="80699aab-58f6-42b2-8242-00b0353d7737"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="expectedNValue"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueTypeNParameter"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="pathToNParemeterInPropertiesPanel"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="808f5306-0ee1-4179-afa4-d43b38dfc9ba"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -10596,6 +10674,32 @@
 			id="81ea0df2-e684-46cb-be15-b365c8220892"
 			name="CopyOriginalFiles">
 			</smartfoldernode>
+			<testmodule
+			id="82018bc8-c2da-4ea4-8f87-da1f22371abe"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToNParemeterInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedNValue"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="valueTypeNParameter"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="820cb290-5f7b-4c6a-9f1b-402c4d7ed496"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -13078,6 +13182,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="9d9dfdba-aa57-4f72-a7e7-4b72f73ae4d1"
+			name="SetN">
+			</smartfoldernode>
 			<testmodule
 			id="9dcd448b-9de2-4781-b293-0e84efa42dfc"
 			name="SelectGenericItemInProjectExplorer"
@@ -13751,6 +13859,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="a945fdd0-e886-4653-b1db-b58972b34065"
+			name="SetBackToOriginalValue">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script10_LoopExpectedErrorMessagesWhenNotIntersectingSurfaceLines"
 			errorbehavior="ContinueNextIteration"
 			id="a9476a5d-b871-4277-9188-1ebfe572836e"
@@ -14137,6 +14249,58 @@
 			id="b0a34dce-c254-4833-aa19-fc97eb811e81"
 			name="ValidateExportedFile">
 			</smartfoldernode>
+			<testmodule
+			id="b10b8322-54c6-4e76-9d48-5b2b222a5033"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NNameInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="NAsteriskValue"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NAsteriskNameInPropertiesPanel"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="b112d32b-9675-4b2e-889a-0fc7f3937d6a"
 			name="ConcatenateStrings"
@@ -14784,6 +14948,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="b6e2ac2b-26bb-4f8b-9cac-3796e84c6ef7"
+			name="Validate">
+			</smartfoldernode>
 			<testmodule
 			id="b6e3dd3a-a140-4777-8895-1cdc8607fc0a"
 			name="SetRangeInSmartFolder"
@@ -15150,6 +15318,58 @@
 					datasourceid="4764f9ba-1c7d-455d-accb-8da729e5e0b2"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b8f0096e-2294-4a67-8af7-41cfdad0f1cc"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="expectedNValue"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="NParameterNameInPropertiesPanel"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NNameInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -16472,6 +16692,58 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="c65a062b-fdae-413a-9efa-44e0752dde7a"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NNameInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="NAsteriskValue"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NAsteriskNameInPropertiesPanel"
+					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c65de29d-2390-46ef-b199-9c1f51a2f4ea"
 			name="DeleteAllFilesInInputFolder">
@@ -17086,11 +17358,19 @@
 			<smartfoldernode
 			datasource="tableNValueInFMsForTraject12_2"
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-			name="FormulaType5_(GEKB,GEBU,HTKW)">
+			name="SetAndValidate_FormulaType5_(GEKB,GEBU,HTKW)">
 				<parameters>
 					<param
 					name="NParameterNameInPropertiesPanel"
 					value="N [-]">
+					</param>
+					<param
+					name="valueTypeNParameter"
+					value="Double">
+					</param>
+					<param
+					name="pathToNParemeterInPropertiesPanel"
+					value="Lengte-effect parameters>N [-]">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -17311,6 +17591,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="d2350068-c78a-4670-b109-0521c87b2390"
+			name="SetToNewValue">
+			</smartfoldernode>
 			<smartfoldernode
 			id="d26a7999-0c7f-44fe-8e00-b1a51cc37e82"
 			name="MakeAllItemsInPropertiesPanelVisible">
@@ -17904,6 +18188,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="db7b041a-36b3-4778-8cb3-114ac5db1ad7"
+			name="ConvertToCurrentCulture"
+			ref="c1edbea9-a1e3-45d7-835b-452fd53ec06b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newNValue"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
+					variablename="valueToBeConverted">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="ac108b35-e8c3-4c50-8517-867ecd23a44d"
+					variablename="convertedValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="db854c8c-f239-4b66-ae60-a991fcd5a7fc"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -18122,6 +18426,36 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="de59077f-ee61-4e7d-afae-40aa8ee5c99b"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newNValue"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToNParemeterInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="valueTypeNParameter"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="de717e23-e1bb-48ce-b3ad-1835dd298f98"
+			name="ValidateNewValue">
+			</smartfoldernode>
+			<testmodule
 			id="de9b77c9-29a4-4796-8349-3cbaec9ba7e7"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -18324,6 +18658,10 @@
 			<smartfoldernode
 			id="e0c56d52-bb91-47a9-8888-4a4806977d1f"
 			name="ExportPropertiesPanelToCsv">
+			</smartfoldernode>
+			<smartfoldernode
+			id="e0fbaedd-6bf8-4187-aecc-89a737075b3e"
+			name="SetToNewValue">
 			</smartfoldernode>
 			<testmodule
 			id="e10a3546-2a92-4e98-b297-4b1392ad0a1e"
@@ -19239,6 +19577,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="ed892052-d7f4-41b0-a123-4e8d3e4e7943"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="newNValue"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToNParemeterInPropertiesPanel"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="valueTypeNParameter"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="edc546da-ab34-4488-8faa-1bf9a7db4a15"
 			name="ExportPropertiesPanelToCsv">
@@ -19557,7 +19921,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="NValue"
+					dataname="expectedNValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
 					variablename="valueToBeConverted">
@@ -20186,6 +20550,58 @@
 			name="HideRanorexProgressDialog"
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
+			</testmodule>
+			<testmodule
+			id="fa0688c0-d60d-48bf-8cf7-7ed747be22a1"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="newNValue"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NParameterNameInPropertiesPanel"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NNameInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="fa305fa9-d22d-41b5-af75-5c1315e2df2f"
@@ -21829,10 +22245,10 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
-							name="ValidateLengthEffectParameterN">
+							name="SetValidateLengthEffectParameterN">
 								<smartfoldernode
 								id="42425944-15c7-418b-b5cd-a582e15b80df"
-								name="FormulaType1_(STPH,STBI,STBU)">
+								name="Validate_FormulaType1_(STPH,STBI,STBU)">
 									<testmodule
 									id="638def4b-9e2a-41be-bb18-2991948a1821"
 									name="GetValueParameterForItemInTraject">
@@ -21856,7 +22272,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="5328d042-0c00-4277-af0a-8c5ec2f49435"
-								name="FormulaType2_(AGK)">
+								name="Validate_FormulaType2_(AGK)">
 									<testmodule
 									id="c3744923-020e-4304-b830-2ea9ca446b46"
 									name="GetValueParameterForItemInTraject">
@@ -21876,7 +22292,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="56686535-e9c1-4dee-937e-6edd48e15b86"
-								name="FormulaType3_(BSKW)">
+								name="Validate_FormulaType3_(BSKW)">
 									<testmodule
 									id="ffd1bb2c-ae53-40b3-a440-7eb1b8939a09"
 									name="GetValueParameterForItemInTraject">
@@ -21896,23 +22312,111 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="548bde8b-44b7-4508-aaf3-3824011d3029"
-								name="FormulaType4_(ZST,PKW,STKWp,DA)">
-									<testmodule
-									id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
-									name="ConvertToCurrentCulture">
-									</testmodule>
-									<testmodule
-									id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
+								name="SetAndValidate_FormulaType4_(ZST,PKW,STKWp,DA)">
+									<smartfoldernode
+									id="4e07ed22-b5cd-4201-9849-aad154c1c8f2"
+									name="Validate">
+										<testmodule
+										id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
+										name="ConvertToCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
+										name="ValidateValueParameterForItemInTraject">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="9d9dfdba-aa57-4f72-a7e7-4b72f73ae4d1"
+									name="SetN">
+										<smartfoldernode
+										id="e0fbaedd-6bf8-4187-aecc-89a737075b3e"
+										name="SetToNewValue">
+											<testmodule
+											id="de59077f-ee61-4e7d-afae-40aa8ee5c99b"
+											name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="de717e23-e1bb-48ce-b3ad-1835dd298f98"
+										name="ValidateNewValue">
+											<testmodule
+											id="5fcb7676-3ffe-4ee8-9661-451f22ca7130"
+											name="ConvertToCurrentCulture">
+											</testmodule>
+											<testmodule
+											id="b10b8322-54c6-4e76-9d48-5b2b222a5033"
+											name="ValidateValueParameterForItemInTraject">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="a945fdd0-e886-4653-b1db-b58972b34065"
+										name="SetBackToOriginalValue">
+											<testmodule
+											id="82018bc8-c2da-4ea4-8f87-da1f22371abe"
+											name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="0f2ac96d-26c3-4115-95f2-40a24d7c90fd"
+										name="ValidateOriginalValue">
+											<testmodule
+											id="db7b041a-36b3-4778-8cb3-114ac5db1ad7"
+											name="ConvertToCurrentCulture">
+											</testmodule>
+											<testmodule
+											id="c65a062b-fdae-413a-9efa-44e0752dde7a"
+											name="ValidateValueParameterForItemInTraject">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-								name="FormulaType5_(GEKB,GEBU,HTKW)">
-									<testmodule
-									id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
+								name="SetAndValidate_FormulaType5_(GEKB,GEBU,HTKW)">
+									<smartfoldernode
+									id="b6e2ac2b-26bb-4f8b-9cac-3796e84c6ef7"
+									name="Validate">
+										<testmodule
+										id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
+										name="ValidateValueParameterForItemInTraject">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="29763a32-f4b0-4d63-99c5-5a855a4b2a79"
+									name="SetN">
+										<smartfoldernode
+										id="d2350068-c78a-4670-b109-0521c87b2390"
+										name="SetToNewValue">
+											<testmodule
+											id="ed892052-d7f4-41b0-a123-4e8d3e4e7943"
+											name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="69e25496-f4cf-4fad-873a-de9127cb320a"
+										name="ValidateNewValue">
+											<testmodule
+											id="fa0688c0-d60d-48bf-8cf7-7ed747be22a1"
+											name="ValidateValueParameterForItemInTraject">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="0c9f9531-92fb-45a4-b708-d6a309c13b21"
+										name="SetBackToOriginalValue">
+											<testmodule
+											id="80699aab-58f6-42b2-8242-00b0353d7737"
+											name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="33cce73c-d7ea-4e4c-8967-d337db89f45e"
+										name="ValidateOriginalValue">
+											<testmodule
+											id="b8f0096e-2294-4a67-8af7-41cfdad0f1cc"
+											name="ValidateValueParameterForItemInTraject">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
@@ -40420,6 +40924,313 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+		lastknownrowcount="5"
+		name="script22_a_LoopFMs"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					pathToResultItem
+				</column>
+				<column>
+					pathToReferenceCSVFile
+				</column>
+				<column>
+					pathToVakindelingInProjectExplorer
+				</column>
+				<column>
+					group
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmLabel
+					</th>
+					<th>
+						pathToResultItem
+					</th>
+					<th>
+						pathToReferenceCSVFile
+					</th>
+					<th>
+						pathToVakindelingInProjectExplorer
+					</th>
+					<th>
+						group
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STMI
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						4
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						3
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\script22\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+						1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="6889055a-abbd-4351-b55a-d3ffcfdb8312"
+		lastknownrowcount="10"
+		name="script22_d_ValidationAfterManualAssessment"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					indexRow
+				</column>
+				<column>
+					substringColumnHeader
+				</column>
+				<column>
+					expectedValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						indexRow
+					</th>
+					<th>
+						substringColumnHeader
+					</th>
+					<th>
+						expectedValue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 1, Gecombineerd vakoordeel
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 1, STPH vakoordeel
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 2, Gecombineerd vakoordeel
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 2, STPH vakoordeel
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 3, Gecombineerd vakoordeel
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 3, STPH vakoordeel
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 4, Gecombineerd vakoordeel
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 4, STPH vakoordeel
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 5, Gecombineerd vakoordeel
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Gecombineerd
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vaknummer 5, STPH vakoordeel
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						STPH
+					</td>
+					<td>
+						VIv
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="f2bf6531-f64b-456a-8531-987c51060fcb"
 		lastknownrowcount="92"
 		name="script28_2_2_ValidateCSVEqualToReference"
@@ -42329,7 +43140,10 @@
 					fmName
 				</column>
 				<column>
-					NValue
+					expectedNValue
+				</column>
+				<column>
+					newNValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -42340,7 +43154,10 @@
 						fmName
 					</th>
 					<th>
-						NValue
+						expectedNValue
+					</th>
+					<th>
+						newNValue
 					</th>
 				</tr>
 				<tr>
@@ -42350,6 +43167,9 @@
 					<td>
 						4
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -42357,6 +43177,9 @@
 					</td>
 					<td>
 						1
+					</td>
+					<td>
+						2
 					</td>
 				</tr>
 				<tr>
@@ -42366,6 +43189,9 @@
 					<td>
 						3
 					</td>
+					<td>
+						4
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -42373,6 +43199,9 @@
 					</td>
 					<td>
 						2
+					</td>
+					<td>
+						1
 					</td>
 				</tr>
 			</table>
@@ -42641,7 +43470,10 @@
 					fmName
 				</column>
 				<column>
-					NValue
+					expectedNValue
+				</column>
+				<column>
+					newNValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -42652,7 +43484,10 @@
 						fmName
 					</th>
 					<th>
-						NValue
+						expectedNValue
+					</th>
+					<th>
+						newNValue
 					</th>
 				</tr>
 				<tr>
@@ -42662,6 +43497,9 @@
 					<td>
 						2
 					</td>
+					<td>
+						1
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -42670,6 +43508,9 @@
 					<td>
 						2
 					</td>
+					<td>
+						1
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -42677,6 +43518,9 @@
 					</td>
 					<td>
 						2
+					</td>
+					<td>
+						1
 					</td>
 				</tr>
 			</table>
@@ -42718,313 +43562,6 @@
 					</td>
 					<td>
 						Section
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-		lastknownrowcount="5"
-		name="script22_a_LoopFMs"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmLabel
-				</column>
-				<column>
-					pathToResultItem
-				</column>
-				<column>
-					pathToReferenceCSVFile
-				</column>
-				<column>
-					pathToVakindelingInProjectExplorer
-				</column>
-				<column>
-					group
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmLabel
-					</th>
-					<th>
-						pathToResultItem
-					</th>
-					<th>
-						pathToReferenceCSVFile
-					</th>
-					<th>
-						pathToVakindelingInProjectExplorer
-					</th>
-					<th>
-						group
-					</th>
-				</tr>
-				<tr>
-					<td>
-						STPH
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STMI
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						4
-					</td>
-				</tr>
-				<tr>
-					<td>
-						ZST
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						BSKW
-					</td>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						1
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6889055a-abbd-4351-b55a-d3ffcfdb8312"
-		lastknownrowcount="10"
-		name="script22_d_ValidationAfterManualAssessment"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					iterationLabel
-				</column>
-				<column>
-					indexRow
-				</column>
-				<column>
-					substringColumnHeader
-				</column>
-				<column>
-					expectedValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						iterationLabel
-					</th>
-					<th>
-						indexRow
-					</th>
-					<th>
-						substringColumnHeader
-					</th>
-					<th>
-						expectedValue
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 1, Gecombineerd vakoordeel
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						Gecombineerd
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 1, STPH vakoordeel
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						STPH
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 2, Gecombineerd vakoordeel
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						Gecombineerd
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 2, STPH vakoordeel
-					</td>
-					<td>
-						1
-					</td>
-					<td>
-						STPH
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 3, Gecombineerd vakoordeel
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						Gecombineerd
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 3, STPH vakoordeel
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						STPH
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 4, Gecombineerd vakoordeel
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						Gecombineerd
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 4, STPH vakoordeel
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						STPH
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 5, Gecombineerd vakoordeel
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						Gecombineerd
-					</td>
-					<td>
-						VIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Vaknummer 5, STPH vakoordeel
-					</td>
-					<td>
-						4
-					</td>
-					<td>
-						STPH
-					</td>
-					<td>
-						VIv
 					</td>
 				</tr>
 			</table>
@@ -43110,6 +43647,9 @@
 			id="0c43c027-2b5d-4ae6-b7d6-5fd0553658ca">
 			</testcontainer>
 			<testcontainer
+			id="0c9f9531-92fb-45a4-b708-d6a309c13b21">
+			</testcontainer>
+			<testcontainer
 			id="0d37db51-9bb6-49e7-b6cd-73b988c2350c">
 			</testcontainer>
 			<testcontainer
@@ -43123,6 +43663,9 @@
 			</testcontainer>
 			<testcontainer
 			id="0e6e2b58-f157-4040-8537-6986dd359395">
+			</testcontainer>
+			<testcontainer
+			id="0f2ac96d-26c3-4115-95f2-40a24d7c90fd">
 			</testcontainer>
 			<testcontainer
 			id="0f591fb3-1f88-4c0d-98ef-55748ba995cb">
@@ -43269,6 +43812,9 @@
 			id="2936391c-917c-41b8-bc50-7eaafb7189b7">
 			</testcontainer>
 			<testcontainer
+			id="29763a32-f4b0-4d63-99c5-5a855a4b2a79">
+			</testcontainer>
+			<testcontainer
 			id="2a4a3cc3-a3a5-40f2-a657-e32c198385fd">
 			</testcontainer>
 			<testcontainer
@@ -43324,6 +43870,9 @@
 			</testcontainer>
 			<testcontainer
 			id="31e51195-a126-4ba5-a260-f6fbc91828f8">
+			</testcontainer>
+			<testcontainer
+			id="33cce73c-d7ea-4e4c-8967-d337db89f45e">
 			</testcontainer>
 			<testcontainer
 			id="3442e960-8978-490a-8a4b-f3dbea48ab86">
@@ -43455,6 +44004,9 @@
 			id="4dede171-f31a-4ffe-8612-39d868130ddf">
 			</testcontainer>
 			<testcontainer
+			id="4e07ed22-b5cd-4201-9849-aad154c1c8f2">
+			</testcontainer>
+			<testcontainer
 			id="4ee89ccd-4875-4f75-a76d-af0c47729751">
 			</testcontainer>
 			<testcontainer
@@ -43570,6 +44122,9 @@
 			</testcontainer>
 			<testcontainer
 			id="69432bd5-2bc9-4fc5-9323-380b9f00d83b">
+			</testcontainer>
+			<testcontainer
+			id="69e25496-f4cf-4fad-873a-de9127cb320a">
 			</testcontainer>
 			<testcontainer
 			id="6a877048-89b6-4b16-8e16-fd8de63831cb">
@@ -43830,6 +44385,9 @@
 			id="9d633933-ecb7-4eae-9185-950b58961201">
 			</testcontainer>
 			<testcontainer
+			id="9d9dfdba-aa57-4f72-a7e7-4b72f73ae4d1">
+			</testcontainer>
+			<testcontainer
 			id="9e503c0d-3304-473f-a7ef-238a8e9a3a46">
 			</testcontainer>
 			<testcontainer
@@ -43870,6 +44428,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a892317c-1996-4518-bf9a-0489c57328e7">
+			</testcontainer>
+			<testcontainer
+			id="a945fdd0-e886-4653-b1db-b58972b34065">
 			</testcontainer>
 			<testcontainer
 			id="a9476a5d-b871-4277-9188-1ebfe572836e">
@@ -43930,6 +44491,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b5d5182d-98ed-4cdb-a9b5-d67ff56babba">
+			</testcontainer>
+			<testcontainer
+			id="b6e2ac2b-26bb-4f8b-9cac-3796e84c6ef7">
 			</testcontainer>
 			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
@@ -44109,6 +44673,9 @@
 			id="d1b1a748-5931-495f-8724-a42c04084d7e">
 			</testcontainer>
 			<testcontainer
+			id="d2350068-c78a-4670-b109-0521c87b2390">
+			</testcontainer>
+			<testcontainer
 			id="d26a7999-0c7f-44fe-8e00-b1a51cc37e82">
 			</testcontainer>
 			<testcontainer
@@ -44169,6 +44736,9 @@
 			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
 			</testcontainer>
 			<testcontainer
+			id="de717e23-e1bb-48ce-b3ad-1835dd298f98">
+			</testcontainer>
+			<testcontainer
 			id="dfc3943a-f3af-4f84-bf61-d597efe4b619">
 			</testcontainer>
 			<testcontainer
@@ -44176,6 +44746,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e0c56d52-bb91-47a9-8888-4a4806977d1f">
+			</testcontainer>
+			<testcontainer
+			id="e0fbaedd-6bf8-4187-aecc-89a737075b3e">
 			</testcontainer>
 			<testcontainer
 			id="e11d8e1c-a450-4ef5-a908-be6487023d0f">
