@@ -345,6 +345,18 @@
       <UserCode>true</UserCode>
       <id>5ef55a60-1f68-49e1-9e3b-e6641051b3b3</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.cs">
+      <BoundTo>2d371475-b0d7-432a-a038-b0eba5ff47af</BoundTo>
+      <DependentUpon>AssignManualAssessmentFirstRowResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>85529c86-122f-45fa-aca8-4a2bf28d5917</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.UserCode.cs">
+      <BoundTo>2d371475-b0d7-432a-a038-b0eba5ff47af</BoundTo>
+      <DependentUpon>AssignManualAssessmentFirstRowResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b66720c3-2ae6-4b48-a9b0-c44f4ea2b282</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.cs">
       <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -416,6 +428,30 @@
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
       <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.cs">
+      <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
+      <DependentUpon>ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>7731b770-9311-4fa0-a12c-15eb5f6f42e6</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.UserCode.cs">
+      <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
+      <DependentUpon>ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>aab43547-994a-422f-8ead-8842c312a4ba</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.cs">
+      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
+      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>748beae9-a964-420b-ba22-3de6c3ad1fa5</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.UserCode.cs">
+      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
+      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>89c0f5fb-52ff-40f4-b42f-9ce63891301a</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateSectionsCombinationsView.cs">
       <id>5a8d1d39-770a-499a-bd2b-f165e9451f94</id>
@@ -1581,6 +1617,18 @@
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreNotEqual.cs">
       <id>b70cb88e-3754-4bbb-8747-d435ee41b3a8</id>
     </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.cs">
+      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
+      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3ba3c491-a1db-4b8f-9271-84cac6790c33</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.UserCode.cs">
+      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
+      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>4f4bb978-39a2-4c47-95ba-2194c51587a6</id>
+    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1604,6 +1652,30 @@
       <DependentUpon>ValidateDataSectionsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>3d68db93-f1ea-4bf1-b07d-068aee9d8f41</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.cs">
+      <BoundTo>b3ae91a9-c3c7-4443-92b0-81a65b646c53</BoundTo>
+      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>442075a2-af66-4030-93d4-a52255f1dbae</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.UserCode.cs">
+      <BoundTo>b3ae91a9-c3c7-4443-92b0-81a65b646c53</BoundTo>
+      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>73a20e9d-3076-4d12-afcc-904f4f3ad21f</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.cs">
+      <BoundTo>234a4d6d-1fcb-4164-a1be-71911fee3ba8</BoundTo>
+      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>5dce2653-b16c-46ed-9047-da771c32180f</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.UserCode.cs">
+      <BoundTo>234a4d6d-1fcb-4164-a1be-71911fee3ba8</BoundTo>
+      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2a86053f-5764-4937-89eb-aaf5acd73ffa</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundary.cs">
       <id>452096ad-9aec-4f1f-b5b9-5a9f507ce492</id>
@@ -1667,6 +1739,30 @@
       <DependentUpon>ValidateSectionNameIsPresentInTableResultsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9d07e329-f343-4dc5-82f3-c2af60126caf</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.cs">
+      <BoundTo>14510b69-cc8d-4fc5-99ee-840c5a0782bf</BoundTo>
+      <DependentUpon>ValidateSingleValueInTableAssemblyCombinedSections.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e863d3c8-3dc1-44bd-a81e-d2466b0654f9</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.UserCode.cs">
+      <BoundTo>14510b69-cc8d-4fc5-99ee-840c5a0782bf</BoundTo>
+      <DependentUpon>ValidateSingleValueInTableAssemblyCombinedSections.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e0526aaf-1ba5-4ddd-81bc-1f58825cfe08</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.cs">
+      <BoundTo>d3f27e12-e135-4314-b507-79c55387ad03</BoundTo>
+      <DependentUpon>ValidateSummaryValuesAssemblyTrajectView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>7c67a307-1b47-499b-84b1-f09cd7cfa34a</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.UserCode.cs">
+      <BoundTo>d3f27e12-e135-4314-b507-79c55387ad03</BoundTo>
+      <DependentUpon>ValidateSummaryValuesAssemblyTrajectView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>970e7036-3cc9-466b-a55b-49dcdb8dc3ef</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.cs">
       <DependentUpon>ValidateTrajectCategoryBoundaryInDocumentView.rxrec</DependentUpon>
@@ -2269,6 +2365,11 @@
       <id>a3654dc6-285b-49ee-bbe6-36b98eecb55c</id>
       <recordtableid>7215ea0a-6021-493d-a8b6-e4f22012da8a</recordtableid>
     </None>
+    <None Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>2d371475-b0d7-432a-a038-b0eba5ff47af</id>
+      <recordtableid>46249ce6-a33a-4ebb-a47f-9e06323cafdb</recordtableid>
+    </None>
     <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
@@ -2293,6 +2394,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</id>
+      <recordtableid>778be806-02a6-4d3b-92ce-fe995369ab6d</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>bc434fad-2212-4327-8fad-52e26de4e4b1</id>
+      <recordtableid>eda96359-8672-43bd-b08e-6668567acb0a</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2734,6 +2845,11 @@
       <id>3caad1c0-140c-4fb4-acc6-81005770fc34</id>
       <recordtableid>e550d732-7780-4b40-a989-f787f458a7c7</recordtableid>
     </None>
+    <None Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</id>
+      <recordtableid>0a4d8d5f-1427-4a9b-9ba1-ee5acbb844db</recordtableid>
+    </None>
     <None Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
@@ -2754,6 +2870,16 @@
       <id>4321a5dc-dff9-4a99-9273-baf97a3bf99f</id>
       <recordtableid>3c9b70f2-d794-41d3-b0ce-6da8c1e00475</recordtableid>
     </None>
+    <None Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b3ae91a9-c3c7-4443-92b0-81a65b646c53</id>
+      <recordtableid>186f0bae-a0e0-45d0-8a1f-fb35c0689c6c</recordtableid>
+    </None>
+    <None Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>234a4d6d-1fcb-4164-a1be-71911fee3ba8</id>
+      <recordtableid>89914775-4f38-4b49-a34b-1f99c7016275</recordtableid>
+    </None>
     <None Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
@@ -2768,6 +2894,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>3846c50b-7378-4c21-b12a-9ffd33fd36ab</id>
       <recordtableid>11dc3edb-dbfe-4ce7-9bdc-1b55dd842556</recordtableid>
+    </None>
+    <None Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>14510b69-cc8d-4fc5-99ee-840c5a0782bf</id>
+      <recordtableid>d0701ab4-190e-4120-9a9a-54b9e846f336</recordtableid>
+    </None>
+    <None Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d3f27e12-e135-4314-b507-79c55387ad03</id>
+      <recordtableid>18ea53f5-f6f7-4204-952e-dfe48e0f31ac</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

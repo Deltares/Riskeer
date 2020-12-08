@@ -33,6 +33,15 @@ mode="Desktop">
 		</var>
 	</variables>
 	<recorditems>
+		<explicitdelayitem
+		duration="100ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<userrecorditem
 		classname="StartAUT"
 		enabled="True"

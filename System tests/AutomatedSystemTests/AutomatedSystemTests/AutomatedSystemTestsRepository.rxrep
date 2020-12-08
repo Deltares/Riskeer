@@ -585,6 +585,25 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']
 						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="61025cb3-ddb0-49eb-b8f6-0a004df77298"
+						name="OverruleAssessmentRow0"
+						refimgid="7b8559f2-cd61-4440-89ca-581e6e55833f"
+						refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container[@caption='']/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Overschrijftoetsoordeel Row 0']"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Overschrijftoetsoordeel']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="efe7833a-72d2-4cd7-a9fd-4c7da0e02b49"
+						name="ManualAssessmentRow0"
+						refimgid="f9774423-647d-4236-9bf2-6caa9c0236d7"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
@@ -627,6 +646,15 @@ name="AutomatedSystemTestsRepository">
 					refimgid="4d180fc1-d7b8-4306-a023-4b409260a1d2"
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container/container/text/text
+					</item>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="2d024a52-8ed7-4669-8bde-85ea423ad519"
+					name="WarningIconManualAssessment"
+					refimgid="ba2b1d7c-7101-4d21-9ed7-8d3a045b9113"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/element
 					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']
@@ -979,10 +1007,33 @@ name="AutomatedSystemTestsRepository">
 					name="Table"
 					searchtimeout="30000ms"
 					usecache="False">
+						<item
+						capname="cell"
+						id="b264fcc2-36d7-4507-a402-d4fc29ede170"
+						name="AssessmentLabelGenericRow"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Toetsoordeel']
+						</item>
+						<item
+						capname="cell"
+						id="9603827f-7322-4bc5-8fb5-86f0400a8ef9"
+						name="AssessmentApproxProbGenericRow"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Benaderde']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table
 						</basepath>
 					</folder>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="8d5c9928-8755-4ea6-888f-981f4ab3e558"
+					name="WarningIconManualAssessment"
+					refimgid="78082cc7-f79e-4220-b5b5-6d3080e6d145"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container/element
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']
 					</basepath>
@@ -1016,12 +1067,32 @@ name="AutomatedSystemTestsRepository">
 				refimgid="16857980-eb80-4181-be65-0dcafebd443e"
 				searchtimeout="30000ms"
 				usecache="False">
-					<item
+					<folder
 					capname="table"
 					id="e21708c5-fec0-48a4-a781-9a094d1d956a"
+					isrooted="True"
 					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="cell"
+						id="9323c6c5-cfc2-46c8-8616-81c493b076f0"
+						name="GenericCell"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename~$substringColumnHeader]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table
+						</basepath>
+					</folder>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="5e19e06d-72a6-4305-a262-6de7ec9bd6e1"
+					name="WarningIconManualAssessment"
+					refimgid="2337e306-400b-46f3-a537-132e719059f3"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/element
 					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']
@@ -3097,6 +3168,10 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
 		name="nameOfPanel">
+		</var>
+		<var
+		id="82c7fabd-024c-4cd6-bf76-46e72cb40281"
+		name="substringColumnHeader">
 		</var>
 	</variables>
 </repository>

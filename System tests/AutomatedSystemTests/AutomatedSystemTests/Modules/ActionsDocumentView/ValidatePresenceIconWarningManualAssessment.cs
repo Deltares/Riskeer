@@ -20,64 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsAUT
+namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The StartAUT recording.
+    ///The ValidatePresenceIconWarningManualAssessment recording.
     /// </summary>
-    [TestModule("825ce2a6-cd3b-42f6-9972-8ced75f1a54f", ModuleType.Recording, 1)]
-    public partial class StartAUT : ITestModule
+    [TestModule("eda96359-8672-43bd-b08e-6668567acb0a", ModuleType.Recording, 1)]
+    public partial class ValidatePresenceIconWarningManualAssessment : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static StartAUT instance = new StartAUT();
+        static ValidatePresenceIconWarningManualAssessment instance = new ValidatePresenceIconWarningManualAssessment();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public StartAUT()
+        public ValidatePresenceIconWarningManualAssessment()
         {
-            StartAutProcessIDVar = "";
-            AppPath = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static StartAUT Instance
+        public static ValidatePresenceIconWarningManualAssessment Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _StartAutProcessIDVar;
-
-        /// <summary>
-        /// Gets or sets the value of variable StartAutProcessIDVar.
-        /// </summary>
-        [TestVariable("8cd31747-b0d7-463c-aa3e-8ea07c17694e")]
-        public string StartAutProcessIDVar
-        {
-            get { return _StartAutProcessIDVar; }
-            set { _StartAutProcessIDVar = value; }
-        }
-
-        string _AppPath;
-
-        /// <summary>
-        /// Gets or sets the value of variable AppPath.
-        /// </summary>
-        [TestVariable("ae927c2e-4f2f-4656-ae88-d9198de4c5c4")]
-        public string AppPath
-        {
-            get { return _AppPath; }
-            set { _AppPath = value; }
-        }
 
 #endregion
 
@@ -99,27 +73,16 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(0));
-            Delay.Duration(100, false);
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.WarningIconManualAssessment, false, new RecordItemIndex(0));
             
-            ResolveAppPath();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.", new RecordItemIndex(2));
-            StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(3));
-            repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(4));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.WarningIconManualAssessment'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.WarningIconManualAssessmentInfo, new RecordItemIndex(1));
+            Validate.Exists(repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.WarningIconManualAssessmentInfo);
             
         }
 

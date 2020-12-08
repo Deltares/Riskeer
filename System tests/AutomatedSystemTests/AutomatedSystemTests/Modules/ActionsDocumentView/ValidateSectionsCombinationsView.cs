@@ -64,7 +64,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblySectionsView.Table;
+            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
             List<double> allSubsections = new List<double>();
             allSubsections.Add(0);
             foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsAssessmentInformation) {
@@ -114,8 +114,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 }
                 Report.Info("Validation for row " + (indexRow + 1).ToString() + ".");
                 ValidateCell(cells[indexSectionNumber], (indexRow + 1).ToString(), "Validation section number.");
-                ValidateCell(cells[indexDistanceStart], expectedDistanceStart.ToString("N2"), "Validation section start");
-                ValidateCell(cells[indexDistanceEnd], expectedDistanceEnd.ToString("N2"), "Validation section end");
+                ValidateCell(cells[indexDistanceStart], string.Format("{0:0.00}", expectedDistanceStart), "Validation section start distance along reference line.");
+                ValidateCell(cells[indexDistanceEnd], string.Format("{0:0.00}", expectedDistanceEnd), "Validation section end distance along reference line.");
                 ValidateCell(cells[indexCombinedAssessment], CombinedAssessmentSectionLabel, "Validation combined assessment label.");
                 
                 
