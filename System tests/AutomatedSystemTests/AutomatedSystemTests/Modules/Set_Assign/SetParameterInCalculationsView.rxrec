@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="7413cc50-50d0-4361-8163-7d8d3b57b81d"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="SetParameterInCalculationsView"
+	namespace="AutomatedSystemTests.Modules.Set_Assign">
+	</codegen>
+	<variables>
+		<var
+		id="33a3a4d5-6b9a-420a-b2c8-cdb117a312f4"
+		name="valueParameter">
+		</var>
+	</variables>
+	<recorditems>
+		<setvaluerecorditem
+		attrname="AccessibleValue"
+		enabled="True"
+		optional="False"
+		searchpropertyid="4fc24ff8-113b-4748-9b0d-abe352e24e41">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="AttributeValue"
+				variable="valueParameter">
+				</binding>
+			</bindings>
+			<info
+			id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+				</path>
+			</info>
+			<AttributeValue>
+				YM_1_12-2_dk_00022 (674 m)
+			</AttributeValue>
+		</setvaluerecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		kkdelavaca.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

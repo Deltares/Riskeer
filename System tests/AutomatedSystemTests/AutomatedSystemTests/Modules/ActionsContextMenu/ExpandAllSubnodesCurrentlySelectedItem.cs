@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Wait
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The WaitUntilAllCalculationsHaveBeenCarriedOut recording.
+    ///The ExpandAllSubnodesCurrentlySelectedItem recording.
     /// </summary>
-    [TestModule("ada8c353-8b24-47e4-b6bf-adfb36229783", ModuleType.Recording, 1)]
-    public partial class WaitUntilAllCalculationsHaveBeenCarriedOut : ITestModule
+    [TestModule("12ee2100-a4a2-41a6-ad6e-3f7829dd3c4b", ModuleType.Recording, 1)]
+    public partial class ExpandAllSubnodesCurrentlySelectedItem : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static WaitUntilAllCalculationsHaveBeenCarriedOut instance = new WaitUntilAllCalculationsHaveBeenCarriedOut();
+        static ExpandAllSubnodesCurrentlySelectedItem instance = new ExpandAllSubnodesCurrentlySelectedItem();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public WaitUntilAllCalculationsHaveBeenCarriedOut()
+        public ExpandAllSubnodesCurrentlySelectedItem()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static WaitUntilAllCalculationsHaveBeenCarriedOut Instance
+        public static ExpandAllSubnodesCurrentlySelectedItem Instance
         {
             get { return instance; }
         }
@@ -73,24 +73,17 @@ namespace AutomatedSystemTests.Modules.Wait
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
-            Delay.Duration(500, false);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            try {
-                Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(1)); }
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 4h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(14400000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(14400000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesUitklappen' at Center.", repo.ContextMenu.AllesUitklappenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.AllesUitklappen.Click();
             
         }
 

@@ -24,29 +24,29 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ClickOnRunSelectedCalculations recording.
+    ///The ClickOnRunSelectedHBCCalculationsDunes recording.
     /// </summary>
-    [TestModule("907b89b7-6058-4333-a615-ff354007586c", ModuleType.Recording, 1)]
-    public partial class ClickOnRunSelectedCalculations : ITestModule
+    [TestModule("a0fb1576-cc6f-43a8-9e64-da0db902668d", ModuleType.Recording, 1)]
+    public partial class ClickOnRunSelectedHBCCalculationsDunes : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ClickOnRunSelectedCalculations instance = new ClickOnRunSelectedCalculations();
+        static ClickOnRunSelectedHBCCalculationsDunes instance = new ClickOnRunSelectedHBCCalculationsDunes();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ClickOnRunSelectedCalculations()
+        public ClickOnRunSelectedHBCCalculationsDunes()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ClickOnRunSelectedCalculations Instance
+        public static ClickOnRunSelectedHBCCalculationsDunes Instance
         {
             get { return instance; }
         }
@@ -73,14 +73,15 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButton.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton.Click();
+            Delay.Milliseconds(0);
             
         }
 

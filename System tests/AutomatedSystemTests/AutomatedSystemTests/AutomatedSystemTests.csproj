@@ -177,6 +177,30 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleCalculation.cs">
+      <BoundTo>a2d91913-d614-41ff-8c15-cc5dc4bd268e</BoundTo>
+      <DependentUpon>AddSingleCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>55ee1e13-31a3-4ffe-8757-1d8ecc6a0a92</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleCalculation.UserCode.cs">
+      <BoundTo>a2d91913-d614-41ff-8c15-cc5dc4bd268e</BoundTo>
+      <DependentUpon>AddSingleCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c56d8c8b-01ce-49d5-9406-a322234a230d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubnodesCurrentlySelectedItem.cs">
+      <BoundTo>4a0bb83e-26ea-4823-b060-8664722113d0</BoundTo>
+      <DependentUpon>ExpandAllSubnodesCurrentlySelectedItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>216a4549-f310-42a7-9d35-b78b1f115dfd</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubnodesCurrentlySelectedItem.UserCode.cs">
+      <BoundTo>4a0bb83e-26ea-4823-b060-8664722113d0</BoundTo>
+      <DependentUpon>ExpandAllSubnodesCurrentlySelectedItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>803125e3-1959-4156-8efc-3cef46240f9f</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\ExportReferenceLine.cs">
       <BoundTo>47c63e6f-914c-466f-b549-2e2500df0659</BoundTo>
       <DependentUpon>ExportReferenceLine.rxrec</DependentUpon>
@@ -357,26 +381,26 @@
       <UserCode>true</UserCode>
       <id>b66720c3-2ae6-4b48-a9b0-c44f4ea2b282</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.cs">
-      <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculations.cs">
+      <DependentUpon>ClickOnRunSelectedHBCCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>1bee2ad9-5232-4b46-bb9e-38546a2b7fe4</id>
       <BoundTo>656b7e3b-fd9a-4148-9687-72c952815443</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.UserCode.cs">
-      <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculations.UserCode.cs">
+      <DependentUpon>ClickOnRunSelectedHBCCalculations.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>443d8da9-77fd-404d-b4e8-8470675a6acc</id>
       <BoundTo>656b7e3b-fd9a-4148-9687-72c952815443</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculationsHydraulicBCDA.cs">
-      <DependentUpon>ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculationsDunes.cs">
+      <DependentUpon>ClickOnRunSelectedHBCCalculationsDunes.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>b52b54f3-4179-424f-801b-b9b52d6b1672</id>
       <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculationsHydraulicBCDA.UserCode.cs">
-      <DependentUpon>ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculationsDunes.UserCode.cs">
+      <DependentUpon>ClickOnRunSelectedHBCCalculationsDunes.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>516989bc-37f5-4d53-8442-38a71ee85e4f</id>
       <BoundTo>c4b5ba37-93b9-4977-a67f-31b2e221b26f</BoundTo>
@@ -1128,6 +1152,18 @@
       <UserCode>true</UserCode>
       <id>ffdb7e96-9f5b-435e-93d5-1ed4f5148b55</id>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotProjectExplorer.cs">
+      <BoundTo>39691297-a58c-4097-8c09-2a177aac112e</BoundTo>
+      <DependentUpon>CreateScreenshotProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ec45fe6e-a639-4739-9582-b412816360cd</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotProjectExplorer.UserCode.cs">
+      <BoundTo>39691297-a58c-4097-8c09-2a177aac112e</BoundTo>
+      <DependentUpon>CreateScreenshotProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>eb2e0464-0e47-4b25-a4e6-942010ea1cf4</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\LogInfoMessage.cs">
       <DependentUpon>LogInfoMessage.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1187,6 +1223,18 @@
       <UserCode>true</UserCode>
       <id>83cbb184-cd9a-4bbe-9e6d-347e402a8d89</id>
       <BoundTo>a1bf799f-50b7-4bb2-a418-2705a88cab3e</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationInTableCalculationsView.cs">
+      <BoundTo>0b81ef93-2eb7-4983-834e-c4a56ba9acdd</BoundTo>
+      <DependentUpon>SelectCalculationInTableCalculationsView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8050e6f2-11d3-43e9-b9c4-31f52d2052f6</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCalculationInTableCalculationsView.UserCode.cs">
+      <BoundTo>0b81ef93-2eb7-4983-834e-c4a56ba9acdd</BoundTo>
+      <DependentUpon>SelectCalculationInTableCalculationsView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9e3edc67-d0de-4e5c-b920-c530ff3b6b11</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectCalculationsAndIllustrationPoints.cs">
       <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
@@ -1332,6 +1380,18 @@
       <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
     </Compile>
+    <Compile Include="Modules\Selection\SelectGenericSectionInCalculationsView.cs">
+      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
+      <DependentUpon>SelectGenericSectionInCalculationsView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>5eeea7e0-d96a-4489-9954-8e464adc75d2</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericSectionInCalculationsView.UserCode.cs">
+      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
+      <DependentUpon>SelectGenericSectionInCalculationsView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
+    </Compile>
     <Compile Include="Modules\Selection\SelectItemBelow.cs">
       <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1415,6 +1475,9 @@
       <UserCode>true</UserCode>
       <id>c8e3883f-d27d-4363-8f1b-4fe07766baf9</id>
       <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectCheckboxesForListRowsInHBCView.cs">
+      <id>3fab094f-b965-4706-a963-c05cb2f05c4d</id>
     </Compile>
     <Compile Include="Modules\SettingsTestSuite\ShowRanorexProgressDialog.cs">
       <id>2b0c9a62-6560-411b-82ce-8ade14188560</id>
@@ -1505,6 +1568,18 @@
       <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>dd2f233e-0eec-4b6f-b2e1-0990a7a28c9d</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\SetParameterInCalculationsView.cs">
+      <BoundTo>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</BoundTo>
+      <DependentUpon>SetParameterInCalculationsView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6109e6c6-98ea-433b-8a0a-cc6cc207811b</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\SetParameterInCalculationsView.UserCode.cs">
+      <BoundTo>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</BoundTo>
+      <DependentUpon>SetParameterInCalculationsView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>bbce7b4d-caf4-4f7b-895a-91c55789b3ca</id>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetNewHBCScenario.cs">
       <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
@@ -2295,6 +2370,16 @@
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\AddSingleCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a2d91913-d614-41ff-8c15-cc5dc4bd268e</id>
+      <recordtableid>1416f2d8-f6a5-488a-9c9f-04bd1a3b1f3f</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\ExpandAllSubnodesCurrentlySelectedItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4a0bb83e-26ea-4823-b060-8664722113d0</id>
+      <recordtableid>12ee2100-a4a2-41a6-ad6e-3f7829dd3c4b</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\ExportReferenceLine.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>47c63e6f-914c-466f-b549-2e2500df0659</id>
@@ -2370,12 +2455,12 @@
       <id>2d371475-b0d7-432a-a038-b0eba5ff47af</id>
       <recordtableid>46249ce6-a33a-4ebb-a47f-9e06323cafdb</recordtableid>
     </None>
-    <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculations.rxrec">
+    <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
       <recordtableid>907b89b7-6058-4333-a615-ff354007586c</recordtableid>
     </None>
-    <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedCalculationsHydraulicBCDA.rxrec">
+    <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculationsDunes.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c4b5ba37-93b9-4977-a67f-31b2e221b26f</id>
       <recordtableid>a0fb1576-cc6f-43a8-9e64-da0db902668d</recordtableid>
@@ -2650,6 +2735,11 @@
       <id>9132f069-1cc1-49e1-8163-ab0f9b279541</id>
       <recordtableid>7b4b5931-d933-4dfd-92c3-207ab4e9306d</recordtableid>
     </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>39691297-a58c-4097-8c09-2a177aac112e</id>
+      <recordtableid>f8d86f09-5ccd-4d15-8b0c-ebed59c9e8ea</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\LogInfoMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>13439f4b-f332-4240-b490-e1dbd6823904</id>
@@ -2674,6 +2764,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a1bf799f-50b7-4bb2-a418-2705a88cab3e</id>
       <recordtableid>bbe1b453-6dad-446c-8f21-3104847f3bd8</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectCalculationInTableCalculationsView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0b81ef93-2eb7-4983-834e-c4a56ba9acdd</id>
+      <recordtableid>6e1d6f25-0269-4c0a-aed7-bdcfa34be7bd</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectCalculationsAndIllustrationPoints.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2734,6 +2829,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
       <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectGenericSectionInCalculationsView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
+      <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectItemBelow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2804,6 +2904,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8669304c-d156-4ba1-82cd-5042b2515286</id>
       <recordtableid>60536bb5-15fa-40e4-91d6-e5131d3e52c2</recordtableid>
+    </None>
+    <None Include="Modules\Set_Assign\SetParameterInCalculationsView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</id>
+      <recordtableid>7413cc50-50d0-4361-8163-7d8d3b57b81d</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetNewHBCScenario.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

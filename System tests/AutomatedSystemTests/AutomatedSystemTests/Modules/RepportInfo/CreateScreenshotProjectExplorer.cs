@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ClickOnRunSelectedCalculationsHydraulicBCDA recording.
+    ///The CreateScreenshotProjectExplorer recording.
     /// </summary>
-    [TestModule("a0fb1576-cc6f-43a8-9e64-da0db902668d", ModuleType.Recording, 1)]
-    public partial class ClickOnRunSelectedCalculationsHydraulicBCDA : ITestModule
+    [TestModule("f8d86f09-5ccd-4d15-8b0c-ebed59c9e8ea", ModuleType.Recording, 1)]
+    public partial class CreateScreenshotProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ClickOnRunSelectedCalculationsHydraulicBCDA instance = new ClickOnRunSelectedCalculationsHydraulicBCDA();
+        static CreateScreenshotProjectExplorer instance = new CreateScreenshotProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ClickOnRunSelectedCalculationsHydraulicBCDA()
+        public CreateScreenshotProjectExplorer()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ClickOnRunSelectedCalculationsHydraulicBCDA Instance
+        public static CreateScreenshotProjectExplorer Instance
         {
             get { return instance; }
         }
@@ -73,15 +73,13 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton.Click();
-            Delay.Milliseconds(0);
+            Report.Screenshot(ReportLevel.Info, "User", "Screenshot of Project Explorer.", repo.RiskeerMainWindow.ProjectExplorer.Self, false, new RecordItemIndex(0));
             
         }
 

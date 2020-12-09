@@ -20,38 +20,71 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Wait
+namespace AutomatedSystemTests.Modules.Set_Assign
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The WaitUntilAllCalculationsHaveBeenCarriedOut recording.
+    ///The SetParameterInCalculationsView recording.
     /// </summary>
-    [TestModule("ada8c353-8b24-47e4-b6bf-adfb36229783", ModuleType.Recording, 1)]
-    public partial class WaitUntilAllCalculationsHaveBeenCarriedOut : ITestModule
+    [TestModule("7413cc50-50d0-4361-8163-7d8d3b57b81d", ModuleType.Recording, 1)]
+    public partial class SetParameterInCalculationsView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static WaitUntilAllCalculationsHaveBeenCarriedOut instance = new WaitUntilAllCalculationsHaveBeenCarriedOut();
+        static SetParameterInCalculationsView instance = new SetParameterInCalculationsView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public WaitUntilAllCalculationsHaveBeenCarriedOut()
+        public SetParameterInCalculationsView()
         {
+            valueParameter = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static WaitUntilAllCalculationsHaveBeenCarriedOut Instance
+        public static SetParameterInCalculationsView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _valueParameter;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueParameter.
+        /// </summary>
+        [TestVariable("33a3a4d5-6b9a-420a-b2c8-cdb117a312f4")]
+        public string valueParameter
+        {
+            get { return _valueParameter; }
+            set { _valueParameter = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRowCalculation.
+        /// </summary>
+        [TestVariable("22cf54d8-7caa-49ab-8e5b-1c14fb3ba580")]
+        public string indexRowCalculation
+        {
+            get { return repo.indexRowCalculation; }
+            set { repo.indexRowCalculation = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable nameColumn.
+        /// </summary>
+        [TestVariable("0654e545-9710-4c76-b4ae-a428f59a6303")]
+        public string nameColumn
+        {
+            get { return repo.nameColumn; }
+            set { repo.nameColumn = value; }
+        }
 
 #endregion
 
@@ -73,24 +106,14 @@ namespace AutomatedSystemTests.Modules.Wait
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
-            Delay.Duration(500, false);
-            
-            try {
-                Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(1)); }
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 4h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(14400000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(14400000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueParameter' on item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Element.SetAttributeValue("AccessibleValue", valueParameter);
             
         }
 

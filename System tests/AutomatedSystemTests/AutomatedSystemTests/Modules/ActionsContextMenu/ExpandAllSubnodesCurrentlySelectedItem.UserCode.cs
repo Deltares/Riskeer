@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
-    public partial class ClickOnRunSelectedCalculationsHydraulicBCDA
+    public partial class ExpandAllSubnodesCurrentlySelectedItem
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

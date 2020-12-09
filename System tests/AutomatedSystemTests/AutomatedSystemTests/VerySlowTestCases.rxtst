@@ -828,7 +828,7 @@
 			</testmodule>
 			<testmodule
 			id="35318595-6719-4a75-801f-fb94ca742136"
-			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
+			name="ClickOnRunSelectedHBCCalculationsDunes"
 			ref="a0fb1576-cc6f-43a8-9e64-da0db902668d"
 			type="Recording">
 			</testmodule>
@@ -1350,7 +1350,7 @@
 			</setup>
 			<testmodule
 			id="5a98b671-b40e-4b92-9803-dff79b22f196"
-			name="ClickOnRunSelectedCalculations"
+			name="ClickOnRunSelectedHBCCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
@@ -2299,7 +2299,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="928b9510-7bfb-4aaa-9b9b-acc07bc194ef"
-			name="ClickOnRunSelectedCalculationsHydraulicBCDA"
+			name="ClickOnRunSelectedHBCCalculationsDunes"
 			ref="a0fb1576-cc6f-43a8-9e64-da0db902668d"
 			type="Recording">
 			</testmodule>
@@ -2811,7 +2811,7 @@
 			</testmodule>
 			<testmodule
 			id="bc30bc98-daf5-42b1-9eea-30882a6cf74d"
-			name="ClickOnRunSelectedCalculations"
+			name="ClickOnRunSelectedHBCCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
@@ -2968,7 +2968,7 @@
 			</testmodule>
 			<testmodule
 			id="ce55835a-ae45-44d6-b96b-d1c0cc2f71c4"
-			name="ClickOnRunSelectedCalculations"
+			name="ClickOnRunSelectedHBCCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
@@ -3195,7 +3195,7 @@
 			</testmodule>
 			<testmodule
 			id="e2f44274-30e9-4737-a65a-8518a35ee213"
-			name="ClickOnRunSelectedCalculations"
+			name="ClickOnRunSelectedHBCCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
 			</testmodule>
@@ -3701,7 +3701,7 @@
 										name="StartCalculationsGEBU">
 											<testmodule
 											id="5a98b671-b40e-4b92-9803-dff79b22f196"
-											name="ClickOnRunSelectedCalculations">
+											name="ClickOnRunSelectedHBCCalculations">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -3709,7 +3709,7 @@
 										name="StartCalculations_DA">
 											<testmodule
 											id="35318595-6719-4a75-801f-fb94ca742136"
-											name="ClickOnRunSelectedCalculationsHydraulicBCDA">
+											name="ClickOnRunSelectedHBCCalculationsDunes">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -3849,7 +3849,7 @@
 										name="StartCalculationsGEBU">
 											<testmodule
 											id="e2f44274-30e9-4737-a65a-8518a35ee213"
-											name="ClickOnRunSelectedCalculations">
+											name="ClickOnRunSelectedHBCCalculations">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -3857,7 +3857,7 @@
 										name="StartCalculations_DA">
 											<testmodule
 											id="928b9510-7bfb-4aaa-9b9b-acc07bc194ef"
-											name="ClickOnRunSelectedCalculationsHydraulicBCDA">
+											name="ClickOnRunSelectedHBCCalculationsDunes">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -4250,7 +4250,7 @@
 									name="RunHydraulicBCCalculationUntilFinished">
 										<testmodule
 										id="bc30bc98-daf5-42b1-9eea-30882a6cf74d"
-										name="ClickOnRunSelectedCalculations">
+										name="ClickOnRunSelectedHBCCalculations">
 										</testmodule>
 										<testmodule
 										id="47e32b82-a78b-4c80-a0d7-6b451f7c3970"
@@ -4362,7 +4362,7 @@
 									name="RunHydraulicBCCalculationUntilFinished">
 										<testmodule
 										id="ce55835a-ae45-44d6-b96b-d1c0cc2f71c4"
-										name="ClickOnRunSelectedCalculations">
+										name="ClickOnRunSelectedHBCCalculations">
 										</testmodule>
 										<testmodule
 										id="b553e267-372e-4a8f-ae17-bd7f20e4370e"

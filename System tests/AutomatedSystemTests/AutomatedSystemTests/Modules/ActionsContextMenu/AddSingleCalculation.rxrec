@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="907b89b7-6058-4333-a615-ff354007586c"
+id="1416f2d8-f6a5-488a-9c9f-04bd1a3b1f3f"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,12 +19,24 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ClickOnRunSelectedCalculations"
-	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
+	classname="AddSingleCalculation"
+	namespace="AutomatedSystemTests.Modules.ActionsContextMenu">
 	</codegen>
 	<variables>
 	</variables>
 	<recorditems>
+		<keysequenceitem
+		KeySequence="{Apps}"
+		duration="20ms"
+		enabled="True"
+		optional="False"
+		presstime="20ms"
+		searchpropertyid="75fb94f0-ecfe-429d-bf35-979e12bfd9c1">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</keysequenceitem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -33,19 +45,19 @@ mode="Global">
 		loc="Center"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="3fd0d554-b2b0-487a-95c3-46a7672f34c4"
-		sx="0"
-		sy="0"
+		searchpropertyid="382f359e-8eab-4f85-9e82-a6a971626229"
+		sx="154"
+		sy="573"
 		warnoutofbounds="False">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<info
-			id="7df2b82b-0568-480a-ad83-3057ec323365"
+			id="a538b968-f904-4d07-a69c-e87f3bb3d12b"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekening toevoegen']
 				</path>
 			</info>
 		</mouseitem>
@@ -65,7 +77,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ClickOnRunSelectedCalculations.UserCode.cs
+		AddSingleCalculation.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

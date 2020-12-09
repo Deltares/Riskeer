@@ -71,8 +71,6 @@ namespace AutomatedSystemTests.Modules.Calculation
             RepoItemInfo rootNodeProject = myRepository.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo;
             TreeItem nodeTreeItem = GetNodeInProjectExplorerGivenPath(pathToNodeInProjectExplorer, rootNodeProject);
             structureNode = GetStructureTreeItem(nodeTreeItem);
-            
-            Report.Log(ReportLevel.Info, structureNode);
         }
         
         private TreeItem GetNodeInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)

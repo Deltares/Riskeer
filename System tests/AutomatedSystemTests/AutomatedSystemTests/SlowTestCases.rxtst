@@ -748,6 +748,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="14d6f36a-d7fb-48a1-b998-98c4f7544229"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="structureImportedReferenceCalculations"
+					datasourceid="8326d424-9df5-478b-8b13-f4c8060d08b9"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="outputCustomAssessment"
 			id="15f59d7d-5e83-493f-aba8-ec5ced1c629c"
@@ -6522,6 +6536,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="a8aad9ca-c1db-4731-bb5f-da68845ec2b7"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="structureOriginalCalculations"
+					datasourceid="8326d424-9df5-478b-8b13-f4c8060d08b9"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a8ac1143-f9a9-4595-9eff-37a59b4be859"
 			name="MakeMapLayersPanelVisible">
@@ -8269,6 +8297,20 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="cc8ee601-630a-4a6d-86f0-3fd4400402fc"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="structureImportedModifiedCalculations"
+					datasourceid="8326d424-9df5-478b-8b13-f4c8060d08b9"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="cd9a88fa-545f-477f-bd5f-e952a83e72d2"
 			name="StandAloneCalculation">
@@ -9786,6 +9828,20 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="f5577bb5-92de-43b4-9967-17b0d4ce0144"
+			name="LogInfoMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="structureImportedInvalidCalculations"
+					datasourceid="8326d424-9df5-478b-8b13-f4c8060d08b9"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="f5c993d4-e41d-44b7-b3fe-4ed30d011c81"
@@ -11347,6 +11403,10 @@
 										id="f5c993d4-e41d-44b7-b3fe-4ed30d011c81"
 										name="CalculateStructureProjectExplorerNode">
 										</testmodule>
+										<testmodule
+										id="a8aad9ca-c1db-4731-bb5f-da68845ec2b7"
+										name="LogInfoMessage">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="5d22776d-977d-4fd6-a686-7f459f95f92e"
@@ -11512,6 +11572,10 @@
 												<testmodule
 												id="ea169f10-1dfb-4ce4-9a0b-ef268cdf0008"
 												name="CalculateStructureProjectExplorerNode">
+												</testmodule>
+												<testmodule
+												id="14d6f36a-d7fb-48a1-b998-98c4f7544229"
+												name="LogInfoMessage">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
@@ -11705,6 +11769,10 @@
 												id="540f7359-8984-4785-be0d-00979724e6dc"
 												name="CalculateStructureProjectExplorerNode">
 												</testmodule>
+												<testmodule
+												id="cc8ee601-630a-4a6d-86f0-3fd4400402fc"
+												name="LogInfoMessage">
+												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
 											id="b5b8b281-dfb7-43fe-b53d-b27434b77416"
@@ -11892,6 +11960,10 @@
 												<testmodule
 												id="56201f5e-a988-4231-b08c-d0c1038cf8b4"
 												name="CalculateStructureProjectExplorerNode">
+												</testmodule>
+												<testmodule
+												id="f5577bb5-92de-43b4-9967-17b0d4ce0144"
+												name="LogInfoMessage">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode

@@ -20,38 +20,48 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Wait
+namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The WaitUntilAllCalculationsHaveBeenCarriedOut recording.
+    ///The SelectCalculationInTableCalculationsView recording.
     /// </summary>
-    [TestModule("ada8c353-8b24-47e4-b6bf-adfb36229783", ModuleType.Recording, 1)]
-    public partial class WaitUntilAllCalculationsHaveBeenCarriedOut : ITestModule
+    [TestModule("6e1d6f25-0269-4c0a-aed7-bdcfa34be7bd", ModuleType.Recording, 1)]
+    public partial class SelectCalculationInTableCalculationsView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static WaitUntilAllCalculationsHaveBeenCarriedOut instance = new WaitUntilAllCalculationsHaveBeenCarriedOut();
+        static SelectCalculationInTableCalculationsView instance = new SelectCalculationInTableCalculationsView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public WaitUntilAllCalculationsHaveBeenCarriedOut()
+        public SelectCalculationInTableCalculationsView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static WaitUntilAllCalculationsHaveBeenCarriedOut Instance
+        public static SelectCalculationInTableCalculationsView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRowCalculation.
+        /// </summary>
+        [TestVariable("22cf54d8-7caa-49ab-8e5b-1c14fb3ba580")]
+        public string indexRowCalculation
+        {
+            get { return repo.indexRowCalculation; }
+            set { repo.indexRowCalculation = value; }
+        }
 
 #endregion
 
@@ -79,18 +89,9 @@ namespace AutomatedSystemTests.Modules.Wait
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
-            Delay.Duration(500, false);
-            
-            try {
-                Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(1));
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(1)); }
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 4h to not exist. Associated repository item: 'ActivityProgressDialog'", repo.ActivityProgressDialog.SelfInfo, new ActionTimeout(14400000), new RecordItemIndex(2));
-            repo.ActivityProgressDialog.SelfInfo.WaitForNotExists(14400000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow' at .02;.5.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.Self.Click(".02;.5");
+            Delay.Milliseconds(0);
             
         }
 

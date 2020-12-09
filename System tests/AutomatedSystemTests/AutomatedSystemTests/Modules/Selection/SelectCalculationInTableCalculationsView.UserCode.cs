@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsDocumentView
+namespace AutomatedSystemTests.Modules.Selection
 {
-    public partial class ClickOnRunSelectedCalculations
+    public partial class SelectCalculationInTableCalculationsView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

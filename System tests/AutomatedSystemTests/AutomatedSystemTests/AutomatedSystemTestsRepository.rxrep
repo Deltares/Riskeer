@@ -26,7 +26,7 @@ name="AutomatedSystemTestsRepository">
 			id="f5ed0b8b-7145-426f-982e-b89248da6d53"
 			isrooted="True"
 			name="ProjectExplorer"
-			refimgid="3ea0d743-8a25-4993-aa38-ca38dab87fd1"
+			refimgid="0367a7c9-5817-4439-aa80-d9a552964982"
 			searchtimeout="30000ms"
 			usecache="True">
 				<folder
@@ -52,7 +52,7 @@ name="AutomatedSystemTestsRepository">
 						name="Normen"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -61,7 +61,7 @@ name="AutomatedSystemTestsRepository">
 						name="Faalkansbegroting"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -70,7 +70,7 @@ name="AutomatedSystemTestsRepository">
 						name="GenericItemInTraject"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -79,7 +79,7 @@ name="AutomatedSystemTestsRepository">
 						name="Copy_of_GenericItemInTraject"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
 						</item>
 						<folder
 						capname="treeitem"
@@ -112,10 +112,10 @@ name="AutomatedSystemTestsRepository">
 									name="surfaceLine"
 									refimgid="b3ff837b-13bb-4efd-9616-abc33dcc810f"
 									searchtimeout="30000ms">
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[$index]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[$index]
 									</item>
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
 									</basepath>
 								</folder>
 								<folder
@@ -133,14 +133,14 @@ name="AutomatedSystemTestsRepository">
 									name="GenericSubsurfaceSchematization"
 									refimgid="dc2e5d4b-25fc-4148-bd0b-c6585e41e863"
 									searchtimeout="30000ms">
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']/treeitem[@accessiblename=$subsurfaceStochasticModelName]/treeitem[@accessiblename=$subsurfaceSchematizationName]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']/treeitem[@accessiblename=$subsurfaceStochasticModelName]/treeitem[@accessiblename=$subsurfaceSchematizationName]
 									</item>
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']
 								</basepath>
 							</folder>
 							<folder
@@ -158,14 +158,14 @@ name="AutomatedSystemTestsRepository">
 								name="InputSingleCalculation"
 								refimgid="0bb1cafc-a992-4f02-81b1-a001b988be0e"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']/treeitem/treeitem[@accessiblename=$singleCalculationName]/treeitem[@accessiblename='Invoer']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']/treeitem/treeitem[@accessiblename=$singleCalculationName]/treeitem[@accessiblename='Invoer']
 								</item>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
 							</basepath>
 						</folder>
 						<folder
@@ -192,19 +192,19 @@ name="AutomatedSystemTestsRepository">
 								searchtimeout="30000ms"
 								usecache="False">
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]/treeitem[@accessiblename~$substringSubSubItemName]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]/treeitem[@accessiblename~$substringSubSubItemName]
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
 						</basepath>
 					</folder>
 					<item
@@ -213,16 +213,15 @@ name="AutomatedSystemTestsRepository">
 					id="6131d385-9dd7-4e3e-b606-103f620b1765"
 					name="Achtergrondkaart"
 					refimgid="2b9c6d7f-763a-4c68-a80f-c9c145ff78af"
-					refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem/treeitem[@accessiblename='Achtergrondkaart']"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Achtergrondkaart']
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Achtergrondkaart']
 					</item>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
 				</folder>
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</basepath>
 			</folder>
 			<folder
@@ -1148,6 +1147,88 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultPerSectionView']
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="69f208a8-fb2b-48e6-b673-66339abce76d"
+				isrooted="True"
+				name="CalculationsView"
+				refimgid="76c74f23-80f7-4f6a-b0a3-ec8c2f419c15"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="list"
+					id="6a5fb2ab-58d8-4251-833e-af94b5b1f302"
+					isrooted="True"
+					name="ListSections"
+					refimgid="bf1415a8-66af-4119-902b-461002a11c8e"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="listitem"
+						id="aa65e2e5-ffba-49a6-86e5-7542a4ae9526"
+						name="GenericSection"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list/listitem[@index=$indexSection]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="055e6122-9920-4dbb-b9f8-1f0b07590609"
+					isrooted="True"
+					name="TableSelectedSection"
+					refimgid="dba0662f-e222-409d-be63-f0c6735b2962"
+					searchtimeout="30000ms"
+					usecache="False">
+						<folder
+						capname="row"
+						id="00835104-4f74-4cf4-8a4b-930b241005f2"
+						isrooted="True"
+						name="GenericRow"
+						refimgid="ad251689-8a4a-4ebb-9025-f5325b427f7c"
+						searchtimeout="30000ms"
+						usecache="False">
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="1d3cab99-a8f9-4b31-b1c5-f799e5333035"
+							name="HBCLocation"
+							refimgid="e6f04d45-5018-46d5-ab95-911e5c9e48ce"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;'Hydraulische belastingenlocatie']
+							</item>
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+							name="GenericCell"
+							refimgid="e6f04d45-5018-46d5-ab95-911e5c9e48ce"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+							</item>
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="d2b53c87-8564-45f6-8f47-63be160926e3"
+							name="AverageDampingFactor"
+							refimgid="58f2d88e-ac3c-4bb9-9caa-500d296fd217"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;'Verwachtingswaardedempingsfactor']
+							</item>
+							<basepath>
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
+							</basepath>
+						</folder>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']
 				</basepath>
@@ -1891,6 +1972,15 @@ FjcAAAAASUVORK5CYII=
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekenen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="a538b968-f904-4d07-a69c-e87f3bb3d12b"
+			name="BerekeningToevoegen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekening toevoegen']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -3222,6 +3312,18 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="82c7fabd-024c-4cd6-bf76-46e72cb40281"
 		name="substringColumnHeader">
+		</var>
+		<var
+		id="b1c29580-7a2f-407e-b875-ee536111ae7b"
+		name="indexSection">
+		</var>
+		<var
+		id="22cf54d8-7caa-49ab-8e5b-1c14fb3ba580"
+		name="indexRowCalculation">
+		</var>
+		<var
+		id="0654e545-9710-4c76-b4ae-a428f59a6303"
+		name="nameColumn">
 		</var>
 	</variables>
 </repository>

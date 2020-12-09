@@ -39,7 +39,7 @@ mode="Global">
 		category="User"
 		enabled="True"
 		message=""
-		optional="False"
+		optional="True"
 		reportlevel="Info;20"
 		searchpropertyid="a37b9e1e-56ac-4149-9bd7-ffc52c848790">
 			<comment>
