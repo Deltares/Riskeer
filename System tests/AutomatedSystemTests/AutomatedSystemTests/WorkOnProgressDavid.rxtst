@@ -2819,157 +2819,31 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="04b251ac-8df1-4c85-855e-73c7e6bb166d">
-			</testcontainer>
-			<testcontainer
-			id="05760b7f-6c11-4c77-90a6-d28a4bc74478">
-			</testcontainer>
-			<testcontainer
-			id="09250f11-b38a-48f7-a2fd-57a3c4a6481c">
-			</testcontainer>
-			<testcontainer
-			id="0d11d2c7-fecb-439a-94f4-da0307d76dfa">
-			</testcontainer>
-			<testcontainer
 			id="0ee8dc69-6066-4d79-b145-d90f42a562e7">
-			</testcontainer>
-			<testcontainer
-			id="1193949a-2644-475b-9163-57c3f3e21acc">
-			</testcontainer>
-			<testcontainer
-			id="18dd870f-4d6c-4d4b-9bc0-930262217c58">
 			</testcontainer>
 			<testcontainer
 			id="1b5302ab-d1b0-4f7b-86cb-7cc126c507f8">
 			</testcontainer>
 			<testcontainer
-			id="1be5f3d4-a3da-4f0a-98a4-bd430e133db5">
-			</testcontainer>
-			<testcontainer
 			id="1cfedcfb-80cc-454f-b609-cc3f778ebea1">
-			</testcontainer>
-			<testcontainer
-			id="2342c153-bee1-4cf4-a0aa-816a03223e1a">
-			</testcontainer>
-			<testcontainer
-			id="23c6ebb7-2b96-4a72-847d-ce135ba4d1d3">
-			</testcontainer>
-			<testcontainer
-			id="26591a65-96e4-4dda-811a-4f74aaf97741">
-			</testcontainer>
-			<testcontainer
-			id="2d145cf4-d51e-4153-b763-4763c201d138">
 			</testcontainer>
 			<testcontainer
 			id="2dd88350-bd3e-48fd-9eaf-4375e95d1930">
 			</testcontainer>
 			<testcontainer
-			id="2fc5fd68-d988-4c4c-879e-86f1e4d61aba">
-			</testcontainer>
-			<testcontainer
-			id="320551d8-601f-49c8-ae0a-696e47123a84">
-			</testcontainer>
-			<testcontainer
-			id="331303ea-9b13-4de1-9d76-d1f1aedde5bc">
-			</testcontainer>
-			<testcontainer
-			id="33f05ced-6772-49f0-b316-cd91b411955f">
-			</testcontainer>
-			<testcontainer
-			id="3678fb16-1578-4564-9e46-2ddcd2fed718">
-			</testcontainer>
-			<testcontainer
-			id="39c733dc-ed2e-4787-9560-2b7759723111">
-			</testcontainer>
-			<testcontainer
 			id="4d988bee-9e43-42b1-845c-88c29db1ee22">
-			</testcontainer>
-			<testcontainer
-			id="574372b5-3aee-4ad7-8edf-1c9b2e4d9ec8">
-			</testcontainer>
-			<testcontainer
-			id="5ea20338-a950-4af2-9f97-a5133ec75a01">
-			</testcontainer>
-			<testcontainer
-			id="60d5983c-5066-4266-a5d6-e87605135004">
-			</testcontainer>
-			<testcontainer
-			id="66215686-e408-4e4f-a20a-5417dfffc581">
-			</testcontainer>
-			<testcontainer
-			id="6d13da61-e630-4697-b640-d731bfbfd49b">
 			</testcontainer>
 			<testcontainer
 			id="6f773855-4614-4a84-9521-2ade4acb0fdb">
 			</testcontainer>
 			<testcontainer
-			id="7682d189-63c8-4134-9685-cbfbd892c526">
-			</testcontainer>
-			<testcontainer
-			id="77f773ea-6398-4271-94be-5d578abf80d2">
-			</testcontainer>
-			<testcontainer
-			id="7ca8a8c6-8147-44b8-88b9-474c17fe3cb6">
-			</testcontainer>
-			<testcontainer
-			id="7e1887ee-fef8-4dac-bcf5-d532e672141e">
-			</testcontainer>
-			<testcontainer
-			id="7fc55e6a-5a99-46ac-a1e2-8686a3ce2e2f">
-			</testcontainer>
-			<testcontainer
-			id="835a6b88-7b39-49bb-a394-6dfece4de81c">
-			</testcontainer>
-			<testcontainer
-			id="89f2f098-7c6e-4bda-af66-d2a29028700f">
-			</testcontainer>
-			<testcontainer
-			id="8e597ffb-9c80-4177-8840-568c787cd889">
-			</testcontainer>
-			<testcontainer
 			id="959f291f-73d5-4f8c-8533-af200a45ea3b">
-			</testcontainer>
-			<testcontainer
-			id="9aa9eab3-62ec-4b18-bf36-9e5ccd6e58a1">
-			</testcontainer>
-			<testcontainer
-			id="9bee3324-ad7c-444d-8074-b4238dea0a3b">
-			</testcontainer>
-			<testcontainer
-			id="a5db2bdf-e1b3-4447-bd90-e6c06c14d4ea">
-			</testcontainer>
-			<testcontainer
-			id="a90fabce-1b10-49c7-be26-ffce8f441e69">
 			</testcontainer>
 			<testcontainer
 			id="a952aeca-b696-49ad-b130-663d2e881f0a">
 			</testcontainer>
 			<testcontainer
-			id="a95f230f-9bc1-4036-9419-0bfbd6b12cf9">
-			</testcontainer>
-			<testcontainer
-			id="ab9d3646-a5e8-49cc-8479-ef2fe16035e9">
-			</testcontainer>
-			<testcontainer
-			id="aeb7e6b8-f19a-4781-b42a-2858e3795c9d">
-			</testcontainer>
-			<testcontainer
-			id="af2cd033-b78c-45d7-8935-aff7d812f36b">
-			</testcontainer>
-			<testcontainer
 			id="b50a829c-b052-4bdc-b1c6-70620737571e">
-			</testcontainer>
-			<testcontainer
-			id="b6bb73f8-8f76-4cf2-9e62-581218ed56e3">
-			</testcontainer>
-			<testcontainer
-			id="b93da5cd-2f2c-4b71-bb89-052f3e08409b">
-			</testcontainer>
-			<testcontainer
-			id="ba330338-caf2-422b-97b3-76f2c380fa2d">
-			</testcontainer>
-			<testcontainer
-			id="c3bd752d-cab7-4535-ac21-640e4f6b4522">
 			</testcontainer>
 			<testcontainer
 			id="caf64d09-7746-49f1-b3b0-c38edacd70b3">
@@ -2979,54 +2853,6 @@
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
-			</testcontainer>
-			<testcontainer
-			id="d4015f51-8c47-42bb-8ce1-01b0a3158cd7">
-			</testcontainer>
-			<testcontainer
-			id="d4d34bbc-3b52-4ba3-9511-7e126f70fcaa">
-			</testcontainer>
-			<testcontainer
-			id="d68a19ba-a012-4aaf-944b-03d3d2595d1c">
-			</testcontainer>
-			<testcontainer
-			id="d968112f-f58a-4e2b-b432-c8897cee5349">
-			</testcontainer>
-			<testcontainer
-			id="dbca08c6-f42d-4cff-b9a5-88c17dc65b2c">
-			</testcontainer>
-			<testcontainer
-			id="dc2140a9-f6df-4c9b-b031-39fe7384a036">
-			</testcontainer>
-			<testcontainer
-			id="dd8ad2d7-7593-4ddf-b7a9-4457cd0c7d31">
-			</testcontainer>
-			<testcontainer
-			id="e200a36e-ebc6-4ca6-868e-ad54a5fd01b5">
-			</testcontainer>
-			<testcontainer
-			id="e3ae3c54-31a1-485b-9573-72701f516293">
-			</testcontainer>
-			<testcontainer
-			id="e61da616-cc09-42ab-b1f5-141564e7831d">
-			</testcontainer>
-			<testcontainer
-			id="efa3ca03-3d17-429a-9f51-653cfdfd5025">
-			</testcontainer>
-			<testcontainer
-			id="f0deaf08-97c6-4712-91f2-9992f819791f">
-			</testcontainer>
-			<testcontainer
-			id="f130f0cf-0220-4452-9b57-124658c5bae2">
-			</testcontainer>
-			<testcontainer
-			id="f1e3e6aa-a07f-4c93-836f-8eb3441f2394">
-			</testcontainer>
-			<testcontainer
-			id="faf3f798-8974-400d-b6a8-c88e3cbf5880">
-			</testcontainer>
-			<testcontainer
-			id="ffc77f8f-4055-444e-b0ea-2b722cc95af1">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

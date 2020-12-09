@@ -106,24 +106,15 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, new RecordItemIndex(0));
-            //repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell.Focus();
-            //Delay.Milliseconds(0);
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell, false, new RecordItemIndex(0));
             
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, new RecordItemIndex(1));
-            //repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell.Select();
-            //Delay.Milliseconds(0);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell, false, new RecordItemIndex(2));
-            
-            Abstract.ValidateCategoryBoundary.Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainer.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, expectedBoundary);
-            Delay.Milliseconds(0);
+            Abstract.ValidateCategoryBoundary.Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, expectedBoundary);
             
         }
 

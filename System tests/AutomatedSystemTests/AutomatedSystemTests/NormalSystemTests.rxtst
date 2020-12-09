@@ -22,6 +22,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableFMsToSetAndValidateValueFor_2NA"
+			errorbehavior="ContinueNextIteration"
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
 			name="SetAndValidateNewValueFor_2NA">
 				<parameters>
@@ -1414,7 +1415,7 @@
 					variablename="substringNameItemInTraject">
 					</var>
 					<var
-					dataname="expectedNValue"
+					dataname="expectedOriginalNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
 					variablename="expectedValueOfParameterForItemInTraject">
@@ -4840,6 +4841,7 @@
 			</teardown>
 			<smartfoldernode
 			datasource="tableFMsFormulaGroup1N"
+			errorbehavior="ContinueNextIteration"
 			id="42425944-15c7-418b-b5cd-a582e15b80df"
 			name="Validate_FormulaType1_(STPH,STBI,STBU)">
 				<parameters>
@@ -6699,6 +6701,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableFMsNValue"
+			errorbehavior="ContinueNextIteration"
 			id="548bde8b-44b7-4508-aaf3-3824011d3029"
 			name="SetAndValidate_FormulaType4_(ZST,PKW,STKWp,DA)">
 				<parameters>
@@ -7903,7 +7906,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="newNValue"
+					dataname="newArbitraryNValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
 					variablename="valueToBeConverted">
@@ -10576,7 +10579,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="expectedNValue"
+					dataname="expectedOriginalNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
 					variablename="newValueForParameter">
@@ -10687,7 +10690,7 @@
 					variablename="pathToElementInPropertiesPanel">
 					</var>
 					<var
-					dataname="expectedNValue"
+					dataname="expectedOriginalValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
 					variablename="newValueForParameter">
@@ -11573,6 +11576,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsForNewValueParameter_a"
+			errorbehavior="ContinueNextIteration"
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
 			name="SetNewValueForParameter_a">
 				<parameters>
@@ -15003,6 +15007,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsToAdjustValueDeltaL"
+			errorbehavior="ContinueNextIteration"
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
 			name="SetAndValidateNewValueFor_DeltaL">
 				<parameters>
@@ -15334,7 +15339,7 @@
 					variablename="substringTrajectName">
 					</var>
 					<var
-					dataname="expectedNValue"
+					dataname="expectedOriginalNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
 					variablename="expectedValueOfParameterForItemInTraject">
@@ -17357,6 +17362,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="tableNValueInFMsForTraject12_2"
+			errorbehavior="ContinueNextIteration"
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
 			name="SetAndValidate_FormulaType5_(GEKB,GEBU,HTKW)">
 				<parameters>
@@ -18194,7 +18200,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="newNValue"
+					dataname="expectedOriginalValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
 					variablename="valueToBeConverted">
@@ -18432,7 +18438,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="newNValue"
+					dataname="newArbitraryNValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
 					variablename="newValueForParameter">
@@ -19584,7 +19590,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="newNValue"
+					dataname="newArbitraryNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
 					variablename="newValueForParameter">
@@ -19921,7 +19927,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedNValue"
+					dataname="expectedOriginalValue"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
 					variablename="valueToBeConverted">
@@ -20564,7 +20570,7 @@
 					variablename="substringTrajectName">
 					</var>
 					<var
-					dataname="newNValue"
+					dataname="newArbitraryNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
 					variablename="expectedValueOfParameterForItemInTraject">
@@ -43140,10 +43146,10 @@
 					fmName
 				</column>
 				<column>
-					expectedNValue
+					expectedOriginalValue
 				</column>
 				<column>
-					newNValue
+					newArbitraryNValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -43154,10 +43160,10 @@
 						fmName
 					</th>
 					<th>
-						expectedNValue
+						expectedOriginalValue
 					</th>
 					<th>
-						newNValue
+						newArbitraryNValue
 					</th>
 				</tr>
 				<tr>
@@ -43470,10 +43476,10 @@
 					fmName
 				</column>
 				<column>
-					expectedNValue
+					expectedOriginalNValue
 				</column>
 				<column>
-					newNValue
+					newArbitraryNValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -43484,10 +43490,10 @@
 						fmName
 					</th>
 					<th>
-						expectedNValue
+						expectedOriginalNValue
 					</th>
 					<th>
-						newNValue
+						newArbitraryNValue
 					</th>
 				</tr>
 				<tr>
