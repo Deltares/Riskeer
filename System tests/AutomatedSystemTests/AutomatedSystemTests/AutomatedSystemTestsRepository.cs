@@ -2166,7 +2166,7 @@ namespace AutomatedSystemTests
             /// Creates a new DocumentViewContainerUncached  folder.
             /// </summary>
             public DocumentViewContainerUncachedFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewContainerUncached", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
+                    base("DocumentViewContainerUncached", "?/container/container[@instance='1']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
             {
                 _fm_contributionview = new AutomatedSystemTestsRepositoryFolders.FM_ContributionViewFolder(this);
                 _fm_resultview = new AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder(this);
