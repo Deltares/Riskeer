@@ -552,7 +552,7 @@
 					variablename="nameColumn">
 					</var>
 					<var
-					dataname="rowIndex"
+					dataname="rowIndexOnRightTableCalculationsView"
 					datasourceid="1a88ec15-e614-4671-a31e-2e2094ca6b52"
 					variableid="22cf54d8-7caa-49ab-8e5b-1c14fb3ba580"
 					variablename="indexRowCalculation">
@@ -1227,6 +1227,65 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="7c077b42-d3ab-4dc4-ab4b-543a761f7dcf"
+			name="ImportForelandProfiles">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="HTKW">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="BSKW">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STKWp">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			id="7ca8a8c6-8147-44b8-88b9-474c17fe3cb6"
 			name="CloseAssemblyTrajectView">
 			</smartfoldernode>
@@ -1759,8 +1818,8 @@
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
 			id="b50a829c-b052-4bdc-b1c6-70620737571e"
-			maxrange="2"
-			minrange="2"
+			maxrange="3"
+			minrange="3"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -1938,6 +1997,65 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="bf3e2245-7f4e-4b71-8a81-6ac234fe4b3d"
+			name="ImportStructures">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="HTKW">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="BSKW">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STKWp">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="bf46e273-4873-418b-924f-f63774d861a0"
 			name="SetRangeInSmartFolder"
@@ -2401,7 +2519,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="rowIndex"
+					dataname="rowIndexOnRightTableCalculationsView"
 					datasourceid="1a88ec15-e614-4671-a31e-2e2094ca6b52"
 					variableid="22cf54d8-7caa-49ab-8e5b-1c14fb3ba580"
 					variablename="indexRowCalculation">
@@ -3112,6 +3230,14 @@
 											name="ImportSchematizationForCurrentlySelectedItem">
 											</testmodule>
 										</smartfoldernode>
+										<smartfoldernode
+										id="7c077b42-d3ab-4dc4-ab4b-543a761f7dcf"
+										name="ImportForelandProfiles">
+										</smartfoldernode>
+										<smartfoldernode
+										id="bf3e2245-7f4e-4b71-8a81-6ac234fe4b3d"
+										name="ImportStructures">
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
@@ -3316,7 +3442,7 @@
 	<datasources>
 		<DataSource
 		id="678f5fae-ec64-4031-b8d3-355418ae2c6e"
-		lastknownrowcount="7"
+		lastknownrowcount="10"
 		name="script17_a_ConfigurationCalculationsLoopItems"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3421,11 +3547,44 @@
 						9-16
 					</td>
 				</tr>
+				<tr>
+					<td>
+						36-2_2
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						17
+					</td>
+				</tr>
+				<tr>
+					<td>
+						36-2_3
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						18
+					</td>
+				</tr>
+				<tr>
+					<td>
+						36-2_23
+					</td>
+					<td>
+						23
+					</td>
+					<td>
+						19
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="6e262def-ea48-4168-bbec-fd066c51ec61"
-		lastknownrowcount="3"
+		lastknownrowcount="4"
 		name="script17_a_FormCalculationsAndScenarios"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3454,6 +3613,12 @@
 					pathToDikeProfilesInPE
 				</column>
 				<column>
+					pathToForelandProfilesInPE
+				</column>
+				<column>
+					pathToStructuresInPE
+				</column>
+				<column>
 					pathToCalculationsInPE
 				</column>
 				<column>
@@ -3476,6 +3641,12 @@
 				</column>
 				<column>
 					pathToDikeProfilesFile
+				</column>
+				<column>
+					pathToForelandProfilesFile
+				</column>
+				<column>
+					pathToStructuresFile
 				</column>
 				<column>
 					expectedStructureCalculations
@@ -3519,6 +3690,12 @@
 						pathToDikeProfilesInPE
 					</th>
 					<th>
+						pathToForelandProfilesInPE
+					</th>
+					<th>
+						pathToStructuresInPE
+					</th>
+					<th>
 						pathToCalculationsInPE
 					</th>
 					<th>
@@ -3541,6 +3718,12 @@
 					</th>
 					<th>
 						pathToDikeProfilesFile
+					</th>
+					<th>
+						pathToForelandProfilesFile
+					</th>
+					<th>
+						pathToStructuresFile
 					</th>
 					<th>
 						expectedStructureCalculations
@@ -3580,6 +3763,10 @@
 					<td>
 					</td>
 					<td>
+					</td>
+					<td>
+					</td>
+					<td>
 						12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
@@ -3599,6 +3786,10 @@
 					</td>
 					<td>
 						X:\script17\STPH\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 					<td>
 					</td>
@@ -3639,6 +3830,10 @@
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
 					</td>
 					<td>
+					</td>
+					<td>
+					</td>
+					<td>
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
@@ -3659,6 +3854,10 @@
 					</td>
 					<td>
 						X:\script17\GEKB\Dijkprofielen 12-2.shp
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 					<td>
 						[Berekeningen-&gt;[profiel001-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]][profiel002-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]][profiel003-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]][profiel004-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]][profiel005-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]][Nieuwe berekening-&gt;[Opmerkingen][Invoer][Resultaat-&gt;[Sterkte berekening][HBN][Overslagdebiet]]]]
@@ -3698,6 +3897,10 @@
 					<td>
 					</td>
 					<td>
+					</td>
+					<td>
+					</td>
+					<td>
 						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
@@ -3721,6 +3924,10 @@
 					<td>
 					</td>
 					<td>
+					</td>
+					<td>
+					</td>
+					<td>
 						[Berekeningen-&gt;[Vak_41-123-&gt;[Vak_41-123 Vak_41-123_Segment_41009_1D2-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D3-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D4-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D6-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D7-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D1-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D8-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D5-&gt;[Opmerkingen][Invoer][Resultaat]]][Nieuwe berekening-&gt;[Opmerkingen][Invoer][Resultaat]]]
 					</td>
 					<td>
@@ -3733,11 +3940,77 @@
 						0
 					</td>
 				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						36-2
+					</td>
+					<td>
+						36-2&gt;Hydraulische belastingen
+					</td>
+					<td>
+						36-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Bovenmaas_36-2_v03\WBI2017_Bovenmaas_36-2_v03.sqlite
+					</td>
+					<td>
+						X:\script17\HTKW\vakindeling_traject_36-2.shp
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+						X:\script17\HTKW\voorland_traject_36-2.shp
+					</td>
+					<td>
+						X:\script17\HTKW\HTkw_traject_36-2.shp
+					</td>
+					<td>
+					</td>
+					<td>
+						16,112
+					</td>
+					<td>
+					</td>
+					<td>
+						0,1
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="1a88ec15-e614-4671-a31e-2e2094ca6b52"
-		lastknownrowcount="16"
+		lastknownrowcount="19"
 		name="script17_a_LoopCalculationsInCalculationView"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3745,7 +4018,7 @@
 					calculationName
 				</column>
 				<column>
-					rowIndex
+					rowIndexOnRightTableCalculationsView
 				</column>
 				<column>
 					rangeLoopParametersInPropertiesPanel
@@ -3762,7 +4035,7 @@
 						calculationName
 					</th>
 					<th>
-						rowIndex
+						rowIndexOnRightTableCalculationsView
 					</th>
 					<th>
 						rangeLoopParametersInPropertiesPanel
@@ -3993,6 +4266,42 @@
 					</td>
 					<td>
 						9
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Keersluis Cuijk'
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Keersluis Cuijk'
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Gemaal van Sasse'
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 				</tr>
 			</table>
@@ -4796,6 +5105,9 @@
 			id="74e209f3-b6b2-49be-860d-d8a2dc9a2dcc">
 			</testcontainer>
 			<testcontainer
+			id="7c077b42-d3ab-4dc4-ab4b-543a761f7dcf">
+			</testcontainer>
+			<testcontainer
 			id="80a9d606-4202-40a2-bffc-203270992a5f">
 			</testcontainer>
 			<testcontainer
@@ -4812,6 +5124,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b50a829c-b052-4bdc-b1c6-70620737571e">
+			</testcontainer>
+			<testcontainer
+			id="bf3e2245-7f4e-4b71-8a81-6ac234fe4b3d">
 			</testcontainer>
 			<testcontainer
 			id="c44e3832-4ef0-4422-9939-8f93ce410ab2">
