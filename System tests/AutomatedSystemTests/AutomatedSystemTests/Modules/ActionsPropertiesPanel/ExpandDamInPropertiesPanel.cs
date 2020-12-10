@@ -20,38 +20,48 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The StartAllCalculationsInSelectedFolderInProjectExplorer recording.
+    ///The ExpandDamInPropertiesPanel recording.
     /// </summary>
-    [TestModule("9c9a5824-8ab8-44a2-b76c-84bb3359d312", ModuleType.Recording, 1)]
-    public partial class StartAllCalculationsInSelectedFolderInProjectExplorer : ITestModule
+    [TestModule("6e208fe1-d9b3-477a-8c12-d78d705a4908", ModuleType.Recording, 1)]
+    public partial class ExpandDamInPropertiesPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static StartAllCalculationsInSelectedFolderInProjectExplorer instance = new StartAllCalculationsInSelectedFolderInProjectExplorer();
+        static ExpandDamInPropertiesPanel instance = new ExpandDamInPropertiesPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public StartAllCalculationsInSelectedFolderInProjectExplorer()
+        public ExpandDamInPropertiesPanel()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static StartAllCalculationsInSelectedFolderInProjectExplorer Instance
+        public static ExpandDamInPropertiesPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
+        }
 
 #endregion
 
@@ -79,11 +89,7 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesBerekenen' at 79;11.", repo.ContextMenu.AllesBerekenenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.AllesBerekenen.Click("79;11");
+            ExpandDamInPropertiesPanelMethod(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
             
         }
 

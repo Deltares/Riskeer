@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="6e1d6f25-0269-4c0a-aed7-bdcfa34be7bd"
+id="9e09a6da-7c2a-433b-9b61-c8fc413c2e93"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,8 +19,8 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectCalculationInTableCalculationsView"
-	namespace="AutomatedSystemTests.Modules.Selection">
+	classname="SetFocusOnPropertiesPanel"
+	namespace="AutomatedSystemTests.Modules.ActionsPropertiesPanel">
 	</codegen>
 	<variables>
 	</variables>
@@ -30,10 +30,10 @@ mode="Global">
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc=".02;.5"
+		loc="LowerCenter"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="f79ac70e-9d52-40e8-ba0b-57be4d2e51ee"
+		searchpropertyid="5330efe2-9c92-4a91-aec8-35cbfa131b9a"
 		sx="0"
 		sy="0"
 		warnoutofbounds="False">
@@ -42,10 +42,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="00835104-4f74-4cf4-8a4b-930b241005f2"
+			id="41bb0ddf-7a93-4518-a257-8322f257edf1"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
 				</path>
 			</info>
 		</mouseitem>
@@ -65,7 +65,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectCalculationInTableCalculationsView.UserCode.cs
+		SetFocusOnPropertiesPanel.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

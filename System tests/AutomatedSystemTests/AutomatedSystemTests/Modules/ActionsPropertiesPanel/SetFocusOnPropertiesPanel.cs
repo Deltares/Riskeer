@@ -20,48 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection
+namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectGenericSectionInCalculationsView recording.
+    ///The SetFocusOnPropertiesPanel recording.
     /// </summary>
-    [TestModule("815c10de-7eb0-4306-b5f0-403e140be625", ModuleType.Recording, 1)]
-    public partial class SelectGenericSectionInCalculationsView : ITestModule
+    [TestModule("9e09a6da-7c2a-433b-9b61-c8fc413c2e93", ModuleType.Recording, 1)]
+    public partial class SetFocusOnPropertiesPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectGenericSectionInCalculationsView instance = new SelectGenericSectionInCalculationsView();
+        static SetFocusOnPropertiesPanel instance = new SetFocusOnPropertiesPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectGenericSectionInCalculationsView()
+        public SetFocusOnPropertiesPanel()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectGenericSectionInCalculationsView Instance
+        public static SetFocusOnPropertiesPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        /// <summary>
-        /// Gets or sets the value of variable indexSection.
-        /// </summary>
-        [TestVariable("b1c29580-7a2f-407e-b875-ee536111ae7b")]
-        public string indexSection
-        {
-            get { return repo.indexSection; }
-            set { repo.indexSection = value; }
-        }
 
 #endregion
 
@@ -89,8 +79,8 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListSections.GenericSection' at CenterLeft.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListSections.GenericSectionInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListSections.GenericSection.Click(Location.CenterLeft);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer' at LowerCenter.", repo.RiskeerMainWindow.PropertiesPanelContainer.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Self.Click(Location.LowerCenter);
             
         }
 

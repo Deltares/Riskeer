@@ -4991,7 +4991,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("69f208a8-fb2b-48e6-b673-66339abce76d")]
         public partial class CalculationsViewFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.ListSectionsFolder _listsections;
+            AutomatedSystemTestsRepositoryFolders.ListItemsFolder _listitems;
             AutomatedSystemTestsRepositoryFolders.TableSelectedSectionFolder _tableselectedsection;
 
             /// <summary>
@@ -5000,7 +5000,7 @@ namespace AutomatedSystemTests
             public CalculationsViewFolder(RepoGenBaseFolder parentFolder) :
                     base("CalculationsView", "container[@controlname='CalculationsView']", parentFolder, 30000, null, false, "69f208a8-fb2b-48e6-b673-66339abce76d", "")
             {
-                _listsections = new AutomatedSystemTestsRepositoryFolders.ListSectionsFolder(this);
+                _listitems = new AutomatedSystemTestsRepositoryFolders.ListItemsFolder(this);
                 _tableselectedsection = new AutomatedSystemTestsRepositoryFolders.TableSelectedSectionFolder(this);
             }
 
@@ -5029,12 +5029,12 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The ListSections folder.
+            /// The ListItems folder.
             /// </summary>
             [RepositoryFolder("6a5fb2ab-58d8-4251-833e-af94b5b1f302")]
-            public virtual AutomatedSystemTestsRepositoryFolders.ListSectionsFolder ListSections
+            public virtual AutomatedSystemTestsRepositoryFolders.ListItemsFolder ListItems
             {
-                get { return _listsections; }
+                get { return _listitems; }
             }
 
             /// <summary>
@@ -5048,20 +5048,20 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The ListSectionsFolder folder.
+        /// The ListItemsFolder folder.
         /// </summary>
         [RepositoryFolder("6a5fb2ab-58d8-4251-833e-af94b5b1f302")]
-        public partial class ListSectionsFolder : RepoGenBaseFolder
+        public partial class ListItemsFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _genericsectionInfo;
+            RepoItemInfo _genericitemInfo;
 
             /// <summary>
-            /// Creates a new ListSections  folder.
+            /// Creates a new ListItems  folder.
             /// </summary>
-            public ListSectionsFolder(RepoGenBaseFolder parentFolder) :
-                    base("ListSections", "container/container/container/list/list", parentFolder, 30000, null, false, "6a5fb2ab-58d8-4251-833e-af94b5b1f302", "")
+            public ListItemsFolder(RepoGenBaseFolder parentFolder) :
+                    base("ListItems", "container/container/container/list/list", parentFolder, 30000, null, false, "6a5fb2ab-58d8-4251-833e-af94b5b1f302", "")
             {
-                _genericsectionInfo = new RepoItemInfo(this, "GenericSection", "listitem[@index=$indexSection]", 30000, null, "aa65e2e5-ffba-49a6-86e5-7542a4ae9526");
+                _genericitemInfo = new RepoItemInfo(this, "GenericItem", "listitem[@index=$indexSection]", 30000, null, "aa65e2e5-ffba-49a6-86e5-7542a4ae9526");
             }
 
             /// <summary>
@@ -5089,26 +5089,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericSection item.
+            /// The GenericItem item.
             /// </summary>
             [RepositoryItem("aa65e2e5-ffba-49a6-86e5-7542a4ae9526")]
-            public virtual Ranorex.ListItem GenericSection
+            public virtual Ranorex.ListItem GenericItem
             {
                 get
                 {
-                    return _genericsectionInfo.CreateAdapter<Ranorex.ListItem>(true);
+                    return _genericitemInfo.CreateAdapter<Ranorex.ListItem>(true);
                 }
             }
 
             /// <summary>
-            /// The GenericSection item info.
+            /// The GenericItem item info.
             /// </summary>
             [RepositoryItemInfo("aa65e2e5-ffba-49a6-86e5-7542a4ae9526")]
-            public virtual RepoItemInfo GenericSectionInfo
+            public virtual RepoItemInfo GenericItemInfo
             {
                 get
                 {
-                    return _genericsectionInfo;
+                    return _genericitemInfo;
                 }
             }
         }
@@ -9124,7 +9124,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("42112570-aca4-4418-aa9e-8d74dbb65cc6")]
         public partial class DialogGenerateCalculationsAppFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _usecellrowindexthInfo;
+            AutomatedSystemTestsRepositoryFolders.TableFolder10 _table;
             RepoItemInfo _generatebuttonInfo;
             RepoItemInfo _selectallbuttonInfo;
 
@@ -9134,7 +9134,7 @@ namespace AutomatedSystemTests
             public DialogGenerateCalculationsAppFolder(RepoGenBaseFolder parentFolder) :
                     base("DialogGenerateCalculations", "/form[@controlname='SelectionDialogBase']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
             {
-                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", ".//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
+                _table = new AutomatedSystemTestsRepositoryFolders.TableFolder10(this);
                 _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
                 _selectallbuttonInfo = new RepoItemInfo(this, "SelectAllButton", "container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']", 30000, null, "66fd60b5-d7a8-43eb-82cb-e4707b8474de");
             }
@@ -9160,30 +9160,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The UseCellRowIndexth item.
-            /// </summary>
-            [RepositoryItem("407fae09-698f-4177-8f27-47a238018ac5")]
-            public virtual Ranorex.Cell UseCellRowIndexth
-            {
-                get
-                {
-                    return _usecellrowindexthInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The UseCellRowIndexth item info.
-            /// </summary>
-            [RepositoryItemInfo("407fae09-698f-4177-8f27-47a238018ac5")]
-            public virtual RepoItemInfo UseCellRowIndexthInfo
-            {
-                get
-                {
-                    return _usecellrowindexthInfo;
                 }
             }
 
@@ -9232,6 +9208,81 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selectallbuttonInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Table folder.
+            /// </summary>
+            [RepositoryFolder("4cff6d90-7520-4ee7-a00a-538e505578e2")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableFolder10 Table
+            {
+                get { return _table; }
+            }
+        }
+
+        /// <summary>
+        /// The TableFolder10 folder.
+        /// </summary>
+        [RepositoryFolder("4cff6d90-7520-4ee7-a00a-538e505578e2")]
+        public partial class TableFolder10 : RepoGenBaseFolder
+        {
+            RepoItemInfo _usecellrowindexthInfo;
+
+            /// <summary>
+            /// Creates a new Table  folder.
+            /// </summary>
+            public TableFolder10(RepoGenBaseFolder parentFolder) :
+                    base("Table", "container[@controlname='ButtonGroupBox']/container/table", parentFolder, 30000, null, false, "4cff6d90-7520-4ee7-a00a-538e505578e2", "")
+            {
+                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("4cff6d90-7520-4ee7-a00a-538e505578e2")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("4cff6d90-7520-4ee7-a00a-538e505578e2")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The UseCellRowIndexth item.
+            /// </summary>
+            [RepositoryItem("407fae09-698f-4177-8f27-47a238018ac5")]
+            public virtual Ranorex.Cell UseCellRowIndexth
+            {
+                get
+                {
+                    return _usecellrowindexthInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The UseCellRowIndexth item info.
+            /// </summary>
+            [RepositoryItemInfo("407fae09-698f-4177-8f27-47a238018ac5")]
+            public virtual RepoItemInfo UseCellRowIndexthInfo
+            {
+                get
+                {
+                    return _usecellrowindexthInfo;
                 }
             }
         }

@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Selection
+namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 {
-    public partial class SelectGenericSectionInCalculationsView
+    public partial class SetFocusOnPropertiesPanel
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

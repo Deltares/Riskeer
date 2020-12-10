@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,9 +21,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
-    public partial class ExpandDamInPropertiesPanel
+    public partial class GenerateSomeCalculationsScenarios
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,17 +34,19 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
-        public void ExpandDamInPropertiesPanelMethod(RepoItemInfo rowInfo)
+        public void ClickListRows(Adapter tableAdapter, string listIndecesRows)
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'rowInfo' at CenterLeft.", rowInfo);
-            var row = rowInfo.FindAdapter<Row>();
-            var collapsedState =row.Element.GetAttributeValueText("AccessibleState");
-            if (collapsedState.Contains("Collapsed")) {
-            	row.Focus();
-            	row.Select();
-            	row.PressKeys("{Right}");
-				Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}' with focus on 'rowInfo'.", rowInfo);
+            Report.Log(ReportLevel.Info, "Select the rows in listIndecesRows");
+            var allRows = tableAdapter.As<Table>().Rows;
+            // Remove row with headers.
+            allRows.RemoveAt(0);
+            
+            var indeces = listIndecesRows.Split(',').Select(idx=>Int32.Parse(idx)).ToList();
+            foreach (int index in indeces) {
+                var row = allRows[index];
+                row.Cells[1].Click();
             }
         }
+
     }
 }

@@ -63,7 +63,8 @@ namespace AutomatedSystemTests.Modules.Validation.Abstract
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
-            Validate.AreEqual(string1ToCompare, string2ToCompare, "Validating that string1ToCompare and string2ToCompare are equal.");
+            Report.Info("Validating if string1ToCompare = " + string1ToCompare + " and string2ToCompare = " + string2ToCompare+ " are equal.");
+            Validate.AreEqual(string1ToCompare, string2ToCompare,"Validating if string1ToCompare = " + string1ToCompare + " and string2ToCompare = " + string2ToCompare+ " are equal.",false);
         }
     }
 }

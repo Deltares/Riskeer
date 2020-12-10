@@ -20,7 +20,7 @@ mode="Global">
 	</useDefaultItemLogging>
 	<codegen
 	classname="ExpandAlphasGroup"
-	namespace="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel">
+	namespace="AutomatedSystemTests.Modules.ActionsPropertiesPanel">
 	</codegen>
 	<variables>
 	</variables>

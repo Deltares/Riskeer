@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectGenericSectionInCalculationsView"
+	classname="SelectGenericItemInListCalculationsView"
 	namespace="AutomatedSystemTests.Modules.Selection">
 	</codegen>
 	<variables>
@@ -65,7 +65,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectGenericSectionInCalculationsView.UserCode.cs
+		SelectGenericItemInListLeftCalculationsView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

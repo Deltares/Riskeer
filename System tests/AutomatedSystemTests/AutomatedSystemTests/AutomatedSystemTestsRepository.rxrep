@@ -1159,14 +1159,14 @@ name="AutomatedSystemTestsRepository">
 					capname="list"
 					id="6a5fb2ab-58d8-4251-833e-af94b5b1f302"
 					isrooted="True"
-					name="ListSections"
+					name="ListItems"
 					refimgid="bf1415a8-66af-4119-902b-461002a11c8e"
 					searchtimeout="30000ms"
 					usecache="False">
 						<item
 						capname="listitem"
 						id="aa65e2e5-ffba-49a6-86e5-7542a4ae9526"
-						name="GenericSection"
+						name="GenericItem"
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list/listitem[@index=$indexSection]
 						</item>
@@ -2670,15 +2670,27 @@ gg==
 		refpath="/form[@controlname='SelectionDialogBase']"
 		searchtimeout="30000ms"
 		usecache="True">
-			<item
-			addcaps="cell,accessible"
-			capname="cell"
-			id="407fae09-698f-4177-8f27-47a238018ac5"
-			name="UseCellRowIndexth"
-			refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
-			searchtimeout="30000ms">
-				/form[@controlname='SelectionDialogBase']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
-			</item>
+			<folder
+			capname="table"
+			id="4cff6d90-7520-4ee7-a00a-538e505578e2"
+			isrooted="True"
+			name="Table"
+			refimgid="fdd663fd-cd82-47d8-a41a-bfc5eb1c430c"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="407fae09-698f-4177-8f27-47a238018ac5"
+				name="UseCellRowIndexth"
+				refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
+				searchtimeout="30000ms">
+					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
+				</item>
+				<basepath>
+					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table
+				</basepath>
+			</folder>
 			<item
 			addcaps="button,control,nativewindow"
 			capname="button"

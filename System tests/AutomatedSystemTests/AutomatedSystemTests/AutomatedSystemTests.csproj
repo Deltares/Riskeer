@@ -225,6 +225,18 @@
       <UserCode>true</UserCode>
       <id>bf34dfb3-2fa9-449f-b312-bb8165f11478</id>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\GenerateSomeCalculationsScenarios.cs">
+      <BoundTo>b48fb0ee-02d7-4565-8355-347656270816</BoundTo>
+      <DependentUpon>GenerateSomeCalculationsScenarios.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>38a8ae7e-ef7a-4ae4-b3ac-1e677cb28abb</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\GenerateSomeCalculationsScenarios.UserCode.cs">
+      <BoundTo>b48fb0ee-02d7-4565-8355-347656270816</BoundTo>
+      <DependentUpon>GenerateSomeCalculationsScenarios.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>55999c29-28b4-417e-a782-e0f0fddc7a82</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\ImportSections.cs">
       <BoundTo>858fcd3a-256e-4567-b118-6507f35fad5e</BoundTo>
       <DependentUpon>ImportSections.rxrec</DependentUpon>
@@ -504,32 +516,44 @@
       <UserCode>true</UserCode>
       <id>3ffb81e6-7244-4c09-8e0b-3de2aa64a020</id>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAllRowItemsInPropertiesPanel.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandAllRowItemsInPropertiesPanel.cs">
       <id>9a4c4116-ea50-4483-9928-f57623ba3542</id>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAlphasGroup.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandAlphasGroup.cs">
       <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>fd16f334-9792-4f93-8069-009af1ca88a0</id>
       <BoundTo>c0a92f2d-ef50-471d-8e1e-2102097c50ca</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAlphasGroup.UserCode.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandAlphasGroup.UserCode.cs">
       <DependentUpon>ExpandAlphasGroup.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>47fc6b52-2f0b-4243-80e6-008831d5051a</id>
       <BoundTo>c0a92f2d-ef50-471d-8e1e-2102097c50ca</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandDamInPropertiesPanel.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandDamInPropertiesPanel.cs">
       <DependentUpon>ExpandDamInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>22eb95df-8de7-4fde-bd7d-d9985d11a570</id>
       <BoundTo>1d602183-ef23-4399-b12f-eaa317121dbb</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandDamInPropertiesPanel.UserCode.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandDamInPropertiesPanel.UserCode.cs">
       <DependentUpon>ExpandDamInPropertiesPanel.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>17ee7347-5af6-4c2b-a0e4-e521e0a3abe4</id>
       <BoundTo>1d602183-ef23-4399-b12f-eaa317121dbb</BoundTo>
+    </Compile>
+    <Compile Include="Modules\ActionsPropertiesPanel\SetFocusOnPropertiesPanel.cs">
+      <BoundTo>c2bbe5ad-0b01-4d4d-96ea-d1a409b864c9</BoundTo>
+      <DependentUpon>SetFocusOnPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e7dde0c7-d732-47af-8728-b804581548b2</id>
+    </Compile>
+    <Compile Include="Modules\ActionsPropertiesPanel\SetFocusOnPropertiesPanel.UserCode.cs">
+      <BoundTo>c2bbe5ad-0b01-4d4d-96ea-d1a409b864c9</BoundTo>
+      <DependentUpon>SetFocusOnPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ad1b407f-d5d9-429b-a732-b051aedc7a90</id>
     </Compile>
     <Compile Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.cs">
       <BoundTo>1a2c2ff6-3175-4621-8731-c6b45579fc0c</BoundTo>
@@ -1380,15 +1404,15 @@
       <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInCalculationsView.cs">
+    <Compile Include="Modules\Selection\SelectGenericItemInListCalculationsView.cs">
       <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInCalculationsView.rxrec</DependentUpon>
+      <DependentUpon>SelectGenericItemInListCalculationsView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>5eeea7e0-d96a-4489-9954-8e464adc75d2</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInCalculationsView.UserCode.cs">
+    <Compile Include="Modules\Selection\SelectGenericItemInListCalculationsView.UserCode.cs">
       <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInCalculationsView.rxrec</DependentUpon>
+      <DependentUpon>SelectGenericItemInListCalculationsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
     </Compile>
@@ -2390,6 +2414,11 @@
       <id>1d761484-ac08-4004-afd8-6786aeacfa22</id>
       <recordtableid>901ef1a1-99bd-46f9-b3e7-943b0327353c</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\GenerateSomeCalculationsScenarios.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b48fb0ee-02d7-4565-8355-347656270816</id>
+      <recordtableid>d615ddfd-24a8-43ca-9677-b950187dba7b</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\ImportSections.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>858fcd3a-256e-4567-b118-6507f35fad5e</id>
@@ -2500,15 +2529,20 @@
       <id>491f0004-0645-4c6c-9a2b-5adfcce1ea7c</id>
       <recordtableid>fc3fbe79-ece7-4b7d-a17b-826b866c1686</recordtableid>
     </None>
-    <None Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandAlphasGroup.rxrec">
+    <None Include="Modules\ActionsPropertiesPanel\ExpandAlphasGroup.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c0a92f2d-ef50-471d-8e1e-2102097c50ca</id>
       <recordtableid>8ffa45e8-2152-4d07-9590-20154379e184</recordtableid>
     </None>
-    <None Include="Modules\ActionsVisibilityItemsPropertiesPanel\ExpandDamInPropertiesPanel.rxrec">
+    <None Include="Modules\ActionsPropertiesPanel\ExpandDamInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1d602183-ef23-4399-b12f-eaa317121dbb</id>
       <recordtableid>6e208fe1-d9b3-477a-8c12-d78d705a4908</recordtableid>
+    </None>
+    <None Include="Modules\ActionsPropertiesPanel\SetFocusOnPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c2bbe5ad-0b01-4d4d-96ea-d1a409b864c9</id>
+      <recordtableid>9e09a6da-7c2a-433b-9b61-c8fc413c2e93</recordtableid>
     </None>
     <None Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2830,7 +2864,7 @@
       <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
       <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectGenericSectionInCalculationsView.rxrec">
+    <None Include="Modules\Selection\SelectGenericItemInListCalculationsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
       <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
@@ -3261,7 +3295,7 @@
     <Folder Include="Modules\ActionsDialogs">
       <id>bbc1625e-794d-40e7-9f39-14e20157a24a</id>
     </Folder>
-    <Folder Include="Modules\ActionsVisibilityItemsPropertiesPanel">
+    <Folder Include="Modules\ActionsPropertiesPanel">
       <id>1c2eafcf-e1f8-422d-84f5-a48cd3f063be</id>
     </Folder>
     <Folder Include="Modules\ActionsAUT">

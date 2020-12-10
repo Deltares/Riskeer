@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
+namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 {
-    public partial class ExpandAlphasGroup
+    public partial class ExpandDamInPropertiesPanel
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,5 +33,17 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
+        public void ExpandDamInPropertiesPanelMethod(RepoItemInfo rowInfo)
+        {
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'rowInfo' at CenterLeft.", rowInfo);
+            var row = rowInfo.FindAdapter<Row>();
+            var collapsedState =row.Element.GetAttributeValueText("AccessibleState");
+            if (collapsedState.Contains("Collapsed")) {
+            	row.Focus();
+            	row.Select();
+            	row.PressKeys("{Right}");
+				Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}' with focus on 'rowInfo'.", rowInfo);
+            }
+        }
     }
 }

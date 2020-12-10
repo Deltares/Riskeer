@@ -20,47 +20,50 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ExpandDamInPropertiesPanel recording.
+    ///The GenerateSomeCalculationsScenarios recording.
     /// </summary>
-    [TestModule("6e208fe1-d9b3-477a-8c12-d78d705a4908", ModuleType.Recording, 1)]
-    public partial class ExpandDamInPropertiesPanel : ITestModule
+    [TestModule("d615ddfd-24a8-43ca-9677-b950187dba7b", ModuleType.Recording, 1)]
+    public partial class GenerateSomeCalculationsScenarios : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ExpandDamInPropertiesPanel instance = new ExpandDamInPropertiesPanel();
+        static GenerateSomeCalculationsScenarios instance = new GenerateSomeCalculationsScenarios();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ExpandDamInPropertiesPanel()
+        public GenerateSomeCalculationsScenarios()
         {
+            listIndecesRows = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ExpandDamInPropertiesPanel Instance
+        public static GenerateSomeCalculationsScenarios Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _listIndecesRows;
+
         /// <summary>
-        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// Gets or sets the value of variable listIndecesRows.
         /// </summary>
-        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
-        public string nameOfParameterInPropertiesPanel
+        [TestVariable("837fbff6-35e3-404a-baa9-e59afe0275ff")]
+        public string listIndecesRows
         {
-            get { return repo.nameOfParameterInPropertiesPanel; }
-            set { repo.nameOfParameterInPropertiesPanel = value; }
+            get { return _listIndecesRows; }
+            set { _listIndecesRows = value; }
         }
 
 #endregion
@@ -89,7 +92,23 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
 
             Init();
 
-            ExpandDamInPropertiesPanelMethod(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
+            
+            // Select Genereer scenario's from context menu
+            Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerCalculationAndScenarios' at Center.", repo.ContextMenu.GenereerCalculationAndScenariosInfo, new RecordItemIndex(1));
+            repo.ContextMenu.GenereerCalculationAndScenarios.Click();
+            
+            // Select the Indexth row, cell Use
+            ClickListRows(repo.DialogGenerateCalculations.Table.Self, listIndecesRows);
+            
+            // Click on Generate button to generate all desired calculations
+            Report.Log(ReportLevel.Info, "Mouse", "Click on Generate button to generate all desired calculations\r\nMouse Left Click item 'DialogGenerateCalculations.GenerateButton' at Center.", repo.DialogGenerateCalculations.GenerateButtonInfo, new RecordItemIndex(3));
+            repo.DialogGenerateCalculations.GenerateButton.Click();
+            
+            // Wait until all calculations have been generated
+            Report.Log(ReportLevel.Info, "Delay", "Wait until all calculations have been generated\r\nWaiting for 1s.", new RecordItemIndex(4));
+            Delay.Duration(1000, false);
             
         }
 

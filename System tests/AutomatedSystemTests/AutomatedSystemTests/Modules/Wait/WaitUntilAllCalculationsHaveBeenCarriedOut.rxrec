@@ -34,44 +34,37 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</explicitdelayitem>
-		<loggingrecorditem
-		action="Screenshot"
-		category="User"
+		<userrecorditem
+		classname="WaitUntilAllCalculationsHaveBeenCarriedOut"
 		enabled="True"
-		message=""
-		optional="True"
-		reportlevel="Info;20"
-		searchpropertyid="a37b9e1e-56ac-4149-9bd7-ffc52c848790">
+		isexternaltestmethod="False"
+		methodname="MergeScreenshotAndWaitUntilDialogClosed"
+		namespace="AutomatedSystemTests.Modules.Wait"
+		optional="False">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
-			<info
-			id="6992b395-923d-4913-be11-dc9d7fa075dc"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@controlname='ActivityProgressDialog']
-				</path>
-			</info>
-		</loggingrecorditem>
-		<WaitForRecordItem
-		enabled="True"
-		optional="False"
-		searchpropertyid="19709e52-e840-4f79-8207-46b3470c8ec8"
-		waitaction="NotExists"
-		waittimeout="14400000ms">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="6992b395-923d-4913-be11-dc9d7fa075dc"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@controlname='ActivityProgressDialog']
-				</path>
-			</info>
-		</WaitForRecordItem>
+			<arguments
+			id="ea4b7624-2fa0-4f5a-9359-1aa982443044">
+				<argument
+				argname="formInfo"
+				id="d5bdb1db-10bd-443d-9ff1-4e878cbf6a72">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="6992b395-923d-4913-be11-dc9d7fa075dc"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@controlname='ActivityProgressDialog']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<explicitdelayitem
 		duration="300ms"
 		enabled="True"

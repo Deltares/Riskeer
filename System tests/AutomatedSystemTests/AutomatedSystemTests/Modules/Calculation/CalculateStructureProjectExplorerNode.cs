@@ -62,9 +62,9 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
-            Keyboard.DefaultKeyPressTime = 100;
-            Delay.SpeedFactor = 1.0;
+            Mouse.DefaultMoveTime = 0;
+            Keyboard.DefaultKeyPressTime = 0;
+            Delay.SpeedFactor = 0.0;
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
@@ -108,13 +108,13 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             var children = treeitem.Children;
             if (children.Count==0) {
-                return " [ " + NameOfTreeItem(treeitem) + " ] ";
+                return "[" + NameOfTreeItem(treeitem) + "]";
             } else{
-                string structureChildren = " [ " + NameOfTreeItem(treeitem) + " -> ";
+                string structureChildren = "[" + NameOfTreeItem(treeitem) + "->";
                 foreach (var child in children) {
                     structureChildren += GetStructureTreeItem(child.As<TreeItem>());
                 }
-                structureChildren += " ] ";
+                structureChildren += "]";
                 return structureChildren;
             }
         }

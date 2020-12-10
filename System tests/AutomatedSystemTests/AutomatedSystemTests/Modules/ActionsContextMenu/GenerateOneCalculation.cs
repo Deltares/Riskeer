@@ -97,8 +97,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             repo.ContextMenu.GenereerCalculationAndScenarios.Click();
             
             // Select the Indexth row, cell Use
-            Report.Log(ReportLevel.Info, "Mouse", "Select the Indexth row, cell Use\r\nMouse Left Click item 'DialogGenerateCalculations.UseCellRowIndexth' at Center.", repo.DialogGenerateCalculations.UseCellRowIndexthInfo, new RecordItemIndex(2));
-            repo.DialogGenerateCalculations.UseCellRowIndexth.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Select the Indexth row, cell Use\r\nMouse Left Click item 'DialogGenerateCalculations.Table.UseCellRowIndexth' at Center.", repo.DialogGenerateCalculations.Table.UseCellRowIndexthInfo, new RecordItemIndex(2));
+            repo.DialogGenerateCalculations.Table.UseCellRowIndexth.Click();
             
             // Click on Generate button to generate all desired calculations
             Report.Log(ReportLevel.Info, "Mouse", "Click on Generate button to generate all desired calculations\r\nMouse Left Click item 'DialogGenerateCalculations.GenerateButton' at Center.", repo.DialogGenerateCalculations.GenerateButtonInfo, new RecordItemIndex(3));

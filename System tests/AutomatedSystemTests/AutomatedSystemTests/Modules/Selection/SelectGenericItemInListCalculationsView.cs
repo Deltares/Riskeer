@@ -20,38 +20,48 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The StartAllCalculationsInSelectedFolderInProjectExplorer recording.
+    ///The SelectGenericItemInListCalculationsView recording.
     /// </summary>
-    [TestModule("9c9a5824-8ab8-44a2-b76c-84bb3359d312", ModuleType.Recording, 1)]
-    public partial class StartAllCalculationsInSelectedFolderInProjectExplorer : ITestModule
+    [TestModule("815c10de-7eb0-4306-b5f0-403e140be625", ModuleType.Recording, 1)]
+    public partial class SelectGenericItemInListCalculationsView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static StartAllCalculationsInSelectedFolderInProjectExplorer instance = new StartAllCalculationsInSelectedFolderInProjectExplorer();
+        static SelectGenericItemInListCalculationsView instance = new SelectGenericItemInListCalculationsView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public StartAllCalculationsInSelectedFolderInProjectExplorer()
+        public SelectGenericItemInListCalculationsView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static StartAllCalculationsInSelectedFolderInProjectExplorer Instance
+        public static SelectGenericItemInListCalculationsView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        /// <summary>
+        /// Gets or sets the value of variable indexSection.
+        /// </summary>
+        [TestVariable("b1c29580-7a2f-407e-b875-ee536111ae7b")]
+        public string indexSection
+        {
+            get { return repo.indexSection; }
+            set { repo.indexSection = value; }
+        }
 
 #endregion
 
@@ -79,11 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesBerekenen' at 79;11.", repo.ContextMenu.AllesBerekenenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.AllesBerekenen.Click("79;11");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItem' at CenterLeft.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItemInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItem.Click(Location.CenterLeft);
             
         }
 

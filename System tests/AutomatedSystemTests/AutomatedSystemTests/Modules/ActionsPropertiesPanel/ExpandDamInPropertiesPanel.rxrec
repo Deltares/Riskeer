@@ -20,7 +20,7 @@ mode="Global">
 	</useDefaultItemLogging>
 	<codegen
 	classname="ExpandDamInPropertiesPanel"
-	namespace="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel">
+	namespace="AutomatedSystemTests.Modules.ActionsPropertiesPanel">
 	</codegen>
 	<variables>
 	</variables>
@@ -30,7 +30,7 @@ mode="Global">
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="ExpandDamInPropertiesPanelMethod"
-		namespace="AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel"
+		namespace="AutomatedSystemTests.Modules.ActionsPropertiesPanel"
 		optional="False">
 			<comment>
 			</comment>
