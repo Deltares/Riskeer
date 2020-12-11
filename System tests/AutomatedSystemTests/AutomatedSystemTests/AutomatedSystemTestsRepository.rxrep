@@ -864,6 +864,14 @@ name="AutomatedSystemTestsRepository">
 						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
 						searchtimeout="30000ms"
 						usecache="False">
+							<item
+							capname="button"
+							id="705925a9-d286-4eed-8f22-23a9e3afce1c"
+							name="CalculateSelectedButton"
+							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+							</item>
 							<basepath>
 								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
 							</basepath>
@@ -1594,40 +1602,8 @@ name="AutomatedSystemTestsRepository">
 								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
 						</folder>
-						<folder
-						capname="container"
-						id="6cf96c09-a937-4047-b3a1-28455bd1a4ae"
-						isrooted="True"
-						name="CalculationButtons"
-						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
-						searchtimeout="30000ms"
-						usecache="False">
-							<item
-							capname="button"
-							id="7df2b82b-0568-480a-ad83-3057ec323365"
-							name="CalculateSelectedButton"
-							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
-							</item>
-							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
-							</basepath>
-						</folder>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']
-						</basepath>
-					</folder>
-					<folder
-					capname="container"
-					id="aabb4c48-1864-49ac-941f-427294cae8cd"
-					isrooted="True"
-					name="RightSide"
-					refimgid="fd77a3e9-185b-42b0-9055-a402d319f06d"
-					searchtimeout="30000ms"
-					usecache="False">
-						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel2']
 						</basepath>
 					</folder>
 					<basepath>

@@ -4092,6 +4092,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("e8cdff70-b26f-44b2-916f-95e061da9ed1")]
         public partial class CalculationButtonsFolder : RepoGenBaseFolder
         {
+            RepoItemInfo _calculateselectedbuttonInfo;
 
             /// <summary>
             /// Creates a new CalculationButtons  folder.
@@ -4099,6 +4100,7 @@ namespace AutomatedSystemTests
             public CalculationButtonsFolder(RepoGenBaseFolder parentFolder) :
                     base("CalculationButtons", "container[@controlname>'Button']", parentFolder, 30000, null, false, "e8cdff70-b26f-44b2-916f-95e061da9ed1", "")
             {
+                _calculateselectedbuttonInfo = new RepoItemInfo(this, "CalculateSelectedButton", "button[@controlname='CalculateForSelectedButton']", 30000, null, "705925a9-d286-4eed-8f22-23a9e3afce1c");
             }
 
             /// <summary>
@@ -4122,6 +4124,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CalculateSelectedButton item.
+            /// </summary>
+            [RepositoryItem("705925a9-d286-4eed-8f22-23a9e3afce1c")]
+            public virtual Ranorex.Button CalculateSelectedButton
+            {
+                get
+                {
+                    return _calculateselectedbuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CalculateSelectedButton item info.
+            /// </summary>
+            [RepositoryItemInfo("705925a9-d286-4eed-8f22-23a9e3afce1c")]
+            public virtual RepoItemInfo CalculateSelectedButtonInfo
+            {
+                get
+                {
+                    return _calculateselectedbuttonInfo;
                 }
             }
         }
@@ -6307,7 +6333,6 @@ namespace AutomatedSystemTests
         public partial class DesignWaterLevelCalculationsViewCachedFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.LeftSideFolder1 _leftside;
-            AutomatedSystemTestsRepositoryFolders.RightSideFolder1 _rightside;
 
             /// <summary>
             /// Creates a new DesignWaterLevelCalculationsViewCached  folder.
@@ -6316,7 +6341,6 @@ namespace AutomatedSystemTests
                     base("DesignWaterLevelCalculationsViewCached", "container[@controlname<'CalculationsView']/container", parentFolder, 30000, null, false, "535b985f-89e1-4888-9b6e-edd71990ca55", "")
             {
                 _leftside = new AutomatedSystemTestsRepositoryFolders.LeftSideFolder1(this);
-                _rightside = new AutomatedSystemTestsRepositoryFolders.RightSideFolder1(this);
             }
 
             /// <summary>
@@ -6351,15 +6375,6 @@ namespace AutomatedSystemTests
             {
                 get { return _leftside; }
             }
-
-            /// <summary>
-            /// The RightSide folder.
-            /// </summary>
-            [RepositoryFolder("aabb4c48-1864-49ac-941f-427294cae8cd")]
-            public virtual AutomatedSystemTestsRepositoryFolders.RightSideFolder1 RightSide
-            {
-                get { return _rightside; }
-            }
         }
 
         /// <summary>
@@ -6369,7 +6384,6 @@ namespace AutomatedSystemTests
         public partial class LeftSideFolder1 : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.TableFolder7 _table;
-            AutomatedSystemTestsRepositoryFolders.CalculationButtonsFolder1 _calculationbuttons;
 
             /// <summary>
             /// Creates a new LeftSide  folder.
@@ -6378,7 +6392,6 @@ namespace AutomatedSystemTests
                     base("LeftSide", "container[@controlname='panel1']", parentFolder, 30000, null, false, "d5d31bfe-0545-4bf6-ae8d-2a692de100bd", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder7(this);
-                _calculationbuttons = new AutomatedSystemTestsRepositoryFolders.CalculationButtonsFolder1(this);
             }
 
             /// <summary>
@@ -6412,15 +6425,6 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.TableFolder7 Table
             {
                 get { return _table; }
-            }
-
-            /// <summary>
-            /// The CalculationButtons folder.
-            /// </summary>
-            [RepositoryFolder("6cf96c09-a937-4047-b3a1-28455bd1a4ae")]
-            public virtual AutomatedSystemTestsRepositoryFolders.CalculationButtonsFolder1 CalculationButtons
-            {
-                get { return _calculationbuttons; }
             }
         }
 
@@ -6564,112 +6568,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _waterlevelorwaveheightnthrowInfo;
-                }
-            }
-        }
-
-        /// <summary>
-        /// The CalculationButtonsFolder1 folder.
-        /// </summary>
-        [RepositoryFolder("6cf96c09-a937-4047-b3a1-28455bd1a4ae")]
-        public partial class CalculationButtonsFolder1 : RepoGenBaseFolder
-        {
-            RepoItemInfo _calculateselectedbuttonInfo;
-
-            /// <summary>
-            /// Creates a new CalculationButtons  folder.
-            /// </summary>
-            public CalculationButtonsFolder1(RepoGenBaseFolder parentFolder) :
-                    base("CalculationButtons", "container[@controlname>'Button']", parentFolder, 30000, null, false, "6cf96c09-a937-4047-b3a1-28455bd1a4ae", "")
-            {
-                _calculateselectedbuttonInfo = new RepoItemInfo(this, "CalculateSelectedButton", "button[@controlname='CalculateForSelectedButton']", 30000, null, "7df2b82b-0568-480a-ad83-3057ec323365");
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("6cf96c09-a937-4047-b3a1-28455bd1a4ae")]
-            public virtual Ranorex.Container Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("6cf96c09-a937-4047-b3a1-28455bd1a4ae")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The CalculateSelectedButton item.
-            /// </summary>
-            [RepositoryItem("7df2b82b-0568-480a-ad83-3057ec323365")]
-            public virtual Ranorex.Button CalculateSelectedButton
-            {
-                get
-                {
-                    return _calculateselectedbuttonInfo.CreateAdapter<Ranorex.Button>(true);
-                }
-            }
-
-            /// <summary>
-            /// The CalculateSelectedButton item info.
-            /// </summary>
-            [RepositoryItemInfo("7df2b82b-0568-480a-ad83-3057ec323365")]
-            public virtual RepoItemInfo CalculateSelectedButtonInfo
-            {
-                get
-                {
-                    return _calculateselectedbuttonInfo;
-                }
-            }
-        }
-
-        /// <summary>
-        /// The RightSideFolder1 folder.
-        /// </summary>
-        [RepositoryFolder("aabb4c48-1864-49ac-941f-427294cae8cd")]
-        public partial class RightSideFolder1 : RepoGenBaseFolder
-        {
-
-            /// <summary>
-            /// Creates a new RightSide  folder.
-            /// </summary>
-            public RightSideFolder1(RepoGenBaseFolder parentFolder) :
-                    base("RightSide", "container[@controlname='panel2']", parentFolder, 30000, null, false, "aabb4c48-1864-49ac-941f-427294cae8cd", "")
-            {
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("aabb4c48-1864-49ac-941f-427294cae8cd")]
-            public virtual Ranorex.Container Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("aabb4c48-1864-49ac-941f-427294cae8cd")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
                 }
             }
         }

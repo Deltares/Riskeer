@@ -79,8 +79,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.CalculationButtons.CalculateSelectedButton.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.DesignWaterLevelCalculationsView.LeftSide.CalculationButtons.CalculateSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.DesignWaterLevelCalculationsView.LeftSide.CalculationButtons.CalculateSelectedButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.DesignWaterLevelCalculationsView.LeftSide.CalculationButtons.CalculateSelectedButton.Click();
             
         }
 

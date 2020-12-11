@@ -215,6 +215,31 @@
 			id="1193949a-2644-475b-9163-57c3f3e21acc"
 			name="ReadDataCategoryBoundariesTraject">
 			</smartfoldernode>
+			<smartfoldernode
+			id="13fcf721-966e-4a62-9a17-28dddacb29c4"
+			name="DynamicDropDownParameter">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="typeParameter"
+								id="2bd17374-e47d-4122-9284-44fa4d4408f2">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="148d21c4-ab48-4afc-a25c-65b80b024f70"
 			name="ConcatenateStrings"
@@ -238,6 +263,26 @@
 					datasourceid="b93da5cd-2f2c-4b71-bb89-052f3e08409b"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="14a2c3bf-4d96-47a2-aadd-742caeb3f37d"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToParameterInPropertiesPanel"
+					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+					<var
+					dataname="newValue"
+					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
 					</var>
 				</databinding>
 			</testmodule>
@@ -505,7 +550,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="32711573-94dc-4512-bfec-4d796a48e7f7"
-			name="SelectItemWithGeneratedCaculations">
+			name="SelectSectionWithGeneratedCaculations">
 			</smartfoldernode>
 			<smartfoldernode
 			id="331303ea-9b13-4de1-9d76-d1f1aedde5bc"
@@ -887,6 +932,20 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="60fe117e-a878-4968-be78-162d99646227"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToForelandProfilesInPE"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="61677694-6b1b-492a-ac55-cf554336d722"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -901,6 +960,9 @@
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
 			type="UserCode">
+				<description>
+					<![CDATA[Set range loop sections(vakken)]]>
+				</description>
 				<databinding>
 					<var
 					dataname="nameFolderConfigurationCalculationsLoopItems"
@@ -909,7 +971,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeConfigurationCalculationsLoopItems"
+					dataname="rangeConfigurationCalculationsLoopSections"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -1087,6 +1149,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="73b97056-d0d2-4df4-bde8-02ab82eda9cb"
+			name="ImportSchematizationForCurrentlySelectedItem"
+			ref="70e43517-d352-4149-9ec3-90e95cb9cbf0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToStructuresFile"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="94b6c8c3-2e32-4bf9-b4c6-68330bc3337c"
+					variablename="nameSchematizationsFilesToImport">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="7410da7b-d1c8-4e79-b8b1-f9ff79497253"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
 			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
@@ -1132,6 +1208,20 @@
 			id="7682d189-63c8-4134-9685-cbfbd892c526"
 			name="CloseCategoryBoundariesTrajectView">
 			</smartfoldernode>
+			<testmodule
+			id="76f58936-c5a1-4505-8abd-0735d5b4a11b"
+			name="ImportSchematizationForCurrentlySelectedItem"
+			ref="70e43517-d352-4149-9ec3-90e95cb9cbf0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToForelandProfilesFile"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="94b6c8c3-2e32-4bf9-b4c6-68330bc3337c"
+					variablename="nameSchematizationsFilesToImport">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="77222dec-97ba-4610-977a-ea2980249bbc"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -1211,6 +1301,9 @@
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
 			type="UserCode">
+				<description>
+					<![CDATA[Set range loop calcultion/section(vak)]]>
+				</description>
 				<databinding>
 					<var
 					dataname="nameFolderLoopCalculations"
@@ -1317,7 +1410,7 @@
 				<parameters>
 					<param
 					name="nameFolderConfigurationCalculationsLoopItems"
-					value="ConfigurationCalculationsLoopItems">
+					value="ConfigurationCalculationsLoopSections">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1605,7 +1698,7 @@
 				<parameters>
 					<param
 					name="nameFolderLoopCalculations"
-					value="LoopCalculationsForEachItem">
+					value="LoopCalculationsForEachSection">
 					</param>
 					<param
 					name="nameFolderSettingsCalculationsInPropertiesPanel"
@@ -2061,6 +2154,9 @@
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
 			type="UserCode">
+				<description>
+					<![CDATA[Set range loop set params CalcView]]>
+				</description>
 				<databinding>
 					<var
 					dataname="nameFolderSettingsCalculationsInCalculationsView"
@@ -2134,6 +2230,9 @@
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
 			type="UserCode">
+				<description>
+					<![CDATA[Set range loop set params in PP]]>
+				</description>
 				<databinding>
 					<var
 					dataname="nameFolderSettingsCalculationsInPropertiesPanel"
@@ -2407,7 +2506,7 @@
 			<smartfoldernode
 			datasource="script17_a_LoopCalculationsInCalculationView"
 			id="e6824481-6a51-4125-9909-c1a203d8fa8d"
-			name="LoopCalculationsForEachItem">
+			name="LoopCalculationsForEachSection">
 			</smartfoldernode>
 			<testmodule
 			id="e75b5b5c-3d20-43d5-a389-fcb9f790fcb2"
@@ -2428,6 +2527,20 @@
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="ebdb3b68-be52-4574-81d9-316eb5ff052d"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToStructuresInPE"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="eed6ad70-be3d-4b89-b9ff-02403f52127d"
@@ -2535,7 +2648,7 @@
 			<smartfoldernode
 			datasource="script17_a_ConfigurationCalculationsLoopItems"
 			id="ff747b0f-a743-43d5-964b-86cd53724594"
-			name="ConfigurationCalculationsLoopItems">
+			name="ConfigurationCalculationsLoopSections">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ffc77f8f-4055-444e-b0ea-2b722cc95af1"
@@ -3233,10 +3346,26 @@
 										<smartfoldernode
 										id="7c077b42-d3ab-4dc4-ab4b-543a761f7dcf"
 										name="ImportForelandProfiles">
+											<testmodule
+											id="60fe117e-a878-4968-be78-162d99646227"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="76f58936-c5a1-4505-8abd-0735d5b4a11b"
+											name="ImportSchematizationForCurrentlySelectedItem">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="bf3e2245-7f4e-4b71-8a81-6ac234fe4b3d"
 										name="ImportStructures">
+											<testmodule
+											id="ebdb3b68-be52-4574-81d9-316eb5ff052d"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="73b97056-d0d2-4df4-bde8-02ab82eda9cb"
+											name="ImportSchematizationForCurrentlySelectedItem">
+											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -3337,10 +3466,10 @@
 									</testmodule>
 									<smartfoldernode
 									id="ff747b0f-a743-43d5-964b-86cd53724594"
-									name="ConfigurationCalculationsLoopItems">
+									name="ConfigurationCalculationsLoopSections">
 										<smartfoldernode
 										id="32711573-94dc-4512-bfec-4d796a48e7f7"
-										name="SelectItemWithGeneratedCaculations">
+										name="SelectSectionWithGeneratedCaculations">
 											<testmodule
 											id="39abd15d-7eaa-4df1-9767-f0db69903c23"
 											name="SelectGenericItemInListCalculationsView">
@@ -3355,14 +3484,10 @@
 											</testmodule>
 											<smartfoldernode
 											id="e6824481-6a51-4125-9909-c1a203d8fa8d"
-											name="LoopCalculationsForEachItem">
+											name="LoopCalculationsForEachSection">
 												<smartfoldernode
 												id="19220c6f-4af8-45c7-b100-8044d170047e"
 												name="SettingsCalculationsInPropertiesPanel">
-													<testmodule
-													id="c967ac31-2c4a-4dae-bbe6-ad0744cde793"
-													name="SetRangeInSmartFolder">
-													</testmodule>
 													<testmodule
 													id="fba6a536-37e3-4309-b2ff-be448dac3966"
 													name="SelectCalculationInTableCalculationsView">
@@ -3371,6 +3496,10 @@
 													id="74308e2f-508c-4ab5-a109-8a07a7e45800"
 													name="SetFocusOnPropertiesPanel">
 													</testmodule>
+													<testmodule
+													id="c967ac31-2c4a-4dae-bbe6-ad0744cde793"
+													name="SetRangeInSmartFolder">
+													</testmodule>
 													<smartfoldernode
 													id="2e4097d5-ad7a-45f0-95aa-e4c65dd19585"
 													name="LoopSetParametersSelectedCalculationInPropertiesPanel">
@@ -3378,6 +3507,14 @@
 														id="7410da7b-d1c8-4e79-b8b1-f9ff79497253"
 														name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
 														</testmodule>
+														<smartfoldernode
+														id="13fcf721-966e-4a62-9a17-28dddacb29c4"
+														name="DynamicDropDownParameter">
+															<testmodule
+															id="14a2c3bf-4d96-47a2-aadd-742caeb3f37d"
+															name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+															</testmodule>
+														</smartfoldernode>
 													</smartfoldernode>
 												</smartfoldernode>
 												<testmodule
@@ -3442,7 +3579,7 @@
 	<datasources>
 		<DataSource
 		id="678f5fae-ec64-4031-b8d3-355418ae2c6e"
-		lastknownrowcount="10"
+		lastknownrowcount="9"
 		name="script17_a_ConfigurationCalculationsLoopItems"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3560,24 +3697,13 @@
 				</tr>
 				<tr>
 					<td>
-						36-2_3
-					</td>
-					<td>
-						3
-					</td>
-					<td>
-						18
-					</td>
-				</tr>
-				<tr>
-					<td>
 						36-2_23
 					</td>
 					<td>
 						23
 					</td>
 					<td>
-						19
+						18
 					</td>
 				</tr>
 			</table>
@@ -3655,7 +3781,7 @@
 					listIndecesHBCLocationsToCalculate
 				</column>
 				<column>
-					rangeConfigurationCalculationsLoopItems
+					rangeConfigurationCalculationsLoopSections
 				</column>
 				<column>
 					listIndecesItemsToGenerateCalculations
@@ -3732,7 +3858,7 @@
 						listIndecesHBCLocationsToCalculate
 					</th>
 					<th>
-						rangeConfigurationCalculationsLoopItems
+						rangeConfigurationCalculationsLoopSections
 					</th>
 					<th>
 						listIndecesItemsToGenerateCalculations
@@ -3996,11 +4122,13 @@
 						X:\script17\HTKW\HTkw_traject_36-2.shp
 					</td>
 					<td>
+						[Berekeningen-&gt;['Keersluis Cuijk'-&gt;[Opmerkingen][Invoer][Resultaat]]['Gemaal van Sasse'-&gt;[Opmerkingen][Invoer][Resultaat]][Nieuwe berekening-&gt;[Opmerkingen][Invoer][Resultaat]]]
 					</td>
 					<td>
 						16,112
 					</td>
 					<td>
+						8-9
 					</td>
 					<td>
 						0,1
@@ -4010,7 +4138,7 @@
 		</DataSource>
 		<DataSource
 		id="1a88ec15-e614-4671-a31e-2e2094ca6b52"
-		lastknownrowcount="19"
+		lastknownrowcount="18"
 		name="script17_a_LoopCalculationsInCalculationView"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4276,20 +4404,10 @@
 						0
 					</td>
 					<td>
+						20-21
 					</td>
 					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						'Keersluis Cuijk'
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-					</td>
-					<td>
+						10
 					</td>
 				</tr>
 				<tr>
@@ -4300,15 +4418,17 @@
 						0
 					</td>
 					<td>
+						22-23
 					</td>
 					<td>
+						11
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="2bd17374-e47d-4122-9284-44fa4d4408f2"
-		lastknownrowcount="19"
+		lastknownrowcount="23"
 		name="script17_a_LoopSetParametersSelectedCalculationInPropertiesPanel"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4608,11 +4728,67 @@
 						STBI
 					</td>
 				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						profiel3
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voorland en (haven)dam&gt;Voorlandprofiel
+					</td>
+					<td>
+						profiel4
+					</td>
+					<td>
+						DropDown
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Uitvoer&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="5a4d3ec6-6daa-41ae-a347-751c30862313"
-		lastknownrowcount="9"
+		lastknownrowcount="11"
 		name="script17_a_ParametersToSetInCalculationsView"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4737,6 +4913,28 @@
 					</td>
 					<td>
 						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingenlocatie
+					</td>
+					<td>
+						MA_1_36-2_dk_00212 (59 m)
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingenlocatie
+					</td>
+					<td>
+						MA_1_36-2_dk_00308 (74 m)
+					</td>
+					<td>
+						HTKW
 					</td>
 				</tr>
 			</table>
@@ -5055,6 +5253,9 @@
 		name="TestRun">
 			<testcontainer
 			id="0ee8dc69-6066-4d79-b145-d90f42a562e7">
+			</testcontainer>
+			<testcontainer
+			id="13fcf721-966e-4a62-9a17-28dddacb29c4">
 			</testcontainer>
 			<testcontainer
 			id="19220c6f-4af8-45c7-b100-8044d170047e">
