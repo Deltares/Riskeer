@@ -27,7 +27,7 @@ namespace AutomatedSystemTests.Modules.Selection
 }
 namespace AutomatedSystemTests.Modules.Selection
 {
-    public partial class SelectGenericItemInListCalculationsView
+    public partial class SelectGenericSectionInListCalculationsView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -36,6 +36,16 @@ namespace AutomatedSystemTests.Modules.Selection
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void SelectGenericSectionInListCalculationsViewMethod(RepoItemInfo listitemInfo)
+        {
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'listitemInfo'.", listitemInfo);
+            listitemInfo.FindAdapter<ListItem>().Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'listitemInfo'.", listitemInfo);
+            listitemInfo.FindAdapter<ListItem>().Select();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'listitemInfo' at CenterLeft.", listitemInfo);
+            listitemInfo.FindAdapter<ListItem>().Click(Location.CenterLeft);
         }
 
     }

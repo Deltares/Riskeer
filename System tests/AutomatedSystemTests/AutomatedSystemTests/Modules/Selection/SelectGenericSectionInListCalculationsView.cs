@@ -24,29 +24,29 @@ namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectGenericItemInListCalculationsView recording.
+    ///The SelectGenericSectionInListCalculationsView recording.
     /// </summary>
     [TestModule("815c10de-7eb0-4306-b5f0-403e140be625", ModuleType.Recording, 1)]
-    public partial class SelectGenericItemInListCalculationsView : ITestModule
+    public partial class SelectGenericSectionInListCalculationsView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectGenericItemInListCalculationsView instance = new SelectGenericItemInListCalculationsView();
+        static SelectGenericSectionInListCalculationsView instance = new SelectGenericSectionInListCalculationsView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectGenericItemInListCalculationsView()
+        public SelectGenericSectionInListCalculationsView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectGenericItemInListCalculationsView Instance
+        public static SelectGenericSectionInListCalculationsView Instance
         {
             get { return instance; }
         }
@@ -89,8 +89,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItem' at CenterLeft.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItemInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItem.Click(Location.CenterLeft);
+            SelectGenericSectionInListCalculationsViewMethod(repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItemInfo);
             
         }
 

@@ -1404,15 +1404,15 @@
       <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericItemInListCalculationsView.cs">
+    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.cs">
       <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericItemInListCalculationsView.rxrec</DependentUpon>
+      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>5eeea7e0-d96a-4489-9954-8e464adc75d2</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericItemInListCalculationsView.UserCode.cs">
+    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.UserCode.cs">
       <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericItemInListCalculationsView.rxrec</DependentUpon>
+      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
     </Compile>
@@ -2864,7 +2864,7 @@
       <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
       <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectGenericItemInListCalculationsView.rxrec">
+    <None Include="Modules\Selection\SelectGenericSectionInListCalculationsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
       <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
