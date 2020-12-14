@@ -76,7 +76,7 @@ namespace AutomatedSystemTests.Modules.Selection
             
             var repo =global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.DesignWaterLevelCalculationsView.LeftSide.Table.Self;
+            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.SelfTable.Self;
             
             var rowIndecesToProcess = listRowIndecesToSelect.Split(',').ToList();
             

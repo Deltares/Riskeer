@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="9e09a6da-7c2a-433b-9b61-c8fc413c2e93"
+id="abc7c300-9a65-468b-a578-f8e564738f13"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,36 +19,43 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SetFocusOnPropertiesPanel"
-	namespace="AutomatedSystemTests.Modules.ActionsPropertiesPanel">
+	classname="ValidateContributionValueInScenariosView"
+	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
 	</codegen>
 	<variables>
+		<var
+		id="61018541-00b3-43aa-8932-ccff5ec68f08"
+		name="expectedContribution">
+		</var>
 	</variables>
 	<recorditems>
-		<mouseitem
-		action="Click"
-		button="Left"
-		duration="300ms"
+		<validationitem
+		action="AttributeEqual"
 		enabled="True"
-		loc=".5;.95"
-		movetime="300ms"
 		optional="False"
-		searchpropertyid="5330efe2-9c92-4a91-aec8-35cbfa131b9a"
-		sx="0"
-		sy="0"
-		warnoutofbounds="False">
+		searchpropertyid="94597659-2665-4422-81dc-6824b72c789a">
 			<comment>
 			</comment>
 			<bindings>
+				<binding
+				target="MatchValue"
+				variable="expectedContribution">
+				</binding>
 			</bindings>
 			<info
-			id="41bb0ddf-7a93-4518-a257-8322f257edf1"
+			id="3476c0a3-36a4-4281-90a3-065844674eb8"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
 				</path>
 			</info>
-		</mouseitem>
+			<matchname>
+				Text
+			</matchname>
+			<matchvalue>
+				yourValue
+			</matchvalue>
+		</validationitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
@@ -65,7 +72,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SetFocusOnPropertiesPanel.UserCode.cs
+		ValidateContributionValueInScenariosView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

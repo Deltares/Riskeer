@@ -20,50 +20,48 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ImportStochasticSoilModelCollection recording.
+    ///The SetContributionValueInScenariosView recording.
     /// </summary>
-    [TestModule("288d66d7-3c19-43f3-bd1e-9523f15bb660", ModuleType.Recording, 1)]
-    public partial class ImportStochasticSoilModelCollection : ITestModule
+    [TestModule("a0d27b4d-f989-42ce-afab-76a62ad61956", ModuleType.Recording, 1)]
+    public partial class SetContributionValueInScenariosView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ImportStochasticSoilModelCollection instance = new ImportStochasticSoilModelCollection();
+        static SetContributionValueInScenariosView instance = new SetContributionValueInScenariosView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ImportStochasticSoilModelCollection()
+        public SetContributionValueInScenariosView()
         {
-            nameSoilFile = "";
+            newValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ImportStochasticSoilModelCollection Instance
+        public static SetContributionValueInScenariosView Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _nameSoilFile;
-
         /// <summary>
-        /// Gets or sets the value of variable nameSoilFile.
+        /// Gets or sets the value of variable newValue.
         /// </summary>
-        [TestVariable("afc0a4c0-0d40-403c-b397-fb6a4c9112e8")]
-        public string nameSoilFile
+        [TestVariable("fa77a94b-5e57-4ae0-959e-21197789d225")]
+        public string newValue
         {
-            get { return _nameSoilFile; }
-            set { _nameSoilFile = value; }
+            get { return repo.newValue; }
+            set { repo.newValue = value; }
         }
 
 #endregion
@@ -92,26 +90,14 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Importeren.Click();
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$newValue' with focus on 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys(newValue);
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameSoilFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(2));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameSoilFile);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(3));
-            repo.OpenDialog.ButtonOpen.Click();
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1.5s.", new RecordItemIndex(6));
-            Delay.Duration(1500, false);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys("{Return}");
             
         }
 

@@ -744,7 +744,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="28adc349-c7a6-49b1-aaae-3707ee0b6e85"
-			name="SelecteSingleCaseInRange"
+			name="SelecteCasesScript15a_c_Range"
 			ref="220e925d-6434-4d2c-8772-fc4edd938637"
 			type="Recording">
 				<databinding>
@@ -3648,7 +3648,7 @@
 								</testmodule>
 								<testmodule
 								id="28adc349-c7a6-49b1-aaae-3707ee0b6e85"
-								name="SelecteSingleCaseInRange">
+								name="SelecteCasesScript15a_c_Range">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -8757,10 +8757,10 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
+					pathItem
 				</column>
 				<column>
-					pathItem
+					labelFM
 				</column>
 				<column>
 					rowIndex
@@ -8789,10 +8789,10 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
+						pathItem
 					</th>
 					<th>
-						pathItem
+						labelFM
 					</th>
 					<th>
 						rowIndex
@@ -8818,10 +8818,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;A+
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;A+
+						GEBU
 					</td>
 					<td>
 						0
@@ -8847,10 +8847,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						GEBU
 					</td>
 					<td>
 						0
@@ -8876,10 +8876,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens B
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens B
+						GEBU
 					</td>
 					<td>
 						0
@@ -8905,10 +8905,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens C
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens C
+						GEBU
 					</td>
 					<td>
 						0
@@ -8934,10 +8934,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;A+
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;A+
+						GEBU
 					</td>
 					<td>
 						0
@@ -8963,10 +8963,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
+						GEBU
 					</td>
 					<td>
 						0
@@ -8992,10 +8992,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens B
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens B
+						GEBU
 					</td>
 					<td>
 						0
@@ -9021,10 +9021,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens C
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens C
+						GEBU
 					</td>
 					<td>
 						0
@@ -9050,10 +9050,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Iv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Iv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9079,10 +9079,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9108,10 +9108,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIIv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIIv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9137,10 +9137,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IVv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IVv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9166,10 +9166,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Vv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Vv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9195,10 +9195,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Iv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Iv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9224,10 +9224,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9253,10 +9253,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIIv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIIv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9282,10 +9282,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IVv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IVv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9311,10 +9311,10 @@
 				</tr>
 				<tr>
 					<td>
-						GEBU
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Vv
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Vv
+						GEBU
 					</td>
 					<td>
 						0
@@ -9340,10 +9340,10 @@
 				</tr>
 				<tr>
 					<td>
-						DA
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Iv
 					</td>
 					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Iv
+						DA
 					</td>
 					<td>
 						0
@@ -9367,10 +9367,10 @@
 				</tr>
 				<tr>
 					<td>
-						DA
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIv
 					</td>
 					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIv
+						DA
 					</td>
 					<td>
 						0
@@ -9394,10 +9394,10 @@
 				</tr>
 				<tr>
 					<td>
-						DA
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIIv
 					</td>
 					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IIIv
+						DA
 					</td>
 					<td>
 						0
@@ -9421,10 +9421,10 @@
 				</tr>
 				<tr>
 					<td>
-						DA
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IVv
 					</td>
 					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens IVv
+						DA
 					</td>
 					<td>
 						0
@@ -9448,10 +9448,10 @@
 				</tr>
 				<tr>
 					<td>
-						DA
+						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Vv
 					</td>
 					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische belastingen&gt;Categoriegrens Vv
+						DA
 					</td>
 					<td>
 						0

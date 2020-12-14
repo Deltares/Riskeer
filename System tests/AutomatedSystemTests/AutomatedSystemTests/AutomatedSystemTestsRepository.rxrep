@@ -793,7 +793,7 @@ name="AutomatedSystemTestsRepository">
 				capname="container"
 				id="323db88f-b940-4cf7-9a48-4eea40485948"
 				isrooted="True"
-				name="DesignWaterLevelCalculationsView"
+				name="DesignWaterLevelWaveHeightCalculationsView"
 				refimgid="66bafd6c-a8a6-440a-8820-9d9958af2bf8"
 				searchtimeout="30000ms"
 				usecache="False">
@@ -818,21 +818,21 @@ name="AutomatedSystemTestsRepository">
 							id="b23f96f2-3091-4bfa-b2b3-ced15cdca711"
 							name="checkBoxCalculateNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
 							</item>
 							<item
 							capname="cell"
 							id="7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c"
 							name="checkBoxreadIllustrationPointsNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
 							</item>
 							<item
 							capname="cell"
 							id="4d5dcf27-80bb-4eb2-8ac6-e585fceac838"
 							name="WaterLevelNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
 							</item>
 							<item
 							addcaps="cell,accessible"
@@ -841,7 +841,7 @@ name="AutomatedSystemTestsRepository">
 							name="BerekenenRow2"
 							refimgid="0a89cd19-9c91-4412-8110-aa3fe174d58a"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
 							</item>
 							<item
 							addcaps="cell,accessible"
@@ -850,10 +850,10 @@ name="AutomatedSystemTestsRepository">
 							name="WaterstandMPlusNAPRow2"
 							refimgid="40331b78-82f8-4b00-a47f-c1552c3fba07"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
 						</folder>
 						<folder
@@ -870,14 +870,14 @@ name="AutomatedSystemTestsRepository">
 							name="CalculateSelectedButton"
 							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']
 						</basepath>
 					</folder>
 					<folder
@@ -889,11 +889,11 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms"
 					usecache="False">
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel2']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel2']
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container
 					</basepath>
 				</folder>
 				<folder
@@ -901,18 +901,59 @@ name="AutomatedSystemTestsRepository">
 				id="8d70b984-d778-4632-99c5-59000fa3b167"
 				isrooted="True"
 				name="ScenariosView"
-				refimgid="cb38f769-ac88-4b4e-945f-cbfdc1db2911"
+				refimgid="3df94718-5b78-4ad3-b4ae-2352fe9ea9af"
 				searchtimeout="30000ms"
 				usecache="False">
-					<item
-					addcaps="list,accessible"
+					<folder
 					capname="list"
 					id="f3cd16ba-c2de-4890-b253-71355634e232"
+					isrooted="True"
 					name="ListSectionsNames"
-					refimgid="716f941d-5fa6-416e-a48a-d923436ecbed"
-					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container[@controlname='splitContainer']/container[@controlname='panel1']/?/list/list
-					</item>
+					refimgid="027dea8f-fece-4613-a23a-80756c3ca341"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="listitem"
+						id="f3f7de84-f41c-4188-9eff-d19414f68a60"
+						name="GenericSection"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list/listitem[@index=$indexSection]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="c392e579-2f5f-4a7d-9900-272745c078bf"
+					isrooted="True"
+					name="Table"
+					refimgid="2f91b3be-993e-4fe8-85ea-c920d75abd20"
+					searchtimeout="30000ms"
+					usecache="False">
+						<folder
+						capname="cell"
+						id="517ed7f5-0201-4105-bcc5-84912d68ca06"
+						isrooted="True"
+						name="GenericRowCheck"
+						refimgid="7e95e770-63ee-44b0-b1a3-ae4d263066f6"
+						searchtimeout="30000ms"
+						usecache="False">
+							<basepath>
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'In oordeel']
+							</basepath>
+						</folder>
+						<item
+						capname="cell"
+						id="3476c0a3-36a4-4281-90a3-065844674eb8"
+						name="GenericRowContribution"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table
+						</basepath>
+					</folder>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']
 					</basepath>

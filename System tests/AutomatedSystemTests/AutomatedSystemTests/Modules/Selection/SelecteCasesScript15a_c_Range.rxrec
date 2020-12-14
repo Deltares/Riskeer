@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelecteSingleCaseInRange"
+	classname="SelecteCasesScript15a_c_Range"
 	namespace="AutomatedSystemTests.Modules.Selection">
 	</codegen>
 	<variables>
@@ -34,7 +34,7 @@ mode="Global">
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="SelecteSingleCaseInRange"
+		classname="SelecteCasesScript15a_c_Range"
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="SelectCase"
@@ -84,7 +84,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelecteSingleCaseInRange.UserCode.cs
+		SelecteCasesScript15a_c_Range.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -79,8 +79,8 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer' at LowerCenter.", repo.RiskeerMainWindow.PropertiesPanelContainer.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Self.Click(Location.LowerCenter);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer' at .5;.95.", repo.RiskeerMainWindow.PropertiesPanelContainer.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Self.Click(".5;.95");
             
         }
 

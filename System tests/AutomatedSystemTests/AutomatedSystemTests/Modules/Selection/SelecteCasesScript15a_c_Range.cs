@@ -20,50 +20,63 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ImportStochasticSoilModelCollection recording.
+    ///The SelecteCasesScript15a_c_Range recording.
     /// </summary>
-    [TestModule("288d66d7-3c19-43f3-bd1e-9523f15bb660", ModuleType.Recording, 1)]
-    public partial class ImportStochasticSoilModelCollection : ITestModule
+    [TestModule("220e925d-6434-4d2c-8772-fc4edd938637", ModuleType.Recording, 1)]
+    public partial class SelecteCasesScript15a_c_Range : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ImportStochasticSoilModelCollection instance = new ImportStochasticSoilModelCollection();
+        static SelecteCasesScript15a_c_Range instance = new SelecteCasesScript15a_c_Range();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ImportStochasticSoilModelCollection()
+        public SelecteCasesScript15a_c_Range()
         {
-            nameSoilFile = "";
+            nameOfFolderWithCases = "";
+            indexRowCaseToSelect = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ImportStochasticSoilModelCollection Instance
+        public static SelecteCasesScript15a_c_Range Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _nameSoilFile;
+        string _nameOfFolderWithCases;
 
         /// <summary>
-        /// Gets or sets the value of variable nameSoilFile.
+        /// Gets or sets the value of variable nameOfFolderWithCases.
         /// </summary>
-        [TestVariable("afc0a4c0-0d40-403c-b397-fb6a4c9112e8")]
-        public string nameSoilFile
+        [TestVariable("b452abcc-83df-4d0e-96e2-3f3c41b7e754")]
+        public string nameOfFolderWithCases
         {
-            get { return _nameSoilFile; }
-            set { _nameSoilFile = value; }
+            get { return _nameOfFolderWithCases; }
+            set { _nameOfFolderWithCases = value; }
+        }
+
+        string _indexRowCaseToSelect;
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRowCaseToSelect.
+        /// </summary>
+        [TestVariable("901d8aa4-4720-4dc2-9565-19bb5117bcba")]
+        public string indexRowCaseToSelect
+        {
+            get { return _indexRowCaseToSelect; }
+            set { _indexRowCaseToSelect = value; }
         }
 
 #endregion
@@ -92,26 +105,7 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Importeren.Click();
-            
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameSoilFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(2));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameSoilFile);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(3));
-            repo.OpenDialog.ButtonOpen.Click();
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1.5s.", new RecordItemIndex(6));
-            Delay.Duration(1500, false);
+            SelectCase(nameOfFolderWithCases, indexRowCaseToSelect);
             
         }
 

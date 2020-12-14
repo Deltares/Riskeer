@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Selection
 {
-    public partial class SelecteSingleCaseInRange
+    public partial class SelecteCasesScript15a_c_Range
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

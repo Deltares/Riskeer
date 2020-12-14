@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="6104469d-a535-47ca-b393-2256db12cca4"
+id="3f07e952-3053-491e-9536-4986ced8e8c3"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,35 +19,34 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="GenerateRandomNumberInRangeCases"
-	namespace="AutomatedSystemTests.Modules.Calculation">
+	classname="GetContributionValueFromScenariosView"
+	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
 	</codegen>
 	<variables>
 		<var
-		id="14b8b92f-c5ac-45fe-9221-5b190e11f77f"
-		name="nameOfFolderWithCases">
-		</var>
-		<var
-		id="ff4e49ec-c5ac-454c-81f0-9c2b3d84516c"
-		name="generatedRandomNumber">
+		id="5b699eef-7072-43c4-96e6-7592b8a103ae"
+		name="valueContributionCell">
 		</var>
 	</variables>
 	<recorditems>
-		<userrecorditem
-		classname="GenerateRandomNumberInRangeCases"
+		<getvaluerecorditem
+		attrname="Text"
 		enabled="True"
-		isexternaltestmethod="False"
-		methodname="generateRandomNumberInRangeRowsCases"
-		namespace="AutomatedSystemTests.Modules.Calculation"
-		optional="False">
+		optional="False"
+		searchpropertyid="2a1e7ec8-507b-4fb6-87ed-d0a5e74c51a5"
+		varname="valueContributionCell">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
-			<arguments
-			id="3ad700ae-34f5-4561-93b3-86185e99471c">
-			</arguments>
-		</userrecorditem>
+			<info
+			id="3476c0a3-36a4-4281-90a3-065844674eb8"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
+				</path>
+			</info>
+		</getvaluerecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
@@ -64,7 +63,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		GenerateRandomNumberInRangeCases.UserCode.cs
+		GetContributionValueFromScenariosView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

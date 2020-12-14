@@ -441,6 +441,18 @@
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
       <BoundTo>75c56bbc-55ab-4649-abbf-6157d7ab6a40</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\GetContributionValueFromScenariosView.cs">
+      <BoundTo>2080ffa5-e660-4bb8-babd-03dd9f2fc589</BoundTo>
+      <DependentUpon>GetContributionValueFromScenariosView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>bd54e83a-11b9-4894-9069-8617e7fe77df</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\GetContributionValueFromScenariosView.UserCode.cs">
+      <BoundTo>2080ffa5-e660-4bb8-babd-03dd9f2fc589</BoundTo>
+      <DependentUpon>GetContributionValueFromScenariosView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>df857d99-8220-4fa3-93f4-c20bdffe661e</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\MoveViewTabToNewVerticalGroup.cs">
       <DependentUpon>MoveViewTabToNewVerticalGroup.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -459,11 +471,38 @@
     <Compile Include="Modules\ActionsDocumentView\ReadDataCategoryBoundariesTrajectView.cs">
       <id>8e53cfa4-7861-4ae3-aad4-f06b1aeea7e1</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadDataScenariosView.cs">
+      <id>cbd982d9-8d6c-492e-844e-6462977ec62f</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
       <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.cs">
+      <BoundTo>da7336ce-fbcd-4009-bf0c-329da5bfb60f</BoundTo>
+      <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>32026158-9d62-40e1-bf8d-aca3dbd7c809</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.UserCode.cs">
+      <BoundTo>da7336ce-fbcd-4009-bf0c-329da5bfb60f</BoundTo>
+      <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6a58fd41-573e-4909-8d91-d25c8a24c067</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
       <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.cs">
+      <BoundTo>4332a6ac-65b6-423f-8688-eb78b2d0cdbe</BoundTo>
+      <DependentUpon>ValidateContributionValueInScenariosView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8919323c-d09f-4b8e-b284-d811db1bb50a</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.UserCode.cs">
+      <BoundTo>4332a6ac-65b6-423f-8688-eb78b2d0cdbe</BoundTo>
+      <DependentUpon>ValidateContributionValueInScenariosView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f0ec8e33-f569-4e1d-be5c-8be631f580cc</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.cs">
       <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
@@ -1188,6 +1227,18 @@
       <UserCode>true</UserCode>
       <id>eb2e0464-0e47-4b25-a4e6-942010ea1cf4</id>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfDropDownMenuInCalculationsView.cs">
+      <DependentUpon>CreateScreenshotOfDropDownMenuInCalculationsView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e8557963-a0c7-44b3-a358-a024de390e0d</id>
+      <BoundTo>679539a5-ceeb-465f-b0b4-fe369ebd3e5a</BoundTo>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfDropDownMenuInCalculationsView.UserCode.cs">
+      <DependentUpon>CreateScreenshotOfDropDownMenuInCalculationsView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>cce93f6d-78bd-4db5-968a-a28144c124ff</id>
+      <BoundTo>679539a5-ceeb-465f-b0b4-fe369ebd3e5a</BoundTo>
+    </Compile>
     <Compile Include="Modules\RepportInfo\LogInfoMessage.cs">
       <DependentUpon>LogInfoMessage.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1368,14 +1419,14 @@
       <UserCode>true</UserCode>
       <id>77733967-26c1-4e31-9143-327d4a7865c9</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelecteSingleCaseInRange.cs">
-      <DependentUpon>SelecteSingleCaseInRange.rxrec</DependentUpon>
+    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.cs">
+      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>ec00e433-dbc1-44ea-9754-75c60ed35b11</id>
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\SelecteSingleCaseInRange.UserCode.cs">
-      <DependentUpon>SelecteSingleCaseInRange.rxrec</DependentUpon>
+    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.UserCode.cs">
+      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
       <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
@@ -1415,6 +1466,18 @@
       <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericSectionInListScenariosView.cs">
+      <BoundTo>97011333-f53c-4153-992d-9d1bed478861</BoundTo>
+      <DependentUpon>SelectGenericSectionInListScenariosView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>da0fd489-7250-4eed-ba86-8ebdd5cea0fa</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectGenericSectionInListScenariosView.UserCode.cs">
+      <BoundTo>97011333-f53c-4153-992d-9d1bed478861</BoundTo>
+      <DependentUpon>SelectGenericSectionInListScenariosView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>72505453-7e8b-483a-b79b-b48019160bc4</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectItemBelow.cs">
       <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
@@ -2504,10 +2567,25 @@
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
     </None>
+    <None Include="Modules\ActionsDocumentView\GetContributionValueFromScenariosView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>2080ffa5-e660-4bb8-babd-03dd9f2fc589</id>
+      <recordtableid>3f07e952-3053-491e-9536-4986ced8e8c3</recordtableid>
+    </None>
     <None Include="Modules\ActionsDocumentView\MoveViewTabToNewVerticalGroup.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>da7336ce-fbcd-4009-bf0c-329da5bfb60f</id>
+      <recordtableid>a0d27b4d-f989-42ce-afab-76a62ad61956</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4332a6ac-65b6-423f-8688-eb78b2d0cdbe</id>
+      <recordtableid>abc7c300-9a65-468b-a578-f8e564738f13</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2774,6 +2852,11 @@
       <id>39691297-a58c-4097-8c09-2a177aac112e</id>
       <recordtableid>f8d86f09-5ccd-4d15-8b0c-ebed59c9e8ea</recordtableid>
     </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotOfDropDownMenuInCalculationsView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>679539a5-ceeb-465f-b0b4-fe369ebd3e5a</id>
+      <recordtableid>3578df90-ffbb-4f72-b82f-c5bca92c601b</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\LogInfoMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>13439f4b-f332-4240-b490-e1dbd6823904</id>
@@ -2849,7 +2932,7 @@
       <id>e73590a3-2dd0-4529-a4ae-7751bcea43a8</id>
       <recordtableid>5b015ee3-50ff-44a4-90b6-4b97670bff51</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelecteSingleCaseInRange.rxrec">
+    <None Include="Modules\Selection\SelecteCasesScript15a_c_Range.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
       <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
@@ -2868,6 +2951,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
       <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectGenericSectionInListScenariosView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>97011333-f53c-4153-992d-9d1bed478861</id>
+      <recordtableid>c28d218c-b230-4ca9-8820-6cd4085c3ae0</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectItemBelow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

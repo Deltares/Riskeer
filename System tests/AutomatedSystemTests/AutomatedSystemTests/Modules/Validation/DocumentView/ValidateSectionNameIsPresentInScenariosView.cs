@@ -103,7 +103,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidateSectionNameIsPresentInListSectionsNames(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.ListSectionsNames);
+            ValidateSectionNameIsPresentInListSectionsNames(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.ListSectionsNames.Self);
             Delay.Milliseconds(0);
             
         }

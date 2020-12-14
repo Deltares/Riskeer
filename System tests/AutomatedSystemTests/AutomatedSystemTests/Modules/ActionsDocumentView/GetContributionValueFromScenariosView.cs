@@ -20,50 +20,50 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.ActionsDocumentView
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ImportStochasticSoilModelCollection recording.
+    ///The GetContributionValueFromScenariosView recording.
     /// </summary>
-    [TestModule("288d66d7-3c19-43f3-bd1e-9523f15bb660", ModuleType.Recording, 1)]
-    public partial class ImportStochasticSoilModelCollection : ITestModule
+    [TestModule("3f07e952-3053-491e-9536-4986ced8e8c3", ModuleType.Recording, 1)]
+    public partial class GetContributionValueFromScenariosView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ImportStochasticSoilModelCollection instance = new ImportStochasticSoilModelCollection();
+        static GetContributionValueFromScenariosView instance = new GetContributionValueFromScenariosView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ImportStochasticSoilModelCollection()
+        public GetContributionValueFromScenariosView()
         {
-            nameSoilFile = "";
+            valueContributionCell = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ImportStochasticSoilModelCollection Instance
+        public static GetContributionValueFromScenariosView Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _nameSoilFile;
+        string _valueContributionCell;
 
         /// <summary>
-        /// Gets or sets the value of variable nameSoilFile.
+        /// Gets or sets the value of variable valueContributionCell.
         /// </summary>
-        [TestVariable("afc0a4c0-0d40-403c-b397-fb6a4c9112e8")]
-        public string nameSoilFile
+        [TestVariable("5b699eef-7072-43c4-96e6-7592b8a103ae")]
+        public string valueContributionCell
         {
-            get { return _nameSoilFile; }
-            set { _nameSoilFile = value; }
+            get { return _valueContributionCell; }
+            set { _valueContributionCell = value; }
         }
 
 #endregion
@@ -92,26 +92,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Importeren.Click();
-            
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameSoilFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(2));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameSoilFile);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(3));
-            repo.OpenDialog.ButtonOpen.Click();
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1.5s.", new RecordItemIndex(6));
-            Delay.Duration(1500, false);
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' and assigning its value to variable 'valueContributionCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
+            valueContributionCell = repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Element.GetAttributeValueText("Text");
             
         }
 

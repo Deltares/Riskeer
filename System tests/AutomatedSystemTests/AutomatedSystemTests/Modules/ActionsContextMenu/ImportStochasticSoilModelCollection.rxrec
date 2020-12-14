@@ -728,7 +728,7 @@ ooA//9k=
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="1000ms"
+		duration="1500ms"
 		enabled="True"
 		optional="False">
 			<comment>
