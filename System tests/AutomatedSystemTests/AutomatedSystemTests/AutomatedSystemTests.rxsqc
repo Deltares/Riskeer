@@ -11,7 +11,7 @@
   },
   {
     "Enabled": "False",
-    "TestSuite": "WorkOnProgressDavid",
+    "TestSuite": "WorkInProgressDavid",
     "RunConfig": "TestRun"
   },
   {

@@ -528,6 +528,9 @@
       <UserCode>true</UserCode>
       <id>89c0f5fb-52ff-40f4-b42f-9ce63891301a</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateSectionResultAsCombinationContributionsInFMResultView.cs">
+      <id>0adb26cb-0c2c-46ba-87b9-974b3c023812</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateSectionsCombinationsView.cs">
       <id>5a8d1d39-770a-499a-bd2b-f165e9451f94</id>
     </Compile>
@@ -938,6 +941,9 @@
     </Compile>
     <Compile Include="Modules\ActionsContextMenu\VerifyItemPresentInContextMenu.cs">
       <id>6a737ffa-3e0c-4c81-bdc5-78b47fbd8ea6</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\ResetVariable.cs">
+      <id>ce0048b3-8a4c-4b4f-843a-e7a76a683fda</id>
     </Compile>
     <Compile Include="Modules\Calculation\SetRandomRowWithinRangeSmartFolder.cs">
       <id>b20a1f0c-135a-46a7-935a-43e5165f32a7</id>
@@ -2420,7 +2426,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>55f842ba-2cc9-4ba2-b80f-75e4bdbb75e7</id>
     </Content>
-    <Content Include="WorkOnProgressDavid.rxtst">
+    <Content Include="WorkInProgressDavid.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>6827c86e-753b-4849-9c40-0455c419adb9</id>
     </Content>

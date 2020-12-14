@@ -37,6 +37,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="0183a845-3b9b-461f-b125-ece6cf3ed7a0"
+			name="ResetVariable"
+			ref="fb4c2f53-1a6b-4793-bf45-593fd01b933d"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scenariosInfoForNextFM"
+					datasourceid="88688524-1aed-4f7f-b779-ce19205679d5"
+					variableid="15db2839-9a99-440e-b01a-b5fc66032d72"
+					variablename="newValueForvariable">
+					</var>
+					<var
+					dataname="dataScenariosView"
+					datasourceid="a952aeca-b696-49ad-b130-663d2e881f0a"
+					variableid="c6798ebf-20c3-4776-9043-ff16ac64a580"
+					variablename="variableToReset">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			enabled="False"
 			id="01f8b624-6cd2-4fb3-ab85-4d17c4ee08e4"
 			name="GenerateSomeScenarios"
@@ -169,6 +189,20 @@
 			id="0d11d2c7-fecb-439a-94f4-da0307d76dfa"
 			name="ChangeManuallyAssessment">
 			</smartfoldernode>
+			<testmodule
+			id="0d37a825-04f5-40fa-8533-6016054bdbed"
+			name="ValidateSectionResultAsCombinationContributionsInFMResultView"
+			ref="b8f1aecf-c5f5-4c4a-bda3-27d9ffb17f53"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="dataScenariosView"
+					datasourceid="a952aeca-b696-49ad-b130-663d2e881f0a"
+					variableid="ec137b62-f031-4865-9b56-d28ed3a2ceb6"
+					variablename="jsonDataScenariosView">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="0dad2d7f-c5c8-40bb-ad89-b029f7f94794"
 			name="ValidateTempValue">
@@ -999,6 +1033,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="4c8d4ced-8267-457e-ab7a-3148e5f31b26"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1815,6 +1850,16 @@
 			id="85fafb7b-b3fe-4e75-92c9-d01f46743a2a"
 			name="ResultsView">
 			</smartfoldernode>
+			<smartfoldernode
+			id="88688524-1aed-4f7f-b779-ce19205679d5"
+			name="ResetInformationScenariosView">
+				<parameters>
+					<param
+					name="scenariosInfoForNextFM"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="888e29d3-c52d-4285-b135-27a6084db1a0"
 			name="setup">
@@ -2420,6 +2465,7 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
 			id="b50a829c-b052-4bdc-b1c6-70620737571e"
@@ -2478,7 +2524,7 @@
 			enabletracingscreenshots="True"
 			id="b6ec5115-70d1-4088-a555-08556609361b"
 			junitreport="False"
-			name="WorkOnProgressDavid"
+			name="WorkInProgressDavid"
 			reportcompress="False"
 			reportdirectoryname="Reports"
 			reportenabled="True"
@@ -2850,7 +2896,7 @@
 			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
-			name="WorkOnProgressDavid"
+			name="WorkInProgressDavid"
 			reportlevel="Info;20">
 				<parameters>
 					<param
@@ -3324,10 +3370,10 @@
 		<childhierarchy>
 			<testsuite
 			id="b6ec5115-70d1-4088-a555-08556609361b"
-			name="WorkOnProgressDavid">
+			name="WorkInProgressDavid">
 				<testcase
 				id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
-				name="WorkOnProgressDavid">
+				name="WorkInProgressDavid">
 					<testcase
 					id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
 					name="script00_MigrateProjectsFromPreviousVersions">
@@ -4407,6 +4453,10 @@
 									<smartfoldernode
 									id="f6988e05-a1f2-4680-ac41-84d4566e4527"
 									name="ValidateDataInResultsViewLoopSections">
+										<testmodule
+										id="0d37a825-04f5-40fa-8533-6016054bdbed"
+										name="ValidateSectionResultAsCombinationContributionsInFMResultView">
+										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
 									id="c494253c-91bf-484e-9308-1b575a75e333"
@@ -4416,6 +4466,14 @@
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="88688524-1aed-4f7f-b779-ce19205679d5"
+								name="ResetInformationScenariosView">
+									<testmodule
+									id="0183a845-3b9b-461f-b125-ece6cf3ed7a0"
+									name="ResetVariable">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
@@ -4605,34 +4663,34 @@
 						12-2
 					</td>
 					<td>
-						12-2&gt;Hydraulische belastingen
+						Traject 12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						12-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Stochastische ondergrondmodellen
-					</td>
-					<td>
-					</td>
-					<td>
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Stochastische ondergrondmodellen
 					</td>
 					<td>
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -4967,7 +5025,7 @@
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Ooordeel&gt;Scenario's
+						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Resultaat
@@ -7422,6 +7480,9 @@
 			id="85fafb7b-b3fe-4e75-92c9-d01f46743a2a">
 			</testcontainer>
 			<testcontainer
+			id="88688524-1aed-4f7f-b779-ce19205679d5">
+			</testcontainer>
+			<testcontainer
 			id="959f291f-73d5-4f8c-8533-af200a45ea3b">
 			</testcontainer>
 			<testcontainer
@@ -7483,6 +7544,12 @@
 			</testcontainer>
 			<testcontainer
 			id="f2064b52-b3c1-4ea5-8439-86cdb9faf78d">
+			</testcontainer>
+			<testcontainer
+			id="f2d60eff-963e-48f4-82f4-6eb461112fd2">
+			</testcontainer>
+			<testcontainer
+			id="f4b32b82-05e2-457d-ace8-05a5a1ada7a0">
 			</testcontainer>
 			<testcontainer
 			id="f6988e05-a1f2-4680-ac41-84d4566e4527">

@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             int indexName = GetIndex(rowHeader, "Naam");
             int indexFailureProbability = GetIndex(rowHeader, "Faalkans");
 
-            var dataView = new DataSectionScenariosView();
+            var dataView = new DataRowsTableSectionScenariosView();
             rows.RemoveAt(0);
             foreach (var row in rows) {
                 var calcInfo = new CalculationInformationInScenariosView();
@@ -113,7 +113,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 
                 dataView.DataScenariosViewList.Add(calcInfo);
             }
-            jsonDataScenariosView = JsonConvert.SerializeObject(dataView, Formatting.Indented);
+            
+            var dataFM = new DataSectionScenariosView();
+            dataFM.IndexSection = Int32.Parse(sectionIndex);
+            dataFM.NameSection = sectionname;
+            dataFM.DataSection = dataView;
+            dataSectionScenariosView.Add(dataFM);
+            
+            jsonDataScenariosView = JsonConvert.SerializeObject(dataSectionScenariosView, Formatting.Indented);
         }
         
         private string GetAV(Cell cl)
@@ -126,14 +133,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             return row.Cells.ToList().FindIndex(cl=>GetAV(cl).Contains(name));
         }
         
-        private List<DataFMScenariosView> BuildDataScenariosView(string jsonString)
+        private List<DataSectionScenariosView> BuildDataScenariosView(string jsonString)
         {
-            List<DataFMScenariosView> dataFMScenariosView;
+            List<DataSectionScenariosView> dataFMScenariosView;
             if (jsonString=="") {
-                dataFMScenariosView = new List<DataFMScenariosView>();
+                dataFMScenariosView = new List<DataSectionScenariosView>();
             } else {
                 var error = false;
-                dataFMScenariosView = JsonConvert.DeserializeObject<List<DataFMScenariosView>>(jsonString, new JsonSerializerSettings
+                dataFMScenariosView = JsonConvert.DeserializeObject<List<DataSectionScenariosView>>(jsonString, new JsonSerializerSettings
                 {
                     Error = (s, e) =>
                     {
@@ -153,18 +160,18 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         
     }
     
-    public class DataFMScenariosView
+    public class DataSectionScenariosView
     {
         public int IndexSection {get; set;}
-        public string Name {get; set;}
-        public DataSectionScenariosView DataSection {get; set;}
+        public string NameSection {get; set;}
+        public DataRowsTableSectionScenariosView DataSection {get; set;}
     }
     
-    public class DataSectionScenariosView
+    public class DataRowsTableSectionScenariosView
     {
         public List<CalculationInformationInScenariosView> DataScenariosViewList {get; set;}
         
-        public DataSectionScenariosView()
+        public DataRowsTableSectionScenariosView()
         {
             this.DataScenariosViewList = new List<CalculationInformationInScenariosView>();
         }
