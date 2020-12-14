@@ -1033,7 +1033,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="4c8d4ced-8267-457e-ab7a-3148e5f31b26"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2465,7 +2464,6 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
 			id="b50a829c-b052-4bdc-b1c6-70620737571e"
@@ -7383,186 +7381,6 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
-			<testcontainer
-			id="0dad2d7f-c5c8-40bb-ad89-b029f7f94794">
-			</testcontainer>
-			<testcontainer
-			id="0ee8dc69-6066-4d79-b145-d90f42a562e7">
-			</testcontainer>
-			<testcontainer
-			id="105b0757-e335-4b30-982c-15217765397c">
-			</testcontainer>
-			<testcontainer
-			id="13fcf721-966e-4a62-9a17-28dddacb29c4">
-			</testcontainer>
-			<testcontainer
-			id="19220c6f-4af8-45c7-b100-8044d170047e">
-			</testcontainer>
-			<testcontainer
-			id="1b5302ab-d1b0-4f7b-86cb-7cc126c507f8">
-			</testcontainer>
-			<testcontainer
-			id="1c46549e-83c2-4570-82f4-1dd2f2103691">
-			</testcontainer>
-			<testcontainer
-			id="1cfedcfb-80cc-454f-b609-cc3f778ebea1">
-			</testcontainer>
-			<testcontainer
-			id="2354fe76-08ee-4eed-838b-38fa362568bc">
-			</testcontainer>
-			<testcontainer
-			id="27c414ce-da71-466d-80c4-e33daa6a87fc">
-			</testcontainer>
-			<testcontainer
-			id="282ae75c-dbf8-4f38-8323-b8dc4f144991">
-			</testcontainer>
-			<testcontainer
-			id="2dd88350-bd3e-48fd-9eaf-4375e95d1930">
-			</testcontainer>
-			<testcontainer
-			id="2e4097d5-ad7a-45f0-95aa-e4c65dd19585">
-			</testcontainer>
-			<testcontainer
-			id="32711573-94dc-4512-bfec-4d796a48e7f7">
-			</testcontainer>
-			<testcontainer
-			id="3a86535a-4fbe-4357-8910-fc3279b23371">
-			</testcontainer>
-			<testcontainer
-			id="3aeed521-f48d-4a20-9376-904aff4dd291">
-			</testcontainer>
-			<testcontainer
-			id="3b7991ee-f0ed-4d8d-bc5b-d78dd2c8bb5c">
-			</testcontainer>
-			<testcontainer
-			id="3e08925c-3d21-4ae3-a3da-2d58affd8099">
-			</testcontainer>
-			<testcontainer
-			id="46666b06-e251-40fc-8641-96fe1f39dd75">
-			</testcontainer>
-			<testcontainer
-			id="49e12c8c-f91e-4e72-b233-33a640ab7934">
-			</testcontainer>
-			<testcontainer
-			id="4d988bee-9e43-42b1-845c-88c29db1ee22">
-			</testcontainer>
-			<testcontainer
-			id="5fdb1d84-8852-4514-875a-c401d0670484">
-			</testcontainer>
-			<testcontainer
-			id="6158b6da-c793-4043-a3fa-4d8655da4499">
-			</testcontainer>
-			<testcontainer
-			id="617bca2a-a7d9-4619-b668-4c7d1ce97644">
-			</testcontainer>
-			<testcontainer
-			id="64df4144-a8f8-4307-a026-ae32d3a470c8">
-			</testcontainer>
-			<testcontainer
-			id="6a61cbdf-2a2c-4fd8-867d-cdac69ae01a1">
-			</testcontainer>
-			<testcontainer
-			id="6f773855-4614-4a84-9521-2ade4acb0fdb">
-			</testcontainer>
-			<testcontainer
-			id="74e209f3-b6b2-49be-860d-d8a2dc9a2dcc">
-			</testcontainer>
-			<testcontainer
-			id="79430680-8c22-4717-a1fc-34127c53e999">
-			</testcontainer>
-			<testcontainer
-			id="7c077b42-d3ab-4dc4-ab4b-543a761f7dcf">
-			</testcontainer>
-			<testcontainer
-			id="80a9d606-4202-40a2-bffc-203270992a5f">
-			</testcontainer>
-			<testcontainer
-			id="85fafb7b-b3fe-4e75-92c9-d01f46743a2a">
-			</testcontainer>
-			<testcontainer
-			id="88688524-1aed-4f7f-b779-ce19205679d5">
-			</testcontainer>
-			<testcontainer
-			id="959f291f-73d5-4f8c-8533-af200a45ea3b">
-			</testcontainer>
-			<testcontainer
-			id="95b67d15-39f7-4891-bae6-33eb4feb1b0d">
-			</testcontainer>
-			<testcontainer
-			id="9fd95a47-6cbb-4aac-9127-13161a80b065">
-			</testcontainer>
-			<testcontainer
-			id="a7ed3545-bea5-48da-a78c-f548f8b942a4">
-			</testcontainer>
-			<testcontainer
-			id="a8e0453e-d380-4264-b148-5db17c494223">
-			</testcontainer>
-			<testcontainer
-			id="a952aeca-b696-49ad-b130-663d2e881f0a">
-			</testcontainer>
-			<testcontainer
-			id="add2a2ce-bbe2-4a3b-ac87-91d0c030a209">
-			</testcontainer>
-			<testcontainer
-			id="b433aa84-dd90-421f-8be7-61983f67a1a7">
-			</testcontainer>
-			<testcontainer
-			id="b50a829c-b052-4bdc-b1c6-70620737571e">
-			</testcontainer>
-			<testcontainer
-			id="b6eb7726-e3a1-4e46-a434-e25f4f8ca51c">
-			</testcontainer>
-			<testcontainer
-			id="bf3e2245-7f4e-4b71-8a81-6ac234fe4b3d">
-			</testcontainer>
-			<testcontainer
-			id="c44e3832-4ef0-4422-9939-8f93ce410ab2">
-			</testcontainer>
-			<testcontainer
-			id="c494253c-91bf-484e-9308-1b575a75e333">
-			</testcontainer>
-			<testcontainer
-			id="c4e903af-6966-4d88-ac0d-d492c7e59904">
-			</testcontainer>
-			<testcontainer
-			id="caf64d09-7746-49f1-b3b0-c38edacd70b3">
-			</testcontainer>
-			<testcontainer
-			id="cf59079d-12ee-4f9f-8873-9a8a03cd7933">
-			</testcontainer>
-			<testcontainer
-			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
-			</testcontainer>
-			<testcontainer
-			id="e30e2544-004e-4625-a7fa-1bfb033adb2e">
-			</testcontainer>
-			<testcontainer
-			id="e6824481-6a51-4125-9909-c1a203d8fa8d">
-			</testcontainer>
-			<testcontainer
-			id="eca8d683-53a9-45b2-b235-ce5d62ae9fab">
-			</testcontainer>
-			<testcontainer
-			id="f2064b52-b3c1-4ea5-8439-86cdb9faf78d">
-			</testcontainer>
-			<testcontainer
-			id="f2d60eff-963e-48f4-82f4-6eb461112fd2">
-			</testcontainer>
-			<testcontainer
-			id="f4b32b82-05e2-457d-ace8-05a5a1ada7a0">
-			</testcontainer>
-			<testcontainer
-			id="f6988e05-a1f2-4680-ac41-84d4566e4527">
-			</testcontainer>
-			<testcontainer
-			id="fab1b1d3-5649-45c6-a69c-2d239f394bd2">
-			</testcontainer>
-			<testcontainer
-			id="fb2b77ec-09b8-4ef1-b6d7-ddc87eb75d62">
-			</testcontainer>
-			<testcontainer
-			id="ff747b0f-a743-43d5-964b-86cd53724594">
-			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
 	<references>
