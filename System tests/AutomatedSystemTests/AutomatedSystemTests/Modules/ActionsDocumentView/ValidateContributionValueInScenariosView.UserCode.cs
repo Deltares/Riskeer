@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,6 +32,15 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void Validate_GenericRowContribution(RepoItemInfo cellInfo)
+        {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedContribution) on item 'cellInfo'.", cellInfo);
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
+            expectedContribution = string.Format("{0:N2}", Double.Parse(expectedContribution, currentCulture));
+            Validate.AttributeEqual(cellInfo, "Text", expectedContribution);
         }
 
     }

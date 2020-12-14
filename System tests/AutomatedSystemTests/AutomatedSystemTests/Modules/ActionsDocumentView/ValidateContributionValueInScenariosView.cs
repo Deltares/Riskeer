@@ -92,8 +92,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedContribution) on item 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, "Text", expectedContribution);
+            Validate_GenericRowContribution(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo);
             
         }
 

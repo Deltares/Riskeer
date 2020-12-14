@@ -29,33 +29,37 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
-		<validationitem
-		action="AttributeEqual"
+		<userrecorditem
+		classname="ValidateContributionValueInScenariosView"
 		enabled="True"
-		optional="False"
-		searchpropertyid="94597659-2665-4422-81dc-6824b72c789a">
+		isexternaltestmethod="False"
+		methodname="Validate_GenericRowContribution"
+		namespace="AutomatedSystemTests.Modules.ActionsDocumentView"
+		optional="False">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedContribution">
-				</binding>
 			</bindings>
-			<info
-			id="3476c0a3-36a4-4281-90a3-065844674eb8"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
-				</path>
-			</info>
-			<matchname>
-				Text
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
+			<arguments
+			id="e9f9821f-953c-44b2-8a93-dc4e82d0d549">
+				<argument
+				argname="cellInfo"
+				id="df306a24-dba7-424b-820a-4efd283f21da">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="3476c0a3-36a4-4281-90a3-065844674eb8"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
