@@ -89,9 +89,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             for (int i = 0; i < data.DataSection.DataScenariosViewList.Count; i++) {
                 var currentCalculation = data.DataSection.DataScenariosViewList[i];
                 if (currentCalculation.InFinalRating) {
-                    string numeratorNoSeparators = currentCalculation.FailureProbability.Substring(2, currentCalculation.FailureProbability.Length - 2).Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty);
-                    long numerator = Int64.Parse(numeratorNoSeparators);
-                    double currentCalcProbability = 1.0 / numerator;
+                    string expectedProbNoSeparators = currentCalculation.FailureProbability.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty);
+                    string expectedNumeratorNoSeparators = expectedProbNoSeparators.Substring(2, expectedProbNoSeparators.Length - 2);
+                    long expectedNumeratorInt = Int64.Parse(expectedNumeratorNoSeparators);
+                    double currentCalcProbability = 1.0 / expectedNumeratorInt;
                     expectedSumWeightedProbs += currentCalcProbability * currentCalculation.Contribution;
                 }
             }
@@ -107,8 +108,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 long actualNumerator = Int64.Parse(actualProbNoSeparators.Substring(2, actualProbNoSeparators.Length-2));
                 double actualSumWeightedProbs = 1.0 / actualNumerator;
                 double relativeDeviation = Math.Abs(actualSumWeightedProbs-expectedSumWeightedProbs) / expectedSumWeightedProbs;
-                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.01 %).");
-                Validate.IsTrue(relativeDeviation<0.0001);
+                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.1 %).");
+                Validate.IsTrue(relativeDeviation<0.001);
             }
         }
         
