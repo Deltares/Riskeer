@@ -103,10 +103,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 Validate.AreEqual(actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty), expectedExactProbFraction);
             } else {
                 Report.Info("Expected probability (" + expectedExactProbFraction + ") is not exactly equal to actual one (" + actualProb + ").");
-                Report.Info("Validatign if they are almost equal (within 0.01 %)");
-                long actualNumerator = Int64.Parse(actualProb.Substring(2, actualProb.Length-2).Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty));
+                string actualProbNoSeparators = actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty);
+                long actualNumerator = Int64.Parse(actualProbNoSeparators.Substring(2, actualProbNoSeparators.Length-2));
                 double actualSumWeightedProbs = 1.0 / actualNumerator;
                 double relativeDeviation = Math.Abs(actualSumWeightedProbs-expectedSumWeightedProbs) / expectedSumWeightedProbs;
+                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.01 %).");
                 Validate.IsTrue(relativeDeviation<0.0001);
             }
         }
