@@ -609,6 +609,18 @@
       <UserCode>true</UserCode>
       <id>65c9686d-2b9f-44a5-8fef-58d1ebc57446</id>
     </Compile>
+    <Compile Include="Modules\ActionsWithItemsInProjectExplorer\RenameCurrentlySelectedItem.cs">
+      <BoundTo>90b38249-32a6-429f-b4ae-94709c2197eb</BoundTo>
+      <DependentUpon>RenameCurrentlySelectedItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2c0422db-9740-486c-b895-6ba57a364e9d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsWithItemsInProjectExplorer\RenameCurrentlySelectedItem.UserCode.cs">
+      <BoundTo>90b38249-32a6-429f-b4ae-94709c2197eb</BoundTo>
+      <DependentUpon>RenameCurrentlySelectedItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d9ca8a50-7bfb-40b7-80e4-4ecccffc566c</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
@@ -2632,6 +2644,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1a2c2ff6-3175-4621-8731-c6b45579fc0c</id>
       <recordtableid>909ea538-c662-4239-a56a-672c6d28b694</recordtableid>
+    </None>
+    <None Include="Modules\ActionsWithItemsInProjectExplorer\RenameCurrentlySelectedItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>90b38249-32a6-429f-b4ae-94709c2197eb</id>
+      <recordtableid>30f153a9-9c98-400c-a020-34c10ac7af64</recordtableid>
     </None>
     <None Include="Modules\Calculation\CalculateLinearTransformationOfValue.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
