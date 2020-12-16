@@ -108,8 +108,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 long actualNumerator = Int64.Parse(actualProbNoSeparators.Substring(2, actualProbNoSeparators.Length-2));
                 double actualSumWeightedProbs = 1.0 / actualNumerator;
                 double relativeDeviation = Math.Abs(actualSumWeightedProbs-expectedSumWeightedProbs) / expectedSumWeightedProbs;
-                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.1 %).");
-                Validate.IsTrue(relativeDeviation<0.001);
+                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.2 %).");
+                Validate.IsTrue(relativeDeviation<0.002);
             }
         }
         

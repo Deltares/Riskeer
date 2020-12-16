@@ -5875,7 +5875,6 @@
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
 			id="7d2e68a2-7f8f-4c6e-98e2-5bbc24a09fd9"
