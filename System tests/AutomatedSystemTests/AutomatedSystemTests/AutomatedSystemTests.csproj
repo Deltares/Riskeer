@@ -249,6 +249,18 @@
       <UserCode>true</UserCode>
       <id>2d402538-70fe-444f-b55a-c6c06984bbb9</id>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveAllOutput.cs">
+      <BoundTo>23b984bd-aaec-449d-bc6d-77f73923be61</BoundTo>
+      <DependentUpon>RemoveAllOutput.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>31399f4e-a66c-4e93-b3f8-6f5bfa8b7883</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveAllOutput.UserCode.cs">
+      <BoundTo>23b984bd-aaec-449d-bc6d-77f73923be61</BoundTo>
+      <DependentUpon>RemoveAllOutput.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f723e230-9483-41fb-9a95-fb74aba04c61</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.cs">
       <BoundTo>a6d3bf43-ee7e-4541-aaba-07cf8a27c1d2</BoundTo>
       <DependentUpon>SpecifyFileToImportMergeProject.rxrec</DependentUpon>
@@ -2507,6 +2519,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>858fcd3a-256e-4567-b118-6507f35fad5e</id>
       <recordtableid>c56e0a4d-4cde-4648-9071-4d509432751d</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\RemoveAllOutput.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>23b984bd-aaec-449d-bc6d-77f73923be61</id>
+      <recordtableid>ba840f65-e41c-410b-8474-047a4003bfc5</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\SpecifyFileToImportMergeProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

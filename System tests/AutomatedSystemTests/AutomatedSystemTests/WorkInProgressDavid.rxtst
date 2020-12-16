@@ -26,6 +26,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="063d3fd2-33a4-472e-9532-f73a32e40404"
+			name="ValidateMessages">
+				<parameters>
+					<param
+					name="indexMessage"
+					value="0">
+					</param>
+					<param
+					name="substring1Message"
+					value="Uitvoeren van berekening">
+					</param>
+					<param
+					name="substring2Message"
+					value="is geannuleerd.">
+					</param>
+					<param
+					name="logMessage"
+					value="Check screenshot of Messages panel.">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="0803dcb2-d505-464c-9f14-c02ebc5b6011"
 			name="RenameCurrentlySelectedItem"
@@ -90,6 +112,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="208858a2-6177-46c4-bffd-ae944cab9a89"
+			name="Wait5seconds">
+				<parameters>
+					<param
+					name="milisecondsToWait"
+					value="5000">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="2205fdb0-c23d-4719-8bec-29f334ca8824"
 			name="AppendString"
@@ -168,6 +200,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="37fabeb0-684f-48b0-a91d-5faed892d49a"
+			name="StartupCalculations">
+			</smartfoldernode>
 			<setup
 			id="3a2db058-dbc8-4229-b3cb-0fc45096dafe"
 			name="setup">
@@ -193,6 +229,32 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3e4331e1-f104-4f7f-897a-e2e92fd0b861"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substring2Message"
+					datasourceid="063d3fd2-33a4-472e-9532-f73a32e40404"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+					<var
+					dataname="indexMessage"
+					datasourceid="063d3fd2-33a4-472e-9532-f73a32e40404"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3eec70b2-0a60-4488-97a3-df1704c7df09"
+			name="RemoveAllOutput"
+			ref="ba840f65-e41c-410b-8474-047a4003bfc5"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="4093037f-3581-4c1d-80fc-7e9a2e165b36"
@@ -228,6 +290,34 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="451d80ea-8efe-47d7-92df-4fda7ec59e13"
+			name="WaitForXMiliseconds"
+			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="milisecondsToWait"
+					datasourceid="208858a2-6177-46c4-bffd-ae944cab9a89"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="4a5b9b46-7c8d-4ef8-9e7f-0e5f6fd57ac3"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationSubFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -247,6 +337,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="51e66a8b-99e7-472d-a155-2677eee65dbf"
+			name="RemoveResultsFromAddedSubfolder">
+			</smartfoldernode>
 			<testmodule
 			id="580ee38f-1c7f-4cfb-8b0a-ff32d1291a1d"
 			name="DragAndDropItemOntoAnotherItem"
@@ -302,9 +396,25 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="6a8d8beb-fbc3-4a28-bd77-4338b948fff3"
+			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
+			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="6cff61d6-b267-4e29-be48-6becce776201"
 			name="CreateFolderWithCalculationsForAllCombinations">
+			</smartfoldernode>
+			<smartfoldernode
+			id="73e4a71e-0947-4070-b2e0-bfa3daa2aa8b"
+			name="CancelCalculations">
+				<parameters>
+					<param
+					name="textPresentInDialogToCancel"
+					value="van">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="7568e990-7d24-44ef-9064-b215fbb7518a"
@@ -337,11 +447,45 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="75cbb8f8-c800-4388-924a-1cb65294e390"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCalculationSubFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script19_LoopDuplicateToObtainRequiredCalculations"
 			id="772e51bb-3111-4a44-800d-6f8a2b414091"
 			name="DuplicateToObtainRequiredCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="7c9ce893-a4af-42c4-b2ac-a91621e2766c"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substring1Message"
+					datasourceid="063d3fd2-33a4-472e-9532-f73a32e40404"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+					<var
+					dataname="indexMessage"
+					datasourceid="063d3fd2-33a4-472e-9532-f73a32e40404"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="7ec9b3a8-1942-4c9b-ad74-84de76d0d9e9"
 			name="SetRangeInSmartFolder"
@@ -366,6 +510,20 @@
 			id="7f5995ff-8eb3-4ced-bb20-47de1e1fcda0"
 			name="setup">
 			</setup>
+			<testmodule
+			id="840b6eb1-d5b7-44a5-b4a6-beeeda0cd2d5"
+			name="PressCancelDialogAtStepText"
+			ref="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="textPresentInDialogToCancel"
+					datasourceid="73e4a71e-0947-4070-b2e0-bfa3daa2aa8b"
+					variableid="70ae10b6-af9c-48bd-ab45-2033098501e7"
+					variablename="substringProgressMessageToStopAt">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="8700c59d-3f1c-46b2-89c7-745ffed57fb9"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -483,6 +641,20 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="9b555421-8a84-4ace-a25d-04574f3fd55b"
+			name="CreateScreenshotMessagesPanel"
+			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="logMessage"
+					datasourceid="063d3fd2-33a4-472e-9532-f73a32e40404"
+					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
+					variablename="warningMessageToLog">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a0dfc969-924d-47e9-863d-eff9f943e647"
 			name="OpenProject"
@@ -654,6 +826,10 @@
 				</parameters>
 			</testcase>
 			<smartfoldernode
+			id="d6b4d946-fc93-4c02-84b1-a32005d7557e"
+			name="ValidateNoResults">
+			</smartfoldernode>
+			<smartfoldernode
 			id="dfd66695-d365-484e-b51f-461426a146dd"
 			name="a)CalculateHBNAndOvertoppingRate">
 				<parameters>
@@ -670,6 +846,10 @@
 					value="script19">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="e21101f2-3b53-4623-8b4e-88f0373fd78b"
+			name="ValidateCancellation">
 			</smartfoldernode>
 			<smartfoldernode
 			id="e7354c28-eb0b-4485-b437-9e64eb00fb8a"
@@ -903,6 +1083,18 @@
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
+							id="51e66a8b-99e7-472d-a155-2677eee65dbf"
+							name="RemoveResultsFromAddedSubfolder">
+								<testmodule
+								id="4a5b9b46-7c8d-4ef8-9e7f-0e5f6fd57ac3"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="3eec70b2-0a60-4488-97a3-df1704c7df09"
+								name="RemoveAllOutput">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
 							id="a569c69f-513a-4ee3-bae9-bf2c252eea35"
 							name="ConfigureCalculations">
 								<smartfoldernode
@@ -961,6 +1153,58 @@
 							<smartfoldernode
 							id="b85cf0c5-f4ac-478e-b797-63603b9f4418"
 							name="StartAndCancelRunningCalculations">
+								<smartfoldernode
+								id="37fabeb0-684f-48b0-a91d-5faed892d49a"
+								name="StartupCalculations">
+									<testmodule
+									id="75cbb8f8-c800-4388-924a-1cb65294e390"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="6a8d8beb-fbc3-4a28-bd77-4338b948fff3"
+									name="StartAllCalculationsInSelectedFolderInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="208858a2-6177-46c4-bffd-ae944cab9a89"
+								name="Wait5seconds">
+									<testmodule
+									id="451d80ea-8efe-47d7-92df-4fda7ec59e13"
+									name="WaitForXMiliseconds">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="73e4a71e-0947-4070-b2e0-bfa3daa2aa8b"
+								name="CancelCalculations">
+									<testmodule
+									id="840b6eb1-d5b7-44a5-b4a6-beeeda0cd2d5"
+									name="PressCancelDialogAtStepText">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e21101f2-3b53-4623-8b4e-88f0373fd78b"
+								name="ValidateCancellation">
+									<smartfoldernode
+									id="063d3fd2-33a4-472e-9532-f73a32e40404"
+									name="ValidateMessages">
+										<testmodule
+										id="9b555421-8a84-4ace-a25d-04574f3fd55b"
+										name="CreateScreenshotMessagesPanel">
+										</testmodule>
+										<testmodule
+										id="7c9ce893-a4af-42c4-b2ac-a91621e2766c"
+										name="ValidateTextMesage">
+										</testmodule>
+										<testmodule
+										id="3e4331e1-f104-4f7f-897a-e2e92fd0b861"
+										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="d6b4d946-fc93-4c02-84b1-a32005d7557e"
+									name="ValidateNoResults">
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -1700,16 +1944,31 @@
 			id="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33">
 			</testcontainer>
 			<testcontainer
+			id="063d3fd2-33a4-472e-9532-f73a32e40404">
+			</testcontainer>
+			<testcontainer
 			id="0b75293d-3ab1-4bf6-aa8d-d9cdd6e4af52">
 			</testcontainer>
 			<testcontainer
+			id="208858a2-6177-46c4-bffd-ae944cab9a89">
+			</testcontainer>
+			<testcontainer
+			id="37fabeb0-684f-48b0-a91d-5faed892d49a">
+			</testcontainer>
+			<testcontainer
 			id="4093037f-3581-4c1d-80fc-7e9a2e165b36">
+			</testcontainer>
+			<testcontainer
+			id="51e66a8b-99e7-472d-a155-2677eee65dbf">
 			</testcontainer>
 			<testcontainer
 			id="614a4d41-90ac-4f96-bc4a-0f03f2470366">
 			</testcontainer>
 			<testcontainer
 			id="6cff61d6-b267-4e29-be48-6becce776201">
+			</testcontainer>
+			<testcontainer
+			id="73e4a71e-0947-4070-b2e0-bfa3daa2aa8b">
 			</testcontainer>
 			<testcontainer
 			id="7568e990-7d24-44ef-9064-b215fbb7518a">
@@ -1742,7 +2001,13 @@
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
+			id="d6b4d946-fc93-4c02-84b1-a32005d7557e">
+			</testcontainer>
+			<testcontainer
 			id="dfd66695-d365-484e-b51f-461426a146dd">
+			</testcontainer>
+			<testcontainer
+			id="e21101f2-3b53-4623-8b4e-88f0373fd78b">
 			</testcontainer>
 			<testcontainer
 			id="e7354c28-eb0b-4485-b437-9e64eb00fb8a">
