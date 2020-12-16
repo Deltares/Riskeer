@@ -11,10 +11,6 @@
 					value=">">
 					</param>
 					<param
-					name="newNameFolder"
-					value="calculationsScript19">
-					</param>
-					<param
 					name="intermediateString"
 					value="">
 					</param>
@@ -30,6 +26,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0803dcb2-d505-464c-9f14-c02ebc5b6011"
+			name="RenameCurrentlySelectedItem"
+			ref="30f153a9-9c98-400c-a020-34c10ac7af64"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newNameDuplicatedCalculation"
+					datasourceid="703c488a-95ee-4e92-b37f-dd3dfecb10c4"
+					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
+					variablename="newNameItem">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="newNameFolder"
+					datasourceid="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
+					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
+					variablename="newNameItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="0b75293d-3ab1-4bf6-aa8d-d9cdd6e4af52"
 			name="OpenProject">
@@ -52,7 +70,7 @@
 				<databinding>
 					<var
 					dataname="newNameFolder"
-					datasourceid="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
 					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
 					variablename="newNameItem">
 					</var>
@@ -72,10 +90,70 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="2205fdb0-c23d-4719-8bec-29f334ca8824"
+			name="AppendString"
+			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
+			type="UserCode">
+				<description>
+					<![CDATA[+ >]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="charSeparatorPath"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="28579cd2-7909-4fc9-973d-428764463504"
+			name="AppendString"
+			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
+			type="UserCode">
+				<description>
+					<![CDATA[+ >]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="charSeparatorPath"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="313ef2dc-b7e3-47ee-ac8f-9d6e6e937218"
 			name="teardown">
 			</teardown>
+			<testmodule
+			id="35663b8d-6063-4f1c-997e-21758175b465"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="3669878b-0c0b-492f-9e68-6926d396d5dd"
 			name="CloseAUT"
@@ -116,6 +194,39 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="4093037f-3581-4c1d-80fc-7e9a2e165b36"
+			name="BuildPathInputCalculation">
+			</smartfoldernode>
+			<testmodule
+			id="41183ff1-c3ab-4778-b024-e8913067bcf7"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<description>
+					<![CDATA[path Calculations + >]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="charSeparatorPath"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="4da184ad-81c9-4b4c-a6a0-3701a74bf3d8"
 			name="StartAUT"
@@ -143,25 +254,19 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToCalculationSubFolder"
-					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
-					variableid="f21e4405-5055-47d1-a985-93bb7d25200f"
-					variablename="pathItemDestination">
-					</var>
-					<var
 					dataname="originalPathDuplicatedCalculation"
 					datasourceid="7568e990-7d24-44ef-9064-b215fbb7518a"
 					variableid="0b446edc-7bfd-4e53-b683-8c3dd2b46bb3"
 					variablename="pathItemToMove">
 					</var>
-				</databinding>
-				<missingdatabinding>
 					<var
-					dataname="pathToNewFolder"
-					datasourceid="696988c2-3878-48b6-a624-bb79f50a8b31"
+					dataname="pathToCalculationSubFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
 					variableid="f21e4405-5055-47d1-a985-93bb7d25200f"
 					variablename="pathItemDestination">
 					</var>
+				</databinding>
+				<missingdatabinding>
 					<var
 					dataname="pathToCopiedCalculation"
 					datasourceid="696988c2-3878-48b6-a624-bb79f50a8b31"
@@ -174,57 +279,116 @@
 			id="614a4d41-90ac-4f96-bc4a-0f03f2470366"
 			name="b)CalculateHBNAndOvertoppingRateForClimateScenario">
 			</smartfoldernode>
+			<testmodule
+			id="6286f403-f8c9-4da5-9400-340d5f5acb7b"
+			name="AppendString"
+			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
+			type="UserCode">
+				<description>
+					<![CDATA[+ calculationName]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="newNameDuplicatedCalculation"
+					datasourceid="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="6cff61d6-b267-4e29-be48-6becce776201"
+			name="CreateFolderWithCalculationsForAllCombinations">
+			</smartfoldernode>
 			<smartfoldernode
 			id="7568e990-7d24-44ef-9064-b215fbb7518a"
-			name="MoveDuplicatedCalculationInsideCreatedFolder">
+			name="MoveFirstDuplicatedCalculationInsideCreatedFolder">
 				<parameters>
 					<param
 					name="originalPathDuplicatedCalculation"
-					value="">
-					</param>
-					<param
-					name="substringToReplace"
-					value="profiel005">
-					</param>
-					<param
-					name="substringToReplaceWith"
-					value="Kopie van profiel005">
+					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005_F1_D1_Norm">
 					</param>
 				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="newNameDuplicatedCalculation"
+								id="703c488a-95ee-4e92-b37f-dd3dfecb10c4">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="profiel005_F1_D1_Norm">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script19_LoopDuplicateToObtainRequiredCalculations"
+			id="772e51bb-3111-4a44-800d-6f8a2b414091"
+			name="DuplicateToObtainRequiredCalculations">
+			</smartfoldernode>
+			<testmodule
+			id="7ec9b3a8-1942-4c9b-ad74-84de76d0d9e9"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolder"
+					datasourceid="d095e89e-2061-4d49-b393-d4e451c1219a"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopConfigureRequiredInputParameters"
+					datasourceid="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="7f5995ff-8eb3-4ced-bb20-47de1e1fcda0"
 			name="setup">
 			</setup>
 			<testmodule
-			id="864aa846-0967-4a63-8c3c-56d6c71888b5"
-			name="ReplaceSubstring"
-			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			id="8700c59d-3f1c-46b2-89c7-745ffed57fb9"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="originalPathDuplicatedCalculation"
-					datasourceid="7568e990-7d24-44ef-9064-b215fbb7518a"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
+					dataname="pathToElementInPropertiesPanel"
+					datasourceid="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
 					</var>
 					<var
-					dataname="pathCalculationToDuplicate"
-					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
+					dataname="newValueForParameter"
+					datasourceid="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
 					</var>
 					<var
-					dataname="substringToReplace"
-					datasourceid="7568e990-7d24-44ef-9064-b215fbb7518a"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="substringToReplaceWith"
-					datasourceid="7568e990-7d24-44ef-9064-b215fbb7518a"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
+					dataname="typeParameter"
+					datasourceid="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
 					</var>
 				</databinding>
 			</testmodule>
@@ -277,6 +441,29 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="8c91364f-b020-4d50-a3c9-f323ebd50206"
+			name="AppendString"
+			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
+			type="UserCode">
+				<description>
+					<![CDATA[+ subfolderName]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="newNameFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8d2d0d4b-ae3d-4423-bf04-25b1597b17aa"
 			name="DuplicateCalculationItem"
 			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
@@ -316,12 +503,40 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script19_LoopConfigureCalculations_a"
+			id="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+			name="ConfigureCalculations">
+				<parameters>
+					<param
+					name="pathToInputItemCalculation"
+					value="">
+					</param>
+					<param
+					name="charSeparatorPath"
+					value=">">
+					</param>
+					<param
+					name="stringInput"
+					value="Invoer">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb"
+			name="SelectCalculationInputItem">
+			</smartfoldernode>
 			<testmodule
 			id="adbee12f-ae72-4ed1-9469-780872d9bdaa"
 			name="AddCalculationFolder"
 			ref="c09a9669-9b00-4ab5-9134-5658e1a585ac"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script19_a_LoopParametersInputCalculations"
+			id="af8babd8-907c-411b-8d39-2ebab183448b"
+			name="ConfigureRequiredInputParameters">
+			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -345,6 +560,10 @@
 			id="b7523f3b-5ca3-47e1-8bed-64476a5eee39"
 			name="script00_MigrateProjectsFromPreviousVersions">
 			</testcase>
+			<smartfoldernode
+			id="b85cf0c5-f4ac-478e-b797-63603b9f4418"
+			name="StartAndCancelRunningCalculations">
+			</smartfoldernode>
 			<testmodule
 			id="bc77ccec-2265-47d9-9cba-f618e17aa1c4"
 			name="StartAUT"
@@ -372,12 +591,6 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="newNameFolder"
-					datasourceid="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
 					dataname="intermediateString"
 					datasourceid="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
@@ -389,14 +602,14 @@
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
+					<var
+					dataname="newNameFolder"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
 				</databinding>
 				<missingdatabinding>
-					<var
-					dataname="pathToNewFolder"
-					datasourceid="696988c2-3878-48b6-a624-bb79f50a8b31"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
 					<var
 					dataname="suffixItem"
 					datasourceid="4ef855ab-ceba-4abf-aa57-21e83b6c883d"
@@ -413,7 +626,17 @@
 			</testmodule>
 			<smartfoldernode
 			id="cb757c31-7657-4975-9bb3-cd38ced900d2"
-			name="RenameMovedCalculation">
+			name="RenameDuplicatedCalculation">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d095e89e-2061-4d49-b393-d4e451c1219a"
+			name="SetRangeOfParametersInSmartFolder">
+				<parameters>
+					<param
+					name="nameSmartFolder"
+					value="ConfigureRequiredInputParameters">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
@@ -435,16 +658,26 @@
 			name="a)CalculateHBNAndOvertoppingRate">
 				<parameters>
 					<param
-					name="pathCalculationToDuplicate"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005">
+					name="pathToCalculationsFolder"
+					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen">
 					</param>
 					<param
 					name="pathToCalculationSubFolder"
 					value="">
 					</param>
 					<param
-					name="pathToCalculationsFolder"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen">
+					name="newNameFolder"
+					value="script19">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="e7354c28-eb0b-4485-b437-9e64eb00fb8a"
+			name="SelectCalculationToUseAsTemplate">
+				<parameters>
+					<param
+					name="pathCalculationToDuplicate"
+					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -499,6 +732,29 @@
 			name="DuplicateCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="fa0d67b8-0b2e-4ef3-8c20-4698bf83d441"
+			name="AppendString"
+			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
+			type="UserCode">
+				<description>
+					<![CDATA[+ Invoer]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToInputItemCalculation"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="stringInput"
+					datasourceid="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="fcefd71d-3bfb-458d-842d-2758f24b8b2f"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -506,15 +762,15 @@
 				<databinding>
 					<var
 					dataname="pathCalculationToDuplicate"
-					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
+					datasourceid="e7354c28-eb0b-4485-b437-9e64eb00fb8a"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="696988c2-3878-48b6-a624-bb79f50a8b31"
+					dataname="pathCalculationToDuplicate"
+					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
@@ -583,56 +839,128 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
-							name="CreateAndRenameCalculationFolder">
-								<testmodule
-								id="3ca6c77e-3a8b-4c29-8df7-89ef405cb137"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="adbee12f-ae72-4ed1-9469-780872d9bdaa"
-								name="AddCalculationFolder">
-								</testmodule>
-								<testmodule
-								id="1aef8580-ce38-4f67-8618-6ace2b426484"
-								name="RenameCurrentlySelectedItem">
-								</testmodule>
-								<testmodule
-								id="efa1a147-2f5e-4ad8-af7b-18f041337302"
-								name="ConcatenateStrings">
-								</testmodule>
-								<testmodule
-								id="c3d8e726-dbb7-4e04-95c3-f0a1aa5dfb73"
-								name="ConcatenateStrings">
-								</testmodule>
+							id="6cff61d6-b267-4e29-be48-6becce776201"
+							name="CreateFolderWithCalculationsForAllCombinations">
+								<smartfoldernode
+								id="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33"
+								name="CreateAndRenameCalculationFolder">
+									<testmodule
+									id="3ca6c77e-3a8b-4c29-8df7-89ef405cb137"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="adbee12f-ae72-4ed1-9469-780872d9bdaa"
+									name="AddCalculationFolder">
+									</testmodule>
+									<testmodule
+									id="1aef8580-ce38-4f67-8618-6ace2b426484"
+									name="RenameCurrentlySelectedItem">
+									</testmodule>
+									<testmodule
+									id="efa1a147-2f5e-4ad8-af7b-18f041337302"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="c3d8e726-dbb7-4e04-95c3-f0a1aa5dfb73"
+									name="ConcatenateStrings">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e7354c28-eb0b-4485-b437-9e64eb00fb8a"
+								name="SelectCalculationToUseAsTemplate">
+									<testmodule
+									id="fcefd71d-3bfb-458d-842d-2758f24b8b2f"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="772e51bb-3111-4a44-800d-6f8a2b414091"
+								name="DuplicateToObtainRequiredCalculations">
+									<smartfoldernode
+									id="f4c7e3d3-ee74-43cf-a135-c1372459432d"
+									name="DuplicateCalculation">
+										<testmodule
+										id="8d2d0d4b-ae3d-4423-bf04-25b1597b17aa"
+										name="DuplicateCalculationItem">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="cb757c31-7657-4975-9bb3-cd38ced900d2"
+									name="RenameDuplicatedCalculation">
+										<testmodule
+										id="0803dcb2-d505-464c-9f14-c02ebc5b6011"
+										name="RenameCurrentlySelectedItem">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="7568e990-7d24-44ef-9064-b215fbb7518a"
+									name="MoveFirstDuplicatedCalculationInsideCreatedFolder">
+										<testmodule
+										id="580ee38f-1c7f-4cfb-8b0a-ff32d1291a1d"
+										name="DragAndDropItemOntoAnotherItem">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
-							id="f4c7e3d3-ee74-43cf-a135-c1372459432d"
-							name="DuplicateCalculation">
-								<testmodule
-								id="fcefd71d-3bfb-458d-842d-2758f24b8b2f"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="8d2d0d4b-ae3d-4423-bf04-25b1597b17aa"
-								name="DuplicateCalculationItem">
-								</testmodule>
+							id="a569c69f-513a-4ee3-bae9-bf2c252eea35"
+							name="ConfigureCalculations">
+								<smartfoldernode
+								id="4093037f-3581-4c1d-80fc-7e9a2e165b36"
+								name="BuildPathInputCalculation">
+									<testmodule
+									id="41183ff1-c3ab-4778-b024-e8913067bcf7"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="8c91364f-b020-4d50-a3c9-f323ebd50206"
+									name="AppendString">
+									</testmodule>
+									<testmodule
+									id="28579cd2-7909-4fc9-973d-428764463504"
+									name="AppendString">
+									</testmodule>
+									<testmodule
+									id="6286f403-f8c9-4da5-9400-340d5f5acb7b"
+									name="AppendString">
+									</testmodule>
+									<testmodule
+									id="2205fdb0-c23d-4719-8bec-29f334ca8824"
+									name="AppendString">
+									</testmodule>
+									<testmodule
+									id="fa0d67b8-0b2e-4ef3-8c20-4698bf83d441"
+									name="AppendString">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb"
+								name="SelectCalculationInputItem">
+									<testmodule
+									id="35663b8d-6063-4f1c-997e-21758175b465"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="d095e89e-2061-4d49-b393-d4e451c1219a"
+								name="SetRangeOfParametersInSmartFolder">
+									<testmodule
+									id="7ec9b3a8-1942-4c9b-ad74-84de76d0d9e9"
+									name="SetRangeInSmartFolder">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="af8babd8-907c-411b-8d39-2ebab183448b"
+								name="ConfigureRequiredInputParameters">
+									<testmodule
+									id="8700c59d-3f1c-46b2-89c7-745ffed57fb9"
+									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
-							id="7568e990-7d24-44ef-9064-b215fbb7518a"
-							name="MoveDuplicatedCalculationInsideCreatedFolder">
-								<testmodule
-								id="864aa846-0967-4a63-8c3c-56d6c71888b5"
-								name="ReplaceSubstring">
-								</testmodule>
-								<testmodule
-								id="580ee38f-1c7f-4cfb-8b0a-ff32d1291a1d"
-								name="DragAndDropItemOntoAnotherItem">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="cb757c31-7657-4975-9bb3-cd38ced900d2"
-							name="RenameMovedCalculation">
+							id="b85cf0c5-f4ac-478e-b797-63603b9f4418"
+							name="StartAndCancelRunningCalculations">
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -653,6 +981,716 @@
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
+		<DataSource
+		id="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+		lastknownrowcount="48"
+		name="script19_a_LoopParametersInputCalculations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					pathToElementInPropertiesPanel
+				</column>
+				<column>
+					newValueForParameter
+				</column>
+				<column>
+					typeParameter
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						pathToElementInPropertiesPanel
+					</th>
+					<th>
+						newValueForParameter
+					</th>
+					<th>
+						typeParameter
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij norm
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						HBN bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						Overslagdebiet bij doorsnede-eis
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
+		lastknownrowcount="8"
+		name="script19_LoopConfigureCalculations_a"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					newNameDuplicatedCalculation
+				</column>
+				<column>
+					rangeLoopConfigureRequiredInputParameters
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						newNameDuplicatedCalculation
+					</th>
+					<th>
+						rangeLoopConfigureRequiredInputParameters
+					</th>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Norm
+					</td>
+					<td>
+						1-6
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Requirement
+					</td>
+					<td>
+						7-12
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Norm
+					</td>
+					<td>
+						13-18
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Requirement
+					</td>
+					<td>
+						19-24
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Norm
+					</td>
+					<td>
+						25-30
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Requirement
+					</td>
+					<td>
+						31-36
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Norm
+					</td>
+					<td>
+						37-42
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Requirement
+					</td>
+					<td>
+						43-48
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="703c488a-95ee-4e92-b37f-dd3dfecb10c4"
+		lastknownrowcount="8"
+		name="script19_LoopDuplicateToObtainRequiredCalculations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					newNameDuplicatedCalculation
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						newNameDuplicatedCalculation
+					</th>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Norm
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Requirement
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Norm
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Requirement
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Norm
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Requirement
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Norm
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Requirement
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -662,22 +1700,52 @@
 			id="00ec6fc0-1fef-474b-8f77-2a0da5bd6c33">
 			</testcontainer>
 			<testcontainer
+			id="0b75293d-3ab1-4bf6-aa8d-d9cdd6e4af52">
+			</testcontainer>
+			<testcontainer
+			id="4093037f-3581-4c1d-80fc-7e9a2e165b36">
+			</testcontainer>
+			<testcontainer
 			id="614a4d41-90ac-4f96-bc4a-0f03f2470366">
+			</testcontainer>
+			<testcontainer
+			id="6cff61d6-b267-4e29-be48-6becce776201">
 			</testcontainer>
 			<testcontainer
 			id="7568e990-7d24-44ef-9064-b215fbb7518a">
 			</testcontainer>
 			<testcontainer
+			id="772e51bb-3111-4a44-800d-6f8a2b414091">
+			</testcontainer>
+			<testcontainer
 			id="9695f33e-c6ae-483e-abae-dde78573e36b">
 			</testcontainer>
 			<testcontainer
+			id="a569c69f-513a-4ee3-bae9-bf2c252eea35">
+			</testcontainer>
+			<testcontainer
+			id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb">
+			</testcontainer>
+			<testcontainer
+			id="af8babd8-907c-411b-8d39-2ebab183448b">
+			</testcontainer>
+			<testcontainer
+			id="b85cf0c5-f4ac-478e-b797-63603b9f4418">
+			</testcontainer>
+			<testcontainer
 			id="cb757c31-7657-4975-9bb3-cd38ced900d2">
+			</testcontainer>
+			<testcontainer
+			id="d095e89e-2061-4d49-b393-d4e451c1219a">
 			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 			<testcontainer
 			id="dfd66695-d365-484e-b51f-461426a146dd">
+			</testcontainer>
+			<testcontainer
+			id="e7354c28-eb0b-4485-b437-9e64eb00fb8a">
 			</testcontainer>
 			<testcontainer
 			id="f4c7e3d3-ee74-43cf-a135-c1372459432d">

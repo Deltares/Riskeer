@@ -621,6 +621,9 @@
       <UserCode>true</UserCode>
       <id>d9ca8a50-7bfb-40b7-80e4-4ecccffc566c</id>
     </Compile>
+    <Compile Include="Modules\Calculation\AppendString.cs">
+      <id>e981d085-9ff8-4144-893b-c39579269da8</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
       <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
     </Compile>
@@ -2466,9 +2469,9 @@
       <recordtableid>07688822-3eb6-4d71-a97b-33498ae1d748</recordtableid>
     </None>
     <None Include="Modules\ActionsAUT\StartAUT.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
     </None>
     <None Include="Modules\ActionsContextMenu\AddBackgroundLayer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
