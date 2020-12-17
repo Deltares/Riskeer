@@ -2529,12 +2529,6 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 					<var
-					dataname="pathToItemHBCDatabaseInProjectExplorer"
-					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
-					variableid="dd687e57-8528-4ed2-9919-5383d7f48ec1"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-					<var
 					dataname="pathToHBCWithScenarioInformation"
 					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
 					variableid="38b85568-cab1-4341-a451-afeac06bdac5"

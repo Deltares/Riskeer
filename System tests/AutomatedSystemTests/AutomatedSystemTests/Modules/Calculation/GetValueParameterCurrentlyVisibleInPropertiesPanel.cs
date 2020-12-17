@@ -102,8 +102,8 @@ namespace AutomatedSystemTests.Modules.Calculation
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'AccessibleValue' from item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' and assigning its value to variable 'valueOfParameter'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
-            valueOfParameter = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Element.GetAttributeValueText("AccessibleValue");
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'AccessibleValue' from item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' and assigning its value to variable 'valueOfParameter'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
+            valueOfParameter = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             
         }
 

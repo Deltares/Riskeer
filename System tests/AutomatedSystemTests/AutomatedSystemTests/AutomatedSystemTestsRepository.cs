@@ -7029,7 +7029,7 @@ namespace AutomatedSystemTests
         public partial class TableFolder10 : RepoGenBaseFolder
         {
             RepoItemInfo _isrelevantInfo;
-            RepoItemInfo _genericparametervisibleinprojectexplorerInfo;
+            RepoItemInfo _genericparametervisibleinpropertiespanelInfo;
             RepoItemInfo _sourcepathInfo;
             RepoItemInfo _nameInfo;
             RepoItemInfo _contributionpercentageInfo;
@@ -7044,7 +7044,7 @@ namespace AutomatedSystemTests
                     base("Table", ".//table[@accessiblename='Properties Window']", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "row[@accessiblename='Is relevant']", 30000, null, "a71a9303-6a79-4eab-86c6-b77f1a561c93");
-                _genericparametervisibleinprojectexplorerInfo = new RepoItemInfo(this, "GenericParameterVisibleInProjectExplorer", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
+                _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
                 _sourcepathInfo = new RepoItemInfo(this, "SourcePath", "row[@accessiblename='Bronlocatie']", 30000, null, "aa50f2b7-9af1-4ae4-b50a-b071b2de54d6");
                 _nameInfo = new RepoItemInfo(this, "Name", "row[@accessiblename='Naam']", 30000, null, "98c1c28a-f4dc-42c8-9ead-d777288121c5");
                 _contributionpercentageInfo = new RepoItemInfo(this, "ContributionPercentage", "row[@accessiblename>'Aandeel']", 30000, null, "863390a3-2d56-4c70-826d-86c4fb70b44f");
@@ -7102,26 +7102,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericParameterVisibleInProjectExplorer item.
+            /// The GenericParameterVisibleInPropertiesPanel item.
             /// </summary>
             [RepositoryItem("fa26997c-4865-408a-9bd8-120810ae0e7a")]
-            public virtual Ranorex.Row GenericParameterVisibleInProjectExplorer
+            public virtual Ranorex.Row GenericParameterVisibleInPropertiesPanel
             {
                 get
                 {
-                    return _genericparametervisibleinprojectexplorerInfo.CreateAdapter<Ranorex.Row>(true);
+                    return _genericparametervisibleinpropertiespanelInfo.CreateAdapter<Ranorex.Row>(true);
                 }
             }
 
             /// <summary>
-            /// The GenericParameterVisibleInProjectExplorer item info.
+            /// The GenericParameterVisibleInPropertiesPanel item info.
             /// </summary>
             [RepositoryItemInfo("fa26997c-4865-408a-9bd8-120810ae0e7a")]
-            public virtual RepoItemInfo GenericParameterVisibleInProjectExplorerInfo
+            public virtual RepoItemInfo GenericParameterVisibleInPropertiesPanelInfo
             {
                 get
                 {
-                    return _genericparametervisibleinprojectexplorerInfo;
+                    return _genericparametervisibleinpropertiespanelInfo;
                 }
             }
 

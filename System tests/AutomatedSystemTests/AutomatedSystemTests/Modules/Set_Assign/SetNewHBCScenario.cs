@@ -41,7 +41,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// </summary>
         public SetNewHBCScenario()
         {
-            pathToItemInProjectExplorer = "";
             fileNameToOpen = "";
         }
 
@@ -54,18 +53,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         }
 
 #region Variables
-
-        string _pathToItemInProjectExplorer;
-
-        /// <summary>
-        /// Gets or sets the value of variable pathToItemInProjectExplorer.
-        /// </summary>
-        [TestVariable("dd687e57-8528-4ed2-9919-5383d7f48ec1")]
-        public string pathToItemInProjectExplorer
-        {
-            get { return _pathToItemInProjectExplorer; }
-            set { _pathToItemInProjectExplorer = value; }
-        }
 
         string _fileNameToOpen;
 
@@ -115,14 +102,14 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' at CenterLeft.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Click(Location.CenterLeft);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' at CenterLeft.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Click(Location.CenterLeft);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
             Delay.Duration(300, false);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' at .98;.5.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Click(".98;.5");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' at .98;.5.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Click(".98;.5");
             
             Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(3));
             

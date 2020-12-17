@@ -14188,7 +14188,7 @@
 					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_v04\hlcd_klimaat.sqlite">
 					</param>
 					<param
-					name="parameternAMEhlcdlOCATION"
+					name="parameterNameHLCDLocation"
 					value="HLCD bestandslocatie">
 					</param>
 				</parameters>
@@ -14606,19 +14606,13 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToHBC"
-					datasourceid="add565ef-a3c0-4dc2-820b-345cbaff57d2"
-					variableid="dd687e57-8528-4ed2-9919-5383d7f48ec1"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-					<var
 					dataname="pathNewHLCD"
 					datasourceid="add565ef-a3c0-4dc2-820b-345cbaff57d2"
 					variableid="38b85568-cab1-4341-a451-afeac06bdac5"
 					variablename="fileNameToOpen">
 					</var>
 					<var
-					dataname="parameternAMEhlcdlOCATION"
+					dataname="parameterNameHLCDLocation"
 					datasourceid="add565ef-a3c0-4dc2-820b-345cbaff57d2"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
 					variablename="nameOfParameterInPropertiesPanel">

@@ -24,10 +24,6 @@ mode="Global">
 	</codegen>
 	<variables>
 		<var
-		id="dd687e57-8528-4ed2-9919-5383d7f48ec1"
-		name="pathToItemInProjectExplorer">
-		</var>
-		<var
 		id="38b85568-cab1-4341-a451-afeac06bdac5"
 		name="fileNameToOpen">
 		</var>

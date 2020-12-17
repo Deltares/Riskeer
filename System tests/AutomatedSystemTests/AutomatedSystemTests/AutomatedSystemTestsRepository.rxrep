@@ -1740,7 +1740,7 @@ name="AutomatedSystemTestsRepository">
 					addcaps="row,accessible"
 					capname="row"
 					id="fa26997c-4865-408a-9bd8-120810ae0e7a"
-					name="GenericParameterVisibleInProjectExplorer"
+					name="GenericParameterVisibleInPropertiesPanel"
 					refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
