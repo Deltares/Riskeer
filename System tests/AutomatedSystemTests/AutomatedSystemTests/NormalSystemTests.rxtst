@@ -1708,6 +1708,26 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="161c1851-3323-40e9-8558-cac7ea45acb0"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="e2972406-d6f7-4ba7-8de2-9e928bd5e038"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="a7928d13-07cb-4c7a-bb5b-de827256d860"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="168ba32a-a3d3-4db9-a236-1e97b45e0b35"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -12943,7 +12963,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script18\Project_18.risk">
+					value="X:\script18\input\Project_17b.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -13681,6 +13701,16 @@
 			<smartfoldernode
 			id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7"
 			name="PrepareFiles3sections">
+			</smartfoldernode>
+			<smartfoldernode
+			id="a7928d13-07cb-4c7a-bb5b-de827256d860"
+			name="SaveProject">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="script18.risk">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a7b21ed5-8b7b-4614-9582-9bb43bc8b2ed"
@@ -24863,6 +24893,14 @@
 								name="ValidatePlainTextFilesAreEqual">
 								</testmodule>
 							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="a7928d13-07cb-4c7a-bb5b-de827256d860"
+						name="SaveProject">
+							<testmodule
+							id="161c1851-3323-40e9-8558-cac7ea45acb0"
+							name="SaveAs">
+							</testmodule>
 						</smartfoldernode>
 						<teardown
 						id="710136e9-de8e-48b2-b63c-c91e105501bc"
@@ -44419,6 +44457,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a771e1b0-2c96-4cb7-a098-e3c2cfd4d0c7">
+			</testcontainer>
+			<testcontainer
+			id="a7928d13-07cb-4c7a-bb5b-de827256d860">
 			</testcontainer>
 			<testcontainer
 			id="a819a079-65da-438e-9cc3-6d3e009ed1bb">

@@ -123,6 +123,14 @@
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="timeToWaitBeforeCancelling"
+					datasourceid="ce3192fb-4dd8-4cb3-bf0b-4a6200047426"
+					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
+					variablename="milisecondsToWait">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="0b75293d-3ab1-4bf6-aa8d-d9cdd6e4af52"
@@ -1211,12 +1219,12 @@
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<description>
-					<![CDATA[path subfolder + >]]>
+					<![CDATA[path subfolder + relative path to result item]]>
 				</description>
 				<databinding>
 					<var
-					dataname="charPathSeparator"
-					datasourceid="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
+					dataname="relativePathToRasultItemInPE"
+					datasourceid="41df6bc7-84e7-4799-8eee-2febffe9a5ea"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -1225,6 +1233,12 @@
 					datasourceid="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathToCalculationsInPE"
+					datasourceid="ce3192fb-4dd8-4cb3-bf0b-4a6200047426"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1278,29 +1292,6 @@
 			id="6e64002d-1935-41ef-901b-04f211e640c8"
 			name="StartCalculations">
 			</smartfoldernode>
-			<testmodule
-			id="6f638719-100e-4959-a285-f13e148a2ae7"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ Resultaat]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToResultsInCalculation"
-					datasourceid="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="suffixResults"
-					datasourceid="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="71cc000f-ab68-4ca9-bac9-e594e30528a7"
 			name="ReplaceSubstring"
@@ -2035,10 +2026,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script19_LoopConfigureCalculations_a"
+			datasource="script20a_LoopValidateNoResults"
 			errorbehavior="ContinueNextIteration"
 			id="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
-			name="ValidateNoResults">
+			name="ValidateNoResultsAfterCanceling">
 				<parameters>
 					<param
 					name="suffixResults"
@@ -2333,8 +2324,11 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script20a_LoopFMsStartAndCancelCalculations"
 			id="b56b1441-e7cf-4f34-902a-2b663737e035"
+			maxrange="5"
+			minrange="1"
 			name="LoopFMs">
 			</smartfoldernode>
 			<testsuite
@@ -2661,6 +2655,20 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="d59c759d-213d-4f26-813a-0ba1a30f02b2"
+			name="LogWarningMessage"
+			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="importantNote"
+					datasourceid="dccc7f9c-f810-41a2-ac32-047f0ebba3ea"
+					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d5e005d0-9292-425b-83a0-12a234db8697"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -2701,6 +2709,16 @@
 			errorbehavior="ContinueNextIteration"
 			id="da0cf389-9ca6-4380-adf2-6190cc8779f8"
 			name="ValidateResultsAreEmpty">
+			</smartfoldernode>
+			<smartfoldernode
+			id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea"
+			name="ImportantNote">
+				<parameters>
+					<param
+					name="importantNote"
+					value="IMPORTANT: The calculations for STPH are so fast that it is not possible to cancel them before they are finished.">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="deff5623-c634-47a5-ac6b-71e85668bc12"
@@ -2837,6 +2855,26 @@
 			id="e9be0bd8-73c9-459d-8780-c29c79c8bceb"
 			name="SelectFolderCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="e9ec7e88-1552-4bf6-b980-00a603623d9b"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderToSetRange"
+					datasourceid="f6d96fab-6595-4246-839e-b68500a4836f"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopValidateNoResults"
+					datasourceid="ce3192fb-4dd8-4cb3-bf0b-4a6200047426"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ea633edf-b3b8-4ab8-a83b-dd90d488032a"
 			name="WaitSomeTime">
@@ -2958,6 +2996,12 @@
 			<smartfoldernode
 			id="f6d96fab-6595-4246-839e-b68500a4836f"
 			name="ValidateCancellation">
+				<parameters>
+					<param
+					name="nameSmartFolderToSetRange"
+					value="ValidateNoResultsAfterCanceling">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="f7f1eaf5-8ff2-4132-9857-2e781cbd4576"
@@ -2977,29 +3021,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="f86701a6-c0bc-4a52-9acf-dfa494f42b84"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ calcName]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToResultsInCalculation"
-					datasourceid="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="newNameDuplicatedCalculation"
-					datasourceid="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="f9893040-4903-48d0-888e-0675c5727c56"
 			name="AppendString"
@@ -3794,6 +3815,14 @@
 							id="04df8138-39fd-4fe4-83d7-2db576ce0540"
 							name="StartAndCancelCalculations">
 								<smartfoldernode
+								id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea"
+								name="ImportantNote">
+									<testmodule
+									id="d59c759d-213d-4f26-813a-0ba1a30f02b2"
+									name="LogWarningMessage">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="b56b1441-e7cf-4f34-902a-2b663737e035"
 								name="LoopFMs">
 									<smartfoldernode
@@ -3855,23 +3884,19 @@
 											name="ValidateTextMesage">
 											</testmodule>
 										</smartfoldernode>
+										<testmodule
+										id="e9ec7e88-1552-4bf6-b980-00a603623d9b"
+										name="SetRangeInSmartFolder">
+										</testmodule>
 										<smartfoldernode
 										id="9ba0097d-cdfa-47ce-8c3e-cce3097adeea"
-										name="ValidateNoResults">
+										name="ValidateNoResultsAfterCanceling">
 											<smartfoldernode
 											id="b33249a7-8fcd-48ac-9bab-7b30f161372c"
 											name="SelectResultsItem">
 												<testmodule
 												id="6a9321e3-c256-43d6-beb6-ab14a98f440b"
 												name="ConcatenateStrings">
-												</testmodule>
-												<testmodule
-												id="f86701a6-c0bc-4a52-9acf-dfa494f42b84"
-												name="AppendString">
-												</testmodule>
-												<testmodule
-												id="6f638719-100e-4959-a285-f13e148a2ae7"
-												name="AppendString">
 												</testmodule>
 												<testmodule
 												id="059b2618-f796-43b1-a519-e6c801232446"
@@ -5853,6 +5878,9 @@
 				<column>
 					timeToWaitBeforeCancelling
 				</column>
+				<column>
+					rangeLoopValidateNoResults
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -5867,6 +5895,9 @@
 					<th>
 						timeToWaitBeforeCancelling
 					</th>
+					<th>
+						rangeLoopValidateNoResults
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -5877,6 +5908,9 @@
 					</td>
 					<td>
 						0
+					</td>
+					<td>
+						1-3
 					</td>
 				</tr>
 				<tr>
@@ -5889,6 +5923,9 @@
 					<td>
 						4000
 					</td>
+					<td>
+						4-23
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5900,6 +5937,9 @@
 					<td>
 						1000
 					</td>
+					<td>
+						24-31
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5909,7 +5949,10 @@
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						1000
+						2000
+					</td>
+					<td>
+						32-33
 					</td>
 				</tr>
 				<tr>
@@ -5920,6 +5963,10 @@
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
+						4000
+					</td>
+					<td>
+						34-36
 					</td>
 				</tr>
 				<tr>
@@ -5930,6 +5977,482 @@
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
+						4000
+					</td>
+					<td>
+						37-40
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="41df6bc7-84e7-4799-8eee-2febffe9a5ea"
+		lastknownrowcount="40"
+		name="script20a_LoopValidateNoResults"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					relativePathToRasultItemInPE
+				</column>
+				<column>
+					fmLabel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						relativePathToRasultItemInPE
+					</th>
+					<th>
+						fmLabel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D2
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D2&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D3
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D3&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel001: Results summary
+					</td>
+					<td>
+						&gt;profiel001&gt;Resultaat
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel001: Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;profiel001&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel001: Dike height (HBN)
+					</td>
+					<td>
+						&gt;profiel001&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel001: Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;profiel001&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel002: Results summary
+					</td>
+					<td>
+						&gt;profiel002&gt;Resultaat
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel002: Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;profiel002&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel002: Dike height (HBN)
+					</td>
+					<td>
+						&gt;profiel002&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel002: Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;profiel002&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel003: Results summary
+					</td>
+					<td>
+						&gt;profiel003&gt;Resultaat
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel003: Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;profiel003&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel003: Dike height (HBN)
+					</td>
+					<td>
+						&gt;profiel003&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel003: Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;profiel003&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel004: Results summary
+					</td>
+					<td>
+						&gt;profiel004&gt;Resultaat
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel004: Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;profiel004&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel004: Dike height (HBN)
+					</td>
+					<td>
+						&gt;profiel004&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel004: Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;profiel004&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005: Results summary
+					</td>
+					<td>
+						&gt;profiel005&gt;Resultaat
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005: Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;profiel005&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005: Dike height (HBN)
+					</td>
+					<td>
+						&gt;profiel005&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005: Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;profiel005&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D2
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D3
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D3&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D4
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D4&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D6
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D6&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D7
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D7&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D1
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D1&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D8
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D8&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Vak_41-123 Vak_41-123_Segment_41009_1D5
+					</td>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D5&gt;Resultaat
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Keersluis Cuijk'
+					</td>
+					<td>
+						&gt;'Keersluis Cuijk'&gt;Resultaat
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Gemaal van Sasse'
+					</td>
+					<td>
+						&gt;'Gemaal van Sasse'&gt;Resultaat
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Amersluis'
+					</td>
+					<td>
+						&gt;'Amersluis'&gt;Resultaat
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Gemaal Schuddebeurs'
+					</td>
+					<td>
+						&gt;'Gemaal Schuddebeurs'&gt;Resultaat
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						'Gemaal Hollandsch Diep'
+					</td>
+					<td>
+						&gt;'Gemaal Hollandsch Diep'&gt;Resultaat
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerk1
+					</td>
+					<td>
+						&gt;Kunstwerk1&gt;Resultaat
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerk2
+					</td>
+					<td>
+						&gt;Kunstwerk2&gt;Resultaat
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerk3
+					</td>
+					<td>
+						&gt;Kunstwerk3&gt;Resultaat
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerk4
+					</td>
+					<td>
+						&gt;Kunstwerk4&gt;Resultaat
+					</td>
+					<td>
+						STKWp
 					</td>
 				</tr>
 			</table>
@@ -6169,6 +6692,9 @@
 			</testcontainer>
 			<testcontainer
 			id="da0cf389-9ca6-4380-adf2-6190cc8779f8">
+			</testcontainer>
+			<testcontainer
+			id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea">
 			</testcontainer>
 			<testcontainer
 			id="deff5623-c634-47a5-ac6b-71e85668bc12">
