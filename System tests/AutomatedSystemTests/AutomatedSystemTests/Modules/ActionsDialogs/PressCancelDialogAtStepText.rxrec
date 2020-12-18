@@ -970,7 +970,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 		optional="False"
 		searchpropertyid="3703acb5-4eb3-45bd-993f-73c3bcc39a79"
 		waitaction="NotExists"
-		waittimeout="10000ms">
+		waittimeout="30000ms">
 			<comment>
 			</comment>
 			<bindings>

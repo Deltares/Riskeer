@@ -708,6 +708,9 @@
       <UserCode>true</UserCode>
       <id>5ff88a6f-9100-4693-8203-9c8e81da33bb</id>
     </Compile>
+    <Compile Include="Modules\Calculation\GetValueParameterInPropertiesPanelGivenPath.cs">
+      <id>585b1421-c5f4-43c1-9b02-f83ed721eb88</id>
+    </Compile>
     <Compile Include="Modules\Calculation\InsertPreffixInLastStepOfPath.cs">
       <id>7a96f16b-1a02-468b-995a-4225ecbbea1a</id>
     </Compile>
@@ -1808,6 +1811,12 @@
     </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateCategoryBoundary.cs">
       <id>db4be10f-ef1c-4e3b-af9c-d3adf1e4dfe0</id>
+    </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateCombinedApproxFailureProbabilityAndBeta.cs">
+      <id>451d0653-a93b-4305-83ac-406b8bea1f77</id>
+    </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateSafetyFactorSTPH.cs">
+      <id>ef5b2d51-65fd-4f10-9182-72da3a833f1b</id>
     </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreEqual.cs">
       <id>9ad5f486-19f1-4148-9448-0fb74e0420ab</id>

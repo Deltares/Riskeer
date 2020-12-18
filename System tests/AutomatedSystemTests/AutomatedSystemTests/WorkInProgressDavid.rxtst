@@ -28,12 +28,38 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="04df8138-39fd-4fe4-83d7-2db576ce0540"
-			name="StartAndCancelCalculations">
+			name="StartAndCancelCalculationsValidatingResults">
 			</smartfoldernode>
 			<smartfoldernode
 			id="04e56e3e-46fd-4c4b-8a0e-4bd10286fde6"
 			name="ValidateProperties">
 			</smartfoldernode>
+			<testmodule
+			id="05923be5-9424-4516-b131-ca0f26c9acf4"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsSTPH"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="relativePathToResultItemInPE"
+					datasourceid="c5768936-a9ea-4fea-a083-bf0a048d9b39"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="6496a357-7599-4efc-9005-7b032ec4431b"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="059b2618-f796-43b1-a519-e6c801232446"
 			name="SelectGenericItemInProjectExplorer"
@@ -165,6 +191,26 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="0f5aa50f-d38a-41d4-9784-c0e476767a13"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathBetaHeaveInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="betaHeave"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="0fa7097b-167f-4e1c-94a7-af3dd98c601c"
 			name="teardown">
@@ -198,6 +244,32 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="16f727fa-6085-4b8a-9e42-ebf796aece02"
+			name="ValidateSafetyFactorSTPH"
+			ref="644bc5eb-6772-4741-a29d-4ca34af52f36"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="actualSafetyFactor"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="546b6f94-8b56-4a63-889a-da1526aeebd4"
+					variablename="actualSafetyFactor">
+					</var>
+					<var
+					dataname="betaRequiredProb"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="1fb58f34-12d0-4f72-989e-4e1daf4176b5"
+					variablename="betaProbRequirement">
+					</var>
+					<var
+					dataname="betaCombined"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="081afe7a-315e-48bb-9c4f-b14c755344df"
+					variablename="betaApproxProb">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script19a_LoopResultsHeaders"
@@ -234,6 +306,26 @@
 					datasourceid="dfd66695-d365-484e-b51f-461426a146dd"
 					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
 					variablename="newNameItem">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="1b5b7d74-8cd2-4f6e-86b2-0ff32dda89fa"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathActualApproxProbCombinedInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="approxProbCombined"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
 					</var>
 				</databinding>
 			</testmodule>
@@ -547,6 +639,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="36eada23-94da-47c8-81ed-ce52b3c2d342"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathActualBetaCombinedInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="betaCombined"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="37760142-92e5-4f49-852c-5fc8f8242d45"
 			name="ValidateRowDoesNotExistInPropertiesPanel"
 			ref="a91dc990-2aae-4244-86f4-1f59055da825"
@@ -627,6 +739,10 @@
 			<smartfoldernode
 			id="3d21945e-742b-473e-8134-46329cddfc88"
 			name="OpenView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="3d2d046b-477c-4872-ae0b-a85edf6bce68"
+			name="ReadActualCombinedData">
 			</smartfoldernode>
 			<testmodule
 			id="3e4331e1-f104-4f7f-897a-e2e92fd0b861"
@@ -986,6 +1102,10 @@
 			id="55a6882e-e2d1-4a27-9115-34692a795cc9"
 			name="ValidateProperties">
 			</smartfoldernode>
+			<smartfoldernode
+			id="571fd793-ac50-4aa7-96d0-4eaf49bff54d"
+			name="ReadDataUplift(Opbarsten)">
+			</smartfoldernode>
 			<testmodule
 			id="580ee38f-1c7f-4cfb-8b0a-ff32d1291a1d"
 			name="DragAndDropItemOntoAnotherItem"
@@ -1064,6 +1184,97 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="script20b_LoopValidateCombinedResults"
+			id="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+			name="ValidateCombinedResult">
+				<parameters>
+					<param
+					name="pathBetaUpliftInPP"
+					value="Opbarsten>Betrouwbaarheidsindex">
+					</param>
+					<param
+					name="betaUplift"
+					value="">
+					</param>
+					<param
+					name="pathProbUpliftInPP"
+					value="Opbarsten>Kans van voorkomen">
+					</param>
+					<param
+					name="probUplift"
+					value="">
+					</param>
+					<param
+					name="pathBetaHeaveInPP"
+					value="Heave>Betrouwbaarheidsindex">
+					</param>
+					<param
+					name="betaHeave"
+					value="">
+					</param>
+					<param
+					name="pathProbHeaveInPP"
+					value="Heave>Kans van voorkomen">
+					</param>
+					<param
+					name="probHeave"
+					value="">
+					</param>
+					<param
+					name="pathBetaSellmeijerInPP"
+					value="Terugschrijdende erosie>Betrouwbaarheidsindex">
+					</param>
+					<param
+					name="betaSellmeijer"
+					value="">
+					</param>
+					<param
+					name="pathProbSellmeijerInPP"
+					value="Terugschrijdende erosie>Kans van voorkomen">
+					</param>
+					<param
+					name="probSellmeijer"
+					value="">
+					</param>
+					<param
+					name="pathActualBetaCombinedInPP"
+					value="Piping>Betrouwbaarheidsindex faalkans [-]">
+					</param>
+					<param
+					name="betaCombined"
+					value="">
+					</param>
+					<param
+					name="pathActualApproxProbCombinedInPP"
+					value="Piping>Benaderde faalkans [1/jaar]">
+					</param>
+					<param
+					name="approxProbCombined"
+					value="">
+					</param>
+					<param
+					name="pathBetaRequiredProbInPP"
+					value="Piping>Betrouwbaarheidsindex faalkanseis [-]">
+					</param>
+					<param
+					name="betaRequiredProb"
+					value="">
+					</param>
+					<param
+					name="pathSafetyFactorInPP"
+					value="Piping>Veiligheidsfactor [-]">
+					</param>
+					<param
+					name="actualSafetyFactor"
+					value="">
+					</param>
+					<param
+					name="pathToCalculationsSTPH"
+					value="Traject 12-2>Dijken en dammen - Piping>Berekeningen">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="5e7bf681-9b04-4c7c-9d3e-59260b297804"
 			name="SetRangeInSmartFolder"
@@ -1084,6 +1295,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="5f034dbd-e97c-41af-9c98-13cc342aa40b"
+			name="ValidateCombinedFailureProbabilityAndBeta">
+			</smartfoldernode>
 			<smartfoldernode
 			id="614a4d41-90ac-4f96-bc4a-0f03f2470366"
 			name="b)CalculateHBNAndOvertoppingRateForClimateScenario">
@@ -1149,6 +1364,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="6496a357-7599-4efc-9005-7b032ec4431b"
+			name="SelectResultItem">
+				<parameters>
+					<param
+					name="pathToResultItem"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="65d24e3c-1cd2-41d9-849f-52ff049074b6"
 			name="ConcatenateStrings"
@@ -1234,6 +1459,26 @@
 					variablename="string1">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="68c88906-113a-48dc-bfae-2a44e4b7f769"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathBetaRequiredProbInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="betaRequiredProb"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script19a_ValidateResults_LoopCalculations"
@@ -1322,10 +1567,54 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="6db4cf5e-2762-4dee-ba91-6cb672c7b973"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathBetaUpliftInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="betaUplift"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="6e64002d-1935-41ef-901b-04f211e640c8"
 			name="StartCalculations">
 			</smartfoldernode>
+			<smartfoldernode
+			id="70fd3d1d-c17c-4d21-ae8a-41ca05690dae"
+			name="ValidateCombinedData">
+			</smartfoldernode>
+			<testmodule
+			id="7175ad8d-5c34-44cc-9cbe-1b4f560c141a"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="actualSafetyFactor"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+					<var
+					dataname="pathSafetyFactorInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="71cc000f-ab68-4ca9-bac9-e594e30528a7"
 			name="ReplaceSubstring"
@@ -1516,6 +1805,10 @@
 					value="van">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="74ddcb84-230a-4eb6-9f84-30b3b6531b21"
+			name="ValidateSafetyFactor">
 			</smartfoldernode>
 			<smartfoldernode
 			id="7568e990-7d24-44ef-9064-b215fbb7518a"
@@ -1903,10 +2196,50 @@
 			name="RunHBNCalculationsWithClimateScenario">
 			</smartfoldernode>
 			<testmodule
+			id="8eef52b7-d5fa-4b5d-aa36-14f9b02b23e8"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathProbHeaveInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="probHeave"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="8f93e4a9-42c0-4b1e-8fb2-cfd472dfb530"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="920c3d27-5e05-4778-a20f-3092068577a2"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathProbSellmeijerInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="probSellmeijer"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="92d08278-4561-4065-be11-1514abca09b6"
@@ -1984,6 +2317,10 @@
 					value=";">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="967b404b-42e7-443e-9f09-6a105e750f02"
+			name="ReadDataHeave">
 			</smartfoldernode>
 			<testcase
 			id="9695f33e-c6ae-483e-abae-dde78573e36b"
@@ -2217,6 +2554,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="a5eebea4-cf8f-48a6-83d6-09d0fb99c4f7"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathBetaSellmeijerInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="betaSellmeijer"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a63258f8-02c7-48fc-8eb3-89cd75687198"
 			name="c)CalculateApproximateFailureProbabilityForClimateScenario">
@@ -2364,6 +2721,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="b4c66090-65d4-4e6f-a825-a2cc095e5997"
+			name="ReadDataSellmeijer(TerugschrijdendeErosie)">
+			</smartfoldernode>
+			<smartfoldernode
 			id="b5275170-7dbd-4f27-a52b-f9ae2cc421a2"
 			name="CalculateActualPropertiesCSVFileNameClimateScenario">
 				<parameters>
@@ -2487,6 +2848,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="c01f360d-b34e-4593-9c5b-fa7d9b84dfcc"
+			name="NewProject"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="c0273aec-9cd7-4533-8008-ac89cc4f798a"
 			name="ReplaceSubstring"
@@ -2714,6 +3081,26 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="d3800ea8-db28-4b0d-841c-accdaac55264"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathProbUpliftInPP"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="probUplift"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d59c759d-213d-4f26-813a-0ba1a30f02b2"
 			name="LogWarningMessage"
 			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
@@ -2758,6 +3145,62 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="d7e58a1b-f4e5-458a-b9e4-5cfda5fc3ac3"
+			name="ValidateCombinedApproxFailureProbabilityAndBeta"
+			ref="c58bb999-6267-4cdb-b506-9567a6bd06a2"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="betaUplift"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="deab0d92-23b4-4e6c-9e83-33a30e0ecd46"
+					variablename="betaUplift">
+					</var>
+					<var
+					dataname="probUplift"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="9069fa4a-c94d-432f-bb5c-82aa7d96c55f"
+					variablename="probUplift">
+					</var>
+					<var
+					dataname="betaHeave"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="be5f7cf3-2536-4bf1-9876-6cb71505a180"
+					variablename="betaHeave">
+					</var>
+					<var
+					dataname="probHeave"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="2de942d5-1e24-463c-bc72-f741da714108"
+					variablename="probHeave">
+					</var>
+					<var
+					dataname="betaSellmeijer"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="1a943d9c-3098-4672-9e40-f694caedba9d"
+					variablename="betaSellmeijer">
+					</var>
+					<var
+					dataname="probSellmeijer"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="404e1eb2-9994-4d82-b10f-96182d7ab7a1"
+					variablename="probSellmeijer">
+					</var>
+					<var
+					dataname="betaCombined"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="ecd11fb5-b634-49aa-83f7-048c430100fc"
+					variablename="betaCombined">
+					</var>
+					<var
+					dataname="approxProbCombined"
+					datasourceid="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+					variableid="0701eaa4-e25a-430c-b9e8-a8842cb7ff8b"
+					variablename="approxProbCombined">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d9bc031d-67dc-413b-b35f-b0bf0a7e2f5b"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -2769,6 +3212,20 @@
 			id="da0cf389-9ca6-4380-adf2-6190cc8779f8"
 			name="ValidateResultsAreEmpty">
 			</smartfoldernode>
+			<testmodule
+			id="da13b638-2309-4465-a0d1-6c5eac46e9bf"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="6496a357-7599-4efc-9005-7b032ec4431b"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea"
 			name="ImportantNote">
@@ -2835,7 +3292,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="e03d106c-0847-4432-9fc3-b0b4947ab892"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2971,6 +3427,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="ece7a929-fab6-4649-83cc-66a3b836c8ec"
+			name="SaveProject">
+			</smartfoldernode>
 			<testmodule
 			id="ee1838c5-8073-4166-8d57-904c9679c58a"
 			name="ValidateTextMesage"
@@ -3054,6 +3514,10 @@
 			name="SaveProject">
 			</smartfoldernode>
 			<smartfoldernode
+			id="f0f8c60e-2136-4cf8-986a-70340b4867d9"
+			name="NewProject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="f4c7e3d3-ee74-43cf-a135-c1372459432d"
 			name="DuplicateCalculation">
 			</smartfoldernode>
@@ -3067,6 +3531,40 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="f71fe764-98a1-40cd-9f1a-4020358be722"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="projectFileNameB"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="projectFileNameA"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="f7f1eaf5-8ff2-4132-9857-2e781cbd4576"
 			name="CalculatePathToItem">
@@ -3877,7 +4375,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="04df8138-39fd-4fe4-83d7-2db576ce0540"
-							name="StartAndCancelCalculations">
+							name="StartAndCancelCalculationsValidatingResults">
 								<smartfoldernode
 								id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea"
 								name="ImportantNote">
@@ -4009,6 +4507,114 @@
 								<testmodule
 								id="a9bbfe6c-0e2a-4dd0-bb13-a8736462eadf"
 								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b"
+							name="ValidateCombinedResult">
+								<smartfoldernode
+								id="6496a357-7599-4efc-9005-7b032ec4431b"
+								name="SelectResultItem">
+									<testmodule
+									id="05923be5-9424-4516-b131-ca0f26c9acf4"
+									name="ConcatenateStrings">
+									</testmodule>
+									<testmodule
+									id="da13b638-2309-4465-a0d1-6c5eac46e9bf"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="571fd793-ac50-4aa7-96d0-4eaf49bff54d"
+								name="ReadDataUplift(Opbarsten)">
+									<testmodule
+									id="6db4cf5e-2762-4dee-ba91-6cb672c7b973"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="d3800ea8-db28-4b0d-841c-accdaac55264"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="967b404b-42e7-443e-9f09-6a105e750f02"
+								name="ReadDataHeave">
+									<testmodule
+									id="0f5aa50f-d38a-41d4-9784-c0e476767a13"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="8eef52b7-d5fa-4b5d-aa36-14f9b02b23e8"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b4c66090-65d4-4e6f-a825-a2cc095e5997"
+								name="ReadDataSellmeijer(TerugschrijdendeErosie)">
+									<testmodule
+									id="a5eebea4-cf8f-48a6-83d6-09d0fb99c4f7"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="920c3d27-5e05-4778-a20f-3092068577a2"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="70fd3d1d-c17c-4d21-ae8a-41ca05690dae"
+								name="ValidateCombinedData">
+									<smartfoldernode
+									id="3d2d046b-477c-4872-ae0b-a85edf6bce68"
+									name="ReadActualCombinedData">
+										<testmodule
+										id="68c88906-113a-48dc-bfae-2a44e4b7f769"
+										name="GetValueParameterInPropertiesPanelGivenPath">
+										</testmodule>
+										<testmodule
+										id="1b5b7d74-8cd2-4f6e-86b2-0ff32dda89fa"
+										name="GetValueParameterInPropertiesPanelGivenPath">
+										</testmodule>
+										<testmodule
+										id="36eada23-94da-47c8-81ed-ce52b3c2d342"
+										name="GetValueParameterInPropertiesPanelGivenPath">
+										</testmodule>
+										<testmodule
+										id="7175ad8d-5c34-44cc-9cbe-1b4f560c141a"
+										name="GetValueParameterInPropertiesPanelGivenPath">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="5f034dbd-e97c-41af-9c98-13cc342aa40b"
+									name="ValidateCombinedFailureProbabilityAndBeta">
+										<testmodule
+										id="d7e58a1b-f4e5-458a-b9e4-5cfda5fc3ac3"
+										name="ValidateCombinedApproxFailureProbabilityAndBeta">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="74ddcb84-230a-4eb6-9f84-30b3b6531b21"
+									name="ValidateSafetyFactor">
+										<testmodule
+										id="16f727fa-6085-4b8a-9e42-ebf796aece02"
+										name="ValidateSafetyFactorSTPH">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="ece7a929-fab6-4649-83cc-66a3b836c8ec"
+							name="SaveProject">
+								<testmodule
+								id="f71fe764-98a1-40cd-9f1a-4020358be722"
+								name="SaveAs">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="f0f8c60e-2136-4cf8-986a-70340b4867d9"
+							name="NewProject">
+								<testmodule
+								id="c01f360d-b34e-4593-9c5b-fa7d9b84dfcc"
+								name="NewProject">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -6537,6 +7143,71 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="c5768936-a9ea-4fea-a083-bf0a048d9b39"
+		lastknownrowcount="3"
+		name="script20b_LoopValidateCombinedResults"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					iterationLabel
+				</column>
+				<column>
+					relativePathToResultItemInPE
+				</column>
+				<column>
+					fmLabel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						iterationLabel
+					</th>
+					<th>
+						relativePathToResultItemInPE
+					</th>
+					<th>
+						fmLabel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D2
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D2&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12_2_02500 Segment_12004_1D3
+					</td>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D3&gt;Resultaat
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -6558,19 +7229,43 @@
 			id="29b58059-0914-464a-b4d4-63f6c7d197c4">
 			</testcontainer>
 			<testcontainer
+			id="3d2d046b-477c-4872-ae0b-a85edf6bce68">
+			</testcontainer>
+			<testcontainer
+			id="571fd793-ac50-4aa7-96d0-4eaf49bff54d">
+			</testcontainer>
+			<testcontainer
 			id="59a46b2e-db93-418a-9205-c6e4d3be01aa">
+			</testcontainer>
+			<testcontainer
+			id="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b">
+			</testcontainer>
+			<testcontainer
+			id="5f034dbd-e97c-41af-9c98-13cc342aa40b">
 			</testcontainer>
 			<testcontainer
 			id="618190e9-53b1-4b5e-8cf4-3e9ea06c9ec9">
 			</testcontainer>
 			<testcontainer
+			id="6496a357-7599-4efc-9005-7b032ec4431b">
+			</testcontainer>
+			<testcontainer
 			id="6e64002d-1935-41ef-901b-04f211e640c8">
+			</testcontainer>
+			<testcontainer
+			id="70fd3d1d-c17c-4d21-ae8a-41ca05690dae">
+			</testcontainer>
+			<testcontainer
+			id="74ddcb84-230a-4eb6-9f84-30b3b6531b21">
 			</testcontainer>
 			<testcontainer
 			id="768f93c9-4c22-4ba6-98af-dd104feb7fb2">
 			</testcontainer>
 			<testcontainer
 			id="7c70d584-86a4-4fce-bec4-b34cc043e948">
+			</testcontainer>
+			<testcontainer
+			id="967b404b-42e7-443e-9f09-6a105e750f02">
 			</testcontainer>
 			<testcontainer
 			id="9ba0097d-cdfa-47ce-8c3e-cce3097adeea">
@@ -6586,6 +7281,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b33249a7-8fcd-48ac-9bab-7b30f161372c">
+			</testcontainer>
+			<testcontainer
+			id="b4c66090-65d4-4e6f-a825-a2cc095e5997">
 			</testcontainer>
 			<testcontainer
 			id="b56b1441-e7cf-4f34-902a-2b663737e035">
@@ -6609,7 +7307,13 @@
 			id="ea633edf-b3b8-4ab8-a83b-dd90d488032a">
 			</testcontainer>
 			<testcontainer
+			id="ece7a929-fab6-4649-83cc-66a3b836c8ec">
+			</testcontainer>
+			<testcontainer
 			id="f0cb6f27-d03f-4001-ae9f-8d07f4537d18">
+			</testcontainer>
+			<testcontainer
+			id="f0f8c60e-2136-4cf8-986a-70340b4867d9">
 			</testcontainer>
 			<testcontainer
 			id="f6d96fab-6595-4246-839e-b68500a4836f">
