@@ -58,7 +58,7 @@ mode="Desktop">
 			</arguments>
 		</userrecorditem>
 		<runapprecorditem
-		enabled="True"
+		enabled="False"
 		maximized="False"
 		optional="False">
 			<comment>
@@ -78,8 +78,23 @@ mode="Desktop">
 			<args>
 			</args>
 		</runapprecorditem>
-		<WaitForRecordItem
+		<userrecorditem
+		classname="StartAUT"
 		enabled="True"
+		isexternaltestmethod="False"
+		methodname="StartAUT_Run_application"
+		namespace="AutomatedSystemTests.Modules.ActionsAUT"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="9fa2bc53-f14f-4189-8c3e-fa8b3d0b2590">
+			</arguments>
+		</userrecorditem>
+		<WaitForRecordItem
+		enabled="False"
 		optional="False"
 		searchpropertyid="17375968-0f32-45e1-b135-f1c59478288b"
 		waitaction="Exists"
