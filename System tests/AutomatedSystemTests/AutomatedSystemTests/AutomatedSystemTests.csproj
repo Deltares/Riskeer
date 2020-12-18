@@ -807,6 +807,9 @@
     <Compile Include="Modules\Calculation\nthStepFromPath.cs">
       <id>79a86b5b-ef43-4bb2-b3a4-5f07007049e5</id>
     </Compile>
+    <Compile Include="Modules\Calculation\PrependString.cs">
+      <id>7ce66da5-d317-495d-af3b-673c128c3237</id>
+    </Compile>
     <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
       <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
     </Compile>

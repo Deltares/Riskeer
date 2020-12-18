@@ -153,6 +153,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="1a86a471-107a-4573-8f68-090c8c30dadd"
+			name="d)CalculateFailureProbabilityForClimateScenario">
+			</smartfoldernode>
 			<testmodule
 			id="1ae8e7a9-99b0-47b7-bcc5-4b96957cd526"
 			name="SelectGenericItemInProjectExplorer"
@@ -198,6 +202,34 @@
 					variablename="CloseAutProcessIDVar">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="1f133522-0ad2-4f1f-8446-502f932255c6"
+			name="PrependString"
+			ref="1f888a85-095f-425f-8f17-e3d525506ecc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="9f891cef-5938-4926-8560-0ba9fa86a15f"
+					variablename="stringToPrependToMainString">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
+					datasourceid="952883c2-8e61-4025-ab02-19d40f59072e"
+					variableid="4b2558be-df78-48e5-b43d-0fd066ceebe9"
+					variablename="mainString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="nameOfExportedPropertiesCSVFile"
+					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
+					variableid="4b2558be-df78-48e5-b43d-0fd066ceebe9"
+					variablename="mainString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="208858a2-6177-46c4-bffd-ae944cab9a89"
@@ -284,7 +316,7 @@
 					</param>
 					<param
 					name="pathToClimateScenarioHLCDFile12_2"
-					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_klimaat.sqlite">
+					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite">
 					</param>
 					<param
 					name="scenarioNameInPropertiesPanel"
@@ -344,11 +376,49 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="32252dcf-93b4-428a-8e44-5b4080b8f1e3"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="32d24d8e-d8a4-4cf3-8807-c368a8f60c6d"
 			name="NewProject"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
+			<setup
+			id="33687329-ef15-4d6e-8d67-c2e276dcef5b"
+			name="setup">
+			</setup>
 			<testmodule
 			id="33c47f69-0179-4279-a1f1-31d0a3945a09"
 			name="AppendString"
@@ -441,6 +511,26 @@
 			name="StartupCalculations">
 			</smartfoldernode>
 			<testmodule
+			id="3ca1bd13-b723-4b61-bd37-fae17042bd3b"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="3ca6c77e-3a8b-4c29-8df7-89ef405cb137"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -464,6 +554,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script19a_LoopResultTypes"
+			errorbehavior="ContinueNextIteration"
 			id="3d0f479c-88db-4af0-a102-ec4b24a6108c"
 			name="LoopResultTypes">
 			</smartfoldernode>
@@ -994,6 +1085,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script19a_ValidateResults_LoopCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="69df07e8-fbc6-4b92-8535-9993f374e2f1"
 			name="SelectResultsItem">
 			</smartfoldernode>
@@ -1021,6 +1113,26 @@
 			id="6cff61d6-b267-4e29-be48-6becce776201"
 			name="CreateFolderWithCalculationsForAllCombinations">
 			</smartfoldernode>
+			<testmodule
+			id="6d62a1b1-84ef-4100-9909-7f5afbef5356"
+			name="PrependString"
+			ref="1f888a85-095f-425f-8f17-e3d525506ecc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="9f891cef-5938-4926-8560-0ba9fa86a15f"
+					variablename="stringToPrependToMainString">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFile"
+					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
+					variableid="4b2558be-df78-48e5-b43d-0fd066ceebe9"
+					variablename="mainString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="71cc000f-ab68-4ca9-bac9-e594e30528a7"
 			name="ReplaceSubstring"
@@ -1267,6 +1379,10 @@
 			<smartfoldernode
 			id="7bec9b07-6932-463a-a95e-954dbcd3a435"
 			name="CloseView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="7c70d584-86a4-4fce-bec4-b34cc043e948"
+			name="b)CalculateFailureProbabilityByPartialMechanism(STPH)">
 			</smartfoldernode>
 			<testmodule
 			id="7c9ce893-a4af-42c4-b2ac-a91621e2766c"
@@ -1610,6 +1726,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script19a_LoopResultTypesClimateScenario"
+			errorbehavior="ContinueNextIteration"
 			id="942b4cf5-276f-4dcc-b6d3-625a65dde874"
 			name="LoopResultTypesClimateScenario">
 			</smartfoldernode>
@@ -1733,6 +1850,36 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+			name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="20">
+					</param>
+					<param
+					name="scriptOutputFolder"
+					value="">
+					</param>
+					<param
+					name="projectFileNameA"
+					value="script20a.risk">
+					</param>
+					<param
+					name="projectFileNameB"
+					value="script20b.risk">
+					</param>
+					<param
+					name="projectFileNameC"
+					value="script20c.risk">
+					</param>
+					<param
+					name="projectFileNameD"
+					value="script20d.risk">
+					</param>
+				</parameters>
+			</testcase>
 			<testmodule
 			id="a0dfc969-924d-47e9-863d-eff9f943e647"
 			name="OpenProject"
@@ -1783,6 +1930,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script19_LoopConfigureCalculations_a"
+			errorbehavior="ContinueNextIteration"
 			id="a569c69f-513a-4ee3-bae9-bf2c252eea35"
 			name="ConfigureCalculations">
 				<parameters>
@@ -1822,6 +1970,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="a63258f8-02c7-48fc-8eb3-89cd75687198"
+			name="c)CalculateApproximateFailureProbabilityForClimateScenario">
+			</smartfoldernode>
 			<smartfoldernode
 			id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb"
 			name="SelectCalculationInputItem">
@@ -1870,6 +2022,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<teardown
+			id="aef8e5fd-7a62-4fe1-b072-a556e2cc491d"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="af6a50b5-09c2-4694-8c5a-85dc6f63f509"
 			name="OpenProject">
@@ -2079,6 +2235,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="c0d8582b-9231-42d6-98c3-878cf63c1d6a"
+			name="a)Calculate(Approximate)FailureProbability">
+			</smartfoldernode>
 			<testmodule
 			id="c320bd38-91c7-445f-9974-ed94decd202a"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
@@ -2171,6 +2331,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script19a_ValidateResults_LoopCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="c8839754-f6c6-4edf-b258-b909e26309b6"
 			name="LoopCalculationsClimateScenario">
 				<parameters>
@@ -2330,6 +2491,20 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="e03d106c-0847-4432-9fc3-b0b4947ab892"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="e0b7af9e-66c3-449e-b482-f3980c4122c4"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -2383,6 +2558,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script19a_ValidateResults_LoopCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="eeb6e0a4-0b79-4c28-ba8b-5b90b17f86c0"
 			name="LoopCalculations">
 				<parameters>
@@ -2954,6 +3130,10 @@
 												name="ReplaceSubstring">
 												</testmodule>
 												<testmodule
+												id="6d62a1b1-84ef-4100-9909-7f5afbef5356"
+												name="PrependString">
+												</testmodule>
+												<testmodule
 												id="abcc8e37-6167-422c-8ba2-7edc8db60863"
 												name="AppendString">
 												</testmodule>
@@ -3162,6 +3342,10 @@
 												name="ReplaceSubstring">
 												</testmodule>
 												<testmodule
+												id="1f133522-0ad2-4f1f-8446-502f932255c6"
+												name="PrependString">
+												</testmodule>
+												<testmodule
 												id="46e8141a-3aa0-4e5e-a743-b3eba7e4a853"
 												name="AppendString">
 												</testmodule>
@@ -3204,6 +3388,46 @@
 						name="teardown">
 							<testmodule
 							id="1dc8cb54-59fb-4f68-a2cf-06584121acf2"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
+					<testcase
+					id="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+						<setup
+						id="33687329-ef15-4d6e-8d67-c2e276dcef5b"
+						name="setup">
+							<testmodule
+							id="3ca1bd13-b723-4b61-bd37-fae17042bd3b"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="32252dcf-93b4-428a-8e44-5b4080b8f1e3"
+							name="CreateOutputFolder">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="c0d8582b-9231-42d6-98c3-878cf63c1d6a"
+						name="a)Calculate(Approximate)FailureProbability">
+						</smartfoldernode>
+						<smartfoldernode
+						id="7c70d584-86a4-4fce-bec4-b34cc043e948"
+						name="b)CalculateFailureProbabilityByPartialMechanism(STPH)">
+						</smartfoldernode>
+						<smartfoldernode
+						id="a63258f8-02c7-48fc-8eb3-89cd75687198"
+						name="c)CalculateApproximateFailureProbabilityForClimateScenario">
+						</smartfoldernode>
+						<smartfoldernode
+						id="1a86a471-107a-4573-8f68-090c8c30dadd"
+						name="d)CalculateFailureProbabilityForClimateScenario">
+						</smartfoldernode>
+						<teardown
+						id="aef8e5fd-7a62-4fe1-b072-a556e2cc491d"
+						name="teardown">
+							<testmodule
+							id="e03d106c-0847-4432-9fc3-b0b4947ab892"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -4047,7 +4271,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
 					</td>
 				</tr>
 				<tr>
@@ -5143,6 +5367,9 @@
 			id="148c0716-80b1-400f-b170-042977ede854">
 			</testcontainer>
 			<testcontainer
+			id="1a86a471-107a-4573-8f68-090c8c30dadd">
+			</testcontainer>
+			<testcontainer
 			id="1da8a661-16f8-4460-8757-3f39cf6ce30f">
 			</testcontainer>
 			<testcontainer
@@ -5218,6 +5445,9 @@
 			id="7bec9b07-6932-463a-a95e-954dbcd3a435">
 			</testcontainer>
 			<testcontainer
+			id="7c70d584-86a4-4fce-bec4-b34cc043e948">
+			</testcontainer>
+			<testcontainer
 			id="7fae2ea9-46d8-4c3d-bf64-0ef913094181">
 			</testcontainer>
 			<testcontainer
@@ -5251,7 +5481,13 @@
 			id="995d78cd-9132-436c-9a27-895e85975ed1">
 			</testcontainer>
 			<testcontainer
+			id="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a">
+			</testcontainer>
+			<testcontainer
 			id="a569c69f-513a-4ee3-bae9-bf2c252eea35">
+			</testcontainer>
+			<testcontainer
+			id="a63258f8-02c7-48fc-8eb3-89cd75687198">
 			</testcontainer>
 			<testcontainer
 			id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb">
@@ -5276,6 +5512,9 @@
 			</testcontainer>
 			<testcontainer
 			id="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1">
+			</testcontainer>
+			<testcontainer
+			id="c0d8582b-9231-42d6-98c3-878cf63c1d6a">
 			</testcontainer>
 			<testcontainer
 			id="c81741ee-eb0e-46b0-b48e-23f56896f7c4">
