@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -970,7 +970,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 		optional="False"
 		searchpropertyid="3703acb5-4eb3-45bd-993f-73c3bcc39a79"
 		waitaction="NotExists"
-		waittimeout="5000ms">
+		waittimeout="10000ms">
 			<comment>
 			</comment>
 			<bindings>

@@ -1020,6 +1020,40 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="58f1ae40-cd82-40b6-aa96-6fe1212ef41a"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="projectFileNameA"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="projectFileNameA"
+					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="59a46b2e-db93-418a-9205-c6e4d3be01aa"
 			name="ImportantNote">
@@ -2326,6 +2360,7 @@
 			<smartfoldernode
 			datarangeactive="True"
 			datasource="script20a_LoopFMsStartAndCancelCalculations"
+			errorbehavior="ContinueNextIteration"
 			id="b56b1441-e7cf-4f34-902a-2b663737e035"
 			maxrange="5"
 			minrange="1"
@@ -2776,6 +2811,7 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="e03d106c-0847-4432-9fc3-b0b4947ab892"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2989,6 +3025,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="f0cb6f27-d03f-4001-ae9f-8d07f4537d18"
+			name="SaveProject">
+			</smartfoldernode>
 			<smartfoldernode
 			id="f4c7e3d3-ee74-43cf-a135-c1372459432d"
 			name="DuplicateCalculation">
@@ -3918,6 +3958,14 @@
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="f0cb6f27-d03f-4001-ae9f-8d07f4537d18"
+							name="SaveProject">
+								<testmodule
+								id="58f1ae40-cd82-40b6-aa96-6fe1212ef41a"
+								name="SaveAs">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="b011c708-9148-4b18-a3dd-192fde6c6a3a"
@@ -5921,7 +5969,7 @@
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
-						4000
+						1000
 					</td>
 					<td>
 						4-23
@@ -5935,7 +5983,7 @@
 						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
-						1000
+						100
 					</td>
 					<td>
 						24-31
@@ -5949,7 +5997,7 @@
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						2000
+						1000
 					</td>
 					<td>
 						32-33
@@ -5963,7 +6011,7 @@
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						4000
+						1000
 					</td>
 					<td>
 						34-36
@@ -5977,7 +6025,7 @@
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
-						4000
+						1000
 					</td>
 					<td>
 						37-40
@@ -6716,6 +6764,9 @@
 			</testcontainer>
 			<testcontainer
 			id="eeb6e0a4-0b79-4c28-ba8b-5b90b17f86c0">
+			</testcontainer>
+			<testcontainer
+			id="f0cb6f27-d03f-4001-ae9f-8d07f4537d18">
 			</testcontainer>
 			<testcontainer
 			id="f4c7e3d3-ee74-43cf-a135-c1372459432d">
