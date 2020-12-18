@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         private const int hydraulicBoundaryLocationsIndex = 5;
         private const int probabilisticCalculationsIndex = 6;
         private const int semiProbabilisticCalculationsIndex = 7;
-        
+
         private const int sectionsIndex = 0;
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
@@ -284,8 +284,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                     MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                     AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
-                    AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), mapDataList[semiProbabilisticCalculationsIndex]);
                     AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), mapDataList[probabilisticCalculationsIndex]);
+                    AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), mapDataList[semiProbabilisticCalculationsIndex]);
 
                     MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly,
                                                                       expectedDetailedAssembly,
@@ -644,8 +644,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
-                var semiProbabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
                 var probabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
+                var semiProbabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -1114,8 +1114,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
-            const int updatedSemiProbabilisticCalculationsIndex = semiProbabilisticCalculationsIndex - 1;
             const int updatedProbabilisticCalculationsIndex = probabilisticCalculationsIndex - 1;
+            const int updatedSemiProbabilisticCalculationsIndex = semiProbabilisticCalculationsIndex - 1;
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -1150,11 +1150,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var stochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
                 Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
 
-                var semiProbabilisticCalculationsData = (MapLineData) mapDataList[updatedSemiProbabilisticCalculationsIndex];
-                Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsData.Name);
-
                 var probabilisticCalculationsData = (MapLineData) mapDataList[updatedProbabilisticCalculationsIndex];
                 Assert.AreEqual("Probabilistische berekeningen", probabilisticCalculationsData.Name);
+
+                var semiProbabilisticCalculationsData = (MapLineData) mapDataList[updatedSemiProbabilisticCalculationsIndex];
+                Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsData.Name);
 
                 var points = new List<Point2D>
                 {
@@ -1279,22 +1279,22 @@ namespace Riskeer.Piping.Forms.Test.Views
             var stochasticSoilModelsMapData = (MapLineData) mapDataList[stochasticSoilModelsIndex];
             var surfaceLinesMapData = (MapLineData) mapDataList[surfaceLinesIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
-            var semiProbabilisticCalculationsMapData = (MapLineData) mapDataList[semiProbabilisticCalculationsIndex];
             var probabilisticCalculationsMapData = (MapLineData) mapDataList[probabilisticCalculationsIndex];
+            var semiProbabilisticCalculationsMapData = (MapLineData) mapDataList[semiProbabilisticCalculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(stochasticSoilModelsMapData.Features);
             CollectionAssert.IsEmpty(surfaceLinesMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
-            CollectionAssert.IsEmpty(semiProbabilisticCalculationsMapData.Features);
             CollectionAssert.IsEmpty(probabilisticCalculationsMapData.Features);
+            CollectionAssert.IsEmpty(semiProbabilisticCalculationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsMapData.Name);
             Assert.AreEqual("Profielschematisaties", surfaceLinesMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
-            Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsMapData.Name);
             Assert.AreEqual("Probabilistische berekeningen", probabilisticCalculationsMapData.Name);
+            Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsMapData.Name);
 
             var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
             Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
@@ -1357,11 +1357,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
 
-            var semiProbabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[semiProbabilisticCalculationsIndex].Attach(semiProbabilisticCalculationsMapDataObserver);
-
             var probabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[probabilisticCalculationsIndex].Attach(probabilisticCalculationsMapDataObserver);
+
+            var semiProbabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[semiProbabilisticCalculationsIndex].Attach(semiProbabilisticCalculationsMapDataObserver);
 
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
