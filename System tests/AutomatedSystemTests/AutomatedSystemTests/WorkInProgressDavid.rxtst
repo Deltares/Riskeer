@@ -222,6 +222,16 @@
 			<smartfoldernode
 			id="11557174-3d30-4391-b57d-db922f241175"
 			name="CompareWithReference">
+				<parameters>
+					<param
+					name="pathFolderReferenceFiles"
+					value="X:\script20\reference\">
+					</param>
+					<param
+					name="fullPathReferenceFile"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="13c644c2-7720-4b9c-bd97-a982ec28b18b"
@@ -390,6 +400,14 @@
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="fullPathToResultsItem"
@@ -485,6 +503,12 @@
 					datasourceid="6759813a-9702-4fe0-883a-0c889181c390"
 					variableid="5485f5bd-8954-4627-887f-89283106e308"
 					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="fullPathToCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -733,8 +757,14 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="referencePropertiesCSVFilePath"
-					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
+					dataname="fullPathToCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="fullPathReferenceFile"
+					datasourceid="11557174-3d30-4391-b57d-db922f241175"
 					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
 					variablename="filePath2">
 					</var>
@@ -745,6 +775,12 @@
 					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
 					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
 					variablename="filePath1">
+					</var>
+					<var
+					dataname="referencePropertiesCSVFilePath"
+					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -760,19 +796,8 @@
 			id="3beab9f1-62f6-4a3f-9ed6-4cdfb624ce74"
 			name="StartupCalculations">
 			</smartfoldernode>
-			<smartfoldernode
-			datasource="script20cd_ValidateResults_LoopCalculations"
-			errorbehavior="ContinueNextIteration"
-			id="3c990a23-3b40-4260-bb27-8cad9203e633"
-			name="LoopCalculations">
-				<parameters>
-					<param
-					name="nameSmartFolderModifyRange"
-					value="LoopResultTypesClimateScenarios">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="3ca1bd13-b723-4b61-bd37-fae17042bd3b"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -901,28 +926,6 @@
 			name="BuildPathInputCalculation">
 			</smartfoldernode>
 			<testmodule
-			id="40a8d45b-de03-4cc9-8a31-5d161a5346a8"
-			name="SetRangeInSmartFolder"
-			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameSmartFolderModifyRange"
-					datasourceid="3c990a23-3b40-4260-bb27-8cad9203e633"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rangeLoopResultTypes"
-					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="40b4748c-57ce-4cb4-8763-26416c5b8263"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1014,8 +1017,28 @@
 			name="CalculateActualPropertiesCSVFileName">
 				<parameters>
 					<param
-					name="intermediateString"
+					name="intermediateString1"
 					value="">
+					</param>
+					<param
+					name="intermediateString2"
+					value="">
+					</param>
+					<param
+					name="pathSeparator"
+					value=">">
+					</param>
+					<param
+					name="space"
+					value=" ">
+					</param>
+					<param
+					name="underscore"
+					value="_">
+					</param>
+					<param
+					name="extensionCSVFile"
+					value=".csv">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1163,6 +1186,23 @@
 			name="AppendString"
 			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
 			type="UserCode">
+				<description>
+					<![CDATA[append file extension .csv]]>
+				</description>
+				<databinding>
+					<var
+					dataname="nameCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
+					</var>
+					<var
+					dataname="extensionCSVFile"
+					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="nameOfExportedPropertiesCSVFile"
@@ -1535,26 +1575,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="63934e5a-ce66-4cb5-960b-569c157dc93b"
-			name="PrependString"
-			ref="1f888a85-095f-425f-8f17-e3d525506ecc"
-			type="UserCode">
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="9f891cef-5938-4926-8560-0ba9fa86a15f"
-					variablename="stringToPrependToMainString">
-					</var>
-					<var
-					dataname="nameOfExportedPropertiesCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="4b2558be-df78-48e5-b43d-0fd066ceebe9"
-					variablename="mainString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="6496a357-7599-4efc-9005-7b032ec4431b"
 			name="SelectResultItem">
@@ -1619,9 +1639,30 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[replace ">" ->  _]]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="pathToResultItem"
+					datasourceid="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="pathSeparator"
+					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscore"
+					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString1"
 					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
@@ -1838,6 +1879,32 @@
 			id="6e64002d-1935-41ef-901b-04f211e640c8"
 			name="StartCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="6eff4218-4444-4da5-bfff-b54d4b0a3acb"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="nameCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathToCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="70fd3d1d-c17c-4d21-ae8a-41ca05690dae"
 			name="ValidateCombinedData">
@@ -2161,8 +2228,28 @@
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<description>
-					<![CDATA[path subfolder + >]]>
+					<![CDATA[path calculations folder + rel. path calculation]]>
 				</description>
+				<databinding>
+					<var
+					dataname="pathToCalculationsItemInPE"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="relativePathToResultItem"
+					datasourceid="e86550be-6887-4be4-82c8-9c592c3d0951"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="pathToCalculationSubFolder"
@@ -2354,6 +2441,16 @@
 			<smartfoldernode
 			id="825b4956-656e-4ef7-b565-12b3d5880b2a"
 			name="ValidateProperties">
+				<parameters>
+					<param
+					name="fullPathToCSVFileActualResult"
+					value="">
+					</param>
+					<param
+					name="nameCSVFileActualResult"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="83ea5961-6ed2-414c-bc00-2c226906e712"
@@ -2823,6 +2920,32 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="9f9eca27-4f85-4303-ad8c-373e33dc62d0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathFolderReferenceFiles"
+					datasourceid="11557174-3d30-4391-b57d-db922f241175"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="nameCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fullPathReferenceFile"
+					datasourceid="11557174-3d30-4391-b57d-db922f241175"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="a0dfc969-924d-47e9-863d-eff9f943e647"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -2954,6 +3077,26 @@
 			id="a63258f8-02c7-48fc-8eb3-89cd75687198"
 			name="c)d)Calculate(Approximate)FailureProbabilityForClimateScenario">
 			</smartfoldernode>
+			<testmodule
+			id="a81aa9cf-291e-49c7-8636-71bacc4915e8"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameSmartFolderToSetRange"
+					datasourceid="df53c6ca-78d0-4932-8e2a-2c139058b98a"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopResultTypesClimateScenarios"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a8be65d2-c748-4fea-a2df-35c4c4a37ceb"
 			name="SelectCalculationInputItem">
@@ -3183,10 +3326,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script19a_LoopResultTypes"
+			datasource="script20cd_LoopCalculationsResults"
 			errorbehavior="ContinueNextIteration"
 			id="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
 			name="LoopResultTypesClimateScenarios">
+				<parameters>
+					<param
+					name="pathToResultItem"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="bc77ccec-2265-47d9-9cba-f618e17aa1c4"
@@ -3574,31 +3723,6 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="d5f1f0a7-83e1-41b6-9062-56dddfaecda7"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ rel. path to result item]]>
-				</description>
-				<databinding>
-					<var
-					dataname="relativePathToResultItem"
-					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToResultsItem"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="d682b629-bd3b-4528-9f63-1dd741d6daff"
 			name="OpenView">
@@ -3732,6 +3856,12 @@
 			<smartfoldernode
 			id="df53c6ca-78d0-4932-8e2a-2c139058b98a"
 			name="ValidateResults">
+				<parameters>
+					<param
+					name="nameSmartFolderToSetRange"
+					value="LoopResultTypesClimateScenarios">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="df6b1a0c-ed33-4de7-b34f-e9558cece446"
@@ -3830,29 +3960,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="e4219399-fce3-47bf-ae9f-067695d3c069"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ calculation name]]>
-				</description>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToResultsItem"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="nameCalculation"
-					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="e70d2cf0-4bd9-459c-90b4-ed06a414e2a5"
 			name="PressCancelDialogAtStepText"
 			ref="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
@@ -3935,20 +4042,6 @@
 			<smartfoldernode
 			id="eb2f5914-ed6f-4791-8ee4-c2a76f29978d"
 			name="CalculatePathToResultItem">
-				<parameters>
-					<param
-					name="intermediateVariable1"
-					value="">
-					</param>
-					<param
-					name="intermediateVariable2"
-					value="">
-					</param>
-					<param
-					name="intermediateVariable3"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="eb904540-0e50-46aa-a36b-a56dea30a83d"
@@ -4111,12 +4204,33 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[replace " " ->  _]]>
+				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString1"
 					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
 					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
 					variablename="originalString">
+					</var>
+					<var
+					dataname="space"
+					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscore"
+					datasourceid="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="nameCSVFileActualResult"
+					datasourceid="825b4956-656e-4ef7-b565-12b3d5880b2a"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -4349,7 +4463,7 @@
 								<databinding
 								bindingtype="DataConnector"
 								dataname="hasView"
-								id="7a909d13-27e1-4b3b-b827-cd9a9689ce62">
+								id="e86550be-6887-4be4-82c8-9c592c3d0951">
 								</databinding>
 							</datavaluesource>
 						</leftvalue>
@@ -5445,111 +5559,103 @@
 								<smartfoldernode
 								id="df53c6ca-78d0-4932-8e2a-2c139058b98a"
 								name="ValidateResults">
+									<testmodule
+									id="a81aa9cf-291e-49c7-8636-71bacc4915e8"
+									name="SetRangeInSmartFolder">
+									</testmodule>
 									<smartfoldernode
-									id="3c990a23-3b40-4260-bb27-8cad9203e633"
-									name="LoopCalculations">
-										<testmodule
-										id="40a8d45b-de03-4cc9-8a31-5d161a5346a8"
-										name="SetRangeInSmartFolder">
-										</testmodule>
+									id="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
+									name="LoopResultTypesClimateScenarios">
 										<smartfoldernode
-										id="bc3576cc-0a26-4daf-a3ec-70d81f72307d"
-										name="LoopResultTypesClimateScenarios">
+										id="eb2f5914-ed6f-4791-8ee4-c2a76f29978d"
+										name="CalculatePathToResultItem">
+											<testmodule
+											id="7c78c576-8186-46ea-855e-2241ba03fce1"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="98aa11f5-40e5-4b5e-ab8f-38fc5e8132c4"
+										name="SelectResultItem">
+											<testmodule
+											id="206aeb95-a3ac-4056-b2de-46bb1622bf51"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="fbd81ce9-83e3-44a7-b759-dd19377607c2"
+										name="ScreenshotResultView">
 											<smartfoldernode
-											id="eb2f5914-ed6f-4791-8ee4-c2a76f29978d"
-											name="CalculatePathToResultItem">
+											id="a97159c6-be4b-41d1-a9df-0ab00a6df468"
+											name="OpenView">
 												<testmodule
-												id="7c78c576-8186-46ea-855e-2241ba03fce1"
+												id="f26973e3-6b55-4576-bc0c-6495af462e53"
+												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="43690026-7e3c-469d-956a-40cd427b84a3"
+											name="CreateScreenshot">
+												<testmodule
+												id="c41a290a-769c-4eed-ba50-0c002db72691"
+												name="LogWarningMessage">
+												</testmodule>
+												<testmodule
+												id="c517c33f-88c0-4e9e-abe8-7e78e74e86e7"
+												name="CreateScreenshotDocumentView">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="54fab03e-17a4-46a9-abaf-fe387064dc5b"
+											name="CloseView">
+												<testmodule
+												id="de9a5d69-69a7-450a-b695-5eceae6552cf"
+												name="CloseViewCentralPanelWithFocus">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<smartfoldernode
+										id="825b4956-656e-4ef7-b565-12b3d5880b2a"
+										name="ValidateProperties">
+											<smartfoldernode
+											id="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
+											name="CalculateActualPropertiesCSVFileName">
+												<testmodule
+												id="65e1b24a-5bc8-49de-9a3f-6d8298c06fdb"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="f0e5f676-149f-4b6b-8a2a-0a518fd86855"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="4a733239-fddc-4e8f-b92a-bb238b001c08"
+												name="AppendString">
+												</testmodule>
+												<testmodule
+												id="6eff4218-4444-4da5-bfff-b54d4b0a3acb"
+												name="ConcatenateStrings">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="6759813a-9702-4fe0-883a-0c889181c390"
+											name="GenerateCSVPropertiesPanel">
+												<testmodule
+												id="234aaf7e-8f6c-4803-a50f-b461a4744dd6"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="11557174-3d30-4391-b57d-db922f241175"
+											name="CompareWithReference">
+												<testmodule
+												id="9f9eca27-4f85-4303-ad8c-373e33dc62d0"
 												name="ConcatenateStrings">
 												</testmodule>
 												<testmodule
-												id="e4219399-fce3-47bf-ae9f-067695d3c069"
-												name="AppendString">
+												id="39d80339-d9a1-42b9-8261-dc0b0b6da970"
+												name="ValidatePlainTextFilesAreEqual">
 												</testmodule>
-												<testmodule
-												id="d5f1f0a7-83e1-41b6-9062-56dddfaecda7"
-												name="AppendString">
-												</testmodule>
-											</smartfoldernode>
-											<smartfoldernode
-											id="98aa11f5-40e5-4b5e-ab8f-38fc5e8132c4"
-											name="SelectResultItem">
-												<testmodule
-												id="206aeb95-a3ac-4056-b2de-46bb1622bf51"
-												name="SelectGenericItemInProjectExplorer">
-												</testmodule>
-											</smartfoldernode>
-											<smartfoldernode
-											id="fbd81ce9-83e3-44a7-b759-dd19377607c2"
-											name="ScreenshotResultView">
-												<smartfoldernode
-												id="a97159c6-be4b-41d1-a9df-0ab00a6df468"
-												name="OpenView">
-													<testmodule
-													id="f26973e3-6b55-4576-bc0c-6495af462e53"
-													name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-													</testmodule>
-												</smartfoldernode>
-												<smartfoldernode
-												id="43690026-7e3c-469d-956a-40cd427b84a3"
-												name="CreateScreenshot">
-													<testmodule
-													id="c41a290a-769c-4eed-ba50-0c002db72691"
-													name="LogWarningMessage">
-													</testmodule>
-													<testmodule
-													id="c517c33f-88c0-4e9e-abe8-7e78e74e86e7"
-													name="CreateScreenshotDocumentView">
-													</testmodule>
-												</smartfoldernode>
-												<smartfoldernode
-												id="54fab03e-17a4-46a9-abaf-fe387064dc5b"
-												name="CloseView">
-													<testmodule
-													id="de9a5d69-69a7-450a-b695-5eceae6552cf"
-													name="CloseViewCentralPanelWithFocus">
-													</testmodule>
-												</smartfoldernode>
-											</smartfoldernode>
-											<smartfoldernode
-											id="825b4956-656e-4ef7-b565-12b3d5880b2a"
-											name="ValidateProperties">
-												<smartfoldernode
-												id="4250d293-ef2e-43c6-bb33-6fbc907c31a2"
-												name="CalculateActualPropertiesCSVFileName">
-													<testmodule
-													id="65e1b24a-5bc8-49de-9a3f-6d8298c06fdb"
-													name="ReplaceSubstring">
-													</testmodule>
-													<testmodule
-													id="f0e5f676-149f-4b6b-8a2a-0a518fd86855"
-													name="ReplaceSubstring">
-													</testmodule>
-													<testmodule
-													id="63934e5a-ce66-4cb5-960b-569c157dc93b"
-													name="PrependString">
-													</testmodule>
-													<testmodule
-													id="4a733239-fddc-4e8f-b92a-bb238b001c08"
-													name="AppendString">
-													</testmodule>
-												</smartfoldernode>
-												<smartfoldernode
-												id="6759813a-9702-4fe0-883a-0c889181c390"
-												name="GenerateCSVPropertiesPanel">
-													<testmodule
-													id="234aaf7e-8f6c-4803-a50f-b461a4744dd6"
-													name="ExportPropertiesPanelToCsv">
-													</testmodule>
-												</smartfoldernode>
-												<smartfoldernode
-												id="11557174-3d30-4391-b57d-db922f241175"
-												name="CompareWithReference">
-													<testmodule
-													id="39d80339-d9a1-42b9-8261-dc0b0b6da970"
-													name="ValidatePlainTextFilesAreEqual">
-													</testmodule>
-												</smartfoldernode>
 											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -6351,6 +6457,9 @@
 				<column>
 					referencePropertiesCSVFilePath
 				</column>
+				<column>
+					calculationName
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -6368,6 +6477,9 @@
 					<th>
 						referencePropertiesCSVFilePath
 					</th>
+					<th>
+						calculationName
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -6381,6 +6493,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F1_D1_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6396,6 +6511,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F1_D1_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6409,6 +6527,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F1_D1_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6424,6 +6545,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F1_D1_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6437,6 +6561,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F1_D1_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6452,6 +6579,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F1_D1_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6465,6 +6595,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F1_D1_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6480,6 +6613,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F1_D1_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6493,6 +6629,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F1_D0_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6508,6 +6647,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F1_D0_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6521,6 +6663,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F1_D0_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6536,6 +6681,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F1_D0_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6549,6 +6697,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F1_D0_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6564,6 +6715,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F1_D0_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6577,6 +6731,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F1_D0_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6592,6 +6749,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F1_D0_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6605,6 +6765,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F0_D1_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6620,6 +6783,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F0_D1_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6633,6 +6799,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F0_D1_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6648,6 +6817,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F0_D1_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6661,6 +6833,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F0_D1_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6676,6 +6851,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F0_D1_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6689,6 +6867,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F0_D1_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6704,6 +6885,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F0_D1_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6717,6 +6901,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F0_D0_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6732,6 +6919,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F0_D0_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6745,6 +6935,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						profiel005_F0_D0_Norm
 					</td>
 				</tr>
 				<tr>
@@ -6760,6 +6953,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet.csv
 					</td>
+					<td>
+						profiel005_F0_D0_Norm
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6773,6 +6969,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat.csv
+					</td>
+					<td>
+						profiel005_F0_D0_Requirement
 					</td>
 				</tr>
 				<tr>
@@ -6788,6 +6987,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening.csv
 					</td>
+					<td>
+						profiel005_F0_D0_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6802,6 +7004,9 @@
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_HBN.csv
 					</td>
+					<td>
+						profiel005_F0_D0_Requirement
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6815,6 +7020,9 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						profiel005_F0_D0_Requirement
 					</td>
 				</tr>
 			</table>
@@ -8157,6 +8365,892 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="e86550be-6887-4be4-82c8-9c592c3d0951"
+		lastknownrowcount="62"
+		name="script20cd_LoopCalculationsResults"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					relativePathToResultItem
+				</column>
+				<column>
+					hasView
+				</column>
+				<column>
+					referencePropertiesCSVFilePath
+				</column>
+				<column>
+					labelFM
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						relativePathToResultItem
+					</th>
+					<th>
+						hasView
+					</th>
+					<th>
+						referencePropertiesCSVFilePath
+					</th>
+					<th>
+						labelFM
+					</th>
+				</tr>
+				<tr>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D2&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D3&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel001&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel001&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel002&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel002&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel003&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel003&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel004&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel004&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel005&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;profiel005&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_HBN.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet.csv
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D3&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D4&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D6&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D7&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D1&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D8&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D5&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;'Keersluis Cuijk'&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;'Gemaal van Sasse'&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;'Amersluis'&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;'Gemaal Schuddebeurs'&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;'Gemaal Hollandsch Diep'&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Kunstwerk1&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Kunstwerk2&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Kunstwerk3&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;Kunstwerk4&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
 		lastknownrowcount="6"
 		name="script20cd_LoopFMs"
@@ -8179,6 +9273,9 @@
 				</column>
 				<column>
 					listIndecesHBCLocationsToCalculate
+				</column>
+				<column>
+					rangeLoopResultTypesClimateScenarios
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -8203,6 +9300,9 @@
 					<th>
 						listIndecesHBCLocationsToCalculate
 					</th>
+					<th>
+						rangeLoopResultTypesClimateScenarios
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -8223,6 +9323,9 @@
 					<td>
 						1
 					</td>
+					<td>
+						1-3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -8241,6 +9344,9 @@
 					</td>
 					<td>
 						0,2,4,7,8
+					</td>
+					<td>
+						4-45
 					</td>
 				</tr>
 				<tr>
@@ -8262,6 +9368,9 @@
 					<td>
 						99
 					</td>
+					<td>
+						46-53
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -8280,6 +9389,9 @@
 					</td>
 					<td>
 						16,112
+					</td>
+					<td>
+						54-55
 					</td>
 				</tr>
 				<tr>
@@ -8300,6 +9412,9 @@
 					<td>
 						169,216,229
 					</td>
+					<td>
+						56-58
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -8318,6 +9433,9 @@
 					</td>
 					<td>
 						18,21,32
+					</td>
+					<td>
+						59-62
 					</td>
 				</tr>
 			</table>
@@ -8424,6 +9542,9 @@
 			id="0e1aed98-c16b-483a-a921-6b2b44bfe44b">
 			</testcontainer>
 			<testcontainer
+			id="11557174-3d30-4391-b57d-db922f241175">
+			</testcontainer>
+			<testcontainer
 			id="19820895-9a9f-4c91-ac8a-abf3d7ce1fae">
 			</testcontainer>
 			<testcontainer
@@ -8439,10 +9560,19 @@
 			id="3d2d046b-477c-4872-ae0b-a85edf6bce68">
 			</testcontainer>
 			<testcontainer
+			id="4250d293-ef2e-43c6-bb33-6fbc907c31a2">
+			</testcontainer>
+			<testcontainer
+			id="43690026-7e3c-469d-956a-40cd427b84a3">
+			</testcontainer>
+			<testcontainer
 			id="48c83560-ab66-4176-b84e-6888b043295b">
 			</testcontainer>
 			<testcontainer
 			id="5152bfd6-8e86-4536-97c8-a563243ca7a9">
+			</testcontainer>
+			<testcontainer
+			id="54fab03e-17a4-46a9-abaf-fe387064dc5b">
 			</testcontainer>
 			<testcontainer
 			id="571fd793-ac50-4aa7-96d0-4eaf49bff54d">
@@ -8461,6 +9591,9 @@
 			</testcontainer>
 			<testcontainer
 			id="6496a357-7599-4efc-9005-7b032ec4431b">
+			</testcontainer>
+			<testcontainer
+			id="6759813a-9702-4fe0-883a-0c889181c390">
 			</testcontainer>
 			<testcontainer
 			id="6e64002d-1935-41ef-901b-04f211e640c8">
@@ -8487,6 +9620,9 @@
 			id="82370ff5-bf59-4a3c-b0e5-8e256cd533e3">
 			</testcontainer>
 			<testcontainer
+			id="825b4956-656e-4ef7-b565-12b3d5880b2a">
+			</testcontainer>
+			<testcontainer
 			id="8581641a-e54c-4287-92e2-3c007c77cb06">
 			</testcontainer>
 			<testcontainer
@@ -8494,6 +9630,9 @@
 			</testcontainer>
 			<testcontainer
 			id="967b404b-42e7-443e-9f09-6a105e750f02">
+			</testcontainer>
+			<testcontainer
+			id="98aa11f5-40e5-4b5e-ab8f-38fc5e8132c4">
 			</testcontainer>
 			<testcontainer
 			id="9ba0097d-cdfa-47ce-8c3e-cce3097adeea">
@@ -8506,6 +9645,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a63258f8-02c7-48fc-8eb3-89cd75687198">
+			</testcontainer>
+			<testcontainer
+			id="a97159c6-be4b-41d1-a9df-0ab00a6df468">
 			</testcontainer>
 			<testcontainer
 			id="b011c708-9148-4b18-a3dd-192fde6c6a3a">
@@ -8521,6 +9663,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b56b1441-e7cf-4f34-902a-2b663737e035">
+			</testcontainer>
+			<testcontainer
+			id="bc3576cc-0a26-4daf-a3ec-70d81f72307d">
 			</testcontainer>
 			<testcontainer
 			id="c0d8582b-9231-42d6-98c3-878cf63c1d6a">
@@ -8544,10 +9689,16 @@
 			id="ddf53dd5-3285-4413-988b-9d536303e90e">
 			</testcontainer>
 			<testcontainer
+			id="df53c6ca-78d0-4932-8e2a-2c139058b98a">
+			</testcontainer>
+			<testcontainer
 			id="e9be0bd8-73c9-459d-8780-c29c79c8bceb">
 			</testcontainer>
 			<testcontainer
 			id="ea633edf-b3b8-4ab8-a83b-dd90d488032a">
+			</testcontainer>
+			<testcontainer
+			id="eb2f5914-ed6f-4791-8ee4-c2a76f29978d">
 			</testcontainer>
 			<testcontainer
 			id="ece7a929-fab6-4649-83cc-66a3b836c8ec">
@@ -8563,6 +9714,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f6d96fab-6595-4246-839e-b68500a4836f">
+			</testcontainer>
+			<testcontainer
+			id="fbd81ce9-83e3-44a7-b759-dd19377607c2">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
