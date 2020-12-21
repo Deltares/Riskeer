@@ -9571,7 +9571,7 @@ namespace AutomatedSystemTests
             /// Creates a new Bevestigen  folder.
             /// </summary>
             public BevestigenAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("Bevestigen", "/form[@title='Bevestigen']", parentFolder, 30000, null, true, "a1f496aa-79c6-4a38-bf14-a67650685c78", "")
+                    base("Bevestigen", "/form[@title='Bevestigen']", parentFolder, 30000, null, false, "a1f496aa-79c6-4a38-bf14-a67650685c78", "")
             {
                 _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", 30000, null, "e7ae93d7-2c71-43b5-99bf-1790cbc314c0");
             }

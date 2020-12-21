@@ -102,7 +102,7 @@ namespace AutomatedSystemTests.Modules.Selection
         {
             string currentState = cell.Element.GetAttributeValueText("AccessibleState");
             string currentlyChecked = currentState.Contains("Checked").ToString().ToLower();
-            return currentlyChecked!=expectedCheckState;
+            return currentlyChecked!=expectedCheckState.ToLower();
         }
     }
 }

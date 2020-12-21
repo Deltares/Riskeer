@@ -73,9 +73,9 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
@@ -84,7 +84,6 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(1));
             repo.Bevestigen.ButtonOK.Click();
-            Delay.Milliseconds(0);
             
         }
 
