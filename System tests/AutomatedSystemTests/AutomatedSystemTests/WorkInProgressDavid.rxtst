@@ -761,7 +761,7 @@
 			name="StartupCalculations">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script19a_ValidateResults_LoopCalculations"
+			datasource="script20cd_ValidateResults_LoopCalculations"
 			errorbehavior="ContinueNextIteration"
 			id="3c990a23-3b40-4260-bb27-8cad9203e633"
 			name="LoopCalculations">
@@ -912,13 +912,15 @@
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
 					</var>
+				</databinding>
+				<missingdatabinding>
 					<var
 					dataname="rangeLoopResultTypes"
 					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="40b4748c-57ce-4cb4-8763-26416c5b8263"
@@ -3835,20 +3837,18 @@
 				<description>
 					<![CDATA[+ calculation name]]>
 				</description>
-				<databinding>
-					<var
-					dataname="nameCalculation"
-					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="fullPathToResultsItem"
 					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
 					variableid="26242e38-327b-4a74-a725-5f16b6024635"
 					variablename="mainString">
+					</var>
+					<var
+					dataname="nameCalculation"
+					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
+					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
+					variablename="stringToAppendToMainString">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -8322,16 +8322,121 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="90fb3257-8866-446d-b2c5-8f3e5a6bac89"
+		lastknownrowcount="8"
+		name="script20cd_ValidateResults_LoopCalculations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					nameCalculation
+				</column>
+				<column>
+					rangeLoopResultTypes
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						nameCalculation
+					</th>
+					<th>
+						rangeLoopResultTypes
+					</th>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Norm
+					</td>
+					<td>
+						1-4
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D1_Requirement
+					</td>
+					<td>
+						5-8
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Norm
+					</td>
+					<td>
+						9-12
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F1_D0_Requirement
+					</td>
+					<td>
+						13-16
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Norm
+					</td>
+					<td>
+						17-20
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D1_Requirement
+					</td>
+					<td>
+						21-24
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Norm
+					</td>
+					<td>
+						25-28
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_F0_D0_Requirement
+					</td>
+					<td>
+						29-32
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="04df8138-39fd-4fe4-83d7-2db576ce0540">
+			</testcontainer>
+			<testcontainer
 			id="0e1aed98-c16b-483a-a921-6b2b44bfe44b">
 			</testcontainer>
 			<testcontainer
+			id="19820895-9a9f-4c91-ac8a-abf3d7ce1fae">
+			</testcontainer>
+			<testcontainer
+			id="24c4b440-86b3-45b3-b3d0-4aa5efdd68bd">
+			</testcontainer>
+			<testcontainer
+			id="29b58059-0914-464a-b4d4-63f6c7d197c4">
+			</testcontainer>
+			<testcontainer
 			id="3371c4a1-cf8f-480c-b349-e1b6700f476f">
+			</testcontainer>
+			<testcontainer
+			id="3d2d046b-477c-4872-ae0b-a85edf6bce68">
 			</testcontainer>
 			<testcontainer
 			id="48c83560-ab66-4176-b84e-6888b043295b">
@@ -8340,10 +8445,43 @@
 			id="5152bfd6-8e86-4536-97c8-a563243ca7a9">
 			</testcontainer>
 			<testcontainer
+			id="571fd793-ac50-4aa7-96d0-4eaf49bff54d">
+			</testcontainer>
+			<testcontainer
+			id="59a46b2e-db93-418a-9205-c6e4d3be01aa">
+			</testcontainer>
+			<testcontainer
+			id="5bba1ef6-54c7-46c3-8e3e-8670b97cd12b">
+			</testcontainer>
+			<testcontainer
+			id="5f034dbd-e97c-41af-9c98-13cc342aa40b">
+			</testcontainer>
+			<testcontainer
+			id="618190e9-53b1-4b5e-8cf4-3e9ea06c9ec9">
+			</testcontainer>
+			<testcontainer
+			id="6496a357-7599-4efc-9005-7b032ec4431b">
+			</testcontainer>
+			<testcontainer
+			id="6e64002d-1935-41ef-901b-04f211e640c8">
+			</testcontainer>
+			<testcontainer
+			id="70fd3d1d-c17c-4d21-ae8a-41ca05690dae">
+			</testcontainer>
+			<testcontainer
 			id="71c5165b-611a-48ca-92a8-cf62fc39254b">
 			</testcontainer>
 			<testcontainer
+			id="74ddcb84-230a-4eb6-9f84-30b3b6531b21">
+			</testcontainer>
+			<testcontainer
 			id="74fb5808-55bd-4fd7-9613-29e32d4126c2">
+			</testcontainer>
+			<testcontainer
+			id="768f93c9-4c22-4ba6-98af-dd104feb7fb2">
+			</testcontainer>
+			<testcontainer
+			id="7c70d584-86a4-4fce-bec4-b34cc043e948">
 			</testcontainer>
 			<testcontainer
 			id="82370ff5-bf59-4a3c-b0e5-8e256cd533e3">
@@ -8355,6 +8493,12 @@
 			id="95f9fc9a-5618-4866-9a30-e8af03157228">
 			</testcontainer>
 			<testcontainer
+			id="967b404b-42e7-443e-9f09-6a105e750f02">
+			</testcontainer>
+			<testcontainer
+			id="9ba0097d-cdfa-47ce-8c3e-cce3097adeea">
+			</testcontainer>
+			<testcontainer
 			id="9c2415fd-c3f3-4765-8ca3-1e97f2fe481a">
 			</testcontainer>
 			<testcontainer
@@ -8364,7 +8508,25 @@
 			id="a63258f8-02c7-48fc-8eb3-89cd75687198">
 			</testcontainer>
 			<testcontainer
+			id="b011c708-9148-4b18-a3dd-192fde6c6a3a">
+			</testcontainer>
+			<testcontainer
 			id="b17511bb-0744-4fbf-bf5e-9af9b76b660b">
+			</testcontainer>
+			<testcontainer
+			id="b33249a7-8fcd-48ac-9bab-7b30f161372c">
+			</testcontainer>
+			<testcontainer
+			id="b4c66090-65d4-4e6f-a825-a2cc095e5997">
+			</testcontainer>
+			<testcontainer
+			id="b56b1441-e7cf-4f34-902a-2b663737e035">
+			</testcontainer>
+			<testcontainer
+			id="c0d8582b-9231-42d6-98c3-878cf63c1d6a">
+			</testcontainer>
+			<testcontainer
+			id="c318009b-a154-46bd-9fca-8fc6ee542124">
 			</testcontainer>
 			<testcontainer
 			id="c98b28f7-2325-4d65-a11d-09ff669c1a2b">
@@ -8376,10 +8538,31 @@
 			id="d3e9a8ba-3db9-4061-a943-9efb3692c07d">
 			</testcontainer>
 			<testcontainer
+			id="dccc7f9c-f810-41a2-ac32-047f0ebba3ea">
+			</testcontainer>
+			<testcontainer
 			id="ddf53dd5-3285-4413-988b-9d536303e90e">
 			</testcontainer>
 			<testcontainer
+			id="e9be0bd8-73c9-459d-8780-c29c79c8bceb">
+			</testcontainer>
+			<testcontainer
+			id="ea633edf-b3b8-4ab8-a83b-dd90d488032a">
+			</testcontainer>
+			<testcontainer
+			id="ece7a929-fab6-4649-83cc-66a3b836c8ec">
+			</testcontainer>
+			<testcontainer
 			id="ef3e1897-7f2a-41f4-ad09-9253fa97e192">
+			</testcontainer>
+			<testcontainer
+			id="f0cb6f27-d03f-4001-ae9f-8d07f4537d18">
+			</testcontainer>
+			<testcontainer
+			id="f0f8c60e-2136-4cf8-986a-70340b4867d9">
+			</testcontainer>
+			<testcontainer
+			id="f6d96fab-6595-4246-839e-b68500a4836f">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
