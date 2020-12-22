@@ -28,5 +28,10 @@
     "Enabled": "True",
     "TestSuite": "VerySlowTestCases",
     "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "TestScript20",
+    "RunConfig": "TestRun"
   }
 ]

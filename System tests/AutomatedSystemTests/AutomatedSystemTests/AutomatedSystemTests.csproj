@@ -2453,6 +2453,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
+    <Content Include="TestScript20.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>c8e4c805-a560-48ab-8e2f-ecba0b4b4411</id>
+    </Content>
     <Content Include="VerySlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>f71d81ee-36f5-47c6-9e30-90d6eca704b7</id>
