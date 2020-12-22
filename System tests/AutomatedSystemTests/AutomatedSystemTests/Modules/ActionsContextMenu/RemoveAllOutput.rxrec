@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -519,9 +519,9 @@ LWVljwQhI+Y+lVzIXKzAorR0i1hufN85N23GOSPX0rR/syz/AOeP/jx/xrOxpcwoLiSAnYRg9Qau
 		action="Click"
 		button="Left"
 		duration="300ms"
-		enabled="True"
+		enabled="False"
 		loc="Center"
-		movetime="300ms"
+		movetime="100ms"
 		optional="False"
 		searchpropertyid="94b08e19-cad3-477d-b88c-75c34bc487f8"
 		sx="971"
@@ -765,6 +765,49 @@ XU+2jbQBB5dHl1Pto20AQeXR5dT7aNtAEHl0eXU+2jbQBB5dHl1Pto20AQeXR5dT7aNtAEISnquK
 ftpQKAACnUmKWgD/2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<userrecorditem
+		classname="RemoveAllOutput"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="Mouse_Click_ButtonOK"
+		namespace="AutomatedSystemTests.Modules.ActionsContextMenu"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="b17c0d47-472e-4f39-8097-06ca3b58a4aa">
+				<argument
+				argname="buttonInfo"
+				id="23befba0-b0b2-4d6e-b9fb-d5ff235777ea">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="e7ae93d7-2c71-43b5-99bf-1790cbc314c0"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@title='Bevestigen']/button[@text='OK']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+		<keysequenceitem
+		KeySequence="{Escape}"
+		duration="20ms"
+		enabled="True"
+		optional="False"
+		presstime="20ms"
+		searchpropertyid="4c49bb71-8f30-4968-aff6-b0766b1f7f42">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</keysequenceitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

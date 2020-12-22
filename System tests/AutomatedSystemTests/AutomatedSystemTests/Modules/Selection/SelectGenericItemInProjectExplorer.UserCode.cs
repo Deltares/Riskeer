@@ -51,9 +51,11 @@ namespace AutomatedSystemTests.Modules.Selection
         				{
         				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
         				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
-        			} else	{
-        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
+        			} else if (children.Count(ch => ch.ToString().Contains(step))>1){
+        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
         				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
+        			} else {
+        			    Report.Log(ReportLevel.Error, "Information", "No occurrences of '" + step + "' found.");
         			}
         			//
         			if (i != stepsPathItem.Count - 1)

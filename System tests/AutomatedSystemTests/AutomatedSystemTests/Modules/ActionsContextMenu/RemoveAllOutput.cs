@@ -73,23 +73,25 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.WisAlleUitvoer' at Center.", repo.ContextMenu.WisAlleUitvoerInfo, new RecordItemIndex(1));
             repo.ContextMenu.WisAlleUitvoer.Click();
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(2));
-            repo.Bevestigen.ButtonOK.Click();
-            Delay.Milliseconds(0);
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(2));
+            //repo.Bevestigen.ButtonOK.Click();
+            
+            Mouse_Click_ButtonOK(repo.Bevestigen.ButtonOKInfo);
+            
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Escape}'.", new RecordItemIndex(4));
+            Keyboard.Press("{Escape}");
             
         }
 

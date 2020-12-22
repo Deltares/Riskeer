@@ -33,5 +33,14 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             // Your recording specific initialization code goes here.
         }
 
+        public void Mouse_Click_ButtonOK(RepoItemInfo buttonInfo)
+        {
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
+            try {
+                buttonInfo.WaitForExists(2000);
+            	buttonInfo.FindAdapter<Button>().Click();
+            } catch(Exception) { }
+        }
+
     }
 }

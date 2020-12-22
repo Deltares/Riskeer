@@ -3619,6 +3619,20 @@
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<testmodule
+			id="2d549d47-876c-4091-8d15-7fd10e1d5ffb"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToAllCalculationsFolder"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="2d640e0a-8313-4426-a5c3-2624f4f369a6"
 			name="ReadDivisionInSections">
@@ -13935,6 +13949,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="a9a77358-689f-4512-b438-cd4606890eb2"
+			name="RemoveAllOutput"
+			ref="ba840f65-e41c-410b-8474-047a4003bfc5"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="a9f9adcd-3761-4ad9-8b35-fef9d6d026e4"
 			name="ConfirmActionInDialog"
 			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
@@ -13998,6 +14018,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="aa7ac320-3348-434c-be36-1f9b9f2f3def"
+			name="DeleteCalculationsOuput">
+			</smartfoldernode>
 			<smartfoldernode
 			id="aa7c2da6-9298-4d92-b5a8-2e2b56815234"
 			name="TakeScreenshot">
@@ -14823,8 +14847,8 @@
 			datasource="script18CalculationsToModify"
 			errorbehavior="ContinueNextIteration"
 			id="b47f226a-dc7a-4cfe-8207-9232909de566"
-			maxrange="0"
-			minrange="0"
+			maxrange="4"
+			minrange="4"
 			name="LoopCalculationsToModify">
 				<parameters>
 					<param
@@ -24825,6 +24849,18 @@
 						<smartfoldernode
 						id="b47f226a-dc7a-4cfe-8207-9232909de566"
 						name="LoopCalculationsToModify">
+							<smartfoldernode
+							id="aa7ac320-3348-434c-be36-1f9b9f2f3def"
+							name="DeleteCalculationsOuput">
+								<testmodule
+								id="2d549d47-876c-4091-8d15-7fd10e1d5ffb"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="a9a77358-689f-4512-b438-cd4606890eb2"
+								name="RemoveAllOutput">
+								</testmodule>
+							</smartfoldernode>
 							<smartfoldernode
 							id="da864375-f0d3-4c16-b053-43b24f070f2b"
 							name="CreateFullPathToInput">
@@ -36215,6 +36251,9 @@
 					pathToCalculationToModify
 				</column>
 				<column>
+					pathToAllCalculationsFolder
+				</column>
+				<column>
 					rangeParametersTochangeInInnerLoop
 				</column>
 				<column>
@@ -36232,6 +36271,9 @@
 						pathToCalculationToModify
 					</th>
 					<th>
+						pathToAllCalculationsFolder
+					</th>
+					<th>
 						rangeParametersTochangeInInnerLoop
 					</th>
 					<th>
@@ -36243,7 +36285,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
 						1-10
@@ -36257,7 +36302,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500 Segment_12004_1D1
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+					</td>
+					<td>
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
 						11-12
@@ -36271,35 +36319,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
-					</td>
-					<td>
-						13-65
-					</td>
-					<td>
-						output\script18\createdConfiguration1STBI.xml
-					</td>
-					<td>
-						X:\script18\referenceConfiguration1STBI.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;12_2_00100 12_2_00100_Segment_12004_1D1
-					</td>
-					<td>
-						66-69
-					</td>
-					<td>
-						output\script18\createdConfiguration2STBI.xml
-					</td>
-					<td>
-						X:\script18\referenceConfiguration2STBI.xml
-					</td>
-				</tr>
-				<tr>
-					<td>
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
+					</td>
+					<td>
+						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
 						70-81
@@ -36313,21 +36336,44 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
+						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						82-116
+						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
-						output\script18\createdConfigurationBSKW.xml
+						13-65
 					</td>
 					<td>
-						X:\script18\referenceConfigurationBSKW.xml
+						output\script18\createdConfiguration1STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration1STBI.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
+					</td>
+					<td>
+						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+					</td>
+					<td>
+						66-69
+					</td>
+					<td>
+						output\script18\createdConfiguration2STBI.xml
+					</td>
+					<td>
+						X:\script18\referenceConfiguration2STBI.xml
 					</td>
 				</tr>
 				<tr>
 					<td>
 						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
+					</td>
+					<td>
+						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						117-139
@@ -36341,7 +36387,27 @@
 				</tr>
 				<tr>
 					<td>
+						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
+					</td>
+					<td>
+						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+					</td>
+					<td>
+						82-116
+					</td>
+					<td>
+						output\script18\createdConfigurationBSKW.xml
+					</td>
+					<td>
+						X:\script18\referenceConfigurationBSKW.xml
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
+					</td>
+					<td>
+						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
 						140-191
@@ -36602,7 +36668,7 @@
 						DropDown
 					</td>
 					<td>
-						12_2_18400
+						Vak_41-121
 					</td>
 					<td>
 						3
@@ -36619,7 +36685,7 @@
 						DropDown
 					</td>
 					<td>
-						12009_Stability
+						41009_Stability
 					</td>
 					<td>
 						3
@@ -36636,7 +36702,7 @@
 						DropDown
 					</td>
 					<td>
-						12_2_18400_Segment_12009_1D2
+						Vak_41-123_Segment_41009_1D4
 					</td>
 					<td>
 						3
@@ -44481,6 +44547,9 @@
 			</testcontainer>
 			<testcontainer
 			id="aa4c3c5d-b0b0-4def-a517-e6f940868c90">
+			</testcontainer>
+			<testcontainer
+			id="aa7ac320-3348-434c-be36-1f9b9f2f3def">
 			</testcontainer>
 			<testcontainer
 			id="aa7c2da6-9298-4d92-b5a8-2e2b56815234">

@@ -5684,16 +5684,6 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="247c0387-58fa-43bf-838b-f8554e47fc99"
-		lastknownrowcount="0"
-		name="NewConnector"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-		</DataSource>
-		<DataSource
 		id="703c488a-95ee-4e92-b37f-dd3dfecb10c4"
 		lastknownrowcount="8"
 		name="script19_LoopDuplicateToObtainRequiredCalculations"
@@ -9435,96 +9425,6 @@
 					</td>
 					<td>
 						59-62
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="90fb3257-8866-446d-b2c5-8f3e5a6bac89"
-		lastknownrowcount="8"
-		name="script20cd_ValidateResults_LoopCalculations"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					nameCalculation
-				</column>
-				<column>
-					rangeLoopResultTypes
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						nameCalculation
-					</th>
-					<th>
-						rangeLoopResultTypes
-					</th>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D1_Norm
-					</td>
-					<td>
-						1-4
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D1_Requirement
-					</td>
-					<td>
-						5-8
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D0_Norm
-					</td>
-					<td>
-						9-12
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D0_Requirement
-					</td>
-					<td>
-						13-16
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D1_Norm
-					</td>
-					<td>
-						17-20
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D1_Requirement
-					</td>
-					<td>
-						21-24
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_Norm
-					</td>
-					<td>
-						25-28
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-					<td>
-						29-32
 					</td>
 				</tr>
 			</table>
