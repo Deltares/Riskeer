@@ -46,7 +46,7 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
             for (int i = 1; i < 11; i++) {
                 Report.Info("Attempt #" + i.ToString() + " to start up the application.");
                 StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
-                repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
+                repo.RiskeerMainWindow.SelfInfo.WaitForExists(120000);
                 Delay.Duration(1000, false);
                 try {
                     repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
@@ -56,6 +56,7 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
                     Report.Warn("Application not started up properly!");
                     Report.Warn("Reboot is required.");
                     Report.Info("Exception: " + e.ToString());
+                    Delay.Duration(5000, false);
                     Host.Current.KillApplication(repo.RiskeerMainWindow.Self);
                     Delay.Duration(1000, false);
                     Report.Info("Rebooting...");
