@@ -33,5 +33,14 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
             // Your recording specific initialization code goes here.
         }
 
+        public void MouseClickButtonOKIfExists(RepoItemInfo buttonInfo)
+        {
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
+            try {
+                buttonInfo.WaitForExists(2000);
+            	buttonInfo.FindAdapter<Button>().Click();
+            } catch(Exception) { }
+        }
+
     }
 }
