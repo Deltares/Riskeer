@@ -82,8 +82,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesBerekenen' at 79;11.", repo.ContextMenu.AllesBerekenenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.AllesBerekenen.Click("79;11");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesBerekenen' at Center.", repo.ContextMenu.AllesBerekenenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.AllesBerekenen.Click();
             
         }
 
