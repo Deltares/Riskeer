@@ -40,7 +40,7 @@ namespace Riskeer.Revetment.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            
+
             Name = name;
         }
 

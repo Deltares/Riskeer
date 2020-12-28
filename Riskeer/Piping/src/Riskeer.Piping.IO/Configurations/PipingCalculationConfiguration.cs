@@ -57,11 +57,6 @@ namespace Riskeer.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Gets the calculation type.
-        /// </summary>
-        public PipingCalculationConfigurationType CalculationType { get; }
-
-        /// <summary>
         /// Gets or sets the assessment level of the piping calculation.
         /// </summary>
         public double? AssessmentLevel { get; set; }
@@ -120,6 +115,11 @@ namespace Riskeer.Piping.IO.Configurations
         /// Gets or sets if the illustration points should be calculated for section specific calculations.
         /// </summary>
         public bool? ShouldSectionSpecificIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets the piping calculation type.
+        /// </summary>
+        public PipingCalculationConfigurationType CalculationType { get; }
 
         /// <summary>
         /// Gets the name of the piping calculation.

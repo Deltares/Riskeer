@@ -22,8 +22,7 @@
 namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
-    /// Enum defining the possible piping calculation type
-    /// value in a read calculation. 
+    /// Enum defining the possible piping calculation type values in a read calculation.
     /// </summary>
     public enum PipingCalculationConfigurationType
     {
