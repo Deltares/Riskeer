@@ -32,10 +32,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="GrassCoverErosionInwardsCalculationConfiguration"/>.
-        /// </param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
+        /// <param name="name">The name of the grass cover erosion inwards calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationConfiguration(string name)
         {
             if (name == null)

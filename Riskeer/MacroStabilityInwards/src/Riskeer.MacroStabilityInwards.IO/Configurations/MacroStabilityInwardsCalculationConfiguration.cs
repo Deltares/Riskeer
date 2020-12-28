@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="MacroStabilityInwardsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the macro stability inwards calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationConfiguration(string name)
         {

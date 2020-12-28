@@ -32,7 +32,7 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the wave conditions calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public WaveConditionsCalculationConfiguration(string name)
         {

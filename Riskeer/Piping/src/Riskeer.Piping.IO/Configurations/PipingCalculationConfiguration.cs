@@ -33,8 +33,8 @@ namespace Riskeer.Piping.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="PipingCalculationConfiguration"/>.</param>
-        /// <param name="calculationType">The type of the <see cref="PipingCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the piping calculation.</param>
+        /// <param name="calculationType">The piping calculation type.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/>
         /// has an invalid value.</exception>

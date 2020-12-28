@@ -31,7 +31,7 @@ namespace Riskeer.Common.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the structures calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         protected StructuresCalculationConfiguration(string name)
         {
