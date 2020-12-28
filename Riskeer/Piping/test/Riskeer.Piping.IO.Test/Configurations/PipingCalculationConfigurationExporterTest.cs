@@ -174,6 +174,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("probabilisticCalculationWithInfinities",
                                                   PipingTestDataGenerator.GetProbabilisticPipingCalculationScenarioWithInfinities())
                         .SetName(testNameFormat);
+
+                    var probabilisticPipingCalculationScenarioWithIllustrationPoints = PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+                    probabilisticPipingCalculationScenarioWithIllustrationPoints.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+                    probabilisticPipingCalculationScenarioWithIllustrationPoints.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
                     yield return new TestCaseData(
                             "folderWithSubfolderAndProbabilisticCalculation",
                             new CalculationGroup
@@ -181,7 +186,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                 Name = "PK001_0001",
                                 Children =
                                 {
-                                    PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>(),
+                                    probabilisticPipingCalculationScenarioWithIllustrationPoints,
                                     new CalculationGroup
                                     {
                                         Name = "PK001_0002",

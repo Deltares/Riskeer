@@ -49,8 +49,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 CreateFullProbabilisticCalculationConfiguration(),
                 new CalculationGroupConfiguration("PK001_0002", new[]
                 {
-                    CreateSparseCalculationConfiguration(PipingCalculationConfigurationType.SemiProbabilistic),
-                    CreateSparseCalculationConfiguration(PipingCalculationConfigurationType.Probabilistic)
+                    CreateSparseCalculationConfiguration("Sparse semi-probabilistisch",
+                                                         PipingCalculationConfigurationType.SemiProbabilistic),
+                    CreateSparseCalculationConfiguration("Sparse probabilistisch",
+                                                         PipingCalculationConfigurationType.Probabilistic)
                 })
             });
 
@@ -80,7 +82,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
         private static PipingCalculationConfiguration CreateFullSemiProbabilisticCalculationConfiguration()
         {
-            return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1", PipingCalculationConfigurationType.SemiProbabilistic)
+            return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1 semi-probabilistisch", PipingCalculationConfigurationType.SemiProbabilistic)
             {
                 AssessmentLevel = 10,
                 HydraulicBoundaryLocationName = "PUNT_KAT_18",
@@ -140,9 +142,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
             };
         }
 
-        private static PipingCalculationConfiguration CreateSparseCalculationConfiguration(PipingCalculationConfigurationType calculationType)
+        private static PipingCalculationConfiguration CreateSparseCalculationConfiguration(string name, PipingCalculationConfigurationType calculationType)
         {
-            return new PipingCalculationConfiguration("Sparse", calculationType);
+            return new PipingCalculationConfiguration(name, calculationType);
         }
 
         protected override PipingCalculationConfigurationWriter CreateWriterInstance(string filePath)

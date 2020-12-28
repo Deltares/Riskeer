@@ -4,8 +4,8 @@
     <berekening naam="PK001_0001 W1-6_0_1D1">
       <probabilistisch>
         <hblocatie>PUNT_KAT_18</hblocatie>
-        <doorsnedeillustratiepunteninlezen>false</doorsnedeillustratiepunteninlezen>
-        <vakillustratiepunteninlezen>false</vakillustratiepunteninlezen>
+        <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
+        <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
       </probabilistisch>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <intredepunt>0</intredepunt>

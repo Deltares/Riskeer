@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <map naam="PK001_0001">
-    <berekening naam="PK001_0001 W1-6_0_1D1">
+    <berekening naam="PK001_0001 W1-6_0_1D1 semi-probabilistisch">
       <semi-probabilistisch>
         <waterstand>10</waterstand>
         <hblocatie>PUNT_KAT_18</hblocatie>
@@ -53,11 +53,11 @@
       </scenario>
     </berekening>
     <map naam="PK001_0002">
-      <berekening naam="Sparse">
+      <berekening naam="Sparse semi-probabilistisch">
         <semi-probabilistisch />
         <stochasten />
       </berekening>
-      <berekening naam="Sparse">
+      <berekening naam="Sparse probabilistisch">
         <probabilistisch />
         <stochasten />
       </berekening>
