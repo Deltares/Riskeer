@@ -88,7 +88,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                                                                     Path.Combine(
                                                                         nameof(StabilityStoneCoverWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
-            // Call and Assert
+            // Call & Assert
             WriteAndValidate(new[]
             {
                 calculationGroup

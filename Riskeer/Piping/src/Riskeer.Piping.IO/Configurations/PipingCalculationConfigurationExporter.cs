@@ -51,12 +51,12 @@ namespace Riskeer.Piping.IO.Configurations
 
         /// <inheritdoc/>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
-        /// is an invalid type.</exception>
+        /// is of an unsupported type.</exception>
         protected override PipingCalculationConfiguration ToConfiguration(IPipingCalculationScenario<PipingInput> calculation)
         {
             PipingInput input = calculation.InputParameters;
-
             PipingCalculationConfigurationType calculationConfigurationType = GetCalculationConfigurationType(calculation);
+
             var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, calculationConfigurationType)
             {
                 DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
@@ -93,10 +93,10 @@ namespace Riskeer.Piping.IO.Configurations
         /// <summary>
         /// Gets the <see cref="PipingCalculationConfigurationType"/> based on the type of <paramref name="calculation"/>.
         /// </summary>
-        /// <param name="calculation">The calculation scenario to get the type from.</param>
+        /// <param name="calculation">The calculation scenario to get the type for.</param>
         /// <returns>The <see cref="PipingCalculationConfigurationType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
-        /// is an invalid type.</exception>
+        /// is of an unsupported type.</exception>
         private static PipingCalculationConfigurationType GetCalculationConfigurationType(IPipingCalculationScenario<PipingInput> calculation)
         {
             switch (calculation)

@@ -38,21 +38,21 @@ namespace Riskeer.Piping.IO.Test.Configurations
     public class PipingCalculationConfigurationExporterTest
     {
         [Test]
-        public void Export_InvalidCalculationScenarioType_ThrowsNotSupportedException()
+        public void Export_NotSupportedCalculationScenarioType_ThrowsNotSupportedException()
         {
             // Setup
             var exporter = new PipingCalculationConfigurationExporter(new[]
             {
                 new TestPipingCalculationScenario()
             }, "NotSupportedCalculationType.xml");
-            
+
             // Call
             void Call() => exporter.Export();
-            
+
             // Assert
             Assert.Throws<NotSupportedException>(Call);
         }
-        
+
         private abstract class PipingCalculationConfigurationExporterTestFixture : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     TestDataPath.Riskeer.Piping.IO,
                     Path.Combine(nameof(PipingCalculationConfigurationExporter), $"{expectedFileName}.xml"));
 
-                // Call and Assert
+                // Call & Assert
                 WriteAndValidate(new[]
                 {
                     calculation
