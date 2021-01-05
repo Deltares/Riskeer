@@ -36,17 +36,20 @@ All rights reserved.
                                 ClipToBounds="{TemplateBinding ClipToBounds}">
                             <wpfExtensionsControls:ZoomContentPresenter x:Name="PART_Presenter" ClipToBounds="False" />
                         </Border>
-                        <Canvas>
+                        <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
                             <!-- ZoomBox -->
-                            <Border BorderBrush="{TemplateBinding ZoomBoxBorderBrush}"
+                            <Border Grid.Row="0" BorderBrush="{TemplateBinding ZoomBoxBorderBrush}"
                                     BorderThickness="{TemplateBinding ZoomBoxBorderThickness}"
-                                    Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.X}"
-                                    Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Y}"
                                     Opacity="{TemplateBinding ZoomBoxOpacity}"
                                     Background="{TemplateBinding ZoomBoxBackground}"
                                     Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Width}"
                                     Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Height}" />
-                        </Canvas>
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="* Het getal is afgerond. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal."/>
+                            </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
