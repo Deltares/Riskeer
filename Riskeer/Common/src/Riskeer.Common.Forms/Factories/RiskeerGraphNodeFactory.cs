@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -162,7 +163,7 @@ namespace Riskeer.Common.Forms.Factories
         private static string CreateGraphNodeContent(RoundedDouble beta)
         {
             return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1,
-                                 ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta)),
+                                 StatisticsConverter.ReliabilityToProbability(beta).ToString("0.##E+0", CultureInfo.CurrentCulture),
                                  beta);
         }
     }
