@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             return $"<text><bold>{name}</bold>{Environment.NewLine}" +
                    $"{Environment.NewLine}" +
-                   $"Berekende kans = {probability}{Environment.NewLine}" +
+                   $"Berekende kans* = {probability}{Environment.NewLine}" +
                    $"Betrouwbaarheidsindex = {roundedBeta}</text>";
         }
 
