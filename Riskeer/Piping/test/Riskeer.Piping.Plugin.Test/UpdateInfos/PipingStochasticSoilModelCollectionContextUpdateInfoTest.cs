@@ -204,8 +204,8 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             bool updatesVerified = updateInfo.VerifyUpdates(context);
 
             // Assert
-            string expectedInquiryMessage = "Als ondergrondschematisaties wijzigen door het bijwerken, " +
-                                            "dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken " +
+            string expectedInquiryMessage = "Als stochastische ondergrondmodellen wijzigen door het bijwerken, " +
+                                            "dan worden de resultaten van berekeningen die deze stochastische ondergrondmodellen gebruiken " +
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);

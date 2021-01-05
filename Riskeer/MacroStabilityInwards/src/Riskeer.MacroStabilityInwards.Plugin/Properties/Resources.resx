@@ -139,7 +139,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="MacroStabilityInwardsPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
+    <value>Als stochastische ondergrondmodellen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze stochastische ondergrondmodellen gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
