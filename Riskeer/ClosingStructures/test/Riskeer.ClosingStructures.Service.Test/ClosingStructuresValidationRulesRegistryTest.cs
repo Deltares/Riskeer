@@ -154,7 +154,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.IsInstanceOf<UseBreakWaterRule>(validationRules[0]);
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[1]);
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[2]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[3]);
+            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[3]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[4]);
             Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[5]);
             Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[6]);

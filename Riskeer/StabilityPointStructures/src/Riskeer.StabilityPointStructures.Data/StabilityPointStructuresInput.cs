@@ -43,7 +43,7 @@ namespace Riskeer.StabilityPointStructures.Data
 
         private NormalDistribution insideWaterLevelFailureConstruction;
         private NormalDistribution insideWaterLevel;
-        private NormalDistribution drainCoefficient;
+        private LogNormalDistribution drainCoefficient;
         private NormalDistribution levelCrestStructure;
         private NormalDistribution thresholdHeightOpenWeir;
         private LogNormalDistribution areaFlowApertures;
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Data
             evaluationLevel = new RoundedDouble(2);
             verticalDistance = new RoundedDouble(verticalDistanceNumberOfDecimals);
 
-            drainCoefficient = new NormalDistribution(2)
+            drainCoefficient = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.0,
                 StandardDeviation = (RoundedDouble) 0.20
@@ -178,7 +178,7 @@ namespace Riskeer.StabilityPointStructures.Data
 
             clone.insideWaterLevelFailureConstruction = (NormalDistribution) InsideWaterLevelFailureConstruction.Clone();
             clone.insideWaterLevel = (NormalDistribution) InsideWaterLevel.Clone();
-            clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
+            clone.drainCoefficient = (LogNormalDistribution) DrainCoefficient.Clone();
             clone.levelCrestStructure = (NormalDistribution) LevelCrestStructure.Clone();
             clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
             clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
@@ -380,7 +380,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// Gets or sets the drain coefficient.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution DrainCoefficient
+        public LogNormalDistribution DrainCoefficient
         {
             get
             {

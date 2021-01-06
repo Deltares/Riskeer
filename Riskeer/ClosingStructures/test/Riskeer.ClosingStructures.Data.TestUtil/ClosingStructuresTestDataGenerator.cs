@@ -52,7 +52,7 @@ namespace Riskeer.ClosingStructures.Data.TestUtil
                 Mean = random.NextRoundedDouble()
             };
 
-            input.DrainCoefficient = new NormalDistribution
+            input.DrainCoefficient = new LogNormalDistribution
             {
                 Mean = random.NextRoundedDouble()
             };

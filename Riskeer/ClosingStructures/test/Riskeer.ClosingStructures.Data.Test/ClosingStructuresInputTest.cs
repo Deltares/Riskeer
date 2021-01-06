@@ -64,7 +64,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            var expectedDrainCoefficient = new NormalDistribution(2)
+            var expectedDrainCoefficient = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
@@ -126,7 +126,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
             NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
-            NormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
+            LogNormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
@@ -418,12 +418,12 @@ namespace Riskeer.ClosingStructures.Data.Test
             var random = new Random(22);
             var input = new ClosingStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new NormalDistribution(2)
+            var expectedDistribution = new LogNormalDistribution(2)
             {
                 Mean = mean,
                 StandardDeviation = input.DrainCoefficient.StandardDeviation
             };
-            var distributionToSet = new NormalDistribution(5)
+            var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
                 StandardDeviation = random.NextRoundedDouble()

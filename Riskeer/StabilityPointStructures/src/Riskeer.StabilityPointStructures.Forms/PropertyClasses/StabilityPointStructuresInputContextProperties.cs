@@ -561,11 +561,11 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public NormalDistributionProperties DrainCoefficient
+        public LogNormalDistributionProperties DrainCoefficient
         {
             get
             {
-                return new NormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);

@@ -165,7 +165,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[3]);
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[4]);
             Assert.IsInstanceOf<VariationCoefficientNormalDistributionRule>(validationRules[5]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[6]);
+            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[6]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[7]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[8]);
             Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[9]);

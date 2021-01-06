@@ -156,7 +156,7 @@ namespace Riskeer.ClosingStructures.Service
                 new NormalDistributionRule(
                     input.InsideWaterLevel,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName)),
-                new NormalDistributionRule(
+                new LogNormalDistributionRule(
                     input.DrainCoefficient,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(

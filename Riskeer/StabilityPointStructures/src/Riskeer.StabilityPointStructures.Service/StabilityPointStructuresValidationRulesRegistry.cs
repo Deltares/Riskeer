@@ -294,7 +294,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
+                new LogNormalDistributionRule(
                     input.DrainCoefficient,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(
@@ -371,7 +371,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
+                new LogNormalDistributionRule(
                     input.DrainCoefficient,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(

@@ -252,7 +252,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     },
-                    DrainCoefficient = new NormalDistribution
+                    DrainCoefficient = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 0.1
                     },

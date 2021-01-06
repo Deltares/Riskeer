@@ -213,7 +213,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.AreEqual($"De variatiecoëfficiënt voor '{stormDuration}' moet groter zijn dan of gelijk zijn aan 0.", msgs[2]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{insideWaterLevel}' moet een concreet getal zijn.", msgs[3]);
                 Assert.AreEqual($"De standaardafwijking voor '{insideWaterLevel}' moet groter zijn dan of gelijk zijn aan 0.", msgs[4]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficient}' moet een concreet getal zijn.", msgs[5]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficient}' moet een positief getal zijn.", msgs[5]);
                 Assert.AreEqual($"De standaardafwijking voor '{drainCoefficient}' moet groter zijn dan of gelijk zijn aan 0.", msgs[6]);
                 Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructure}' moet een concreet getal zijn.", msgs[7]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{areaFlowApertures}' moet een positief getal zijn.", msgs[8]);
@@ -1157,7 +1157,6 @@ namespace Riskeer.ClosingStructures.Service.Test
         private static void SetInvalidInputParameters(ClosingStructuresInput input, RoundedDouble value)
         {
             input.DeviationWaveDirection = RoundedDouble.NaN;
-            input.DrainCoefficient.Mean = value;
             input.FactorStormDurationOpenStructure = value;
             input.InsideWaterLevel.Mean = value;
             input.LevelCrestStructureNotClosing.Mean = value;
@@ -1170,11 +1169,12 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 input.AllowedLevelIncreaseStorage.Mean = RoundedDouble.NaN;
                 input.AllowedLevelIncreaseStorage.StandardDeviation = RoundedDouble.NaN;
+                input.DrainCoefficient.Mean = RoundedDouble.NaN;
+                input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
                 input.AreaFlowApertures.Mean = RoundedDouble.NaN;
                 input.AreaFlowApertures.StandardDeviation = RoundedDouble.NaN;
                 input.CriticalOvertoppingDischarge.Mean = RoundedDouble.NaN;
                 input.CriticalOvertoppingDischarge.CoefficientOfVariation = RoundedDouble.NaN;
-                input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
                 input.FlowWidthAtBottomProtection.Mean = RoundedDouble.NaN;
                 input.FlowWidthAtBottomProtection.StandardDeviation = RoundedDouble.NaN;
                 input.InsideWaterLevel.StandardDeviation = RoundedDouble.NaN;
@@ -1191,11 +1191,12 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 input.AllowedLevelIncreaseStorage.Mean = value;
                 input.AllowedLevelIncreaseStorage.StandardDeviation = value;
+                input.DrainCoefficient.Mean = value;
+                input.DrainCoefficient.StandardDeviation = value;
                 input.AreaFlowApertures.Mean = value;
                 input.AreaFlowApertures.StandardDeviation = value;
                 input.CriticalOvertoppingDischarge.Mean = value;
                 input.CriticalOvertoppingDischarge.CoefficientOfVariation = value;
-                input.DrainCoefficient.StandardDeviation = value;
                 input.FlowWidthAtBottomProtection.Mean = value;
                 input.FlowWidthAtBottomProtection.StandardDeviation = value;
                 input.InsideWaterLevel.StandardDeviation = value;

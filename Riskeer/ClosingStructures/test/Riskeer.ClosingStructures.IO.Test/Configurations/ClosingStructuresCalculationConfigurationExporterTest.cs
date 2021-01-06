@@ -185,7 +185,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     },
-                    DrainCoefficient = new NormalDistribution
+                    DrainCoefficient = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 1.1,
                         StandardDeviation = (RoundedDouble) 0.02

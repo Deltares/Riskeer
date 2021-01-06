@@ -43,7 +43,7 @@ namespace Riskeer.ClosingStructures.Data
 
         private NormalDistribution thresholdHeightOpenWeir;
         private NormalDistribution modelFactorSuperCriticalFlow;
-        private NormalDistribution drainCoefficient;
+        private LogNormalDistribution drainCoefficient;
         private LogNormalDistribution areaFlowApertures;
         private NormalDistribution levelCrestStructureNotClosing;
         private NormalDistribution insideWaterLevel;
@@ -62,7 +62,7 @@ namespace Riskeer.ClosingStructures.Data
             factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
             deviationWaveDirection = new RoundedDouble(deviationWaveDirectionNumberOfDecimals);
 
-            drainCoefficient = new NormalDistribution(2)
+            drainCoefficient = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
@@ -146,7 +146,7 @@ namespace Riskeer.ClosingStructures.Data
 
             clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
             clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
-            clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
+            clone.drainCoefficient = (LogNormalDistribution) DrainCoefficient.Clone();
             clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
             clone.levelCrestStructureNotClosing = (NormalDistribution) LevelCrestStructureNotClosing.Clone();
             clone.insideWaterLevel = (NormalDistribution) InsideWaterLevel.Clone();
@@ -254,7 +254,7 @@ namespace Riskeer.ClosingStructures.Data
         /// Gets or sets the drain coefficient.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution DrainCoefficient
+        public LogNormalDistribution DrainCoefficient
         {
             get
             {

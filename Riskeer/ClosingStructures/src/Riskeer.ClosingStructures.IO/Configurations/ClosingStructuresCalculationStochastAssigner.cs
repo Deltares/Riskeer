@@ -95,7 +95,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                     ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
                     Configuration.DrainCoefficient,
                     i => i.DrainCoefficient,
-                    (i, d) => i.DrainCoefficient = (NormalDistribution) d);
+                    (i, d) => i.DrainCoefficient = (LogNormalDistribution) d);
 
                 yield return new StandardDeviationDefinition(
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
