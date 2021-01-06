@@ -30,7 +30,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories

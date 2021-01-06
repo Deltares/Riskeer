@@ -23,6 +23,7 @@ All rights reserved.
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:p="clr-namespace:Core.Components.GraphSharp.Forms.Properties"
     xmlns:wpfExtensionsControls="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions">
 
     <Style TargetType="{x:Type wpfExtensionsControls:ZoomControl}">
@@ -48,7 +49,7 @@ All rights reserved.
                                     Background="{TemplateBinding ZoomBoxBackground}"
                                     Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Width}"
                                     Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Height}" />
-                            <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="* Het getal is afgerond. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal."/>
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="{x:Static p:Resources.Value_Is_Rounded_}"/>
                             </Grid>
                     </Grid>
                 </ControlTemplate>
