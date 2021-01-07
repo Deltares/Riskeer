@@ -30,6 +30,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
@@ -161,9 +162,12 @@ namespace Riskeer.Common.Forms.Factories
 
         private static string CreateGraphNodeContent(RoundedDouble beta)
         {
+            double probability = StatisticsConverter.ReliabilityToProbability(beta);
+
             return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1,
-                                 StatisticsConverter.ReliabilityToProbability(beta).ToString("0.##E+0", CultureInfo.CurrentCulture),
-                                 beta);
+                                 probability < 0.00001 ?
+                                 probability.ToString("0.#####E+0", CultureInfo.CurrentCulture) :
+                                 ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta)), beta);
         }
     }
 }

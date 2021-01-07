@@ -154,6 +154,44 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
+        [TestCase(1, "1/1")]
+        [TestCase(0.1, "1/10")]
+        [TestCase(0.00001, "1/100.000")]
+        [TestCase(0.000012, "1/83.332")]
+        [TestCase(0.00000123, "1,22998E-6")]
+        [TestCase(0.0000099, "9,90019E-6")]
+        public void CreateGraphNode_FaultTreeIllustrationPointNodeDataWithChildren_ReturnsExpectedGraphNodeContent(double probability, string expectedProbability)
+        {
+            // Setup
+            var random = new Random(31);
+            double beta = StatisticsConverter.ProbabilityToReliability(probability);
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                "Illustration Point",
+                beta,
+                Enumerable.Empty<Stochast>(),
+                random.NextEnumValue<CombinationType>());
+
+            IEnumerable<GraphNode> childGraphNodes = new[]
+            {
+                CreateTestGraphNode()
+            };
+
+            // Call
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
+                                                                          childGraphNodes);
+
+            RoundedDouble roundedBeta = ((RoundedDouble) beta).ToPrecision(5);
+
+            string expectedGraphNodeContent = $"<text><bold>{illustrationPoint.Name}</bold>{Environment.NewLine}" +
+                                              $"{Environment.NewLine}" +
+                                              $"Berekende kans* = {expectedProbability}{Environment.NewLine}" +
+                                              $"Betrouwbaarheidsindex = {roundedBeta}</text>";
+
+            // Assert
+            Assert.AreEqual(expectedGraphNodeContent, graphNode.Content);
+        }
+
+        [Test]
         public void CreateGraphNode_WithFaultTreeIllustrationPointButChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
