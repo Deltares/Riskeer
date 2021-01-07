@@ -2309,7 +2309,7 @@ namespace Riskeer.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///Berekende kans* = {0}
+        ///Berekende kans = {0}
         ///Betrouwbaarheidsindex = {1}.
         /// </summary>
         public static string GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1 {

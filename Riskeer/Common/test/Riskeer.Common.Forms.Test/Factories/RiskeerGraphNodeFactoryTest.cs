@@ -184,7 +184,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             string expectedGraphNodeContent = $"<text><bold>{illustrationPoint.Name}</bold>{Environment.NewLine}" +
                                               $"{Environment.NewLine}" +
-                                              $"Berekende kans* = {expectedProbability}{Environment.NewLine}" +
+                                              $"Berekende kans = {expectedProbability}{Environment.NewLine}" +
                                               $"Betrouwbaarheidsindex = {roundedBeta}</text>";
 
             // Assert
@@ -255,11 +255,10 @@ namespace Riskeer.Common.Forms.Test.Factories
         private static string CreateExpectedGraphNodeContent(string name, RoundedDouble beta)
         {
             RoundedDouble roundedBeta = beta.ToPrecision(5);
-            string probability = StatisticsConverter.ReliabilityToProbability(beta).ToString("0.##E+0", CultureInfo.CurrentCulture);
 
             return $"<text><bold>{name}</bold>{Environment.NewLine}" +
                    $"{Environment.NewLine}" +
-                   $"Berekende kans* = {probability}{Environment.NewLine}" +
+                   $"Berekende kans = 1/6{Environment.NewLine}" +
                    $"Betrouwbaarheidsindex = {roundedBeta}</text>";
         }
 
