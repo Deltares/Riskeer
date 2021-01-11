@@ -176,16 +176,16 @@ namespace Riskeer.Common.Forms.Test.Factories
                 CreateTestGraphNode()
             };
 
-            // Call
-            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
-                                                                          childGraphNodes);
-
             RoundedDouble roundedBeta = ((RoundedDouble) beta).ToPrecision(5);
 
             string expectedGraphNodeContent = $"<text><bold>{illustrationPoint.Name}</bold>{Environment.NewLine}" +
                                               $"{Environment.NewLine}" +
                                               $"Berekende kans = {expectedProbability}{Environment.NewLine}" +
                                               $"Betrouwbaarheidsindex = {roundedBeta}</text>";
+            
+            // Call
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
+                                                                          childGraphNodes);
 
             // Assert
             Assert.AreEqual(expectedGraphNodeContent, graphNode.Content);
