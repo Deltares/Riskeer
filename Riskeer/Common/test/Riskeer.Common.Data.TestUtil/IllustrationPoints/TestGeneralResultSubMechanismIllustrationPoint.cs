@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple general result with top level sub mechanism illustration points
-    ///  which can be used for testing.
+    /// which can be used for testing.
     /// </summary>
     public class TestGeneralResultSubMechanismIllustrationPoint : GeneralResult<TopLevelSubMechanismIllustrationPoint>
     {

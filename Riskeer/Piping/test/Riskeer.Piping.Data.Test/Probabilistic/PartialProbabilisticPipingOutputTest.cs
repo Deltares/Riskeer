@@ -40,12 +40,12 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var random = new Random(39);
             double reliability = random.NextDouble();
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                                  : null;
+            GeneralResult<TestTopLevelIllustrationPoint> generalResult = withIllustrationPoints
+                                                                             ? new TestGeneralResultTopLevelIllustrationPoint()
+                                                                             : null;
 
             // Call
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
+            var partialProbabilisticPipingOutput = new TestPartialProbabilisticPipingOutput(reliability, generalResult);
 
             // Assert
             Assert.IsInstanceOf<IPartialProbabilisticPipingOutput>(partialProbabilisticPipingOutput);
@@ -87,9 +87,9 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var random = new Random(39);
             double reliability = random.NextDouble();
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            GeneralResult<TestTopLevelIllustrationPoint> generalResult = new TestGeneralResultTopLevelIllustrationPoint();
 
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
+            var partialProbabilisticPipingOutput = new TestPartialProbabilisticPipingOutput(reliability, generalResult);
 
             // Call
             partialProbabilisticPipingOutput.ClearIllustrationPoints();
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var random = new Random(39);
             double reliability = random.NextDouble();
 
-            var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, null);
+            var partialProbabilisticPipingOutput = new TestPartialProbabilisticPipingOutput(reliability, null);
 
             // Call
             partialProbabilisticPipingOutput.ClearIllustrationPoints();
@@ -116,6 +116,12 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             Assert.AreEqual(reliability, partialProbabilisticPipingOutput.Reliability);
             Assert.IsFalse(partialProbabilisticPipingOutput.HasGeneralResult);
             Assert.IsNull(partialProbabilisticPipingOutput.GeneralResult);
+        }
+
+        private class TestPartialProbabilisticPipingOutput : PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>
+        {
+            public TestPartialProbabilisticPipingOutput(double reliability, GeneralResult<TestTopLevelIllustrationPoint> generalResult) 
+                : base(reliability, generalResult) {}
         }
     }
 }
