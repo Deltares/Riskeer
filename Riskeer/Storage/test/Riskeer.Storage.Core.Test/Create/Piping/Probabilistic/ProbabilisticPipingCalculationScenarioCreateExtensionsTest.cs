@@ -249,7 +249,9 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             // Setup
             var registry = new PersistenceRegistry();
 
-            ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
+            var output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
+            
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = output
@@ -264,9 +266,9 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(output.ProfileSpecificOutput.Reliability, outputEntity.ProfileSpecificReliability);
             Assert.AreEqual(output.SectionSpecificOutput.Reliability, outputEntity.SectionSpecificReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult,
                                                                             outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.SectionSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.SectionSpecificOutput).GeneralResult,
                                                                             outputEntity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }

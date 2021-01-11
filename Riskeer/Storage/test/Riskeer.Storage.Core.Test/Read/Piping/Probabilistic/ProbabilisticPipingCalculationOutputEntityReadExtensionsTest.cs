@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
                 ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult, profileSpecificGeneralResultEntity);
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
-                ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult, sectionSpecificGeneralResultEntity);
+                ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.SectionSpecificOutput).GeneralResult, sectionSpecificGeneralResultEntity);
         }
 
         [Test]

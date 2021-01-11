@@ -1092,7 +1092,8 @@ namespace Riskeer.Storage.Core.TestUtil
                             ShouldProfileSpecificIllustrationPointsBeCalculated = true,
                             ShouldSectionSpecificIllustrationPointsBeCalculated = true
                         },
-                        Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                        Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                                               PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
                     }
                 }
             });

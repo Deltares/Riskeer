@@ -48,9 +48,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
         public void Create_CalculationWithOutput_ReturnEntityWithOutput()
         {
             // Setup
-            var output = new ProbabilisticPipingOutput(
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null),
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null));
+            var output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null));
 
             // Call
             ProbabilisticPipingCalculationOutputEntity entity = output.Create();
@@ -84,9 +83,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
         public void Create_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndGeneralResult()
         {
             // Setup
-            var output = new ProbabilisticPipingOutput(
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput());
+            var output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
 
             // Call
             ProbabilisticPipingCalculationOutputEntity entity = output.Create();
