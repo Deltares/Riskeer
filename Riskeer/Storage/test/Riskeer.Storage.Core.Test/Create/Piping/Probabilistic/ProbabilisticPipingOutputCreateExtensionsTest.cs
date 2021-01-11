@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Storage.Core.Create.Piping.Probabilistic;
@@ -66,8 +67,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
         {
             // Setup
             var output = new ProbabilisticPipingOutput(
-                new PartialProbabilisticPipingOutput(double.NaN, null),
-                new PartialProbabilisticPipingOutput(double.NaN, null));
+                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(double.NaN, null),
+                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(double.NaN, null));
 
             // Call
             ProbabilisticPipingCalculationOutputEntity entity = output.Create();
@@ -93,8 +94,10 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             // Assert
             Assert.AreEqual(output.ProfileSpecificOutput.Reliability, entity.ProfileSpecificReliability);
             Assert.AreEqual(output.SectionSpecificOutput.Reliability, entity.SectionSpecificReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.ProfileSpecificOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.SectionSpecificOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity1);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult,
+                                                                            entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.SectionSpecificOutput).GeneralResult,
+                                                                            entity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }
 }

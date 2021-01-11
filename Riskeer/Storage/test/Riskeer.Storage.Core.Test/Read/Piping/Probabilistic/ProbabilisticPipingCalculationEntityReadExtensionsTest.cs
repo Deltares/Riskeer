@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
@@ -325,9 +326,9 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             Assert.IsNotNull(output);
 
             Assert.IsNaN(output.ProfileSpecificOutput.Reliability);
-            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult);
             Assert.IsNaN(output.SectionSpecificOutput.Reliability);
-            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult);
         }
     }
 }

@@ -1336,12 +1336,14 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 return;
             }
 
-            AssertPartialProbabilisticPipingOutput(expectedOutput.ProfileSpecificOutput, actualOutput.ProfileSpecificOutput);
-            AssertPartialProbabilisticPipingOutput(expectedOutput.SectionSpecificOutput, actualOutput.SectionSpecificOutput);
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) expectedOutput.ProfileSpecificOutput,
+                                                   (PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) actualOutput.ProfileSpecificOutput);
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) expectedOutput.SectionSpecificOutput,
+                                                   (PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) actualOutput.SectionSpecificOutput);
         }
 
-        private static void AssertPartialProbabilisticPipingOutput(PartialProbabilisticPipingOutput expectedOutput,
-                                                                   PartialProbabilisticPipingOutput actualOutput)
+        private static void AssertPartialProbabilisticPipingOutput(PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> expectedOutput,
+                                                                   PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> actualOutput)
         {
             Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);

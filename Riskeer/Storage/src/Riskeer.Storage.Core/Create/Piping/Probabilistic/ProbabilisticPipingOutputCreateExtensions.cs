@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
@@ -52,8 +53,8 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
             {
                 ProfileSpecificReliability = output.ProfileSpecificOutput.Reliability.ToNaNAsNull(),
                 SectionSpecificReliability = output.SectionSpecificOutput.Reliability.ToNaNAsNull(),
-                GeneralResultFaultTreeIllustrationPointEntity = output.ProfileSpecificOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity(),
-                GeneralResultFaultTreeIllustrationPointEntity1 = output.SectionSpecificOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
+                GeneralResultFaultTreeIllustrationPointEntity = ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity(),
+                GeneralResultFaultTreeIllustrationPointEntity1 = ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.SectionSpecificOutput).GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
             };
         }
     }

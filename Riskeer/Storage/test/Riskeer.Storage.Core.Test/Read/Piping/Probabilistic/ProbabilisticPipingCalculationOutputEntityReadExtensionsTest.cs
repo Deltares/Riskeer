@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.Piping.Probabilistic;
@@ -74,9 +75,9 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
 
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
-                output.ProfileSpecificOutput.GeneralResult, profileSpecificGeneralResultEntity);
+                ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult, profileSpecificGeneralResultEntity);
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
-                output.SectionSpecificOutput.GeneralResult, sectionSpecificGeneralResultEntity);
+                ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult, sectionSpecificGeneralResultEntity);
         }
 
         [Test]
@@ -96,9 +97,9 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
 
             // Assert
             Assert.IsNaN(output.ProfileSpecificOutput.Reliability);
-            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult);
             Assert.IsNaN(output.SectionSpecificOutput.Reliability);
-            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult);
         }
     }
 }

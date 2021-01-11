@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -263,8 +264,10 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(output.ProfileSpecificOutput.Reliability, outputEntity.ProfileSpecificReliability);
             Assert.AreEqual(output.SectionSpecificOutput.Reliability, outputEntity.SectionSpecificReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.ProfileSpecificOutput.GeneralResult, outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.SectionSpecificOutput.GeneralResult, outputEntity.GeneralResultFaultTreeIllustrationPointEntity1);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult,
+                                                                            outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.SectionSpecificOutput).GeneralResult,
+                                                                            outputEntity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }
 }
