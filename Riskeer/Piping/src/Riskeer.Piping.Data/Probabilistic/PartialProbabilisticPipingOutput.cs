@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.Piping.Data.Probabilistic
@@ -27,19 +26,26 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// This class contains the result of a sub-calculation for a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    public class PartialProbabilisticPipingOutput : IPartialProbabilisticPipingOutput
+    /// <typeparam name="T">The illustration point type of the general result.</typeparam>
+    public class PartialProbabilisticPipingOutput<T> : IPartialProbabilisticPipingOutput
+        where T : TopLevelIllustrationPointBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PartialProbabilisticPipingOutput"/>.
+        /// Creates a new instance of <see cref="PartialProbabilisticPipingOutput{T}"/>.
         /// </summary>
         /// <param name="reliability">The reliability of the calculation.</param>
         /// <param name="generalResult">The general result of this output with the fault tree illustration points.</param>
-        public PartialProbabilisticPipingOutput(double reliability,
-                                                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        protected PartialProbabilisticPipingOutput(
+            double reliability, GeneralResult<T> generalResult)
         {
             Reliability = reliability;
             GeneralResult = generalResult;
         }
+
+        /// <summary>
+        /// Gets the general result with the fault tree illustration points.
+        /// </summary>
+        public GeneralResult<T> GeneralResult { get; private set; }
 
         /// <summary>
         /// Gets the reliability of the calculation.
@@ -52,11 +58,6 @@ namespace Riskeer.Piping.Data.Probabilistic
         public bool HasGeneralResult => GeneralResult != null;
 
         /// <summary>
-        /// Gets the general result with the fault tree illustration points.
-        /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
-
-        /// <summary>
         /// Clears the illustration points of the output.
         /// </summary>
         public void ClearIllustrationPoints()
@@ -66,11 +67,11 @@ namespace Riskeer.Piping.Data.Probabilistic
 
         public object Clone()
         {
-            var clone = (PartialProbabilisticPipingOutput) MemberwiseClone();
+            var clone = (PartialProbabilisticPipingOutput<T>) MemberwiseClone();
 
             if (GeneralResult != null)
             {
-                clone.GeneralResult = (GeneralResult<TopLevelFaultTreeIllustrationPoint>) GeneralResult.Clone();
+                clone.GeneralResult = (GeneralResult<T>) GeneralResult.Clone();
             }
 
             return clone;
