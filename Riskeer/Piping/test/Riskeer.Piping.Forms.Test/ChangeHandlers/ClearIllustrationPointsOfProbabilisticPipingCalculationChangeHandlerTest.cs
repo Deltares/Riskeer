@@ -22,6 +22,7 @@
 using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -113,8 +114,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             // Assert
             Assert.IsTrue(result);
 
-            Assert.IsNull(((TestPartialProbabilisticPipingOutput) calculation.Output.ProfileSpecificOutput).GeneralResult);
-            Assert.IsNull(((TestPartialProbabilisticPipingOutput) calculation.Output.SectionSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.ProfileSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.SectionSpecificOutput).GeneralResult);
             mocks.VerifyAll();
         }
     }
