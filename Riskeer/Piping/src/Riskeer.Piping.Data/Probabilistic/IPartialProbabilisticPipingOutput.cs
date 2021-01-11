@@ -27,21 +27,20 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// Interface for the result of a sub-calculation for a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
     public interface IPartialProbabilisticPipingOutput : ICloneable
-
     {
-    /// <summary>
-    /// Gets the reliability of the calculation.
-    /// </summary>
-    double Reliability { get; }
+        /// <summary>
+        /// Gets the reliability of the calculation.
+        /// </summary>
+        double Reliability { get; }
 
-    /// <summary>
-    /// Gets the value indicating whether the output contains a general result with illustration points.
-    /// </summary>
-    bool HasGeneralResult { get; }
+        /// <summary>
+        /// Gets the value indicating whether the output contains a general result with illustration points.
+        /// </summary>
+        bool HasGeneralResult { get; }
 
-    /// <summary>
-    /// Clears the illustration points of the output.
-    /// </summary>
-    void ClearIllustrationPoints();
+        /// <summary>
+        /// Clears the illustration points of the output.
+        /// </summary>
+        void ClearIllustrationPoints();
     }
 }
