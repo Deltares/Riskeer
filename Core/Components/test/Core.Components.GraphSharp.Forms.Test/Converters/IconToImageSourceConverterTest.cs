@@ -42,19 +42,6 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
         }
 
         [Test]
-        public void Convert_ValueNull_ReturnNull()
-        {
-            // Setup
-            var converter = new IconToImageSourceConverter();
-
-            // Call
-            object convertedValue = converter.Convert(null, typeof(Icon), null, CultureInfo.InvariantCulture);
-
-            // Assert
-            Assert.IsNull(convertedValue);
-        }
-
-        [Test]
         public void ConvertBack_ThrowNotSupportedException()
         {
             // Setup

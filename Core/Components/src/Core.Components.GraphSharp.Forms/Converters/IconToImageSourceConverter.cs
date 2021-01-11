@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows;
@@ -31,16 +30,14 @@ using System.Windows.Media.Imaging;
 
 namespace Core.Components.GraphSharp.Forms.Converters
 {
+    /// <summary>
+    /// Converter to change a <see cref="Icon"/> instance to a <see cref="ImageSource"/> instance.
+    /// </summary>
     public class IconToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var icon = value as Icon;
-            if (icon == null)
-            {
-                Trace.TraceWarning("Attempted to convert {0} instead of Icon object in IconToImageSourceConverter", value);
-                return null;
-            }
+            var icon = (Icon) value;
 
             ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
                 icon.Handle,
