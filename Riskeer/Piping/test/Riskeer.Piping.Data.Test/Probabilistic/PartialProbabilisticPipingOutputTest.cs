@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
+            TestPartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            TestPartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             object clone = original.Clone();
@@ -116,12 +116,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             Assert.AreEqual(reliability, partialProbabilisticPipingOutput.Reliability);
             Assert.IsFalse(partialProbabilisticPipingOutput.HasGeneralResult);
             Assert.IsNull(partialProbabilisticPipingOutput.GeneralResult);
-        }
-
-        private class TestPartialProbabilisticPipingOutput : PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>
-        {
-            public TestPartialProbabilisticPipingOutput(double reliability, GeneralResult<TestTopLevelIllustrationPoint> generalResult) 
-                : base(reliability, generalResult) {}
         }
     }
 }

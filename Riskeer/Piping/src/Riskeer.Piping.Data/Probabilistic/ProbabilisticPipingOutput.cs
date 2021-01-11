@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <param name="sectionSpecificOutput">The result of the sub-calculation that takes into account the section length.</param>
         /// <param name="profileSpecificOutput">The result of the sub-calculation that doesn't take into account the section length.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingOutput(PartialProbabilisticPipingOutput sectionSpecificOutput, PartialProbabilisticPipingOutput profileSpecificOutput)
+        public ProbabilisticPipingOutput(IPartialProbabilisticPipingOutput sectionSpecificOutput, IPartialProbabilisticPipingOutput profileSpecificOutput)
         {
             if (sectionSpecificOutput == null)
             {
@@ -55,12 +55,12 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <summary>
         /// Gets the result of the sub-calculation that takes into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput SectionSpecificOutput { get; private set; }
+        public IPartialProbabilisticPipingOutput SectionSpecificOutput { get; private set; }
 
         /// <summary>
         /// Gets the result of the sub-calculation that doesn't take into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput ProfileSpecificOutput { get; private set; }
+        public IPartialProbabilisticPipingOutput ProfileSpecificOutput { get; private set; }
 
         /// <summary>
         /// Clears the calculated illustration points.
@@ -75,8 +75,8 @@ namespace Riskeer.Piping.Data.Probabilistic
         {
             var clone = (ProbabilisticPipingOutput) base.Clone();
 
-            clone.SectionSpecificOutput = (PartialProbabilisticPipingOutput) SectionSpecificOutput.Clone();
-            clone.ProfileSpecificOutput = (PartialProbabilisticPipingOutput) ProfileSpecificOutput.Clone();
+            clone.SectionSpecificOutput = (IPartialProbabilisticPipingOutput) SectionSpecificOutput.Clone();
+            clone.ProfileSpecificOutput = (IPartialProbabilisticPipingOutput) ProfileSpecificOutput.Clone();
 
             return clone;
         }

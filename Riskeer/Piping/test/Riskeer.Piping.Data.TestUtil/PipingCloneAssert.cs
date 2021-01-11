@@ -21,6 +21,7 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -198,10 +199,24 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PartialProbabilisticPipingOutput original, PartialProbabilisticPipingOutput clone)
+        public static void AreClones<T>(PartialProbabilisticPipingOutput<T> original, PartialProbabilisticPipingOutput<T> clone)
+            where T : TopLevelIllustrationPointBase
         {
             Assert.AreEqual(original.Reliability, clone.Reliability);
             CoreCloneAssert.AreObjectClones(original.GeneralResult, clone.GeneralResult, CommonCloneAssert.AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        private static void AreClones(IPartialProbabilisticPipingOutput original, IPartialProbabilisticPipingOutput clone)
+        {
+            Assert.AreEqual(original.Reliability, clone.Reliability);
         }
     }
 }

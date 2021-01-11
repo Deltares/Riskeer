@@ -226,7 +226,9 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(GeneralResult<TopLevelIllustrationPointBase> original, GeneralResult<TopLevelIllustrationPointBase> clone)
+        /// <typeparam name="T">The type of the illustration point.</typeparam>
+        public static void AreClones<T>(GeneralResult<T> original, GeneralResult<T> clone)
+            where T : TopLevelIllustrationPointBase
         {
             CoreCloneAssert.AreObjectClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
             CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);

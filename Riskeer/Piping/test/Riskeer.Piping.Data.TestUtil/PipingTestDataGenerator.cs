@@ -584,25 +584,25 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
+        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
         /// </summary>
-        /// <returns>A random instance of <see cref="PartialProbabilisticPipingOutput"/>.</returns>
-        public static PartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput()
+        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
+        public static TestPartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput()
         {
-            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultTopLevelIllustrationPoint());
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
+        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="generalResult">The general result to set to the output.</param>
-        /// <returns>A random instance of <see cref="PartialProbabilisticPipingOutput"/>.</returns>
-        public static PartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput(TestGeneralResultFaultTreeIllustrationPoint generalResult)
+        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
+        public static TestPartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput(TestGeneralResultTopLevelIllustrationPoint generalResult)
         {
             var random = new Random(21);
 
-            return new PartialProbabilisticPipingOutput(random.NextDouble(),
-                                                        generalResult);
+            return new TestPartialProbabilisticPipingOutput(random.NextDouble(),
+                                                            generalResult);
         }
 
         /// <summary>
