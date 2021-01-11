@@ -33,7 +33,7 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         /// <summary>
         /// Creates a new instance of <see cref="TestGeneralResultTopLevelIllustrationPoint"/>.
         /// </summary>
-        public TestGeneralResultTopLevelIllustrationPoint() 
+        public TestGeneralResultTopLevelIllustrationPoint()
             : base(WindDirectionTestFactory.CreateTestWindDirection(),
                    new[]
                    {
@@ -43,5 +43,20 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
                    {
                        new TestTopLevelIllustrationPoint()
                    }) {}
+    }
+
+    public class TestGeneralResult<T> : GeneralResult<T>
+        where T : TopLevelIllustrationPointBase, new()
+    {
+        public TestGeneralResult() :
+            base(WindDirectionTestFactory.CreateTestWindDirection(),
+                 new[]
+                 {
+                     new Stochast("A", 10.0, 5.0)
+                 },
+                 new List<T>
+                 {
+                     new T()
+                 }) {}
     }
 }

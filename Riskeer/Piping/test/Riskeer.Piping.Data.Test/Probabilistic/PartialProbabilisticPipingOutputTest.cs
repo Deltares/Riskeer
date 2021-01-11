@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestPartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestPartialProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> original = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             object clone = original.Clone();

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
@@ -90,8 +91,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult()
         {
             // Setup
-            TestPartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            TestPartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
             var calculation = new TestProbabilisticPipingCalculation
             {
@@ -103,8 +104,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             Assert.AreSame(output, calculation.Output);
-            Assert.IsNull(((TestPartialProbabilisticPipingOutput) output.SectionSpecificOutput).GeneralResult);
-            Assert.IsNull(((TestPartialProbabilisticPipingOutput) output.ProfileSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) output.SectionSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult);
         }
 
         [Test]

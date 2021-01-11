@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -587,9 +588,9 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
         /// </summary>
         /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
-        public static TestPartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput()
+        public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput()
         {
-            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultTopLevelIllustrationPoint());
+            return GetRandomPartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>();
         }
 
         /// <summary>
@@ -597,12 +598,9 @@ namespace Riskeer.Piping.Data.TestUtil
         /// </summary>
         /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
-        public static TestPartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput(TestGeneralResultTopLevelIllustrationPoint generalResult)
+        public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput(GeneralResult<TestTopLevelIllustrationPoint> generalResult)
         {
-            var random = new Random(21);
-
-            return new TestPartialProbabilisticPipingOutput(random.NextDouble(),
-                                                            generalResult);
+            return GetRandomPartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>(generalResult);
         }
 
         /// <summary>
@@ -623,6 +621,32 @@ namespace Riskeer.Piping.Data.TestUtil
         {
             return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(null),
                                                  GetRandomPartialProbabilisticPipingOutput(null));
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
+        /// <typeparam name="T">The type of the top level illustration point.</typeparam>
+        private static PartialProbabilisticPipingOutput<T> GetRandomPartialProbabilisticPipingOutput<T>()
+            where T : TopLevelIllustrationPointBase, new()
+        {
+            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResult<T>());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
+        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
+        /// <typeparam name="T">The type of the top level illustration point.</typeparam>
+        private static PartialProbabilisticPipingOutput<T> GetRandomPartialProbabilisticPipingOutput<T>(GeneralResult<T> generalResult)
+            where T : TopLevelIllustrationPointBase
+        {
+            var random = new Random(21);
+
+            return new PartialProbabilisticPipingOutput<T>(random.NextDouble(),
+                                                           generalResult);
         }
     }
 }

@@ -61,8 +61,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            TestPartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            TestPartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
