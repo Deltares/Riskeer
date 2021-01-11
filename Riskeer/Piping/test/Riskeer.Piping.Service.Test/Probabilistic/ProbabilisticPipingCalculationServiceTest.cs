@@ -1235,8 +1235,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                     calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
 
                 // Assert
-                PartialProbabilisticPipingOutput profileSpecificOutput = calculation.Output.ProfileSpecificOutput;
-                PartialProbabilisticPipingOutput sectionSpecificOutput = calculation.Output.SectionSpecificOutput;
+                IPartialProbabilisticPipingOutput profileSpecificOutput = calculation.Output.ProfileSpecificOutput;
+                IPartialProbabilisticPipingOutput sectionSpecificOutput = calculation.Output.SectionSpecificOutput;
                 Assert.IsFalse(double.IsNaN(profileSpecificOutput.Reliability));
                 Assert.IsFalse(double.IsNaN(sectionSpecificOutput.Reliability));
 
