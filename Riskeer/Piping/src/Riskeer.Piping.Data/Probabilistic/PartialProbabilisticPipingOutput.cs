@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         /// <param name="reliability">The reliability of the calculation.</param>
         /// <param name="generalResult">The general result of this output with the fault tree illustration points.</param>
-        protected PartialProbabilisticPipingOutput(
+        public PartialProbabilisticPipingOutput(
             double reliability, GeneralResult<T> generalResult)
         {
             Reliability = reliability;
