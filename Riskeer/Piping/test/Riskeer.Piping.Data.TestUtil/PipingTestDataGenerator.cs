@@ -585,12 +585,35 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
+        /// with <see cref="TestTopLevelIllustrationPoint"/>. 
         /// </summary>
-        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
+        /// <returns>The  created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
         public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput()
         {
-            return GetRandomPartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>();
+            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResult<TestTopLevelIllustrationPoint>());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
+        /// with <see cref="TopLevelFaultTreeIllustrationPoint"/>. 
+        /// </summary>
+        /// <returns>The created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        public static PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> GetRandomPartialProbabilisticFaultTreePipingOutput()
+        {
+            return GetRandomPartialProbabilisticFaultTreePipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
+        /// with <see cref="TopLevelFaultTreeIllustrationPoint"/>. 
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to use.</param>
+        /// <returns>The created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        public static PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> GetRandomPartialProbabilisticFaultTreePipingOutput(
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            return GetRandomPartialProbabilisticPipingOutput(generalResult);
         }
 
         /// <summary>
@@ -621,17 +644,6 @@ namespace Riskeer.Piping.Data.TestUtil
         {
             return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(null),
                                                  GetRandomPartialProbabilisticPipingOutput(null));
-        }
-
-        /// <summary>
-        /// Creates a random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.
-        /// </summary>
-        /// <returns>A random instance of <see cref="TestPartialProbabilisticPipingOutput"/>.</returns>
-        /// <typeparam name="T">The type of the top level illustration point.</typeparam>
-        private static PartialProbabilisticPipingOutput<T> GetRandomPartialProbabilisticPipingOutput<T>()
-            where T : TopLevelIllustrationPointBase, new()
-        {
-            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResult<T>());
         }
 
         /// <summary>
