@@ -40,14 +40,14 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
     /// <summary>
     /// ViewModel of section specific <see cref="PartialProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
-    public class ProbabilisticPipingSectionSpecificOutputProperties : ObjectProperties<PartialProbabilisticPipingOutput>
+    public class ProbabilisticPipingSectionSpecificOutputProperties : ObjectProperties<PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingSectionSpecificOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingSectionSpecificOutputProperties(PartialProbabilisticPipingOutput output)
+        public ProbabilisticPipingSectionSpecificOutputProperties(PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output)
         {
             if (output == null)
             {
