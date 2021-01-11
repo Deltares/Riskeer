@@ -19,7 +19,7 @@ namespace Core.Components.GraphSharp.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,21 +61,11 @@ namespace Core.Components.GraphSharp.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle getallen kleiner dan 1/100.000 zijn afgerond weergegeven in wetenschappelijke notatie. Dit is gedaan om de leesbaarheid te bevorderen. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal..
+        ///   Looks up a localized string similar to Alle faalkansen kleiner dan 1/100.000 zijn afgerond weergegeven in wetenschappelijke notatie. Dit is gedaan om de leesbaarheid te bevorderen. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal..
         /// </summary>
         public static string Value_In_Scientific_Notation_ {
             get {
                 return ResourceManager.GetString("Value_In_Scientific_Notation_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon warning {
-            get {
-                object obj = ResourceManager.GetObject("warning", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
     }

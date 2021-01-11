@@ -25,7 +25,8 @@ All rights reserved.
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:p="clr-namespace:Core.Components.GraphSharp.Forms.Properties"
     xmlns:wpfExtensionsControls="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-    xmlns:converters="clr-namespace:Core.Components.GraphSharp.Forms.Converters">
+    xmlns:converters="clr-namespace:Core.Components.GraphSharp.Forms.Converters"
+    xmlns:commonProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui">
 
     <converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
 
@@ -57,9 +58,9 @@ All rights reserved.
                                     <ColumnDefinition MaxWidth="20" />
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Source={x:Static p:Resources.warning},
+                                <Image Source="{Binding Source={x:Static commonProperties:Resources.warning},
                                 Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" />
-                                <TextBlock Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="{x:Static p:Resources.Value_In_Scientific_Notation_}" Margin="2,0,0,0"/>
+                                <TextBlock Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="{x:Static p:Resources.Value_In_Scientific_Notation_}" Margin="10,0,0,0"/>
                             </Grid>
                         </Grid>
                     </Grid>

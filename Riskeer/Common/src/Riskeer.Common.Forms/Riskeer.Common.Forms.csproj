@@ -54,7 +54,6 @@
     <None Include="Resources\Structures.png" />
     <None Include="Resources\MapsIcon.png" />
     <None Include="Resources\update.png" />
-    <None Include="Resources\warning.ico" />
     <None Include="Resources\CopyHS.png" />
     <None Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />

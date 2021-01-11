@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Forms.Views
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.Icon = Core.Common.Gui.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // manualAssemblyWarningProvider

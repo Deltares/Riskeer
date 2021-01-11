@@ -137,7 +137,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(4, errorProvider.GetIconPadding(button));
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(button));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));

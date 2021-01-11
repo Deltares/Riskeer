@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             warningPanel.Dock = DockStyle.Fill;
 
             warningIcon.Dock = DockStyle.Left;
-            warningIcon.Image = RiskeerCommonFormsResources.warning.ToBitmap();
+            warningIcon.Image = Core.Common.Gui.Properties.Resources.warning.ToBitmap();
             warningIcon.Location = new Point(0, 0);
             warningIcon.Size = new Size(20, 14);
 

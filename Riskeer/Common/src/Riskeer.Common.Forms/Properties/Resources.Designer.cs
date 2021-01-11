@@ -4369,16 +4369,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon warning {
-            get {
-                object obj = ResourceManager.GetObject("warning", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterstanden en Golfhoogten.
         /// </summary>
         public static string WaterLevel_and_WaveHeight_DisplayName {
