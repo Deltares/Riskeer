@@ -90,8 +90,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult()
         {
             // Setup
-            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            TestPartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            TestPartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
             var calculation = new TestProbabilisticPipingCalculation
             {
@@ -103,8 +103,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             Assert.AreSame(output, calculation.Output);
-            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
-            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(((TestPartialProbabilisticPipingOutput) output.SectionSpecificOutput).GeneralResult);
+            Assert.IsNull(((TestPartialProbabilisticPipingOutput) output.ProfileSpecificOutput).GeneralResult);
         }
 
         [Test]

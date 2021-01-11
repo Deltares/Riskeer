@@ -61,8 +61,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
-            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            TestPartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            TestPartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
@@ -81,10 +81,10 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var random = new Random(39);
             double sectionSpecificReliability = random.NextDouble();
             double profileSpecificReliability = random.NextDouble();
-            var sectionSpecificOutput = new PartialProbabilisticPipingOutput(sectionSpecificReliability,
-                                                                             new TestGeneralResultFaultTreeIllustrationPoint());
-            var profileSpecificOutput = new PartialProbabilisticPipingOutput(profileSpecificReliability,
-                                                                             new TestGeneralResultFaultTreeIllustrationPoint());
+            var sectionSpecificOutput = new TestPartialProbabilisticPipingOutput(sectionSpecificReliability,
+                                                                                 new TestGeneralResultTopLevelIllustrationPoint());
+            var profileSpecificOutput = new TestPartialProbabilisticPipingOutput(profileSpecificReliability,
+                                                                                 new TestGeneralResultTopLevelIllustrationPoint());
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
 
             // Call
@@ -93,10 +93,10 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.AreEqual(sectionSpecificReliability, output.SectionSpecificOutput.Reliability);
             Assert.IsFalse(output.SectionSpecificOutput.HasGeneralResult);
-            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(sectionSpecificOutput.GeneralResult);
             Assert.AreEqual(profileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.IsFalse(output.ProfileSpecificOutput.HasGeneralResult);
-            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(profileSpecificOutput.GeneralResult);
         }
 
         [Test]
@@ -106,8 +106,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var random = new Random(39);
             double sectionSpecificReliability = random.NextDouble();
             double profileSpecificReliability = random.NextDouble();
-            var sectionSpecificOutput = new PartialProbabilisticPipingOutput(sectionSpecificReliability, null);
-            var profileSpecificOutput = new PartialProbabilisticPipingOutput(profileSpecificReliability, null);
+            var sectionSpecificOutput = new TestPartialProbabilisticPipingOutput(sectionSpecificReliability, null);
+            var profileSpecificOutput = new TestPartialProbabilisticPipingOutput(profileSpecificReliability, null);
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
 
             // Call
@@ -116,10 +116,10 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.AreEqual(sectionSpecificReliability, output.SectionSpecificOutput.Reliability);
             Assert.IsFalse(output.SectionSpecificOutput.HasGeneralResult);
-            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(sectionSpecificOutput.GeneralResult);
             Assert.AreEqual(profileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.IsFalse(output.ProfileSpecificOutput.HasGeneralResult);
-            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+            Assert.IsNull(profileSpecificOutput.GeneralResult);
         }
 
         [Test]

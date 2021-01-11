@@ -113,8 +113,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             // Assert
             Assert.IsTrue(result);
 
-            Assert.IsNull(calculation.Output.ProfileSpecificOutput.GeneralResult);
-            Assert.IsNull(calculation.Output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNull(((TestPartialProbabilisticPipingOutput) calculation.Output.ProfileSpecificOutput).GeneralResult);
+            Assert.IsNull(((TestPartialProbabilisticPipingOutput) calculation.Output.SectionSpecificOutput).GeneralResult);
             mocks.VerifyAll();
         }
     }
