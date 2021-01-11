@@ -48,6 +48,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var partialProbabilisticPipingOutput = new PartialProbabilisticPipingOutput(reliability, generalResult);
 
             // Assert
+            Assert.IsInstanceOf<IPartialProbabilisticPipingOutput>(partialProbabilisticPipingOutput);
             Assert.IsInstanceOf<ICloneable>(partialProbabilisticPipingOutput);
             Assert.AreEqual(reliability, partialProbabilisticPipingOutput.Reliability);
             Assert.AreEqual(withIllustrationPoints, partialProbabilisticPipingOutput.HasGeneralResult);

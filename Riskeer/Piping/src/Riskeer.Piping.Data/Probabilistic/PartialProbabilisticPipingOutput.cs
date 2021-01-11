@@ -27,7 +27,7 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// This class contains the result of a sub-calculation for a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    public class PartialProbabilisticPipingOutput : ICloneable
+    public class PartialProbabilisticPipingOutput : IPartialProbabilisticPipingOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="PartialProbabilisticPipingOutput"/>.
