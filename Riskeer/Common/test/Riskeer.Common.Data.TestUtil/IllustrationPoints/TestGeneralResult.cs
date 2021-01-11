@@ -25,23 +25,23 @@ using Riskeer.Common.Data.IllustrationPoints;
 namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// A simple general result with test top level illustration points
-    /// which can be used for testing.
+    /// A simple general result which can be used for testing.
     /// </summary>
-    public class TestGeneralResultTopLevelIllustrationPoint : GeneralResult<TestTopLevelIllustrationPoint>
+    public class TestGeneralResult<T> : GeneralResult<T>
+        where T : TopLevelIllustrationPointBase, new()
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestGeneralResultTopLevelIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="TestGeneralResult{T}"/>.
         /// </summary>
-        public TestGeneralResultTopLevelIllustrationPoint()
-            : base(WindDirectionTestFactory.CreateTestWindDirection(),
-                   new[]
-                   {
-                       new Stochast("A", 10.0, 5.0)
-                   },
-                   new List<TestTopLevelIllustrationPoint>
-                   {
-                       new TestTopLevelIllustrationPoint()
-                   }) {}
+        public TestGeneralResult() :
+            base(WindDirectionTestFactory.CreateTestWindDirection(),
+                 new[]
+                 {
+                     new Stochast("A", 10.0, 5.0)
+                 },
+                 new List<T>
+                 {
+                     new T()
+                 }) {}
     }
 }
