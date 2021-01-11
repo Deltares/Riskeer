@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Data
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static ProbabilityAssessmentOutput Create(PartialProbabilisticPipingOutput output,
+        public static ProbabilityAssessmentOutput Create(IPartialProbabilisticPipingOutput output,
                                                          ProbabilisticPipingCalculationScenario calculation,
                                                          PipingFailureMechanism failureMechanism,
                                                          IAssessmentSection assessmentSection)

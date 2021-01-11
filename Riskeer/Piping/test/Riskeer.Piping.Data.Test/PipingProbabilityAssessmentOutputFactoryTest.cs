@@ -125,7 +125,7 @@ namespace Riskeer.Piping.Data.Test
 
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
-            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
+            IPartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
             ProbabilityAssessmentOutput probabilityOutput = PipingProbabilityAssessmentOutputFactory.Create(output,
