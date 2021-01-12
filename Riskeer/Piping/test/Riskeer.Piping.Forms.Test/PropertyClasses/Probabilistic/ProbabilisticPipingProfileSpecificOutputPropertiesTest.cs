@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                                     new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticFaultTreePipingOutput>>(properties);
             Assert.AreSame(output, properties.Data);
         }
 

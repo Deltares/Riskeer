@@ -266,9 +266,9 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(output.ProfileSpecificOutput.Reliability, outputEntity.ProfileSpecificReliability);
             Assert.AreEqual(output.SectionSpecificOutput.Reliability, outputEntity.SectionSpecificReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput).GeneralResult,
                                                                             outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.SectionSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput) output.SectionSpecificOutput).GeneralResult,
                                                                             outputEntity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }

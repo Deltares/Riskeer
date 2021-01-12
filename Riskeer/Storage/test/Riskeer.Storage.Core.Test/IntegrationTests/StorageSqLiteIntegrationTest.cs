@@ -1336,14 +1336,14 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 return;
             }
 
-            AssertPartialProbabilisticPipingOutput((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) expectedOutput.ProfileSpecificOutput,
-                                                   (PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) actualOutput.ProfileSpecificOutput);
-            AssertPartialProbabilisticPipingOutput((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) expectedOutput.SectionSpecificOutput,
-                                                   (PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) actualOutput.SectionSpecificOutput);
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticFaultTreePipingOutput) expectedOutput.ProfileSpecificOutput,
+                                                   (PartialProbabilisticFaultTreePipingOutput) actualOutput.ProfileSpecificOutput);
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticFaultTreePipingOutput) expectedOutput.SectionSpecificOutput,
+                                                   (PartialProbabilisticFaultTreePipingOutput) actualOutput.SectionSpecificOutput);
         }
 
-        private static void AssertPartialProbabilisticPipingOutput(PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> expectedOutput,
-                                                                   PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> actualOutput)
+        private static void AssertPartialProbabilisticPipingOutput(PartialProbabilisticFaultTreePipingOutput expectedOutput,
+                                                                   PartialProbabilisticFaultTreePipingOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);

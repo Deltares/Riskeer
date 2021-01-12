@@ -167,7 +167,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             try
             {
-                IPartialProbabilisticPipingOutput profileSpecificOutput = CalculateProfileSpecific(
+                PartialProbabilisticFaultTreePipingOutput profileSpecificOutput = CalculateProfileSpecific(
                     calculation, generalInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
@@ -175,7 +175,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                     return;
                 }
 
-                IPartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(
+                PartialProbabilisticFaultTreePipingOutput sectionSpecificOutput = CalculateSectionSpecific(
                     calculation, generalInput, sectionLength, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
@@ -201,10 +201,10 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="generalInput">The general piping calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
-        /// <returns>A <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        /// <returns>A <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private IPartialProbabilisticPipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                                           string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private PartialProbabilisticFaultTreePipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                                   string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_ProfileSpecific),
@@ -245,10 +245,10 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="sectionLength">The length of the section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
-        /// <returns>A <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        /// <returns>A <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private IPartialProbabilisticPipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                                           double sectionLength, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private PartialProbabilisticFaultTreePipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                                   double sectionLength, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_SectionSpecific),
