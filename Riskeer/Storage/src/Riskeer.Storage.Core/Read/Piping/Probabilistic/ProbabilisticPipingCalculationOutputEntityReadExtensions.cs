@@ -50,10 +50,10 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
             }
 
             return new ProbabilisticPipingOutput(
-                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(
+                new PartialProbabilisticFaultTreePipingOutput(
                     entity.SectionSpecificReliability.ToNullAsNaN(),
                     entity.GeneralResultFaultTreeIllustrationPointEntity1?.Read()),
-                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(
+                new PartialProbabilisticFaultTreePipingOutput(
                     entity.ProfileSpecificReliability.ToNullAsNaN(),
                     entity.GeneralResultFaultTreeIllustrationPointEntity?.Read()));
         }

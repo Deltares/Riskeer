@@ -66,8 +66,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
         {
             // Setup
             var output = new ProbabilisticPipingOutput(
-                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(double.NaN, null),
-                new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(double.NaN, null));
+                new PartialProbabilisticFaultTreePipingOutput(double.NaN, null),
+                new PartialProbabilisticFaultTreePipingOutput(double.NaN, null));
 
             // Call
             ProbabilisticPipingCalculationOutputEntity entity = output.Create();

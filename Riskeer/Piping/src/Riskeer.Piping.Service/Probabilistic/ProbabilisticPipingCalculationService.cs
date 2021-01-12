@@ -233,8 +233,8 @@ namespace Riskeer.Piping.Service.Probabilistic
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_ProfileSpecific, e.Message);
             }
 
-            return new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(profileSpecificCalculator.ExceedanceProbabilityBeta,
-                                                                                            generalResult);
+            return new PartialProbabilisticFaultTreePipingOutput(profileSpecificCalculator.ExceedanceProbabilityBeta,
+                                                                 generalResult);
         }
 
         /// <summary>
@@ -278,8 +278,8 @@ namespace Riskeer.Piping.Service.Probabilistic
                                calculation.Name, Resources.ProbabilisticPipingCalculationService_SectionSpecific, e.Message);
             }
 
-            return new PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>(sectionSpecificCalculator.ExceedanceProbabilityBeta,
-                                                                                            generalResult);
+            return new PartialProbabilisticFaultTreePipingOutput(sectionSpecificCalculator.ExceedanceProbabilityBeta,
+                                                                 generalResult);
         }
 
         /// <summary>
