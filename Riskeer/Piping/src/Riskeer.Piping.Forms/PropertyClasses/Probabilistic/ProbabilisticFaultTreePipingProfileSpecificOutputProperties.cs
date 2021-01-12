@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int alphaValuesIndex = 6;
         private const int durationsIndex = 7;
         private const int illustrationPointsIndex = 8;
-        
+
         private readonly PartialProbabilisticFaultTreePipingOutput faultTreeOutput;
 
         /// <summary>
@@ -75,13 +75,14 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                        || propertyName.Equals(nameof(IllustrationPoints)));
         }
 
-        private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelFaultTreeIllustrationPointProperties(bool areClosingSituationsSame)
+        private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelIllustrationPointProperties()
         {
-            return faultTreeOutput.GeneralResult
-                       .TopLevelIllustrationPoints
-                       .Select(point =>
-                                   new TopLevelFaultTreeIllustrationPointProperties(
-                                       point, areClosingSituationsSame)).ToArray();
+            TopLevelFaultTreeIllustrationPoint[] topLevelIllustrationPoints = faultTreeOutput.GeneralResult.TopLevelIllustrationPoints.ToArray();
+            bool areClosingSituationsSame = !topLevelIllustrationPoints.HasMultipleUniqueValues(p => p.ClosingSituation);
+
+            return topLevelIllustrationPoints
+                   .Select(point => new TopLevelFaultTreeIllustrationPointProperties(
+                               point, areClosingSituationsSame)).ToArray();
         }
 
         private Stochast[] GetStochasts()
@@ -144,16 +145,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                if (!data.HasGeneralResult)
-                {
-                    return new TopLevelFaultTreeIllustrationPointProperties[0];
-                }
-
-                bool areClosingSituationsSame = !faultTreeOutput.GeneralResult
-                                                                .TopLevelIllustrationPoints
-                                                                .HasMultipleUniqueValues(p => p.ClosingSituation);
-
-                return GetTopLevelFaultTreeIllustrationPointProperties(areClosingSituationsSame);
+                return !data.HasGeneralResult
+                           ? new TopLevelFaultTreeIllustrationPointProperties[0]
+                           : GetTopLevelIllustrationPointProperties();
             }
         }
 
