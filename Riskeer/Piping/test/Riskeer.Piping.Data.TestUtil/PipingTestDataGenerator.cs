@@ -632,6 +632,30 @@ namespace Riskeer.Piping.Data.TestUtil
             return new PartialProbabilisticFaultTreePipingOutput(random.NextDouble(),
                                                                  generalResult);
         }
+        
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.
+        /// </summary>
+        /// <returns>The created <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.</returns>
+        public static PartialProbabilisticSubMechanismPipingOutput GetRandomPartialProbabilisticSubMechanismPipingOutput()
+        {
+            return GetRandomPartialProbabilisticSubMechanismPipingOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticSubMechanismPipingOutput"/>
+        /// with <see cref="TopLevelSubMechanismIllustrationPoint"/>. 
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to set to the output.</param>
+        /// <returns>The created <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.</returns>
+        public static PartialProbabilisticSubMechanismPipingOutput GetRandomPartialProbabilisticSubMechanismPipingOutput(
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new PartialProbabilisticSubMechanismPipingOutput(random.NextDouble(),
+                                                                    generalResult);
+        }
 
         /// <summary>
         /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/> with illustration points.

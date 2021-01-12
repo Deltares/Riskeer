@@ -37,7 +37,10 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         /// </summary>
         public TestGeneralResultSubMechanismIllustrationPoint()
             : base(WindDirectionTestFactory.CreateTestWindDirection(),
-                   Enumerable.Empty<Stochast>(),
+                   new[]
+                   {
+                       new Stochast("A", 10.0, 5.0)
+                   },
                    Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>()) {}
 
         /// <summary>
