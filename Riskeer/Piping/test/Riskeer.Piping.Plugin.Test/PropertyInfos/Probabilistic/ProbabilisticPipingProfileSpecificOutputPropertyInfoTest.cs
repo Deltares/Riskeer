@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContext_ExpectedProperties()
+        public void CreateInstance_WithContextWithPartialFaultTreeOutput_ExpectedProperties()
         {
             // Setup
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
@@ -81,8 +81,63 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticPipingProfileSpecificOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.ProfileSpecificOutput, objectProperties.Data);
+        }
+
+        [Test]
+        public void CreateInstance_WithContextWithPartialSubMechanismOutput_ExpectedProperties()
+        {
+            // Setup
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = failureMechanism.SurfaceLines.First()
+                },
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput())
+            };
+
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,
+                                                                              failureMechanism,
+                                                                              new AssessmentSectionStub());
+
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingProfileSpecificOutputProperties>(objectProperties);
+            Assert.AreSame(context.WrappedData.Output.ProfileSpecificOutput, objectProperties.Data);
+        }
+
+        [Test]
+        public void CreateInstance_WithContextWithOtherPartialOutput_Null()
+        {
+            // Setup
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = failureMechanism.SurfaceLines.First()
+                },
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
+            };
+
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,
+                                                                              failureMechanism,
+                                                                              new AssessmentSectionStub());
+
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsNull(objectProperties);
         }
     }
 }

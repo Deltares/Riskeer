@@ -128,11 +128,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingProfileSpecificOutputProperties>
             {
-                CreateInstance = context => new ProbabilisticFaultTreePipingProfileSpecificOutputProperties(
-                    (PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput,
-                    context.WrappedData,
-                    context.FailureMechanism,
-                    context.AssessmentSection)
+                CreateInstance = CreateProbabilisticPipingProfileSpecificOutputProperties
             };
             yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputProperties>
             {
@@ -522,6 +518,30 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
+        #region PropertyInfos
+        
+        #region ProbabilisticPipingProfileSpecificOutputContext PropertyInfo
+        
+        private static ProbabilisticPipingProfileSpecificOutputProperties CreateProbabilisticPipingProfileSpecificOutputProperties(
+            ProbabilisticPipingProfileSpecificOutputContext context)
+        {
+            switch (context.WrappedData.Output?.ProfileSpecificOutput)
+            {
+                case PartialProbabilisticFaultTreePipingOutput faultTreePipingOutput:
+                    return new ProbabilisticFaultTreePipingProfileSpecificOutputProperties(
+                        faultTreePipingOutput, context.WrappedData, context.FailureMechanism, context.AssessmentSection);
+                case PartialProbabilisticSubMechanismPipingOutput subMechanismPipingOutput:
+                    return new ProbabilisticSubMechanismPipingProfileSpecificOutputProperties(
+                        subMechanismPipingOutput, context.WrappedData, context.FailureMechanism, context.AssessmentSection);
+                default:
+                    return null;
+            }
+        }
+        
+        #endregion
+        
+        #endregion
+        
         #region ViewInfos
 
         private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
