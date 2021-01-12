@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Value_In_Scientific_Notation_" xml:space="preserve">
+  <data name="Value_In_Scientific_Notation" xml:space="preserve">
     <value>Alle faalkansen kleiner dan 1/100.000 zijn afgerond weergegeven in wetenschappelijke notatie. Dit is gedaan om de leesbaarheid te bevorderen. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

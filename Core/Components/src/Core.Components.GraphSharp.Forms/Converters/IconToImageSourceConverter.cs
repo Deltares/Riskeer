@@ -39,11 +39,7 @@ namespace Core.Components.GraphSharp.Forms.Converters
         {
             var icon = (Icon) value;
 
-            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                icon.Handle,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-            return imageSource;
+            return Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

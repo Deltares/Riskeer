@@ -38,6 +38,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
@@ -248,7 +249,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             warningPanel.Dock = DockStyle.Fill;
 
             warningIcon.Dock = DockStyle.Left;
-            warningIcon.Image = Core.Common.Gui.Properties.Resources.warning.ToBitmap();
+            warningIcon.Image = CoreCommonGuiResources.warning.ToBitmap();
             warningIcon.Location = new Point(0, 0);
             warningIcon.Size = new Size(20, 14);
 

@@ -63,9 +63,9 @@ namespace Core.Components.GraphSharp.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alle faalkansen kleiner dan 1/100.000 zijn afgerond weergegeven in wetenschappelijke notatie. Dit is gedaan om de leesbaarheid te bevorderen. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal..
         /// </summary>
-        public static string Value_In_Scientific_Notation_ {
+        public static string Value_In_Scientific_Notation {
             get {
-                return ResourceManager.GetString("Value_In_Scientific_Notation_", resourceCulture);
+                return ResourceManager.GetString("Value_In_Scientific_Notation", resourceCulture);
             }
         }
     }

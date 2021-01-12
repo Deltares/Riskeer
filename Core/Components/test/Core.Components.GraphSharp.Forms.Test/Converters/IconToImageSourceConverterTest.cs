@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
-using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
+using Core.Common.Gui.Properties;
 using Core.Components.GraphSharp.Forms.Converters;
 using NUnit.Framework;
 
@@ -32,7 +32,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
     public class IconToImageSourceConverterTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var converter = new IconToImageSourceConverter();
@@ -42,13 +42,26 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
         }
 
         [Test]
-        public void ConvertBack_ThrowNotSupportedException()
+        public void Convert_ValidIcon_ReturnsImageSource()
         {
             // Setup
             var converter = new IconToImageSourceConverter();
 
             // Call
-            void Call() => converter.ConvertBack(string.Empty, typeof(Icon), null, CultureInfo.InvariantCulture);
+            object imageSource = converter.Convert(Resources.warning, null, null, null);
+
+            // Assert
+            Assert.IsInstanceOf<ImageSource>(imageSource);
+        }
+
+        [Test]
+        public void ConvertBack_Always_ThrowsNotSupportedException()
+        {
+            // Setup
+            var converter = new IconToImageSourceConverter();
+
+            // Call
+            void Call() => converter.ConvertBack(null, null, null, null);
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
