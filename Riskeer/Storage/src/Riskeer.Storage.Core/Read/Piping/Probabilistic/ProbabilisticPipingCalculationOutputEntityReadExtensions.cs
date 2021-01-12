@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.IllustrationPoints;

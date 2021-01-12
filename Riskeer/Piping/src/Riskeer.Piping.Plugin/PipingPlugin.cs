@@ -35,7 +35,6 @@ using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
@@ -321,7 +320,7 @@ namespace Riskeer.Piping.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputView(
-                    () => ((PartialProbabilisticFaultTreePipingOutput)context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
+                    () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
 
             yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticPipingSectionSpecificOutputView>
@@ -331,7 +330,7 @@ namespace Riskeer.Piping.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new ProbabilisticPipingSectionSpecificOutputView(
-                    () => ((PartialProbabilisticFaultTreePipingOutput)context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult)
+                    () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult)
             };
         }
 

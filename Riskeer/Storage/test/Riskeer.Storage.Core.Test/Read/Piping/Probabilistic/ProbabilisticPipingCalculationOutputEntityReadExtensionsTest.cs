@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.Piping.Probabilistic;
@@ -97,9 +96,9 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
 
             // Assert
             Assert.IsNaN(output.ProfileSpecificOutput.Reliability);
-            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput).GeneralResult);
             Assert.IsNaN(output.SectionSpecificOutput.Reliability);
-            Assert.IsNull(((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>) output.ProfileSpecificOutput).GeneralResult);
+            Assert.IsNull(((PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput).GeneralResult);
         }
     }
 }

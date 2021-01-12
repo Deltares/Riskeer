@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Storage.Core.Create.Piping.Probabilistic;
@@ -92,9 +91,9 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
             // Assert
             Assert.AreEqual(output.ProfileSpecificOutput.Reliability, entity.ProfileSpecificReliability);
             Assert.AreEqual(output.SectionSpecificOutput.Reliability, entity.SectionSpecificReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput)output.ProfileSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput).GeneralResult,
                                                                             entity.GeneralResultFaultTreeIllustrationPointEntity);
-            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput)output.SectionSpecificOutput).GeneralResult,
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(((PartialProbabilisticFaultTreePipingOutput) output.SectionSpecificOutput).GeneralResult,
                                                                             entity.GeneralResultFaultTreeIllustrationPointEntity1);
         }
     }

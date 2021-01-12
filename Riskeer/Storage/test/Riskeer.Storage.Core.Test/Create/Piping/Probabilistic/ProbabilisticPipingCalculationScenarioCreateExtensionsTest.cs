@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -251,7 +250,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
 
             var output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
                                                        PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
-            
+
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = output
