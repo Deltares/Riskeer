@@ -22,17 +22,14 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -48,12 +45,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int probabilityPropertyIndex = 2;
         private const int reliabilityPropertyIndex = 3;
         private const int factorOfSafetyPropertyIndex = 4;
-        private const int windDirectionPropertyIndex = 5;
-        private const int alphaValuesPropertyIndex = 6;
-        private const int durationsPropertyIndex = 7;
-        private const int illustrationPointsPropertyIndex = 8;
 
-        private const string illustrationPointsCategoryName = "Illustratiepunten";
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
@@ -137,7 +129,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -149,21 +141,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
-                                                                                    calculation,
-                                                                                    failureMechanism,
-                                                                                    new AssessmentSectionStub());
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+                output, calculation, failureMechanism, new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PartialProbabilisticFaultTreePipingOutput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IPartialProbabilisticPipingOutput>>(properties);
             Assert.AreSame(output, properties.Data);
         }
 
         [Test]
-        public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -175,105 +165,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
-                                                                                    calculation,
-                                                                                    failureMechanism,
-                                                                                    new AssessmentSectionStub());
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
-
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkans [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategoryName,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
-                                                                            illustrationPointsCategoryName,
-                                                                            "Maatgevende windrichting",
-                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
-                                                                            true);
-
-            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.AlphaValues));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
-                                                                            illustrationPointsCategoryName,
-                                                                            "Invloedscoëfficiënten [-]",
-                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
-                                                                            true);
-
-            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.Durations));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
-                                                                            illustrationPointsCategoryName,
-                                                                            "Tijdsduren [uur]",
-                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
-                                                                            true);
-
-            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.IllustrationPoints));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
-                                                                            illustrationPointsCategoryName,
-                                                                            "Illustratiepunten",
-                                                                            "De lijst van illustratiepunten voor de berekening.",
-                                                                            true);
-        }
-
-        [Test]
-        public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
-            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
-            var calculation = new ProbabilisticPipingCalculationScenario
-            {
-                InputParameters =
-                {
-                    SurfaceLine = failureMechanism.SurfaceLines.First()
-                }
-            };
-
-            // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
-                                                                                    calculation,
-                                                                                    failureMechanism,
-                                                                                    new AssessmentSectionStub());
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+                output, calculation, failureMechanism, new AssessmentSectionStub());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -330,54 +223,21 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 }
             };
 
-            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
-                                                                                    calculation,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+                output, calculation, failureMechanism, assessmentSection);
+
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = PipingProbabilityAssessmentOutputFactory.Create(output,
-                                                                                                                              calculation,
-                                                                                                                              failureMechanism,
-                                                                                                                              assessmentSection);
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = PipingProbabilityAssessmentOutputFactory.Create(
+                output, calculation, failureMechanism, assessmentSection);
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.RequiredProbability), properties.RequiredProbability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
-
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = output.GeneralResult;
-
-            Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
-
-            int nrOfExpectedStochasts = generalResult.Stochasts.Count();
-            Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
-            Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
-            Stochast expectedStochast = generalResult.Stochasts.First();
-            Assert.AreEqual(expectedStochast.Alpha, properties.AlphaValues[0].Alpha);
-            Assert.AreEqual(expectedStochast.Duration, properties.Durations[0].Duration);
-
-            int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
-            Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
-
-            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
-        }
-
-        [Test]
-        public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
-        {
-            // Setup
-            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
-
-            // Call
-            TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
-
-            // Assert
-            Assert.IsEmpty(illustrationPoints);
         }
     }
 }

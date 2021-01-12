@@ -147,7 +147,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 output, calculation, failureMechanism, new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticPipingProfileSpecificOutputProperties>(properties);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
         }
 
@@ -217,8 +217,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingProfileSpecificOutputProperties.AlphaValues));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Invloedscoëfficiënten [-]",
@@ -226,8 +226,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.Durations));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingProfileSpecificOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingProfileSpecificOutputProperties.Durations));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Tijdsduren [uur]",
@@ -235,8 +235,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticPipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
-                nameof(ProbabilisticPipingProfileSpecificOutputProperties.IllustrationPoints));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingProfileSpecificOutputProperties, ExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingProfileSpecificOutputProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
