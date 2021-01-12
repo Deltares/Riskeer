@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -164,7 +164,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -259,7 +259,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
+            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -331,7 +331,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 }
             };
 
-            PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
 
             // Call
             var properties = new ProbabilisticPipingProfileSpecificOutputProperties(output,
@@ -371,7 +371,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
         {
             // Setup
-            PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
+            PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
             var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Call

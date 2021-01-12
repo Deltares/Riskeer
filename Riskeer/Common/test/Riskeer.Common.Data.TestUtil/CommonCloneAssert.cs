@@ -226,7 +226,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        /// <typeparam name="T">The type of the illustration point.</typeparam>
+        /// <typeparam name="T">The type of the top level illustration point.</typeparam>
         public static void AreClones<T>(GeneralResult<T> original, GeneralResult<T> clone)
             where T : TopLevelIllustrationPointBase
         {

@@ -40,9 +40,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 {
     /// <summary>
-    /// ViewModel of profile specific <see cref="PartialProbabilisticPipingOutput"/> for properties panel.
+    /// ViewModel of profile specific <see cref="PartialProbabilisticFaultTreePipingOutput"/> for properties panel.
     /// </summary>
-    public class ProbabilisticPipingProfileSpecificOutputProperties : ObjectProperties<PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>>
+    public class ProbabilisticPipingProfileSpecificOutputProperties : ObjectProperties<PartialProbabilisticFaultTreePipingOutput>
     {
         private readonly ProbabilityAssessmentOutput derivedOutput;
 
@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingProfileSpecificOutputProperties(PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint> output,
+        public ProbabilisticPipingProfileSpecificOutputProperties(PartialProbabilisticFaultTreePipingOutput output,
                                                                   ProbabilisticPipingCalculationScenario calculation,
                                                                   PipingFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection)
