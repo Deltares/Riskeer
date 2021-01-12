@@ -29,6 +29,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
