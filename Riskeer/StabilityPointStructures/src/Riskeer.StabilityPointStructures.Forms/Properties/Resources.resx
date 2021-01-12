@@ -231,12 +231,6 @@
   <data name="Structure_VerticalDistance_DisplayName" xml:space="preserve">
     <value>Afstand onderkant wand en teen van de dijk/berm [m]</value>
   </data>
-  <data name="Structure_VolumicWeightWater_Description" xml:space="preserve">
-    <value>Volumiek gewicht van water.</value>
-  </data>
-  <data name="Structure_VolumicWeightWater_DisplayName" xml:space="preserve">
-    <value>Volumiek gewicht van water [kN/m³]</value>
-  </data>
   <data name="StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_DisplayName" xml:space="preserve">
     <value>lineaire belastingschematisering constructieve sterkte
 [kN/m]</value>

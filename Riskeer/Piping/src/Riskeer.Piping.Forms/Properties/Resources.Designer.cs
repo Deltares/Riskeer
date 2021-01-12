@@ -262,24 +262,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water..
-        /// </summary>
-        public static string GeneralPipingInput_WaterVolumetricWeight_Description {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
-        /// </summary>
-        public static string GeneralPipingInput_WaterVolumetricWeight_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sleepkrachtfactor volgens White..
         /// </summary>
         public static string GeneralPipingInput_WhitesDragCoefficient_Description {

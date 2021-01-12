@@ -1592,4 +1592,10 @@ scenario
     <value>toegestane peilverhoging komberging
 [m]</value>
   </data>
+  <data name="WaterVolumetricWeight_DisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van water [kN/m³]</value>
+  </data>
+  <data name="WaterVolumetricWeight_Description" xml:space="preserve">
+    <value>Volumiek gewicht van water.</value>
+  </data>
 </root>

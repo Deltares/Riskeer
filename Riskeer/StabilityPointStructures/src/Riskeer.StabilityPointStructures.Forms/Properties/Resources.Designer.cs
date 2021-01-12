@@ -468,23 +468,5 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
                 return ResourceManager.GetString("Structure_VerticalDistance_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water..
-        /// </summary>
-        public static string Structure_VolumicWeightWater_Description {
-            get {
-                return ResourceManager.GetString("Structure_VolumicWeightWater_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
-        /// </summary>
-        public static string Structure_VolumicWeightWater_DisplayName {
-            get {
-                return ResourceManager.GetString("Structure_VolumicWeightWater_DisplayName", resourceCulture);
-            }
-        }
     }
 }

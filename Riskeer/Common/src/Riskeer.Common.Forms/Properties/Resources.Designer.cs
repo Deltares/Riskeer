@@ -4396,6 +4396,24 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water..
+        /// </summary>
+        public static string WaterVolumetricWeight_Description {
+            get {
+                return ResourceManager.GetString("WaterVolumetricWeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
+        /// </summary>
+        public static string WaterVolumetricWeight_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterVolumetricWeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende belastingen bij verschillende waterstanden.
         /// </summary>
         public static string WaveConditionsExporter_DisplayName {

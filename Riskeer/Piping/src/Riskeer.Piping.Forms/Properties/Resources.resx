@@ -213,12 +213,6 @@
   <data name="GeneralPipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10° C [m²/s]</value>
   </data>
-  <data name="GeneralPipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
-    <value>Volumiek gewicht van water.</value>
-  </data>
-  <data name="GeneralPipingInput_WaterVolumetricWeight_DisplayName" xml:space="preserve">
-    <value>Volumiek gewicht van water [kN/m³]</value>
-  </data>
   <data name="GeneralPipingInput_WhitesDragCoefficient_Description" xml:space="preserve">
     <value>Sleepkrachtfactor volgens White.</value>
   </data>
