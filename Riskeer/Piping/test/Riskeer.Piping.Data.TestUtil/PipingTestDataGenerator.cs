@@ -588,7 +588,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
         /// with <see cref="TestTopLevelIllustrationPoint"/>. 
         /// </summary>
-        /// <returns>The  created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        /// <returns>The created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
         public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput()
         {
             return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResult<TestTopLevelIllustrationPoint>());

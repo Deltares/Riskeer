@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// This class contains the result of a sub-calculation for a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    /// <typeparam name="T">The illustration point type of the general result.</typeparam>
+    /// <typeparam name="T">The type of the top level illustration point.</typeparam>
     public class PartialProbabilisticPipingOutput<T> : IPartialProbabilisticPipingOutput
         where T : TopLevelIllustrationPointBase
     {
@@ -47,19 +47,10 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         public GeneralResult<T> GeneralResult { get; private set; }
 
-        /// <summary>
-        /// Gets the reliability of the calculation.
-        /// </summary>
         public double Reliability { get; }
 
-        /// <summary>
-        /// Gets the value indicating whether the output contains a general result with illustration points.
-        /// </summary>
         public bool HasGeneralResult => GeneralResult != null;
 
-        /// <summary>
-        /// Clears the illustration points of the output.
-        /// </summary>
         public void ClearIllustrationPoints()
         {
             GeneralResult = null;
