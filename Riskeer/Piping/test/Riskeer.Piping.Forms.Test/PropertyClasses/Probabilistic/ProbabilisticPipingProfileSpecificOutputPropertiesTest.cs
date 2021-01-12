@@ -58,10 +58,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputProperties(null,
-                                                                                  new ProbabilisticPipingCalculationScenario(),
-                                                                                  new PipingFailureMechanism(),
-                                                                                  assessmentSection);
+            void Call() => new TestProbabilisticPipingProfileSpecificOutputProperties(
+                null, new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,10 +77,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputProperties(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                                                                                  null,
-                                                                                  new PipingFailureMechanism(),
-                                                                                  assessmentSection);
+            void Call() => new TestProbabilisticPipingProfileSpecificOutputProperties(
+                PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -100,10 +97,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputProperties(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                                                                                  new ProbabilisticPipingCalculationScenario(),
-                                                                                  null,
-                                                                                  assessmentSection);
+            void Call() => new TestProbabilisticPipingProfileSpecificOutputProperties(
+                PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                new ProbabilisticPipingCalculationScenario(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -116,10 +112,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputProperties(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                                                                                  new ProbabilisticPipingCalculationScenario(),
-                                                                                  new PipingFailureMechanism(),
-                                                                                  null);
+            void Call() => new TestProbabilisticPipingProfileSpecificOutputProperties(
+                PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -142,7 +137,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+            var properties = new TestProbabilisticPipingProfileSpecificOutputProperties(
                 output, calculation, failureMechanism, new AssessmentSectionStub());
 
             // Assert
@@ -166,7 +161,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+            var properties = new TestProbabilisticPipingProfileSpecificOutputProperties(
                 output, calculation, failureMechanism, new AssessmentSectionStub());
 
             // Assert
@@ -227,7 +222,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingProfileSpecificOutputProperties(
+            var properties = new TestProbabilisticPipingProfileSpecificOutputProperties(
                 output, calculation, failureMechanism, assessmentSection);
 
             // Assert
@@ -239,6 +234,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
+        }
+
+        private class TestProbabilisticPipingProfileSpecificOutputProperties : ProbabilisticPipingProfileSpecificOutputProperties
+        {
+            public TestProbabilisticPipingProfileSpecificOutputProperties(
+                IPartialProbabilisticPipingOutput output,
+                ProbabilisticPipingCalculationScenario calculation,
+                PipingFailureMechanism failureMechanism,
+                IAssessmentSection assessmentSection)
+                : base(output, calculation, failureMechanism, assessmentSection) {}
         }
     }
 }

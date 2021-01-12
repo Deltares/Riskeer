@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int probabilityIndex = 2;
         private const int reliabilityIndex = 3;
         private const int safetyFactorIndex = 4;
-        
+
         private readonly ProbabilityAssessmentOutput derivedOutput;
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingProfileSpecificOutputProperties(IPartialProbabilisticPipingOutput output,
-                                                                  ProbabilisticPipingCalculationScenario calculation,
-                                                                  PipingFailureMechanism failureMechanism,
-                                                                  IAssessmentSection assessmentSection)
+        protected ProbabilisticPipingProfileSpecificOutputProperties(IPartialProbabilisticPipingOutput output,
+                                                                     ProbabilisticPipingCalculationScenario calculation,
+                                                                     PipingFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
         {
             if (output == null)
             {
