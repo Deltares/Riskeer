@@ -114,6 +114,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double piezometricHeadPhreaticLine2Outwards = random.Next();
             double piezometricHeadPhreaticLine2Inwards = random.Next();
             double penetrationLength = random.Next();
+            double waterVolumetricWeight = random.Next();
 
             DrainageConstruction drainageConstruction = drainageConstructionPresent
                                                             ? new DrainageConstruction(random.Next(), random.Next())
@@ -143,7 +144,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = penetrationLength
+                    PenetrationLength = penetrationLength,
+                    WaterVolumetricWeight = waterVolumetricWeight
                 });
 
             // Call
@@ -178,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, waternetCreatorInput.HeadInPlLine2Outwards);
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, waternetCreatorInput.HeadInPlLine2Inwards);
             Assert.AreEqual(penetrationLength, waternetCreatorInput.PenetrationLength);
-            Assert.AreEqual(9.81, waternetCreatorInput.UnitWeightWater);
+            Assert.AreEqual(waterVolumetricWeight, waternetCreatorInput.UnitWeightWater);
 
             AssertIrrelevantValues(waternetCreatorInput);
         }

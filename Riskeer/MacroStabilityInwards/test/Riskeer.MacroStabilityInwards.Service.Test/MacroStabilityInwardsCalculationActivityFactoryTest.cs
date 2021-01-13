@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(null, assessmentSection);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, null);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             // Call
-            CalculatableActivity activity = MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, assessmentSection);
+            CalculatableActivity activity = MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsCalculationActivity>(activity);
@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((CalculationGroup) null, assessmentSection);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((CalculationGroup) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -127,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), null);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -176,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities = MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(
-                calculations, assessmentSection);
+                calculations, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(MacroStabilityInwardsCalculationActivity));
@@ -195,7 +195,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((MacroStabilityInwardsFailureMechanism) null, assessmentSection);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((MacroStabilityInwardsFailureMechanism) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new MacroStabilityInwardsFailureMechanism(), null);
+            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new MacroStabilityInwardsFailureMechanism(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -254,7 +254,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities = MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(
-                failureMechanism, assessmentSection);
+                failureMechanism, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(MacroStabilityInwardsCalculationActivity));

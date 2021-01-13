@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputChartControl(null, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            void Call() => new MacroStabilityInwardsOutputChartControl(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), null);
+            void Call() => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(),null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -80,6 +80,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
@@ -115,7 +116,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, 
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Assert
@@ -144,6 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Assert
@@ -182,6 +185,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 // Call
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
                     // Assert
@@ -213,6 +217,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Assert
@@ -242,6 +247,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
@@ -280,6 +286,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
@@ -318,6 +325,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
@@ -346,6 +354,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 IChartControl chartControl = GetChartControl(control);
@@ -380,6 +389,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
@@ -416,6 +426,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Precondition
@@ -456,6 +467,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
                     ChartDataCollection chartData = GetChartControl(control).Data;
@@ -493,6 +505,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Precondition
@@ -500,9 +513,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
                 var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
 
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN),
                                                                                        waternetExtremeChartDataCollection);
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput()),
                                                                                        waternetDailyChartDataCollection);
 
                 IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;

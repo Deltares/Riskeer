@@ -177,7 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             // Assert
-            Assert.IsFalse(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+            Assert.IsFalse(MacroStabilityInwardsCalculationService.Validate(scenario, new GeneralMacroStabilityInwardsInput(), (RoundedDouble) 1.1));
         }
 
         [Test]
@@ -202,7 +202,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, new GeneralMacroStabilityInwardsInput(), (RoundedDouble) 1.1));
         }
 
         private static bool IsValidDouble(double value)

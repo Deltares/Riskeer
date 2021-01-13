@@ -73,6 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -102,6 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null,
+                                                                                       new GeneralMacroStabilityInwardsInput(),
                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                                        propertyChangeHandler);
 
@@ -119,6 +121,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                                       new GeneralMacroStabilityInwardsInput(),
                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                                        null);
 
@@ -139,6 +142,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -274,7 +278,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, assessmentLevel, propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input, new GeneralMacroStabilityInwardsInput(), assessmentLevel, propertyChangeHandler);
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
@@ -315,7 +319,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var propertyChangeHandler = new ObservablePropertyChangeHandler(calculationItem, input);
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input, 
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -478,6 +483,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -507,6 +513,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -538,6 +545,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = dikeSoilScenario
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -564,6 +572,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -591,6 +600,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 

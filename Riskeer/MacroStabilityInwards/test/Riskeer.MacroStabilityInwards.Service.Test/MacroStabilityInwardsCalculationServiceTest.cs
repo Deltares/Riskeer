@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsCalculationService.Validate(null, RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Validate(null, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, new GeneralMacroStabilityInwardsInput(),AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -93,6 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             // Call
             bool isValid = MacroStabilityInwardsCalculationService.Validate(invalidMacroStabilityInwardsCalculation,
+                                                                            new GeneralMacroStabilityInwardsInput(),
                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
@@ -108,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var isValid = true;
 
             // Call
-            void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(calculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -135,7 +136,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -163,7 +166,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -192,7 +197,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -222,7 +229,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -252,7 +261,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationWarning = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -284,7 +295,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
-                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -314,7 +327,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
-                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                new GeneralMacroStabilityInwardsInput(),
+                                                                                AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, tuples =>
@@ -342,7 +357,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel);
+                MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
+                                                                 normativeAssessmentLevel);
 
                 // Assert
                 RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
@@ -361,7 +378,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsCalculationService.Calculate(null, RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Calculate(null,
+                                                                             new GeneralMacroStabilityInwardsInput(),
+                                                                             RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -379,10 +398,12 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 void Call()
                 {
                     // Precondition
-                    Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
+                    Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                   new GeneralMacroStabilityInwardsInput(),
+                                                                                   normativeAssessmentLevel));
 
                     // Call
-                    MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                    MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), normativeAssessmentLevel);
                 }
 
                 // Assert
@@ -411,10 +432,12 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Precondition
-                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                               new GeneralMacroStabilityInwardsInput(),
+                                                                               normativeAssessmentLevel));
 
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), normativeAssessmentLevel);
 
                 // Assert
                 Assert.AreNotSame(output, testCalculation.Output);
@@ -435,6 +458,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 // Call
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
@@ -468,6 +492,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 // Call
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
@@ -514,6 +539,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 // Call
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
@@ -551,6 +577,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 // Call
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
@@ -582,7 +609,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
@@ -616,7 +645,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  new GeneralMacroStabilityInwardsInput(),
+                                                                  normativeAssessmentLevel);
 
                 // Assert
                 RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
@@ -638,10 +669,12 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
                 // Precondition
-                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                               new GeneralMacroStabilityInwardsInput(),
+                                                                               normativeAssessmentLevel));
 
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), normativeAssessmentLevel);
 
                 // Assert
                 AssertOutput(calculatorFactory.LastCreatedUpliftVanCalculator.Output, testCalculation.Output);
@@ -661,7 +694,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculatorFactory.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Precondition
-                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                               new GeneralMacroStabilityInwardsInput(),
+                                                                               normativeAssessmentLevel));
 
                 var exceptionThrown = false;
 
@@ -670,7 +705,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 {
                     try
                     {
-                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), normativeAssessmentLevel);
                     }
                     catch (UpliftVanCalculatorException)
                     {
@@ -719,7 +754,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 {
                     try
                     {
-                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
                     }
                     catch (UpliftVanCalculatorException)
                     {
@@ -763,7 +798,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
 
                 // Call
-                void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
@@ -807,7 +842,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 {
                     try
                     {
-                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
                     }
                     catch (UpliftVanCalculatorException)
                     {

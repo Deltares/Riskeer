@@ -65,8 +65,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             AssertPersistableSoilLayers(layers, persistableDataModel.SoilLayers, persistableDataModel.Soils.Soils, persistableDataModel.Geometry);
             AssertWaternets(new[]
             {
-                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN)
+                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters,new GeneralMacroStabilityInwardsInput()),
+                DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN)
             }, persistableDataModel.Waternets);
             AssertWaternetCreatorSettings(calculation.InputParameters, persistableDataModel.WaternetCreatorSettings, AssessmentSectionTestHelper.GetTestAssessmentLevel(), new[]
             {

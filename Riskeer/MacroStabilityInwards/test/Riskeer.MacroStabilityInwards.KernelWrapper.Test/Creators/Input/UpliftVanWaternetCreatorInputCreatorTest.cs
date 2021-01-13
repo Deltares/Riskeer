@@ -299,7 +299,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, waternetCreatorInput.LeakageLengthInwardsPl4);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, waternetCreatorInput.HeadInPlLine2Outwards);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, waternetCreatorInput.HeadInPlLine2Inwards);
-            Assert.AreEqual(9.81, waternetCreatorInput.UnitWeightWater);
+            Assert.AreEqual(input.WaterVolumetricWeight, waternetCreatorInput.UnitWeightWater);
         }
 
         private static void AssertIrrelevantValues(WaternetCreatorInput waternetCreatorInput)

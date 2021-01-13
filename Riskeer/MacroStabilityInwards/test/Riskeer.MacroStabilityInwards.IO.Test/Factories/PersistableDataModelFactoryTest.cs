@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableDataModelFactory.Create(null, AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
+            void Call() => PersistableDataModelFactory.Create(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableDataModelFactory.Create(new MacroStabilityInwardsCalculation(), null, string.Empty);
+            void Call() => PersistableDataModelFactory.Create(new MacroStabilityInwardsCalculation(), new GeneralMacroStabilityInwardsInput(), null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             // Call
-            void Call() => PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
+            void Call() => PersistableDataModelFactory.Create(calculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, filePath);
+                PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel, filePath);
 
                 // Assert
                 PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);

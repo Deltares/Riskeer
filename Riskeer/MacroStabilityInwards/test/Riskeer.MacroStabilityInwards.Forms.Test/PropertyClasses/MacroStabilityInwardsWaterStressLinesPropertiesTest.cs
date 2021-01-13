@@ -45,6 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
                                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
@@ -60,6 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
@@ -78,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, assessmentLevel);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), assessmentLevel);
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -101,6 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -121,6 +124,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
@@ -138,6 +142,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
