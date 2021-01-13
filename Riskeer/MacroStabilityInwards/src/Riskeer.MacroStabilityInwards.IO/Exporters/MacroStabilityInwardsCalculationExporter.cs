@@ -82,6 +82,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             if (persistenceFactory == null)
             {
                 throw new ArgumentNullException(nameof(persistenceFactory));

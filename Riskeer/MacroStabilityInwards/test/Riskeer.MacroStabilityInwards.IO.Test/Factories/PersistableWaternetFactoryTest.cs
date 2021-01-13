@@ -86,6 +86,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
+        
+        [Test]
+        public void Create_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var waternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
+
+            // Call
+            void Call() => PersistableWaternetFactory.Create(waternet, waternet, new IdFactory(), new MacroStabilityInwardsExportRegistry(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
 
         [Test]
         public void Create_WithValidData_ReturnsPersistableWaternetCollection()

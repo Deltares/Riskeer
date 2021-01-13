@@ -55,6 +55,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             if (getNormativeAssessmentLevelFunc == null)
             {
                 throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));

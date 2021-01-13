@@ -70,6 +70,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             createdHeadLines = new Dictionary<MacroStabilityInwardsPhreaticLine, PersistableHeadLine>(new PhreaticLineComparer());
 
             return new[]

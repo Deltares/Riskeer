@@ -75,6 +75,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null, persistenceFactory, string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
         public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
         {
             // Call
