@@ -179,19 +179,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = output.GeneralResult;
 
+            CollectionAssert.AreEqual(generalResult.Stochasts, properties.AlphaValues);
+            CollectionAssert.AreEqual(generalResult.Stochasts, properties.Durations);
+            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
-
-            int nrOfExpectedStochasts = generalResult.Stochasts.Count();
-            Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
-            Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
-            Stochast expectedStochast = generalResult.Stochasts.First();
-            Assert.AreEqual(expectedStochast.Alpha, properties.AlphaValues[0].Alpha);
-            Assert.AreEqual(expectedStochast.Duration, properties.Durations[0].Duration);
-
-            int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
-            Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
-
-            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
         }
 
         [Test]

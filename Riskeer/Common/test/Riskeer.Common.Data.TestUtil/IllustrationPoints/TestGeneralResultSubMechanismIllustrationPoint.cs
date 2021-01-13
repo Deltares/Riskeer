@@ -41,7 +41,13 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
                    {
                        new Stochast("A", 10.0, 5.0)
                    },
-                   Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>()) {}
+                   new List<TopLevelSubMechanismIllustrationPoint>
+                   {
+                       new TopLevelSubMechanismIllustrationPoint(
+                           WindDirectionTestFactory.CreateTestWindDirection(),
+                           "closing situation",
+                           new TestSubMechanismIllustrationPoint())
+                   }) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestGeneralResultSubMechanismIllustrationPoint"/>
