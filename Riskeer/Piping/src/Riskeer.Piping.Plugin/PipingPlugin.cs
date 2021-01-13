@@ -132,8 +132,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputProperties>
             {
-                CreateInstance = context => new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(
-                    (PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.SectionSpecificOutput)
+                CreateInstance = CreateProbabilisticPipingSectionSpecificOutputProperties
             };
         }
 
@@ -520,29 +519,51 @@ namespace Riskeer.Piping.Plugin
         }
 
         #region PropertyInfos
-        
+
         #region ProbabilisticPipingProfileSpecificOutputContext PropertyInfo
-        
+
         private static ProbabilisticPipingProfileSpecificOutputProperties CreateProbabilisticPipingProfileSpecificOutputProperties(
             ProbabilisticPipingProfileSpecificOutputContext context)
         {
             switch (context.WrappedData.Output?.ProfileSpecificOutput)
             {
-                case PartialProbabilisticFaultTreePipingOutput faultTreePipingOutput:
+                case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
                     return new ProbabilisticFaultTreePipingProfileSpecificOutputProperties(
-                        faultTreePipingOutput, context.WrappedData, context.FailureMechanism, context.AssessmentSection);
-                case PartialProbabilisticSubMechanismPipingOutput subMechanismPipingOutput:
+                        partialProbabilisticFaultTreePipingOutput, context.WrappedData,
+                        context.FailureMechanism, context.AssessmentSection);
+                case PartialProbabilisticSubMechanismPipingOutput partialProbabilisticSubMechanismPipingOutput:
                     return new ProbabilisticSubMechanismPipingProfileSpecificOutputProperties(
-                        subMechanismPipingOutput, context.WrappedData, context.FailureMechanism, context.AssessmentSection);
+                        partialProbabilisticSubMechanismPipingOutput, context.WrappedData,
+                        context.FailureMechanism, context.AssessmentSection);
                 default:
                     return null;
             }
         }
-        
+
         #endregion
-        
+
+        #region ProbabilisticPipingSectionSpecificOutputContext PropertyInfo
+
+        private static ProbabilisticPipingSectionSpecificOutputProperties CreateProbabilisticPipingSectionSpecificOutputProperties(
+            ProbabilisticPipingSectionSpecificOutputContext context)
+        {
+            switch (context.WrappedData.Output?.SectionSpecificOutput)
+            {
+                case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
+                    return new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(
+                        partialProbabilisticFaultTreePipingOutput);
+                case PartialProbabilisticSubMechanismPipingOutput partialProbabilisticSubMechanismPipingOutput:
+                    return new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties
+                        (partialProbabilisticSubMechanismPipingOutput);
+                default:
+                    return null;
+            }
+        }
+
         #endregion
-        
+
+        #endregion
+
         #region ViewInfos
 
         private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)

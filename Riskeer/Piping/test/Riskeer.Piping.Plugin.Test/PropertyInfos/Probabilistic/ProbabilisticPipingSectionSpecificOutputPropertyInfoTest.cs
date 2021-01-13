@@ -57,7 +57,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContext_ExpectedProperties()
+        public void CreateInstance_WithContextWithPartialFaultTreeOutput_ExpectedProperties()
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -73,6 +73,44 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             // Assert
             Assert.IsInstanceOf<ProbabilisticFaultTreePipingSectionSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.SectionSpecificOutput, objectProperties.Data);
+        }
+
+        [Test]
+        public void CreateInstance_WithContextWithPartialSubMechanismOutput_ExpectedProperties()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput())
+            };
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
+
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties>(objectProperties);
+            Assert.AreSame(context.WrappedData.Output.SectionSpecificOutput, objectProperties.Data);
+        }
+        
+        [Test]
+        public void CreateInstance_WithContextWithOtherPartialOutput_Null()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
+            };
+
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
+
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsNull(objectProperties);
         }
     }
 }
