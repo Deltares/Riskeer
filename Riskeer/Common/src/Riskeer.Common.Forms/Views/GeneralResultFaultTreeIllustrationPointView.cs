@@ -75,10 +75,7 @@ namespace Riskeer.Common.Forms.Views
 
         public object Data
         {
-            get
-            {
-                return data;
-            }
+            get => data;
             set
             {
                 data = value as ICalculation;
@@ -132,8 +129,7 @@ namespace Riskeer.Common.Forms.Views
                                           ? topLevelFaultTreeIllustrationPoint.ClosingSituation
                                           : string.Empty;
 
-            var faultTreeIllustrationPoint = selection.Data as FaultTreeIllustrationPoint;
-            if (faultTreeIllustrationPoint != null)
+            if (selection.Data is FaultTreeIllustrationPoint faultTreeIllustrationPoint)
             {
                 Selection = new IllustrationPointContext<FaultTreeIllustrationPoint>(faultTreeIllustrationPoint,
                                                                                      selection,
@@ -141,8 +137,7 @@ namespace Riskeer.Common.Forms.Views
                                                                                      closingSituation);
             }
 
-            var subMechanismIllustrationPoint = selection.Data as SubMechanismIllustrationPoint;
-            if (subMechanismIllustrationPoint != null)
+            if (selection.Data is SubMechanismIllustrationPoint subMechanismIllustrationPoint)
             {
                 Selection = new IllustrationPointContext<SubMechanismIllustrationPoint>(subMechanismIllustrationPoint,
                                                                                         selection,
@@ -188,20 +183,17 @@ namespace Riskeer.Common.Forms.Views
         /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private static IEnumerable<Stochast> GetStochasts(IllustrationPointBase illustrationPoint)
         {
-            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
-            if (faultTreeIllustrationPoint != null)
+            switch (illustrationPoint)
             {
-                return faultTreeIllustrationPoint.Stochasts;
+                case FaultTreeIllustrationPoint faultTreeIllustrationPoint:
+                    return faultTreeIllustrationPoint.Stochasts;
+                case SubMechanismIllustrationPoint subMechanismIllustrationPoint:
+                    return subMechanismIllustrationPoint.Stochasts;
+                default:
+                    throw new NotSupportedException(
+                        $"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
+                        $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
             }
-
-            var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
-            if (subMechanismIllustrationPoint != null)
-            {
-                return subMechanismIllustrationPoint.Stochasts;
-            }
-
-            throw new NotSupportedException($"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
-                                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
         }
 
         private void UpdateIllustrationPointsFaultTreeControl()
@@ -229,8 +221,7 @@ namespace Riskeer.Common.Forms.Views
         /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private void ProvideIllustrationPointSelection()
         {
-            var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
-            Selection = selection != null
+            Selection = illustrationPointsControl.Selection is IllustrationPointControlItem selection
                             ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint) selection.Source,
                                                                              GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
                             : null;
