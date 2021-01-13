@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -45,7 +46,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<PersistableWaternet> Create(MacroStabilityInwardsWaternet dailyWaternet,
                                                               MacroStabilityInwardsWaternet extremeWaternet,
-                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry,
+                                                              GeneralMacroStabilityInwardsInput generalInput)
         {
             if (dailyWaternet == null)
             {
@@ -71,18 +73,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new[]
             {
-                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
-                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry, generalInput),
+                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry, generalInput)
             };
         }
 
         private static PersistableWaternet Create(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsExportStageType stageType,
-                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry, GeneralMacroStabilityInwardsInput generalInput)
         {
             var persistableWaternet = new PersistableWaternet
             {
                 Id = idFactory.Create(),
-                UnitWeightWater = 9.81,
+                UnitWeightWater = generalInput.WaterVolumetricWeight,
                 HeadLines = waternet.PhreaticLines.Select(pl => Create(pl, idFactory)).ToArray(),
                 ReferenceLines = waternet.WaternetLines.Select(wl => Create(wl, idFactory)).ToArray(),
                 PhreaticLineId = createdHeadLines[waternet.PhreaticLines.First()].Id

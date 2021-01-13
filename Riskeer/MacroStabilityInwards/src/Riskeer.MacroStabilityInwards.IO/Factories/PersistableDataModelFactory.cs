@@ -80,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Waternets = PersistableWaternetFactory.Create(
                     DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput),
                     DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
-                    idFactory, registry),
+                    idFactory, registry, generalInput),
                 WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
                 States = PersistableStateFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
