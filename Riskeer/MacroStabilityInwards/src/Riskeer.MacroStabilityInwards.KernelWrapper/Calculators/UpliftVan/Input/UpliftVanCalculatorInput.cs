@@ -284,7 +284,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
 
             /// <summary>
             /// Gets or sets the volumetric weight of water.
-            /// [m]
+            /// [kN/m3]
             /// </summary>
             public double WaterVolumetricWeight { internal get; set; }
             
@@ -434,8 +434,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         public double MaximumSliceWidth { get; }
         
         /// <summary>
-        /// Gets the maximum slice width.
-        /// [m]
+        /// Gets the volumetric weight of water.
+        /// [kN/m3]
         /// </summary>
         public double WaterVolumetricWeight { get; }
 
