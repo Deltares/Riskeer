@@ -184,7 +184,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
-                CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput, new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,
+                CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput,
+                                                                                                                new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,
                                                                                                                 calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
                 IsEnabled = context => context.WrappedData.HasOutput(),
                 GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())

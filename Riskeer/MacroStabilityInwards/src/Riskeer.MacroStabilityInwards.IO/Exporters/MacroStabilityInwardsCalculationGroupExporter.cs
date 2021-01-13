@@ -55,6 +55,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationGroupExporter"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to export.</param>
+        /// <param name="generalInput">The <see cref="GeneralMacroStabilityInwardsInput"/>to use.</param>
         /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="folderPath">The folder path to export to.</param>
         /// <param name="fileExtension">The extension of the files.</param>
@@ -69,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not contain an invalid character,</item>
         /// <item>is not too long.</item>
         /// </list></remarks>
-        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput,  IPersistenceFactory persistenceFactory, string folderPath,
+        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput, IPersistenceFactory persistenceFactory, string folderPath,
                                                              string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculationGroup == null)
@@ -121,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                         log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
                         break;
                     case MacroStabilityInwardsCalculation calculation:
-                        continueExport = ExportCalculation(calculation, generalInput,  currentFolderPath, exportedCalculations);
+                        continueExport = ExportCalculation(calculation, currentFolderPath, exportedCalculations);
                         break;
                 }
 
@@ -163,11 +164,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             return true;
         }
 
-        private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, string currentFolderPath, IDictionary<MacroStabilityInwardsCalculation, string> exportedCalculations)
+        private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, IDictionary<MacroStabilityInwardsCalculation, string> exportedCalculations)
         {
             log.InfoFormat(CoreCommonGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
 
-            string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase)calculation).Name, c => c.Value);
+            string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase) calculation).Name, c => c.Value);
             string filePath = GetCalculationFilePath(currentFolderPath, uniqueName);
 
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, generalInput, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));

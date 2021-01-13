@@ -223,8 +223,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             public double PenetrationLength { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the penetration length.
-            /// [m]
+            /// Gets or sets the volumetric weight of water.
+            /// [kN/m3]
             /// </summary>
             public double WaterVolumetricWeight { internal get; set; }
             

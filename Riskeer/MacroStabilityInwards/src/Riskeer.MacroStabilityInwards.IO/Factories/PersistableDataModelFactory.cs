@@ -36,6 +36,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new <see cref="PersistableDataModel"/>.
         /// </summary>
         /// <param name="calculation">The calculation to get the data from.</param>
+        /// <param name="generalInput">The <see cref="GeneralMacroStabilityInwardsInput"/>to use.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
         /// for obtaining the normative assessment level.</param>
         /// <param name="filePath">The filePath that is used.</param>

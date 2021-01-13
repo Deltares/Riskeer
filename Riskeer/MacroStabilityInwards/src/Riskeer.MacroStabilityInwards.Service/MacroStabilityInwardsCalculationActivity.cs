@@ -40,6 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The macro stability inwards calculation to perform.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation,

@@ -54,6 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> for which to validate the values.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
@@ -127,6 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <exception cref="UpliftVanCalculatorException">Thrown when an error (both expected or unexpected) occurred during the calculation.</exception>

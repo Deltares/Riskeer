@@ -44,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>The validation issues found, if any.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
@@ -79,6 +80,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <returns>The validation issues found, if any.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>

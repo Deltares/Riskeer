@@ -57,6 +57,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationExporter"/>.
         /// </summary>
         /// <param name="calculation">The calculation to export.</param>
+        /// <param name="generalInput">The <see cref="GeneralMacroStabilityInwardsInput"/>to use.</param>
         /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="filePath">The file path to export to.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
