@@ -34,6 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Service
     {
         private readonly RoundedDouble normativeAssessmentLevel;
         private readonly MacroStabilityInwardsCalculation calculation;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationActivity"/>.
@@ -42,23 +43,25 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation,
+                                                        GeneralMacroStabilityInwardsInput generalInput,
                                                         RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
+            this.generalInput = generalInput;
 
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
         protected override void PerformCalculation()
         {
-            MacroStabilityInwardsCalculationService.Calculate(calculation, normativeAssessmentLevel);
+            MacroStabilityInwardsCalculationService.Calculate(calculation, generalInput, normativeAssessmentLevel);
         }
 
         protected override bool Validate()
         {
-            return MacroStabilityInwardsCalculationService.Validate(calculation, normativeAssessmentLevel);
+            return MacroStabilityInwardsCalculationService.Validate(calculation, generalInput, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()

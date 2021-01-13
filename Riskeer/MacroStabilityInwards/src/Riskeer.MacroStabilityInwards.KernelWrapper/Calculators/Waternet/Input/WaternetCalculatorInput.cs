@@ -89,6 +89,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             PenetrationLength = properties.PenetrationLength;
             AdjustPhreaticLine3And4ForUplift = properties.AdjustPhreaticLine3And4ForUplift;
             DikeSoilScenario = properties.DikeSoilScenario;
+            WaterVolumetricWeight = properties.WaterVolumetricWeight;
         }
 
         /// <summary>
@@ -114,6 +115,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
                 PiezometricHeadPhreaticLine2Inwards = double.NaN;
                 PenetrationLength = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
+                WaterVolumetricWeight = double.NaN;
             }
 
             #region Properties
@@ -220,6 +222,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             /// </summary>
             public double PenetrationLength { internal get; set; }
 
+            /// <summary>
+            /// Gets or sets the penetration length.
+            /// [m]
+            /// </summary>
+            public double WaterVolumetricWeight { internal get; set; }
+            
             #endregion
         }
 
@@ -326,6 +334,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
         /// [m]
         /// </summary>
         public double PenetrationLength { get; }
+
+        /// <summary>
+        /// Gets the volumetric weight of water
+        /// [kN/m3]
+        /// </summary>
+        public double WaterVolumetricWeight { get; }
 
         #endregion
     }

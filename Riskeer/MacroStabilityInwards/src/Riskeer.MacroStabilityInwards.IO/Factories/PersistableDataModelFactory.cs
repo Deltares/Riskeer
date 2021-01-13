@@ -45,6 +45,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculation"/>
         /// has no output.</exception>
         public static PersistableDataModel Create(MacroStabilityInwardsCalculation calculation,
+                                                  GeneralMacroStabilityInwardsInput generalInput,
                                                   Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                   string filePath)
         {
@@ -77,8 +78,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Waternets = PersistableWaternetFactory.Create(
-                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input),
-                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
+                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput),
+                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
                     idFactory, registry),
                 WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
                 States = PersistableStateFactory.Create(soilProfile, idFactory, registry),

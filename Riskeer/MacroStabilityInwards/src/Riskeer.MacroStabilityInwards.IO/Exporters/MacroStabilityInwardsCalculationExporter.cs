@@ -48,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsCalculationExporter));
 
         private readonly MacroStabilityInwardsCalculation calculation;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
         private readonly IPersistenceFactory persistenceFactory;
         private readonly string filePath;
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
@@ -71,6 +72,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
         public MacroStabilityInwardsCalculationExporter(MacroStabilityInwardsCalculation calculation,
+                                                        GeneralMacroStabilityInwardsInput generalInput,
                                                         IPersistenceFactory persistenceFactory,
                                                         string filePath, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
@@ -92,6 +94,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             IOUtils.ValidateFilePath(filePath);
 
             this.calculation = calculation;
+            this.generalInput = generalInput;
             this.persistenceFactory = persistenceFactory;
             this.filePath = filePath;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
@@ -106,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             ValidateData();
 
-            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
+            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, generalInput, getNormativeAssessmentLevelFunc, filePath);
 
             string tempFilePath = $"{filePath}.temp";
 

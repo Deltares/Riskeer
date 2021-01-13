@@ -39,6 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
 
         private MacroStabilityInwardsCalculationScenario data;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputView"/>.
@@ -47,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputView(MacroStabilityInwardsCalculationScenario data,
+                                               GeneralMacroStabilityInwardsInput generalInput,
                                                Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (data == null)
@@ -60,6 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
 
             this.data = data;
+            this.generalInput = generalInput;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
 
             InitializeComponent();

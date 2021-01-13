@@ -173,7 +173,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(
-                    context.WrappedData, new PersistenceFactory(), filePath,
+                    context.WrappedData, context.FailureMechanism.GeneralInput, new PersistenceFactory(), filePath,
                     () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData)),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
@@ -184,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
-                CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,
+                CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput, new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,
                                                                                                                 calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
                 IsEnabled = context => context.WrappedData.HasOutput(),
                 GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())
@@ -276,6 +276,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData,
                 CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
+                                                                               context.FailureMechanism.GeneralInput,
                                                                                context.AssessmentSection,
                                                                                () => context.AssessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(context.WrappedData.HydraulicBoundaryLocation))
             };
@@ -295,7 +296,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData,
+                CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData, context.FailureMechanism.GeneralInput,
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
             };
 
@@ -430,11 +431,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
-        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, GeneralMacroStabilityInwardsInput generalInput, IAssessmentSection assessmentSection)
         {
             foreach (MacroStabilityInwardsCalculation calculation in calculations)
             {
-                MacroStabilityInwardsCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
+                MacroStabilityInwardsCalculationService.Validate(calculation, generalInput, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
@@ -683,14 +684,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static void ValidateAllInFailureMechanism(MacroStabilityInwardsFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.WrappedData.GeneralInput, context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(MacroStabilityInwardsFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.WrappedData.GeneralInput, context.Parent));
         }
 
         #endregion
@@ -862,14 +863,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static void ValidateAllInCalculationGroup(MacroStabilityInwardsCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.FailureMechanism.GeneralInput, context.AssessmentSection);
         }
 
         private void CalculateAllInCalculationGroup(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism.GeneralInput, context.AssessmentSection));
         }
 
         #endregion
@@ -939,14 +940,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static void Validate(MacroStabilityInwardsCalculationScenarioContext context)
         {
-            MacroStabilityInwardsCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
+            MacroStabilityInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism.GeneralInput, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
         private void Calculate(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism.GeneralInput, context.AssessmentSection));
         }
 
         #endregion

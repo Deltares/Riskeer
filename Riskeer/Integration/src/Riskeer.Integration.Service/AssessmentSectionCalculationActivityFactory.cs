@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Service
 
             if (assessmentSection.MacroStabilityInwards.IsRelevant)
             {
-                activities.AddRange(MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.MacroStabilityInwards, assessmentSection));
+                activities.AddRange(MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.MacroStabilityInwards, assessmentSection.MacroStabilityInwards.GeneralInput, assessmentSection));
             }
 
             if (assessmentSection.StabilityStoneCover.IsRelevant)

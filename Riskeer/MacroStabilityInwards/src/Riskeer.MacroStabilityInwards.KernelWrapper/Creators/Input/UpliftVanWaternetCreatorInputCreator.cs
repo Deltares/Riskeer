@@ -116,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                UnitWeightWater = 9.81
+                UnitWeightWater = input.WaterVolumetricWeight
             };
         }
     }

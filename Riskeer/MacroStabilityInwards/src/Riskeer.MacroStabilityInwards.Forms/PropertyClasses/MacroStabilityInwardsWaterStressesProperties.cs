@@ -54,6 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int locationDailyPropertyIndex = 13;
         private const int waterStressLinesPropertyIndex = 14;
 
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
         private readonly RoundedDouble assessmentLevel;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -66,6 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="propertyChangeHandler"/>
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsWaterStressesProperties(MacroStabilityInwardsInput data,
+                                                            GeneralMacroStabilityInwardsInput generalInput,
                                                             RoundedDouble assessmentLevel,
                                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
@@ -80,6 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             this.data = data;
+            this.generalInput = generalInput;
             this.assessmentLevel = assessmentLevel;
             this.propertyChangeHandler = propertyChangeHandler;
         }
@@ -299,7 +302,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaterStressLinesProperties(data, assessmentLevel);
+                return new MacroStabilityInwardsWaterStressLinesProperties(data, generalInput, assessmentLevel);
             }
         }
 
