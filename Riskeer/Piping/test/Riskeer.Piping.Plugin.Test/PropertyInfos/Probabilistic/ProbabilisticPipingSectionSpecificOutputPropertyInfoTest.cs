@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticPipingSectionSpecificOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingSectionSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.SectionSpecificOutput, objectProperties.Data);
         }
     }

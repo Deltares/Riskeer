@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingSectionSpecificOutputProperties(IPartialProbabilisticPipingOutput output)
+        protected ProbabilisticPipingSectionSpecificOutputProperties(IPartialProbabilisticPipingOutput output)
         {
             if (output == null)
             {

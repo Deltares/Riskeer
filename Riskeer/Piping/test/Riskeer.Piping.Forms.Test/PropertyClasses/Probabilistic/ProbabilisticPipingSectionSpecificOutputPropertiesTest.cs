@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticPipingSectionSpecificOutputProperties(null);
+            void Call() => new TestProbabilisticPipingSectionSpecificOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
+            var properties = new TestProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IPartialProbabilisticPipingOutput>>(properties);
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
+            var properties = new TestProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -102,11 +102,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
 
             // Call
-            var properties = new ProbabilisticPipingSectionSpecificOutputProperties(output);
+            var properties = new TestProbabilisticPipingSectionSpecificOutputProperties(output);
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(output.Reliability)), properties.Probability);
             Assert.AreEqual(output.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
+        }
+
+        private class TestProbabilisticPipingSectionSpecificOutputProperties : ProbabilisticPipingSectionSpecificOutputProperties
+        {
+            public TestProbabilisticPipingSectionSpecificOutputProperties(IPartialProbabilisticPipingOutput output)
+                : base(output) {}
         }
     }
 }
