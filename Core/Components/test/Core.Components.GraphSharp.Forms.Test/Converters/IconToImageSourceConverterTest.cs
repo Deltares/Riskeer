@@ -22,9 +22,9 @@
 using System;
 using System.Windows.Data;
 using System.Windows.Media;
-using Core.Common.Gui.Properties;
 using Core.Components.GraphSharp.Forms.Converters;
 using NUnit.Framework;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Components.GraphSharp.Forms.Test.Converters
 {
@@ -48,7 +48,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
             var converter = new IconToImageSourceConverter();
 
             // Call
-            object imageSource = converter.Convert(Resources.warning, null, null, null);
+            object imageSource = converter.Convert(CoreCommonGuiResources.warning, null, null, null);
 
             // Assert
             Assert.IsInstanceOf<ImageSource>(imageSource);
