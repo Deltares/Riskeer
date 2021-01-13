@@ -73,6 +73,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             bool moveGrid = random.NextBoolean();
             double maximumSliceWidth = random.NextDouble();
+            double waterVolumetricWeight = random.NextDouble();
 
             // Call
             var input = new UpliftVanCalculatorInput(
@@ -102,7 +103,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
                     DikeSoilScenario = dikeSoilScenario,
                     MoveGrid = moveGrid,
-                    MaximumSliceWidth = maximumSliceWidth
+                    MaximumSliceWidth = maximumSliceWidth,
+                    WaterVolumetricWeight = waterVolumetricWeight
                 });
 
             // Assert
@@ -133,6 +135,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
             Assert.AreEqual(moveGrid, input.MoveGrid);
             Assert.AreEqual(maximumSliceWidth, input.MaximumSliceWidth);
+            Assert.AreEqual(waterVolumetricWeight, input.WaterVolumetricWeight);
         }
 
         [Test]
@@ -175,6 +178,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsNaN(input.PenetrationLengthDaily);
             Assert.IsNaN(input.PenetrationLengthExtreme);
             Assert.IsNaN(input.MaximumSliceWidth);
+            Assert.IsNaN(input.WaterVolumetricWeight);
 
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.MoveGrid);
