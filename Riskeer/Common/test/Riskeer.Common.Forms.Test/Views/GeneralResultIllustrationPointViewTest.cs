@@ -121,7 +121,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_GeneralResultWithoutIllustrationPoints_DataSetOnIllustrationPointControl()
         {
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_GeneralResultWithIllustrationPoints_DataSetOnIllustrationPointControl()
         {
@@ -149,36 +149,17 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             GeneralResult<TestTopLevelIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
-            
+
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, () => generalResult);
 
             // Assert
-            TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint1 = generalResult.TopLevelIllustrationPoints.ElementAt(0);
-            TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint2 = generalResult.TopLevelIllustrationPoints.ElementAt(1);
-            
-            var illustrationPoint = new TestIllustrationPoint();
-
-            var expectedControlItems = new[]
-            {
-                new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
-                                                 topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
-                                                 topLevelFaultTreeIllustrationPoint1.ClosingSituation,
-                                                 stochasts,
-                                                 illustrationPoint.Beta),
-                new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
-                                                 topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
-                                                 topLevelFaultTreeIllustrationPoint2.ClosingSituation,
-                                                 stochasts,
-                                                 illustrationPoint.Beta)
-            };
-
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+            AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_GeneralResultFuncReturningEmptyData_SelectionNull()
         {
@@ -292,7 +273,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var calculation = new TestCalculation();
             GeneralResult<TestTopLevelIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
-            
+
             using (var view = new TestGeneralResultIllustrationPointView(calculation, () => returnGeneralResult
                                                                                                 ? generalResult
                                                                                                 : null))
@@ -307,26 +288,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint1 = generalResult.TopLevelIllustrationPoints.ElementAt(0);
-                TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint2 = generalResult.TopLevelIllustrationPoints.ElementAt(1);
-            
-                var illustrationPoint = new TestIllustrationPoint();
-
-                var expectedControlItems = new[]
-                {
-                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
-                                                     topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
-                                                     topLevelFaultTreeIllustrationPoint1.ClosingSituation,
-                                                     stochasts,
-                                                     illustrationPoint.Beta),
-                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
-                                                     topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
-                                                     topLevelFaultTreeIllustrationPoint2.ClosingSituation,
-                                                     stochasts,
-                                                     illustrationPoint.Beta)
-                };
-
-                CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+                AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
             }
         }
 
@@ -346,6 +308,19 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowTestView(view);
 
             // Precondition
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+            AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
+
+            // When
+            returnGeneralResult = false;
+            calculation.NotifyObservers();
+
+            // Then
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+        }
+
+        private static void AssertIllustrationPointControlItems(GeneralResult<TestTopLevelIllustrationPoint> generalResult, IllustrationPointsControl illustrationPointsControl)
+        {
             TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint1 = generalResult.TopLevelIllustrationPoints.ElementAt(0);
             TestTopLevelIllustrationPoint topLevelFaultTreeIllustrationPoint2 = generalResult.TopLevelIllustrationPoints.ElementAt(1);
 
@@ -364,15 +339,8 @@ namespace Riskeer.Common.Forms.Test.Views
                                                  stochasts,
                                                  illustrationPoint.Beta)
             };
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+
             CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
-
-            // When
-            returnGeneralResult = false;
-            calculation.NotifyObservers();
-
-            // Then
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
         }
 
         private static IllustrationPointsControl GetIllustrationPointsControl(TestGeneralResultIllustrationPointView view)
@@ -437,6 +405,5 @@ namespace Riskeer.Common.Forms.Test.Views
                 return selection.Source;
             }
         }
-
     }
 }
