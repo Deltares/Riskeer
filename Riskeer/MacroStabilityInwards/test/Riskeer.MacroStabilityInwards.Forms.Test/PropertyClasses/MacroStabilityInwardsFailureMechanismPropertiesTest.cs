@@ -115,6 +115,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            Assert.AreEqual(failureMechanism.GeneralInput.ModelFactor, properties.ModelFactor);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
             mocks.VerifyAll();
         }
 
