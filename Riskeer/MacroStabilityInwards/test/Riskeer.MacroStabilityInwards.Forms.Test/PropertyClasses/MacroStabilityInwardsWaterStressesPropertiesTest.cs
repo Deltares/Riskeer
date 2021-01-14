@@ -102,14 +102,29 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null,
-                                                                                       new GeneralMacroStabilityInwardsInput(),
-                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
-                                                                                       propertyChangeHandler);
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            var mocks = new MockRepository();
+            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -120,13 +135,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                                       new GeneralMacroStabilityInwardsInput(),
-                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
-                                                                                       null);
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(input, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
         }
 

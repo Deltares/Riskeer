@@ -40,12 +40,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int waternetDailyPropertyIndex = 2;
 
         private readonly RoundedDouble assessmentLevel;
-        private GeneralMacroStabilityInwardsInput generalInput;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressLinesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
+        /// <param name="generalInput">The general input used in the calculations.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble assessmentLevel)
@@ -53,6 +54,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+            
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             this.data = data;

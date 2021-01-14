@@ -44,13 +44,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null,
-                                                                                          new GeneralMacroStabilityInwardsInput(),
-                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsWaterStressLinesProperties(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+        }
+        
+        [Test]
+        public void Constructor_generalInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            
+            // Call
+            void Call() => new MacroStabilityInwardsWaterStressLinesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]

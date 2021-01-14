@@ -62,6 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
+        /// <param name="generalInput">The general input used in the calculations.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="propertyChangeHandler"/>
@@ -74,6 +75,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+            
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (propertyChangeHandler == null)

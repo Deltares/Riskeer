@@ -80,29 +80,41 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputView(null,
-                                                                         new GeneralMacroStabilityInwardsInput(),
-                                                                         assessmentSection,
-                                                                         GetHydraulicBoundaryLocationCalculation);
+            void Call() => new MacroStabilityInwardsInputView(null, new GeneralMacroStabilityInwardsInput(), assessmentSection, GetHydraulicBoundaryLocationCalculation);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
 
             mocks.VerifyAll();
         }
 
         [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), null, assessmentSection, GetHydraulicBoundaryLocationCalculation);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("generalInput", paramName);
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
-                                                                         new GeneralMacroStabilityInwardsInput(),
-                                                                         null,
-                                                                         GetHydraulicBoundaryLocationCalculation);
+            void Call() => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), null, GetHydraulicBoundaryLocationCalculation);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -115,13 +127,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
-                                                                         new GeneralMacroStabilityInwardsInput(),
-                                                                         assessmentSection,
-                                                                         null);
+            void Call() => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", paramName);
 
             mocks.VerifyAll();

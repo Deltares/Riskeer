@@ -120,7 +120,7 @@ namespace Riskeer.Common.Service.Structures
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="generalInput">The general inputs used in the calculations.</param>
+        /// <param name="generalInput">The general input used in the calculations.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
