@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     {
         /// <summary>
         /// Gets the volumetric weight of water.
-        /// [kN/m3]
+        /// [kN/m³]
         /// </summary>
         double WaterVolumetricWeight { get; }
     }
