@@ -23,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
@@ -36,128 +34,36 @@ namespace Riskeer.Common.Forms.Views
     /// This class is a view for presenting <see cref="TopLevelFaultTreeIllustrationPoint"/> objects
     /// (as part of the <see cref="GeneralResult{T}"/> of a <see cref="ICalculation"/>).
     /// </summary>
-    public partial class GeneralResultFaultTreeIllustrationPointView : UserControl, IView, ISelectionProvider
+    public class GeneralResultFaultTreeIllustrationPointView : GeneralResultIllustrationPointView<TopLevelFaultTreeIllustrationPoint>
     {
-        private readonly Observer calculationObserver;
-        private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
-
-        private ICalculation data;
-        private bool suspendIllustrationPointsControlEvents;
-
-        public event EventHandler<EventArgs> SelectionChanged;
+        private IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResultFaultTreeIllustrationPointView"/>.
         /// </summary>
+        /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
         /// that must be presented.</param>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="getGeneralResultFunc"/> is <c>null</c>.</exception>
-        public GeneralResultFaultTreeIllustrationPointView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
-        {
-            InitializeComponent();
-
-            if (getGeneralResultFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getGeneralResultFunc));
-            }
-
-            this.getGeneralResultFunc = getGeneralResultFunc;
-
-            calculationObserver = new Observer(UpdateControls);
-
-            illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
-            illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;
-            Name = "GeneralResultFaultTreeIllustrationPointViewName";
-        }
-
-        public object Selection { get; private set; }
-
-        public object Data
-        {
-            get => data;
-            set
-            {
-                data = value as ICalculation;
-
-                calculationObserver.Observable = data;
-
-                UpdateControls();
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            calculationObserver.Dispose();
-
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
-        /// <summary>
-        /// Updates the controls.
-        /// </summary>
+        /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
         /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
         /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
-        private void UpdateControls()
+        public GeneralResultFaultTreeIllustrationPointView(ICalculation calculation, Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
+            : base(calculation, getGeneralResultFunc)
         {
-            suspendIllustrationPointsControlEvents = true;
-            UpdateIllustrationPointsControl();
-            suspendIllustrationPointsControlEvents = false;
-
-            UpdateIllustrationPointsFaultTreeControl();
-            ProvideIllustrationPointSelection();
+            AddIllustrationPointsFaultTreeControl();
         }
 
-        private void IllustrationPointsFaultTreeControlOnSelectionChanged(object sender, EventArgs eventArgs)
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
+        /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
+        /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
         {
-            var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
-            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = getGeneralResultFunc();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultFunc();
 
-            if (selection == null || topLevelFaultTreeIllustrationPoint == null || generalResult == null)
-            {
-                return;
-            }
-
-            string closingSituation = generalResult.TopLevelIllustrationPoints.HasMultipleUniqueValues(p => p.ClosingSituation)
-                                          ? topLevelFaultTreeIllustrationPoint.ClosingSituation
-                                          : string.Empty;
-
-            if (selection.Data is FaultTreeIllustrationPoint faultTreeIllustrationPoint)
-            {
-                Selection = new IllustrationPointContext<FaultTreeIllustrationPoint>(faultTreeIllustrationPoint,
-                                                                                     selection,
-                                                                                     topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                                                     closingSituation);
-            }
-
-            if (selection.Data is SubMechanismIllustrationPoint subMechanismIllustrationPoint)
-            {
-                Selection = new IllustrationPointContext<SubMechanismIllustrationPoint>(subMechanismIllustrationPoint,
-                                                                                        selection,
-                                                                                        topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                                                        closingSituation);
-            }
-
-            OnSelectionChanged();
-        }
-
-        private void UpdateIllustrationPointsControl()
-        {
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
-        }
-
-        private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
-        {
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = getGeneralResultFunc();
-
-            if (data == null || generalResult == null)
+            if (generalResult == null)
             {
                 return Enumerable.Empty<IllustrationPointControlItem>();
             }
@@ -172,6 +78,33 @@ namespace Riskeer.Common.Forms.Views
                                                         GetStochasts(illustrationPoint),
                                                         illustrationPoint.Beta);
             }).ToArray();
+        }
+
+        protected override void UpdateSpecificIllustrationPointsControl()
+        {
+            illustrationPointsFaultTreeControl.Data = (TopLevelFaultTreeIllustrationPoint) (IllustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
+        /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
+        /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        protected override object GetSelectedTopLevelIllustrationPoint(IllustrationPointControlItem selection)
+        {
+            return new SelectedTopLevelFaultTreeIllustrationPoint(
+                (TopLevelFaultTreeIllustrationPoint) selection.Source,
+                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation));
+        }
+
+        private void AddIllustrationPointsFaultTreeControl()
+        {
+            illustrationPointsFaultTreeControl = new IllustrationPointsFaultTreeControl
+            {
+                Dock = DockStyle.Fill
+            };
+            illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;
+
+            SplitContainer.Panel2.Controls.Add(illustrationPointsFaultTreeControl);
         }
 
         /// <summary>
@@ -196,41 +129,40 @@ namespace Riskeer.Common.Forms.Views
             }
         }
 
-        private void UpdateIllustrationPointsFaultTreeControl()
+        private void IllustrationPointsFaultTreeControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            illustrationPointsFaultTreeControl.Data = (TopLevelFaultTreeIllustrationPoint) (illustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
-        }
+            var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultFunc();
 
-        private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs e)
-        {
-            if (suspendIllustrationPointsControlEvents)
+            if (selection == null || topLevelFaultTreeIllustrationPoint == null || generalResult == null)
             {
                 return;
             }
 
-            UpdateIllustrationPointsFaultTreeControl();
+            string closingSituation = generalResult.TopLevelIllustrationPoints.HasMultipleUniqueValues(p => p.ClosingSituation)
+                                          ? topLevelFaultTreeIllustrationPoint.ClosingSituation
+                                          : string.Empty;
 
-            ProvideIllustrationPointSelection();
-        }
+            switch (selection.Data)
+            {
+                case FaultTreeIllustrationPoint faultTreeIllustrationPoint:
+                    Selection = new IllustrationPointContext<FaultTreeIllustrationPoint>(
+                        faultTreeIllustrationPoint,
+                        selection,
+                        topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                        closingSituation);
+                    break;
+                case SubMechanismIllustrationPoint subMechanismIllustrationPoint:
+                    Selection = new IllustrationPointContext<SubMechanismIllustrationPoint>(
+                        subMechanismIllustrationPoint,
+                        selection,
+                        topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                        closingSituation);
+                    break;
+            }
 
-        /// <summary>
-        /// Sets the <see cref="Selection"/> based on the selection of the <see cref="IllustrationPointsControl"/>.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
-        /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
-        /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
-        private void ProvideIllustrationPointSelection()
-        {
-            Selection = illustrationPointsControl.Selection is IllustrationPointControlItem selection
-                            ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint) selection.Source,
-                                                                             GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
-                            : null;
             OnSelectionChanged();
-        }
-
-        private void OnSelectionChanged()
-        {
-            SelectionChanged?.Invoke(this, new EventArgs());
         }
     }
 }

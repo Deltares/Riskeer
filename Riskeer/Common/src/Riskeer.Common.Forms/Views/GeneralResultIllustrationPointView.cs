@@ -37,7 +37,6 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint> : UserControl, IView, ISelectionProvider
         where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
     {
-        protected readonly Func<GeneralResult<TTopLevelIllustrationPoint>> GetGeneralResultFunc;
         private readonly Observer calculationObserver;
         private ICalculation calculation;
 
@@ -69,28 +68,33 @@ namespace Riskeer.Common.Forms.Views
             this.calculation = calculation;
             GetGeneralResultFunc = getGeneralResultFunc;
 
-            calculationObserver = new Observer(() =>
-            {
-                UpdateControls();
-                ProvideIllustrationPointSelection();
-            })
+            calculationObserver = new Observer(UpdateControls)
             {
                 Observable = calculation
             };
 
             IllustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
             Name = "GeneralResultIllustrationPointView";
-
-            UpdateControls();
-            ProvideIllustrationPointSelection();
         }
 
-        public object Selection { get; private set; }
+        public object Selection { get; protected set; }
 
         public object Data
         {
             get => calculation;
             set => calculation = value as ICalculation;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Func{TResult}"/> for obtaining the <see cref="GeneralResult{T}"/>. 
+        /// </summary>
+        protected Func<GeneralResult<TTopLevelIllustrationPoint>> GetGeneralResultFunc { get; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            UpdateControls();
         }
 
         protected override void Dispose(bool disposing)
@@ -104,23 +108,39 @@ namespace Riskeer.Common.Forms.Views
 
             base.Dispose(disposing);
         }
-        
-        protected void UpdateControls()
+
+        /// <summary>
+        /// Gets a collection of <see cref="IllustrationPointControlItem"/>.
+        /// </summary>
+        /// <returns>A collection of <see cref="IllustrationPointControlItem"/>.</returns>
+        protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
+
+        /// <summary>
+        /// Updates specific illustration point controls
+        /// </summary>
+        protected abstract void UpdateSpecificIllustrationPointsControl();
+
+        /// <summary>
+        /// Gets the selected top level illustration point.
+        /// </summary>
+        /// <param name="selection">The selection <see cref="IllustrationPointControlItem"/>
+        /// to get the selected top level illustration point from.</param>
+        /// <returns>The selected top level illustration point.</returns>
+        protected abstract object GetSelectedTopLevelIllustrationPoint(IllustrationPointControlItem selection);
+
+        protected void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, new EventArgs());
+        }
+
+        private void UpdateControls()
         {
             suspendIllustrationPointsControlEvents = true;
             UpdateIllustrationPointsControl();
             suspendIllustrationPointsControlEvents = false;
-        }
 
-        protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
-
-        protected abstract void UpdateSpecificIllustrationPointsControl();
-
-        protected abstract object GetSelectedTopLevelIllustrationPoint(IllustrationPointControlItem selection);
-
-        private void OnSelectionChanged()
-        {
-            SelectionChanged?.Invoke(this, new EventArgs());
+            UpdateSpecificIllustrationPointsControl();
+            ProvideIllustrationPointSelection();
         }
 
         private void UpdateIllustrationPointsControl()

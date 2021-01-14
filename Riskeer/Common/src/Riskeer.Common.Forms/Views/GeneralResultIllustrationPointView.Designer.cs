@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Riskeer.Common.Forms.Views
 {
     partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint>
@@ -29,6 +31,8 @@ namespace Riskeer.Common.Forms.Views
         private System.ComponentModel.IContainer components = null;
 
         protected IllustrationPointsControl IllustrationPointsControl => illustrationPointsControl;
+
+        protected SplitContainer SplitContainer => splitContainer;
 
         #region Component Designer generated code
 
