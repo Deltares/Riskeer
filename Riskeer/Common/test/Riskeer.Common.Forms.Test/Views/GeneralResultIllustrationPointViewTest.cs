@@ -115,9 +115,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(1, splitContainerPanel1Controls.Count);
             Assert.IsInstanceOf<IllustrationPointsControl>(splitContainerPanel1Controls[0]);
 
-            Control.ControlCollection splitContainerPanel2Controls = splitContainer.Panel2.Controls;
-            Assert.AreEqual(1, splitContainerPanel2Controls.Count);
-            Assert.IsInstanceOf<IllustrationPointsFaultTreeControl>(splitContainerPanel2Controls[0]);
+            CollectionAssert.IsEmpty(splitContainer.Panel2.Controls);
 
             mocks.VerifyAll();
         }

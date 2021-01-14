@@ -28,8 +28,6 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        protected IllustrationPointsFaultTreeControl IllustrationPointsFaultTreeControl => illustrationPointsFaultTreeControl;
-
         protected IllustrationPointsControl IllustrationPointsControl => illustrationPointsControl;
 
         #region Component Designer generated code
@@ -42,7 +40,6 @@ namespace Riskeer.Common.Forms.Views
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.illustrationPointsControl = new Riskeer.Common.Forms.Views.IllustrationPointsControl();
-            this.illustrationPointsFaultTreeControl = new Riskeer.Common.Forms.Views.IllustrationPointsFaultTreeControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -61,7 +58,6 @@ namespace Riskeer.Common.Forms.Views
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.IllustrationPointsFaultTreeControl);
             this.splitContainer.Size = new System.Drawing.Size(487, 357);
             this.splitContainer.SplitterDistance = 261;
             this.splitContainer.TabIndex = 0;
@@ -74,15 +70,6 @@ namespace Riskeer.Common.Forms.Views
             this.IllustrationPointsControl.Name = "illustrationPointsControl";
             this.IllustrationPointsControl.Size = new System.Drawing.Size(261, 357);
             this.IllustrationPointsControl.TabIndex = 0;
-            // 
-            // illustrationPointsFaultTreeControl
-            // 
-            this.IllustrationPointsFaultTreeControl.Data = null;
-            this.IllustrationPointsFaultTreeControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.IllustrationPointsFaultTreeControl.Location = new System.Drawing.Point(0, 0);
-            this.IllustrationPointsFaultTreeControl.Name = "illustrationPointsFaultTreeControl";
-            this.IllustrationPointsFaultTreeControl.Size = new System.Drawing.Size(222, 357);
-            this.IllustrationPointsFaultTreeControl.TabIndex = 0;
             // 
             // GeneralResultFaultTreeIllustrationPointView
             // 
@@ -103,6 +90,5 @@ namespace Riskeer.Common.Forms.Views
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private IllustrationPointsControl illustrationPointsControl;
-        private IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl;
     }
 }
