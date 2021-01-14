@@ -30,14 +30,12 @@ using Riskeer.Common.Data.IllustrationPoints;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// This class is a view for presenting <see cref="TopLevelIllustrationPointBase"/> objects
+    /// This class is a view for presenting <typeparamref name="TTopLevelIllustrationPoint"/> objects
     /// (as part of the <see cref="GeneralResult{T}"/> of a <see cref="ICalculation"/>).
     /// </summary>
     /// <typeparam name="TTopLevelIllustrationPoint">The type of the top level illustration point.</typeparam>
-    /// <typeparam name="TIllustrationPoint">The type of the illustration point.</typeparam>
-    public abstract partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint, TIllustrationPoint> : UserControl, IView, ISelectionProvider
+    public abstract partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint> : UserControl, IView, ISelectionProvider
         where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
-        where TIllustrationPoint : IllustrationPointBase
     {
         protected readonly Func<GeneralResult<TTopLevelIllustrationPoint>> GetGeneralResultFunc;
         private readonly Observer calculationObserver;
@@ -48,7 +46,7 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResultIllustrationPointView"/>.
+        /// Creates a new instance of <see cref="GeneralResultIllustrationPointView{T}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the

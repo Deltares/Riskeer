@@ -373,7 +373,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Enumerable.Empty<TestTopLevelIllustrationPoint>());
         }
 
-        private class TestGeneralResultIllustrationPointView : GeneralResultIllustrationPointView<TestTopLevelIllustrationPoint, TestIllustrationPoint>
+        private class TestGeneralResultIllustrationPointView : GeneralResultIllustrationPointView<TestTopLevelIllustrationPoint>
         {
             public TestGeneralResultIllustrationPointView(ICalculation calculation, Func<GeneralResult<TestTopLevelIllustrationPoint>> getGeneralResultFunc)
                 : base(calculation, getGeneralResultFunc) {}

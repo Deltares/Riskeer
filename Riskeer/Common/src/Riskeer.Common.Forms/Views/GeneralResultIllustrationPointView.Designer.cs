@@ -21,7 +21,7 @@
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint, TIllustrationPoint>
+    partial class GeneralResultIllustrationPointView<TTopLevelIllustrationPoint>
     {
         /// <summary> 
         /// Required designer variable.
