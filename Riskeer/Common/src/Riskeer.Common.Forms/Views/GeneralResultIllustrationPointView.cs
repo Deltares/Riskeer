@@ -116,8 +116,6 @@ namespace Riskeer.Common.Forms.Views
 
         protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
 
-        protected abstract IEnumerable<Stochast> GetStochasts(TIllustrationPoint illustrationPoint);
-
         protected abstract void UpdateSpecificIllustrationPointsControl();
 
         protected abstract object GetSelectedTopLevelIllustrationPoint(IllustrationPointControlItem selection);

@@ -426,13 +426,8 @@ namespace Riskeer.Common.Forms.Test.Views
                         p,
                         p.WindDirection.Name,
                         p.ClosingSituation,
-                        GetStochasts(illustrationPoint),
+                        stochasts,
                         illustrationPoint.Beta)).ToArray();
-            }
-
-            protected override IEnumerable<Stochast> GetStochasts(TestIllustrationPoint illustrationPoint)
-            {
-                return stochasts;
             }
 
             protected override void UpdateSpecificIllustrationPointsControl() {}
