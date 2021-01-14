@@ -87,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
         /// <param name="data">The calculation to show the input for.</param>
-        /// <param name="generalInput">The general input used in the calculations.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <param name="getHydraulicBoundaryLocationCalculationFunc">The <see cref="Func{TResult}"/> for
         /// obtaining the hydraulic boundary location calculation.</param>

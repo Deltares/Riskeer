@@ -35,11 +35,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the calculated Waternet for extreme circumstances.
         /// </summary>
         /// <param name="input">The input to calculate the Waternet for.</param>
-        /// <param name="generalInput">The general input used in the calculations.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived Waternet value.</returns>
-        public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble assessmentLevel)
+        public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input,
+                                                                       GeneralMacroStabilityInwardsInput generalInput,
+                                                                       RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
@@ -61,10 +63,11 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the calculated Waternet for daily circumstances.
         /// </summary>
         /// <param name="input">The input to calculate the Waternet for.</param>
-        /// <param name="generalInput">The general input used in the calculations.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived Waternet value.</returns>
-        public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input, GeneralMacroStabilityInwardsInput generalInput)
+        public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input,
+                                                                     GeneralMacroStabilityInwardsInput generalInput)
         {
             if (input == null)
             {

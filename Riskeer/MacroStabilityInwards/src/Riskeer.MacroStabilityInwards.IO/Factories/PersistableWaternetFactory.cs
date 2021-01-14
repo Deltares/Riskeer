@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <param name="extremeWaternet">The extreme Waternet to use.</param>
         /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
-        /// <param name="generalInput">The <see cref="GeneralMacroStabilityInwardsInput"/>to use.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <returns>A collection of <see cref="PersistableWaternet"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<PersistableWaternet> Create(MacroStabilityInwardsWaternet dailyWaternet,
