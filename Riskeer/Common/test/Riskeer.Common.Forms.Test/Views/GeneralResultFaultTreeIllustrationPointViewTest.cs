@@ -119,29 +119,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResult);
+            ShowTestView(view);
 
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
-
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_GeneralResultWithNotSupportedIllustrationPoint_ThrowsNotSupportedException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new GeneralResultFaultTreeIllustrationPointView(calculation, GetGeneralResultWithTopLevelIllustrationPointsOfNotSupportedType);
-
-            // Assert
-            var exception = Assert.Throws<NotSupportedException>(Call);
-            Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
-                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);
         }
 
         [Test]
@@ -153,9 +136,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
-
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResult);
-
             ShowTestView(view);
 
             var selectionChangedCount = 0;
@@ -193,7 +174,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResultFunc);
-
             ShowTestView(view);
 
             var selectionChangedCount = 0;
@@ -236,7 +216,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResultFunc);
-
             ShowTestView(view);
 
             var selectionChangedCount = 0;
@@ -275,29 +254,29 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculation = new TestCalculation();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => returnGeneralResult
-                                                                                                     ? generalResult
-                                                                                                     : null))
-            {
-                returnGeneralResult = true;
+            var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => returnGeneralResult
+                                                                                              ? generalResult
+                                                                                              : null);
+            ShowTestView(view);
 
-                // Precondition
-                IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
-                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-                Assert.IsNull(illustrationPointsFaultTreeControl.Data);
+            returnGeneralResult = true;
 
-                // When
-                calculation.NotifyObservers();
+            // Precondition
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+            IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+            Assert.IsNull(illustrationPointsFaultTreeControl.Data);
 
-                // Then
-                AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
-                Assert.AreSame(generalResult.TopLevelIllustrationPoints.First(), illustrationPointsFaultTreeControl.Data);
-            }
+            // When
+            calculation.NotifyObservers();
+
+            // Then
+            AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.First(), illustrationPointsFaultTreeControl.Data);
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithIllustrationPoints_WhenIllustrationPointsCleared_ThenControlsSyncedAccordingly()
+        public void GivenViewWithIllustrationPoints_WhenIllustrationPointsCleared_ThenControlsSyncedAccordingly()
         {
             // Given
             var returnGeneralResult = true;
@@ -308,7 +287,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => returnGeneralResult
                                                                                               ? generalResult
                                                                                               : null);
-
             ShowTestView(view);
 
             // Precondition
@@ -325,6 +303,29 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
             Assert.IsNull(illustrationPointsFaultTreeControl.Data);
+        }
+
+        [Test]
+        public void GivenViewWithoutIllustrationPoints_WhenIllustrationPointsChangedAndContainingNotSupportedIllustrationPoints_ThenThrowsNotSupportedException()
+        {
+            // Given
+            var calculation = new TestCalculation();
+            var hasGeneralResult = false;
+
+            var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => hasGeneralResult
+                                                                                              ? GetGeneralResultWithTopLevelIllustrationPointsOfNotSupportedType()
+                                                                                              : null);
+            ShowTestView(view);
+
+            hasGeneralResult = true;
+
+            // When
+            void Call() => calculation.NotifyObservers();
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(Call);
+            Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
+                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);
         }
 
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTopLevelIllustrationPointsOfNotSupportedType()

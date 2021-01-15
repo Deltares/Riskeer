@@ -130,6 +130,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, () => null);
+            ShowTestView(view);
 
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
@@ -150,6 +151,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, () => generalResult);
+            ShowTestView(view);
 
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
@@ -272,22 +274,23 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculation = new TestCalculation();
             GeneralResult<TestTopLevelIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            using (var view = new TestGeneralResultIllustrationPointView(calculation, () => returnGeneralResult
-                                                                                                ? generalResult
-                                                                                                : null))
-            {
-                returnGeneralResult = true;
+            var view = new TestGeneralResultIllustrationPointView(calculation, () => returnGeneralResult
+                                                                                         ? generalResult
+                                                                                         : null);
 
-                // Precondition
-                IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+            ShowTestView(view);
 
-                // When
-                calculation.NotifyObservers();
+            returnGeneralResult = true;
 
-                // Then
-                AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
-            }
+            // Precondition
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+
+            // When
+            calculation.NotifyObservers();
+
+            // Then
+            AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
         }
 
         [Test]
