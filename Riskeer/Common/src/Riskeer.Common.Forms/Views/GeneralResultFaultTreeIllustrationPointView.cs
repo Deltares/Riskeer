@@ -49,7 +49,8 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
         /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
         /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
-        public GeneralResultFaultTreeIllustrationPointView(ICalculation calculation, Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
+        public GeneralResultFaultTreeIllustrationPointView(ICalculation calculation,
+                                                           Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
             : base(calculation, getGeneralResultFunc)
         {
             AddIllustrationPointsFaultTreeControl();
