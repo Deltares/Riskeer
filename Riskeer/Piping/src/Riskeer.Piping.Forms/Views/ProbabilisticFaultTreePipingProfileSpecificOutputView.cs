@@ -28,20 +28,20 @@ namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// Override of <see cref="GeneralResultFaultTreeIllustrationPointView"/> for making output views for
-    /// <see cref="ProbabilisticPipingOutput.SectionSpecificOutput"/> uniquely identifiable (when it comes
+    /// <see cref="ProbabilisticPipingOutput.ProfileSpecificOutput"/> uniquely identifiable (when it comes
     /// to opening/closing views).
     /// </summary>
-    public class ProbabilisticPipingSectionSpecificOutputView : GeneralResultFaultTreeIllustrationPointView
+    public class ProbabilisticFaultTreePipingProfileSpecificOutputView : GeneralResultFaultTreeIllustrationPointView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingSectionSpecificOutputView"/>.
+        /// Creates a new instance of <see cref="ProbabilisticFaultTreePipingProfileSpecificOutputView"/>.
         /// </summary>
         /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
         /// that must be presented.</param>
         /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingSectionSpecificOutputView(
+        public ProbabilisticFaultTreePipingProfileSpecificOutputView(
             ProbabilisticPipingCalculationScenario calculation,
             Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
             : base(calculation, getGeneralResultFunc) {}

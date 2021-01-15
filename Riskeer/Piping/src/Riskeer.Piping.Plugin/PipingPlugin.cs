@@ -310,24 +310,24 @@ namespace Riskeer.Piping.Plugin
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticPipingProfileSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingProfileSpecificOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputView(
+                CreateInstance = context => new ProbabilisticFaultTreePipingProfileSpecificOutputView(
                     context.WrappedData,
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticPipingSectionSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingSectionSpecificOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new ProbabilisticPipingSectionSpecificOutputView(
+                CreateInstance = context => new ProbabilisticFaultTreePipingSectionSpecificOutputView(
                     context.WrappedData,
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult)
             };

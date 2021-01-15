@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticPipingProfileSpecificOutputView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView));
         }
 
         [TearDown]
@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticPipingProfileSpecificOutputView>(view);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputView>(view);
 
             mocks.VerifyAll();
         }
@@ -130,14 +130,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 using (var plugin = new PipingPlugin())
                 {
                     return plugin.GetViewInfos()
-                                 .First(tni => tni.ViewType == typeof(ProbabilisticPipingProfileSpecificOutputView))
+                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView))
                                  .CloseForData(view, o);
                 }
             }
 
             protected override IView GetView(ICalculation data)
             {
-                return new ProbabilisticPipingProfileSpecificOutputView(
+                return new ProbabilisticFaultTreePipingProfileSpecificOutputView(
                     (ProbabilisticPipingCalculationScenario) data,
                     () => new TestGeneralResultFaultTreeIllustrationPoint());
             }
