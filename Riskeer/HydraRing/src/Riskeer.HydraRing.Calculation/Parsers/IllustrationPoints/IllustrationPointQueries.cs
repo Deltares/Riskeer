@@ -162,7 +162,8 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
             $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
-            $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription} " +
+            $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
+            $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
             "FROM SubMechanisms " +
             "JOIN DesignPointResults USING(SubMechanismId) " +
             "JOIN OutputVariables USING(OutputVariableId) " +

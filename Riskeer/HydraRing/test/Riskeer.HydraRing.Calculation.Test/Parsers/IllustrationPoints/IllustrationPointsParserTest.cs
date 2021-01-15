@@ -290,9 +290,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
             Assert.AreEqual(new[]
             {
-                Tuple.Create("Z", -0.00136652),
-                Tuple.Create("Considered water level", 1.24846),
-                Tuple.Create("Computed local water level", 1.24983)
+                Tuple.Create("Z [-]", -0.00136652),
+                Tuple.Create("Considered water level [m+NAP]", 1.24846),
+                Tuple.Create("Computed local water level [m+NAP]", 1.24983)
             }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
         }
 
