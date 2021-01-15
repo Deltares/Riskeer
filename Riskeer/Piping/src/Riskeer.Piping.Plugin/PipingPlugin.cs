@@ -317,6 +317,7 @@ namespace Riskeer.Piping.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new ProbabilisticPipingProfileSpecificOutputView(
+                    context.WrappedData,
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
 

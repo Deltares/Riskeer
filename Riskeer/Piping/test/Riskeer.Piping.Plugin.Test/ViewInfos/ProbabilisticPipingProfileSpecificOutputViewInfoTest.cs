@@ -137,10 +137,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             protected override IView GetView(ICalculation data)
             {
-                return new ProbabilisticPipingProfileSpecificOutputView(() => new TestGeneralResultFaultTreeIllustrationPoint())
-                {
-                    Data = data
-                };
+                return new ProbabilisticPipingProfileSpecificOutputView(
+                    (ProbabilisticPipingCalculationScenario) data,
+                    () => new TestGeneralResultFaultTreeIllustrationPoint());
             }
 
             protected override ICalculation GetCalculation()

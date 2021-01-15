@@ -23,6 +23,7 @@ using System.Threading;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.Test.Views
@@ -35,7 +36,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var view = new ProbabilisticPipingProfileSpecificOutputView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+            var view = new ProbabilisticPipingProfileSpecificOutputView(
+                new ProbabilisticPipingCalculationScenario(),
+                () => new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
