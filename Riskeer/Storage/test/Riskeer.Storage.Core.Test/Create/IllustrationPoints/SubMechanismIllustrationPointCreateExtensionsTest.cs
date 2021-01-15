@@ -71,11 +71,11 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var stochastOne = new SubMechanismIllustrationPointStochast("stochast name",
+            var stochastOne = new SubMechanismIllustrationPointStochast("stochast name", "[-]",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
-            var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two",
+            var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two", "[-]",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());

@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.TestUtil.Test.IllustrationPoints
             // Setup
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("Stochast A", 3.0, 0.5, 12.0)
+                new SubMechanismIllustrationPointStochast("Stochast A", "[-]", 3.0, 0.5, 12.0)
             };
 
             // Call

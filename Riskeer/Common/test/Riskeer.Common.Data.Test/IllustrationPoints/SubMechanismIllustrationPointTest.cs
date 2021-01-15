@@ -119,11 +119,11 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             // Setup
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0)
+                new SubMechanismIllustrationPointStochast("unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0)
             };
 
             // Call
@@ -166,11 +166,11 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                              random.NextDouble(),
                                                              new[]
                                                              {
-                                                                 new SubMechanismIllustrationPointStochast("Random name 1",
+                                                                 new SubMechanismIllustrationPointStochast("Random name 1", "[-]",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble()),
-                                                                 new SubMechanismIllustrationPointStochast("Random name 2",
+                                                                 new SubMechanismIllustrationPointStochast("Random name 2", "[-]",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble())

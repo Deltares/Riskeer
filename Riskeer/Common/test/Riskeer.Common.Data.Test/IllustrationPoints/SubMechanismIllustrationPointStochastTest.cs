@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double realization = random.NextDouble();
 
             // Call
-            var stochast = new SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var stochast = new SubMechanismIllustrationPointStochast(name, "[-]", duration, alpha, realization);
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var original = new SubMechanismIllustrationPointStochast("Random name",
+            var original = new SubMechanismIllustrationPointStochast("Random name", "[-]",
                                                                      random.NextDouble(),
                                                                      random.NextDouble(),
                                                                      random.NextDouble());

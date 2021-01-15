@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var random = new Random(21);
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("some name", random.NextDouble(), random.NextDouble(), random.NextDouble())
+                new SubMechanismIllustrationPointStochast("some name", "[-]", random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             var illustrationPointResults = new[]
             {
