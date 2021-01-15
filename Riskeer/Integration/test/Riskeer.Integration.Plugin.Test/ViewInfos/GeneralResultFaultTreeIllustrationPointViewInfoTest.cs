@@ -103,13 +103,20 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_CreatesGeneralResultFaultTreeIllustrationPointView()
+        public void CreateInstance_WithContext_CreatesGeneralResultFaultTreeIllustrationPointView()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+            mocks.ReplayAll();
+            
             // Call
-            IView view = info.CreateInstance(null);
+            IView view = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
+            mocks.VerifyAll();
         }
 
         private class SimpleStructuresOutputContext : StructuresOutputContext

@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         protected override IView GetView(ICalculation data)
         {
             return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
-                (GrassCoverErosionInwardsCalculationScenario) data,
+                (GrassCoverErosionInwardsCalculation) data,
                 () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
