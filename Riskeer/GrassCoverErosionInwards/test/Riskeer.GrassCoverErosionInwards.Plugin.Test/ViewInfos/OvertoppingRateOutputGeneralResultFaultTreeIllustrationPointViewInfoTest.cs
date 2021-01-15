@@ -33,20 +33,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView, OvertoppingRateOutputContext>
     {
-        protected override string ViewName
-        {
-            get
-            {
-                return "Overslagdebiet";
-            }
-        }
+        protected override string ViewName => "Overslagdebiet";
 
         protected override IView GetView(ICalculation data)
         {
-            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint())
-            {
-                Data = data
-            };
+            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
+                (GrassCoverErosionInwardsCalculation) data, () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
         protected override OvertoppingRateOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)

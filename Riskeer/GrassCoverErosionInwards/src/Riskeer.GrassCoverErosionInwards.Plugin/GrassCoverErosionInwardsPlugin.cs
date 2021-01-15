@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
-                    () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
+                    context.WrappedData, () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
 
             yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
