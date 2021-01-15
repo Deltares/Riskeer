@@ -92,7 +92,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_TreeNodeWithoutChildrenAndSubMechanismIllustrationPointData_ReturnIllustrationPointNode()
         {
             // Setup
-            var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast("stochast", 1, 2, 3);
+            var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast("stochast", "[-]", 1, 2, 3);
             var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("description", 4);
             var hydraRingSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint(
                 "point",

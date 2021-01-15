@@ -207,6 +207,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 int windDirectionId = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 string name = Convert.ToString(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.StochastName]);
+                string unit = Convert.ToString(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.IllustrationPointUnit]);
                 double duration = ConvertToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Duration],
                                                   IllustrationPointsDatabaseConstants.Duration);
                 double alpha = ConvertToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue],
@@ -220,7 +221,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                     subMechanismStochasts[key] = new List<SubMechanismIllustrationPointStochast>();
                 }
 
-                subMechanismStochasts[key].Add(new SubMechanismIllustrationPointStochast(name, duration, alpha, realization));
+                subMechanismStochasts[key].Add(new SubMechanismIllustrationPointStochast(name, unit, duration, alpha, realization));
             }
         }
 

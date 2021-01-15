@@ -48,12 +48,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                                                            double.NaN);
 
             // Call
-            TestDelegate call = () =>
-                TopLevelSubMechanismIllustrationPointConverter.Convert(
-                    null, hydraRingSubMechanismIllustrationPoint);
+            void Call() => TopLevelSubMechanismIllustrationPointConverter.Convert(null, hydraRingSubMechanismIllustrationPoint);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingWindDirectionClosingSituation", paramName);
         }
 
@@ -64,13 +62,11 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             var hydraRingWindDirection = new HydraRingTestWindDirection();
 
             // Call
-            TestDelegate call = () =>
-                TopLevelSubMechanismIllustrationPointConverter.Convert(
-                    new HydraRingWindDirectionClosingSituation(hydraRingWindDirection, string.Empty),
-                    null);
+            void Call() => TopLevelSubMechanismIllustrationPointConverter.Convert(new HydraRingWindDirectionClosingSituation(hydraRingWindDirection, string.Empty),
+                                                                                  null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingSubMechanismIllustrationPoint", paramName);
         }
 
@@ -89,6 +85,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
 
             var hydraRingSubMechanismIllustrationPointStochast =
                 new HydraRingSubMechanismIllustrationPointStochast("HydraSubMechanismIllustrationPointStochast",
+                                                                   "[-]",
                                                                    random.NextDouble(),
                                                                    random.NextDouble(),
                                                                    random.NextDouble());

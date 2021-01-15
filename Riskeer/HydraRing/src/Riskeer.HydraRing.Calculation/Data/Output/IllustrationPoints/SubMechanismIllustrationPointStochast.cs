@@ -33,20 +33,27 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// Creates an new instance of <see cref="SubMechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="name">The name.</param>
+        /// <param name="unit"></param>
         /// <param name="duration">The duration.</param>
         /// <param name="alpha">The alpha.</param>
         /// <param name="realization">The realization.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public SubMechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
+        public SubMechanismIllustrationPointStochast(string name, string unit, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
             Realization = realization;
+            Unit = unit;
         }
 
         /// <summary>
         /// Gets the realization.
         /// </summary>
         public double Realization { get; }
+        
+        /// <summary>
+        /// Gets the unit.
+        /// </summary>
+        public string Unit { get; }
     }
 }

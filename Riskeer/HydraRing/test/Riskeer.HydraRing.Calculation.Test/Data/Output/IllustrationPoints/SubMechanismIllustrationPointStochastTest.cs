@@ -32,10 +32,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPointStochast(null, double.NaN, double.NaN, double.NaN);
+            void Call() => new SubMechanismIllustrationPointStochast(null, "[-]", double.NaN, double.NaN, double.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -44,6 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             const string name = "stochast name";
+            const string unit = "[-]";
 
             var random = new Random(21);
             double duration = random.NextDouble();
@@ -51,11 +52,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             double realization = random.NextDouble();
 
             // Call
-            var stochast = new SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var stochast = new SubMechanismIllustrationPointStochast(name, unit, duration, alpha, realization);
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);
             Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(unit, stochast.Unit);
             Assert.AreEqual(duration, stochast.Duration);
             Assert.AreEqual(alpha, stochast.Alpha);
             Assert.AreEqual(realization, stochast.Realization);

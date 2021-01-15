@@ -79,13 +79,14 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         {
             // Setup
             const string name = "name";
+            const string unit = "[-]";
 
             var random = new Random(21);
             double duration = random.Next();
             double alpha = random.NextDouble();
             double realization = random.NextDouble();
 
-            var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast(name, unit, duration, alpha, realization);
 
             // Call
             SubMechanismIllustrationPointStochast stochast = StochastConverter.Convert(hydraRingStochast);

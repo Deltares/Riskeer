@@ -54,11 +54,12 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                                                                                     random.NextDouble());
 
             const string name = "hydraRingSubMechanismIllustrationPointStochast";
+            const string unit = "[-]";
             double alpha = random.NextDouble();
             double duration = random.NextDouble();
             double realization = random.NextDouble();
             var hydraRingSubMechanismIllustrationPointStochast =
-                new HydraRingSubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+                new HydraRingSubMechanismIllustrationPointStochast(name, unit, duration, alpha, realization);
 
             double beta = random.NextDouble();
             var hydraSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint("name", new[]
