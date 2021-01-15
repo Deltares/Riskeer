@@ -23,6 +23,7 @@ using System.Threading;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
@@ -35,7 +36,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var view = new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+            var view = new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
+                new GrassCoverErosionInwardsCalculation(), 
+                () => new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
