@@ -660,7 +660,8 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
+                    context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
             yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>

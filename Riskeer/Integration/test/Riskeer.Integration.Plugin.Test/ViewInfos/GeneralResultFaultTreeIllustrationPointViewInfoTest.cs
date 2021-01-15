@@ -132,10 +132,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             protected override IView GetView(ICalculation data)
             {
-                return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint())
-                {
-                    Data = data
-                };
+                return new GeneralResultFaultTreeIllustrationPointView(data, () => new TestGeneralResultFaultTreeIllustrationPoint());
             }
         }
 
