@@ -31,7 +31,7 @@ namespace Core.Common.Gui.Converters
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueElementAttribute : Attribute
     {
-        private readonly string namePropertyName;
+        protected readonly string namePropertyName;
 
         /// <summary>
         /// Creates a new instance of <see cref="KeyValueElementAttribute"/>.
@@ -98,10 +98,5 @@ namespace Core.Common.Gui.Converters
         /// Gets the name of the property to show as value.
         /// </summary>
         protected string ValuePropertyName { get; }
-
-        /// <summary>
-        /// Gets the name of the property.
-        /// </summary>
-        protected string NamePropertyName { get; set; }
     }
 }

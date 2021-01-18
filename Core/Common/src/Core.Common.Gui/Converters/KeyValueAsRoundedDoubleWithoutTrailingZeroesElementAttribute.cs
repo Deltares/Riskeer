@@ -39,30 +39,34 @@ namespace Core.Common.Gui.Converters
         /// Creates a new instance of <see cref="KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute"/>.
         /// </summary>
         /// <param name="namePropertyName">The name of the property to show as name.</param>
+        /// <param name="unitPropertyName">The name of the property to show as unit.</param>
         /// <param name="valuePropertyName">The name of the property to show as value.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(string namePropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName) {}
-
         public KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(string namePropertyName, string unitPropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName)
         {
-            NamePropertyName = namePropertyName;
+            if (unitPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(unitPropertyName));
+            }
+
             this.unitPropertyName = unitPropertyName;
         }
 
         public override string GetName(object source)
         {
-            if (unitPropertyName == null)
+            PropertyInfo unitPropertyInfo = GetUnit(source);
+
+            if (unitPropertyInfo == null ||
+                unitPropertyInfo.GetValue(source, new object[0]) == null)
             {
-               return base.GetName(source);
+                return base.GetName(source);
             }
-            
-            PropertyInfo namePropertyInfo = source.GetType().GetProperty(NamePropertyName);
+
+            PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
             if (namePropertyInfo == null)
             {
-                throw new ArgumentException($"Name property '{NamePropertyName}' was not found on type {source.GetType().Name}.");
+                throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
             }
-            
-            PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
 
             return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unitPropertyInfo.GetValue(source, new object[0]))}]";
         }
@@ -93,6 +97,17 @@ namespace Core.Common.Gui.Converters
 
             var doubleValue = (RoundedDouble) valueProperty;
             return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
+        }
+
+        private PropertyInfo GetUnit(object source)
+        {
+            PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
+            if (unitPropertyInfo == null)
+            {
+                throw new ArgumentException($"Unit property '{unitPropertyName}' was not found on type {source.GetType().Name}.");
+            }
+
+            return unitPropertyInfo;
         }
     }
 }
