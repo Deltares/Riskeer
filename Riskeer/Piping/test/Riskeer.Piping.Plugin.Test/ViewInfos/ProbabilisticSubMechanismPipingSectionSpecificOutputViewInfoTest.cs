@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsTrue()
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
             var context = new ProbabilisticPipingSectionSpecificOutputContext(
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             bool additionalDataCheck = info.AdditionalDataCheck(context);
             
             // Assert
-            Assert.IsTrue(additionalDataCheck);
+            Assert.IsFalse(additionalDataCheck);
         }
 
         [Test]

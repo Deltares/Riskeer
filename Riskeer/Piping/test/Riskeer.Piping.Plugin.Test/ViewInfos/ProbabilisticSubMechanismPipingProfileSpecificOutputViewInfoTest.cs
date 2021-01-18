@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
         
         [Test]
-        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsTrue()
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             bool additionalDataCheck = info.AdditionalDataCheck(context);
             
             // Assert
-            Assert.IsTrue(additionalDataCheck);
+            Assert.IsFalse(additionalDataCheck);
             mocks.VerifyAll();
         }
 
