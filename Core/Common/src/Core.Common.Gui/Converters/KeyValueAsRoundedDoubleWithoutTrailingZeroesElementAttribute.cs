@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Converters
         {
             if (unitPropertyName == null)
             {
-                base.GetName(source);
+               return base.GetName(source);
             }
             
             PropertyInfo namePropertyInfo = source.GetType().GetProperty(NamePropertyName);
