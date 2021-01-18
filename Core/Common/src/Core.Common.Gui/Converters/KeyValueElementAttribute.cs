@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Converters
         /// <exception cref="ArgumentException">Thrown when the property used for the name of
         /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
         /// </exception>
-        public string GetName(object source)
+        public virtual string GetName(object source)
         {
             PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
             if (namePropertyInfo == null)
@@ -98,5 +98,10 @@ namespace Core.Common.Gui.Converters
         /// Gets the name of the property to show as value.
         /// </summary>
         protected string ValuePropertyName { get; }
+
+        /// <summary>
+        /// Gets the name of the property.
+        /// </summary>
+        protected string NamePropertyName { get; set; }
     }
 }

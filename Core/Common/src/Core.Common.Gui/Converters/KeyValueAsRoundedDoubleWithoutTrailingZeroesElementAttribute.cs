@@ -33,6 +33,8 @@ namespace Core.Common.Gui.Converters
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute : KeyValueElementAttribute
     {
+        private readonly string unitPropertyName;
+
         /// <summary>
         /// Creates a new instance of <see cref="KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute"/>.
         /// </summary>
@@ -40,6 +42,37 @@ namespace Core.Common.Gui.Converters
         /// <param name="valuePropertyName">The name of the property to show as value.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(string namePropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName) {}
+
+        public KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(string namePropertyName, string unitPropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName)
+        {
+            NamePropertyName = namePropertyName;
+            this.unitPropertyName = unitPropertyName;
+        }
+
+        public override string GetName(object source)
+        {
+            // Als unit is gezet, dan name + unit
+            // Als unit niet is gezet, dan base callen.
+            if (unitPropertyName == null)
+            {
+                base.GetName(source);
+            }
+            
+            PropertyInfo namePropertyInfo = source.GetType().GetProperty(NamePropertyName);
+            if (namePropertyInfo == null)
+            {
+                throw new ArgumentException($"Name property '{NamePropertyName}' was not found on type {source.GetType().Name}.");
+            }
+            
+            PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
+            if (unitPropertyInfo == null)
+            {
+                throw new ArgumentException($"Unit property '{unitPropertyName}' was not found on type {source.GetType().Name}.");
+            }
+
+            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unitPropertyInfo.GetValue(source, new object[0]))}]";
+
+        }
 
         /// <summary>
         /// Gets the property value from the <paramref name="source"/> that is used
