@@ -36,12 +36,16 @@ namespace Riskeer.Storage.Core.DbContext
         public long ProbabilisticPipingCalculationEntityId { get; set; }
         public long? ProfileSpecificGeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public long? SectionSpecificGeneralResultFaultTreeIllustrationPointEntityId { get; set; }
+        public long? ProfileSpecificGeneralResultSubMechanismIllustrationPointEntityId { get; set; }
+        public long? SectionSpecificGeneralResultSubMechanismIllustrationPointEntityId { get; set; }
         public int Order { get; set; }
         public double? ProfileSpecificReliability { get; set; }
         public double? SectionSpecificReliability { get; set; }
 
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity1 { get; set; }
+        public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
+        public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity1 { get; set; }
         public virtual ProbabilisticPipingCalculationEntity ProbabilisticPipingCalculationEntity { get; set; }
     }
 }

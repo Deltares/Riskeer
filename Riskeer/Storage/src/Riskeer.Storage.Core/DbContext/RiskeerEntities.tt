@@ -1,7 +1,6 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
  output extension=".cs"#><#@ import namespace="System.Collections" #><#
-
     const string inputFile = @"RiskeerEntities.edmx";
     var textTransform = DynamicTextTransformation.Create(this);
     var code = new CodeGenerationTools(this);
@@ -23,8 +22,8 @@
         fileManager.StartNewFile(entity.Name + ".cs");
         BeginNamespace(code);
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false) #>
-<#=codeStringGenerator.EntityClassOpening(entity) #>
+<#= codeStringGenerator.UsingDirectives(inHeader: false) #>
+<#= codeStringGenerator.EntityClassOpening(entity) #>
 {
 <#
         var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
@@ -35,29 +34,29 @@
         {
 #>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public <#=code.Escape(entity) #>()
+    public <#= code.Escape(entity) #>()
     {
 <#
-    foreach (var edmProperty in propertiesWithDefaultValues)
-    {
+            foreach (var edmProperty in propertiesWithDefaultValues)
+            {
 #>
-        <#=code.Escape(edmProperty) #> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue) #>;
+        <#= code.Escape(edmProperty) #> = <#= typeMapper.CreateLiteral(edmProperty.DefaultValue) #>;
 <#
-    }
+            }
 
-    foreach (var navigationProperty in collectionNavigationProperties)
-    {
+            foreach (var navigationProperty in collectionNavigationProperties)
+            {
 #>
-        <#=code.Escape(navigationProperty) #> = new HashSet<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType()) #>>();
+        <#= code.Escape(navigationProperty) #> = new HashSet<<#= typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType()) #>>();
 <#
-    }
+            }
 
-    foreach (var complexProperty in complexProperties)
-    {
+            foreach (var complexProperty in complexProperties)
+            {
 #>
-        <#=code.Escape(complexProperty) #> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage) #>();
+        <#= code.Escape(complexProperty) #> = new <#= typeMapper.GetTypeName(complexProperty.TypeUsage) #>();
 <#
-    }
+            }
 #>
     }
 
@@ -70,7 +69,7 @@
             foreach (var edmProperty in simpleProperties)
             {
 #>
-    <#=codeStringGenerator.Property(edmProperty) #>
+    <#= codeStringGenerator.Property(edmProperty) #>
 <#
             }
         }
@@ -80,12 +79,12 @@
 #>
 
 <#
-    foreach (var complexProperty in complexProperties)
-    {
+            foreach (var complexProperty in complexProperties)
+            {
 #>
-    <#=codeStringGenerator.Property(complexProperty) #>
+    <#= codeStringGenerator.Property(complexProperty) #>
 <#
-    }
+            }
         }
 
         var navigationProperties = typeMapper.GetNavigationProperties(entity);
@@ -94,18 +93,18 @@
 #>
 
 <#
-    foreach (var navigationProperty in navigationProperties)
-    {
-        if (navigationProperty.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many)
-        {
+            foreach (var navigationProperty in navigationProperties)
+            {
+                if (navigationProperty.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many)
+                {
 #>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 <#
-        }
+                }
 #>
-    <#=codeStringGenerator.NavigationProperty(navigationProperty) #>
+    <#= codeStringGenerator.NavigationProperty(navigationProperty) #>
 <#
-    }
+            }
         }
 #>
 }
@@ -118,8 +117,8 @@
         fileManager.StartNewFile(complex.Name + ".cs");
         BeginNamespace(code);
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false) #>
-<#=Accessibility.ForType(complex) #> partial class <#=code.Escape(complex) #>
+<#= codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false) #>
+<#= Accessibility.ForType(complex) #> partial class <#= code.Escape(complex) #>
 {
 <#
         var complexProperties = typeMapper.GetComplexProperties(complex);
@@ -128,22 +127,22 @@
         if (propertiesWithDefaultValues.Any() || complexProperties.Any())
         {
 #>
-    public <#=code.Escape(complex) #>()
+    public <#= code.Escape(complex) #>()
     {
 <#
-    foreach (var edmProperty in propertiesWithDefaultValues)
-    {
+            foreach (var edmProperty in propertiesWithDefaultValues)
+            {
 #>
-        this.<#=code.Escape(edmProperty) #> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue) #>;
+        this.<#= code.Escape(edmProperty) #> = <#= typeMapper.CreateLiteral(edmProperty.DefaultValue) #>;
 <#
-    }
+            }
 
-    foreach (var complexProperty in complexProperties)
-    {
+            foreach (var complexProperty in complexProperties)
+            {
 #>
-        this.<#=code.Escape(complexProperty) #> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage) #>();
+        this.<#= code.Escape(complexProperty) #> = new <#= typeMapper.GetTypeName(complexProperty.TypeUsage) #>();
 <#
-    }
+            }
 #>
     }
 
@@ -156,7 +155,7 @@
             foreach (var edmProperty in simpleProperties)
             {
 #>
-    <#=codeStringGenerator.Property(edmProperty) #>
+    <#= codeStringGenerator.Property(edmProperty) #>
 <#
             }
         }
@@ -166,12 +165,12 @@
 #>
 
 <#
-    foreach (var edmProperty in complexProperties)
-    {
+            foreach (var edmProperty in complexProperties)
+            {
 #>
-    <#=codeStringGenerator.Property(edmProperty) #>
+    <#= codeStringGenerator.Property(edmProperty) #>
 <#
-    }
+            }
         }
 #>
 }
@@ -184,7 +183,7 @@
         fileManager.StartNewFile(enumType.Name + ".cs");
         BeginNamespace(code);
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false) #>
+<#= codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false) #>
 <#
         if (typeMapper.EnumIsFlags(enumType))
         {
@@ -193,7 +192,7 @@
 <#
         }
 #>
-<#=codeStringGenerator.EnumOpening(enumType) #>
+<#= codeStringGenerator.EnumOpening(enumType) #>
 {
 <#
         var foundOne = false;
@@ -202,7 +201,7 @@
         {
             foundOne = true;
 #>
-    <#=code.Escape(typeMapper.GetEnumMemberName(member)) #> = <#=typeMapper.GetEnumMemberValue(member) #>,
+    <#= code.Escape(typeMapper.GetEnumMemberName(member)) #> = <#= typeMapper.GetEnumMemberValue(member) #>,
 <#
         }
 
@@ -217,7 +216,6 @@
     }
 
     fileManager.Process();
-
 #>
 <#+
     public void WriteHeader(CodeStringGenerator codeStringGenerator, EntityFrameworkTemplateFileManager fileManager)
@@ -247,13 +245,13 @@
 
 //------------------------------------------------------------------------------
 // <auto-generated>
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine1") #>
+// <#= CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine1") #>
 //
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine2") #>
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine3") #>
+// <#= CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine2") #>
+// <#= CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine3") #>
 // </auto-generated>
 //------------------------------------------------------------------------------
-<#=codeStringGenerator.UsingDirectives(inHeader: true) #>
+<#= codeStringGenerator.UsingDirectives(inHeader: true) #>
 <#+
         fileManager.EndBlock();
     }
@@ -264,7 +262,7 @@
         if (!String.IsNullOrEmpty(codeNamespace))
         {
 #>
-namespace <#=code.EscapeNamespace(codeNamespace) #>
+namespace <#= code.EscapeNamespace(codeNamespace) #>
 {
 <#+
             PushIndent("    ");
