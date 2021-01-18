@@ -37,10 +37,10 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).Create(0);
+            void Call() => ((SubMechanismIllustrationPoint) null).Create(0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("subMechanismIllustrationPoint", exception.ParamName);
         }
 
@@ -107,6 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
                 SubMechanismIllustrationPointStochastEntity stochastEntity = stochastEntities[i];
 
                 TestHelper.AssertAreEqualButNotSame(stochast.Name, stochastEntity.Name);
+                Assert.AreEqual(stochast.Unit, stochastEntity.Unit);
                 Assert.AreEqual(stochast.Duration, stochastEntity.Duration, stochast.Duration.GetAccuracy());
                 Assert.AreEqual(stochast.Alpha, stochastEntity.Alpha, stochast.Alpha.GetAccuracy());
                 Assert.AreEqual(stochast.Realization, stochastEntity.Realization, stochast.Realization.GetAccuracy());
@@ -121,7 +122,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             var random = new Random(21);
 
             var illustrationPointResultOne = new IllustrationPointResult("result description", "[-]",random.NextDouble());
-            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "[-]", random.NextDouble());
+            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "[kN]", random.NextDouble());
             IllustrationPointResult[] illustrationPointResults =
             {
                 illustrationPointResultOne,

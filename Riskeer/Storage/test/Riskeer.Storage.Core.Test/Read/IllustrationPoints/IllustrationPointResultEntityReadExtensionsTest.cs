@@ -35,10 +35,10 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IllustrationPointResultEntity) null).Read();
+            void Call() => ((IllustrationPointResultEntity) null).Read();
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -50,6 +50,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
             var entity = new IllustrationPointResultEntity
             {
                 Description = "Description",
+                Unit = "kN",
                 Value = random.NextDouble()
             };
 
@@ -58,6 +59,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
 
             // Assert
             Assert.AreEqual(entity.Description, illustrationPointResult.Description);
+            Assert.AreEqual(entity.Unit, illustrationPointResult.Unit);
             Assert.AreEqual(entity.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
         }
     }
