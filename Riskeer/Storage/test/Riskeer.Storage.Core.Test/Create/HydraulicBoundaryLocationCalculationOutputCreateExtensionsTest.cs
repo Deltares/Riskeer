@@ -29,6 +29,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Storage.Core.Test.Create
 {
@@ -67,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
 
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -90,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
 
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -106,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create
             HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();
 
             // Assert
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
@@ -126,26 +127,6 @@ namespace Riskeer.Storage.Core.Test.Create
                 });
 
             return generalResult;
-        }
-
-        private static void AssertGeneralResult(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
-                                                GeneralResultSubMechanismIllustrationPointEntity entity)
-        {
-            if (illustrationPoint == null)
-            {
-                Assert.IsNull(entity);
-                return;
-            }
-
-            Assert.IsNotNull(entity);
-            WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-
-            Assert.AreEqual(illustrationPoint.Stochasts.Count(), entity.StochastEntities.Count);
-            Assert.AreEqual(illustrationPoint.TopLevelIllustrationPoints.Count(),
-                            entity.TopLevelSubMechanismIllustrationPointEntities.Count);
         }
     }
 }

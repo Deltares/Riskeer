@@ -49,13 +49,27 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
                 throw new ArgumentNullException(nameof(output));
             }
 
-            return new ProbabilisticPipingCalculationOutputEntity
+            var outputEntity = new ProbabilisticPipingCalculationOutputEntity
             {
                 ProfileSpecificReliability = output.ProfileSpecificOutput.Reliability.ToNaNAsNull(),
-                SectionSpecificReliability = output.SectionSpecificOutput.Reliability.ToNaNAsNull(),
-                GeneralResultFaultTreeIllustrationPointEntity = ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.ProfileSpecificOutput).GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity(),
-                GeneralResultFaultTreeIllustrationPointEntity1 = ((PartialProbabilisticPipingOutput<TopLevelFaultTreeIllustrationPoint>)output.SectionSpecificOutput).GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
+                SectionSpecificReliability = output.SectionSpecificOutput.Reliability.ToNaNAsNull()
             };
+
+            if (output.ProfileSpecificOutput is PartialProbabilisticFaultTreePipingOutput profileSpecificFaultTreePipingOutput
+                && output.SectionSpecificOutput is PartialProbabilisticFaultTreePipingOutput sectionSpecificFaultTreePipingOutput)
+            {
+                outputEntity.GeneralResultFaultTreeIllustrationPointEntity = profileSpecificFaultTreePipingOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity();
+                outputEntity.GeneralResultFaultTreeIllustrationPointEntity1 = sectionSpecificFaultTreePipingOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity();
+            }
+
+            if (output.ProfileSpecificOutput is PartialProbabilisticSubMechanismPipingOutput profileSpecificSubMechanismPipingOutput
+                && output.SectionSpecificOutput is PartialProbabilisticSubMechanismPipingOutput sectionSpecificSubMechanismPipingOutput)
+            {
+                outputEntity.GeneralResultSubMechanismIllustrationPointEntity = profileSpecificSubMechanismPipingOutput.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity();
+                outputEntity.GeneralResultSubMechanismIllustrationPointEntity1 = sectionSpecificSubMechanismPipingOutput.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity();
+            }
+
+            return outputEntity;
         }
     }
 }
