@@ -47,10 +47,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TopLevelSubMechanismIllustrationPointProperties(null, Enumerable.Empty<string>());
+            void Call() => new TopLevelSubMechanismIllustrationPointProperties(null, Enumerable.Empty<string>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
 
@@ -63,10 +63,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                  new TestSubMechanismIllustrationPoint());
 
             // Call
-            TestDelegate call = () => new TopLevelSubMechanismIllustrationPointProperties(data, null);
+            void Call() => new TopLevelSubMechanismIllustrationPointProperties(data, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("closingSituations", exception.ParamName);
         }
 
@@ -158,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             };
             var illustrationPointResults = new[]
             {
-                new IllustrationPointResult("some description", random.NextDouble())
+                new IllustrationPointResult("some description", "[-]",random.NextDouble())
             };
 
             const string illustrationPointName = "name";

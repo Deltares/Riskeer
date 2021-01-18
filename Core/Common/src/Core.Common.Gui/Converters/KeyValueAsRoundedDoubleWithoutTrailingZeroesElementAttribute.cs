@@ -51,8 +51,6 @@ namespace Core.Common.Gui.Converters
 
         public override string GetName(object source)
         {
-            // Als unit is gezet, dan name + unit
-            // Als unit niet is gezet, dan base callen.
             if (unitPropertyName == null)
             {
                 base.GetName(source);
@@ -65,13 +63,8 @@ namespace Core.Common.Gui.Converters
             }
             
             PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
-            if (unitPropertyInfo == null)
-            {
-                throw new ArgumentException($"Unit property '{unitPropertyName}' was not found on type {source.GetType().Name}.");
-            }
 
             return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unitPropertyInfo.GetValue(source, new object[0]))}]";
-
         }
 
         /// <summary>

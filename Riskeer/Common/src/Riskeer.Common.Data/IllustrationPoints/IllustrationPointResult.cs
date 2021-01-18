@@ -36,13 +36,14 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/>
         /// is <c>null</c>.</exception>
-        public IllustrationPointResult(string description, double value)
+        public IllustrationPointResult(string description, string unit, double value)
         {
             if (description == null)
             {
                 throw new ArgumentNullException(nameof(description));
             }
 
+            Unit = unit;
             Description = description;
             Value = new RoundedDouble(5, value);
         }
@@ -51,6 +52,11 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// Gets the description of the illustration point result.
         /// </summary>
         public string Description { get; }
+        
+        /// <summary>
+        /// Gets the unit of the illustration point result.
+        /// </summary>
+        public string Unit { get; set; }
 
         /// <summary>
         /// Gets the value of the illustration point result.

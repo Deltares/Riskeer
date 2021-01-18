@@ -268,8 +268,8 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 int subMechanismId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.SubMechanismId]);
                 int windDirectionId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.ClosingSituationId]);
-                string description = Convert.ToString(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultDescription]) + 
-                                     $" [{Convert.ToString(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointUnit])}]";
+                string description = Convert.ToString(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultDescription]);
+                string unit = Convert.ToString(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointUnit]);
                 double value = ConvertToDouble(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultValue],
                                                IllustrationPointsDatabaseConstants.IllustrationPointResultValue);
 
@@ -279,7 +279,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                     subMechanismResults[key] = new List<IllustrationPointResult>();
                 }
 
-                subMechanismResults[key].Add(new IllustrationPointResult(description, value));
+                subMechanismResults[key].Add(new IllustrationPointResult(description,unit, value));
             }
         }
 

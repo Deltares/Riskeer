@@ -120,8 +120,8 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            var illustrationPointResultOne = new IllustrationPointResult("result description", random.NextDouble());
-            var illustrationPointResultTwo = new IllustrationPointResult("result description two", random.NextDouble());
+            var illustrationPointResultOne = new IllustrationPointResult("result description", "[-]",random.NextDouble());
+            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "[-]", random.NextDouble());
             IllustrationPointResult[] illustrationPointResults =
             {
                 illustrationPointResultOne,

@@ -48,6 +48,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             // Setup
             var random = new Random(21);
             var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("Description",
+                                                                                        "[-]",
                                                                                         random.NextDouble());
 
             // Call

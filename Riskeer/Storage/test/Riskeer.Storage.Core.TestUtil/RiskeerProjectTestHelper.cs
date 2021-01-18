@@ -467,7 +467,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
         {
-            var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
+            var illustrationPointResult = new IllustrationPointResult("Description of result", "[-]", 5);
             var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a stochast", "[-]", 10, 9, 8);
 
             var illustrationPoint = new SubMechanismIllustrationPoint("Name of illustrationPoint", 3, new[]

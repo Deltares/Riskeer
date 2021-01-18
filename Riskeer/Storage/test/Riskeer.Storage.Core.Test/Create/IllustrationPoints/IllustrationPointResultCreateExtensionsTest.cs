@@ -36,10 +36,10 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_IllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IllustrationPointResult) null).Create(0);
+            void Call() => ((IllustrationPointResult) null).Create(0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("illustrationPointResult", paramName);
         }
 
@@ -49,6 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(123);
             var illustrationPointResult = new IllustrationPointResult("Some description",
+                                                                      "[-]",
                                                                       random.NextDouble());
             int order = random.Next();
 

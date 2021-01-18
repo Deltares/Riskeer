@@ -32,10 +32,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new IllustrationPointResult(null, 0);
+            void Call() => new IllustrationPointResult(null, "[-]", 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("description", paramName);
         }
 
@@ -47,7 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             const double value = 123;
 
             // Call
-            var result = new IllustrationPointResult(description, value);
+            var result = new IllustrationPointResult(description, "[-]", value);
 
             // Assert
             Assert.AreEqual(description, result.Description);

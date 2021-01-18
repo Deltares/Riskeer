@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                       },
                                                                       new[]
                                                                       {
-                                                                          new IllustrationPointResult("result A", 2.3)
+                                                                          new IllustrationPointResult("result A", "[-]", 2.3)
                                                                       });
 
             // Call

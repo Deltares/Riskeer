@@ -51,6 +51,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             // Setup
             var random = new Random(21);
             var hydraIllustrationPointResult = new HydraRingIllustrationPointResult("HydraIllustrationPointResult",
+                                                                                    "[-]",
                                                                                     random.NextDouble());
 
             const string name = "hydraRingSubMechanismIllustrationPointStochast";

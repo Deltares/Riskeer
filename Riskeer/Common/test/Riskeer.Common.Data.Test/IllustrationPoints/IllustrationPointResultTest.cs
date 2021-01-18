@@ -34,11 +34,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new IllustrationPointResult(null,
-                                                                  new Random(21).NextDouble());
+            void Call() => new IllustrationPointResult(null, "[-]", new Random(21).NextDouble());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("description", exception.ParamName);
         }
 
@@ -52,7 +51,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double value = random.NextDouble();
 
             // Call
-            var illustrationPointResult = new IllustrationPointResult(description, value);
+            var illustrationPointResult = new IllustrationPointResult(description, "[-]", value);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(illustrationPointResult);
@@ -67,7 +66,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var original = new IllustrationPointResult("Random description", random.NextDouble());
+            var original = new IllustrationPointResult("Random description","[-]",random.NextDouble());
 
             // Call
             object clone = original.Clone();

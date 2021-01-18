@@ -93,7 +93,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast("stochast", "[-]", 1, 2, 3);
-            var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("description", 4);
+            var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("description", "[-]",4);
             var hydraRingSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint(
                 "point",
                 new[]

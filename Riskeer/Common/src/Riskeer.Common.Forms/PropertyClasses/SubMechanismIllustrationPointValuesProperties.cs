@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(
             nameof(IllustrationPointResult.Description),
-            nameof(SubMechanismIllustrationPointStochast.Unit),
+            nameof(IllustrationPointResult.Unit),
             nameof(IllustrationPointResult.Value))]
         public IllustrationPointResult[] Results
         {

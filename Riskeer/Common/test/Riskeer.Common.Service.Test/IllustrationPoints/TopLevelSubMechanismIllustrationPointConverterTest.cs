@@ -81,6 +81,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                                                                                                     "closing scenario");
 
             var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("HydraIllustrationPointResult",
+                                                                                        "[-]",
                                                                                         random.NextDouble());
 
             var hydraRingSubMechanismIllustrationPointStochast =
