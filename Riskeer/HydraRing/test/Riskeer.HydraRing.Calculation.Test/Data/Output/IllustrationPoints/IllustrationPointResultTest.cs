@@ -44,13 +44,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             const string description = "some description";
+            const string unit = "[-]";
             const double value = 123;
 
             // Call
-            var result = new IllustrationPointResult(description, "[-]", value);
+            var result = new IllustrationPointResult(description, unit, value);
 
             // Assert
             Assert.AreEqual(description, result.Description);
+            Assert.AreEqual(unit, result.Unit);
             Assert.AreEqual(value, result.Value);
         }
     }

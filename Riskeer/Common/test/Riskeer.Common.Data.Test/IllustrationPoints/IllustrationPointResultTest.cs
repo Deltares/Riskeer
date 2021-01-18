@@ -46,16 +46,18 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             const string description = "illustration point";
+            const string unit = "[-]";
 
             var random = new Random(21);
             double value = random.NextDouble();
 
             // Call
-            var illustrationPointResult = new IllustrationPointResult(description, "[-]", value);
+            var illustrationPointResult = new IllustrationPointResult(description, unit, value);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(illustrationPointResult);
             Assert.AreEqual(description, illustrationPointResult.Description);
+            Assert.AreEqual(unit, illustrationPointResult.Unit);
             Assert.AreEqual(value, illustrationPointResult.Value,
                             illustrationPointResult.Value.GetAccuracy());
             Assert.AreEqual(5, illustrationPointResult.Value.NumberOfDecimalPlaces);

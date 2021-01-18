@@ -36,10 +36,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingStochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochastConverter.Convert((HydraRingStochast) null);
+            void Call() => StochastConverter.Convert((HydraRingStochast) null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingStochast", paramName);
         }
 
@@ -67,10 +67,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingSubMechanismIllustrationPointStochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochastConverter.Convert(null);
+            void Call() => StochastConverter.Convert(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingSubMechanismIllustrationPointStochast", paramName);
         }
 
@@ -95,6 +95,8 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraRingStochast.Unit, stochast.Unit);
+            Assert.AreEqual(hydraRingStochast.Unit, stochast.Unit);
             Assert.AreEqual(hydraRingStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }

@@ -38,10 +38,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SubMechanismIllustrationPointConverter.Convert(null);
+            void Call() => SubMechanismIllustrationPointConverter.Convert(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingSubMechanismIllustrationPoint", paramName);
         }
 
@@ -87,6 +87,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Unit, stochast.Unit);
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }

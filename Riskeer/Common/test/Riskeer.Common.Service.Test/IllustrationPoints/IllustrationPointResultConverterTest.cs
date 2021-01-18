@@ -35,10 +35,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingIllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointResultConverter.Convert(null);
+            void Call() => IllustrationPointResultConverter.Convert(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraRingIllustrationPointResult", paramName);
         }
 
@@ -56,6 +56,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
 
             // Assert
             Assert.AreEqual(illustrationPointResult.Description, illustrationPointResult.Description);
+            Assert.AreEqual(illustrationPointResult.Unit, illustrationPointResult.Unit);
             Assert.AreEqual(illustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
         }
     }

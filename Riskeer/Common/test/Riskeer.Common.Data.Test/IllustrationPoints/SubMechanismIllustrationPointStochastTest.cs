@@ -35,6 +35,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             const string name = "Stochast name";
+            const string unit = "[-]";
 
             var random = new Random(21);
             double duration = random.NextDouble();
@@ -42,11 +43,12 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double realization = random.NextDouble();
 
             // Call
-            var stochast = new SubMechanismIllustrationPointStochast(name, "[-]", duration, alpha, realization);
+            var stochast = new SubMechanismIllustrationPointStochast(name, unit, duration, alpha, realization);
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);
             Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(unit, stochast.Unit);
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
 

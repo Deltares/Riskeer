@@ -52,10 +52,10 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingIllustrationPointTreeNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => IllustrationPointNodeConverter.Convert(null);
+            void Call() => IllustrationPointNodeConverter.Convert(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraRingIllustrationPointTreeNode", exception.ParamName);
         }
 
@@ -121,6 +121,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             IllustrationPointResult result = subMechanismIllustrationPointTreeNodeData.IllustrationPointResults.First();
 
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraRingStochast.Unit, stochast.Unit);
             Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
@@ -198,12 +199,12 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             IllustrationPointNode illustrationPointNode = null;
 
             // Call
-            TestDelegate call = () => illustrationPointNode = IllustrationPointNodeConverter.Convert(hydraRingIllustrationPointTreeNode);
+            void Call() => illustrationPointNode = IllustrationPointNodeConverter.Convert(hydraRingIllustrationPointTreeNode);
 
             // Assert
             Assert.IsNull(illustrationPointNode);
 
-            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            var exception = Assert.Throws<IllustrationPointConversionException>(Call);
             string expectedMessage = $"An illustration point containing a Hydra ring data type of {typeof(TestHydraRingIllustrationPointData)} is not supported.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
