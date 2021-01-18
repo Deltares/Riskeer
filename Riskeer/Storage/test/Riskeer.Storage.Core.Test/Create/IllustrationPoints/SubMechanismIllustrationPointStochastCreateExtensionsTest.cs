@@ -61,7 +61,6 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Assert
             TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);
             Assert.AreEqual(stochast.Alpha, entity.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(stochast.Unit, entity.Unit);
             Assert.AreEqual(stochast.Duration, entity.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(stochast.Realization, entity.Realization, stochast.Realization.GetAccuracy());
             Assert.AreEqual(order, entity.Order);

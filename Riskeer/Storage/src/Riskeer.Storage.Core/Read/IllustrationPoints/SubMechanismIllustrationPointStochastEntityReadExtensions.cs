@@ -47,7 +47,7 @@ namespace Riskeer.Storage.Core.Read.IllustrationPoints
             }
 
             return new SubMechanismIllustrationPointStochast(entity.Name,
-                                                             entity.Unit,
+                                                             string.Empty,
                                                              entity.Duration,
                                                              entity.Alpha,
                                                              entity.Realization);

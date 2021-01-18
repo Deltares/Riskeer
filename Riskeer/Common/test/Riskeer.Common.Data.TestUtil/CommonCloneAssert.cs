@@ -101,6 +101,7 @@ namespace Riskeer.Common.Data.TestUtil
         public static void AreClones(SubMechanismIllustrationPointStochast original, SubMechanismIllustrationPointStochast clone)
         {
             AreClones((Stochast) original, clone);
+            Assert.AreEqual(original.Unit, clone.Unit);
             Assert.AreEqual(original.Realization, clone.Realization);
         }
 
@@ -157,6 +158,7 @@ namespace Riskeer.Common.Data.TestUtil
         public static void AreClones(IllustrationPointResult original, IllustrationPointResult clone)
         {
             Assert.AreEqual(original.Description, clone.Description);
+            Assert.AreEqual(original.Unit, clone.Unit);
             Assert.AreEqual(original.Value, clone.Value);
         }
 

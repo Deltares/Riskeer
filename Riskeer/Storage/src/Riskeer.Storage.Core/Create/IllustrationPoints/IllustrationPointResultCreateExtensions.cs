@@ -54,7 +54,6 @@ namespace Riskeer.Storage.Core.Create.IllustrationPoints
             var entity = new IllustrationPointResultEntity
             {
                 Description = illustrationPointResult.Description.DeepClone(),
-                Unit = illustrationPointResult.Unit,
                 Value = illustrationPointResult.Value,
                 Order = order
             };

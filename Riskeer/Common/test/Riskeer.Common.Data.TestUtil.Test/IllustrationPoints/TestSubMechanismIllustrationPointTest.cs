@@ -82,6 +82,7 @@ namespace Riskeer.Common.Data.TestUtil.Test.IllustrationPoints
 
             CollectionAssert.IsNotEmpty(illustrationPoint.Stochasts);
             Assert.AreEqual("Stochast A", illustrationPoint.Stochasts.First().Name);
+            Assert.AreEqual("[-]", illustrationPoint.Stochasts.First().Unit);
             Assert.AreEqual(3.0, illustrationPoint.Stochasts.First().Duration);
             Assert.AreEqual(0.5, illustrationPoint.Stochasts.First().Alpha);
             Assert.AreEqual(12.0, illustrationPoint.Stochasts.First().Realization);

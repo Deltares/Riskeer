@@ -39,6 +39,7 @@ namespace Riskeer.Common.Data.TestUtil.Test.IllustrationPoints
 
             // Assert
             Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual("[-]", stochast.Unit);
             Assert.AreEqual(alpha, stochast.Alpha);
             Assert.AreEqual(1, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(3, stochast.Realization, stochast.Realization.GetAccuracy());

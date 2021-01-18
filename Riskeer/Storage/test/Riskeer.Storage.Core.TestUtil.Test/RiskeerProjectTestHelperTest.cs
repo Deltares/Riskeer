@@ -744,12 +744,14 @@ namespace Riskeer.Storage.Core.TestUtil.Test
 
             SubMechanismIllustrationPointStochast illustrationPointStochast = illustrationPoint.Stochasts.Single();
             Assert.AreEqual("Name of a stochast", illustrationPointStochast.Name);
+            Assert.AreEqual(string.Empty, illustrationPointStochast.Unit);
             Assert.AreEqual(10, illustrationPointStochast.Duration, illustrationPointStochast.Duration.GetAccuracy());
             Assert.AreEqual(9, illustrationPointStochast.Alpha, illustrationPointStochast.Alpha.GetAccuracy());
             Assert.AreEqual(8, illustrationPointStochast.Realization, illustrationPointStochast.Realization.GetAccuracy());
 
             IllustrationPointResult illustrationPointResult = illustrationPoint.IllustrationPointResults.Single();
             Assert.AreEqual("Description of result", illustrationPointResult.Description);
+            Assert.AreEqual(string.Empty, illustrationPointResult.Unit);
             Assert.AreEqual(5, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
         }
 

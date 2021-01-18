@@ -52,7 +52,6 @@ namespace Riskeer.Storage.Core.Create.IllustrationPoints
             var entity = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = subMechanismIllustrationPointStochast.Name.DeepClone(),
-                Unit = subMechanismIllustrationPointStochast.Unit,
                 Alpha = subMechanismIllustrationPointStochast.Alpha,
                 Duration = subMechanismIllustrationPointStochast.Duration,
                 Realization = subMechanismIllustrationPointStochast.Realization,

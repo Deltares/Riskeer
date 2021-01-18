@@ -96,7 +96,6 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
             Assert.AreEqual(hydraRingStochast.Unit, stochast.Unit);
-            Assert.AreEqual(hydraRingStochast.Unit, stochast.Unit);
             Assert.AreEqual(hydraRingStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }

@@ -47,7 +47,7 @@ namespace Riskeer.Storage.Core.Read.IllustrationPoints
             }
 
             return new IllustrationPointResult(entity.Description,
-                                               entity.Unit,
+                                               string.Empty,
                                                entity.Value);
         }
     }

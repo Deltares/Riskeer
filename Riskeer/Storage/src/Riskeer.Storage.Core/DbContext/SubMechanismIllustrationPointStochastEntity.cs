@@ -35,7 +35,6 @@ namespace Riskeer.Storage.Core.DbContext
         public long SubMechanismIllustrationPointStochastEntityId { get; set; }
         public long SubMechanismIllustrationPointEntityId { get; set; }
         public string Name { get; set; }
-        public string Unit { get; set; }
         public double Duration { get; set; }
         public double Alpha { get; set; }
         public double Realization { get; set; }

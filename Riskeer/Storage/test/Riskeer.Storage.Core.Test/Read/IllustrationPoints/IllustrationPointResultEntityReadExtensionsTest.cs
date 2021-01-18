@@ -50,7 +50,6 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
             var entity = new IllustrationPointResultEntity
             {
                 Description = "Description",
-                Unit = "kN",
                 Value = random.NextDouble()
             };
 
@@ -59,7 +58,6 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
 
             // Assert
             Assert.AreEqual(entity.Description, illustrationPointResult.Description);
-            Assert.AreEqual(entity.Unit, illustrationPointResult.Unit);
             Assert.AreEqual(entity.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
         }
     }
