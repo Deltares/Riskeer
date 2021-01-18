@@ -44,12 +44,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null,
-                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsWaterStressLinesProperties(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+        }
+        
+        [Test]
+        public void Constructor_generalInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            
+            // Call
+            void Call() => new MacroStabilityInwardsWaterStressLinesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -60,6 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
@@ -78,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, assessmentLevel);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), assessmentLevel);
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -101,6 +115,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -121,6 +136,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
@@ -138,6 +154,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert

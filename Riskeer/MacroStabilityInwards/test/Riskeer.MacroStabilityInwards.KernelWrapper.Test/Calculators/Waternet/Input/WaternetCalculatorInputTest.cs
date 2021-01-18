@@ -36,10 +36,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaternetCalculatorInput(null);
+            void Call() => new WaternetCalculatorInput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("properties", exception.ParamName);
         }
 
@@ -68,6 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             double penetrationLength = random.NextDouble();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
+            double waterVolumetricWeight = random.NextDouble();
 
             // Call
             var input = new WaternetCalculatorInput(
@@ -90,7 +91,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
                     PenetrationLength = penetrationLength,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                    DikeSoilScenario = dikeSoilScenario
+                    DikeSoilScenario = dikeSoilScenario,
+                    WaterVolumetricWeight = waterVolumetricWeight
                 });
 
             // Assert
@@ -114,6 +116,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, input.AdjustPhreaticLine3And4ForUplift);
 
             Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
+            Assert.AreEqual(waterVolumetricWeight, input.WaterVolumetricWeight);
         }
 
         [Test]
@@ -149,6 +152,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             Assert.IsNaN(input.PiezometricHeadPhreaticLine2Inwards);
             Assert.IsNaN(input.PenetrationLength);
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsNaN(input.WaterVolumetricWeight);
 
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }

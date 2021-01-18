@@ -42,13 +42,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint(null,
-                                                                        beta,
-                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        Enumerable.Empty<IllustrationPointResult>());
+            void Call() => new SubMechanismIllustrationPoint(null, beta, Enumerable.Empty<SubMechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -60,13 +57,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
-                                                                        beta,
-                                                                        null,
-                                                                        Enumerable.Empty<IllustrationPointResult>());
+            void Call() => new SubMechanismIllustrationPoint("Illustration Point", beta, null, Enumerable.Empty<IllustrationPointResult>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("stochasts", exception.ParamName);
         }
 
@@ -78,13 +72,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
-                                                                        beta,
-                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        null);
+            void Call() => new SubMechanismIllustrationPoint("Illustration Point", beta, Enumerable.Empty<SubMechanismIllustrationPointStochast>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("illustrationPointResults", exception.ParamName);
         }
 
@@ -119,19 +110,19 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             // Setup
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0)
+                new SubMechanismIllustrationPointStochast("unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0)
             };
 
             // Call
-            TestDelegate test = () => new TestSubMechanismIllustrationPoint(stochasts);
+            void Call() => new TestSubMechanismIllustrationPoint(stochasts);
 
             // Assert
             const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -141,20 +132,17 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var random = new Random(21);
             var results = new[]
             {
-                new IllustrationPointResult("non-unique", 0),
-                new IllustrationPointResult("non-unique", 0),
-                new IllustrationPointResult("unique", 0)
+                new IllustrationPointResult("non-unique", "[-]",0),
+                new IllustrationPointResult("non-unique", "[-]",0),
+                new IllustrationPointResult("unique", "[-]",0)
             };
 
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPoint("Point A",
-                                                                        random.NextDouble(),
-                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        results);
+            void Call() => new SubMechanismIllustrationPoint("Point A", random.NextDouble(), Enumerable.Empty<SubMechanismIllustrationPointStochast>(), results);
 
             // Assert
             const string expectedMessage = "Een of meerdere uitvoer variabelen hebben dezelfde naam.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -166,11 +154,11 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                              random.NextDouble(),
                                                              new[]
                                                              {
-                                                                 new SubMechanismIllustrationPointStochast("Random name 1",
+                                                                 new SubMechanismIllustrationPointStochast("Random name 1", "[-]",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble()),
-                                                                 new SubMechanismIllustrationPointStochast("Random name 2",
+                                                                 new SubMechanismIllustrationPointStochast("Random name 2", "[-]",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble())
@@ -178,8 +166,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                              new[]
                                                              {
                                                                  new IllustrationPointResult("Random description 1",
+                                                                                             "[-]",
                                                                                              random.NextDouble()),
                                                                  new IllustrationPointResult("Random description 2",
+                                                                                             "[-]",
                                                                                              random.NextDouble())
                                                              });
 

@@ -1,0 +1,973 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="0b4b70f2-eb5f-4a5e-972a-c191b344cb2d"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="PressImportDialogSelectionInformationImportMergeProject"
+	namespace="AutomatedSystemTests.Modules.ActionsDialogs">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="Center"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="468a5def-ef42-4750-a14f-79c1496cb65a"
+		sx="1198"
+		sy="783"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a"
+			sourcename="Recorder">
+				<element
+				capabilities="control, nativewindow"
+				dontcache="False"
+				enabled="True"
+				flavor="winforms"
+				hasfocus="False"
+				index="1"
+				prefcap="button"
+				rect="1150,778,75,23"
+				role="button"
+				snapElem=""
+				valid="True"
+				visible="True">
+					<attribute
+					name="text"
+					type="System.String">
+						Importeren
+					</attribute>
+					<attribute
+					name="controlname"
+					type="System.String">
+						importButton
+					</attribute>
+					<attribute
+					name="controltext"
+					type="System.String">
+						Importeren
+					</attribute>
+					<attribute
+					name="controltype"
+					type="System.String">
+						System.Windows.Forms.Button
+					</attribute>
+					<attribute
+					name="controltypename"
+					type="System.String">
+						Button
+					</attribute>
+					<attribute
+					name="apphung"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="class"
+					type="System.String">
+						WindowsForms10.BUTTON.app.0.90fd76_r9_ad1
+					</attribute>
+					<attribute
+					name="handle"
+					type="System.IntPtr">
+						922222
+					</attribute>
+					<attribute
+					name="instance"
+					type="System.Int32">
+						0
+					</attribute>
+					<attribute
+					name="processid"
+					type="System.Int32">
+						14744
+					</attribute>
+					<attribute
+					name="processname"
+					type="System.String">
+						Riskeer
+					</attribute>
+					<attribute
+					name="windowextendedstyle"
+					type="Ranorex.Core.WinApi.Win32+WindowExtendedStyles, Ranorex.Core.WinApi, Culture=neutral">
+						LeftToRightReading
+					</attribute>
+					<attribute
+					name="windowstyle"
+					type="Ranorex.Core.WinApi.Win32+WindowStyles, Ranorex.Core.WinApi, Culture=neutral">
+						Tiled, MaximizeBox, ClipChildren, ClipSiblings, Visible, ChildWindow
+					</attribute>
+					<attribute
+					name="windowtext"
+					type="System.String">
+						Importeren
+					</attribute>
+					<dynamicattribute
+					description="No description available."
+					name="AccessibleDefaultActionDescription"
+					readonly="False"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AccessibleDescription"
+					readonly="False"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AccessibleName"
+					readonly="False"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AccessibleRole"
+					readonly="False"
+					type="System.Windows.Forms.AccessibleRole, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AllowDrop"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Anchor"
+					readonly="False"
+					type="System.Windows.Forms.AnchorStyles, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AutoEllipsis"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AutoScrollOffset"
+					readonly="False"
+					type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AutoSize"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="AutoSizeMode"
+					readonly="False"
+					type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="BackColor"
+					readonly="False"
+					type="System.Drawing.Color, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="BackgroundImage"
+					readonly="False"
+					type="System.Drawing.Image, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="BackgroundImageLayout"
+					readonly="False"
+					type="System.Windows.Forms.ImageLayout, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Bottom"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Bounds"
+					readonly="False"
+					type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="CanFocus"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="CanSelect"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Capture"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="CausesValidation"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ClientRectangle"
+					type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ClientSize"
+					readonly="False"
+					type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="CompanyName"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ContainsFocus"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Created"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Cursor"
+					readonly="False"
+					type="System.Windows.Forms.Cursor, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="DeviceDpi"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="DialogResult"
+					readonly="False"
+					type="System.Windows.Forms.DialogResult, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="DisplayRectangle"
+					type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Disposing"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Dock"
+					readonly="False"
+					type="System.Windows.Forms.DockStyle, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Enabled"
+					readonly="False"
+					type="System.Boolean">
+						True
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="FlatStyle"
+					readonly="False"
+					type="System.Windows.Forms.FlatStyle, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Focused"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Font"
+					readonly="False"
+					type="System.Drawing.Font, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ForeColor"
+					readonly="False"
+					type="System.Drawing.Color, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="HasChildren"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Height"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Image"
+					readonly="False"
+					type="System.Drawing.Image, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ImageAlign"
+					readonly="False"
+					type="System.Drawing.ContentAlignment, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ImageIndex"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ImageKey"
+					readonly="False"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ImeMode"
+					readonly="False"
+					type="System.Windows.Forms.ImeMode, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="InvokeRequired"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="IsAccessible"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="IsDisposed"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="IsHandleCreated"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="IsMirrored"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Left"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Location"
+					readonly="False"
+					type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Margin"
+					readonly="False"
+					type="System.Windows.Forms.Padding, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="MaximumSize"
+					readonly="False"
+					type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="MinimumSize"
+					readonly="False"
+					type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Name"
+					readonly="False"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Padding"
+					readonly="False"
+					type="System.Windows.Forms.Padding, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ProductName"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="ProductVersion"
+					type="System.String">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="RecreatingHandle"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Right"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="RightToLeft"
+					readonly="False"
+					type="System.Windows.Forms.RightToLeft, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Size"
+					readonly="False"
+					type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="TabIndex"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="TabStop"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Tag"
+					readonly="False"
+					type="System.Object">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="TextAlign"
+					readonly="False"
+					type="System.Drawing.ContentAlignment, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="TextImageRelation"
+					readonly="False"
+					type="System.Windows.Forms.TextImageRelation, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Top"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="UseCompatibleTextRendering"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="UseMnemonic"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="UseVisualStyleBackColor"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="UseWaitCursor"
+					readonly="False"
+					type="System.Boolean">
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Visible"
+					readonly="False"
+					type="System.Boolean">
+						True
+					</dynamicattribute>
+					<dynamicattribute
+					description="No description available."
+					name="Width"
+					readonly="False"
+					type="System.Int32">
+					</dynamicattribute>
+					<dynamicaction
+					description="No description available."
+					displayName="BringToFront">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="CreateControl">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="DoDragDrop">
+						<argument
+						description="No description available."
+						displayName="data"
+						type="System.Object">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="allowedEffects"
+						type="System.Windows.Forms.DragDropEffects, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Windows.Forms.DragDropEffects, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="DrawToBitmap">
+						<argument
+						description="No description available."
+						displayName="bitmap"
+						type="System.Drawing.Bitmap, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="targetBounds"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Focus">
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Boolean">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="GetPreferredSize">
+						<argument
+						description="No description available."
+						displayName="proposedSize"
+						type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Drawing.Size, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Hide">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Invalidate">
+						<argument
+						description="No description available."
+						displayName="rc"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="invalidateChildren"
+						type="System.Boolean">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="LogicalToDeviceUnits">
+						<argument
+						description="No description available."
+						displayName="value"
+						type="System.Int32">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Int32">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="NotifyDefault">
+						<argument
+						description="No description available."
+						displayName="value"
+						type="System.Boolean">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="PerformClick">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="PerformLayout">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="PointToClient">
+						<argument
+						description="No description available."
+						displayName="p"
+						type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="PointToScreen">
+						<argument
+						description="No description available."
+						displayName="p"
+						type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Drawing.Point, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="RectangleToClient">
+						<argument
+						description="No description available."
+						displayName="r"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="RectangleToScreen">
+						<argument
+						description="No description available."
+						displayName="r"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</argument>
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.Drawing.Rectangle, System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Refresh">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetBackColor">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetBindings">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetCursor">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetFont">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetForeColor">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetImeMode">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetRightToLeft">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResetText">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ResumeLayout">
+						<argument
+						description="No description available."
+						displayName="performLayout"
+						type="System.Boolean">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Scale">
+						<argument
+						description="No description available."
+						displayName="dx"
+						type="System.Single">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="dy"
+						type="System.Single">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Select">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="SendToBack">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="SetBounds">
+						<argument
+						description="No description available."
+						displayName="x"
+						type="System.Int32">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="y"
+						type="System.Int32">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="width"
+						type="System.Int32">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="height"
+						type="System.Int32">
+						</argument>
+						<argument
+						description="No description available."
+						displayName="specified"
+						type="System.Windows.Forms.BoundsSpecified, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						</argument>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Show">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="SuspendLayout">
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="ToString">
+						<returns
+						description="No description available."
+						displayName="returns"
+						type="System.String">
+						</returns>
+					</dynamicaction>
+					<dynamicaction
+					description="No description available."
+					displayName="Update">
+					</dynamicaction>
+				</element>
+				<path>
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']
+				</path>
+			</info>
+			<helperscreenshot
+			guid="3c3d70b1-87e2-43e1-9117-a1ccd0a0d5e7">
+				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
+N9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzf
+b9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOig
+CTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aPN9v1qOigCTzfb9aKjooA
+KKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrf
+a5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+
+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/
+Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A
+4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7
+XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z
+43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5L/8AFUAWaKrfa5P+fG6/Jf8A4qj7XJ/z43X5
+L/8AFUAWaKrfa5P+fG6/Jf8A4qigDRooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiii
+gAooooAKKKKACiiigAooooAKKKKACiiigAooooAy/wC24/8Ani350f23H/zxb86KK35ImHPIP7bj
+/wCeLfnR/bcf/PFvzooo5IhzyD+24/8Ani350f23H/zxb86KKOSIc8g/tuP/AJ4t+dH9tx/88W/O
+iijkiHPIP7bj/wCeLfnR/bcf/PFvzooo5IhzyD+24/8Ani350f23H/zxb86KKOSIc8g/tuP/AJ4t
++dH9tx/88W/OiijkiHPIP7bj/wCeLfnR/bcf/PFvzooo5IhzyD+24/8Ani350f23H/zxb86KKOSI
+c8g/tuP/AJ4t+dH9tx/88W/OiijkiHPIP7bj/wCeLfnR/bcf/PFvzooo5IhzyD+24/8Ani350f23
+H/zxb86KKOSIc8g/tuP/AJ4t+dH9tx/88W/OiijkiHPIP7bj/wCeLfnR/bcf/PFvzooo5IhzyD+2
+4/8Ani350f23H/zxb86KKOSIc8g/tuP/AJ4t+dFFFHJEOeR//9k=
+			</helperscreenshot>
+		</mouseitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		PressImportDialogSelectionInformationImportMergeProject.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

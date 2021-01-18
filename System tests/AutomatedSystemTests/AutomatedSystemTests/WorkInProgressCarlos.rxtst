@@ -343,6 +343,9 @@
 	</testconfigurations>
 	<references>
 		<reference>
+			Newtonsoft.Json.dll
+		</reference>
+		<reference>
 			Ranorex Automation Helpers.dll
 		</reference>
 	</references>

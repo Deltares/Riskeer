@@ -194,7 +194,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new DeterministicHydraRingVariable(61, 5.5);
             yield return new DeterministicHydraRingVariable(63, 6.6);
             yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, 7.7, 8.8);
-            yield return new NormalHydraRingVariable(66, HydraRingDeviationType.Standard, 52.52, 53.53);
+            yield return new LogNormalHydraRingVariable(66, HydraRingDeviationType.Standard, 52.52, 53.53);
             yield return new LogNormalHydraRingVariable(67, HydraRingDeviationType.Standard, 54.54, 55.55);
             yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, 56.56, 57.57);
             yield return new NormalHydraRingVariable(82, HydraRingDeviationType.Standard, 9.9, 10.10);

@@ -47,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
-            var activity = new MacroStabilityInwardsCalculationActivity(calculation, RoundedDouble.NaN);
+            var activity = new MacroStabilityInwardsCalculationActivity(calculation, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -63,6 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation,
+                                                                        new GeneralMacroStabilityInwardsInput(),
                                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
@@ -94,6 +95,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
+                                                                            new GeneralMacroStabilityInwardsInput(),
                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Call
@@ -131,6 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.Attach(observer);
 
             var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
+                                                                        new GeneralMacroStabilityInwardsInput(),
                                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             activity.Run();

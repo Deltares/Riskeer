@@ -15,11 +15,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
-    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
+    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GraphSharp">

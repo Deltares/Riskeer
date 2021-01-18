@@ -40,11 +40,25 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetWaternetExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedMacroStabilityInwardsInput.GetWaternetExtreme(null, RoundedDouble.NaN);
+            void Call() => DerivedMacroStabilityInwardsInput.GetWaternetExtreme(null, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
+        }
+        
+        [Test]
+        public void GetWaternetExtreme_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+
+            // Call
+            void Call() => DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, null, RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -57,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
                 // Assert
                 Assert.IsNotNull(waternet);
@@ -76,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
                 // Assert
                 Assert.IsNotNull(waternet);
@@ -95,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, assessmentLevel);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), assessmentLevel);
 
                 // Assert
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -110,11 +124,25 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetWaternetDaily_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedMacroStabilityInwardsInput.GetWaternetDaily(null);
+            void Call() => DerivedMacroStabilityInwardsInput.GetWaternetDaily(null, new GeneralMacroStabilityInwardsInput());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
+        }
+        
+        [Test]
+        public void GetWaternetDaily_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+
+            // Call
+            void Call() => DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -127,7 +155,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput());
 
                 // Assert
                 Assert.IsNotNull(waternet);
@@ -146,7 +174,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput());
 
                 // Assert
                 Assert.IsNotNull(waternet);
@@ -164,7 +192,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters);
+                MacroStabilityInwardsWaternet waternet = DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput());
 
                 // Assert
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;

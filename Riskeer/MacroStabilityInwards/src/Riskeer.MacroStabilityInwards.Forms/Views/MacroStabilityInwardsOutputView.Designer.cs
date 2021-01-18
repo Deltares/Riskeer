@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.macroStabilityInwardsOutputChartControl = new Riskeer.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsOutputChartControl(data, getNormativeAssessmentLevelFunc);
+            this.macroStabilityInwardsOutputChartControl = new Riskeer.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsOutputChartControl(data, generalInput, getNormativeAssessmentLevelFunc);
             this.slicesTable = new Riskeer.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsSlicesTable();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();

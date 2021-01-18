@@ -48,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsCalculationExporter));
 
         private readonly MacroStabilityInwardsCalculation calculation;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
         private readonly IPersistenceFactory persistenceFactory;
         private readonly string filePath;
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
@@ -56,6 +57,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationExporter"/>.
         /// </summary>
         /// <param name="calculation">The calculation to export.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="filePath">The file path to export to.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
@@ -71,12 +73,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
         public MacroStabilityInwardsCalculationExporter(MacroStabilityInwardsCalculation calculation,
+                                                        GeneralMacroStabilityInwardsInput generalInput,
                                                         IPersistenceFactory persistenceFactory,
                                                         string filePath, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (persistenceFactory == null)
@@ -92,6 +100,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             IOUtils.ValidateFilePath(filePath);
 
             this.calculation = calculation;
+            this.generalInput = generalInput;
             this.persistenceFactory = persistenceFactory;
             this.filePath = filePath;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
@@ -106,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             ValidateData();
 
-            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
+            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, generalInput, getNormativeAssessmentLevelFunc, filePath);
 
             string tempFilePath = $"{filePath}.temp";
 

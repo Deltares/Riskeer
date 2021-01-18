@@ -110,7 +110,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                     StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
                     Configuration.DrainCoefficient,
                     i => i.DrainCoefficient,
-                    (i, d) => i.DrainCoefficient = (NormalDistribution) d);
+                    (i, d) => i.DrainCoefficient = (LogNormalDistribution) d);
             }
         }
 

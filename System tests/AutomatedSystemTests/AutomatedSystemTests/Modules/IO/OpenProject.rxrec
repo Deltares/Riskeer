@@ -25,7 +25,11 @@ mode="Global">
 	<variables>
 		<var
 		id="3c870d6e-0774-4179-b1f4-65350b234510"
-		name="fileNameToOpen">
+		name="fileName">
+		</var>
+		<var
+		id="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+		name="scriptOutputPath">
 		</var>
 	</variables>
 	<recorditems>
@@ -115,7 +119,7 @@ mode="Global">
 			<bindings>
 				<binding
 				target="Message"
-				variable="fileNameToOpen">
+				variable="fileName">
 				</binding>
 			</bindings>
 		</loggingrecorditem>
@@ -130,7 +134,7 @@ mode="Global">
 			<bindings>
 				<binding
 				target="AttributeValue"
-				variable="fileNameToOpen">
+				variable="fileName">
 				</binding>
 			</bindings>
 			<info

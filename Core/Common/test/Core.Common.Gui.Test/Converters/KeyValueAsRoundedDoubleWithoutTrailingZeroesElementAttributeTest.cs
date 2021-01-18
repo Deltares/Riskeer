@@ -31,32 +31,51 @@ namespace Core.Common.Gui.Test.Converters
     public class KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttributeTest
     {
         [Test]
-        public void Constructor_WithoutValuePropertyName_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("valuePropertyName", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithoutNamePropertyName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(null, "value");
+            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(null,
+                                                                                            nameof(TestObject.Unit),
+                                                                                            "value");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("namePropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithoutUnitPropertyName_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+                                                                                            null,
+                                                                                            "value");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unitPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithoutValuePropertyName_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+                                                                                            nameof(TestObject.Unit),
+                                                                                            null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("valuePropertyName", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithParameters_CreatesNewInstance()
         {
             // Call
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name", "value");
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+                                                                                             nameof(TestObject.Unit),
+                                                                                             "value");
 
             // Assert
             Assert.IsInstanceOf<Attribute>(attribute);
@@ -68,7 +87,9 @@ namespace Core.Common.Gui.Test.Converters
             // Setup
             const string expectedName = "expectedName";
 
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name), nameof(TestObject.Value));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
 
             // Call
             string name = attribute.GetName(new TestObject
@@ -81,35 +102,57 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void GetName_WithObjectWithNonStringProperty_ReturnsValueOfProperty()
+        public void GetName_WithObjectWithProperties_ReturnsValueOfProperties()
         {
             // Setup
-            int expectedName = new Random(21).Next(3, 50);
+            const string expectedName = "expectedName";
+            const string expectedUnit = "kN";
 
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.NonStringName), nameof(TestObject.NonRoundedDoubleValue));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
 
             // Call
             string name = attribute.GetName(new TestObject
             {
-                NonStringName = expectedName
+                Name = expectedName,
+                Unit = expectedUnit
             });
 
             // Assert
-            Assert.AreEqual(Convert.ToString(expectedName), name);
+            Assert.AreEqual($"{expectedName} [{expectedUnit}]", name);
         }
 
         [Test]
         public void GetName_WithObjectWithoutPropertyWithName_ThrowsArgumentException()
         {
             // Setup
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("IDoNotExist", nameof(TestObject.Value));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("IDoNotExist",
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
 
             // Call
-            TestDelegate test = () => attribute.GetName(new TestObject());
+            void Call() => attribute.GetName(new TestObject());
 
             // Assert
             const string expectedMessage = "Name property 'IDoNotExist' was not found on type TestObject.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void GetName_WithObjectWithoutPropertyWithUnit_ThrowsArgumentException()
+        {
+            // Setup
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             "IDoNotExist",
+                                                                                             nameof(TestObject.Value));
+
+            // Call
+            void Call() => attribute.GetName(new TestObject());
+
+            // Assert
+            const string expectedMessage = "Unit property 'IDoNotExist' was not found on type TestObject.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -118,7 +161,9 @@ namespace Core.Common.Gui.Test.Converters
         {
             // Setup
             var roundedDoubleValue = new RoundedDouble(5, 5.12345);
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name), nameof(TestObject.Value));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
 
             // Call
             string value = attribute.GetValue(new TestObject
@@ -141,7 +186,9 @@ namespace Core.Common.Gui.Test.Converters
         {
             // Setup
             var roundedDoubleValue = new RoundedDouble(5, doubleValue);
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name), nameof(TestObject.Value));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
 
             // Call
             string value = attribute.GetValue(new TestObject
@@ -159,39 +206,47 @@ namespace Core.Common.Gui.Test.Converters
             // Setup
             int expectedValue = new Random(21).Next(3, 50);
 
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.NonStringName), nameof(TestObject.NonRoundedDoubleValue));
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.NonStringName),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.NonRoundedDoubleValue));
 
             // Call
-            TestDelegate test = () => attribute.GetValue(new TestObject
-            {
-                NonRoundedDoubleValue = expectedValue
-            });
+            void Call() =>
+                attribute.GetValue(new TestObject
+                {
+                    NonRoundedDoubleValue = expectedValue
+                });
 
             // Assert
             const string expectedMessage = "Value property 'NonRoundedDoubleValue' was not of type RoundedDouble.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void GetValue_WithObjectWithoutPropertyWithName_ThrowsArgumentException()
         {
             // Setup
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name), "IDoNotExist");
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             "IDoNotExist");
 
             // Call
-            TestDelegate test = () => attribute.GetValue(new TestObject());
+            void Call() => attribute.GetValue(new TestObject());
 
             // Assert
             const string expectedMessage = "Value property 'IDoNotExist' was not found on type TestObject.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         private class TestObject
         {
             public string Name { get; set; }
+            public string Unit { get; set; }
             public RoundedDouble Value { get; set; }
 
             public int NonStringName { get; set; }
+
+            public int NonStringUnit { get; set; }
             public int NonRoundedDoubleValue { get; set; }
         }
     }

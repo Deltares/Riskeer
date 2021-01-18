@@ -4417,16 +4417,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon warning {
-            get {
-                object obj = ResourceManager.GetObject("warning", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterstanden en Golfhoogten.
         /// </summary>
         public static string WaterLevel_and_WaveHeight_DisplayName {
@@ -4450,6 +4440,24 @@ namespace Riskeer.Common.Forms.Properties {
         public static string WaterLevelCalculations_DisplayName {
             get {
                 return ResourceManager.GetString("WaterLevelCalculations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water..
+        /// </summary>
+        public static string WaterVolumetricWeight_Description {
+            get {
+                return ResourceManager.GetString("WaterVolumetricWeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
+        /// </summary>
+        public static string WaterVolumetricWeight_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterVolumetricWeight_DisplayName", resourceCulture);
             }
         }
         

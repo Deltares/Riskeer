@@ -130,8 +130,8 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             
             Report.Log(ReportLevel.Info, "User", valueToSetParameterForItemInTraject, new RecordItemIndex(2));
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueToSetParameterForItemInTraject' on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Element.SetAttributeValue("AccessibleValue", valueToSetParameterForItemInTraject);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueToSetParameterForItemInTraject' on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.SetAttributeValue("AccessibleValue", valueToSetParameterForItemInTraject);
             
         }
 

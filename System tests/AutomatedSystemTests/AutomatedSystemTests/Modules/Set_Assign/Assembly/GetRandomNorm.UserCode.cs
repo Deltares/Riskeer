@@ -35,13 +35,13 @@ namespace AutomatedSystemTests.Modules.Set_Assign.Assembly
 
         public string GetRandomLowerLimitValue()
         {
-        	return "1/" + new Random().Next(0, 50) * 100;
+        	return "1/" + new Random().Next(1, 50) * 100;
         }
 
         
         public string GetRandomSignallingValue()
         {
-        	return "1/" + new Random().Next(50, 900) * 100;
+        	return "1/" + new Random().Next(51, 900) * 100;
         }
     }
 }

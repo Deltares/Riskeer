@@ -49,11 +49,11 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             const string stochastNameB = "Stochast B";
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint(new[]
             {
-                new SubMechanismIllustrationPointStochast(stochastNameA,
+                new SubMechanismIllustrationPointStochast(stochastNameA, "[-]",
                                                           random.NextDouble(),
                                                           random.NextDouble(),
                                                           random.NextDouble()),
-                new SubMechanismIllustrationPointStochast(stochastNameB,
+                new SubMechanismIllustrationPointStochast(stochastNameB, "[-]",
                                                           random.NextDouble(),
                                                           random.NextDouble(),
                                                           random.NextDouble())
@@ -149,8 +149,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             const string stochastNameB = "Stochast B";
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint(new[]
             {
-                new SubMechanismIllustrationPointStochast(stochastNameA, 2, 4, 2),
-                new SubMechanismIllustrationPointStochast(stochastNameB, 1, 5, 4)
+                new SubMechanismIllustrationPointStochast(stochastNameA, "[-]", 2, 4, 2),
+                new SubMechanismIllustrationPointStochast(stochastNameB, "[-]", 1, 5, 4)
             }));
 
             // Call

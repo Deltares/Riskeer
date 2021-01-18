@@ -26,7 +26,7 @@ name="AutomatedSystemTestsRepository">
 			id="f5ed0b8b-7145-426f-982e-b89248da6d53"
 			isrooted="True"
 			name="ProjectExplorer"
-			refimgid="3ea0d743-8a25-4993-aa38-ca38dab87fd1"
+			refimgid="0367a7c9-5817-4439-aa80-d9a552964982"
 			searchtimeout="30000ms"
 			usecache="True">
 				<folder
@@ -52,7 +52,7 @@ name="AutomatedSystemTestsRepository">
 						name="Normen"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Normen']
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -61,7 +61,7 @@ name="AutomatedSystemTestsRepository">
 						name="Faalkansbegroting"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -70,7 +70,7 @@ name="AutomatedSystemTestsRepository">
 						name="GenericItemInTraject"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
 						</item>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
@@ -79,7 +79,7 @@ name="AutomatedSystemTestsRepository">
 						name="Copy_of_GenericItemInTraject"
 						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
 						</item>
 						<folder
 						capname="treeitem"
@@ -112,10 +112,10 @@ name="AutomatedSystemTestsRepository">
 									name="surfaceLine"
 									refimgid="b3ff837b-13bb-4efd-9616-abc33dcc810f"
 									searchtimeout="30000ms">
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[$index]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']/treeitem[$index]
 									</item>
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
 									</basepath>
 								</folder>
 								<folder
@@ -133,14 +133,14 @@ name="AutomatedSystemTestsRepository">
 									name="GenericSubsurfaceSchematization"
 									refimgid="dc2e5d4b-25fc-4148-bd0b-c6585e41e863"
 									searchtimeout="30000ms">
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']/treeitem[@accessiblename=$subsurfaceStochasticModelName]/treeitem[@accessiblename=$subsurfaceSchematizationName]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']/treeitem[@accessiblename=$subsurfaceStochasticModelName]/treeitem[@accessiblename=$subsurfaceSchematizationName]
 									</item>
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']
 								</basepath>
 							</folder>
 							<folder
@@ -158,14 +158,14 @@ name="AutomatedSystemTestsRepository">
 								name="InputSingleCalculation"
 								refimgid="0bb1cafc-a992-4f02-81b1-a001b988be0e"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']/treeitem/treeitem[@accessiblename=$singleCalculationName]/treeitem[@accessiblename='Invoer']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']/treeitem/treeitem[@accessiblename=$singleCalculationName]/treeitem[@accessiblename='Invoer']
 								</item>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
 							</basepath>
 						</folder>
 						<folder
@@ -192,19 +192,19 @@ name="AutomatedSystemTestsRepository">
 								searchtimeout="30000ms"
 								usecache="False">
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]/treeitem[@accessiblename~$substringSubSubItemName]
+										/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]/treeitem[@accessiblename~$substringSubSubItemName]
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]
+									/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename~$substringSubItemName]
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
 						</basepath>
 					</folder>
 					<item
@@ -213,16 +213,15 @@ name="AutomatedSystemTestsRepository">
 					id="6131d385-9dd7-4e3e-b606-103f620b1765"
 					name="Achtergrondkaart"
 					refimgid="2b9c6d7f-763a-4c68-a80f-c9c145ff78af"
-					refpath="/form[@automationid='RiskeerMainWindow']/list/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem/treeitem[@accessiblename='Achtergrondkaart']"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Achtergrondkaart']
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Achtergrondkaart']
 					</item>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
 				</folder>
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</basepath>
 			</folder>
 			<folder
@@ -363,20 +362,11 @@ name="AutomatedSystemTestsRepository">
 			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
 			searchtimeout="30000ms"
 			usecache="False">
-				<item
-				addcaps="cell,accessible"
-				capname="cell"
-				id="db215a7f-7857-4f38-b16c-d96366f08703"
-				name="insideDocument_IsFMRelevantCell"
-				refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
-				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
-				</item>
 				<folder
 				capname="container"
 				id="66d5c3ad-ea35-4782-8889-9aefcb8059a9"
 				isrooted="True"
-				name="FailureMechanismsContributionView"
+				name="FM_ContributionView"
 				refimgid="8eb71de1-a26e-4f98-801a-c66faff52b48"
 				searchtimeout="30000ms"
 				usecache="False">
@@ -395,7 +385,7 @@ name="AutomatedSystemTestsRepository">
 						name="ContributionCellUnchached"
 						refimgid="86a4ac31-621f-41d9-913b-1aa9035f52f1"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Toegestane bijdrage']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Toegestane bijdrage']
 						</item>
 						<item
 						addcaps="cell,accessible"
@@ -404,14 +394,324 @@ name="AutomatedSystemTestsRepository">
 						name="ProbabilitySpaceCellUncached"
 						refimgid="75792ad4-b799-473a-a575-e7d7632daa73"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Faalkansruimte']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Faalkansruimte']
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismContributionView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="9f847d0f-b605-48f5-b38e-9eb9bbefddb9"
+				isrooted="True"
+				name="FM_ResultView"
+				refimgid="7e319871-37f1-4b74-b100-c8695681a8e2"
+				searchtimeout="10000ms"
+				usecache="True">
+					<folder
+					capname="table"
+					id="a41c39c2-763f-4195-aef0-17e3e2be8655"
+					isrooted="True"
+					name="Table"
+					refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
+					searchtimeout="10000ms"
+					usecache="True">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="8033307f-3336-4988-948c-afb2b363647a"
+						name="SimpleAssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Eenvoudige toets Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a753973e-8008-4c12-8a3e-0d6003ec54fe"
+						name="DetailedAsssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="82f83abc-85cd-4e41-9a52-f2d6c8bdbe13"
+						name="DetailedAssessmentValueRowNth"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vakfaalkans Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a90b9026-beb4-464e-b648-e8b12dbef040"
+						name="CustomAsssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a435f5f1-7526-4d18-8abd-05c2e19337cf"
+						name="CustomAssessmentValueRowNth"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="46acdfee-348d-47f3-9bc5-f0b5c54d48b9"
+						name="DetailedAssessmentValueCategories"
+						refimgid="d5e7cd57-012e-45dc-a780-ed3166ba405c"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="6da47677-b322-4dab-bd59-6d55f602ab83"
+						name="DetailedAssessmentTypeCategoryIv"
+						refimgid="39de783d-7558-4f5e-9fdb-05f8989ba096"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Iv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="1694ab98-586a-430d-91f5-bc0b182c962a"
+						name="DetailedAssessmentTypeCategoryIIv"
+						refimgid="2aa90b9d-fda2-459a-be90-da306a333eed"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="9b2d5e63-ef2b-43e1-9a8f-0c211d4c05a5"
+						name="DetailedAssessmentTypeCategoryIIIv"
+						refimgid="d0fa67ad-25dd-4ca8-8494-1a42898951ab"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IIIv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="d8d04833-e9a9-4ed0-82b2-dc9758d0b5d1"
+						name="DetailedAssessmentTypeCategoryIVv"
+						refimgid="642ac44d-2681-4e71-9031-94963114ca9e"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens IVv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="9cc2d03f-bf48-471d-aa0d-c06809856bec"
+						name="DetailedAssessmentTypeCategoryVv"
+						refimgid="12bba804-248e-47cb-a6c3-fb6f2cfd7206"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Vv']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="c02abfa6-20a8-451b-bda2-d55ecba2c807"
+						name="DetailedAssessmentValuePerSection"
+						refimgid="d7e79c29-a957-4625-8c4e-34e7f02b5c5f"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="5294fa8f-603b-466a-8599-fee257cc7b00"
+						name="DetailedAssessmentTypePerSection"
+						refimgid="ee631e46-3cea-46d3-9674-172b07516265"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="b0807c54-11d3-43fb-9287-bc528a1e89f2"
+						name="ManualAssessmentCheckbox"
+						refimgid="b46c7af8-2afc-4f3e-a087-bc1a4342b3c0"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Overschrijftoetsoordeel']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="00d80699-7fd6-4fb9-be65-1e7c0cb1d4cf"
+						name="ManualAssessmentProbability"
+						refimgid="9de06033-118b-4cb0-b892-d8d4ba07a7c9"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<item
+						addcaps="combobox,control,nativewindow"
+						capname="cell"
+						id="1ebb3e88-ed39-4a21-a541-00ca708a5129"
+						name="ManualAssessmentCategory"
+						refimgid="8fdb0378-b350-43ef-9d97-28b858f41157"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="2773dad3-50a9-4090-9be6-2ec71350b97d"
+						name="ColumnRight"
+						refimgid="421f3d5c-1450-41c9-847d-0bc97f067c1b"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column right']
+						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="64da24be-52b8-48ac-a0f5-bfa6d71db9d3"
+						name="ColumnLeft"
+						refimgid="1c2085e3-641d-48b4-bbd7-51575a0f4d91"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/scrollbar[@controltypename='HScrollBar']/button[@accessiblename='Column left']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="61025cb3-ddb0-49eb-b8f6-0a004df77298"
+						name="OverruleAssessmentRow0"
+						refimgid="7b8559f2-cd61-4440-89ca-581e6e55833f"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Overschrijftoetsoordeel']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="efe7833a-72d2-4cd7-a9fd-4c7da0e02b49"
+						name="ManualAssessmentRow0"
+						refimgid="f9774423-647d-4236-9bf2-6caa9c0236d7"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Toetsoordeelhandmatig']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
+						</basepath>
+					</folder>
+					<folder
+					capname="container"
+					id="3a553cf8-c13d-4d90-ac0f-fc1cb3a8c6a9"
+					isrooted="True"
+					name="AssemblyWithProb"
+					refimgid="b38f6402-d6a8-45f1-86f4-58cbdef86c96"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="555de67d-51df-407a-8568-fd4103465a3d"
+						name="Label"
+						refimgid="cff20c4c-f968-4e52-8f56-b83181df4a04"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']/container[@controlname='GroupPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6"
+						name="Probability"
+						refimgid="25125f59-3167-4e83-964d-f177d497aa21"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']/container[@controlname='probabilityPanel']/text/text
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']
+						</basepath>
+					</folder>
+					<item
+					addcaps="text,accessible"
+					capname="text"
+					id="c399e33b-877b-44d3-b11d-669c5860639a"
+					name="LabelNoProb"
+					refimgid="4d180fc1-d7b8-4306-a023-4b409260a1d2"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container/container/text/text
+					</item>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="2d024a52-8ed7-4669-8bde-85ea423ad519"
+					name="WarningIconManualAssessment"
+					refimgid="ba2b1d7c-7101-4d21-9ed7-8d3a045b9113"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/element
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismResultView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="592474ad-6103-4044-845a-0e701c44d692"
+				isrooted="True"
+				name="AssessmentSectionAssemblyCategoriesView"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="a6881d13-2ec6-4bb8-9ef5-8fc9405d5a4c"
+					isrooted="True"
+					name="TableDataGridView"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="78d26b31-7a0a-44c1-aee6-b2a166dade1f"
+						name="BoundaryCategoryCell"
+						refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Categorie Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="2a83bf46-5edd-4e88-9563-1ac9454c5af8"
+						name="GenericAssessmentSectionBoundaryCell"
+						refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$categoryName+';']/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="7bb4a875-6af7-45bf-a749-978a5acbaa48"
+						name="LowerBoundaryCell"
+						refimgid="349d2e28-2522-44e2-9741-1756981d6d2a"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Ondergrens']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="3922ea12-bd7e-49df-8056-24197e7c3ef9"
+						name="UpperBoundaryCell"
+						refimgid="59515b59-f286-43c1-944b-d68f6108a822"
+						searchtimeout="10000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Bovengrens']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssessmentSectionAssemblyCategoriesView']
 					</basepath>
 				</folder>
 				<folder
@@ -437,10 +737,10 @@ name="AutomatedSystemTestsRepository">
 						name="TrajectCategoryBoundaryCell"
 						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/container[@controlname='tableLayoutPanel']/container[@controlname='failureMechanismAssemblyGroupBox']/container/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/container[@controlname='tableLayoutPanel']/container[@controlname='failureMechanismAssemblyGroupBox']/container/table
 						</basepath>
 					</folder>
 					<folder
@@ -458,10 +758,10 @@ name="AutomatedSystemTestsRepository">
 						name="SectionCategoryBoundaryCell"
 						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table
 						</basepath>
 					</folder>
 					<folder
@@ -479,21 +779,21 @@ name="AutomatedSystemTestsRepository">
 						name="GenericCategoryBoundaryCell"
 						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='FailureMechanismAssemblyCategoriesView']
 					</basepath>
 				</folder>
 				<folder
 				capname="container"
 				id="323db88f-b940-4cf7-9a48-4eea40485948"
 				isrooted="True"
-				name="DesignWaterLevelCalculationsView"
+				name="DesignWaterLevelWaveHeightCalculationsView"
 				refimgid="66bafd6c-a8a6-440a-8820-9d9958af2bf8"
 				searchtimeout="30000ms"
 				usecache="False">
@@ -518,21 +818,21 @@ name="AutomatedSystemTestsRepository">
 							id="b23f96f2-3091-4bfa-b2b3-ced15cdca711"
 							name="checkBoxCalculateNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
 							</item>
 							<item
 							capname="cell"
 							id="7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c"
 							name="checkBoxreadIllustrationPointsNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
 							</item>
 							<item
 							capname="cell"
 							id="4d5dcf27-80bb-4eb2-8ac6-e585fceac838"
 							name="WaterLevelNthRow"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
 							</item>
 							<item
 							addcaps="cell,accessible"
@@ -540,9 +840,8 @@ name="AutomatedSystemTestsRepository">
 							id="dc9f3394-2ea9-44e2-8321-91f323325fff"
 							name="BerekenenRow2"
 							refimgid="0a89cd19-9c91-4412-8110-aa3fe174d58a"
-							refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
 							</item>
 							<item
 							addcaps="cell,accessible"
@@ -550,12 +849,11 @@ name="AutomatedSystemTestsRepository">
 							id="c086cd80-cceb-4d4c-aa4e-a036576a28f2"
 							name="WaterstandMPlusNAPRow2"
 							refimgid="40331b78-82f8-4b00-a47f-c1552c3fba07"
-							refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container[@caption='']/container[@controlname='DesignWaterLevelCalculationsView']/container[@controlname='splitContainer']/container[@controlname='panel1']/container[@controlname='dataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
 						</folder>
 						<folder
@@ -566,12 +864,20 @@ name="AutomatedSystemTestsRepository">
 						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
 						searchtimeout="30000ms"
 						usecache="False">
+							<item
+							capname="button"
+							id="705925a9-d286-4eed-8f22-23a9e3afce1c"
+							name="CalculateSelectedButton"
+							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']
 						</basepath>
 					</folder>
 					<folder
@@ -583,11 +889,73 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms"
 					usecache="False">
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel2']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container/container[@controlname='panel2']
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname~'CalculationsView']/container
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="8d70b984-d778-4632-99c5-59000fa3b167"
+				isrooted="True"
+				name="ScenariosView"
+				refimgid="3df94718-5b78-4ad3-b4ae-2352fe9ea9af"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="list"
+					id="f3cd16ba-c2de-4890-b253-71355634e232"
+					isrooted="True"
+					name="ListSectionsNames"
+					refimgid="027dea8f-fece-4613-a23a-80756c3ca341"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="listitem"
+						id="f3f7de84-f41c-4188-9eff-d19414f68a60"
+						name="GenericSection"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list/listitem[@index=$indexSection]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="c392e579-2f5f-4a7d-9900-272745c078bf"
+					isrooted="True"
+					name="Table"
+					refimgid="2f91b3be-993e-4fe8-85ea-c920d75abd20"
+					searchtimeout="30000ms"
+					usecache="False">
+						<folder
+						capname="cell"
+						id="517ed7f5-0201-4105-bcc5-84912d68ca06"
+						isrooted="True"
+						name="GenericRowCheck"
+						refimgid="7e95e770-63ee-44b0-b1a3-ae4d263066f6"
+						searchtimeout="30000ms"
+						usecache="False">
+							<basepath>
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'In oordeel']
+							</basepath>
+						</folder>
+						<item
+						capname="cell"
+						id="3476c0a3-36a4-4281-90a3-065844674eb8"
+						name="GenericRowContribution"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']
 					</basepath>
 				</folder>
 				<folder
@@ -610,17 +978,17 @@ name="AutomatedSystemTestsRepository">
 						id="c8521886-54a9-407d-94d4-a646a9c0f68e"
 						name="GenericRowHydraulicBCDunes"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
 						</item>
 						<item
 						capname="cell"
 						id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
 						name="CellCalculatedWaterLevelDA"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']/container/table
 						</basepath>
 					</folder>
 					<folder
@@ -636,16 +1004,15 @@ name="AutomatedSystemTestsRepository">
 						id="c5d97332-76d8-4900-be29-cdffe99cbf99"
 						name="CalculateForSelectedButton"
 						refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
-						refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container[@caption='']/container[@controlname='DuneLocationCalculationsViewBase']/container[@controlname='ButtonGroupBox']/button[@controlname='CalculateForSelectedButton']"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname&gt;'Dune']
 					</basepath>
 				</folder>
 				<item
@@ -654,9 +1021,8 @@ name="AutomatedSystemTestsRepository">
 				id="cefba828-ea6b-4e9d-a97a-641324e9af42"
 				name="BtnDialog"
 				refimgid="4671213b-78f7-413f-a23f-eaa0dfa9ec72"
-				refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDialog']"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDialog']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/?/?/button[@controlname='btnDialog']
 				</item>
 				<item
 				addcaps="button,control,nativewindow"
@@ -664,12 +1030,256 @@ name="AutomatedSystemTestsRepository">
 				id="3bf645bc-b589-440e-9827-e97c895e810b"
 				name="DropDownButtonInRowPropertiesPanel"
 				refimgid="6f7ad4dd-b075-485c-a461-fcea0b706d12"
-				refpath="/form[@automationid='RiskeerMainWindow']/list/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/button[@controlname='btnDropDown']"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/button[@controlname='btnDropDown']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/?/?/button[@controlname='btnDropDown']
 				</item>
+				<item
+				addcaps="cell,accessible"
+				capname="table"
+				id="e1c75820-980f-411c-9ada-a9dcd59572ae"
+				name="TableVakindeling"
+				refimgid="0c3dda7b-fc8d-4d81-90cb-b69e67b32fc5"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/?/?/table[@controlname='dataGridView']
+				</item>
+				<folder
+				capname="container"
+				id="82c9e9d8-a1cb-491c-82a8-73b6890efdc7"
+				isrooted="True"
+				name="AssemblyResult"
+				refimgid="62aca4fb-14dc-491a-94c4-a620e9ce23e2"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="container"
+					id="b6c16815-7d2e-4c8f-a729-4eb72e26ccdd"
+					isrooted="True"
+					name="Summary"
+					refimgid="486358d6-82e0-46c6-9d16-197756608c63"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="06fa95f1-b47a-4a0e-a616-04091c02e9cb"
+						name="SecurityAssessment"
+						refimgid="6a5ca846-96eb-4938-aed5-b2deca41d5d3"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='totalAssemblyCategoryGroupControl']/container/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="41d87314-6a5d-4b48-bb76-cee7c6f57537"
+						name="AssessmentLabelGroups1And2"
+						refimgid="70c0b344-15e8-4a3f-ad47-37af1d3c05f6"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='GroupPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="1d9add26-2df5-4fe6-b94b-07f83cce63eb"
+						name="AssessmentProbabilityGroups1And2"
+						refimgid="be718cae-ad0b-4416-881e-761eeaab51c4"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='probabilityPanel']/text/text
+						</item>
+						<item
+						addcaps="text,accessible"
+						capname="text"
+						id="82e26559-e7f0-45f2-822d-cb7a9db63950"
+						name="AssessmentGroups3And4"
+						refimgid="2535c3a4-cb02-4a80-a788-ca0cb2812d14"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithoutProbabilityAssemblyControl']/container/text
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="4c15a955-c1b0-48c4-bcdc-7150cc96054e"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="cell"
+						id="b264fcc2-36d7-4507-a402-d4fc29ede170"
+						name="AssessmentLabelGenericRow"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Toetsoordeel']
+						</item>
+						<item
+						capname="cell"
+						id="9603827f-7322-4bc5-8fb5-86f0400a8ef9"
+						name="AssessmentApproxProbGenericRow"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Benaderde']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table
+						</basepath>
+					</folder>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="8d5c9928-8755-4ea6-888f-981f4ab3e558"
+					name="WarningIconManualAssessment"
+					refimgid="78082cc7-f79e-4220-b5b5-6d3080e6d145"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']/container/element
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']//container[@controlname='AssemblyResultTotalView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="5c34ec61-2a27-47dd-9034-14bc035f18c4"
+				isrooted="True"
+				name="AssemblyResultsCategoryView"
+				refimgid="7239c463-9844-43f6-ad10-b385821da8f9"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					addcaps="container,control,nativewindow"
+					capname="table"
+					id="d5f0ab31-e18f-41da-99e1-2baef3b7cc43"
+					name="Table"
+					refimgid="70233775-6dbb-42d8-a4fc-a397809721fd"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultCategoriesView']/container/container/container/table
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultCategoriesView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="5a151305-72de-45f8-b2e3-6fcfc226f361"
+				isrooted="True"
+				name="AssemblySectionsView"
+				refimgid="16857980-eb80-4181-be65-0dcafebd443e"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="e21708c5-fec0-48a4-a781-9a094d1d956a"
+					isrooted="True"
+					name="Table"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="cell"
+						id="9323c6c5-cfc2-46c8-8616-81c493b076f0"
+						name="GenericCell"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultPerSectionView']/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename~$substringColumnHeader]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultPerSectionView']/container/table
+						</basepath>
+					</folder>
+					<item
+					addcaps="unknown,nativewindow"
+					capname="unknown"
+					id="5e19e06d-72a6-4305-a262-6de7ec9bd6e1"
+					name="WarningIconManualAssessment"
+					refimgid="2337e306-400b-46f3-a537-132e719059f3"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultPerSectionView']/container/element
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='AssemblyResultPerSectionView']
+					</basepath>
+				</folder>
+				<folder
+				capname="container"
+				id="69f208a8-fb2b-48e6-b673-66339abce76d"
+				isrooted="True"
+				name="CalculationsView"
+				refimgid="76c74f23-80f7-4f6a-b0a3-ec8c2f419c15"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="list"
+					id="6a5fb2ab-58d8-4251-833e-af94b5b1f302"
+					isrooted="True"
+					name="ListItems"
+					refimgid="bf1415a8-66af-4119-902b-461002a11c8e"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="listitem"
+						id="aa65e2e5-ffba-49a6-86e5-7542a4ae9526"
+						name="GenericItem"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list/listitem[@index=$indexSection]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="055e6122-9920-4dbb-b9f8-1f0b07590609"
+					isrooted="True"
+					name="TableSelectedSection"
+					refimgid="dba0662f-e222-409d-be63-f0c6735b2962"
+					searchtimeout="30000ms"
+					usecache="False">
+						<folder
+						capname="row"
+						id="00835104-4f74-4cf4-8a4b-930b241005f2"
+						isrooted="True"
+						name="GenericRow"
+						refimgid="ad251689-8a4a-4ebb-9025-f5325b427f7c"
+						searchtimeout="30000ms"
+						usecache="False">
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="1d3cab99-a8f9-4b31-b1c5-f799e5333035"
+							name="HBCLocation"
+							refimgid="e6f04d45-5018-46d5-ab95-911e5c9e48ce"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;'Hydraulische belastingenlocatie']
+							</item>
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+							name="GenericCell"
+							refimgid="e6f04d45-5018-46d5-ab95-911e5c9e48ce"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+							</item>
+							<item
+							addcaps="cell,accessible"
+							capname="cell"
+							id="d2b53c87-8564-45f6-8f47-63be160926e3"
+							name="AverageDampingFactor"
+							refimgid="58f2d88e-ac3c-4bb9-9caa-500d296fd217"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;'Verwachtingswaardedempingsfactor']
+							</item>
+							<basepath>
+								/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
+							</basepath>
+						</folder>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']
+					</basepath>
+				</folder>
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']
 				</basepath>
 			</folder>
 			<folder
@@ -695,7 +1305,7 @@ name="AutomatedSystemTestsRepository">
 				isrooted="True"
 				name="AssessmentSectionAssemblyCategoriesView"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="table"
 					id="bfe86bd7-3a1c-48ae-90c4-30c51f5b0814"
@@ -1033,40 +1643,8 @@ name="AutomatedSystemTestsRepository">
 								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>
 						</folder>
-						<folder
-						capname="container"
-						id="6cf96c09-a937-4047-b3a1-28455bd1a4ae"
-						isrooted="True"
-						name="CalculationButtons"
-						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
-						searchtimeout="30000ms"
-						usecache="False">
-							<item
-							capname="button"
-							id="7df2b82b-0568-480a-ad83-3057ec323365"
-							name="CalculateSelectedButton"
-							refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
-							</item>
-							<basepath>
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']
-							</basepath>
-						</folder>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']
-						</basepath>
-					</folder>
-					<folder
-					capname="container"
-					id="aabb4c48-1864-49ac-941f-427294cae8cd"
-					isrooted="True"
-					name="RightSide"
-					refimgid="fd77a3e9-185b-42b0-9055-a402d319f06d"
-					searchtimeout="30000ms"
-					usecache="False">
-						<basepath>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel2']
 						</basepath>
 					</folder>
 					<basepath>
@@ -1162,7 +1740,7 @@ name="AutomatedSystemTestsRepository">
 					addcaps="row,accessible"
 					capname="row"
 					id="fa26997c-4865-408a-9bd8-120810ae0e7a"
-					name="GenericParameterVisibleInProjectExplorer"
+					name="GenericParameterVisibleInPropertiesPanel"
 					refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
@@ -1415,6 +1993,15 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
+			id="a538b968-f904-4d07-a69c-e87f3bb3d12b"
+			name="BerekeningToevoegen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Berekening toevoegen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
 			id="8d25a5c5-e67d-4b4c-93a4-f94323bb7d79"
 			name="Bijwerken"
 			refimgid="701155c2-8867-4559-802c-2d50303a6619"
@@ -1456,11 +2043,10 @@ FjcAAAAASUVORK5CYII=
 			addcaps="menuitem,accessible"
 			capname="menuitem"
 			id="17056c41-6629-4a0e-8ab2-93470db9fa27"
-			name="GenereerScenarios"
+			name="GenereerCalculationAndScenarios"
 			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']"
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Genereer']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
@@ -1771,7 +2357,7 @@ FjcAAAAASUVORK5CYII=
 			addcaps="text,control,nativewindow"
 			capname="text"
 			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
-			name="LabelActivityProgressText"
+			name="LabelActivityStepCounter"
 			refimgid="746c79e5-beba-443e-bbd7-a96d590e9951"
 			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']"
 			searchtimeout="30000ms">
@@ -1781,7 +2367,7 @@ FjcAAAAASUVORK5CYII=
 			addcaps="text,control,nativewindow"
 			capname="text"
 			id="dceeaae8-df9d-4e10-b9b8-7dcf1c822408"
-			name="LabelActivityCounter"
+			name="LabelActivityTaskCounter"
 			refimgid="5b0cfa9e-cf06-4acb-8430-e4a7c2690370"
 			refpath="/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityCounter']"
 			searchtimeout="30000ms">
@@ -2101,15 +2687,27 @@ gg==
 		refpath="/form[@controlname='SelectionDialogBase']"
 		searchtimeout="30000ms"
 		usecache="True">
-			<item
-			addcaps="cell,accessible"
-			capname="cell"
-			id="407fae09-698f-4177-8f27-47a238018ac5"
-			name="UseCellRowIndexth"
-			refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
-			searchtimeout="30000ms">
-				/form[@controlname='SelectionDialogBase']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
-			</item>
+			<folder
+			capname="table"
+			id="4cff6d90-7520-4ee7-a00a-538e505578e2"
+			isrooted="True"
+			name="Table"
+			refimgid="fdd663fd-cd82-47d8-a41a-bfc5eb1c430c"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="407fae09-698f-4177-8f27-47a238018ac5"
+				name="UseCellRowIndexth"
+				refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
+				searchtimeout="30000ms">
+					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
+				</item>
+				<basepath>
+					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table
+				</basepath>
+			</folder>
 			<item
 			addcaps="button,control,nativewindow"
 			capname="button"
@@ -2118,6 +2716,16 @@ gg==
 			refimgid="cd642f45-a153-4427-a178-331abd3f56c1"
 			searchtimeout="30000ms">
 				/form[@controlname='SelectionDialogBase']/container/button[@controlname='DoForSelectedButton']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="66fd60b5-d7a8-43eb-82cb-e4707b8474de"
+			name="SelectAllButton"
+			refimgid="f43f6a31-512f-466a-8850-7b899e38fe4f"
+			refpath="/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container[@controlname='panel2']/button[@controlname='SelectAllButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']
 			</item>
 			<basepath>
 				/form[@controlname='SelectionDialogBase']
@@ -2213,7 +2821,7 @@ XrLp0EM2aG+RntUiB+ZT6fxfIsRPbYnQgbXhGFYAAAAASUVORK5CYII=
 		name="Bevestigen"
 		refpath="/form[@title='Bevestigen']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="button,nativewindow"
 			capname="button"
@@ -2530,6 +3138,66 @@ URBfCI4C/GRKAdgKrFmZA/ip5QD/YxQhIAyxb8COMMTK4omyWLTNCyCPWr3n462QAAAAAElFTkSu
 QmCC
 			</icon>
 		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="a38813aa-c0d2-4abf-809e-aca709f1371e"
+		isrooted="True"
+		name="DialogSelectionInformationImportMergeProject"
+		refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="89a71866-d976-497c-a752-3afb1a05083b"
+			name="CancelButton"
+			refimgid="e20b05c9-385f-4641-b460-fe88beba5810"
+			refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']/container/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']
+			</item>
+			<folder
+			capname="table"
+			id="15fe51ee-f2a2-4404-a313-53b35aded5fd"
+			isrooted="True"
+			name="TableFMs"
+			refimgid="35b71bf1-dc8c-4a7c-8a12-3a54500c610f"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="67bc4452-c4a1-459b-8ab9-a476e489359f"
+				name="SelectCellGenericRow"
+				refimgid="5b768348-ce22-4f13-a467-1d05bbb53b21"
+				searchtimeout="30000ms">
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Selecteer']
+				</item>
+				<basepath>
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']
+				</basepath>
+			</folder>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a"
+			name="ImportButton"
+			refimgid="bd5ed1a7-097d-4190-ab55-a4c38a02a0f4"
+			refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']/container/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']"
+			searchtimeout="30000ms">
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']
+			</item>
+			<basepath>
+				/form[@controlname='AssessmentSectionMergeDataProviderDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABpSURBVDhPrY6BCoAwCAX36X7a/sz2EiXmNi07
+uALJyzbgosS996NE5MTeHVgtZJTIX4EvhIHn32aBC2CgAp3vSF1wIgxEWEBPnkF4J3ABvFWgH+5w
+gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -2669,6 +3337,22 @@ QmCC
 		<var
 		id="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
 		name="nameOfPanel">
+		</var>
+		<var
+		id="82c7fabd-024c-4cd6-bf76-46e72cb40281"
+		name="substringColumnHeader">
+		</var>
+		<var
+		id="b1c29580-7a2f-407e-b875-ee536111ae7b"
+		name="indexSection">
+		</var>
+		<var
+		id="22cf54d8-7caa-49ab-8e5b-1c14fb3ba580"
+		name="indexRowCalculation">
+		</var>
+		<var
+		id="0654e545-9710-4c76-b4ae-a428f59a6303"
+		name="nameColumn">
 		</var>
 	</variables>
 </repository>

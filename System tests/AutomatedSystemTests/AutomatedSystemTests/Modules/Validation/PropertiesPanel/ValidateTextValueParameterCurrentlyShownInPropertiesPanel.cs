@@ -102,9 +102,9 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            ValidateTextParameterTrimmedSpaces(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            ValidateTextParameterTrimmedSpaces(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel, false, new RecordItemIndex(1));
             
         }
 

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -41,11 +42,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <param name="extremeWaternet">The extreme Waternet to use.</param>
         /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <returns>A collection of <see cref="PersistableWaternet"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<PersistableWaternet> Create(MacroStabilityInwardsWaternet dailyWaternet,
                                                               MacroStabilityInwardsWaternet extremeWaternet,
-                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry,
+                                                              GeneralMacroStabilityInwardsInput generalInput)
         {
             if (dailyWaternet == null)
             {
@@ -67,22 +70,27 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             createdHeadLines = new Dictionary<MacroStabilityInwardsPhreaticLine, PersistableHeadLine>(new PhreaticLineComparer());
 
             return new[]
             {
-                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
-                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry, generalInput),
+                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry, generalInput)
             };
         }
 
         private static PersistableWaternet Create(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsExportStageType stageType,
-                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry, GeneralMacroStabilityInwardsInput generalInput)
         {
             var persistableWaternet = new PersistableWaternet
             {
                 Id = idFactory.Create(),
-                UnitWeightWater = 9.81,
+                UnitWeightWater = generalInput.WaterVolumetricWeight,
                 HeadLines = waternet.PhreaticLines.Select(pl => Create(pl, idFactory)).ToArray(),
                 ReferenceLines = waternet.WaternetLines.Select(wl => Create(wl, idFactory)).ToArray(),
                 PhreaticLineId = createdHeadLines[waternet.PhreaticLines.First()].Id

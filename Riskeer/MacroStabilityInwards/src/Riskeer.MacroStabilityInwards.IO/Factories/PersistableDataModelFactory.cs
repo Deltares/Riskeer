@@ -36,6 +36,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new <see cref="PersistableDataModel"/>.
         /// </summary>
         /// <param name="calculation">The calculation to get the data from.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
         /// for obtaining the normative assessment level.</param>
         /// <param name="filePath">The filePath that is used.</param>
@@ -45,12 +46,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculation"/>
         /// has no output.</exception>
         public static PersistableDataModel Create(MacroStabilityInwardsCalculation calculation,
+                                                  GeneralMacroStabilityInwardsInput generalInput,
                                                   Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                   string filePath)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (getNormativeAssessmentLevelFunc == null)
@@ -77,9 +84,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Waternets = PersistableWaternetFactory.Create(
-                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input),
-                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
-                    idFactory, registry),
+                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput),
+                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
+                    idFactory, registry, generalInput),
                 WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
                 States = PersistableStateFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)

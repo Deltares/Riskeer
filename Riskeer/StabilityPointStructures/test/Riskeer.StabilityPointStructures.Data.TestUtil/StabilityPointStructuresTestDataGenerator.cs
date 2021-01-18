@@ -53,7 +53,7 @@ namespace Riskeer.StabilityPointStructures.Data.TestUtil
                 StandardDeviation = random.NextRoundedDouble()
             };
 
-            input.DrainCoefficient = new NormalDistribution
+            input.DrainCoefficient = new LogNormalDistribution
             {
                 Mean = random.NextRoundedDouble()
             };

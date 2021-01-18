@@ -128,6 +128,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
             $"{IllustrationPointsDatabaseConstants.StochastName}, " +
+            $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
             $"{IllustrationPointsDatabaseConstants.Duration}, " +
             $"{IllustrationPointsDatabaseConstants.Realization} " +
@@ -162,13 +163,14 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
             $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
-            $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription} " +
+            $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
+            $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
             "FROM SubMechanisms " +
             "JOIN DesignPointResults USING(SubMechanismId) " +
             "JOIN OutputVariables USING(OutputVariableId) " +
             $"WHERE {lastIteration} " +
             $"AND {firstPeriod};";
-
+        
         /// <summary>
         /// Selects all the illustration points from the fault tree.
         /// </summary>

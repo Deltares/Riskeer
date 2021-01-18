@@ -318,7 +318,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"De variatiecoëfficiënt voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een positief getal zijn.", msgs[10]);
                 Assert.AreEqual($"De standaardafwijking voor '{drainCoefficientParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
                 Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[12]);
                 Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[13]);
@@ -399,7 +399,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"De variatiecoëfficiënt voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een positief getal zijn.", msgs[10]);
                 Assert.AreEqual($"De standaardafwijking voor '{drainCoefficientParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
                 Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[12]);
                 Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[13]);
@@ -1876,7 +1876,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             input.InsideWaterLevelFailureConstruction.Mean = value;
             input.InsideWaterLevel.Mean = value;
             input.FlowVelocityStructureClosable.Mean = value;
-            input.DrainCoefficient.Mean = value;
             input.LevelCrestStructure.Mean = value;
             input.ThresholdHeightOpenWeir.Mean = value;
             input.ShipMass.Mean = value;
@@ -1933,6 +1932,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 input.InsideWaterLevel.StandardDeviation = value;
                 input.StormDuration.CoefficientOfVariation = value;
                 input.FlowVelocityStructureClosable.CoefficientOfVariation = value;
+                input.DrainCoefficient.Mean = value;
                 input.DrainCoefficient.StandardDeviation = value;
                 input.LevelCrestStructure.StandardDeviation = value;
                 input.ThresholdHeightOpenWeir.StandardDeviation = value;

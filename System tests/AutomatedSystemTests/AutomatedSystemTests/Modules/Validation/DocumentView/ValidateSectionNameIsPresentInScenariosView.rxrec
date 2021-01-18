@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="d6dc6f64-7811-49ba-a886-f91dd25287cd"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateSectionNameIsPresentInScenariosView"
+	namespace="AutomatedSystemTests.Modules.Validation.DocumentView">
+	</codegen>
+	<variables>
+		<var
+		id="383a1697-234a-4496-acec-2881391ae3f9"
+		name="indexRow">
+		</var>
+		<var
+		id="ec9217de-b696-41e7-8e2a-d0c9cf42dc15"
+		name="sectionName">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateSectionNameIsPresentInScenariosView"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateSectionNameIsPresentInListSectionsNames"
+		namespace="AutomatedSystemTests.Modules.Validation.DocumentView"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="e1e8218e-3055-446a-97df-3f92fcbcfe42">
+				<argument
+				argname="listSectionsNamesAdapter"
+				id="0c7e35b5-316c-47f0-9951-d7e67d5349c1">
+					<argvaluetype>
+						Ranorex.Adapter, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="f3cd16ba-c2de-4890-b253-71355634e232"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='ScenariosView']/container[@controlname='splitContainer']/container[@controlname='panel1']/?/list/list
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateSectionNameIsPresentInScenariosView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="abc7c300-9a65-468b-a578-f8e564738f13"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateContributionValueInScenariosView"
+	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
+	</codegen>
+	<variables>
+		<var
+		id="61018541-00b3-43aa-8932-ccff5ec68f08"
+		name="expectedContribution">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateContributionValueInScenariosView"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="Validate_GenericRowContribution"
+		namespace="AutomatedSystemTests.Modules.ActionsDocumentView"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="e9f9821f-953c-44b2-8a93-dc4e82d0d549">
+				<argument
+				argname="cellInfo"
+				id="df306a24-dba7-424b-820a-4efd283f21da">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="3476c0a3-36a4-4281-90a3-065844674eb8"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateContributionValueInScenariosView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

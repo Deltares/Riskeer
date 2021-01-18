@@ -48,6 +48,7 @@ namespace Riskeer.Common.Service.IllustrationPoints
             }
 
             return new IllustrationPointResult(hydraRingIllustrationPointResult.Description,
+                                               hydraRingIllustrationPointResult.Unit,
                                                hydraRingIllustrationPointResult.Value);
         }
     }

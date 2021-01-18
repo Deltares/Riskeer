@@ -53,11 +53,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                       5.4,
                                                                       new[]
                                                                       {
-                                                                          new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
+                                                                          new SubMechanismIllustrationPointStochast("Test", "[-]", 2.0, 4.5, 0.1)
                                                                       },
                                                                       new[]
                                                                       {
-                                                                          new IllustrationPointResult("result A", 2.3)
+                                                                          new IllustrationPointResult("result A", "[-]", 2.3)
                                                                       });
 
             // Call

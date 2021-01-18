@@ -92,6 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
 
         private MacroStabilityInwardsCalculationScenario data;
+        private GeneralMacroStabilityInwardsInput generalInput;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
 
@@ -105,6 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputChartControl(MacroStabilityInwardsCalculationScenario data,
+                                                       GeneralMacroStabilityInwardsInput generalInput,
                                                        Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (data == null)
@@ -118,6 +120,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
 
             this.data = data;
+            this.generalInput = generalInput;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
 
             InitializeComponent();
@@ -297,8 +300,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 SetSoilProfileChartData();
             }
 
-            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetEffectiveAssessmentLevel()));
-            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(input));
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel()));
+            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput));
 
             if (data.Output != null)
             {

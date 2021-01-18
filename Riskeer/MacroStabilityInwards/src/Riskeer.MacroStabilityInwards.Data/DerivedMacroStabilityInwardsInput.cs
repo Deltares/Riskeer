@@ -35,18 +35,26 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the calculated Waternet for extreme circumstances.
         /// </summary>
         /// <param name="input">The input to calculate the Waternet for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived Waternet value.</returns>
-        public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input, RoundedDouble assessmentLevel)
+        public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input,
+                                                                       GeneralMacroStabilityInwardsInput generalInput,
+                                                                       RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             return input.SoilProfileUnderSurfaceLine != null
-                       ? WaternetCalculationService.CalculateExtreme(input, assessmentLevel)
+                       ? WaternetCalculationService.CalculateExtreme(input, generalInput, assessmentLevel)
                        : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
                                                            new MacroStabilityInwardsWaternetLine[0]);
         }
@@ -55,17 +63,24 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the calculated Waternet for daily circumstances.
         /// </summary>
         /// <param name="input">The input to calculate the Waternet for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived Waternet value.</returns>
-        public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input)
+        public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input,
+                                                                     GeneralMacroStabilityInwardsInput generalInput)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             return input.SoilProfileUnderSurfaceLine != null
-                       ? WaternetCalculationService.CalculateDaily(input)
+                       ? WaternetCalculationService.CalculateDaily(input, generalInput)
                        : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
                                                            new MacroStabilityInwardsWaternetLine[0]);
         }

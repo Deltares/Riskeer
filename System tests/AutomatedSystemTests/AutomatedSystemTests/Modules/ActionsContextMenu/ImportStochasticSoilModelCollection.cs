@@ -66,26 +66,6 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             set { _nameSoilFile = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
-        {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
-        }
-
 #endregion
 
         /// <summary>
@@ -112,8 +92,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.StochasticSoilModelCollection' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.StochasticSoilModelCollection.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.StochasticSoilModelCollection.Self.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
             repo.ContextMenu.Importeren.Click();
@@ -130,8 +110,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(6));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1.5s.", new RecordItemIndex(6));
+            Delay.Duration(1500, false);
             
         }
 

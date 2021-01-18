@@ -39,5 +39,30 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
         	AppPath = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), AppPath);
         }
 
+        public void StartAUT_Run_application()
+        {
+            Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.");
+            //bool succesfulStartUp = false;
+            for (int i = 1; i < 11; i++) {
+                Report.Info("Attempt #" + i.ToString() + " to start up the application.");
+                StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
+                repo.RiskeerMainWindow.SelfInfo.WaitForExists(120000);
+                Delay.Duration(1000, false);
+                try {
+                    repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+                    Report.Info("Application started up properly!");
+                    i=20;
+                } catch (Exception e) {
+                    Report.Warn("Application not started up properly!");
+                    Report.Warn("Reboot is required.");
+                    Report.Info("Exception: " + e.ToString());
+                    Delay.Duration(5000, false);
+                    Host.Current.KillApplication(repo.RiskeerMainWindow.Self);
+                    Delay.Duration(1000, false);
+                    Report.Info("Rebooting...");
+                }
+            }
+        }
+
     }
 }

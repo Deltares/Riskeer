@@ -68,7 +68,8 @@ namespace Riskeer.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingSubMechanismIllustrationPointStochast));
             }
 
-            return new SubMechanismIllustrationPointStochast(hydraRingSubMechanismIllustrationPointStochast.Name,
+            return new SubMechanismIllustrationPointStochast(hydraRingSubMechanismIllustrationPointStochast.Name, 
+                                                             hydraRingSubMechanismIllustrationPointStochast.Unit,
                                                              hydraRingSubMechanismIllustrationPointStochast.Duration,
                                                              hydraRingSubMechanismIllustrationPointStochast.Alpha,
                                                              hydraRingSubMechanismIllustrationPointStochast.Realization);

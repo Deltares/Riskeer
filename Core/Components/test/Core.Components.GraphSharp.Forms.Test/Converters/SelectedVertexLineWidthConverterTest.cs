@@ -31,7 +31,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
     public class SelectedVertexLineWidthConverterTest
     {
         [Test]
-        public void DefaultConcstructor_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var converter = new SelectedVertexLineWidthConverter();

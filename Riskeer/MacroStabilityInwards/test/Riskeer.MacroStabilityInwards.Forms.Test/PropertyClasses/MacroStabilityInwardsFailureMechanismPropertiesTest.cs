@@ -42,11 +42,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
-        private const int modelFactorPropertyIndex = 5;
-        private const int aPropertyIndex = 6;
-        private const int bPropertyIndex = 7;
-        private const int sectionLengthPropertyIndex = 8;
-        private const int nPropertyIndex = 9;
+        private const int waterVolumetricWeightPropertyIndex = 5;
+        private const int modelFactorPropertyIndex = 6;
+        private const int aPropertyIndex = 7;
+        private const int bPropertyIndex = 8;
+        private const int sectionLengthPropertyIndex = 9;
+        private const int nPropertyIndex = 10;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -57,10 +58,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismProperties(null, assessmentSection);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
             mocks.VerifyAll();
         }
@@ -69,10 +70,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -114,6 +115,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            Assert.AreEqual(failureMechanism.GeneralInput.ModelFactor, properties.ModelFactor);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
             mocks.VerifyAll();
         }
 
@@ -135,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
@@ -174,6 +177,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
+            PropertyDescriptor waterVolumetricWeightProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterVolumetricWeightProperty,
+                                                                            generalCategory,
+                                                                            "Volumiek gewicht van water [kN/m³]",
+                                                                            "Volumiek gewicht van water.",
                                                                             true);
 
             PropertyDescriptor modelFactorProperty = dynamicProperties[modelFactorPropertyIndex];
@@ -348,6 +358,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
             mocks.VerifyAll();

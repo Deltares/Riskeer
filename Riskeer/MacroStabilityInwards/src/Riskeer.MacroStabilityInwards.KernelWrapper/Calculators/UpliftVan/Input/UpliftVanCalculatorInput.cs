@@ -108,6 +108,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
             MaximumSliceWidth = properties.MaximumSliceWidth;
+            WaterVolumetricWeight = properties.WaterVolumetricWeight;
         }
 
         /// <summary>
@@ -136,6 +137,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
                 PenetrationLengthDaily = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
                 MaximumSliceWidth = double.NaN;
+                WaterVolumetricWeight = double.NaN;
             }
 
             #region Properties
@@ -280,6 +282,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             /// </summary>
             public double MaximumSliceWidth { internal get; set; }
 
+            /// <summary>
+            /// Gets or sets the volumetric weight of water.
+            /// [kN/m³]
+            /// </summary>
+            public double WaterVolumetricWeight { internal get; set; }
+            
             #endregion
         }
 
@@ -424,6 +432,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// [m]
         /// </summary>
         public double MaximumSliceWidth { get; }
+        
+        /// <summary>
+        /// Gets the volumetric weight of water.
+        /// [kN/m³]
+        /// </summary>
+        public double WaterVolumetricWeight { get; }
 
         #endregion
     }

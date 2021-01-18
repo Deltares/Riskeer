@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="815c10de-7eb0-4306-b5f0-403e140be625"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="SelectGenericSectionInListCalculationsView"
+	namespace="AutomatedSystemTests.Modules.Selection">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="SelectGenericSectionInListCalculationsView"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="SelectGenericSectionInListCalculationsViewMethod"
+		namespace="AutomatedSystemTests.Modules.Selection"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="a60d83f1-b6b1-4e96-ab50-aabfa186f804">
+				<argument
+				argname="listitemInfo"
+				id="bf415566-58c5-4f32-b584-d0cac95b47a8">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="aa65e2e5-ffba-49a6-86e5-7542a4ae9526"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']/container/container/container/list/list/listitem[@index=$indexSection]
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		SelectGenericSectionInListCalculationsView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

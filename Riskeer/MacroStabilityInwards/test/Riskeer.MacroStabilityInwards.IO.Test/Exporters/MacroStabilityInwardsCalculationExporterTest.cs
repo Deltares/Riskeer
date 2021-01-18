@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath", AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, "ValidFilePath", AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -72,11 +72,28 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(null, persistenceFactory, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            void Call() => new MacroStabilityInwardsCalculationExporter(null, new GeneralMacroStabilityInwardsInput(), persistenceFactory, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), null, persistenceFactory, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -84,7 +101,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), null, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), new GeneralMacroStabilityInwardsInput(), null, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -100,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, string.Empty, null);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -118,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -140,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     ThrowException = true
                 };
 
-                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
                 // Call
                 var exportResult = true;
@@ -169,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     WriteFile = true
                 };
 
-                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
                 // Call
                 exporter.Export();
@@ -193,7 +210,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 WriteFile = true
             };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -226,7 +243,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -263,7 +280,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -298,7 +315,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculation.InputParameters.MaximumSliceWidth = (RoundedDouble) maximumSliceWidth;
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -330,7 +347,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers.ForEachElementDo(layer => layer.Data.IsAquifer = true);
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -366,7 +383,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             });
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {
@@ -411,7 +428,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
             {

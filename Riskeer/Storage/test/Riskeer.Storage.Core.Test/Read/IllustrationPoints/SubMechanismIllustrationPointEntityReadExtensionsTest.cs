@@ -36,10 +36,10 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPointEntity) null).Read();
+            void Call() => ((SubMechanismIllustrationPointEntity) null).Read();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 

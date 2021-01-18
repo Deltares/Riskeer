@@ -140,6 +140,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -170,6 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -201,6 +203,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -232,6 +235,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -265,6 +269,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -298,6 +303,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -324,6 +330,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -350,6 +357,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -379,6 +387,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -408,6 +417,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -432,6 +442,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -456,6 +467,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -483,6 +495,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -510,6 +523,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -540,6 +554,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -570,6 +585,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -603,6 +619,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -636,6 +653,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
+                                                                 new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="3f07e952-3053-491e-9536-4986ced8e8c3"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="GetContributionValueFromScenariosView"
+	namespace="AutomatedSystemTests.Modules.ActionsDocumentView">
+	</codegen>
+	<variables>
+		<var
+		id="5b699eef-7072-43c4-96e6-7592b8a103ae"
+		name="valueContributionCell">
+		</var>
+	</variables>
+	<recorditems>
+		<getvaluerecorditem
+		attrname="Text"
+		enabled="True"
+		optional="False"
+		searchpropertyid="2a1e7ec8-507b-4fb6-87ed-d0a5e74c51a5"
+		varname="valueContributionCell">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="3476c0a3-36a4-4281-90a3-065844674eb8"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
+				</path>
+			</info>
+		</getvaluerecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		GetContributionValueFromScenariosView.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

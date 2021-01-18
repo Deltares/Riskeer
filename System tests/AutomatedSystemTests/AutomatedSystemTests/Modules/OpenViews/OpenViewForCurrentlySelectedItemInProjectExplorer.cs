@@ -88,7 +88,10 @@ namespace AutomatedSystemTests.Modules.OpenViews
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(2));
             repo.ContextMenu.Openen.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ContextMenu'", repo.ContextMenu.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
+            repo.ContextMenu.SelfInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(4));
             Delay.Duration(300, false);
             
         }

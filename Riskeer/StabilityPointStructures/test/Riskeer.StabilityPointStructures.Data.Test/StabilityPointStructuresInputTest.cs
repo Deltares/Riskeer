@@ -59,7 +59,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 StandardDeviation = RoundedDouble.NaN
             };
 
-            var expectedDrainCoefficient = new NormalDistribution(2)
+            var expectedDrainCoefficient = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
@@ -192,7 +192,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             };
 
             RoundedDouble expectedVolumicWeightWater = input.VolumicWeightWater;
-            NormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
+            LogNormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
             RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
@@ -544,12 +544,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
+            var expectedDistribution = new LogNormalDistribution(2)
             {
                 Mean = mean,
                 StandardDeviation = input.DrainCoefficient.StandardDeviation
             };
-            var distributionToSet = new NormalDistribution(5)
+            var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
                 StandardDeviation = standardDeviation

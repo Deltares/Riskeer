@@ -26,6 +26,7 @@ mode="Global">
 		<var
 		id="94623a49-2f71-47ad-afa6-ea0884186048"
 		name="milisecondsToWait">
+			0
 		</var>
 	</variables>
 	<recorditems>

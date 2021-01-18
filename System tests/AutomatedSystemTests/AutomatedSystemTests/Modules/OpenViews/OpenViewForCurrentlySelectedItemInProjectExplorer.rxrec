@@ -536,6 +536,24 @@ NfrTaKKAIpfvf9sn/pU0v3B/vL/MUUUARtZwNOZirFiQxG9tpI6HbnHYdqBZQDeArhZAQy+Y23nr
 xnAoooAdJbQy7t6Z3KFPJ6A5H696KKKAP//Z
 			</helperscreenshot>
 		</mouseitem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="145f79b8-2d1c-4aa0-a7ba-f5b40033c4f7"
+		waitaction="NotExists"
+		waittimeout="5000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="982924af-cebe-4e46-9281-476e566d6398"
+			sourcename="RepositoryEditor">
+				<path>
+					/contextmenu[@processname='Riskeer']
+				</path>
+			</info>
+		</WaitForRecordItem>
 		<explicitdelayitem
 		duration="300ms"
 		enabled="True"

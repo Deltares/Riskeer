@@ -59,6 +59,7 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -154,7 +155,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(button));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));

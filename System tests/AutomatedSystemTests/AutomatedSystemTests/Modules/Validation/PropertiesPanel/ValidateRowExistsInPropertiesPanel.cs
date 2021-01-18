@@ -90,8 +90,8 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(0));
-            Validate.Exists(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
+            Validate.Exists(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
             
         }
 

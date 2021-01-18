@@ -613,4 +613,7 @@
   <data name="GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0" xml:space="preserve">
     <value>Gegevens zijn geëxporteerd naar bestand '{0}'.</value>
   </data>
+  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

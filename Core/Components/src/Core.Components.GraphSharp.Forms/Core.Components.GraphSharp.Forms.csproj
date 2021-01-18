@@ -18,6 +18,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj" />
     <ProjectReference Include="..\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj" />
@@ -52,6 +53,19 @@
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgGraphSharp)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphSharp-1.1.0\*&quot;" />

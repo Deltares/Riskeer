@@ -273,8 +273,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(volumicWeightWaterPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
                            hydraulicLoadsCategoryIndex, totalNrOfCategories)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
         public RoundedDouble VolumicWeightWater
         {
             get
@@ -561,11 +561,11 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
                            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public NormalDistributionProperties DrainCoefficient
+        public LogNormalDistributionProperties DrainCoefficient
         {
             get
             {
-                return new NormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);

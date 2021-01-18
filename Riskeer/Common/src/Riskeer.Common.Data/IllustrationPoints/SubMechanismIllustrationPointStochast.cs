@@ -33,16 +33,23 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// Creates a new instance of <see cref="SubMechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="name">The name of the stochast.</param>
+        /// <param name="unit">The unit of the stochast.</param>
         /// <param name="duration">The duration.</param>
         /// <param name="alpha">The alpha value of the stochast.</param>
         /// <param name="realization">The realization of the stochast.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public SubMechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
+        public SubMechanismIllustrationPointStochast(string name, string unit, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
+            Unit = unit;
             Realization = new RoundedDouble(5, realization);
         }
+        
+        /// <summary>
+        /// Gets the unit of the stochast.
+        /// </summary>
+        public string Unit { get; }
 
         /// <summary>
         /// Gets the realization of the stochast.

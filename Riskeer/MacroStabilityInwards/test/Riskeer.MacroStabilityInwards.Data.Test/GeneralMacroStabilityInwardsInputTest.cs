@@ -34,6 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(1.06, inputParameters.ModelFactor);
+            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight);
         }
     }
 }

@@ -133,7 +133,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new UseBreakWaterRule(input),
                 new NumericInputRule(
                     input.VolumicWeightWater,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VolumicWeightWater_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StormDuration,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StormDuration_DisplayName)),
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new UseBreakWaterRule(input),
                 new NumericInputRule(
                     input.VolumicWeightWater,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VolumicWeightWater_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StormDuration,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StormDuration_DisplayName)),
@@ -281,7 +281,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new UseBreakWaterRule(input),
                 new NumericInputRule(
                     input.VolumicWeightWater,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VolumicWeightWater_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StormDuration,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StormDuration_DisplayName)),
@@ -294,7 +294,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
+                new LogNormalDistributionRule(
                     input.DrainCoefficient,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(
@@ -358,7 +358,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new UseBreakWaterRule(input),
                 new NumericInputRule(
                     input.VolumicWeightWater,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VolumicWeightWater_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StormDuration,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StormDuration_DisplayName)),
@@ -371,7 +371,7 @@ namespace Riskeer.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
+                new LogNormalDistributionRule(
                     input.DrainCoefficient,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(

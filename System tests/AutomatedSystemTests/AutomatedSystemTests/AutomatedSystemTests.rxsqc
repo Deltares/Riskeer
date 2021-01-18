@@ -10,8 +10,8 @@
     "RunConfig": "TestRun"
   },
   {
-    "Enabled": "False",
-    "TestSuite": "WorkOnProgressDavid",
+    "Enabled": "True",
+    "TestSuite": "WorkInProgressDavid",
     "RunConfig": "TestRun"
   },
   {
@@ -20,13 +20,18 @@
     "RunConfig": "TestRun"
   },
   {
-    "Enabled": "True",
+    "Enabled": "False",
     "TestSuite": "WorkInProgressSylvia",
     "RunConfig": "TestRun"
   },
   {
     "Enabled": "True",
     "TestSuite": "VerySlowTestCases",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "TestScript20",
     "RunConfig": "TestRun"
   }
 ]

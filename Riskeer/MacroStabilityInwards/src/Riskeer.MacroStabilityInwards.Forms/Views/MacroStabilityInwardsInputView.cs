@@ -75,6 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
         private MacroStabilityInwardsCalculationScenario data;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
@@ -86,11 +87,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
         /// <param name="data">The calculation to show the input for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <param name="getHydraulicBoundaryLocationCalculationFunc">The <see cref="Func{TResult}"/> for
         /// obtaining the hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data,
+                                              GeneralMacroStabilityInwardsInput generalInput,
                                               IAssessmentSection assessmentSection,
                                               Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
         {
@@ -99,6 +102,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+            
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -110,6 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
 
             this.data = data;
+            this.generalInput = generalInput;
             this.getHydraulicBoundaryLocationCalculationFunc = getHydraulicBoundaryLocationCalculationFunc;
 
             InitializeComponent();
@@ -254,8 +263,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
 
-            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(macroStabilityInwardsInput, GetEffectiveAssessmentLevel()), surfaceLine);
-            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(macroStabilityInwardsInput), surfaceLine);
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(macroStabilityInwardsInput, generalInput, GetEffectiveAssessmentLevel()), surfaceLine);
+            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(macroStabilityInwardsInput, generalInput), surfaceLine);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;

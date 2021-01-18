@@ -45,6 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                                    GeneralMacroStabilityInwardsInput generalInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -57,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, generalInput, assessmentSection);
         }
 
         /// <summary>
@@ -70,6 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
+                                                                                    GeneralMacroStabilityInwardsInput generalInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
@@ -84,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             return calculationGroup.GetCalculations()
                                    .Cast<MacroStabilityInwardsCalculation>()
-                                   .Select(calc => CreateCalculationActivity(calc, assessmentSection))
+                                   .Select(calc => CreateCalculationActivity(calc,generalInput, assessmentSection))
                                    .ToArray();
         }
 
@@ -97,6 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static CalculatableActivity CreateCalculationActivity(MacroStabilityInwardsCalculation calculation,
+                                                                     GeneralMacroStabilityInwardsInput generalInput,
                                                                      IAssessmentSection assessmentSection)
         {
             if (calculation == null)
@@ -110,6 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             }
 
             return new MacroStabilityInwardsCalculationActivity(calculation,
+                                                                generalInput,
                                                                 assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
     }

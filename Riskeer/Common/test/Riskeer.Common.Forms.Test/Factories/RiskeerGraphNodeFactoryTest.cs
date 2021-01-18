@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -31,7 +32,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {
@@ -42,10 +42,10 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateGraphNode_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
+            void Call() => RiskeerGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("illustrationPoint", exception.ParamName);
         }
 
@@ -60,10 +60,10 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
+            void Call() => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("childNodes", exception.ParamName);
         }
 
@@ -154,16 +154,54 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
+        [TestCase(1, "1/1")]
+        [TestCase(0.1, "1/10")]
+        [TestCase(0.00001, "1/100.000")]
+        [TestCase(0.000012, "1/83.332")]
+        [TestCase(0.00000123, "1,22998E-6")]
+        [TestCase(0.0000099, "9,90019E-6")]
+        public void CreateGraphNode_FaultTreeIllustrationPointNodeDataWithChildren_ReturnsExpectedGraphNodeContent(double probability, string expectedProbability)
+        {
+            // Setup
+            var random = new Random(31);
+            double beta = StatisticsConverter.ProbabilityToReliability(probability);
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                "Illustration Point",
+                beta,
+                Enumerable.Empty<Stochast>(),
+                random.NextEnumValue<CombinationType>());
+
+            IEnumerable<GraphNode> childGraphNodes = new[]
+            {
+                CreateTestGraphNode()
+            };
+
+            RoundedDouble roundedBeta = ((RoundedDouble) beta).ToPrecision(5);
+
+            string expectedGraphNodeContent = $"<text><bold>{illustrationPoint.Name}</bold>{Environment.NewLine}" +
+                                              $"{Environment.NewLine}" +
+                                              $"Berekende kans = {expectedProbability}{Environment.NewLine}" +
+                                              $"Betrouwbaarheidsindex = {roundedBeta}</text>";
+            
+            // Call
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
+                                                                          childGraphNodes);
+
+            // Assert
+            Assert.AreEqual(expectedGraphNodeContent, graphNode.Content);
+        }
+
+        [Test]
         public void CreateGraphNode_WithFaultTreeIllustrationPointButChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
             var illustrationPoint = new TestFaultTreeIllustrationPoint();
 
             // Call
-            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
+            void Call() => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("childNodes", exception.ParamName);
         }
 
@@ -174,13 +212,14 @@ namespace Riskeer.Common.Forms.Test.Factories
             var illustrationPoint = new TestIllustrationPoint();
 
             // Call
-            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
-            {
-                CreateTestGraphNode()
-            });
+            void Call() =>
+                RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
+                {
+                    CreateTestGraphNode()
+                });
 
             // Assert
-            var exception = Assert.Throws<NotSupportedException>(test);
+            var exception = Assert.Throws<NotSupportedException>(Call);
             Assert.AreEqual($"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
                             $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}",
                             exception.Message);
@@ -216,11 +255,10 @@ namespace Riskeer.Common.Forms.Test.Factories
         private static string CreateExpectedGraphNodeContent(string name, RoundedDouble beta)
         {
             RoundedDouble roundedBeta = beta.ToPrecision(5);
-            string probability = ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta));
 
             return $"<text><bold>{name}</bold>{Environment.NewLine}" +
                    $"{Environment.NewLine}" +
-                   $"Berekende kans = {probability}{Environment.NewLine}" +
+                   $"Berekende kans = 1/6{Environment.NewLine}" +
                    $"Betrouwbaarheidsindex = {roundedBeta}</text>";
         }
 

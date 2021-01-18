@@ -54,10 +54,11 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> for which to validate the values.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        public static bool Validate(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -82,9 +83,9 @@ namespace Riskeer.MacroStabilityInwards.Service
             try
             {
                 waternetExtremeKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateExtreme(
-                                                                     calculation.InputParameters, GetEffectiveAssessmentLevel(calculation.InputParameters, normativeAssessmentLevel)),
+                                                                     calculation.InputParameters, generalInput, GetEffectiveAssessmentLevel(calculation.InputParameters, normativeAssessmentLevel)),
                                                                  Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started);
-                waternetDailyKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateDaily(calculation.InputParameters),
+                waternetDailyKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateDaily(calculation.InputParameters, generalInput),
                                                                Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started);
             }
             catch (WaternetCalculationException e)
@@ -98,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             if (!waternetExtremeKernelMessages.Any() && !waternetDailyKernelMessages.Any())
             {
-                IUpliftVanCalculator calculator = GetCalculator(calculation, normativeAssessmentLevel);
+                IUpliftVanCalculator calculator = GetCalculator(calculation, generalInput, normativeAssessmentLevel);
 
                 try
                 {
@@ -127,11 +128,12 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <exception cref="UpliftVanCalculatorException">Thrown when an error (both expected or unexpected) occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        public static void Calculate(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -144,7 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             try
             {
-                IUpliftVanCalculator calculator = GetCalculator(calculation, normativeAssessmentLevel);
+                IUpliftVanCalculator calculator = GetCalculator(calculation, generalInput, normativeAssessmentLevel);
 
                 macroStabilityInwardsResult = calculator.Calculate();
             }
@@ -197,9 +199,9 @@ namespace Riskeer.MacroStabilityInwards.Service
             CalculationServiceHelper.LogCalculationEnd();
         }
 
-        private static IUpliftVanCalculator GetCalculator(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        private static IUpliftVanCalculator GetCalculator(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
-            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel);
+            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, generalInput, normativeAssessmentLevel);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
             return calculator;
         }
@@ -226,7 +228,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             CalculationServiceHelper.LogValidationEnd();
         }
 
-        private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
             RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel);
 
@@ -261,7 +263,8 @@ namespace Riskeer.MacroStabilityInwards.Service
                     PenetrationLengthDaily = inputParameters.LocationInputDaily.PenetrationLength,
                     AdjustPhreaticLine3And4ForUplift = inputParameters.AdjustPhreaticLine3And4ForUplift,
                     MoveGrid = inputParameters.MoveGrid,
-                    MaximumSliceWidth = inputParameters.MaximumSliceWidth
+                    MaximumSliceWidth = inputParameters.MaximumSliceWidth,
+                    WaterVolumetricWeight = generalInput.WaterVolumetricWeight
                 });
         }
 

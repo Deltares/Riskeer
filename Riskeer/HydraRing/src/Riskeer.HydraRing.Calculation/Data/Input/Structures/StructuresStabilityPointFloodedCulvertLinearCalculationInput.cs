@@ -221,7 +221,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 
         private IEnumerable<HydraRingVariable> GetVariables()
         {
-            yield return new NormalHydraRingVariable(66, HydraRingDeviationType.Standard, drainCoefficientMean, drainCoefficientStandardDeviation);
+            yield return new LogNormalHydraRingVariable(66, HydraRingDeviationType.Standard, drainCoefficientMean, drainCoefficientStandardDeviation);
             yield return new LogNormalHydraRingVariable(67, HydraRingDeviationType.Standard, areaFlowAperturesMean, areaFlowAperturesStandardDeviation);
             yield return new LogNormalHydraRingVariable(80, HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation);
             yield return new LogNormalHydraRingVariable(83, HydraRingDeviationType.Variation, stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation);

@@ -37,10 +37,10 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).Create(0);
+            void Call() => ((SubMechanismIllustrationPoint) null).Create(0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("subMechanismIllustrationPoint", exception.ParamName);
         }
 
@@ -71,11 +71,11 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var stochastOne = new SubMechanismIllustrationPointStochast("stochast name",
+            var stochastOne = new SubMechanismIllustrationPointStochast("stochast name", "[-]",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
-            var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two",
+            var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two", "[-]",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
@@ -120,8 +120,8 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            var illustrationPointResultOne = new IllustrationPointResult("result description", random.NextDouble());
-            var illustrationPointResultTwo = new IllustrationPointResult("result description two", random.NextDouble());
+            var illustrationPointResultOne = new IllustrationPointResult("result description", "[-]",random.NextDouble());
+            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "[kN]", random.NextDouble());
             IllustrationPointResult[] illustrationPointResults =
             {
                 illustrationPointResultOne,

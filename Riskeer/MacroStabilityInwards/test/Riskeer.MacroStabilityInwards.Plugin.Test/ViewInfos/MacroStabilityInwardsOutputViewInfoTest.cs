@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             protected override IView GetView(ICalculation data)
             {
-                return new MacroStabilityInwardsOutputView((MacroStabilityInwardsCalculationScenario) data, () => (RoundedDouble) 1.1);
+                return new MacroStabilityInwardsOutputView((MacroStabilityInwardsCalculationScenario) data, new GeneralMacroStabilityInwardsInput(), () => (RoundedDouble) 1.1);
             }
 
             protected override ICalculation GetCalculation()

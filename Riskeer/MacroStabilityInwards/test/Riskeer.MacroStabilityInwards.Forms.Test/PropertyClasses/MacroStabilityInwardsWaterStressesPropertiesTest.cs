@@ -73,6 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -101,13 +102,29 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null,
-                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
-                                                                                       propertyChangeHandler);
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            var mocks = new MockRepository();
+            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -118,12 +135,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
-                                                                                       null);
+            void Call() => new MacroStabilityInwardsWaterStressesProperties(input, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
         }
 
@@ -139,6 +154,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -274,7 +290,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, assessmentLevel, propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input, new GeneralMacroStabilityInwardsInput(), assessmentLevel, propertyChangeHandler);
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
@@ -315,7 +331,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             var propertyChangeHandler = new ObservablePropertyChangeHandler(calculation, input);
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input, 
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -478,6 +495,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -507,6 +525,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -538,6 +557,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 DikeSoilScenario = dikeSoilScenario
             };
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -564,6 +584,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
@@ -591,6 +612,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 

@@ -35,14 +35,14 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
         public void Validate_GenericParameterVisibleInProjectExplorer(Adapter tableAdapter)
         {
-        	var allRowsInPropertiesPanel = tableAdapter.As<Table>().Rows.ToList();
-        	if (allRowsInPropertiesPanel.Count==0) {
-        		Validate.AreEqual(allRowsInPropertiesPanel.Count, 0);
-        	} else
-        	{
-        		var numberOfRowsWithName = allRowsInPropertiesPanel.Where(row=>row.GetAttributeValue<string>("AccessibleName")==nameOfParameterInPropertiesPanel).ToList().Count;
-        		Validate.AreEqual(numberOfRowsWithName, 0);
-        	}
+            var allRowsInPropertiesPanel = tableAdapter.As<Table>().Rows.ToList();
+            if (allRowsInPropertiesPanel.Count==0) {
+                Validate.AreEqual(allRowsInPropertiesPanel.Count, 0);
+            } else
+            {
+                var numberOfRowsWithName = allRowsInPropertiesPanel.Where(row=>row.Element.GetAttributeValueText("AccessibleName").Contains(nameOfParameterInPropertiesPanel)).ToList().Count;
+               Validate.AreEqual(numberOfRowsWithName, 0);
+            }
         }
 
     }

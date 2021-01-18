@@ -31,7 +31,7 @@ namespace Core.Common.Gui.Converters
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueElementAttribute : Attribute
     {
-        private readonly string namePropertyName;
+        protected readonly string namePropertyName;
 
         /// <summary>
         /// Creates a new instance of <see cref="KeyValueElementAttribute"/>.
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Converters
         /// <exception cref="ArgumentException">Thrown when the property used for the name of
         /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
         /// </exception>
-        public string GetName(object source)
+        public virtual string GetName(object source)
         {
             PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
             if (namePropertyInfo == null)

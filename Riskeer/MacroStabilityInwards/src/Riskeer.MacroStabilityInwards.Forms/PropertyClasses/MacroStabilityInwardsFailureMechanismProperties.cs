@@ -42,11 +42,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int isRelevantPropertyIndex = 5;
-        private const int modelFactorPropertyIndex = 6;
-        private const int aPropertyIndex = 7;
-        private const int bPropertyIndex = 8;
-        private const int sectionLengthPropertyIndex = 9;
-        private const int nPropertyIndex = 10;
+        private const int waterVolumetricWeightPropertyIndex = 6;
+        private const int modelFactorPropertyIndex = 7;
+        private const int aPropertyIndex = 8;
+        private const int bPropertyIndex = 9;
+        private const int sectionLengthPropertyIndex = 10;
+        private const int nPropertyIndex = 11;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -101,7 +102,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                    || nameof(B).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
                    || nameof(N).Equals(propertyName)
-                   || nameof(ModelFactor).Equals(propertyName);
+                   || nameof(ModelFactor).Equals(propertyName)
+                   || nameof(WaterVolumetricWeight).Equals(propertyName);
         }
 
         #region General
@@ -164,6 +166,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
+        public double WaterVolumetricWeight
+        {
+            get
+            {
+                return data.GeneralInput.WaterVolumetricWeight;
             }
         }
 

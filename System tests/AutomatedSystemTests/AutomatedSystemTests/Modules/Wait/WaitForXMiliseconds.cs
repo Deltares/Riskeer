@@ -41,7 +41,7 @@ namespace AutomatedSystemTests.Modules.Wait
         /// </summary>
         public WaitForXMiliseconds()
         {
-            milisecondsToWait = "";
+            milisecondsToWait = "0";
         }
 
         /// <summary>

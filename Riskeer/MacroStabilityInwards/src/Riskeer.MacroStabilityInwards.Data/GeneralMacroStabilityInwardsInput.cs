@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.MacroStabilityInwards.Primitives;
+
 namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Class that holds all the overarching macro stability inwards calculation
     /// input parameters, e.g. the values that apply for all calculations.
     /// </summary>
-    public class GeneralMacroStabilityInwardsInput
+    public class GeneralMacroStabilityInwardsInput : IGeneralMacroStabilityInwardsWaternetInput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GeneralMacroStabilityInwardsInput"/>.
@@ -33,7 +35,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         public GeneralMacroStabilityInwardsInput()
         {
             ModelFactor = 1.06;
+            WaterVolumetricWeight = 9.81;
         }
+
+        /// <summary>
+        /// Gets the volumetric weight of water.
+        /// </summary>
+        public double WaterVolumetricWeight { get; }
 
         /// <summary>
         /// Gets the model factor used to calculate a factor of safety from a stability factor.

@@ -32,10 +32,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// Creates a new instance of <see cref="IllustrationPointResult"/>.
         /// </summary>
         /// <param name="description">The description.</param>
+        /// <param name="unit">The unit.</param>
         /// <param name="value">The output of the sub mechanism illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/> 
         /// is <c>null</c>.</exception>
-        public IllustrationPointResult(string description, double value)
+        public IllustrationPointResult(string description, string unit, double value)
         {
             if (description == null)
             {
@@ -43,6 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
             }
 
             Description = description;
+            Unit = unit;
             Value = value;
         }
 
@@ -50,7 +52,12 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// Gets the description.
         /// </summary>
         public string Description { get; }
-
+        
+        /// <summary>
+        /// Gets the unit.
+        /// </summary>
+        public string Unit { get; }
+        
         /// <summary>
         /// Gets the value.
         /// </summary>

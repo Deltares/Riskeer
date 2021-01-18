@@ -44,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>The validation issues found, if any.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
@@ -51,6 +52,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// <exception cref="WaternetCalculationException">Thrown when an error occurs
         /// during the validation.</exception>
         public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateExtreme(IMacroStabilityInwardsWaternetInput input,
+                                                                                      IGeneralMacroStabilityInwardsWaternetInput generalInput,
                                                                                       RoundedDouble assessmentLevel)
         {
             if (input == null)
@@ -60,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       CreateExtremeCalculatorInput(input, assessmentLevel),
+                                                                                       CreateExtremeCalculatorInput(input, generalInput, assessmentLevel),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -78,12 +80,13 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">The general input to get the values from.</param>
         /// <returns>The validation issues found, if any.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="WaternetCalculationException">Thrown when an error occurs
         /// during the validation.</exception>
-        public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateDaily(IMacroStabilityInwardsWaternetInput input)
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateDaily(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
         {
             if (input == null)
             {
@@ -92,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetDailyCalculator(
-                                                                                       CreateDailyCalculatorInput(input),
+                                                                                       CreateDailyCalculatorInput(input, generalInput),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -117,6 +120,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input,
+                                                                     IGeneralMacroStabilityInwardsWaternetInput generalInput,
                                                                      RoundedDouble assessmentLevel)
         {
             if (input == null)
@@ -126,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       CreateExtremeCalculatorInput(input, assessmentLevel),
+                                                                                       CreateExtremeCalculatorInput(input,generalInput, assessmentLevel),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -151,7 +155,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// could not be calculated.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsWaternet CalculateDaily(IMacroStabilityInwardsWaternetInput input)
+        public static MacroStabilityInwardsWaternet CalculateDaily(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
         {
             if (input == null)
             {
@@ -160,7 +164,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetDailyCalculator(
-                                                                                       CreateDailyCalculatorInput(input),
+                                                                                       CreateDailyCalculatorInput(input, generalInput),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -175,9 +179,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             }
         }
 
-        private static WaternetCalculatorInput CreateDailyCalculatorInput(IMacroStabilityInwardsWaternetInput input)
+        private static WaternetCalculatorInput CreateDailyCalculatorInput(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
         {
-            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input);
+            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input, generalInput);
             properties.PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputDaily);
             properties.AssessmentLevel = input.WaterLevelRiverAverage;
             properties.WaterLevelPolder = input.LocationInputDaily.WaterLevelPolder;
@@ -186,9 +190,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             return new WaternetCalculatorInput(properties);
         }
 
-        private static WaternetCalculatorInput CreateExtremeCalculatorInput(IMacroStabilityInwardsWaternetInput input, RoundedDouble assessmentLevel)
+        private static WaternetCalculatorInput CreateExtremeCalculatorInput(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput, RoundedDouble assessmentLevel)
         {
-            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input);
+            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input, generalInput);
             properties.PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme);
             properties.AssessmentLevel = assessmentLevel;
             properties.WaterLevelPolder = input.LocationInputExtreme.WaterLevelPolder;
@@ -197,7 +201,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             return new WaternetCalculatorInput(properties);
         }
 
-        private static WaternetCalculatorInput.ConstructionProperties CreateCalculatorInputConstructionProperties(IMacroStabilityInwardsWaternetInput input)
+        private static WaternetCalculatorInput.ConstructionProperties CreateCalculatorInputConstructionProperties(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
         {
             return new WaternetCalculatorInput.ConstructionProperties
             {
@@ -214,7 +218,8 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
                 LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
                 PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift
+                AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
+                WaterVolumetricWeight = generalInput.WaterVolumetricWeight
             };
         }
     }

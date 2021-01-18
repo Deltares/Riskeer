@@ -88,6 +88,12 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(2));
             Delay.Duration(300, false);
             
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(5000), new RecordItemIndex(3));
+            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(4));
+            Delay.Duration(500, false);
+            
         }
 
 #region Image Feature Data

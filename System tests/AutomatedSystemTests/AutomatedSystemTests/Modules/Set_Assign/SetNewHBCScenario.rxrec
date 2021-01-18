@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -24,61 +24,23 @@ mode="Global">
 	</codegen>
 	<variables>
 		<var
-		id="dd687e57-8528-4ed2-9919-5383d7f48ec1"
-		name="pathToItemInProjectExplorer">
-		</var>
-		<var
 		id="38b85568-cab1-4341-a451-afeac06bdac5"
 		name="fileNameToOpen">
 		</var>
 	</variables>
 	<recorditems>
-		<userrecorditem
-		classname="SetNewHBCScenario"
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
 		enabled="True"
-		isexternaltestmethod="False"
-		methodname="SelectTreeItemInProjectExplorerGivenPath"
-		namespace="AutomatedSystemTests.Modules.Set_Assign"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="3ea39130-f5e4-4013-9516-70418c452fc7">
-				<argument
-				argname="pathItem"
-				id="c1484eaf-e453-4df9-9101-b98b5efd887d"
-				variable="pathToItemInProjectExplorer">
-					<argvaluetype>
-						System.String
-					</argvaluetype>
-					<argvalue>
-					</argvalue>
-				</argument>
-				<argument
-				argname="rootNodeInfo"
-				id="73bae8b5-c744-48e0-8e4f-962b30f4a509">
-					<argvaluetype>
-						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
-					</argvaluetype>
-					<argvalue>
-					</argvalue>
-					<info
-					id="b466899e-e209-4d83-a46c-0533f333cea5"
-					sourcename="ItemRecorderEditor">
-						<path>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
-						</path>
-					</info>
-				</argument>
-			</arguments>
-		</userrecorditem>
-		<invokeactionrecorditem
-		action="Select"
-		enabled="True"
+		loc="CenterLeft"
+		movetime="300ms"
 		optional="False"
-		searchpropertyid="347f696e-6488-47f3-b443-4752125506b5">
+		searchpropertyid="e7e07da3-8b49-44fb-83d6-203f5b99e31c"
+		sx="0"
+		sy="0"
+		warnoutofbounds="False">
 			<comment>
 			</comment>
 			<bindings>
@@ -90,10 +52,16 @@ mode="Global">
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 			</info>
-			<arguments
-			id="bf8c39cb-894e-4858-a870-37ed021a170e">
-			</arguments>
-		</invokeactionrecorditem>
+		</mouseitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -699,6 +667,15 @@ ANtG2iigA20baKKADbRtoooANtG2iigA20baKKADbRtoooANtG2iigA20baKKADbRtoooANtG2ii
 gA20baKKADbRtoooANtG2iigA20baKKADbRtoooAXFLiiigBaKKKAP/Z
 			</helperscreenshot>
 		</mouseitem>
+		<explicitdelayitem
+		duration="1000ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

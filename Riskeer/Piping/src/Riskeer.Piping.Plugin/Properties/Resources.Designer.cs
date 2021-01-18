@@ -214,7 +214,7 @@ namespace Riskeer.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
+        ///   Looks up a localized string similar to Als stochastische ondergrondmodellen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze stochastische ondergrondmodellen gebruiken verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>

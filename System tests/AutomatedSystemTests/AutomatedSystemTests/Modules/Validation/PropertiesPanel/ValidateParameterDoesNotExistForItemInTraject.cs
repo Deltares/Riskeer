@@ -117,7 +117,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
             Delay.Milliseconds(0);
             
-            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
             Delay.Milliseconds(0);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self, false, new RecordItemIndex(3));

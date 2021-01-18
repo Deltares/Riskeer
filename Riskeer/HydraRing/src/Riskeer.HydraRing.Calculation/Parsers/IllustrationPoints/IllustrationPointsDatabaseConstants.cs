@@ -49,6 +49,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
 
         public const string IllustrationPointResultValue = "Value";
         public const string IllustrationPointResultDescription = "OutputVarDescription";
+        public const string IllustrationPointUnit = "Unit";
 
         public const string RecursiveFaultTreeId = "id";
         public const string RecursiveFaultTreeChildId = "childId";

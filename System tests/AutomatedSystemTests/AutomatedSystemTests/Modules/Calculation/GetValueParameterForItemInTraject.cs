@@ -128,8 +128,8 @@ namespace AutomatedSystemTests.Modules.Calculation
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
             
-            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'AccessibleValue' from item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer' and assigning its value to variable 'valueOfParameterInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(2));
-            valueOfParameterInPropertiesPanel = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Element.GetAttributeValueText("AccessibleValue");
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'AccessibleValue' from item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' and assigning its value to variable 'valueOfParameterInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(2));
+            valueOfParameterInPropertiesPanel = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             
             Report_Log();
             
