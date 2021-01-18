@@ -1100,7 +1100,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_CalculationValidWithOrWithoutCoverageLayer_InputPropertiesCorrectlySentToCalculator(bool withCoverageLayer)
+        public void Calculate_CalculationValidWithOrWithoutCoverageLayer_InputPropertiesCorrectlySentToCalculator(
+            bool withCoverageLayer)
         {
             // Setup
             double sectionLength = new Random(21).NextDouble();
@@ -1205,8 +1206,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, false)]
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void Calculate_ValidCalculationWithCoverageLayer_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
-                                                                                       bool shouldSectionSpecificIllustrationPointsBeCalculated)
+        public void Calculate_ValidCalculationWithCoverageLayer_OutputSetOnCalculation(
+            bool shouldProfileSpecificIllustrationPointsBeCalculated,
+            bool shouldSectionSpecificIllustrationPointsBeCalculated)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1256,8 +1258,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, false)]
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void Calculate_ValidCalculationWithoutCoverageLayer_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
-                                                                                          bool shouldSectionSpecificIllustrationPointsBeCalculated)
+        public void Calculate_ValidCalculationWithoutCoverageLayer_OutputSetOnCalculation(
+            bool shouldProfileSpecificIllustrationPointsBeCalculated,
+            bool shouldSectionSpecificIllustrationPointsBeCalculated)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1309,7 +1312,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1335,6 +1341,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1373,7 +1388,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ProfileSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1400,6 +1418,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1439,7 +1466,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndNoLastErrorPresent_LogsMessagesAndThrowsException(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1466,6 +1496,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1506,7 +1545,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_SectionSpecificCalculationFailedWithExceptionAndLastErrorPresent_LogsMessagesAndThrowsException(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1534,6 +1576,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1575,7 +1626,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButProfileSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputButProfileSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1604,6 +1658,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1635,7 +1698,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputCalculateProfileSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputCalculateProfileSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1664,6 +1730,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1694,7 +1769,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButSectionSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputButSectionSpecificGeneralResultNull_IllustrationPointsNotSetAndLogsMessages(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1723,6 +1801,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1754,7 +1841,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputCalculateSectionSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputCalculateSectionSpecificIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1783,6 +1873,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1813,14 +1912,19 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButProfileSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputButProfileSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
             var profileSpecificCalculator = new TestPipingCalculator
             {
-                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+                IllustrationPointsResult = withCoverageLayer
+                                               ? TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+                                               : TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints()
             };
             var sectionSpecificCalculator = new TestPipingCalculator
             {
@@ -1841,6 +1945,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1877,7 +1990,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ProfileSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ProfileSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1905,6 +2021,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1940,7 +2065,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_ValidInputButSectionSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInputButSectionSpecificIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogsMessage(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1951,7 +2079,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             };
             var sectionSpecificCalculator = new TestPipingCalculator
             {
-                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+                IllustrationPointsResult = withCoverageLayer
+                                               ? TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+                                               : TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints()
             };
 
             var mocks = new MockRepository();
@@ -1968,6 +2098,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2004,7 +2143,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Calculate_SectionSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_SectionSpecificCalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsMessage(
+            bool withCoverageLayer)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -2032,6 +2174,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+            if (!withCoverageLayer)
+            {
+                calculation.InputParameters.StochasticSoilProfile =
+                    new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                    {
+                        new PipingSoilLayer(10)
+                    }, SoilProfileType.SoilProfile1D));
+            }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
