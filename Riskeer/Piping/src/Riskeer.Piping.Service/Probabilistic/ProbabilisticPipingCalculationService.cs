@@ -167,7 +167,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
             try
             {
-                PartialProbabilisticFaultTreePipingOutput profileSpecificOutput = CalculateProfileSpecific(
+                IPartialProbabilisticPipingOutput profileSpecificOutput = CalculateProfileSpecific(
                     calculation, generalInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
@@ -175,7 +175,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                     return;
                 }
 
-                PartialProbabilisticFaultTreePipingOutput sectionSpecificOutput = CalculateSectionSpecific(
+                IPartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(
                     calculation, generalInput, sectionLength, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
                 if (canceled)
@@ -203,8 +203,8 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private PartialProbabilisticFaultTreePipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                                                   string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private IPartialProbabilisticPipingOutput CalculateProfileSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                           string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_ProfileSpecific),
@@ -219,22 +219,39 @@ namespace Riskeer.Piping.Service.Probabilistic
                                calculation.Name,
                                Resources.ProbabilisticPipingCalculationService_ProfileSpecific);
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
-            try
+            LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(calculation.InputParameters);
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> faultTreeGeneralResult = null;
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> subMechanismGeneralResult = null;
+            if (calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated)
             {
-                generalResult = calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated
-                                    ? ConvertIllustrationPointsResult(profileSpecificCalculator.IllustrationPointsResult,
-                                                                      profileSpecificCalculator.IllustrationPointsParserErrorMessage)
-                                    : null;
-            }
-            catch (ArgumentException e)
-            {
-                log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
-                               calculation.Name, Resources.ProbabilisticPipingCalculationService_ProfileSpecific, e.Message);
+                try
+                {
+                    if (double.IsNaN(thicknessCoverageLayer.Mean))
+                    {
+                        subMechanismGeneralResult = ConvertSubMechanismIllustrationPointsResult(
+                            profileSpecificCalculator.IllustrationPointsResult,
+                            profileSpecificCalculator.IllustrationPointsParserErrorMessage);
+                    }
+                    else
+                    {
+                        faultTreeGeneralResult = ConvertFaultTreeIllustrationPointsResult(
+                            profileSpecificCalculator.IllustrationPointsResult,
+                            profileSpecificCalculator.IllustrationPointsParserErrorMessage);
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
+                                   calculation.Name, Resources.ProbabilisticPipingCalculationService_ProfileSpecific, e.Message);
+                }
             }
 
-            return new PartialProbabilisticFaultTreePipingOutput(profileSpecificCalculator.ExceedanceProbabilityBeta,
-                                                                 generalResult);
+            return double.IsNaN(thicknessCoverageLayer.Mean)
+                       ? (IPartialProbabilisticPipingOutput) new PartialProbabilisticSubMechanismPipingOutput(profileSpecificCalculator.ExceedanceProbabilityBeta,
+                                                                                                              subMechanismGeneralResult)
+                       : new PartialProbabilisticFaultTreePipingOutput(profileSpecificCalculator.ExceedanceProbabilityBeta,
+                                                                       faultTreeGeneralResult);
         }
 
         /// <summary>
@@ -247,8 +264,8 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private PartialProbabilisticFaultTreePipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                                                   double sectionLength, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        private IPartialProbabilisticPipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
+                                                                           double sectionLength, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_SectionSpecific),
@@ -264,22 +281,41 @@ namespace Riskeer.Piping.Service.Probabilistic
                                calculation.Name,
                                Resources.ProbabilisticPipingCalculationService_SectionSpecific);
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
-            try
+            LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(calculation.InputParameters);
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> faultTreeGeneralResult = null;
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> subMechanismGeneralResult = null;
+            if (calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated)
             {
-                generalResult = calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated
-                                    ? ConvertIllustrationPointsResult(sectionSpecificCalculator.IllustrationPointsResult,
-                                                                      sectionSpecificCalculator.IllustrationPointsParserErrorMessage)
-                                    : null;
-            }
-            catch (ArgumentException e)
-            {
-                log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
-                               calculation.Name, Resources.ProbabilisticPipingCalculationService_SectionSpecific, e.Message);
+                try
+                {
+                    if (double.IsNaN(thicknessCoverageLayer.Mean))
+                    {
+                        subMechanismGeneralResult = ConvertSubMechanismIllustrationPointsResult(
+                            sectionSpecificCalculator.IllustrationPointsResult,
+                            sectionSpecificCalculator.IllustrationPointsParserErrorMessage);
+                    }
+                    else
+                    {
+                        faultTreeGeneralResult = ConvertFaultTreeIllustrationPointsResult(
+                            sectionSpecificCalculator.IllustrationPointsResult,
+                            sectionSpecificCalculator.IllustrationPointsParserErrorMessage);
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    log.WarnFormat(Resources.ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2,
+                                   calculation.Name, Resources.ProbabilisticPipingCalculationService_SectionSpecific, e.Message);
+                }
             }
 
-            return new PartialProbabilisticFaultTreePipingOutput(sectionSpecificCalculator.ExceedanceProbabilityBeta,
-                                                                 generalResult);
+            return double.IsNaN(thicknessCoverageLayer.Mean)
+                       ? (IPartialProbabilisticPipingOutput) new PartialProbabilisticSubMechanismPipingOutput(
+                           sectionSpecificCalculator.ExceedanceProbabilityBeta,
+                           subMechanismGeneralResult)
+                       : new PartialProbabilisticFaultTreePipingOutput(
+                           sectionSpecificCalculator.ExceedanceProbabilityBeta,
+                           faultTreeGeneralResult);
         }
 
         /// <summary>
@@ -419,7 +455,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             return input;
         }
 
-        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertFaultTreeIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
         {
             if (result == null)
             {
@@ -431,6 +467,28 @@ namespace Riskeer.Piping.Service.Probabilistic
             {
                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
                     GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(result);
+                return generalResult;
+            }
+            catch (IllustrationPointConversionException e)
+            {
+                log.Warn(RiskeerCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
+            }
+
+            return null;
+        }
+
+        private static GeneralResult<TopLevelSubMechanismIllustrationPoint> ConvertSubMechanismIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
+        {
+            if (result == null)
+            {
+                log.Warn(errorMessage);
+                return null;
+            }
+
+            try
+            {
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                    GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(result);
                 return generalResult;
             }
             catch (IllustrationPointConversionException e)

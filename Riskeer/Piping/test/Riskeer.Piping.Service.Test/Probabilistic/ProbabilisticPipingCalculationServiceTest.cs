@@ -1205,8 +1205,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         [TestCase(false, false)]
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void Calculate_CalculationValid_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
-                                                                      bool shouldSectionSpecificIllustrationPointsBeCalculated)
+        public void Calculate_ValidCalculationWithCoverageLayer_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
+                                                                                       bool shouldSectionSpecificIllustrationPointsBeCalculated)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1237,6 +1237,67 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 // Assert
                 IPartialProbabilisticPipingOutput profileSpecificOutput = calculation.Output.ProfileSpecificOutput;
                 IPartialProbabilisticPipingOutput sectionSpecificOutput = calculation.Output.SectionSpecificOutput;
+
+                Assert.IsInstanceOf<PartialProbabilisticFaultTreePipingOutput>(profileSpecificOutput);
+                Assert.IsInstanceOf<PartialProbabilisticFaultTreePipingOutput>(sectionSpecificOutput);
+
+                Assert.IsFalse(double.IsNaN(profileSpecificOutput.Reliability));
+                Assert.IsFalse(double.IsNaN(sectionSpecificOutput.Reliability));
+
+                Assert.AreEqual(shouldProfileSpecificIllustrationPointsBeCalculated, profileSpecificOutput.HasGeneralResult);
+                Assert.AreEqual(shouldSectionSpecificIllustrationPointsBeCalculated, sectionSpecificOutput.HasGeneralResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void Calculate_ValidCalculationWithoutCoverageLayer_OutputSetOnCalculation(bool shouldProfileSpecificIllustrationPointsBeCalculated,
+                                                                                          bool shouldSectionSpecificIllustrationPointsBeCalculated)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestPipingCalculator
+                             {
+                                 IllustrationPointsResult = new TestGeneralResult()
+                             }).Repeat.Twice();
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.StochasticSoilProfile =
+                new PipingStochasticSoilProfile(0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
+                {
+                    new PipingSoilLayer(10)
+                }, SoilProfileType.SoilProfile1D));
+
+            calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+            calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new ProbabilisticPipingCalculationService().Calculate(
+                    calculation, failureMechanism.GeneralInput, CreateCalculationSettings(), 0);
+
+                // Assert
+                IPartialProbabilisticPipingOutput profileSpecificOutput = calculation.Output.ProfileSpecificOutput;
+                IPartialProbabilisticPipingOutput sectionSpecificOutput = calculation.Output.SectionSpecificOutput;
+
+                Assert.IsInstanceOf<PartialProbabilisticSubMechanismPipingOutput>(profileSpecificOutput);
+                Assert.IsInstanceOf<PartialProbabilisticSubMechanismPipingOutput>(sectionSpecificOutput);
+
                 Assert.IsFalse(double.IsNaN(profileSpecificOutput.Reliability));
                 Assert.IsFalse(double.IsNaN(sectionSpecificOutput.Reliability));
 
