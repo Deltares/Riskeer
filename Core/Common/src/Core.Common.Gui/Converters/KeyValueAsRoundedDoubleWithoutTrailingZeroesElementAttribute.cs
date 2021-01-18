@@ -54,21 +54,21 @@ namespace Core.Common.Gui.Converters
 
         public override string GetName(object source)
         {
-            PropertyInfo unitPropertyInfo = GetUnit(source);
-
-            if (unitPropertyInfo == null ||
-                unitPropertyInfo.GetValue(source, new object[0]) == null)
-            {
-                return base.GetName(source);
-            }
-
             PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
             if (namePropertyInfo == null)
             {
                 throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
-            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unitPropertyInfo.GetValue(source, new object[0]))}]";
+            PropertyInfo unitPropertyInfo = GetUnit(source);
+
+            object propertyInfoObject = unitPropertyInfo.GetValue(source, new object[0]);
+            if (propertyInfoObject == null)
+            {
+                return base.GetName(source);
+            }
+
+            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(propertyInfoObject)}]";
         }
 
         /// <summary>
