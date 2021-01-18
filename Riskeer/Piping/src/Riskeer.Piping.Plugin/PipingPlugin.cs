@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingProfileSpecificOutputView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
+                GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => !context.WrappedData.HasOutput || context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
@@ -333,7 +333,7 @@ namespace Riskeer.Piping.Plugin
                 {
                     return new ProbabilisticSubMechanismPipingProfileSpecificOutputView(
                         context.WrappedData,
-                        () => ((PartialProbabilisticSubMechanismPipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult);
+                        () => ((PartialProbabilisticSubMechanismPipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult);
                 }
             };
 
