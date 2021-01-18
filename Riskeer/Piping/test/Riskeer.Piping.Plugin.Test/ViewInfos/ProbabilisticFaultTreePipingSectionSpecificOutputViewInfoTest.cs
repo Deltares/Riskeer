@@ -25,8 +25,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -46,7 +44,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class ProbabilisticPipingProfileSpecificOutputViewInfoTest
+    public class ProbabilisticFaultTreePipingSectionSpecificOutputViewInfoTest
     {
         private PipingPlugin plugin;
         private ViewInfo info;
@@ -55,7 +53,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingSectionSpecificOutputView));
         }
 
         [TearDown]
@@ -68,7 +66,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilisticPipingProfileSpecificOutputContext), info.DataType);
+            Assert.AreEqual(typeof(ProbabilisticPipingSectionSpecificOutputContext), info.DataType);
             Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
         }
@@ -77,20 +75,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(calculationScenario);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -100,44 +92,38 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Sterkte berekening doorsnede", viewName);
+            Assert.AreEqual("Sterkte berekening vak", viewName);
         }
 
         [Test]
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputView>(view);
-
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingSectionSpecificOutputView>(view);
         }
 
         [TestFixture]
-        public class ProbabilisticPipingProfileSpecificOutputViewTester : ShouldCloseViewWithCalculationDataTester
+        public class ProbabilisticPipingSectionSpecificOutputViewTester : ShouldCloseViewWithCalculationDataTester
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new PipingPlugin())
                 {
                     return plugin.GetViewInfos()
-                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView))
+                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingSectionSpecificOutputView))
                                  .CloseForData(view, o);
                 }
             }
 
             protected override IView GetView(ICalculation data)
             {
-                return new ProbabilisticFaultTreePipingProfileSpecificOutputView(
+                return new ProbabilisticFaultTreePipingSectionSpecificOutputView(
                     (ProbabilisticPipingCalculationScenario) data,
                     () => new TestGeneralResultFaultTreeIllustrationPoint());
             }
