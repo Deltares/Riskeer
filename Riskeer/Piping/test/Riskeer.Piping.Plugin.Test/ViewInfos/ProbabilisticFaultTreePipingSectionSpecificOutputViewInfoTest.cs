@@ -34,6 +34,7 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
@@ -93,6 +94,58 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Sterkte berekening vak", viewName);
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(
+                new ProbabilisticPipingCalculationScenario());
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutFaultTreeOutput_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+            
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithFaultTreeOutput_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
+            };
+            
+            var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsTrue(additionalDataCheck);
         }
 
         [Test]

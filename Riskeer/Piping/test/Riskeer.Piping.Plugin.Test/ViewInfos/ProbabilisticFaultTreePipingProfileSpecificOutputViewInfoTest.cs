@@ -36,6 +36,7 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
@@ -89,7 +90,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
-
             mocks.VerifyAll();
         }
 
@@ -101,6 +101,75 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Sterkte berekening doorsnede", viewName);
+        }
+        
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(
+                new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutFaultTreeOutput_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+            
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(
+                calculation, new PipingFailureMechanism(), assessmentSection);
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithFaultTreeOutput_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
+            };
+            
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(
+                calculation, new PipingFailureMechanism(), assessmentSection);
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsTrue(additionalDataCheck);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -118,7 +187,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputView>(view);
-
             mocks.VerifyAll();
         }
 
