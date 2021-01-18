@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -103,7 +102,7 @@ namespace Riskeer.Storage.Core.TestUtil.IllustrationPoints
 
             Assert.IsNotNull(generalResultEntity);
             WindDirection governingWindDirection = generalResult.GoverningWindDirection;
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, generalResultEntity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Name, generalResultEntity.GoverningWindDirectionName);
             Assert.AreEqual(governingWindDirection.Angle, generalResultEntity.GoverningWindDirectionAngle,
                             governingWindDirection.Angle.GetAccuracy());
 

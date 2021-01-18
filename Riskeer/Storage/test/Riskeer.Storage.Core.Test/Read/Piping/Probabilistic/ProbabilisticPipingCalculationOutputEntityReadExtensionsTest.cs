@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnProbabilisticPipingOutput()
+        public void Read_EntityWithFaultTreeIllustrationPoints_ReturnProbabilisticPipingOutput()
         {
             // Setup
             var random = new Random(21);
@@ -63,20 +63,66 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
                 ProfileSpecificReliability = random.NextDouble(),
                 SectionSpecificReliability = random.NextDouble(),
                 GeneralResultFaultTreeIllustrationPointEntity = profileSpecificGeneralResultEntity,
-                GeneralResultFaultTreeIllustrationPointEntity1 = sectionSpecificGeneralResultEntity
+                GeneralResultFaultTreeIllustrationPointEntity1 = sectionSpecificGeneralResultEntity,
+                GeneralResultSubMechanismIllustrationPointEntity = null,
+                GeneralResultSubMechanismIllustrationPointEntity1 = null
             };
 
             // Call
             ProbabilisticPipingOutput output = entity.Read();
 
             // Assert
+            var profileSpecificOutput = (PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput;
+            var sectionSpecificOutput = (PartialProbabilisticFaultTreePipingOutput) output.SectionSpecificOutput;
+            
             Assert.AreEqual(entity.ProfileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
 
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
-                ((PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput).GeneralResult, profileSpecificGeneralResultEntity);
+                profileSpecificOutput.GeneralResult, profileSpecificGeneralResultEntity);
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
-                ((PartialProbabilisticFaultTreePipingOutput) output.SectionSpecificOutput).GeneralResult, sectionSpecificGeneralResultEntity);
+                sectionSpecificOutput.GeneralResult, sectionSpecificGeneralResultEntity);
+        }
+        [Test]
+        public void Read_EntityWithSubMechanismIllustrationPoints_ReturnProbabilisticPipingOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var profileSpecificGeneralResultEntity = new GeneralResultSubMechanismIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+            var sectionSpecificGeneralResultEntity = new GeneralResultSubMechanismIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSW",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+
+            var entity = new ProbabilisticPipingCalculationOutputEntity
+            {
+                ProfileSpecificReliability = random.NextDouble(),
+                SectionSpecificReliability = random.NextDouble(),
+                GeneralResultFaultTreeIllustrationPointEntity = null,
+                GeneralResultFaultTreeIllustrationPointEntity1 = null,
+                GeneralResultSubMechanismIllustrationPointEntity = profileSpecificGeneralResultEntity,
+                GeneralResultSubMechanismIllustrationPointEntity1 = sectionSpecificGeneralResultEntity
+            };
+
+            // Call
+            ProbabilisticPipingOutput output = entity.Read();
+
+            // Assert
+            var profileSpecificOutput = (PartialProbabilisticSubMechanismPipingOutput) output.ProfileSpecificOutput;
+            var sectionSpecificOutput = (PartialProbabilisticSubMechanismPipingOutput) output.SectionSpecificOutput;
+            
+            Assert.AreEqual(entity.ProfileSpecificReliability, output.ProfileSpecificOutput.Reliability);
+            Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
+
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
+                profileSpecificOutput.GeneralResult, profileSpecificGeneralResultEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
+                sectionSpecificOutput.GeneralResult, sectionSpecificGeneralResultEntity);
         }
 
         [Test]
@@ -88,7 +134,9 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
                 ProfileSpecificReliability = null,
                 SectionSpecificReliability = null,
                 GeneralResultFaultTreeIllustrationPointEntity = null,
-                GeneralResultFaultTreeIllustrationPointEntity1 = null
+                GeneralResultFaultTreeIllustrationPointEntity1 = null,
+                GeneralResultSubMechanismIllustrationPointEntity = null,
+                GeneralResultSubMechanismIllustrationPointEntity1 = null
             };
 
             // Call

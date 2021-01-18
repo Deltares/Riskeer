@@ -48,12 +48,26 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
                 throw new ArgumentNullException(nameof(entity));
             }
 
+            double sectionSpecificReliability = entity.SectionSpecificReliability.ToNullAsNaN();
+            double profileSpecificReliability = entity.ProfileSpecificReliability.ToNullAsNaN();
+
+            if (entity.GeneralResultSubMechanismIllustrationPointEntity != null || entity.GeneralResultSubMechanismIllustrationPointEntity1 != null)
+            {
+                return new ProbabilisticPipingOutput(
+                    new PartialProbabilisticSubMechanismPipingOutput(
+                        sectionSpecificReliability,
+                        entity.GeneralResultSubMechanismIllustrationPointEntity1?.Read()),
+                    new PartialProbabilisticSubMechanismPipingOutput(
+                        profileSpecificReliability,
+                        entity.GeneralResultSubMechanismIllustrationPointEntity?.Read()));
+            }
+
             return new ProbabilisticPipingOutput(
                 new PartialProbabilisticFaultTreePipingOutput(
-                    entity.SectionSpecificReliability.ToNullAsNaN(),
+                    sectionSpecificReliability,
                     entity.GeneralResultFaultTreeIllustrationPointEntity1?.Read()),
                 new PartialProbabilisticFaultTreePipingOutput(
-                    entity.ProfileSpecificReliability.ToNullAsNaN(),
+                    profileSpecificReliability,
                     entity.GeneralResultFaultTreeIllustrationPointEntity?.Read()));
         }
     }
