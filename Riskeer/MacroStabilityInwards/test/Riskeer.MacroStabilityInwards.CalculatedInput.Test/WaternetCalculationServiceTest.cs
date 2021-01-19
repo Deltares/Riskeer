@@ -59,6 +59,20 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
+        
+        [Test]
+        public void ValidateExtreme_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            
+            // Call
+            void Call() => WaternetCalculationService.ValidateExtreme(input, null, RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
 
         [Test]
         public void ValidateExtreme_WithInput_SetsInputOnCalculator()
@@ -142,6 +156,20 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
+        
+        [Test]
+        public void ValidatDaily_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            
+            // Call
+            void Call() => WaternetCalculationService.ValidateDaily(input, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
 
         [Test]
         public void ValidateDaily_WithInput_SetsInputOnCalculator()
@@ -224,6 +252,20 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
+        
+        [Test]
+        public void CalculateExtreme_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            
+            // Call
+            void Call() => WaternetCalculationService.CalculateExtreme(input, null,RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
 
         [Test]
         public void CalculateExtreme_WithInput_SetsInputOnCalculator()
@@ -289,6 +331,20 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
+        }
+        
+        [Test]
+        public void CalculateDaily_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            
+            // Call
+            void Call() => WaternetCalculationService.CalculateDaily(input, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]

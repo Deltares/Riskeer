@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="data">The data of the properties.</param>
         /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble assessmentLevel)
         {
             if (data == null)

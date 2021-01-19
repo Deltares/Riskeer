@@ -44,11 +44,10 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
-        /// <param name="generalInput">The general input to get the values from.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>The validation issues found, if any.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="WaternetCalculationException">Thrown when an error occurs
         /// during the validation.</exception>
         public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateExtreme(IMacroStabilityInwardsWaternetInput input,
@@ -58,6 +57,11 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
@@ -80,10 +84,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
-        /// <param name="generalInput">The general input to get the values from.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <returns>The validation issues found, if any.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="WaternetCalculationException">Thrown when an error occurs
         /// during the validation.</exception>
         public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateDaily(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
@@ -91,6 +94,11 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
@@ -113,12 +121,12 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
         /// or an empty <see cref="MacroStabilityInwardsWaternet"/> when the Waternet
         /// could not be calculated.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input,
                                                                      IGeneralMacroStabilityInwardsWaternetInput generalInput,
                                                                      RoundedDouble assessmentLevel)
@@ -126,6 +134,11 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
@@ -150,16 +163,21 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
         /// or an empty <see cref="MacroStabilityInwardsWaternet"/> when the Waternet
         /// could not be calculated.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet CalculateDaily(IMacroStabilityInwardsWaternetInput input, IGeneralMacroStabilityInwardsWaternetInput generalInput)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance

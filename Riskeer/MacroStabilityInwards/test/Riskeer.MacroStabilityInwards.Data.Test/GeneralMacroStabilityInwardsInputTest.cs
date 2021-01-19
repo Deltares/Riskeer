@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {
@@ -33,6 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var inputParameters = new GeneralMacroStabilityInwardsInput();
 
             // Assert
+            Assert.IsInstanceOf<IGeneralMacroStabilityInwardsWaternetInput>(inputParameters);
             Assert.AreEqual(1.06, inputParameters.ModelFactor);
             Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight);
         }

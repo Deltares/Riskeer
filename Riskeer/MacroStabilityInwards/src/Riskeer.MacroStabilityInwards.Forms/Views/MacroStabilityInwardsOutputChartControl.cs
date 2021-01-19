@@ -103,6 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
         /// </summary>
         /// <param name="data">The calculation to show the output for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputChartControl(MacroStabilityInwardsCalculationScenario data,
@@ -112,6 +113,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+            
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (getNormativeAssessmentLevelFunc == null)
