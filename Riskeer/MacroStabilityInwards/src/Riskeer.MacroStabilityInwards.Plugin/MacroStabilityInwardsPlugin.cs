@@ -692,7 +692,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.WrappedData.GeneralInput, context.Parent));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion

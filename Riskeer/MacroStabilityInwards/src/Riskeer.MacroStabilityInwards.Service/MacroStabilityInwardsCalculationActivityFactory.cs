@@ -41,12 +41,10 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing the calculations to create
         /// activities for.</param>
-        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                                    GeneralMacroStabilityInwardsInput generalInput,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -54,17 +52,12 @@ namespace Riskeer.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (generalInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalInput));
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, generalInput, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism.GeneralInput, assessmentSection);
         }
 
         /// <summary>
@@ -98,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             return calculationGroup.GetCalculations()
                                    .Cast<MacroStabilityInwardsCalculation>()
-                                   .Select(calc => CreateCalculationActivity(calc,generalInput, assessmentSection))
+                                   .Select(calc => CreateCalculationActivity(calc, generalInput, assessmentSection))
                                    .ToArray();
         }
 
