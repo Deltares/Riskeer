@@ -259,6 +259,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 if (fileContent1 != fileContent2)
                 {
                     Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                    ValidateFileContentLineByLine(fileContent1, fileContent2);
                     return;
                 }
 
@@ -270,6 +271,40 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
         }
 
+        
+        /// <summary>
+        /// Checks line by line if strings are identical.
+        /// Line separator is "\r\n"
+        /// </summary>
+        /// <param name="fileContent1">The string with the content of file 1 using \r\n as line separator.</param>
+        /// <param name="fileContent2">The string with the content of file 2 using \r\n as line separator.</param>
+        [UserCodeMethod]
+        public static void ValidateFileContentLineByLine(string fileContent1, string fileContent2)
+        {
+            string[] stringSeparators = new string[] { "\r\n" };
+            string[] lines1 = fileContent1.Split(stringSeparators, StringSplitOptions.None);
+            string[] lines2 = fileContent2.Split(stringSeparators, StringSplitOptions.None);
+            Report.Info("Number of lines in file 1: " + lines1.Length);
+            Report.Info("Number of lines in file 2: " + lines2.Length);
+            if (lines1.Length!=lines2.Length) {
+                Report.Error("Files have different length. They will be compared line by line until the length of the smallest one.");
+            }
+            var minLength = Math.Min(lines1.Length, lines2.Length);
+            bool differencesHaveBeenFound = false;
+            string differencesThatHaveBeenFound = "";
+            for (int i = 0; i < minLength; i++) {
+                if (lines1[i]!=lines2[i]) {
+                    differencesThatHaveBeenFound += lines1[i] + "\r\n" + lines2[i] + "\r\n \r\n";
+                    differencesHaveBeenFound = true;
+                }
+            }
+            if (differencesHaveBeenFound) {
+                Report.Error("The differences below have been found between both files.");
+                Report.Info(differencesThatHaveBeenFound);
+            }
+        }
+
+        
         /// <summary>
         /// Checks if file contains text specified.
         /// </summary>
