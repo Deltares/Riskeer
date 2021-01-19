@@ -61,7 +61,7 @@ namespace Core.Components.GraphSharp.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle faalkansen kleiner dan 1/100.000 zijn afgerond weergegeven in wetenschappelijke notatie. Kijk in het eigenschappenpaneel door op de node te klikken voor het volledige getal..
+        ///   Looks up a localized string similar to Alle faalkansen kleiner dan 1/100000 zijn afgerond weergegeven in wetenschappelijke notatie. Door een node te selecteren, wordt het bijhorende volledige getal in het eigenschappenpaneel weergegeven..
         /// </summary>
         public static string Value_In_Scientific_Notation {
             get {

@@ -160,6 +160,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         [TestCase(0.000012, "1/83.332")]
         [TestCase(0.00000123, "1,22998E-6")]
         [TestCase(0.0000099, "9,90019E-6")]
+        [TestCase(0, "1/Oneindig")]
         public void CreateGraphNode_FaultTreeIllustrationPointNodeDataWithChildren_ReturnsExpectedGraphNodeContent(double probability, string expectedProbability)
         {
             // Setup
