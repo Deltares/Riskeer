@@ -260,7 +260,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
             
             // Call
-            void Call() => WaternetCalculationService.CalculateExtreme(input, null,RoundedDouble.NaN);
+            void Call() => WaternetCalculationService.CalculateExtreme(input, null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

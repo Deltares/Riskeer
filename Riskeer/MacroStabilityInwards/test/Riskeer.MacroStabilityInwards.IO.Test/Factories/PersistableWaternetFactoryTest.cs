@@ -39,7 +39,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_DailyWaternetNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]), new GeneralMacroStabilityInwardsInput(), new IdFactory(), new MacroStabilityInwardsExportRegistry());
+            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                             new MacroStabilityInwardsWaternetLine[0]), new GeneralMacroStabilityInwardsInput(),
+                                                             new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -85,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
-        
+
         [Test]
         public void Create_GeneralInputNull_ThrowsArgumentNullException()
         {

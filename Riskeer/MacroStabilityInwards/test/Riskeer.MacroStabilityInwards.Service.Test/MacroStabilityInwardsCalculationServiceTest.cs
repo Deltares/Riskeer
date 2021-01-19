@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
-        
+
         [Test]
         public void Validate_GeneralInputNull_ThrowArgumentNullException()
         {
@@ -80,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, new GeneralMacroStabilityInwardsInput(),AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -389,22 +389,18 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsCalculationService.Calculate(null,
-                                                                             new GeneralMacroStabilityInwardsInput(),
-                                                                             RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Calculate(null, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
-        
+
         [Test]
         public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                             null,
-                                                                             RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation, null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
