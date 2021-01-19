@@ -61,6 +61,17 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
+        
+        [Test]
+        public void Validate_GeneralInputNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, null, RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
 
         [Test]
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
@@ -385,6 +396,19 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
+        }
+        
+        [Test]
+        public void Calculate_GeneralInputNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                             null,
+                                                                             RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]

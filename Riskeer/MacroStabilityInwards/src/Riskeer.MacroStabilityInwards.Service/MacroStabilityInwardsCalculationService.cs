@@ -57,12 +57,17 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static bool Validate(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             CalculationServiceHelper.LogValidationBegin();
@@ -130,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
         /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="UpliftVanCalculatorException">Thrown when an error (both expected or unexpected) occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(MacroStabilityInwardsCalculation calculation, GeneralMacroStabilityInwardsInput generalInput, RoundedDouble normativeAssessmentLevel)
@@ -138,6 +143,11 @@ namespace Riskeer.MacroStabilityInwards.Service
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             UpliftVanCalculatorResult macroStabilityInwardsResult;
