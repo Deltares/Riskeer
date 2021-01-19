@@ -41,6 +41,17 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
     public class MacroStabilityInwardsCalculationActivityTest
     {
         [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationActivity(new MacroStabilityInwardsCalculation(), null, RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+        }
+        
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

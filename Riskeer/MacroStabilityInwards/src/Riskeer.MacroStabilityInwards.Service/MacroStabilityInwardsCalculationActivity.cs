@@ -42,12 +42,17 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <param name="calculation">The macro stability inwards calculation to perform.</param>
         /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation,
                                                         GeneralMacroStabilityInwardsInput generalInput,
                                                         RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+            
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
             this.generalInput = generalInput;

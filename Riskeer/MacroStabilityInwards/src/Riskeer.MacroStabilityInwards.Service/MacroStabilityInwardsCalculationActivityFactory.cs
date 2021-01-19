@@ -41,6 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing the calculations to create
         /// activities for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -51,6 +52,11 @@ namespace Riskeer.MacroStabilityInwards.Service
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (assessmentSection == null)
@@ -66,6 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to create activities for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
         /// belong to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
@@ -77,6 +84,11 @@ namespace Riskeer.MacroStabilityInwards.Service
             if (calculationGroup == null)
             {
                 throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (assessmentSection == null)
@@ -94,6 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create an activity for.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/>
         /// belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
@@ -105,6 +118,11 @@ namespace Riskeer.MacroStabilityInwards.Service
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             if (assessmentSection == null)

@@ -52,11 +52,30 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void CreateCalculationActivity_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+            
+            // Call
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -67,10 +86,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, new GeneralMacroStabilityInwardsInput(), null);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -115,11 +134,28 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((CalculationGroup) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((CalculationGroup) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -127,10 +163,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), null);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -195,10 +231,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((MacroStabilityInwardsFailureMechanism) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities((MacroStabilityInwardsFailureMechanism) null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -207,10 +243,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new MacroStabilityInwardsFailureMechanism(), new GeneralMacroStabilityInwardsInput(), null);
+            void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new MacroStabilityInwardsFailureMechanism(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
