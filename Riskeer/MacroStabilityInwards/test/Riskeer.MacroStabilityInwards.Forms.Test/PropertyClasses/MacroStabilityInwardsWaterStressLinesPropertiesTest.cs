@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
         
         [Test]
-        public void Constructor_generalInputNull_ThrowsArgumentNullException()
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());

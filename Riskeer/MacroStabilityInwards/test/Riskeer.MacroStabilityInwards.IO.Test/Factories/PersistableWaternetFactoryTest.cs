@@ -39,8 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_DailyWaternetNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]),
-                                                             new IdFactory(), new MacroStabilityInwardsExportRegistry(), new GeneralMacroStabilityInwardsInput());
+            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]), new GeneralMacroStabilityInwardsInput(), new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Call
             void Call() => PersistableWaternetFactory.Create(new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]),
-                                                             null, new IdFactory(), new MacroStabilityInwardsExportRegistry(), new GeneralMacroStabilityInwardsInput());
+                                                             null, new GeneralMacroStabilityInwardsInput(), new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -66,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var waternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
 
             // Call
-            void Call() => PersistableWaternetFactory.Create(waternet, waternet, null, new MacroStabilityInwardsExportRegistry(), new GeneralMacroStabilityInwardsInput());
+            void Call() => PersistableWaternetFactory.Create(waternet, waternet, new GeneralMacroStabilityInwardsInput(), null, new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -80,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var waternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
 
             // Call
-            void Call() => PersistableWaternetFactory.Create(waternet, waternet, new IdFactory(), null, new GeneralMacroStabilityInwardsInput());
+            void Call() => PersistableWaternetFactory.Create(waternet, waternet, new GeneralMacroStabilityInwardsInput(), new IdFactory(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -94,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var waternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
 
             // Call
-            void Call() => PersistableWaternetFactory.Create(waternet, waternet, new IdFactory(), new MacroStabilityInwardsExportRegistry(), null);
+            void Call() => PersistableWaternetFactory.Create(waternet, waternet, null, new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -130,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            IEnumerable<PersistableWaternet> persistableWaternets = PersistableWaternetFactory.Create(dailyWaternet, extremeWaternet, idFactory, registry, new GeneralMacroStabilityInwardsInput());
+            IEnumerable<PersistableWaternet> persistableWaternets = PersistableWaternetFactory.Create(dailyWaternet, extremeWaternet, new GeneralMacroStabilityInwardsInput(), idFactory, registry);
 
             // Assert
             PersistableDataModelTestHelper.AssertWaternets(new[]

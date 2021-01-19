@@ -41,8 +41,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// for obtaining the normative assessment level.</param>
         /// <param name="filePath">The filePath that is used.</param>
         /// <returns>A created <see cref="PersistableDataModel"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, 
+        /// <paramref name="generalInput"/> or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculation"/>
         /// has no output.</exception>
         public static PersistableDataModel Create(MacroStabilityInwardsCalculation calculation,
@@ -84,9 +84,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Waternets = PersistableWaternetFactory.Create(
-                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput),
-                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
-                    idFactory, registry, generalInput),
+                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input, generalInput), DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, generalInput, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)), generalInput, idFactory, registry),
                 WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
                 States = PersistableStateFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)

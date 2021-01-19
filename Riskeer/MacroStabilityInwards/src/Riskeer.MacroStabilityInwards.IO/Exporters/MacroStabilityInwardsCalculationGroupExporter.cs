@@ -61,8 +61,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <param name="fileExtension">The extension of the files.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{T1,TResult}"/>
         /// for obtaining the normative assessment level.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/>, <paramref name="persistenceFactory"/>
-        /// or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/>, <paramref name="generalInput"/>,
+        /// <paramref name="persistenceFactory"/>, or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
         /// <remarks>A valid path:<list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
@@ -70,7 +70,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not contain an invalid character,</item>
         /// <item>is not too long.</item>
         /// </list></remarks>
-        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput, IPersistenceFactory persistenceFactory, string folderPath,
+        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput,
+                                                             IPersistenceFactory persistenceFactory, string folderPath,
                                                              string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculationGroup == null)

@@ -40,15 +40,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// </summary>
         /// <param name="dailyWaternet">The daily Waternet to use.</param>
         /// <param name="extremeWaternet">The extreme Waternet to use.</param>
+        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
-        /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
         /// <returns>A collection of <see cref="PersistableWaternet"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<PersistableWaternet> Create(MacroStabilityInwardsWaternet dailyWaternet,
                                                               MacroStabilityInwardsWaternet extremeWaternet,
-                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry,
-                                                              GeneralMacroStabilityInwardsInput generalInput)
+                                                              GeneralMacroStabilityInwardsInput generalInput,
+                                                              IdFactory idFactory,
+                                                              MacroStabilityInwardsExportRegistry registry)
         {
             if (dailyWaternet == null)
             {
@@ -79,13 +80,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new[]
             {
-                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry, generalInput),
-                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry, generalInput)
+                Create(dailyWaternet, generalInput, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                Create(extremeWaternet, generalInput, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
             };
         }
 
-        private static PersistableWaternet Create(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsExportStageType stageType,
-                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry, GeneralMacroStabilityInwardsInput generalInput)
+        private static PersistableWaternet Create(MacroStabilityInwardsWaternet waternet, GeneralMacroStabilityInwardsInput generalInput, MacroStabilityInwardsExportStageType stageType,
+                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             var persistableWaternet = new PersistableWaternet
             {

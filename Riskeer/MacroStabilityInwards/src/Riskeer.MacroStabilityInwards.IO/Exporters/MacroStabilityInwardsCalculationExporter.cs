@@ -63,7 +63,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
         /// for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>,
-        /// <paramref name="persistenceFactory"/> or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
+        /// <paramref name="generalInput"/>, <paramref name="persistenceFactory"/> or
+        /// <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
