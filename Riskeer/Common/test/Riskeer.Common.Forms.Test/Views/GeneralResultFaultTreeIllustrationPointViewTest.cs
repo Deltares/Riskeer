@@ -99,8 +99,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => null);
+            ShowTestView(view);
 
             // Assert
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+            
             IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
             Assert.IsNull(illustrationPointsFaultTreeControl.Data);
 

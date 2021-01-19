@@ -101,6 +101,24 @@ namespace Riskeer.Common.Forms.Test.Views
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
             mocks.VerifyAll();
         }
+        
+        [Test]
+        public void Constructor_GeneralResultWithoutIllustrationPoints_DataSetOnIllustrationPointControl()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            mocks.ReplayAll();
+
+            // Call
+            var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => null);
+            ShowTestView(view);
+
+            // Assert
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedAndPropagatedAccordingly()
