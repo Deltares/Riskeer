@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Views
         protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
 
         /// <summary>
-        /// Updates specific illustration point controls
+        /// Updates specific illustration point controls.
         /// </summary>
         protected abstract void UpdateSpecificIllustrationPointsControl();
 
