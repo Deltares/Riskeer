@@ -379,7 +379,6 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <summary>
         /// Gets or sets the drain coefficient.
         /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
         public LogNormalDistribution DrainCoefficient
         {
             get
@@ -389,6 +388,7 @@ namespace Riskeer.StabilityPointStructures.Data
             set
             {
                 drainCoefficient.Mean = value.Mean;
+                drainCoefficient.StandardDeviation = value.StandardDeviation;
             }
         }
 

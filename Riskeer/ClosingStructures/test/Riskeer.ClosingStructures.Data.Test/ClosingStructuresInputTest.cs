@@ -418,15 +418,16 @@ namespace Riskeer.ClosingStructures.Data.Test
             var random = new Random(22);
             var input = new ClosingStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
+            RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, 1.0);
             var expectedDistribution = new LogNormalDistribution(2)
             {
                 Mean = mean,
-                StandardDeviation = input.DrainCoefficient.StandardDeviation
+                StandardDeviation = standardDeviation
             };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
-                StandardDeviation = random.NextRoundedDouble()
+                StandardDeviation = standardDeviation
             };
 
             // Call
@@ -488,8 +489,13 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new ClosingStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
+            RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, 1.0);
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -500,11 +506,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             input.AreaFlowApertures = distributionToSet;
 
             // Assert
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 
