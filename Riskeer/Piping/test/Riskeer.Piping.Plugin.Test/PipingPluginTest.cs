@@ -36,9 +36,15 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 
@@ -69,7 +75,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, propertyInfos.Length);
+                Assert.AreEqual(12, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -78,13 +84,18 @@ namespace Riskeer.Piping.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingInputContext),
-                    typeof(PipingInputContextProperties));
+                    typeof(SemiProbabilisticPipingInputContext),
+                    typeof(SemiProbabilisticPipingInputContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingOutputContext),
-                    typeof(PipingOutputProperties));
+                    typeof(ProbabilisticPipingInputContext),
+                    typeof(ProbabilisticPipingInputContextProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(SemiProbabilisticPipingOutputContext),
+                    typeof(SemiProbabilisticPipingOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -115,6 +126,16 @@ namespace Riskeer.Piping.Plugin.Test
                     propertyInfos,
                     typeof(PipingFailureMechanismSectionsContext),
                     typeof(FailureMechanismSectionsProbabilityAssessmentProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ProbabilisticPipingProfileSpecificOutputContext),
+                    typeof(ProbabilisticPipingProfileSpecificOutputProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ProbabilisticPipingSectionSpecificOutputContext),
+                    typeof(ProbabilisticPipingSectionSpecificOutputProperties));
             }
         }
 
@@ -128,20 +149,26 @@ namespace Riskeer.Piping.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(13, treeNodeInfos.Length);
+                Assert.AreEqual(19, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilProfile)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationScenarioContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingOutputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingScenariosContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptySemiProbabilisticPipingOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingCalculationScenarioContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingInputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingOutputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingSectionSpecificOutputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingProfileSpecificOutputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismSectionsContext)));
             }
         }
 
@@ -155,7 +182,7 @@ namespace Riskeer.Piping.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, viewInfos.Length);
+                Assert.AreEqual(11, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -176,8 +203,14 @@ namespace Riskeer.Piping.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(PipingInputContext),
-                    typeof(PipingCalculationScenario),
+                    typeof(SemiProbabilisticPipingInputContext),
+                    typeof(SemiProbabilisticPipingCalculationScenario),
+                    typeof(PipingInputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingInputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
                     typeof(PipingInputView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -191,6 +224,30 @@ namespace Riskeer.Piping.Plugin.Test
                     typeof(PipingFailureMechanismSectionsContext),
                     typeof(IEnumerable<FailureMechanismSection>),
                     typeof(FailureMechanismSectionsProbabilityAssessmentView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingProfileSpecificOutputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
+                    typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingProfileSpecificOutputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
+                    typeof(ProbabilisticSubMechanismPipingProfileSpecificOutputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingSectionSpecificOutputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
+                    typeof(ProbabilisticFaultTreePipingSectionSpecificOutputView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingSectionSpecificOutputContext),
+                    typeof(ProbabilisticPipingCalculationScenario),
+                    typeof(ProbabilisticSubMechanismPipingSectionSpecificOutputView));
             }
         }
 
@@ -198,7 +255,16 @@ namespace Riskeer.Piping.Plugin.Test
         public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
-            using (var plugin = new PipingPlugin())
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
@@ -209,6 +275,8 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingFailureMechanismSectionsContext)));
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -247,9 +315,10 @@ namespace Riskeer.Piping.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, exportInfos.Length);
+                Assert.AreEqual(3, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationScenarioContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(SemiProbabilisticPipingCalculationScenarioContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ProbabilisticPipingCalculationScenarioContext)));
             }
 
             mocks.VerifyAll();

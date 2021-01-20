@@ -487,10 +487,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
-                                           .WhenCalled(invocation =>
-                                           {
-                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]);
-                                           });
+                                           .WhenCalled(invocation => { Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]); });
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -539,10 +536,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
-                                           .WhenCalled(invocation =>
-                                           {
-                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]);
-                                           });
+                                           .WhenCalled(invocation => { Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]); });
             mocks.ReplayAll();
 
             const string hydraulicBoundaryDatabaseFilePath = "some/file/path";

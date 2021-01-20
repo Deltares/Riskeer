@@ -86,5 +86,10 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         {
             return new StructuresCalculator<TCalculationInput>(calculationSettings);
         }
+        
+        public IPipingCalculator CreatePipingCalculator(HydraRingCalculationSettings calculationSettings)
+        {
+            return new PipingCalculator(calculationSettings);
+        }
     }
 }

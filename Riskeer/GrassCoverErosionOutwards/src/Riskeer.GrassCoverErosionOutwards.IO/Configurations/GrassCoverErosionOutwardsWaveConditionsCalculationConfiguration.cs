@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the grass cover erosion outwards related wave conditions calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(string name)
             : base(name) {}

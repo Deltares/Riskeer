@@ -101,7 +101,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                 TestDataPath.Riskeer.MacroStabilityInwards.IO,
                 Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationExporter), $"{expectedFileName}.xml"));
 
-            // Call and Assert
+            // Call & Assert
             WriteAndValidate(new[]
             {
                 calculation

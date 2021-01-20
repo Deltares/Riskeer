@@ -28,6 +28,7 @@ using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -79,7 +80,7 @@ namespace Riskeer.Piping.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<PipingCalculationScenario>()
+                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
                                                    .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
@@ -102,7 +103,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             return new PipingFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
                 new PipingFailureMechanismSectionResultRow.ConstructionProperties

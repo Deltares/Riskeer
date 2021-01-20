@@ -190,8 +190,11 @@ namespace Core.Common.Gui.PropertyBag
                 }
                 catch (Exception e)
                 {
-                    if (e is TargetInvocationException || e is ArgumentException ||
-                        e is TypeLoadException || e is FileLoadException || e is BadImageFormatException)
+                    if (e is TargetInvocationException
+                        || e is ArgumentException
+                        || e is TypeLoadException
+                        || e is FileLoadException
+                        || e is BadImageFormatException)
                     {
                         log.DebugFormat("Unable to find TypeConverter of type '{0}", typeConverterAttribute.ConverterTypeName);
                     }

@@ -38,20 +38,20 @@ namespace Riskeer.Common.Service.Test
         public void AssignSettingsFromDatabase_FileWithInvalidCharacters_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">", false);
+            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">", false);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
         public void AssignSettingsFromDatabase_FileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
         {
             // Call
-            TestDelegate test = () => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite", false);
+            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite", false);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            Assert.Throws<CriticalFileReadException>(Call);
         }
 
         [Test]
@@ -78,36 +78,14 @@ namespace Riskeer.Common.Service.Test
     {
         public TestHydraRingCalculationInput() : base(2) {}
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.AssessmentLevel;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.AssessmentLevel;
 
-        public override int CalculationTypeId
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public override int CalculationTypeId => 1;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 2;
-            }
-        }
+        public override int VariableId => 2;
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return null;
-            }
-        }
+        public override int FaultTreeModelId => 3;
+
+        public override HydraRingSection Section => null;
     }
 }

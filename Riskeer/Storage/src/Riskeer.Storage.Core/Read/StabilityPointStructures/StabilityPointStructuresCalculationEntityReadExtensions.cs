@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
             {
                 Name = entity.Name,
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble)entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Comments =
                 {
                     Body = entity.Comments
@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
         private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation,
                                        StabilityPointStructuresCalculationEntity entity)
         {
-            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.SingleOrDefault();
             if (outputEntity == null)
             {
                 return;

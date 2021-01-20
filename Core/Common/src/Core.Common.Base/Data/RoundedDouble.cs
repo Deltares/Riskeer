@@ -207,9 +207,9 @@ namespace Core.Common.Base.Data
 
         private static bool IsSpecialDoubleValue(double value)
         {
-            return double.IsNaN(value) ||
-                   double.IsPositiveInfinity(value) ||
-                   double.IsNegativeInfinity(value);
+            return double.IsNaN(value)
+                   || double.IsPositiveInfinity(value)
+                   || double.IsNegativeInfinity(value);
         }
 
         private string GetFormat()

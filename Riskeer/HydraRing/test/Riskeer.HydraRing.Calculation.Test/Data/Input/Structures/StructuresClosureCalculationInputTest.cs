@@ -85,17 +85,18 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
 
             // Assert
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
-            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(1, input.CalculationTypeId);
-            Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
+            Assert.AreEqual(58, input.VariableId);
+            Assert.AreEqual(4505, input.FaultTreeModelId);
             Assert.AreEqual(6, input.IterationMethodId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
 
             HydraRingSection section = input.Section;
             Assert.AreEqual(1, section.SectionId);
             Assert.IsNaN(section.SectionLength);
             Assert.AreEqual(sectionNormal, section.CrossSectionNormal);
-            Assert.AreSame(forelandPoints, input.ForelandsPoints);
+            Assert.AreSame(forelandPoints, input.ForelandPoints);
             Assert.AreSame(breakWater, input.BreakWater);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
         }

@@ -64,13 +64,13 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
 
         private static DikeHeightOutput GetDikeHeightOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
-            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.FirstOrDefault();
+            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.SingleOrDefault();
             return dikeHeightOutputEntity?.Read();
         }
 
         private static OvertoppingRateOutput GetOvertoppingRateOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
-            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateOutputEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.FirstOrDefault();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateOutputEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.SingleOrDefault();
             return overtoppingRateOutputEntity?.Read();
         }
     }

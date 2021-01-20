@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
@@ -27,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -202,13 +202,30 @@ namespace Riskeer.Common.Forms.Factories
         /// <summary>
         /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="ICalculation"/>.
         /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCalculationsMapData()
         {
-            return new MapLineData(RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName,
+            return CreateCalculationsMapData(RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName, Color.MediumPurple);
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with custom styling for collections of <see cref="ICalculation"/>.
+        /// </summary>
+        /// <param name="name">The name of the map data.</param>
+        /// <param name="color">The color of the drawn data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="name"/> is <c>null</c>.</exception>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateCalculationsMapData(string name, Color color)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            return new MapLineData(name,
                                    new LineStyle
                                    {
-                                       Color = Color.MediumPurple,
+                                       Color = color,
                                        Width = thinLineWidth,
                                        DashStyle = LineDashStyle.Dash
                                    })

@@ -31,6 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
@@ -86,7 +87,7 @@ namespace Riskeer.Piping.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
-            IEnumerable<PipingCalculationScenario> calculationScenarios,
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -191,7 +192,7 @@ namespace Riskeer.Piping.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
-            IEnumerable<PipingCalculationScenario> calculationScenarios,
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -223,8 +224,8 @@ namespace Riskeer.Piping.Data
             {
                 FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
 
-                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible ||
-                    failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
+                    || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
                 {
                     return calculator.AssembleCombined(simpleAssembly);
                 }
@@ -352,7 +353,7 @@ namespace Riskeer.Piping.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                             failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                             failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }

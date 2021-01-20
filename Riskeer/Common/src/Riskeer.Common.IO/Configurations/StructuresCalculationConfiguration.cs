@@ -28,15 +28,18 @@ namespace Riskeer.Common.IO.Configurations
     /// </summary>
     public abstract class StructuresCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the structures calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         protected StructuresCalculationConfiguration(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
         }
 
@@ -111,24 +114,8 @@ namespace Riskeer.Common.IO.Configurations
         public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the calculation.
+        /// Gets the name of the structures calculation.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-
-                name = value;
-            }
-        }
+        public string Name { get; }
     }
 }

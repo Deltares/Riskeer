@@ -32,8 +32,11 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
@@ -42,13 +45,13 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class is a view for configuring piping calculations.
+    /// This class is a view for configuring piping calculation scenarios.
     /// </summary>
-    public class PipingCalculationsView : CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>
+    public class PipingCalculationsView : CalculationsView<IPipingCalculationScenario<PipingInput>, PipingInput, PipingCalculationRow, PipingFailureMechanism>
     {
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-        private const int stochasticSoilModelColumnIndex = 2;
-        private const int stochasticSoilProfileColumnIndex = 3;
+        private const int selectableHydraulicBoundaryLocationColumnIndex = 2;
+        private const int stochasticSoilModelColumnIndex = 3;
+        private const int stochasticSoilProfileColumnIndex = 4;
 
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
         private Observer stochasticSoilModelsObserver;
@@ -57,9 +60,9 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationsView"/>.
         /// </summary>
-        /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
-        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the calculations belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
+        /// <param name="calculationGroup">Calculation group containing all calculation scenarios of the failure mechanism.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the calculation scenarios belong to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculation scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection) {}
@@ -83,15 +86,32 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="PipingCalculationRow.Calculation"/> of <paramref name="currentRow"/>
+        /// is of a type that is not supported.</exception>
         protected override object CreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
         {
-            return new PipingInputContext(
-                currentRow.Calculation.InputParameters,
-                currentRow.Calculation,
-                FailureMechanism.SurfaceLines,
-                FailureMechanism.StochasticSoilModels,
-                FailureMechanism,
-                AssessmentSection);
+            switch (currentRow.Calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                    return new SemiProbabilisticPipingInputContext(
+                        semiProbabilisticPipingCalculationScenario.InputParameters,
+                        semiProbabilisticPipingCalculationScenario,
+                        FailureMechanism.SurfaceLines,
+                        FailureMechanism.StochasticSoilModels,
+                        FailureMechanism,
+                        AssessmentSection);
+                case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                    return new ProbabilisticPipingInputContext(
+                        probabilisticPipingCalculationScenario.InputParameters,
+                        probabilisticPipingCalculationScenario,
+                        FailureMechanism.SurfaceLines,
+                        FailureMechanism.StochasticSoilModels,
+                        FailureMechanism,
+                        AssessmentSection);
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         protected override IEnumerable<Point2D> GetReferenceLocations()
@@ -99,14 +119,30 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(PipingCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
+        protected override bool IsCalculationIntersectionWithReferenceLineInSection(IPipingCalculationScenario<PipingInput> calculation, IEnumerable<Segment2D> lineSegments)
         {
             return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
         }
 
-        protected override PipingCalculationRow CreateRow(PipingCalculationScenario calculation)
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/> is of a type that is not supported.</exception>
+        protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)
         {
-            return new PipingCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            string calculationType;
+
+            switch (calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario _:
+                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic;
+                    break;
+                case ProbabilisticPipingCalculationScenario _:
+                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_probabilistic;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return new PipingCalculationRow(calculation, calculationType, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }
 
         protected override bool CanGenerateCalculations()
@@ -126,8 +162,9 @@ namespace Riskeer.Piping.Forms.Views
                 {
                     IEnumerable<ICalculationBase> calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                         dialog.SelectedItems,
-                        FailureMechanism.StochasticSoilModels,
-                        FailureMechanism.GeneralInput);
+                        dialog.GenerateSemiProbabilistic,
+                        dialog.GenerateProbabilistic,
+                        FailureMechanism.StochasticSoilModels);
 
                     foreach (ICalculationBase item in calculationsStructure)
                     {
@@ -149,6 +186,11 @@ namespace Riskeer.Piping.Forms.Views
         protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
         {
             addNameColumn();
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingCalculationRow.CalculationType),
+                Resources.PipingCalculationsView_InitializeDataGridView_Assessment_description);
+
             addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>>(
@@ -227,7 +269,8 @@ namespace Riskeer.Piping.Forms.Views
             {
                 DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
                 dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is PipingCalculationRow dataItem
-                                                                                                 && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
+                                                                                                 && dataItem.Calculation is SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario
+                                                                                                 && semiProbabilisticPipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput;
             }
         }
 
@@ -287,7 +330,7 @@ namespace Riskeer.Piping.Forms.Views
             SetItemsOnObjectCollection(cell.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
         }
 
-        private IEnumerable<PipingStochasticSoilModel> GetSoilModelsForCalculation(PipingCalculation pipingCalculation)
+        private IEnumerable<PipingStochasticSoilModel> GetSoilModelsForCalculation(ICalculation<PipingInput> pipingCalculation)
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 pipingCalculation.InputParameters.SurfaceLine,
@@ -320,7 +363,7 @@ namespace Riskeer.Piping.Forms.Views
             SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
         }
 
-        private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
+        private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(ICalculation<PipingInput> pipingCalculation)
         {
             return pipingCalculation.InputParameters.StochasticSoilModel != null
                        ? pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles

@@ -421,7 +421,7 @@ namespace Core.Plugins.Map.Legend
         private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollectionContext context, object parentData, TreeViewControl treeView)
         {
             return contextMenuBuilderProvider.Get(context, treeView)
-                                             .AddCustomImportItem(
+                                             .AddImportItem(
                                                  MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
                                                  MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
                                                  MapResources.MapPlusIcon)

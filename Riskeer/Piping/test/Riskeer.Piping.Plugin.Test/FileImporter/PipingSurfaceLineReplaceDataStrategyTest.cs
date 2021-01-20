@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Primitives;
 
@@ -43,11 +44,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void Constructure_NullArgument_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingSurfaceLineReplaceDataStrategy(null);
+            void Call() => new PipingSurfaceLineReplaceDataStrategy(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -68,12 +69,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
-                                                                                  string.Empty);
+            void Call() => strategy.UpdateSurfaceLinesWithImportedData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importedDataCollection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
         [Test]
@@ -83,12 +83,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                  null);
+            void Call() => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<PipingSurfaceLine>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -184,13 +183,13 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(3, 4, 5)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
                     SurfaceLine = existingSurfaceLine
                 },
-                Output = new PipingOutput(new PipingOutput.ConstructionProperties())
+                Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties())
             };
 
             var failureMechanism = new PipingFailureMechanism();

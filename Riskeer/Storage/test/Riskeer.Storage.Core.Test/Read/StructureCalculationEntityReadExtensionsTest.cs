@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -109,17 +108,17 @@ namespace Riskeer.Storage.Core.Test.Read
             AssertBoolean(entity.UseBreakWater, inputToUpdate.UseBreakWater);
             AssertBoolean(entity.ShouldIllustrationPointsBeCalculated, inputToUpdate.ShouldIllustrationPointsBeCalculated);
 
-            AssertRoundedDouble(entity.StructureNormalOrientation, inputToUpdate.StructureNormalOrientation);
-            AssertRoundedDouble(entity.AllowedLevelIncreaseStorageMean, inputToUpdate.AllowedLevelIncreaseStorage.Mean);
-            AssertRoundedDouble(entity.AllowedLevelIncreaseStorageStandardDeviation, inputToUpdate.AllowedLevelIncreaseStorage.StandardDeviation);
-            AssertRoundedDouble(entity.FlowWidthAtBottomProtectionMean, inputToUpdate.FlowWidthAtBottomProtection.Mean);
-            AssertRoundedDouble(entity.FlowWidthAtBottomProtectionStandardDeviation, inputToUpdate.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertRoundedDouble(entity.CriticalOvertoppingDischargeMean, inputToUpdate.CriticalOvertoppingDischarge.Mean);
-            AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.StructureNormalOrientation, inputToUpdate.StructureNormalOrientation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.AllowedLevelIncreaseStorageMean, inputToUpdate.AllowedLevelIncreaseStorage.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.AllowedLevelIncreaseStorageStandardDeviation, inputToUpdate.AllowedLevelIncreaseStorage.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.FlowWidthAtBottomProtectionMean, inputToUpdate.FlowWidthAtBottomProtection.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.FlowWidthAtBottomProtectionStandardDeviation, inputToUpdate.FlowWidthAtBottomProtection.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.CriticalOvertoppingDischargeMean, inputToUpdate.CriticalOvertoppingDischarge.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, inputToUpdate.FailureProbabilityStructureWithErosion);
-            AssertRoundedDouble(entity.WidthFlowAperturesMean, inputToUpdate.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, inputToUpdate.WidthFlowApertures.StandardDeviation);
-            AssertRoundedDouble(entity.StormDurationMean, inputToUpdate.StormDuration.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.WidthFlowAperturesMean, inputToUpdate.WidthFlowApertures.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, inputToUpdate.WidthFlowApertures.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.StormDurationMean, inputToUpdate.StormDuration.Mean);
 
             CollectionAssert.IsEmpty(inputToUpdate.ForeshoreGeometry);
             Assert.IsNull(inputToUpdate.ForeshoreProfile);
@@ -217,11 +216,6 @@ namespace Riskeer.Storage.Core.Test.Read
         private static void AssertBoolean(byte expectedByte, bool actual)
         {
             Assert.AreEqual(Convert.ToBoolean(expectedByte), actual);
-        }
-
-        private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
-        {
-            Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
         }
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>

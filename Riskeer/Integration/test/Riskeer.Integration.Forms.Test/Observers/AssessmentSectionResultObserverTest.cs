@@ -40,7 +40,8 @@ using Riskeer.Integration.Forms.Observers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
@@ -329,8 +330,9 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
-            assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
+            var calculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
+            assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculationScenario);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -342,7 +344,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                calculation.NotifyObservers();
+                calculationScenario.NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();

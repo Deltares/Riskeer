@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <map naam="Group 1">
-    <berekening naam="Calculation 3"/>
+    <berekening naam="Calculation 3">
+      <toetstype/>
+    </berekening>
   </map>
-  <berekening naam="Calculation 1"/>
+  <berekening naam="Calculation 1">
+    <toetstype/>
+  </berekening>
   <map naam="Group 2">
     <map naam="Group 4">
-      <berekening naam="Calculation 5"/>
+      <berekening naam="Calculation 5">
+        <toetstype/>
+      </berekening>
     </map>
-    <berekening naam="Calculation 4"/>  
+    <berekening naam="Calculation 4">
+      <toetstype/>
+    </berekening>
   </map>
-  <berekening naam="Calculation 2"/>
+  <berekening naam="Calculation 2">
+    <toetstype/>
+  </berekening>
   <map naam="Group 3"/>
 </configuratie>

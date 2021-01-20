@@ -21,22 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.UITypeEditors;
-using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 
 namespace Riskeer.Piping.Forms.Test.UITypeEditors
@@ -52,33 +42,19 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var hasStochasticSoilProfile = mockRepository.Stub<IHasStochasticSoilProfile>();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            hasStochasticSoilProfile.Stub(hssp => hssp.StochasticSoilProfile).Return(
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
+            hasStochasticSoilProfile.Stub(hssp => hssp.GetAvailableStochasticSoilProfiles()).Return(
+                new[]
+                {
+                    new PipingStochasticSoilProfile(0.9, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                });
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
-            {
-                StochasticSoilProfile = new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-            };
-            var pipingInputContext = new PipingInputContext(pipingInput,
-                                                            calculationItem,
-                                                            Enumerable.Empty<PipingSurfaceLine>(),
-                                                            new[]
-                                                            {
-                                                                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                                                            },
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            var properties = new PipingInputContextProperties(pipingInputContext,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
-
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<IHasStochasticSoilProfile>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasStochasticSoilProfile);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
@@ -103,52 +79,19 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-
+            var hasStochasticSoilProfile = mockRepository.Stub<IHasStochasticSoilProfile>();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var stochasticSoilModel = new PipingStochasticSoilModel("Model", new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(4, 2)
-            }, new[]
-            {
-                stochasticSoilProfile
-            });
 
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(2, 1, 0),
-                new Point3D(2, 3, 0)
-            });
+            hasStochasticSoilProfile.Stub(hssp => hssp.StochasticSoilProfile).Return(stochasticSoilProfile);
+            hasStochasticSoilProfile.Stub(hssp => hssp.GetAvailableStochasticSoilProfiles()).Return(
+                new[]
+                {
+                    stochasticSoilProfile
+                });
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var pipingInput = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile
-            };
-            var inputParametersContext = new PipingInputContext(pipingInput,
-                                                                calculationItem,
-                                                                Enumerable.Empty<PipingSurfaceLine>(),
-                                                                new[]
-                                                                {
-                                                                    stochasticSoilModel
-                                                                },
-                                                                failureMechanism,
-                                                                assessmentSection);
-
-            var properties = new PipingInputContextProperties(inputParametersContext,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
-
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<IHasStochasticSoilProfile>();
             var someValue = new object();
-            var propertyBag = new DynamicPropertyBag(properties);
+            var propertyBag = new DynamicPropertyBag(hasStochasticSoilProfile);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();

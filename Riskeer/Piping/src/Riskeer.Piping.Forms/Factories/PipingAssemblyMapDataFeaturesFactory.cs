@@ -26,6 +26,7 @@ using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Factories
 {
@@ -76,7 +77,7 @@ namespace Riskeer.Piping.Forms.Factories
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }
@@ -130,7 +131,7 @@ namespace Riskeer.Piping.Forms.Factories
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }

@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
-            ForelandsPoints = forelandPoints;
+            ForelandPoints = forelandPoints;
             BreakWater = breakWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
             this.factorStormDurationOpenStructure = factorStormDurationOpenStructure;
@@ -122,9 +122,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             this.probabilityOpenStructureBeforeFlooding = probabilityOpenStructureBeforeFlooding;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresClosure;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.StructuresClosure;
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId => 58;
+
+        public override int FaultTreeModelId => 4505;
 
         public override HydraRingSection Section { get; }
 
@@ -149,17 +151,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
+        public override IEnumerable<HydraRingForelandPoint> ForelandPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
 
-        public override int IterationMethodId
-        {
-            get
-            {
-                return 6;
-            }
-        }
+        public override int IterationMethodId => 6;
 
         public abstract override int? GetSubMechanismModelId(int subMechanismId);
     }

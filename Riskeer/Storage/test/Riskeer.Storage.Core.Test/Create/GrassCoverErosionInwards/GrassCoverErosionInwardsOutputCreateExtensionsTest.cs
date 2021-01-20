@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
 
-            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
+            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Single();
             Assert.AreEqual(dikeHeightOutput.DikeHeight, dikeHeightEntity.DikeHeight, dikeHeightOutput.DikeHeight.GetAccuracy());
             Assert.AreEqual(dikeHeightOutput.TargetProbability, dikeHeightEntity.TargetProbability);
             Assert.AreEqual(dikeHeightOutput.TargetReliability, dikeHeightEntity.TargetReliability, dikeHeightOutput.TargetReliability.GetAccuracy());
@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeHeightOutput.CalculatedReliability, dikeHeightEntity.CalculatedReliability, dikeHeightOutput.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) dikeHeightOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
 
-            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.First();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Single();
             Assert.AreEqual(overtoppingRateOutput.OvertoppingRate, overtoppingRateEntity.OvertoppingRate, overtoppingRateOutput.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(overtoppingRateOutput.TargetProbability, overtoppingRateEntity.TargetProbability);
             Assert.AreEqual(overtoppingRateOutput.TargetReliability, overtoppingRateEntity.TargetReliability, overtoppingRateOutput.TargetReliability.GetAccuracy());
@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.Reliability);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
 
-            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
+            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Single();
             Assert.IsNull(dikeHeightEntity.DikeHeight);
             Assert.IsNull(dikeHeightEntity.TargetProbability);
             Assert.IsNull(dikeHeightEntity.TargetReliability);
@@ -108,7 +108,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(dikeHeightEntity.CalculatedReliability);
             Assert.AreEqual((byte) dikeHeightOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
 
-            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.First();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Single();
             Assert.IsNull(overtoppingRateEntity.OvertoppingRate);
             Assert.IsNull(overtoppingRateEntity.TargetProbability);
             Assert.IsNull(overtoppingRateEntity.TargetReliability);

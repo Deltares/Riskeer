@@ -76,12 +76,12 @@ namespace Riskeer.Piping.KernelWrapper
             /// Sets the factor of safety of the Uplift sub calculation.
             /// </summary>
             public double UpliftFactorOfSafety { internal get; set; }
-            
+
             /// <summary>
             /// Sets the factor of safety of the Heave sub calculation.
             /// </summary>
             public double HeaveFactorOfSafety { internal get; set; }
-            
+
             /// <summary>
             /// Sets the factor of safety of the Sellmeijer sub calculation.
             /// </summary>
@@ -114,17 +114,17 @@ namespace Riskeer.Piping.KernelWrapper
         }
 
         #region Properties
-        
+
         /// <summary>
         /// Gets the factor of safety of the Uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety { get; }
-        
+
         /// <summary>
         /// Gets the factor of safety of the Heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety { get; }
-        
+
         /// <summary>
         /// Gets the factor of safety of the Sellmeijer sub calculation.
         /// </summary>

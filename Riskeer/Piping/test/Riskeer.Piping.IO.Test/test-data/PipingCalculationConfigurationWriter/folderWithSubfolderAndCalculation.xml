@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <map naam="PK001_0001">
-    <berekening naam="PK001_0001 W1-6_0_1D1">
-      <waterstand>10</waterstand>
-      <hblocatie>PUNT_KAT_18</hblocatie>
+    <berekening naam="PK001_0001 W1-6_0_1D1 semi-probabilistisch">
+      <semi-probabilistisch>
+        <waterstand>10</waterstand>
+        <hblocatie>PUNT_KAT_18</hblocatie>
+      </semi-probabilistisch>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <intredepunt>0.1</intredepunt>
       <uittredepunt>0.2</uittredepunt>
@@ -24,8 +26,39 @@
         <bijdrage>0.3</bijdrage>
       </scenario>
     </berekening>
+    <berekening naam="PK001_0001 W1-6_0_1D1 probabilistisch">
+      <probabilistisch>
+        <hblocatie>PUNT_KAT_18</hblocatie>
+        <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
+        <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
+      </probabilistisch>
+      <profielschematisatie>PK001_0001</profielschematisatie>
+      <intredepunt>0.5</intredepunt>
+      <uittredepunt>0.8</uittredepunt>
+      <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
+      <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
+      <stochasten>
+        <stochast naam="binnendijksewaterstand">
+          <verwachtingswaarde>0.4</verwachtingswaarde>
+          <standaardafwijking>0.2</standaardafwijking>
+        </stochast>
+        <stochast naam="dempingsfactor">
+          <verwachtingswaarde>0.8</verwachtingswaarde>
+          <standaardafwijking>0.2</standaardafwijking>
+        </stochast>
+      </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>0.6</bijdrage>
+      </scenario>
+    </berekening>
     <map naam="PK001_0002">
-      <berekening naam="Sparse">
+      <berekening naam="Sparse semi-probabilistisch">
+        <semi-probabilistisch />
+        <stochasten />
+      </berekening>
+      <berekening naam="Sparse probabilistisch">
+        <probabilistisch />
         <stochasten />
       </berekening>
     </map>

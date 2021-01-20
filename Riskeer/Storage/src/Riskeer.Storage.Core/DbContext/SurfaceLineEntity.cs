@@ -40,8 +40,9 @@ namespace Riskeer.Storage.Core.DbContext
         {
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
             MacroStabilityInwardsCharacteristicPointEntities = new HashSet<MacroStabilityInwardsCharacteristicPointEntity>();
-            PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             PipingCharacteristicPointEntities = new HashSet<PipingCharacteristicPointEntity>();
+            ProbabilisticPipingCalculationEntities = new HashSet<ProbabilisticPipingCalculationEntity>();
+            SemiProbabilisticPipingCalculationEntities = new HashSet<SemiProbabilisticPipingCalculationEntity>();
         }
 
         public long SurfaceLineEntityId { get; set; }
@@ -61,9 +62,12 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<MacroStabilityInwardsCharacteristicPointEntity> MacroStabilityInwardsCharacteristicPointEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        public virtual ICollection<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
+        public virtual ICollection<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
     }
 }

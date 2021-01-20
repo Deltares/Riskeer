@@ -228,7 +228,9 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(GeneralResult<TopLevelIllustrationPointBase> original, GeneralResult<TopLevelIllustrationPointBase> clone)
+        /// <typeparam name="T">The type of the top level illustration point.</typeparam>
+        public static void AreClones<T>(GeneralResult<T> original, GeneralResult<T> clone)
+            where T : TopLevelIllustrationPointBase
         {
             CoreCloneAssert.AreObjectClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
             CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
@@ -355,6 +357,20 @@ namespace Riskeer.Common.Data.TestUtil
         public static void AreClones(HydraulicBoundaryLocationCalculationInput original, HydraulicBoundaryLocationCalculationInput clone)
         {
             Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ICalculation original, ICalculation clone)
+        {
+            AreClones((ICalculationBase) original, clone);
+            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, AreClones);
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.Section, actualInput.Section);
             AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
             AreEqual(expectedInput.ProfilePoints.ToArray(), actualInput.ProfilePoints.ToArray());
-            AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
+            AreEqual(expectedInput.ForelandPoints.ToArray(), actualInput.ForelandPoints.ToArray());
             AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
             Assert.AreEqual(expectedInput.Beta, actualInput.Beta, accuracy);
         }

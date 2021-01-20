@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple general result with top level sub mechanism illustration points
-    ///  which can be used for testing.
+    /// which can be used for testing.
     /// </summary>
     public class TestGeneralResultSubMechanismIllustrationPoint : GeneralResult<TopLevelSubMechanismIllustrationPoint>
     {
@@ -37,8 +37,17 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         /// </summary>
         public TestGeneralResultSubMechanismIllustrationPoint()
             : base(WindDirectionTestFactory.CreateTestWindDirection(),
-                   Enumerable.Empty<Stochast>(),
-                   Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>()) {}
+                   new[]
+                   {
+                       new Stochast("A", 10.0, 5.0)
+                   },
+                   new List<TopLevelSubMechanismIllustrationPoint>
+                   {
+                       new TopLevelSubMechanismIllustrationPoint(
+                           WindDirectionTestFactory.CreateTestWindDirection(),
+                           "closing situation",
+                           new TestSubMechanismIllustrationPoint())
+                   }) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestGeneralResultSubMechanismIllustrationPoint"/>

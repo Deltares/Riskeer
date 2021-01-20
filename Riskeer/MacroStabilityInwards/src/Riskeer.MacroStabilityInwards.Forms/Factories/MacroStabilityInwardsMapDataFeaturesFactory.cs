@@ -109,8 +109,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation =
                 calculations.Where(c =>
-                                       c.InputParameters.SurfaceLine != null &&
-                                       c.InputParameters.HydraulicBoundaryLocation != null);
+                                       c.InputParameters.SurfaceLine != null
+                                       && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

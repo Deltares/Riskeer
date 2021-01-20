@@ -33,6 +33,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
@@ -71,11 +72,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(null, assessmentSection, handler);
+            void Call() => new PipingFailureMechanismProperties(null, assessmentSection, handler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("data", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("data", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -88,10 +89,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -104,11 +105,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -141,13 +142,23 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.UpliftModelFactor, properties.UpliftModelFactor);
 
-            Assert.AreEqual(generalInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
+            Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.Mean);
+            Assert.AreEqual(generalInput.UpliftModelFactor.StandardDeviation, properties.UpliftModelFactor.StandardDeviation);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalInput).GetDesignValue(),
+                            properties.UpliftModelFactor.DesignValue);
+
+            Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.Mean);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor.StandardDeviation, properties.SellmeijerModelFactor.StandardDeviation);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalInput).GetDesignValue(),
+                            properties.SellmeijerModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
-            Assert.AreEqual(generalInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalInput).GetDesignValue(),
+                            properties.CriticalHeaveGradient.DesignValue);
 
             Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
@@ -240,6 +251,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Volumiek gewicht van water.");
 
             PropertyDescriptor upliftModelFactorProperty = dynamicProperties[upLiftModelFactorPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(upliftModelFactorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor opbarsten [-]",
@@ -247,6 +259,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[sellMeijerModelFactorPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(sellmeijerModelFactorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor piping toegepast op het model van Sellmeijer [-]",
@@ -281,6 +294,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[criticalHeaveGradientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(criticalHeaveGradientProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalHeaveGradientProperty,
                                                                             heaveCategory,
                                                                             "Kritiek verhang m.b.t. heave [-]",
@@ -414,11 +428,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
-            TestDelegate call = () => properties.A = value;
+            void Call() => properties.A = value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll();
         }
 
@@ -480,12 +494,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
-            TestDelegate test = () => properties.WaterVolumetricWeight = roundedValue;
+            void Call() => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
 
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll(); // Does not expect notify observers.
         }

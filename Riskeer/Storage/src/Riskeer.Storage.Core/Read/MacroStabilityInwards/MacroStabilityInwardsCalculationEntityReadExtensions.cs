@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
         private static void SetCalculationOutputsToScenario(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                             MacroStabilityInwardsCalculationEntity entity)
         {
-            MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.FirstOrDefault();
+            MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.SingleOrDefault();
             if (outputEntity != null)
             {
                 calculationScenario.Output = outputEntity.Read();

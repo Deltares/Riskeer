@@ -32,7 +32,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StabilityPointStructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the stability point structures calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationConfiguration(string name) : base(name) {}
 

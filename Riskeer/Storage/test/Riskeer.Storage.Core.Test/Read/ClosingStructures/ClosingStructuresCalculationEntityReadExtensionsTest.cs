@@ -50,7 +50,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual("collector", paramName);
         }
 
-        [Test]  
+        [Test]
         public void Read_ValidEntity_ReturnClosingStructuresCalculation()
         {
             // Setup

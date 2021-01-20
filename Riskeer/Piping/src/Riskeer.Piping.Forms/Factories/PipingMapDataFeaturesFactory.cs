@@ -96,9 +96,11 @@ namespace Riskeer.Piping.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="PipingCalculationScenario"/> to create the calculation features for.</param>
+        /// <param name="calculations">The collection of <see cref="TCalculationScenario"/> to create the calculation features for.</param>
+        /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
         /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
-        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
+        public static IEnumerable<MapFeature> CreateCalculationFeatures<TCalculationScenario>(IEnumerable<TCalculationScenario> calculations)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>
         {
             bool hasCalculations = calculations != null && calculations.Any();
 
@@ -107,9 +109,9 @@ namespace Riskeer.Piping.Forms.Factories
                 return new MapFeature[0];
             }
 
-            IEnumerable<PipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
-                c => c.InputParameters.SurfaceLine != null &&
-                     c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<TCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
+                c => c.InputParameters.SurfaceLine != null
+                     && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

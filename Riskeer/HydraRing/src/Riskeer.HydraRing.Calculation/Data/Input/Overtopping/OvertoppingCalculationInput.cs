@@ -101,7 +101,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
             ProfilePoints = profilePoints;
-            ForelandsPoints = forelandPoints;
+            ForelandPoints = forelandPoints;
             BreakWater = breakWater;
             this.dikeHeight = dikeHeight;
             this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
@@ -126,9 +126,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DikesOvertopping;
+        public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.DikesOvertopping;
 
-        public override int VariableId { get; } = 1;
+        public override int VariableId => 1;
+
+        public override int FaultTreeModelId => 1017;
 
         public override HydraRingSection Section { get; }
 
@@ -154,7 +156,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
 
         public override IEnumerable<HydraRingProfilePoint> ProfilePoints { get; }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
+        public override IEnumerable<HydraRingForelandPoint> ForelandPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
 

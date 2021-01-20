@@ -117,7 +117,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithoutOutput_NothingHappens()
+        public void ClearIllustrationPoints_CalculationWithoutOutput_DoesNotThrow()
         {
             // Setup
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());

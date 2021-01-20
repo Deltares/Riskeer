@@ -27,6 +27,16 @@ namespace Riskeer.Piping.IO.Configurations
     internal static class PipingCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
+        /// The identifier for a semi-probabilistic calculation element.
+        /// </summary>
+        public const string SemiProbabilistic = "semi-probabilistisch";
+
+        /// <summary>
+        /// The identifier for a probabilistic calculation element.
+        /// </summary>
+        public const string Probabilistic = "probabilistisch";
+
+        /// <summary>
         /// The identifier for water level elements.
         /// </summary>
         public const string WaterLevelElement = "waterstand";
@@ -65,5 +75,15 @@ namespace Riskeer.Piping.IO.Configurations
         /// The identifier for the damping factor exit stochast names.
         /// </summary>
         public const string DampingFactorExitStochastName = "dempingsfactor";
+
+        /// <summary>
+        /// The identifier for whether illustration points should be read for profile specific calculations.
+        /// </summary>
+        public const string ShouldProfileSpecificIllustrationPointsBeCalculated = "doorsnedeillustratiepunteninlezen";
+
+        /// <summary>
+        /// The identifier for whether illustration points should be read for section specific calculations.
+        /// </summary>
+        public const string ShouldSectionSpecificIllustrationPointsBeCalculated = "vakillustratiepunteninlezen";
     }
 }

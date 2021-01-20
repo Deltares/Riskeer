@@ -35,6 +35,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -145,7 +146,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario());
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
@@ -175,9 +176,9 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

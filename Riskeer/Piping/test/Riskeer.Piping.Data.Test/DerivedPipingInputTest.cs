@@ -26,8 +26,6 @@ using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.KernelWrapper.SubCalculator;
-using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
@@ -36,77 +34,35 @@ namespace Riskeer.Piping.Data.Test
     public class DerivedPipingInputTest
     {
         [Test]
-        public void GetPiezometricHeadExit_InputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => DerivedPipingInput.GetPiezometricHeadExit(null, RoundedDouble.NaN);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
-        }
-
-        [Test]
-        public void GetPiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsNotNaN()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput());
-
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                // Setup
-                var assessmentLevel = (RoundedDouble) 1.1;
-
-                // Call
-                RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, assessmentLevel);
-
-                // Assert
-                Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
-                Assert.IsFalse(double.IsNaN(piezometricHead));
-
-                var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
-
-                Assert.AreEqual(assessmentLevel, piezometricHeadAtExitCalculator.HRiver, assessmentLevel.GetAccuracy());
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                input.PhreaticLevelExit.GetAccuracy());
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                input.DampingFactorExit.GetAccuracy());
-            }
-        }
-
-        [Test]
-        public void GetPiezometricHeadExit_AssessmentLevelNaN_ReturnsNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
-
-            // Call
-            RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, RoundedDouble.NaN);
-
-            // Assert
-            Assert.IsNaN(piezometricHead);
-        }
-
-        [Test]
         public void GetEffectiveThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null);
+            void Call() => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null, new GeneralPipingInput());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void GetEffectiveThicknessCoverageLayer_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(new TestPipingInput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
         public void GetEffectiveThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer, 2.0);
@@ -116,12 +72,12 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_SoilProfileNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -131,12 +87,12 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_SurfaceLineNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -151,7 +107,7 @@ namespace Riskeer.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -161,7 +117,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_ProfileWithoutAquiferLayer_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -174,7 +130,7 @@ namespace Riskeer.Piping.Data.Test
             );
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -184,7 +140,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetEffectiveThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -201,7 +157,7 @@ namespace Riskeer.Piping.Data.Test
             );
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(input, new GeneralPipingInput());
 
             // Assert
             AssertEffectiveThicknessCoverageLayer(effectiveThicknessCoverageLayer);
@@ -211,18 +167,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetThicknessCoverageLayer(null);
+            void Call() => DerivedPipingInput.GetThicknessCoverageLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             // Call
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(input);
@@ -235,7 +191,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_SoilProfileNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
@@ -250,7 +206,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_SurfaceLineNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
@@ -280,7 +236,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_ProfileWithoutAquiferLayer_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -303,7 +259,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -330,18 +286,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetThicknessAquiferLayer(null);
+            void Call() => DerivedPipingInput.GetThicknessAquiferLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
@@ -354,7 +310,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SoilProfileNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
@@ -369,7 +325,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SurfaceLineNull_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
@@ -399,8 +355,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToTopmostConsecutiveAquiferLayerThickness()
         {
             // Setup
-            double expectedThickness;
-            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
+            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness);
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
@@ -413,7 +368,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_ExitPointNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -428,7 +383,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_ProfileWithoutAquiferLayer_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -464,8 +419,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToConsecutiveAquiferLayerThickness()
         {
             // Setup
-            double expectedThickness;
-            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
+            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness);
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(input);
@@ -478,7 +432,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -505,7 +459,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ReturnsDistributionWithMeanSetToLayerHeightUnderSurfaceLine()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -532,18 +486,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetSeepageLength_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetSeepageLength(null);
+            void Call() => DerivedPipingInput.GetSeepageLength(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetSeepageLength_ValidData_ReturnsDistributionWithExpectedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             // Call
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(input);
@@ -556,7 +510,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSeepageLength_EntryPointNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.EntryPointL = RoundedDouble.NaN;
 
@@ -571,7 +525,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSeepageLength_ExitPointNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -586,18 +540,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(null);
+            void Call() => DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetSaturatedVolumicWeightOfCoverageLayer_SoilProfileNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
@@ -612,7 +566,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_SurfaceLineNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
@@ -627,7 +581,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_ExitPointLNaN_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -642,7 +596,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_NoAquitardLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -664,7 +618,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -686,7 +640,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_NoCoverageLayersAboveTopAquiferLayer_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -712,7 +666,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsDistributionWithParametersFromLayer()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double belowPhreaticLevelMean = 0.1 + random.NextDouble();
@@ -747,7 +701,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualStandardDeviationAndShift_ReturnsDistributionWithWeightedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
@@ -799,7 +753,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShift_ReturnsDistributionWithParametersNaN(double deviationDelta, double shiftDelta)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
@@ -844,7 +798,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShiftButEqualWhenRounded_ReturnsDistributionWithWeightedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             const double belowPhreaticLevelMeanA = 2.5;
             const double belowPhreaticLevelMeanB = 3.4;
@@ -887,18 +841,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetDarcyPermeability(null);
+            void Call() => DerivedPipingInput.GetDarcyPermeability(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetDarcyPermeability_SoilProfileNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
@@ -913,7 +867,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_SurfaceLineNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
@@ -928,7 +882,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_ExitPointLNaN_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -943,7 +897,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -962,7 +916,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_MultipleAquiferLayersWithSameVariation_ReturnsDistributionWithWeightedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double mean = 0.1 + random.NextDouble();
@@ -1003,7 +957,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_SingleAquiferLayerWithRandomMeanAndDeviation_ReturnsDistributionWithWeightedMean()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double permeabilityMean = 0.1 + random.NextDouble();
@@ -1035,7 +989,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDarcyPermeability_MultipleAquiferLayersWithDifferentMeanAndDeviation_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -1071,18 +1025,18 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingInput.GetDiameterD70(null);
+            void Call() => DerivedPipingInput.GetDiameterD70(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
         public void GetDiameterD70_SoilProfileNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = null;
 
@@ -1097,7 +1051,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_SurfaceLineNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.SurfaceLine = null;
 
@@ -1112,7 +1066,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_ExitPointLNaN_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -1127,7 +1081,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
@@ -1146,7 +1100,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_SingleAquiferLayers_ReturnsDistributionWithParametersFromLayer()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             var random = new Random(21);
             double diameterD70Mean = 0.1 + random.NextDouble();
@@ -1176,7 +1130,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetDiameterD70_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
             const double diameterD70Mean = 0.5;
             const double diameterD70CoefficientOfVariation = 0.2;

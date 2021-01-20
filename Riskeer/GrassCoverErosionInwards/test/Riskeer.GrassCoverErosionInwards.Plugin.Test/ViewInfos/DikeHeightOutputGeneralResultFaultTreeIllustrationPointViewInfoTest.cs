@@ -35,20 +35,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<DikeHeightOutputGeneralResultFaultTreeIllustrationPointView, DikeHeightOutputContext>
     {
-        protected override string ViewName
-        {
-            get
-            {
-                return "HBN";
-            }
-        }
+        protected override string ViewName => "HBN";
 
         protected override IView GetView(ICalculation data)
         {
-            return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint())
-            {
-                Data = data
-            };
+            return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
+                (GrassCoverErosionInwardsCalculation) data,
+                () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
         protected override DikeHeightOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)

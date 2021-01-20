@@ -29,15 +29,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
     /// </summary>
     public class MacroStabilityInwardsCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="MacroStabilityInwardsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the macro stability inwards calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationConfiguration(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
         }
 
@@ -92,25 +95,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
-        /// Gets or sets the name for the calculation.
+        /// Gets the name of the macro stability inwards calculation.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-
-                name = value;
-            }
-        }
+        public string Name { get; }
 
         #region Zoning
 

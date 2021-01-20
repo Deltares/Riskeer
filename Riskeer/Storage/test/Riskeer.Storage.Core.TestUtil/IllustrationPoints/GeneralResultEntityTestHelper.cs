@@ -70,5 +70,45 @@ namespace Riskeer.Storage.Core.TestUtil.IllustrationPoints
             Assert.AreEqual(generalResult.Stochasts.Count(), generalResultEntity.StochastEntities.Count);
             Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(), generalResultEntity.TopLevelFaultTreeIllustrationPointEntities.Count);
         }
+
+        /// <summary>
+        /// Determines for each property of <paramref name="generalResultEntity"/> whether the matching 
+        /// property of <paramref name="generalResult"/> has an equal value.
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to compare.</param>
+        /// <param name="generalResultEntity">The <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
+        /// to compare.</param>
+        /// <exception cref="ArgumentNullException">Thrown if any of the argument is <c>null</c>.</exception>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The values of the governing wind direction name and angles do not match.</item>
+        /// <item>The count of the stochasts do not match.</item>
+        /// <item>The count of the top level illustration points do not match.</item>
+        /// </list></exception>
+        /// <remarks>This only asserts the properties of the <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
+        /// that are directly associated with it, but not the values of the items it is composed of.</remarks>
+        public static void AssertGeneralResultPropertyValues(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult,
+                                                             GeneralResultSubMechanismIllustrationPointEntity generalResultEntity)
+        {
+            if (generalResult == null)
+            {
+                throw new ArgumentNullException(nameof(generalResult));
+            }
+
+            if (generalResultEntity == null)
+            {
+                throw new ArgumentNullException(nameof(generalResultEntity));
+            }
+
+            Assert.IsNotNull(generalResultEntity);
+            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
+            Assert.AreEqual(governingWindDirection.Name, generalResultEntity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, generalResultEntity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(generalResult.Stochasts.Count(), generalResultEntity.StochastEntities.Count);
+            Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(),
+                            generalResultEntity.TopLevelSubMechanismIllustrationPointEntities.Count);
+        }
     }
 }

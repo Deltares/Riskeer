@@ -47,9 +47,8 @@ namespace Core.Common.Gui.TestUtil
         {
             Assert.NotNull(propertyInfos, "The given collection of propertyInfos was undefined.");
             PropertyInfo propertyInfo = propertyInfos.FirstOrDefault(
-                tni =>
-                    tni.DataType == dataObjectType &&
-                    tni.PropertyObjectType == propertyObjectType);
+                tni => tni.DataType == dataObjectType
+                       && tni.PropertyObjectType == propertyObjectType);
             Assert.NotNull(propertyInfo, $"The property info object was not found for the given dataType ({dataObjectType}) " +
                                          $"and propertyObjectType ({propertyObjectType}).");
             return propertyInfo;

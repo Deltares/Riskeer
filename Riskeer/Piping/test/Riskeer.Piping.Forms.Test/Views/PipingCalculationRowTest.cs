@@ -53,6 +53,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
+            const string calculationType = "Test";
+
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
@@ -68,7 +70,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dampingFactorExitMean = (RoundedDouble) 1.0;
             var phreaticLevelExitMean = (RoundedDouble) 2.0;
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -88,13 +90,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
 
             // Call
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, calculationType, handler);
 
             // Assert
-            Assert.IsInstanceOf<CalculationRow<PipingCalculationScenario>>(row);
+            Assert.IsInstanceOf<CalculationRow<IPipingCalculationScenario<PipingInput>>>(row);
 
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
+            Assert.AreEqual(calculationType, row.CalculationType);
             Assert.AreSame(stochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(stochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
@@ -108,13 +111,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
+        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
             PipingStochasticSoilModel newModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(newModel);
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
@@ -148,7 +151,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var newProfile = new PipingStochasticSoilProfile(0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(newProfile);
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
@@ -183,7 +186,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
@@ -193,7 +196,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
             var dampingFactorExitMean = (RoundedDouble) 2.3;
 
             // Call & Assert
@@ -225,7 +228,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
             var phreaticLevelExitMean = (RoundedDouble) 5.1;
 
             // Call & Assert
@@ -257,7 +260,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculationScenario();
             var entryPointL = (RoundedDouble) 0.1;
 
             // Call & Assert
@@ -291,7 +294,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_EntryPointNotBeforeExitPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -305,7 +309,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) (-3.0);
 
             // Call & Assert
@@ -318,7 +323,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 0.3;
 
             // Call & Assert
@@ -352,7 +358,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_ExitPointNotBeyondEntryPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -366,7 +373,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 3.0;
 
             // Call & Assert
@@ -376,17 +384,17 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         /// <summary>
-        /// Asserts that the output of a <see cref="PipingCalculationScenario"/> remains
+        /// Asserts that the output of a <see cref="IPipingCalculationScenario{TPipingInput}"/> remains
         /// unaffected (and therefore no change notification occurring) when the input for
         /// that calculation has been changed using an instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
         /// <param name="setProperty">The function that changes a property of the <see cref="PipingCalculationRow"/>
         /// instance. This function should not throw exceptions.</param>
-        /// <param name="assertions">The additional assertions to be performed on the <see cref="PipingCalculationScenario"/>
+        /// <param name="assertions">The additional assertions to be performed on the <see cref="IPipingCalculationScenario{TPipingInput}"/>
         /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
             Action<PipingCalculationRow> setProperty,
-            Action<PipingCalculationScenario> assertions)
+            Action<IPipingCalculationScenario<PipingInput>> assertions)
         {
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
@@ -394,7 +402,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
             Action<PipingCalculationRow> setProperty,
-            Action<PipingCalculationScenario> assertions,
+            Action<IPipingCalculationScenario<PipingInput>> assertions,
             bool hasOutput,
             bool expectUpdates)
         {
@@ -415,17 +423,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            PipingOutput assignedOutput = null;
+            IPipingCalculationScenario<PipingInput> calculation =
+                PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation(), hasOutput);
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            if (hasOutput)
-            {
-                assignedOutput = PipingOutputTestFactory.Create();
-            }
-
-            calculation.Output = assignedOutput;
-
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
 
@@ -436,11 +437,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             assertions(calculation);
             if (expectUpdates)
             {
-                Assert.IsNull(calculation.Output);
+                Assert.IsFalse(calculation.HasOutput);
             }
             else
             {
-                Assert.AreSame(assignedOutput, calculation.Output);
+                Assert.AreEqual(hasOutput, calculation.HasOutput);
             }
 
             mockRepository.VerifyAll();
@@ -448,7 +449,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void SetPropertyToInvalidValueAndVerifyException(
             Action<PipingCalculationRow> setProperty,
-            PipingCalculationScenario calculation,
+            IPipingCalculationScenario<PipingInput> calculation,
             string expectedMessage)
         {
             // Setup
@@ -462,20 +463,20 @@ namespace Riskeer.Piping.Forms.Test.Views
                     observable
                 });
 
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
 
             // Call
-            TestDelegate test = () => setProperty(row);
+            void Call() => setProperty(row);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<PipingCalculationRow> setProperty,
-            PipingCalculationScenario calculation)
+            IPipingCalculationScenario<PipingInput> calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -489,7 +490,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     observable
                 });
 
-            var row = new PipingCalculationRow(calculation, handler);
+            var row = new PipingCalculationRow(calculation, string.Empty, handler);
 
             // Call
             setProperty(row);

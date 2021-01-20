@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,6 +78,54 @@ namespace Riskeer.Piping.Plugin.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Probabilistische berekening toevoegen.
+        /// </summary>
+        public static string CalculationGroup_Add_ProbabilisticCalculation {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_ProbabilisticCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen..
+        /// </summary>
+        public static string CalculationGroup_Add_ProbabilisticCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_ProbabilisticCalculation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekening &amp;toevoegen.
+        /// </summary>
+        public static string CalculationGroup_Add_SemiProbabilisticCalculation {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_SemiProbabilisticCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen..
+        /// </summary>
+        public static string CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_sections_probabilistic_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_s" +
+                        "ections_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         
@@ -174,6 +222,18 @@ namespace Riskeer.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_d" +
                         "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_se" +
+                        "ctions_probabilistic_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         

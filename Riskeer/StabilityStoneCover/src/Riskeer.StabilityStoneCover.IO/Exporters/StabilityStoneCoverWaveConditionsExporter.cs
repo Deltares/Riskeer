@@ -64,16 +64,16 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in exportableCalculations)
             {
                 StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
-                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
-                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
+                    || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
                             calculation.Name, calculation.InputParameters, calculation.Output.BlocksOutput, CoverType.StoneCoverBlocks));
                 }
 
-                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
-                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
+                    || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(

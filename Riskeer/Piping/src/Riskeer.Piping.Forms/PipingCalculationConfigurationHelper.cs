@@ -27,6 +27,8 @@ using log4net;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
@@ -34,31 +36,30 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="PipingCalculation"/>
+    /// Class holds methods to help views when dealing with <see cref="IPipingCalculationScenario{TPipingInput}"/>
     /// </summary>
     public static class PipingCalculationConfigurationHelper
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
 
         /// <summary>
-        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="PipingCalculation"/> based on combination of the
-        /// <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
+        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="IPipingCalculationScenario{TPipingInput}"/>
+        /// based on combination of the <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
-        /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure <see cref="PipingCalculation"/>
-        /// with.</param>
-        /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
-        /// <param name="generalInput">General input to assign to each generated piping calculation.</param>
+        /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure
+        /// <see cref="IPipingCalculationScenario{TPipingInput}"/> with.</param>
+        /// <param name="generateSemiProbabilistic">Indicator whether to generate <see cref="SemiProbabilisticPipingCalculationScenario"/>.</param>
+        /// <param name="generateProbabilistic">Indicator whether to generate <see cref="ProbabilisticPipingCalculationScenario"/>.</param>
+        /// <param name="soilModels">The soil models from which profiles are taken to configure
+        /// <see cref="IPipingCalculationScenario{TPipingInput}"/> with.</param>
         /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
-        /// <exception cref="ArgumentNullException">Throw when either:
-        /// <list type="bullet">
-        /// <item><paramref name="surfaceLines"/> is <c>null</c></item>
-        /// <item><paramref name="soilModels"/> is <c>null</c></item>
-        /// <item><paramref name="generalInput"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="surfaceLines"/> or <paramref name="soilModels"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<PipingSurfaceLine> surfaceLines,
-                                                                                      IEnumerable<PipingStochasticSoilModel> soilModels,
-                                                                                      GeneralPipingInput generalInput)
+                                                                                      bool generateSemiProbabilistic,
+                                                                                      bool generateProbabilistic,
+                                                                                      IEnumerable<PipingStochasticSoilModel> soilModels)
         {
             if (surfaceLines == null)
             {
@@ -70,15 +71,16 @@ namespace Riskeer.Piping.Forms
                 throw new ArgumentNullException(nameof(soilModels));
             }
 
-            if (generalInput == null)
+            var groups = new List<CalculationGroup>();
+
+            if (!generateSemiProbabilistic && !generateProbabilistic)
             {
-                throw new ArgumentNullException(nameof(generalInput));
+                return groups;
             }
 
-            var groups = new List<CalculationGroup>();
             foreach (PipingSurfaceLine surfaceLine in surfaceLines)
             {
-                CalculationGroup group = CreateCalculationGroup(surfaceLine, soilModels, generalInput);
+                CalculationGroup group = CreateCalculationGroup(surfaceLine, generateSemiProbabilistic, generateProbabilistic, soilModels);
                 if (group.GetCalculations().Any())
                 {
                     groups.Add(group);
@@ -110,14 +112,15 @@ namespace Riskeer.Piping.Forms
                 return Enumerable.Empty<PipingStochasticSoilModel>();
             }
 
-            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
-                                                                    stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
+            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any()
+                                                                    && stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
                                       .ToList();
         }
 
         private static CalculationGroup CreateCalculationGroup(PipingSurfaceLine surfaceLine,
-                                                               IEnumerable<PipingStochasticSoilModel> soilModels,
-                                                               GeneralPipingInput generalInput)
+                                                               bool generateSemiProbabilistic,
+                                                               bool generateProbabilistic,
+                                                               IEnumerable<PipingStochasticSoilModel> soilModels)
         {
             var calculationGroup = new CalculationGroup
             {
@@ -128,23 +131,36 @@ namespace Riskeer.Piping.Forms
             {
                 foreach (PipingStochasticSoilProfile soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
-                    calculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput));
+                    if (generateSemiProbabilistic)
+                    {
+                        calculationGroup.Children.Add(
+                            CreateCalculationScenario<SemiProbabilisticPipingCalculationScenario>(
+                                surfaceLine, stochasticSoilModel, soilProfile,
+                                calculationGroup.Children));
+                    }
+
+                    if (generateProbabilistic)
+                    {
+                        calculationGroup.Children.Add(
+                            CreateCalculationScenario<ProbabilisticPipingCalculationScenario>(
+                                surfaceLine, stochasticSoilModel, soilProfile,
+                                calculationGroup.Children));
+                    }
                 }
             }
 
             return calculationGroup;
         }
 
-        private static ICalculationBase CreatePipingCalculation(PipingSurfaceLine surfaceLine,
-                                                                PipingStochasticSoilModel stochasticSoilModel,
-                                                                PipingStochasticSoilProfile stochasticSoilProfile,
-                                                                IEnumerable<ICalculationBase> calculations,
-                                                                GeneralPipingInput generalInput)
+        private static TCalculationScenario CreateCalculationScenario<TCalculationScenario>(
+            PipingSurfaceLine surfaceLine, PipingStochasticSoilModel stochasticSoilModel, PipingStochasticSoilProfile stochasticSoilProfile,
+            IEnumerable<ICalculationBase> calculations)
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            string nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
-            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
+            var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
+            string name = NamingHelper.GetUniqueName(calculations.OfType<TCalculationScenario>(), nameBase, c => c.Name);
 
-            return new PipingCalculationScenario(generalInput)
+            return new TCalculationScenario
             {
                 Name = name,
                 InputParameters =

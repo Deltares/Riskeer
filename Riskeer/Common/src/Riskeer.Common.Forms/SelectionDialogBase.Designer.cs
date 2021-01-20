@@ -38,15 +38,15 @@ namespace Riskeer.Common.Forms
         {
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.SelectDeselectPanel = new System.Windows.Forms.Panel();
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.DeselectAllButton = new System.Windows.Forms.Button();
             this.DoForSelectedButton = new System.Windows.Forms.Button();
             this.CustomCancelButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.OkCancelButtonPanel = new System.Windows.Forms.Panel();
             this.ButtonGroupBox.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.SelectDeselectPanel.SuspendLayout();
+            this.OkCancelButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // DataGridViewControl
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms
             // ButtonGroupBox
             // 
             this.ButtonGroupBox.Controls.Add(this.DataGridViewControl);
-            this.ButtonGroupBox.Controls.Add(this.panel2);
+            this.ButtonGroupBox.Controls.Add(this.SelectDeselectPanel);
             this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ButtonGroupBox.Location = new System.Drawing.Point(0, 0);
             this.ButtonGroupBox.Name = "ButtonGroupBox";
@@ -71,15 +71,15 @@ namespace Riskeer.Common.Forms
             this.ButtonGroupBox.TabIndex = 7;
             this.ButtonGroupBox.TabStop = false;
             // 
-            // panel2
+            // SelectDeselectPanel
             // 
-            this.panel2.Controls.Add(this.SelectAllButton);
-            this.panel2.Controls.Add(this.DeselectAllButton);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 82);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(261, 39);
-            this.panel2.TabIndex = 6;
+            this.SelectDeselectPanel.Controls.Add(this.SelectAllButton);
+            this.SelectDeselectPanel.Controls.Add(this.DeselectAllButton);
+            this.SelectDeselectPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SelectDeselectPanel.Location = new System.Drawing.Point(3, 82);
+            this.SelectDeselectPanel.Name = "SelectDeselectPanel";
+            this.SelectDeselectPanel.Size = new System.Drawing.Size(261, 39);
+            this.SelectDeselectPanel.TabIndex = 6;
             // 
             // SelectAllButton
             // 
@@ -124,15 +124,15 @@ namespace Riskeer.Common.Forms
             this.CustomCancelButton.UseVisualStyleBackColor = true;
             this.CustomCancelButton.Click += new System.EventHandler(this.CustomCancelButton_Click);
             // 
-            // panel1
+            // OkCancelButtonPanel
             // 
-            this.panel1.Controls.Add(this.DoForSelectedButton);
-            this.panel1.Controls.Add(this.CustomCancelButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 124);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(267, 35);
-            this.panel1.TabIndex = 8;
+            this.OkCancelButtonPanel.Controls.Add(this.DoForSelectedButton);
+            this.OkCancelButtonPanel.Controls.Add(this.CustomCancelButton);
+            this.OkCancelButtonPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.OkCancelButtonPanel.Location = new System.Drawing.Point(0, 124);
+            this.OkCancelButtonPanel.Name = "OkCancelButtonPanel";
+            this.OkCancelButtonPanel.Size = new System.Drawing.Size(267, 35);
+            this.OkCancelButtonPanel.TabIndex = 8;
             // 
             // SelectionDialogBase
             // 
@@ -142,12 +142,12 @@ namespace Riskeer.Common.Forms
             this.AutoScrollMinSize = new System.Drawing.Size(240, 90);
             this.ClientSize = new System.Drawing.Size(267, 159);
             this.Controls.Add(this.ButtonGroupBox);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.OkCancelButtonPanel);
             this.Name = "SelectionDialogBase";
             this.Text = "SelectionDialogBase";
             this.ButtonGroupBox.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.SelectDeselectPanel.ResumeLayout(false);
+            this.OkCancelButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -156,11 +156,11 @@ namespace Riskeer.Common.Forms
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
         private System.Windows.Forms.GroupBox ButtonGroupBox;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel SelectDeselectPanel;
         private System.Windows.Forms.Button SelectAllButton;
         private System.Windows.Forms.Button DeselectAllButton;
         protected System.Windows.Forms.Button DoForSelectedButton;
         protected System.Windows.Forms.Button CustomCancelButton;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel OkCancelButtonPanel;
     }
 }

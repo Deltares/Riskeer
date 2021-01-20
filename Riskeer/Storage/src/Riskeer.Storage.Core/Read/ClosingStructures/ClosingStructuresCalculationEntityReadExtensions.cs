@@ -101,7 +101,7 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
         private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation,
                                        ClosingStructuresCalculationEntity entity)
         {
-            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.SingleOrDefault();
             if (outputEntity == null)
             {
                 return;

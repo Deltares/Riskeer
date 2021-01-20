@@ -142,7 +142,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Image icon = info.Image(context);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, icon);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, icon);
         }
 
         [Test]

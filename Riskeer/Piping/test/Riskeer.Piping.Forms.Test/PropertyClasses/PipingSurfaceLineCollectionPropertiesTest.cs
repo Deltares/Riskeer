@@ -38,11 +38,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSurfaceLineCollectionProperties(null);
+            void Call() => new PipingSurfaceLineCollectionProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collection", exception.ParamName);
         }
 
         [Test]

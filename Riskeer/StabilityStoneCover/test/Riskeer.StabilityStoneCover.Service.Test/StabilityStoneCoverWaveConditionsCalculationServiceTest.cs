@@ -197,10 +197,10 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
-        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Calculate_CalculationWithValidInputConditionsAndValidForeshore_LogStartAndEnd(CalculationType calculationType)
+        [TestCase(ForeshoreCalculationType.NoForeshore)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+        public void Calculate_CalculationWithValidInputConditionsAndValidForeshore_LogStartAndEnd(ForeshoreCalculationType calculationType)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
@@ -221,16 +221,16 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 
@@ -298,14 +298,14 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks ||
-                        calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
+                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks
+                        || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
                     {
                         AssertCalculationLogs(msgs, waterLevels, "blokken", 1);
                     }
 
-                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns ||
-                        calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
+                    if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns
+                        || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
                     {
                         int countStart = calculationType != StabilityStoneCoverWaveConditionsCalculationType.Columns
                                              ? expectedMessageCount / 2
@@ -378,7 +378,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]
-        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator(BreakWaterType breakWaterType)
+        public void Calculate_Always_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();

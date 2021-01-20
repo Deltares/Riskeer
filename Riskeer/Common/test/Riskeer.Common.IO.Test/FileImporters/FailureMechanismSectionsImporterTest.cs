@@ -53,15 +53,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism, null, "", new TestFailureMechanismSectionUpdateStrategy(), messageProvider);
+            void Call() => new FailureMechanismSectionsImporter(failureMechanism, null, "", updateStrategy, messageProvider);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("referenceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -75,11 +76,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), "", null, messageProvider);
+            void Call() => new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), "", null, messageProvider);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanismSectionUpdateStrategy", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismSectionUpdateStrategy", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -89,17 +90,15 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism,
-                                                                           new ReferenceLine(),
-                                                                           "",
-                                                                           new TestFailureMechanismSectionUpdateStrategy(), null);
+            void Call() => new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), "", updateStrategy, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("messageProvider", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("messageProvider", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -109,13 +108,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new FailureMechanismSectionsImporter(failureMechanism, referenceLine, "", new TestFailureMechanismSectionUpdateStrategy(), messageProvider);
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, referenceLine, "", updateStrategy, messageProvider);
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<IFailureMechanism>>(importer);
@@ -128,18 +128,26 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ValidFileCorrespondingToReferenceLine_CallsUpdateStrategy(string referenceLineFileName, string sectionsFileName, int sectionCount)
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
-            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                      Path.Combine("ReferenceLine", referenceLineFileName));
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", sectionsFileName));
-
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
+                                                                      Path.Combine("ReferenceLine", referenceLineFileName));
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(invocation =>
+                          {
+                              var sections = (IEnumerable<FailureMechanismSection>) invocation.Arguments[0];
+                              Assert.AreEqual(sectionCount, sections.Count());
+                              AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+                              Assert.AreEqual(sectionsFilePath, invocation.Arguments[1]);
+                          });
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
@@ -148,11 +156,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importSuccessful);
-
-            Assert.AreEqual(sectionsFilePath, updateStrategy.SourcePath);
-            IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;
-            Assert.AreEqual(sectionCount, sections.Count());
-            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
             mocks.VerifyAll();
         }
 
@@ -164,11 +167,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string affectedSection)
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
-            string fileName = $"Artificial_referencelijn_testA_ValidVakken_{affectedSection}.shp";
+            var fileName = $"Artificial_referencelijn_testA_ValidVakken_{affectedSection}.shp";
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                       Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
@@ -176,8 +175,20 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(invocation =>
+                          {
+                              var sections = (IEnumerable<FailureMechanismSection>) invocation.Arguments[0];
+                              Assert.AreEqual(7, sections.Count());
+                              AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+                              Assert.AreEqual(sectionsFilePath, invocation.Arguments[1]);
+                          });
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
@@ -186,10 +197,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importSuccessful);
-
-            IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;
-            Assert.AreEqual(7, sections.Count());
-            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
             mocks.VerifyAll();
         }
 
@@ -198,6 +205,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
             mocks.ReplayAll();
@@ -210,9 +219,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var progressChangeNotifications = new List<ProgressNotification>();
-
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
@@ -239,6 +245,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -249,21 +257,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(expectedUpdateDataFailedText,
-                                                   $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string expectedMessage = string.Format(
+                expectedUpdateDataFailedText, $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.");
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -272,6 +276,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -282,20 +288,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(expectedUpdateDataFailedText, $@"Fout bij het lezen van bestand '{sectionsFilePath}': het bestand bestaat niet.");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string expectedMessage = string.Format(
+                expectedUpdateDataFailedText, $@"Fout bij het lezen van bestand '{sectionsFilePath}': het bestand bestaat niet.");
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -304,6 +307,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -315,20 +320,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "Het bestand heeft geen vakindeling");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -339,6 +340,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -351,20 +354,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(expectedUpdateDataFailedText, "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string expectedMessage = string.Format(
+                expectedUpdateDataFailedText, "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -375,6 +375,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -387,21 +389,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(expectedUpdateDataFailedText,
-                                                   "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string expectedMessage = string.Format(
+                expectedUpdateDataFailedText, "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -410,6 +408,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -421,20 +421,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -443,6 +439,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -454,20 +452,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "Het bestand moet vakken bevatten die allen op elkaar aansluiten");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -476,6 +470,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
@@ -487,20 +483,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -509,26 +501,24 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", "vakindeling_Empty_Name_Value.shp"));
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), sectionsFilePath, updateStrategy, messageProvider);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor één of meerdere vakken is geen naam opgegeven.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            var expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor één of meerdere vakken is geen naam opgegeven.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -537,6 +527,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetCancelledLogMessageText(sectionsTypeDescriptor)).Return(expectedCancelledText);
             mocks.ReplayAll();
@@ -547,9 +539,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                                  Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) =>
@@ -563,12 +552,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var importSuccessful = true;
 
             // Call
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, expectedCancelledText, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedCancelledText, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -577,6 +565,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetCancelledLogMessageText(sectionsTypeDescriptor)).Return(expectedCancelledText);
             mocks.ReplayAll();
@@ -587,9 +577,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                                  Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) =>
@@ -603,12 +590,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var importSuccessful = true;
 
             // Call
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, expectedCancelledText, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedCancelledText, 1);
             Assert.IsFalse(importSuccessful);
-            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -617,6 +603,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(invocation => { CollectionAssert.IsNotEmpty((IEnumerable<FailureMechanismSection>) invocation.Arguments[0]); });
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
             mocks.ReplayAll();
@@ -627,9 +618,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                                  Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) =>
@@ -643,12 +631,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var importSuccessful = true;
 
             // Call
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
             Assert.IsTrue(importSuccessful);
-            CollectionAssert.IsNotEmpty(updateStrategy.ImportedFailureMechanismSections);
             mocks.VerifyAll();
         }
 
@@ -656,10 +643,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndExpectedImportedData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                       Path.Combine("ReferenceLine", "traject_1-1.shp"));
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
@@ -667,8 +650,20 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(invocation =>
+                          {
+                              var sections = (IEnumerable<FailureMechanismSection>) invocation.Arguments[0];
+                              Assert.AreEqual(62, sections.Count());
+                              AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+                              Assert.AreEqual(sectionsFilePath, invocation.Arguments[1]);
+                          });
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
@@ -678,23 +673,23 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Call
             var importSuccessful = false;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{sectionsFilePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{sectionsFilePath}'.", 1);
             Assert.IsTrue(importSuccessful);
-
-            IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;
-            Assert.AreEqual(62, sections.Count());
-            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void DoPostImport_AfterImport_ObserversNotified()
+        public void DoPostImport_AfterImport_CallUpdateStrategyAndObserversNotified()
         {
             // Setup
             var mocks = new MockRepository();
+            var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
+            updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
+                          .IgnoreArguments();
+            updateStrategy.Expect(us => us.DoPostUpdateActions());
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var observable = mocks.StrictMock<IObserver>();
             observable.Expect(o => o.UpdateObserver());
@@ -708,8 +703,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             importer.Import();
@@ -720,22 +713,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private class TestFailureMechanismSectionUpdateStrategy : IFailureMechanismSectionUpdateStrategy
-        {
-            public bool Updated { get; private set; }
-
-            public string SourcePath { get; private set; }
-
-            public IEnumerable<FailureMechanismSection> ImportedFailureMechanismSections { get; private set; }
-
-            public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
-            {
-                Updated = true;
-                SourcePath = sourcePath;
-                ImportedFailureMechanismSections = importedFailureMechanismSections;
-            }
         }
 
         private static ReferenceLine ImportReferenceLine(string referenceLineFilePath)
@@ -759,7 +736,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             return referenceLine;
         }
 
-        private void AssertSectionsAreValidForReferenceLine(IEnumerable<FailureMechanismSection> sections, ReferenceLine referenceLine)
+        private static void AssertSectionsAreValidForReferenceLine(IEnumerable<FailureMechanismSection> sections, ReferenceLine referenceLine)
         {
             Point2D[] referenceLineGeometry = referenceLine.Points.ToArray();
 
@@ -798,7 +775,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             }
         }
 
-        private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
+        private static double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
         {
             return GetLineSegments(referenceLine.Points)
                    .Select(segment => segment.GetEuclideanDistanceToPoint(point))

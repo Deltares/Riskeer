@@ -73,7 +73,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-
             var overtoppingCalculationInput = new OvertoppingCalculationInput(
                 hydraulicBoundaryLocationId, sectionNormal,
                 expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
@@ -91,16 +90,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
                 exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
 
             // Assert
-            const int expectedCalculationTypeId = 1;
-            const int expectedVariableId = 1;
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(overtoppingCalculationInput);
-            Assert.AreEqual(expectedCalculationTypeId, overtoppingCalculationInput.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, overtoppingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, overtoppingCalculationInput.CalculationTypeId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, overtoppingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);
+            Assert.AreEqual(1, overtoppingCalculationInput.VariableId);
+            Assert.AreEqual(1017, overtoppingCalculationInput.FaultTreeModelId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, overtoppingCalculationInput.HydraulicBoundaryLocationId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
-            CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
+            CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandPoints);
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
             Assert.IsNaN(overtoppingCalculationInput.Beta);
 

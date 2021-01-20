@@ -29,7 +29,8 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
@@ -48,29 +49,13 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var entity = new CalculationGroupEntity();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(null, generalPipingInput);
+            void Call() => entity.ReadAsPipingCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
-        }
-
-        [Test]
-        public void ReadAsPipingCalculationGroup_GeneralPipingInputIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var entity = new CalculationGroupEntity();
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate call = () => entity.ReadAsPipingCalculationGroup(collector, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("generalPipingInput", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -83,10 +68,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup group = entity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup group = entity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, group.Name);
@@ -129,10 +113,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -154,21 +137,21 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingCalculationGroup_EntityWithChildPipingCalculations_CreateCalculationGroupWithChildCalculations()
+        public void ReadAsPipingCalculationGroup_EntityWithChildSemiProbabilisticPipingCalculations_CreateCalculationGroupWithChildCalculations()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                PipingCalculationEntities =
+                SemiProbabilisticPipingCalculationEntities =
                 {
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 1,
                         Name = "2",
                         DampingFactorExitMean = 2
                     },
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 0,
                         Name = "1",
@@ -178,19 +161,58 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
             Assert.AreEqual(2, rootChildren.Count);
 
-            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
+            var rootChildCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
 
-            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[1];
+            var rootChildCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+        }
+
+        [Test]
+        public void ReadAsPipingCalculationGroup_EntityWithChildProbabilisticPipingCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                ProbabilisticPipingCalculationEntities =
+                {
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 1,
+                        Name = "2",
+                        DampingFactorExitMean = 2
+                    },
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1",
+                        DampingFactorExitMean = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
+
+            // Assert
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
+
+            var rootChildCalculation1 = (ProbabilisticPipingCalculationScenario) rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+
+            var rootChildCalculation2 = (ProbabilisticPipingCalculationScenario) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
         }
 
@@ -201,18 +223,33 @@ namespace Riskeer.Storage.Core.Test.Read
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                PipingCalculationEntities =
+                SemiProbabilisticPipingCalculationEntities =
                 {
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 0,
                         Name = "calculation1",
                         DampingFactorExitMean = 1
                     },
-                    new PipingCalculationEntity
+                    new SemiProbabilisticPipingCalculationEntity
+                    {
+                        Order = 3,
+                        Name = "calculation3",
+                        DampingFactorExitMean = 2
+                    }
+                },
+                ProbabilisticPipingCalculationEntities =
+                {
+                    new ProbabilisticPipingCalculationEntity
                     {
                         Order = 2,
                         Name = "calculation2",
+                        DampingFactorExitMean = 1
+                    },
+                    new ProbabilisticPipingCalculationEntity
+                    {
+                        Order = 5,
+                        Name = "calculation4",
                         DampingFactorExitMean = 2
                     }
                 },
@@ -220,7 +257,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Order = 3,
+                        Order = 4,
                         Name = "group2"
                     },
                     new CalculationGroupEntity
@@ -232,26 +269,31 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
-            Assert.AreEqual(4, rootChildren.Count);
+            Assert.AreEqual(6, rootChildren.Count);
 
-            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
-            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+            var rootChildSemiProbabilisticCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildSemiProbabilisticCalculation1.Name);
 
             var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
-            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[2];
-            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+            var rootChildProbabilisticCalculation1 = (ProbabilisticPipingCalculationScenario) rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildProbabilisticCalculation1.Name);
+            
+            var rootChildSemiProbabilisticCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[3];
+            Assert.AreEqual("calculation3", rootChildSemiProbabilisticCalculation2.Name);
 
-            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[4];
             Assert.AreEqual("group2", rootChildGroup2.Name);
+            
+            var rootChildProbabilisticCalculation2 = (ProbabilisticPipingCalculationScenario) rootChildren[5];
+            Assert.AreEqual("calculation4", rootChildProbabilisticCalculation2.Name);
         }
 
         #endregion
@@ -265,11 +307,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsCalculationGroup(null);
+            void Call() => entity.ReadAsMacroStabilityInwardsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -476,11 +518,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsGrassCoverErosionInwardsCalculationGroup(null);
+            void Call() => entity.ReadAsGrassCoverErosionInwardsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -667,11 +709,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -858,11 +900,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsHeightStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsHeightStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1049,11 +1091,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsClosingStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsClosingStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1244,11 +1286,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsStabilityPointStructuresCalculationGroup(null);
+            void Call() => entity.ReadAsStabilityPointStructuresCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1435,11 +1477,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -1626,11 +1668,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new CalculationGroupEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]

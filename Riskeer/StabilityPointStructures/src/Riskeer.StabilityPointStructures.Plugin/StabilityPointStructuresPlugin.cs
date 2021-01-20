@@ -95,7 +95,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             yield return new ViewInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseStabilityPointStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
@@ -195,7 +195,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<StabilityPointStructuresInputContext>
             {
@@ -329,7 +330,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
         {
-            
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
             if (o is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
@@ -546,7 +546,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation, CalculationType.Probabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -563,7 +563,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -689,10 +688,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                         context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                                             context.FailureMechanism,
                                                                                                                             context.AssessmentSection));
         }
@@ -738,8 +737,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -765,10 +763,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
             StabilityPointStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationScenarioContext context)
+        private void Calculate(StabilityPointStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                           context.FailureMechanism,
                                                                                                                           context.AssessmentSection));
         }

@@ -25,6 +25,8 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.IO.Configurations
 {
@@ -34,7 +36,7 @@ namespace Riskeer.Piping.IO.Configurations
     public class PipingCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             PipingCalculationConfigurationWriter,
-            PipingCalculationScenario,
+            IPipingCalculationScenario<PipingInput>,
             PipingCalculationConfiguration>
     {
         /// <summary>
@@ -47,25 +49,20 @@ namespace Riskeer.Piping.IO.Configurations
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new PipingCalculationConfigurationWriter(filePath)) {}
 
-        protected override PipingCalculationConfiguration ToConfiguration(PipingCalculationScenario calculation)
+        /// <inheritdoc/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
+        /// is of an unsupported type.</exception>
+        protected override PipingCalculationConfiguration ToConfiguration(IPipingCalculationScenario<PipingInput> calculation)
         {
             PipingInput input = calculation.InputParameters;
+            PipingCalculationConfigurationType calculationConfigurationType = GetCalculationConfigurationType(calculation);
 
-            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name)
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name, calculationConfigurationType)
             {
                 DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
                 PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
                 Scenario = calculation.ToScenarioConfiguration()
             };
-
-            if (input.UseAssessmentLevelManualInput)
-            {
-                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
-            }
-            else if (input.HydraulicBoundaryLocation != null)
-            {
-                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
-            }
 
             if (input.SurfaceLine != null)
             {
@@ -80,7 +77,62 @@ namespace Riskeer.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
+            if (calculationConfigurationType == PipingCalculationConfigurationType.SemiProbabilistic)
+            {
+                ToSemiProbabilisticConfiguration(calculationConfiguration, (SemiProbabilisticPipingInput) calculation.InputParameters);
+            }
+
+            if (calculationConfigurationType == PipingCalculationConfigurationType.Probabilistic)
+            {
+                ToProbabilisticConfiguration(calculationConfiguration, (ProbabilisticPipingInput) calculation.InputParameters);
+            }
+
             return calculationConfiguration;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PipingCalculationConfigurationType"/> based on the type of <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation scenario to get the type for.</param>
+        /// <returns>The <see cref="PipingCalculationConfigurationType"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/>
+        /// is of an unsupported type.</exception>
+        private static PipingCalculationConfigurationType GetCalculationConfigurationType(IPipingCalculationScenario<PipingInput> calculation)
+        {
+            switch (calculation)
+            {
+                case SemiProbabilisticPipingCalculationScenario _:
+                    return PipingCalculationConfigurationType.SemiProbabilistic;
+                case ProbabilisticPipingCalculationScenario _:
+                    return PipingCalculationConfigurationType.Probabilistic;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static void ToSemiProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
+                                                             SemiProbabilisticPipingInput input)
+        {
+            if (input.UseAssessmentLevelManualInput)
+            {
+                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
+            }
+            else if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
+            }
+        }
+
+        private static void ToProbabilisticConfiguration(PipingCalculationConfiguration calculationConfiguration,
+                                                         ProbabilisticPipingInput input)
+        {
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
+            }
+
+            calculationConfiguration.ShouldProfileSpecificIllustrationPointsBeCalculated = input.ShouldProfileSpecificIllustrationPointsBeCalculated;
+            calculationConfiguration.ShouldSectionSpecificIllustrationPointsBeCalculated = input.ShouldSectionSpecificIllustrationPointsBeCalculated;
         }
     }
 }

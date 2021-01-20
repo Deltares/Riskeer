@@ -88,7 +88,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return new ViewInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
@@ -159,7 +159,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
-                WaveConditionsCalculationContextOnNodeRemoved);
+                WaveConditionsCalculationContextOnNodeRemoved,
+                CalculationType.Hydraulic);
 
             yield return new TreeNodeInfo<EmptyWaveImpactAsphaltCoverOutput>
             {
@@ -451,7 +452,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation, CalculationType.Hydraulic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -465,7 +466,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAllInCalculationGroup,
                                                           EnableValidateAndCalculateMenuItemForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAllInCalculationGroup, EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(nodeData,
+                                                         CalculateAllInCalculationGroup,
+                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -569,11 +572,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                            context.FailureMechanism,
                                                                                                            context.AssessmentSection));
         }
@@ -625,7 +628,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddValidateCalculationItem(nodeData,
                                                       Validate,
                                                       EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(calculation, nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
+                              nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -654,11 +658,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                           assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
-        private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                               WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                                       context.FailureMechanism,
                                                                                                                                       context.AssessmentSection));
         }

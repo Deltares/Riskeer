@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsCalculation : CloneableObservable, ICalculation<MacroStabilityInwardsInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculation"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculation"/>.
         /// </summary>
         public MacroStabilityInwardsCalculation()
         {

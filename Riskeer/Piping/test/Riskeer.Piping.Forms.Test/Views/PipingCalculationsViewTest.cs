@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,11 +35,15 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -49,14 +54,15 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingCalculationsViewTest : NUnitFormTest
     {
         private const int nameColumnIndex = 0;
-        private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
-        private const int stochasticSoilModelsColumnIndex = 2;
-        private const int stochasticSoilProfilesColumnIndex = 3;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
-        private const int dampingFactorExitMeanColumnIndex = 5;
-        private const int phreaticLevelExitMeanColumnIndex = 6;
-        private const int entryPointLColumnIndex = 7;
-        private const int exitPointLColumnIndex = 8;
+        private const int calculationTypeColumnIndex = 1;
+        private const int selectableHydraulicBoundaryLocationsColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
+        private const int dampingFactorExitMeanColumnIndex = 6;
+        private const int phreaticLevelExitMeanColumnIndex = 7;
+        private const int entryPointLColumnIndex = 8;
+        private const int exitPointLColumnIndex = 9;
         private Form testForm;
 
         [Test]
@@ -66,7 +72,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingCalculationsView view = ShowPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
+            Assert.IsInstanceOf<CalculationsView<IPipingCalculationScenario<PipingInput>, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
 
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &scenario's...", button.Text);
@@ -82,9 +88,10 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(9, dataGridView.ColumnCount);
+            Assert.AreEqual(10, dataGridView.ColumnCount);
 
             Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Toets", dataGridView.Columns[calculationTypeColumnIndex].HeaderText);
             Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
             Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);
             Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
@@ -195,8 +202,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual(10, cells.Count);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Semi-probabilistisch", cells[calculationTypeColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("<selecteer>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -207,8 +215,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual(10, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Probabilistisch", cells[calculationTypeColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -518,7 +527,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
@@ -554,7 +563,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(pipingCalculationObserver);
             calculation.InputParameters.Attach(pipingCalculationInputObserver);
@@ -572,15 +581,15 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        public void Selection_SemiProbabilisticPipingCalculationScenario_ReturnsTheSelectedRowObject()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
+
+            const int selectedRow = 0;
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -595,9 +604,40 @@ namespace Riskeer.Piping.Forms.Test.Views
             object selection = view.Selection;
 
             // Assert
-            Assert.IsInstanceOf<PipingInputContext>(selection);
+            Assert.IsInstanceOf<SemiProbabilisticPipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.Calculation, ((PipingInputContext) selection).PipingCalculation);
+            Assert.AreSame(dataRow.Calculation, ((SemiProbabilisticPipingInputContext) selection).PipingCalculation);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Selection_ProbabilisticPipingCalculationScenario_ReturnsTheSelectedRowObject()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            const int selectedRow = 1;
+
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            PipingCalculationsView view = ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                                                     failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+
+            // Call
+            object selection = view.Selection;
+
+            // Assert
+            Assert.IsInstanceOf<ProbabilisticPipingInputContext>(selection);
+            var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.Calculation, ((ProbabilisticPipingInputContext) selection).PipingCalculation);
 
             mocks.VerifyAll();
         }
@@ -649,11 +689,11 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
+            var calculation = (ProbabilisticPipingCalculationScenario) calculationGroup.Children[1];
 
             if (useCalculationWithOutput)
             {
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
             }
 
             calculation.Attach(calculationObserver);
@@ -683,7 +723,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
+            var calculation = (ProbabilisticPipingCalculationScenario) calculationGroup.Children[1];
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -723,7 +763,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             PipingCalculationsView view = ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[0];
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0];
 
             DataGridViewControl dataGridView = view.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
             ListBox listBox = view.Controls.Find("listBox", true).OfType<ListBox>().First();
@@ -859,7 +899,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        [TestCase(true, true)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenCalculationScenariosGenerated(
+            bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Given
             var mocks = new MockRepository();
@@ -876,6 +920,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+
+                var semiProbabilisticCheckBox = (CheckBox) new CheckBoxTester("SemiProbabilisticCheckBox", selectionDialog).TheObject;
+                var probabilisticCheckBox = (CheckBox) new CheckBoxTester("ProbabilisticCheckBox", selectionDialog).TheObject;
+
+                semiProbabilisticCheckBox.Checked = generateSemiProbabilistic;
+                probabilisticCheckBox.Checked = generateProbabilistic;
+
                 var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -886,18 +937,29 @@ namespace Riskeer.Piping.Forms.Test.Views
             button.Click();
 
             // Then
-            PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
-            PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            CalculationGroup addedGroup = failureMechanism.CalculationsGroup.Children.OfType<CalculationGroup>().Single();
+            Assert.AreEqual("Surface line 1", addedGroup.Name);
 
-            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
-
-            foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+            if (generateSemiProbabilistic)
             {
-                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+                SemiProbabilisticPipingCalculationScenario[] semiProbabilisticPipingCalculationScenarios =
+                    addedGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
+
+                Assert.AreEqual(2, semiProbabilisticPipingCalculationScenarios.Length);
+                Assert.AreEqual("Surface line 1 A", semiProbabilisticPipingCalculationScenarios[0].Name);
+                Assert.AreEqual("Surface line 1 B", semiProbabilisticPipingCalculationScenarios[1].Name);
             }
 
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
+            if (generateProbabilistic)
+            {
+                ProbabilisticPipingCalculationScenario[] probabilisticPipingCalculationScenarios =
+                    addedGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
+
+                Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
+                Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
+                Assert.AreEqual("Surface line 1 B", probabilisticPipingCalculationScenarios[1].Name);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -931,13 +993,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             button.Click();
 
             // Then
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             mocks.VerifyAll(); // No observer notified
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        [Test]
+        public void CalculationsViewWithHydraulicLocation_ProbabilisticCalculationScenario_SelectableHydraulicLocationAlwaysReadonlyFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -950,19 +1011,76 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
-
+            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.IsFalse(dataGridView.Rows[1].ReadOnly);
+            var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.IsFalse(selectableHydraulicLocationCell.ReadOnly);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateSelectedItemFromCurrentRow_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
+            void Call() => view.PublicCreateSelectedItemFromCurrentRow(new PipingCalculationRow(new TestPipingCalculationScenario(), string.Empty, handler));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateRow_UnsupportedCalculationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
+
+            // Call
+            void Call() => view.PublicCreateRow(new TestPipingCalculationScenario());
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CalculationsViewWithHydraulicLocation_SemiProbabilisticCalculationScenario_SelectableHydraulicLocationReadonlyAsExpected(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
             calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
             calculation.InputParameters.NotifyObservers();
 
             // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
-
-            var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-            Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
+            var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.AreEqual(useAssessmentLevelManualInput, selectableHydraulicLocationCell.ReadOnly);
 
             mocks.VerifyAll();
         }
@@ -1063,7 +1181,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 Children =
                 {
-                    new PipingCalculationScenario(new GeneralPipingInput())
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -1083,7 +1201,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                             ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
-                    new PipingCalculationScenario(new GeneralPipingInput())
+                    new ProbabilisticPipingCalculationScenario
                     {
                         Name = "Calculation 2",
                         InputParameters =
@@ -1237,6 +1355,22 @@ namespace Riskeer.Piping.Forms.Test.Views
         private static string GetFormattedProbabilityValue(double value)
         {
             return new RoundedDouble(2, value).ToString();
+        }
+
+        private class TestPipingCalculationsView : PipingCalculationsView
+        {
+            public TestPipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            public object PublicCreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
+            {
+                return CreateSelectedItemFromCurrentRow(currentRow);
+            }
+
+            public PipingCalculationRow PublicCreateRow(IPipingCalculationScenario<PipingInput> calculation)
+            {
+                return CreateRow(calculation);
+            }
         }
     }
 }

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
@@ -39,7 +41,7 @@ namespace Core.Common.Gui.Test.Commands
     public class GuiImportHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
+        public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -47,16 +49,16 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(null, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+            void Call() => new GuiImportHandler(null, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("dialogParent", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dialogParent", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutImportInfos_ThrowsArgumentNullException()
+        public void Constructor_ImportInfosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -65,16 +67,16 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(mainWindow, null, inquiryHelper);
+            void Call() => new GuiImportHandler(mainWindow, null, inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importInfos", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importInfos", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutInquiryHelper_ThrowsArgumentNullException()
+        public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -82,39 +84,18 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), null);
+            void Call() => new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("inquiryHelper", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CanImportOn_HasNoFileImportersForTarget_ReturnFalse()
+        public void GetSupportedImportInfos_TargetNull_ReturnsEmptyEnumeration()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            var commandHandler = new GuiImportHandler(dialogParent, Enumerable.Empty<ImportInfo>(), inquiryHelper);
-
-            // Call
-            bool isImportPossible = commandHandler.CanImportOn(new object());
-
-            // Assert
-            Assert.IsFalse(isImportPossible);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanImportOn_HasOneImportInfoForTarget_ReturnTrue()
-        {
-            // Setup
-            var target = new object();
-
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -126,18 +107,36 @@ namespace Core.Common.Gui.Test.Commands
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanImportOn(target);
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(null);
 
             // Assert
-            Assert.IsTrue(isImportPossible);
+            CollectionAssert.IsEmpty(supportedImportInfos);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanImportOn_HasOneImportInfoForTargetThatIsNotEnabledForTarget_ReturnFalse()
+        public void GetSupportedImportInfos_NoImportInfos_ReturnsEmptyEnumeration()
         {
             // Setup
-            var target = new object();
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiImportHandler(dialogParent, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+
+            // Call
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new object());
+
+            // Assert
+            CollectionAssert.IsEmpty(supportedImportInfos);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetSupportedImportInfos_NoImportInfosForTargetType_ReturnsEmptyEnumeration()
+        {
+            // Setup
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -145,82 +144,125 @@ namespace Core.Common.Gui.Test.Commands
 
             var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
             {
-                new ImportInfo<object>
-                {
-                    IsEnabled = data => false
-                }
+                new ImportInfo<TestClassA>(),
+                new ImportInfo<TestClassB>()
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanImportOn(target);
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new TestClassC());
 
             // Assert
-            Assert.IsFalse(isImportPossible);
+            CollectionAssert.IsEmpty(supportedImportInfos);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanImportOn_HasMultipleImportInfosForTargetWhereAtLeastOneEnabledForTargetItem_ReturnTrue()
+        public void GetSupportedImportInfos_MultipleImportInfos_ReturnsEnumerationBasedOnTargetType()
         {
             // Setup
-            var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
+            var firstImportInfo = new ImportInfo<TestClassA>
+            {
+                Name = "1"
+            };
+
+            var secondImportInfo = new ImportInfo<TestClassB>
+            {
+                Name = "2"
+            };
+
+            var thirdImportInfo = new ImportInfo<TestClassC>
+            {
+                Name = "3"
+            };
+
+            var fourthImportInfo = new ImportInfo<TestClassB>
+            {
+                Name = "4"
+            };
+
             var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
             {
-                new ImportInfo<object>
-                {
-                    IsEnabled = data => false
-                },
-                new ImportInfo<object>
-                {
-                    IsEnabled = data => true
-                }
+                firstImportInfo,
+                secondImportInfo,
+                thirdImportInfo,
+                fourthImportInfo
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanImportOn(target);
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new TestClassB());
 
             // Assert
-            Assert.IsTrue(isImportPossible);
+            var expectedImportInfos = new List<ImportInfo>
+            {
+                firstImportInfo,
+                secondImportInfo,
+                fourthImportInfo
+            };
+
+            CollectionAssert.AreEqual(expectedImportInfos, supportedImportInfos, new ImportInfoNameComparer());
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanImportOn_HasMultipleImportInfosForTargetThatCannotBeUsedForImporting_ReturnFalse()
+        [TestCase(true, true)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(false, false)]
+        public void GetSupportedImportInfos_MultipleImportInfosForTargetType_ReturnsEnumerationBasedOnEnabledState(
+            bool firstImportInfoEnabled,
+            bool secondImportInfoEnabled)
         {
             // Setup
-            var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
+            var firstImportInfo = new ImportInfo<object>
+            {
+                Name = "1",
+                IsEnabled = o => firstImportInfoEnabled
+            };
+
+            var secondImportInfo = new ImportInfo<object>
+            {
+                Name = "2",
+                IsEnabled = o => secondImportInfoEnabled
+            };
+
             var commandHandler = new GuiImportHandler(dialogParent, new ImportInfo[]
             {
-                new ImportInfo<object>
-                {
-                    IsEnabled = data => false
-                },
-                new ImportInfo<object>
-                {
-                    IsEnabled = data => false
-                }
+                firstImportInfo,
+                secondImportInfo
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanImportOn(target);
+            IEnumerable<ImportInfo> supportedImportInfos = commandHandler.GetSupportedImportInfos(new object());
 
             // Assert
-            Assert.IsFalse(isImportPossible);
+            var expectedImportInfos = new List<ImportInfo>();
+
+            if (firstImportInfoEnabled)
+            {
+                expectedImportInfos.Add(firstImportInfo);
+            }
+
+            if (secondImportInfoEnabled)
+            {
+                expectedImportInfos.Add(secondImportInfo);
+            }
+
+            CollectionAssert.AreEqual(expectedImportInfos, supportedImportInfos, new ImportInfoNameComparer());
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ImportOn_NoImporterAvailable_GivesMessageBox()
+        public void ImportOn_NoImportInfos_GivesMessageBox()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -242,7 +284,7 @@ namespace Core.Common.Gui.Test.Commands
             var importHandler = new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
             // Call
-            importHandler.ImportOn(3);
+            importHandler.ImportOn(3, Enumerable.Empty<ImportInfo>());
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
@@ -251,41 +293,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_NoSupportedImportInfoAvailable_GivesMessageBox()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
-
-                messageBox.ClickOk();
-            };
-
-            var importHandler = new GuiImportHandler(mainWindow, new ImportInfo[]
-            {
-                new ImportInfo<double>()
-            }, inquiryHelper);
-
-            // Call
-            importHandler.ImportOn(string.Empty);
-
-            // Assert
-            Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Geen enkele 'Importer' is beschikbaar voor dit element.", messageBoxText);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledActivityCreated()
+        public void ImportOn_SupportedImportInfoAndVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledAndActivityCreated()
         {
             // Setup
             const string filePath = "/some/path";
@@ -309,33 +317,35 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var supportedImportInfo = new ImportInfo<object>
                 {
-                    new ImportInfo<object>
+                    Name = dataDescription,
+                    CreateFileImporter = (o, s) =>
                     {
-                        Name = dataDescription,
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            Assert.AreEqual(filePath, s);
-                            isCreateFileImporterCalled = true;
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            isVerifyUpdatedCalled = true;
-                            return true;
-                        }
+                        Assert.AreSame(o, targetObject);
+                        Assert.AreEqual(filePath, s);
+                        isCreateFileImporterCalled = true;
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o =>
+                    {
+                        Assert.AreSame(o, targetObject);
+                        isVerifyUpdatedCalled = true;
+                        return true;
                     }
-                }, inquiryHelper);
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
                 // Call
-                Action call = () => importHandler.ImportOn(targetObject);
+                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
 
                 // Assert
-                TestHelper.AssertLogMessagesAreGenerated(call, new[]
+                TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                 {
                     $"Importeren van '{dataDescription}' is gestart.",
                     $"Importeren van '{dataDescription}' is mislukt."
@@ -349,46 +359,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void UpdateOn_InquiryHelperReturnsNoPath_UpdateCancelledWithLogMessage()
-        {
-            // Setup
-            var generator = new FileFilterGenerator();
-            var targetObject = new object();
-
-            var mockRepository = new MockRepository();
-            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
-            var fileImporter = mockRepository.Stub<IFileImporter>();
-            mockRepository.ReplayAll();
-
-            using (var form = new Form())
-            {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
-                {
-                    new ImportInfo<object>
-                    {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o => true
-                    }
-                }, inquiryHelper);
-
-                // Call
-                Action call = () => importHandler.ImportOn(targetObject);
-
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Importeren van gegevens is geannuleerd.");
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ImportOn_MultipleSupportedImportInfoAvailableVerifyUpdatesUnsuccessful_ActivityNotCreated()
+        public void ImportOn_SupportedImportInfoAndVerifyUpdatesUnsuccessful_ActivityNotCreated()
         {
             // Setup
             var generator = new FileFilterGenerator();
@@ -404,27 +375,29 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var supportedImportInfo = new ImportInfo<object>
                 {
-                    new ImportInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            isVerifyUpdatedCalled = true;
-                            return false;
-                        }
+                        Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o =>
+                    {
+                        Assert.AreSame(o, targetObject);
+                        isVerifyUpdatedCalled = true;
+                        return false;
                     }
-                }, inquiryHelper);
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
                 // Call
-                importHandler.ImportOn(targetObject);
+                importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
             }
 
             // Assert
@@ -432,9 +405,50 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void ImportOn_InquiryHelperReturnsNoPath_ImportCancelledWithLogMessage()
+        {
+            // Setup
+            var generator = new FileFilterGenerator();
+            var targetObject = new object();
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
+            var fileImporter = mockRepository.Stub<IFileImporter>();
+            mockRepository.ReplayAll();
+
+            using (var form = new Form())
+            {
+                var supportedImportInfo = new ImportInfo<object>
+                {
+                    CreateFileImporter = (o, s) =>
+                    {
+                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o => true
+                };
+
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+
+                // Call
+                void Call() => importHandler.ImportOn(targetObject, new ImportInfo[]
+                {
+                    supportedImportInfo
+                });
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(Call, "Importeren van gegevens is geannuleerd.");
+            }
+
+            mockRepository.VerifyAll();
+        }
+
         [TestCase(true)]
         [TestCase(false)]
-        public void ImportOn_MultipleSupportedImportInfoAvailable_ShowsDialogWithOptions(bool hasFileFilterGenerator)
+        public void ImportOn_MultipleSupportedImportInfos_ShowsDialogWithOptions(bool hasFileFilterGenerator)
         {
             // Setup
             const string importInfoAName = "nameA";
@@ -467,14 +481,14 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+
+                // Call
+                importHandler.ImportOn(new object(), new ImportInfo[]
                 {
                     importInfoA,
                     importInfoB
-                }, inquiryHelper);
-
-                // Call
-                importHandler.ImportOn(new object());
+                });
             }
 
             // Assert
@@ -489,6 +503,20 @@ namespace Core.Common.Gui.Test.Commands
             Assert.AreEqual(expectedItemNameB, listViewItems[1].Name);
 
             mockRepository.VerifyAll();
+        }
+
+        private class TestClassA {}
+
+        private class TestClassB : TestClassA {}
+
+        private class TestClassC {}
+
+        private class ImportInfoNameComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return string.CompareOrdinal(((ImportInfo) x)?.Name, ((ImportInfo) y)?.Name);
+            }
         }
     }
 }

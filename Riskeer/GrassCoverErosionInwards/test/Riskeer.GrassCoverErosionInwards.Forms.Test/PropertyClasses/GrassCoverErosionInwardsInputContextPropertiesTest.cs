@@ -95,13 +95,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var inputParameters = new GrassCoverErosionInwardsInput();
 
             var context = new GrassCoverErosionInwardsInputContext(inputParameters,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -120,13 +120,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var inputParameters = new GrassCoverErosionInwardsInput();
 
             var context = new GrassCoverErosionInwardsInputContext(inputParameters,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -769,7 +769,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
             {
@@ -777,7 +777,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             var context = new GrassCoverErosionInwardsInputContext(input,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -799,7 +799,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
             {
@@ -807,7 +807,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             var context = new GrassCoverErosionInwardsInputContext(input,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -828,7 +828,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
             {
@@ -838,7 +838,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             var context = new GrassCoverErosionInwardsInputContext(input,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -859,7 +859,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
             {
@@ -869,7 +869,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             var context = new GrassCoverErosionInwardsInputContext(input,
-                                                                   calculationItem,
+                                                                   calculation,
                                                                    failureMechanism,
                                                                    assessmentSection);
 

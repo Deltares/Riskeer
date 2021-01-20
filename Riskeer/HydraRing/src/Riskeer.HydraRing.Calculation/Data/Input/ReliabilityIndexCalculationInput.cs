@@ -40,13 +40,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
             Beta = StatisticsConverter.ProbabilityToReliability(norm);
         }
 
-        public override int CalculationTypeId
-        {
-            get
-            {
-                return 9;
-            }
-        }
+        public override int CalculationTypeId => 9;
 
         public override double Beta { get; }
     }

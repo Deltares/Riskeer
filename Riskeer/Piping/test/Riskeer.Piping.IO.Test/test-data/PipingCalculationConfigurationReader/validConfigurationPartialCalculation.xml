@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
+    <toetstype/>
     <uittredepunt>2.2</uittredepunt>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <stochasten>

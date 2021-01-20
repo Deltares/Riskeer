@@ -102,8 +102,10 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityOutwardsFailureMechanismMetaEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             ProjectEntities.Load();
-            PipingCalculationEntities.Load();
-            PipingCalculationOutputEntities.Load();
+            SemiProbabilisticPipingCalculationEntities.Load();
+            SemiProbabilisticPipingCalculationOutputEntities.Load();
+            ProbabilisticPipingCalculationEntities.Load();
+            ProbabilisticPipingCalculationOutputEntities.Load();
             PipingCharacteristicPointEntities.Load();
             PipingFailureMechanismMetaEntities.Load();
             PipingSectionResultEntities.Load();

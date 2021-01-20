@@ -108,9 +108,9 @@ namespace Riskeer.Common.IO.SoilProfile
             {
                 return TryReadStochasticSoilModel();
             }
-            catch (SystemException exception) when (exception is FormatException ||
-                                                    exception is OverflowException ||
-                                                    exception is InvalidCastException)
+            catch (SystemException exception) when (exception is FormatException
+                                                    || exception is OverflowException
+                                                    || exception is InvalidCastException)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
                 throw new CriticalFileReadException(message, exception);

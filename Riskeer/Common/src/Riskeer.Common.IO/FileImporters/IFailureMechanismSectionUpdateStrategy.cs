@@ -46,5 +46,10 @@ namespace Riskeer.Common.IO.FileImporters
         /// </exception>
         void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
                                             string sourcePath);
+
+        /// <summary>
+        /// Perform post-update actions.
+        /// </summary>
+        void DoPostUpdateActions();
     }
 }

@@ -660,7 +660,8 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
+                    context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
             yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
@@ -1363,7 +1364,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
@@ -1398,7 +1399,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
@@ -1464,8 +1465,8 @@ namespace Riskeer.Integration.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults &&
-                   ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
+            return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults
+                   && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion
@@ -2290,9 +2291,9 @@ namespace Riskeer.Integration.Plugin
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
-            return builder.AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
-                                               RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                                               RiskeerCommonFormsResources.DatabaseIcon)
+            return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
+                                         RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                         RiskeerCommonFormsResources.DatabaseIcon)
                           .AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)

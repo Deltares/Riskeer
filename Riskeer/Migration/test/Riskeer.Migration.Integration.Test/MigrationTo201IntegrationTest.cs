@@ -75,6 +75,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertMacroStabilityInwardsOutput(reader);
 
+                    AssertPipingCalculation(reader, sourceFilePath);
                     AssertPipingOutput(reader, sourceFilePath);
                 }
 
@@ -625,18 +626,52 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
         }
 
+        private static void AssertPipingCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingCalculationEntity" +
+                ") " +
+                "FROM SemiProbabilisticPipingCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
+                "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId]" +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[PipingStochasticSoilProfileEntityId] IS OLD.[PipingStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[EntryPointL] IS OLD.[EntryPointL] " +
+                "AND NEW.[ExitPointL] IS OLD.[ExitPointL] " +
+                "AND NEW.[PhreaticLevelExitMean] IS OLD.[PhreaticLevelExitMean] " +
+                "AND NEW.[PhreaticLevelExitStandardDeviation] IS OLD.[PhreaticLevelExitStandardDeviation] " +
+                "AND NEW.[DampingFactorExitMean] IS OLD.[DampingFactorExitMean] " +
+                "AND NEW.[DampingFactorExitStandardDeviation] IS OLD.[DampingFactorExitStandardDeviation] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] IS OLD.[ScenarioContribution] " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculation);
+        }
+
         private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateSectionResults =
+            string validateOutput =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
                 "FROM SOURCEPROJECT.PipingCalculationOutputEntity" +
                 ") " +
-                "FROM PipingCalculationOutputEntity NEW " +
-                "JOIN SOURCEPROJECT.PipingCalculationOutputEntity OLD USING(PipingCalculationOutputEntityId) " +
-                "WHERE NEW.[PipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
+                "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingCalculationOutputEntity OLD " +
+                "ON NEW.[SemiProbabilisticPipingCalculationOutputEntityId] = OLD.[PipingCalculationOutputEntityId]" +
+                "WHERE NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[HeaveFactorOfSafety] IS OLD.[HeaveFactorOfSafety] " +
                 "AND NEW.[UpliftFactorOfSafety] IS OLD.[UpliftFactorOfSafety] " +
@@ -647,7 +682,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[SellmeijerCriticalFall] IS OLD.[SellmeijerCriticalFall] " +
                 "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
                 "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSectionResults);
+            reader.AssertReturnedDataIsValid(validateOutput);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)

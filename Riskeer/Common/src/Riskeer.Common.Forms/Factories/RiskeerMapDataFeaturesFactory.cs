@@ -332,8 +332,8 @@ namespace Riskeer.Common.Forms.Factories
             where TStructuresInput : StructuresInputBase<TStructure>, new()
             where TStructure : StructureBase
         {
-            return calculation.InputParameters.Structure != null &&
-                   calculation.InputParameters.HydraulicBoundaryLocation != null;
+            return calculation.InputParameters.Structure != null
+                   && calculation.InputParameters.HydraulicBoundaryLocation != null;
         }
 
         private static MapFeature CreateFailureMechanismSectionMapFeature(FailureMechanismSection section)

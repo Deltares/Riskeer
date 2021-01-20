@@ -159,11 +159,11 @@ namespace Riskeer.Piping.Primitives.Test
             var layer = new PipingSoilLayer(top);
 
             // Call
-            TestDelegate test = () => layer.MaterialName = null;
+            void Call() => layer.MaterialName = null;
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("value", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]

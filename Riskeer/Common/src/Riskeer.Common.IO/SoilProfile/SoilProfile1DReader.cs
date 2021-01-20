@@ -83,9 +83,9 @@ namespace Riskeer.Common.IO.SoilProfile
                 SoilProfile1D soilProfile = TryReadSoilProfile();
                 return soilProfile;
             }
-            catch (SystemException exception) when (exception is FormatException ||
-                                                    exception is OverflowException ||
-                                                    exception is InvalidCastException)
+            catch (SystemException exception) when (exception is FormatException
+                                                    || exception is OverflowException
+                                                    || exception is InvalidCastException)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.SoilProfileReader_Error_reading_soil_profile_from_database);
                 throw new CriticalFileReadException(message, exception);

@@ -25,7 +25,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
@@ -50,16 +49,20 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
-        /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when any number of properties in this class is editable and the 
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
         public ShiftedLogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties readOnlyProperties,
                                                                     DesignVariable<LogNormalDistribution> designVariable,
                                                                     IObservablePropertyChangeHandler handler)
             : base(readOnlyProperties, designVariable, handler) {}
 
+        /// <summary>
+        /// Gets the shift of the <see cref="LogNormalDistribution"/>.
+        /// </summary>
         [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistics_Shift_Symbol))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Probabilistics_Shift_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Symbol))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Description))]
         public RoundedDouble Shift
         {
             get
@@ -72,7 +75,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             return $"{DesignValue} ({RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
                    $"{RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}, " +
-                   $"{Resources.Probabilistics_Shift_Symbol} = {Shift})";
+                   $"{RiskeerCommonFormsResources.Probabilistics_Shift_Symbol} = {Shift})";
         }
     }
 }

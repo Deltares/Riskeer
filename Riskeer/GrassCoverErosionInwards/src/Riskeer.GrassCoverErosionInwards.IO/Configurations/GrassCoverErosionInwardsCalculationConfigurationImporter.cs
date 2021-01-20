@@ -285,11 +285,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
             if (calculation.InputParameters.DikeProfile == null)
             {
-                if (waveReductionConfiguration != null &&
-                    (waveReductionConfiguration.UseBreakWater.HasValue
-                     || waveReductionConfiguration.UseForeshoreProfile.HasValue
-                     || waveReductionConfiguration.BreakWaterHeight != null
-                     || waveReductionConfiguration.BreakWaterType != null))
+                if (waveReductionConfiguration != null
+                    && (waveReductionConfiguration.UseBreakWater.HasValue
+                        || waveReductionConfiguration.UseForeshoreProfile.HasValue
+                        || waveReductionConfiguration.BreakWaterHeight != null
+                        || waveReductionConfiguration.BreakWaterType != null))
                 {
                     Log.LogCalculationConversionError(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_BreakWater_parameters,
                                                       calculation.Name);

@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
-            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
@@ -120,7 +120,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
-            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);

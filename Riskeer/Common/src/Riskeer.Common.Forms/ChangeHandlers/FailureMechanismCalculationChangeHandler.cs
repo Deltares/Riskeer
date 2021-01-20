@@ -34,7 +34,6 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     public class FailureMechanismCalculationChangeHandler : IConfirmDataChangeHandler
     {
         private readonly string query;
-        private readonly IFailureMechanism failureMechanism;
         private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
@@ -63,19 +62,24 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
 
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
             this.query = query;
             this.inquiryHandler = inquiryHandler;
         }
 
-        public bool RequireConfirmation()
+        public virtual bool RequireConfirmation()
         {
-            return failureMechanism.Calculations.Any(calc => calc.HasOutput);
+            return FailureMechanism.Calculations.Any(calc => calc.HasOutput);
         }
 
         public bool InquireConfirmation()
         {
             return inquiryHandler.InquireContinuation(query);
         }
+
+        /// <summary>
+        /// Gets the <see cref="IFailureMechanism"/>.
+        /// </summary>
+        protected IFailureMechanism FailureMechanism { get; }
     }
 }

@@ -152,7 +152,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -239,7 +239,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextMenuStrip,
-                WaveConditionsCalculationContextOnNodeRemoved);
+                WaveConditionsCalculationContextOnNodeRemoved,
+                CalculationType.Hydraulic);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {
@@ -754,7 +755,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation, CalculationType.Hydraulic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -770,7 +771,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        nodeData,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -883,12 +883,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
-                    group, context.FailureMechanism, context.AssessmentSection));
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(context.WrappedData,
+                                                                                                              context.FailureMechanism,
+                                                                                                              context.AssessmentSection));
         }
 
         #endregion
@@ -942,8 +943,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        nodeData,
                        Validate,
                        EnableValidateAndCalculateMenuItemForCalculation)
-                   .AddPerformCalculationItem(
-                       calculation,
+                   .AddPerformCalculationItem<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                        nodeData,
                        Calculate,
                        EnableValidateAndCalculateMenuItemForCalculation)
@@ -977,11 +977,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                           failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
-        private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                               GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
+                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(context.WrappedData,
                                                                                                                                          context.FailureMechanism,
                                                                                                                                          context.AssessmentSection));
         }

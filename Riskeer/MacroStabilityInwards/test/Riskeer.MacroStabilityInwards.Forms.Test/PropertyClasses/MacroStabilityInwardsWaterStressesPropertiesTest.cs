@@ -327,10 +327,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsInput input = calculationItem.InputParameters;
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            var propertyChangeHandler = new ObservablePropertyChangeHandler(calculationItem, input);
+            var propertyChangeHandler = new ObservablePropertyChangeHandler(calculation, input);
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, 
                                                                               new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),

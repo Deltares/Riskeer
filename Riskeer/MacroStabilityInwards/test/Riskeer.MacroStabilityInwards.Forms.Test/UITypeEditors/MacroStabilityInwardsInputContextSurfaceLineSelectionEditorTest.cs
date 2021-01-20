@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 SurfaceLine = ValidSurfaceLine()
             };
             var inputParametersContext = new MacroStabilityInwardsInputContext(input,
-                                                                               calculationItem,
+                                                                               calculation,
                                                                                new[]
                                                                                {
                                                                                    new MacroStabilityInwardsSurfaceLine(string.Empty)
@@ -110,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 new Point3D(0.0, 0.0, 0.0),
                 new Point3D(1.0, 0.0, 1.0)
             });
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 SurfaceLine = surfaceLine
             };
             var inputParametersContext = new MacroStabilityInwardsInputContext(input,
-                                                                               calculationItem,
+                                                                               calculation,
                                                                                new[]
                                                                                {
                                                                                    surfaceLine

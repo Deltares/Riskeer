@@ -43,6 +43,8 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionInwardsOutputEntities = new HashSet<GrassCoverErosionInwardsOutputEntity>();
             GrassCoverErosionInwardsOvertoppingRateOutputEntities = new HashSet<GrassCoverErosionInwardsOvertoppingRateOutputEntity>();
             HeightStructuresOutputEntities = new HashSet<HeightStructuresOutputEntity>();
+            ProbabilisticPipingCalculationOutputEntities = new HashSet<ProbabilisticPipingCalculationOutputEntity>();
+            ProbabilisticPipingCalculationOutputEntities1 = new HashSet<ProbabilisticPipingCalculationOutputEntity>();
             StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
             TopLevelFaultTreeIllustrationPointEntities = new HashSet<TopLevelFaultTreeIllustrationPointEntity>();
             StochastEntities = new HashSet<StochastEntity>();
@@ -64,6 +66,12 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities1 { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }

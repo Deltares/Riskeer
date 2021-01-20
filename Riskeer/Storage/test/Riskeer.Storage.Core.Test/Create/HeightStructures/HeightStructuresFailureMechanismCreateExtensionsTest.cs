@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
             Assert.AreEqual(failureMechanism.HeightStructures.SourcePath, metaEntity.HeightStructureCollectionSourcePath);
             Assert.AreEqual(failureMechanism.ForeshoreProfiles.SourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
@@ -273,8 +273,8 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(0, childGroupEntity.Order);
 
             HeightStructuresCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.HeightStructuresCalculationEntities
-                                                                             .OrderBy(ce => ce.Order)
-                                                                             .ToArray();
+                                                                            .OrderBy(ce => ce.Order)
+                                                                            .ToArray();
             HeightStructuresCalculationEntity calculationEntity = calculationEntities[0];
             Assert.AreEqual("Nieuwe berekening", calculationEntity.Name);
             Assert.AreEqual(1, calculationEntity.Order);

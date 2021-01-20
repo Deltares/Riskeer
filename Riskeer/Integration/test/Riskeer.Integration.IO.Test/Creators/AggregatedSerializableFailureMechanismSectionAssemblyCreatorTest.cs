@@ -162,11 +162,11 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
-            TestName = "SimpleAssembly")]
+                  TestName = "SimpleAssembly")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-            TestName = "DetailedAssembly")]
+                  TestName = "DetailedAssembly")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-            TestName = "TailorMadeAssembly")]
+                  TestName = "TailorMadeAssembly")]
         public void CreateWithoutProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
@@ -359,11 +359,11 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
-            TestName = "SimpleAssembly")]
+                  TestName = "SimpleAssembly")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-            TestName = "DetailedAssembly")]
+                  TestName = "DetailedAssembly")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-            TestName = "TailorMadeAssembly")]
+                  TestName = "TailorMadeAssembly")]
         public void CreateWithProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
@@ -549,9 +549,9 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-            TestName = "SimpleAssembly")]
+                  TestName = "SimpleAssembly")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-            TestName = "TailorMadeAssembly")]
+                  TestName = "TailorMadeAssembly")]
         public void CreateWithoutDetailedAssembly_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)

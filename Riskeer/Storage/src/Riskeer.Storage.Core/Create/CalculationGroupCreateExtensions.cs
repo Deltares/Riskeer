@@ -28,13 +28,15 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Create.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
-using Riskeer.Storage.Core.Create.Piping;
+using Riskeer.Storage.Core.Create.Piping.Probabilistic;
+using Riskeer.Storage.Core.Create.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
@@ -83,9 +85,14 @@ namespace Riskeer.Storage.Core.Create
                     entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
                 }
 
-                if (calculationBase is PipingCalculationScenario childPipingCalculation)
+                if (calculationBase is SemiProbabilisticPipingCalculationScenario childSemiProbabilisticPipingCalculation)
                 {
-                    entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
+                    entity.SemiProbabilisticPipingCalculationEntities.Add(childSemiProbabilisticPipingCalculation.Create(registry, i));
+                }
+
+                if (calculationBase is ProbabilisticPipingCalculationScenario childProbabilisticPipingCalculation)
+                {
+                    entity.ProbabilisticPipingCalculationEntities.Add(childProbabilisticPipingCalculation.Create(registry, i));
                 }
 
                 if (calculationBase is MacroStabilityInwardsCalculationScenario childMacroStabilityInwardsCalculation)

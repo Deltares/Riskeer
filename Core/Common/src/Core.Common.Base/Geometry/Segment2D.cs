@@ -175,8 +175,10 @@ namespace Core.Common.Base.Geometry
 
         private bool Equals(Segment2D other)
         {
-            return FirstPoint.Equals(other.FirstPoint) && SecondPoint.Equals(other.SecondPoint) ||
-                   FirstPoint.Equals(other.SecondPoint) && SecondPoint.Equals(other.FirstPoint);
+            return FirstPoint.Equals(other.FirstPoint)
+                   && SecondPoint.Equals(other.SecondPoint)
+                   || FirstPoint.Equals(other.SecondPoint)
+                   && SecondPoint.Equals(other.FirstPoint);
         }
     }
 }

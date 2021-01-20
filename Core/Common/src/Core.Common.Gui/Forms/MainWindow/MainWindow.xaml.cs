@@ -367,8 +367,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             // activate contextual tab which was active for this view type
             IView activeDocumentView = viewController.ViewHost.ActiveDocumentView;
-            if (activateContextualTab && Ribbon.SelectedTabItem != null && activeDocumentView != null &&
-                Ribbon.Tabs.Any(t => t.IsContextual && t.Visibility == Visibility.Visible))
+            if (activateContextualTab && Ribbon.SelectedTabItem != null && activeDocumentView != null
+                && Ribbon.Tabs.Any(t => t.IsContextual && t.Visibility == Visibility.Visible))
             {
                 string lastActiveTabForActiveDocumentView;
                 if (lastActiveContextTabNamePerViewType.TryGetValue(activeDocumentView.GetType(), out lastActiveTabForActiveDocumentView))

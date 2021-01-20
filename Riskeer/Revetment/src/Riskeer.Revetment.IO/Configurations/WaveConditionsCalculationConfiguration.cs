@@ -29,15 +29,18 @@ namespace Riskeer.Revetment.IO.Configurations
     /// </summary>
     public class WaveConditionsCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the wave conditions calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public WaveConditionsCalculationConfiguration(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
         }
 
@@ -87,24 +90,8 @@ namespace Riskeer.Revetment.IO.Configurations
         public WaveReductionConfiguration WaveReduction { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// Gets the name of the wave conditions calculation.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-
-                name = value;
-            }
-        }
+        public string Name { get; }
     }
 }

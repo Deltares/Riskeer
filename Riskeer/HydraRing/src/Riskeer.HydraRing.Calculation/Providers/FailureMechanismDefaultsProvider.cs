@@ -48,31 +48,31 @@ namespace Riskeer.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.AssessmentLevel, new FailureMechanismDefaults(1, new[]
                     {
                         1
-                    }, 1, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight, new FailureMechanismDefaults(11, new[]
                     {
                         11
-                    }, 11, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod, new FailureMechanismDefaults(11, new[]
                     {
                         14
-                    }, 14, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod, new FailureMechanismDefaults(11, new[]
                     {
                         16
-                    }, 16, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant, new FailureMechanismDefaults(3, new[]
                     {
                         5
-                    }, 6, 10, 4)
+                    }, 10, 4)
                 },
                 {
                     HydraRingFailureMechanismType.DikeHeight, GetOvertoppingDefaults()
@@ -86,7 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Providers
                         421,
                         422,
                         423
-                    }, 4404, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresClosure, new FailureMechanismDefaults(111, new[]
@@ -96,7 +96,7 @@ namespace Riskeer.HydraRing.Calculation.Providers
                         425,
                         426,
                         427
-                    }, 4505, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new FailureMechanismDefaults(112, new[]
@@ -110,16 +110,24 @@ namespace Riskeer.HydraRing.Calculation.Providers
                         433,
                         434,
                         435
-                    }, 4607, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.DunesBoundaryConditions, new FailureMechanismDefaults(1, new[]
                     {
                         6
-                    }, 8, 9, 1)
+                    }, 9, 1)
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
+                },
+                {
+                    HydraRingFailureMechanismType.Piping, new FailureMechanismDefaults(103, new[]
+                    {
+                        311,
+                        313,
+                        314
+                    }, 9, 1)
                 }
             };
         }
@@ -140,7 +148,7 @@ namespace Riskeer.HydraRing.Calculation.Providers
             {
                 102,
                 103
-            }, 1017, 9, 1);
+            }, 9, 1);
         }
     }
 }

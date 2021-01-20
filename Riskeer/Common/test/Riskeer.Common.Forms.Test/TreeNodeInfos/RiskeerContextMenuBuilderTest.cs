@@ -28,6 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Helpers;
+using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,6 +39,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -88,7 +90,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddCreateCalculationItem_WhenBuild_ItemAddedToContextMenu()
+        [TestCaseSource(typeof(CalculationTypeTestHelper), nameof(CalculationTypeTestHelper.CalculationTypeWithImageCases))]
+        public void AddCreateCalculationItem_WhenBuild_ItemAddedToContextMenu(CalculationType calculationType, Bitmap expectedImage)
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,7 +119,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}, calculationType).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -125,7 +128,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerFormsResources.FailureMechanismIcon);
+                                                              expectedImage);
             }
 
             mocks.VerifyAll();
@@ -559,7 +562,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddImportItem_ContextMenuBuilder_CorrectlyDecorated()
+        public void AddImportItemWithoutParameters_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -572,6 +575,74 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             riskeerContextMenuBuilder.AddImportItem();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddImportItemWithImportInfosParameter_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(importInfos));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(importInfos);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddImportItemWithTextualParameters_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Bitmap image = RiskeerFormsResources.DatabaseIcon;
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(text, toolTip, image);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddImportItemWithAllParameters_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Bitmap image = RiskeerFormsResources.DatabaseIcon;
+            IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image, importInfos));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
 
             // Assert
             mocks.VerifyAll();
@@ -636,29 +707,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddCustomImportItem_ContextMenuBuilder_CorrectlyDecorated()
-        {
-            // Setup
-            const string text = "import";
-            const string toolTip = "import tooltip";
-            Bitmap image = RiskeerFormsResources.DatabaseIcon;
-
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomImportItem(text, toolTip, image));
-
-            mocks.ReplayAll();
-
-            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            riskeerContextMenuBuilder.AddCustomImportItem(text, toolTip, image);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Build_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
@@ -707,7 +755,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 input.Expect(ci => ci.ForeshoreProfile).Return(null);
             }
 
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -1053,7 +1101,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(
+                    calculationContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1100,7 +1149,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "No valid data";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(
+                    calculationContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1258,7 +1308,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1303,7 +1353,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1362,7 +1412,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1410,7 +1460,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

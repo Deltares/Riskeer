@@ -54,6 +54,8 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 using Riskeer.Revetment.Data;
@@ -515,9 +517,14 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     AssertCalculationGroup(expectedChildGroup, (CalculationGroup) actualChild);
                 }
 
-                if (expectedChild is PipingCalculationScenario expectedPipingCalculation)
+                if (expectedChild is SemiProbabilisticPipingCalculationScenario expectedSemiProbabilisticPipingCalculation)
                 {
-                    AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
+                    AssertSemiProbabilisticPipingCalculationScenario(expectedSemiProbabilisticPipingCalculation, (SemiProbabilisticPipingCalculationScenario) actualChild);
+                }
+
+                if (expectedChild is ProbabilisticPipingCalculationScenario expectedProbabilisticPipingCalculation)
+                {
+                    AssertProbabilisticPipingCalculationScenario(expectedProbabilisticPipingCalculation, (ProbabilisticPipingCalculationScenario) actualChild);
                 }
 
                 if (expectedChild is MacroStabilityInwardsCalculationScenario expectedMacroStabilityInwardsCalculation)
@@ -1234,8 +1241,24 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }
 
-        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation,
-                                                            PipingCalculationScenario actualPipingCalculation)
+        private static void AssertSemiProbabilisticPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedPipingCalculation,
+                                                                             SemiProbabilisticPipingCalculationScenario actualPipingCalculation)
+        {
+            AssertPipingCalculationScenario(expectedPipingCalculation, actualPipingCalculation);
+            AssertSemiProbabilisticPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
+            AssertSemiProbabilisticPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
+        }
+
+        private static void AssertProbabilisticPipingCalculationScenario(ProbabilisticPipingCalculationScenario expectedPipingCalculation,
+                                                                         ProbabilisticPipingCalculationScenario actualPipingCalculation)
+        {
+            AssertPipingCalculationScenario(expectedPipingCalculation, actualPipingCalculation);
+            AssertProbabilisticPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
+            AssertProbabilisticPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
+        }
+
+        private static void AssertPipingCalculationScenario(IPipingCalculationScenario<PipingInput> expectedPipingCalculation,
+                                                            IPipingCalculationScenario<PipingInput> actualPipingCalculation)
         {
             Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
             Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
@@ -1243,7 +1266,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertComments(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
 
             AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
-            AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
         }
 
         private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
@@ -1268,27 +1290,63 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.StandardDeviation, actualPipingInput.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(expectedPipingInput.DampingFactorExit.Mean, actualPipingInput.DampingFactorExit.Mean);
             Assert.AreEqual(expectedPipingInput.DampingFactorExit.StandardDeviation, actualPipingInput.DampingFactorExit.StandardDeviation);
+        }
+
+        private static void AssertSemiProbabilisticPipingInput(SemiProbabilisticPipingInput expectedPipingInput,
+                                                               SemiProbabilisticPipingInput actualPipingInput)
+        {
             Assert.AreEqual(expectedPipingInput.UseAssessmentLevelManualInput, actualPipingInput.UseAssessmentLevelManualInput);
             Assert.AreEqual(expectedPipingInput.AssessmentLevel, actualPipingInput.AssessmentLevel);
         }
 
-        private static void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
+        private static void AssertProbabilisticPipingInput(ProbabilisticPipingInput expectedPipingInput,
+                                                           ProbabilisticPipingInput actualPipingInput)
+        {
+            Assert.AreEqual(expectedPipingInput.ShouldProfileSpecificIllustrationPointsBeCalculated,
+                            actualPipingInput.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedPipingInput.ShouldSectionSpecificIllustrationPointsBeCalculated,
+                            actualPipingInput.ShouldSectionSpecificIllustrationPointsBeCalculated);
+        }
+
+        private static void AssertSemiProbabilisticPipingOutput(SemiProbabilisticPipingOutput expectedOutput,
+                                                                SemiProbabilisticPipingOutput actualOutput)
         {
             if (expectedOutput == null)
             {
                 Assert.IsNull(actualOutput);
+                return;
             }
-            else
+
+            Assert.AreEqual(expectedOutput.HeaveGradient, actualOutput.HeaveGradient);
+            Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
+            Assert.AreEqual(expectedOutput.UpliftEffectiveStress, actualOutput.UpliftEffectiveStress);
+            Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
+            Assert.AreEqual(expectedOutput.SellmeijerCreepCoefficient, actualOutput.SellmeijerCreepCoefficient);
+            Assert.AreEqual(expectedOutput.SellmeijerCriticalFall, actualOutput.SellmeijerCriticalFall);
+            Assert.AreEqual(expectedOutput.SellmeijerReducedFall, actualOutput.SellmeijerReducedFall);
+            Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
+        }
+
+        private static void AssertProbabilisticPipingOutput(ProbabilisticPipingOutput expectedOutput,
+                                                            ProbabilisticPipingOutput actualOutput)
+        {
+            if (expectedOutput == null)
             {
-                Assert.AreEqual(expectedOutput.HeaveGradient, actualOutput.HeaveGradient);
-                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
-                Assert.AreEqual(expectedOutput.UpliftEffectiveStress, actualOutput.UpliftEffectiveStress);
-                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
-                Assert.AreEqual(expectedOutput.SellmeijerCreepCoefficient, actualOutput.SellmeijerCreepCoefficient);
-                Assert.AreEqual(expectedOutput.SellmeijerCriticalFall, actualOutput.SellmeijerCriticalFall);
-                Assert.AreEqual(expectedOutput.SellmeijerReducedFall, actualOutput.SellmeijerReducedFall);
-                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
+                Assert.IsNull(actualOutput);
+                return;
             }
+
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticFaultTreePipingOutput) expectedOutput.ProfileSpecificOutput,
+                                                   (PartialProbabilisticFaultTreePipingOutput) actualOutput.ProfileSpecificOutput);
+            AssertPartialProbabilisticPipingOutput((PartialProbabilisticFaultTreePipingOutput) expectedOutput.SectionSpecificOutput,
+                                                   (PartialProbabilisticFaultTreePipingOutput) actualOutput.SectionSpecificOutput);
+        }
+
+        private static void AssertPartialProbabilisticPipingOutput(PartialProbabilisticFaultTreePipingOutput expectedOutput,
+                                                                   PartialProbabilisticFaultTreePipingOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);
         }
 
         private static void AssertPipingStochasticSoilModels(PipingStochasticSoilModelCollection expectedModels,

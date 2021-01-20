@@ -50,8 +50,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 
             IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
                 calculationInputs.Where(calculation =>
-                                            calculation.InputParameters.ForeshoreProfile != null &&
-                                            calculation.InputParameters.HydraulicBoundaryLocation != null);
+                                            calculation.InputParameters.ForeshoreProfile != null
+                                            && calculation.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

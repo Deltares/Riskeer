@@ -30,6 +30,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -209,9 +210,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
@@ -259,7 +263,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
@@ -331,9 +335,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
 
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
@@ -380,7 +387,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",

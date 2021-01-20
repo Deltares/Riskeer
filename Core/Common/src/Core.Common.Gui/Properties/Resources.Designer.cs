@@ -861,35 +861,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout.
-        /// </summary>
-        public static string GuiImportHandler_GetSupportedImporterForTargetType_Error {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit element..
-        /// </summary>
-        public static string GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this" +
-                        "_item", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit element ({0})..
-        /// </summary>
-        public static string GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_ {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this" +
-                        "_item_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kies wat u wilt importeren.
         /// </summary>
         public static string GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer {
@@ -913,6 +884,33 @@ namespace Core.Common.Gui.Properties {
         public static string GuiImportHandler_RunImportActivity_Importing_0_ {
             get {
                 return ResourceManager.GetString("GuiImportHandler_RunImportActivity_Importing_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout.
+        /// </summary>
+        public static string GuiImportHandler_SelectImportInfo_Error {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_SelectImportInfo_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit element..
+        /// </summary>
+        public static string GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit element ({0})..
+        /// </summary>
+        public static string GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_ {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_", resourceCulture);
             }
         }
         

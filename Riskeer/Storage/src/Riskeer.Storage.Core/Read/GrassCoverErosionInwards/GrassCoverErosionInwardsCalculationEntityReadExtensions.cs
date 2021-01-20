@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
 
         private static void ReadOutput(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationEntity entity)
         {
-            GrassCoverErosionInwardsOutputEntity output = entity.GrassCoverErosionInwardsOutputEntities.FirstOrDefault();
+            GrassCoverErosionInwardsOutputEntity output = entity.GrassCoverErosionInwardsOutputEntities.SingleOrDefault();
             if (output != null)
             {
                 calculation.Output = output.Read();

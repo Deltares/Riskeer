@@ -22,75 +22,56 @@
 using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
-using Riskeer.Common.Data.Calculation;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
+    /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingCalculation : CloneableObservable, ICalculation<PipingInput>
+    /// <typeparam name="TPipingInput">The type of calculation input.</typeparam>
+    public abstract class PipingCalculation<TPipingInput> : CloneableObservable, IPipingCalculation<TPipingInput>
+        where TPipingInput : PipingInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters)
+        /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>
+        /// is <c>null</c>.</exception>
+        protected PipingCalculation(TPipingInput pipingInput)
         {
+            if (pipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(pipingInput));
+            }
+
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new PipingInput(generalInputParameters);
+            InputParameters = pipingInput;
             Comments = new Comment();
         }
 
         /// <summary>
-        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a piping calculation.
+        /// Gets the input parameters to perform the piping calculation with.
         /// </summary>
-        public PipingOutput Output { get; set; }
-
-        /// <summary>
-        /// Gets the input parameters to perform a piping calculation with.
-        /// </summary>
-        public PipingInput InputParameters { get; private set; }
+        public TPipingInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
-        public bool ShouldCalculate
-        {
-            get
-            {
-                return !HasOutput;
-            }
-        }
+        public abstract bool ShouldCalculate { get; }
 
-        public bool HasOutput
-        {
-            get
-            {
-                return Output != null;
-            }
-        }
+        public abstract bool HasOutput { get; }
 
         public Comment Comments { get; private set; }
 
-        public void ClearOutput()
-        {
-            Output = null;
-        }
+        public abstract void ClearOutput();
 
         public override object Clone()
         {
-            var clone = (PipingCalculation) base.Clone();
+            var clone = (PipingCalculation<TPipingInput>) base.Clone();
 
+            clone.InputParameters = (TPipingInput) InputParameters.Clone();
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (PipingInput) InputParameters.Clone();
-
-            if (Output != null)
-            {
-                clone.Output = (PipingOutput) Output.Clone();
-            }
 
             return clone;
         }

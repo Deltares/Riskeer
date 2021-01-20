@@ -26,6 +26,10 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Service.Probabilistic;
+using Riskeer.Piping.Service.SemiProbabilistic;
 
 namespace Riskeer.Piping.Service
 {
@@ -36,14 +40,14 @@ namespace Riskeer.Piping.Service
     public static class PipingCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="failureMechanism"/>.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing the calculations to create
-        /// activities for.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the calculations to create activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="failureMechanism"/> contains calculations of a type
+        /// that is not supported.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(PipingFailureMechanism failureMechanism,
                                                                                     IAssessmentSection assessmentSection)
         {
@@ -57,24 +61,31 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.CalculationsGroup, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="calculationGroup"/>.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to create activities for.</param>
-        /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
-        /// belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculationGroup"/> belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="calculationGroup"/> contains calculations of a type
+        /// that is not supported.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
+                                                                                    PipingFailureMechanism failureMechanism,
                                                                                     IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
             {
                 throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             if (assessmentSection == null)
@@ -83,8 +94,8 @@ namespace Riskeer.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .Cast<PipingCalculation>()
-                                   .Select(calc => CreateCalculationActivity(calc, assessmentSection))
+                                   .Cast<IPipingCalculation<PipingInput>>()
+                                   .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
                                    .ToArray();
         }
 
@@ -92,16 +103,22 @@ namespace Riskeer.Piping.Service
         /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create an activity for.</param>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/>
-        /// belongs to.</param>
+        /// <param name="generalPipingInput">The general piping input that is used during the calculation.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/> belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static CalculatableActivity CreateCalculationActivity(PipingCalculation calculation,
-                                                                     IAssessmentSection assessmentSection)
+        public static CalculatableActivity CreateSemiProbabilisticPipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
+                                                                                            GeneralPipingInput generalPipingInput,
+                                                                                            IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             if (assessmentSection == null)
@@ -109,8 +126,66 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new PipingCalculationActivity(calculation,
-                                                 assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+            return new SemiProbabilisticPipingCalculationActivity(calculation,
+                                                                  generalPipingInput,
+                                                                  assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+        }
+
+        /// <summary>
+        /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create an activity for.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="calculation"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/> belongs to.</param>
+        /// <returns>A <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static CalculatableActivity CreateProbabilisticPipingCalculationActivity(ProbabilisticPipingCalculation calculation,
+                                                                                        PipingFailureMechanism failureMechanism,
+                                                                                        IAssessmentSection assessmentSection)
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return new ProbabilisticPipingCalculationActivity(calculation, failureMechanism, assessmentSection);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="CalculatableActivity"/> based on the provided <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create a <see cref="CalculatableActivity"/> for.</param>
+        /// <param name="failureMechanism">The failure mechanism the <paramref name="calculation"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/> belongs to.</param>
+        /// <returns>A <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="calculation"/> is of a type that is not supported.</exception>
+        private static CalculatableActivity CreateCalculationActivity(IPipingCalculation<PipingInput> calculation,
+                                                                      PipingFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
+        {
+            switch (calculation)
+            {
+                case SemiProbabilisticPipingCalculation semiProbabilisticPipingCalculation:
+                    return CreateSemiProbabilisticPipingCalculationActivity(semiProbabilisticPipingCalculation,
+                                                                            failureMechanism.GeneralInput,
+                                                                            assessmentSection);
+                case ProbabilisticPipingCalculation probabilisticPipingCalculation:
+                    return CreateProbabilisticPipingCalculationActivity(probabilisticPipingCalculation,
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

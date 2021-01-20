@@ -32,7 +32,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="HeightStructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the height structures calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public HeightStructuresCalculationConfiguration(string name) : base(name) {}
 

@@ -308,9 +308,9 @@ namespace Riskeer.Revetment.Data
 
         private static void ValidateBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary, string exceptionMessage)
         {
-            if (!double.IsNaN(lowerBoundary) &&
-                !double.IsNaN(upperBoundary) &&
-                lowerBoundary >= upperBoundary)
+            if (!double.IsNaN(lowerBoundary)
+                && !double.IsNaN(upperBoundary)
+                && lowerBoundary >= upperBoundary)
             {
                 throw new ArgumentOutOfRangeException(null, exceptionMessage);
             }

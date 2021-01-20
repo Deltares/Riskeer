@@ -505,7 +505,7 @@ namespace Riskeer.Integration.TestUtil.Test
 
         #endregion
 
-        #region Stability Stone Cover 
+        #region Stability Stone Cover
 
         [Test]
         public void GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()

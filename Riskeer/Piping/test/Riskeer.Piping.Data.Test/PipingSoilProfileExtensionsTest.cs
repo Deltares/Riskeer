@@ -342,7 +342,7 @@ namespace Riskeer.Piping.Data.Test
         #region GetConsecutiveCoverageLayerThicknessBelowLevel
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoAquitardLayer_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoAquitardLayer_ReturnNaN()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoAquiferLayers);
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_AquitardLayerAboveLevel_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_AquitardLayerAboveLevel_ReturnNaN()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneAquitardLayerOneAquiferLayer);
@@ -368,7 +368,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_OnlyAquitardLayer_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoAquiferLayer_ReturnNaN()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneAquitardLayer);
@@ -381,7 +381,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerCompletelyBelowLevel_ReturnAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerCompletelyBelowLevel_ReturnThicknessOfAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneCoverageLayer);
@@ -394,7 +394,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerPartlyBelowLevel_ReturnPartialThicknessOfAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneCoverageLayer);
@@ -407,7 +407,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerTopEqualToLevel_ReturnCollectionWithAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerTopEqualToLevel_ReturnThicknessOfAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneCoverageLayer);
@@ -420,7 +420,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerBottomEqualToLevel_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerBottomEqualToLevel_ReturnNaN()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseOneCoverageLayer);
@@ -433,7 +433,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoCoverageLayersCompletelyBelowLevel_ReturnConsecutiveAquitardLayers()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoCoverageLayersCompletelyBelowLevel_ReturnThicknessOfConsecutiveAquitardLayers()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);
@@ -446,7 +446,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopEqualToLevel_ReturnConsecutiveAquitardLayers()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopEqualToLevel_ReturnThicknessOfConsecutiveAquitardLayers()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);
@@ -459,7 +459,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopPartlyBelowLevel_ReturnPartialThicknessOfConsecutiveAquitardLayers()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);
@@ -472,7 +472,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerCompletelyAboveLevel_ReturnPartialThicknessOfBottomAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);
@@ -485,7 +485,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_BottomCoverageLayerTopEqualToLevel_ReturnCollectionWithBottomAquitardLayer()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_BottomCoverageLayerTopEqualToLevel_ReturnThicknessOfBottomAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);
@@ -498,7 +498,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoConsecutiveCoverageLayersAndOneNonConsecutiveAquitardLayer_ReturnConsecutiveAquitardLayers()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoConsecutiveCoverageLayersAndOneNonConsecutiveAquitardLayer_ReturnThicknessOfBottomAquitardLayer()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
@@ -514,7 +514,7 @@ namespace Riskeer.Piping.Data.Test
         [TestCase(1.0)]
         [TestCase(0.8)]
         [TestCase(0.5)]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoCoverageLayerAtLevel_ReturnEmptyCollection(double level)
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoCoverageLayerAtLevel_ReturnNaN(double level)
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
@@ -527,7 +527,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetConsecutiveCoverageLayerThicknessBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_LevelBelowProfile_ReturnNaN()
         {
             // Setup
             PipingSoilProfile profile = CreateTestProfile(testCaseTwoCoverageLayers);

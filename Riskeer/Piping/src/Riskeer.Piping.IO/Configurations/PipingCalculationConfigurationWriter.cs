@@ -67,14 +67,11 @@ namespace Riskeer.Piping.IO.Configurations
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The calculation configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="PipingCalculationConfiguration"/>
+        /// has a valid, but unsupported <see cref="PipingCalculationConfigurationType"/>.</exception>
         private static void WriteCalculationElements(XmlWriter writer, PipingCalculationConfiguration configuration)
         {
-            WriteElementWhenContentAvailable(writer,
-                                             PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
-                                             configuration.AssessmentLevel);
-            WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                             configuration.HydraulicBoundaryLocationName);
+            WriteCalculationTypeElements(writer, configuration);
 
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
@@ -95,6 +92,73 @@ namespace Riskeer.Piping.IO.Configurations
             WriteStochasts(writer, configuration);
 
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
+        }
+
+        /// <summary>
+        /// Writes the calculation type specific elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="PipingCalculationConfiguration"/>
+        /// has a valid, but unsupported <see cref="PipingCalculationConfigurationType"/>.</exception>
+        private static void WriteCalculationTypeElements(XmlWriter writer, PipingCalculationConfiguration configuration)
+        {
+            switch (configuration.CalculationType)
+            {
+                case PipingCalculationConfigurationType.SemiProbabilistic:
+                    WriteSemiProbabilisticCalculationElements(writer, configuration);
+                    break;
+                case PipingCalculationConfigurationType.Probabilistic:
+                    WriteProbabilisticCalculationElements(writer, configuration);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Writes the semi-probabilistic elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteSemiProbabilisticCalculationElements(XmlWriter writer, PipingCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic);
+
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
+                                             configuration.AssessmentLevel);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocationName);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the probabilistic elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteProbabilisticCalculationElements(XmlWriter writer, PipingCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(PipingCalculationConfigurationSchemaIdentifiers.Probabilistic);
+
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocationName);
+
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.ShouldProfileSpecificIllustrationPointsBeCalculated,
+                                             configuration.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.ShouldSectionSpecificIllustrationPointsBeCalculated,
+                                             configuration.ShouldSectionSpecificIllustrationPointsBeCalculated);
+
+            writer.WriteEndElement();
         }
 
         /// <summary>

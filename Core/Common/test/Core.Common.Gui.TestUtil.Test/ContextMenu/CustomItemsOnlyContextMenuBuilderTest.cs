@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -134,13 +136,52 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
         }
 
         [Test]
-        public void AddImportItem_WhenBuild_StubbedItemAddedToContextMenu()
+        public void AddImportItemWithoutParameters_WhenBuild_StubbedItemAddedToContextMenu()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
 
             // Call
             ContextMenuStrip result = builder.AddImportItem().Build();
+
+            // Assert
+            AssertStubbedContextMenuItem(result);
+        }
+
+        [Test]
+        public void AddImportItemWithImportInfosParameters_WhenBuild_StubbedItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Call
+            ContextMenuStrip result = builder.AddImportItem().Build();
+
+            // Assert
+            AssertStubbedContextMenuItem(result);
+        }
+
+        [Test]
+        public void AddImportItemWithTextualParameters_WhenBuild_StubbedItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(null, null, null).Build();
+
+            // Assert
+            AssertStubbedContextMenuItem(result);
+        }
+
+        [Test]
+        public void AddImportItemWithAllParameters_WhenBuild_StubbedItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(null, null, null, Enumerable.Empty<ImportInfo>()).Build();
 
             // Assert
             AssertStubbedContextMenuItem(result);
@@ -154,19 +195,6 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
 
             // Call
             ContextMenuStrip result = builder.AddUpdateItem().Build();
-
-            // Assert
-            AssertStubbedContextMenuItem(result);
-        }
-
-        [Test]
-        public void AddCustomImportItem_WhenBuild_StubbedItemAddedToContextMenu()
-        {
-            // Setup
-            var builder = new CustomItemsOnlyContextMenuBuilder();
-
-            // Call
-            ContextMenuStrip result = builder.AddCustomImportItem(null, null, null).Build();
 
             // Assert
             AssertStubbedContextMenuItem(result);

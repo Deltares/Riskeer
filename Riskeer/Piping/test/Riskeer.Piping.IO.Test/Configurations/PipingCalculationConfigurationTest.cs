@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Piping.IO.Configurations;
@@ -30,27 +32,44 @@ namespace Riskeer.Piping.IO.Test.Configurations
     public class PipingCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutName_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingCalculationConfiguration(null);
+            void Call() => new PipingCalculationConfiguration(null, PipingCalculationConfigurationType.Probabilistic);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WithName_PropertiesAreDefault()
+        public void Constructor_CalculationTypeInvalid_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const PipingCalculationConfigurationType calculationType = (PipingCalculationConfigurationType) 99;
+            
+            // Call
+            void Call() => new PipingCalculationConfiguration("name", calculationType);
+            
+            // Assert
+            var expectedMessage = $"The value of argument '{nameof(calculationType)}' ({calculationType}) is invalid for Enum type '{nameof(PipingCalculationConfigurationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_WithValidData_PropertiesAreDefault()
         {
             // Setup 
             const string name = "some name";
+            var calculationType = new Random(21).NextEnumValue<PipingCalculationConfigurationType>();
 
             // Call
-            var readPipingCalculation = new PipingCalculationConfiguration(name);
+            var readPipingCalculation = new PipingCalculationConfiguration(name, calculationType);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readPipingCalculation);
             Assert.AreEqual(name, readPipingCalculation.Name);
+            Assert.AreEqual(calculationType, readPipingCalculation.CalculationType);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocationName);
             Assert.IsNull(readPipingCalculation.SurfaceLineName);
@@ -61,19 +80,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.IsNull(readPipingCalculation.PhreaticLevelExit);
             Assert.IsNull(readPipingCalculation.DampingFactorExit);
             Assert.IsNull(readPipingCalculation.Scenario);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new PipingCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.IsNull(readPipingCalculation.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.IsNull(readPipingCalculation.ShouldSectionSpecificIllustrationPointsBeCalculated);
         }
     }
 }

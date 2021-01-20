@@ -253,12 +253,6 @@
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
-    <value>Verschuiving</value>
-  </data>
-  <data name="Probabilistics_Shift_Description" xml:space="preserve">
-    <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
-  </data>
   <data name="PipingInputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue-document-list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -375,6 +369,15 @@
   </data>
   <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
+  </data>
+  <data name="PipingCalculationsView_InitializeDataGridView_Assessment_description" xml:space="preserve">
+    <value>Toets</value>
+  </data>
+  <data name="PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic" xml:space="preserve">
+    <value>Semi-probabilistisch</value>
+  </data>
+  <data name="PipingCalculationsView_CreateRow_Calculation_type_probabilistic" xml:space="preserve">
+    <value>Probabilistisch</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
     <value>In oordeel</value>
@@ -505,5 +508,45 @@ opbarsten
   <data name="PipingCalculationsView_PhreaticLevelExit_DisplayName" xml:space="preserve">
     <value>binnendijkse waterstand
 [m+NAP]</value>
+  </data>
+  <data name="ProbabilisticProfileSpecificOutput_DisplayName" xml:space="preserve">
+    <value>Sterkte berekening doorsnede</value>
+  </data>
+  <data name="ProbabilisticSectionSpecificOutput_DisplayName" xml:space="preserve">
+    <value>Sterkte berekening vak</value>
+  </data>
+  <data name="Categories_FailureMechanismSection" xml:space="preserve">
+    <value>Vakinformatie</value>
+  </data>
+  <data name="PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox" xml:space="preserve">
+    <value>Semi-probabilistische toets</value>
+  </data>
+  <data name="PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox" xml:space="preserve">
+    <value>Probabilistische toets</value>
+  </data>
+  <data name="Categories_SectionSpecificCalculation" xml:space="preserve">
+    <value>Sterkte berekening vak</value>
+  </data>
+  <data name="Categories_ProfileSpecificCalculation" xml:space="preserve">
+    <value>Sterkte berekening doorsnede</value>
+  </data>
+  <data name="ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen</value>
+  </data>
+  <data name="ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen </value>
+    <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
+  </data>
+  <data name="PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations" xml:space="preserve">
+    <value>Semi-probabilistische berekeningen</value>
+  </data>
+  <data name="PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations" xml:space="preserve">
+    <value>Probabilistische berekeningen</value>
+  </data>
+  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations" xml:space="preserve">
+    <value>Semi-probabilistische berekeningen</value>
+  </data>
+  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations" xml:space="preserve">
+    <value>Probabilistische berekeningen</value>
   </data>
 </root>

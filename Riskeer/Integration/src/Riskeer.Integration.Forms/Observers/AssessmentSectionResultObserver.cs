@@ -35,6 +35,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -113,7 +114,7 @@ namespace Riskeer.Integration.Forms.Observers
                 MacroStabilityInwardsFailureMechanismSectionResult, MacroStabilityInwardsCalculationScenario>(assessmentSection.MacroStabilityInwards);
 
             pipingObserver = CreateCalculatableFailureMechanismObserver<PipingFailureMechanism,
-                PipingFailureMechanismSectionResult, PipingCalculationScenario>(assessmentSection.Piping);
+                PipingFailureMechanismSectionResult, SemiProbabilisticPipingCalculationScenario>(assessmentSection.Piping);
 
             stabilityPointStructuresObserver = CreateCalculatableFailureMechanismObserver<StabilityPointStructuresFailureMechanism,
                 StabilityPointStructuresFailureMechanismSectionResult, StructuresCalculation<StabilityPointStructuresInput>>(assessmentSection.StabilityPointStructures);

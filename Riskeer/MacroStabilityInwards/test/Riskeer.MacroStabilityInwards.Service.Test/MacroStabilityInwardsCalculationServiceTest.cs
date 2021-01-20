@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_Always_LogStartAndEndOfValidatingInputs()
+        public void Validate_Always_LogsStartAndEndOfValidation()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -408,7 +408,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
+        public void Calculate_ValidCalculation_LogsStartAndEndOfValidationAndCalculation()
         {
             // Setup
             RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();

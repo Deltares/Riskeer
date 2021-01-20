@@ -35,35 +35,21 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Class that holds all piping calculation specific input parameters, i.e. the values
-    /// that can differ across various calculations.
+    /// Base class for piping calculation specific input parameters, i.e. values that can differ across various calculations.
     /// </summary>
-    public class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
+    public abstract class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
     {
-        private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;
         private LogNormalDistribution dampingFactorExit;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private PipingSurfaceLine surfaceLine;
-        private RoundedDouble assessmentLevel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingInput"/> class.
+        /// Creates a new instance of <see cref="PipingInput"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        public PipingInput(GeneralPipingInput generalInputParameters)
+        protected PipingInput()
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException(nameof(generalInputParameters));
-            }
-
-            this.generalInputParameters = generalInputParameters;
-
             exitPointL = new RoundedDouble(2, double.NaN);
             entryPointL = new RoundedDouble(2, double.NaN);
 
@@ -76,8 +62,6 @@ namespace Riskeer.Piping.Data
                 Mean = (RoundedDouble) 0.7,
                 StandardDeviation = (RoundedDouble) 0.1
             };
-
-            assessmentLevel = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -185,11 +169,6 @@ namespace Riskeer.Piping.Data
         public PipingStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the assessment level is manual input for the calculation.
-        /// </summary>
-        public bool UseAssessmentLevelManualInput { get; set; }
-
-        /// <summary>
         /// Gets the value <c>true</c> if the entry point and exit point of the
         /// instance of <see cref="PipingInput"/> match the entry point and
         /// exit point of <see cref="SurfaceLine"/>; or <c>false</c> if this is
@@ -210,23 +189,6 @@ namespace Riskeer.Piping.Data
 
                 return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
                        && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m+NAP]
-        /// </summary>
-        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                return assessmentLevel;
-            }
-            set
-            {
-                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 
@@ -314,137 +276,6 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
-
-        #region General input parameters
-
-        /// <summary>
-        /// Gets the reduction factor Sellmeijer.
-        /// </summary>
-        public double SellmeijerReductionFactor
-        {
-            get
-            {
-                return generalInputParameters.SellmeijerReductionFactor;
-            }
-        }
-
-        /// <summary>
-        /// Gets the volumetric weight of water.
-        /// [kN/m³]
-        /// </summary>
-        public double WaterVolumetricWeight
-        {
-            get
-            {
-                return generalInputParameters.WaterVolumetricWeight;
-            }
-        }
-
-        /// <summary>
-        /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m³]
-        /// </summary>
-        public double SandParticlesVolumicWeight
-        {
-            get
-            {
-                return generalInputParameters.SandParticlesVolumicWeight;
-            }
-        }
-
-        /// <summary>
-        /// Gets the White's drag coefficient.
-        /// </summary>
-        public double WhitesDragCoefficient
-        {
-            get
-            {
-                return generalInputParameters.WhitesDragCoefficient;
-            }
-        }
-
-        /// <summary>
-        /// Gets the kinematic viscosity of water at 10 °C.
-        /// [m²/s]
-        /// </summary>
-        public double WaterKinematicViscosity
-        {
-            get
-            {
-                return generalInputParameters.WaterKinematicViscosity;
-            }
-        }
-
-        /// <summary>
-        /// Gets the gravitational acceleration.
-        /// [m/s²]
-        /// </summary>
-        public double Gravity
-        {
-            get
-            {
-                return generalInputParameters.Gravity;
-            }
-        }
-
-        /// <summary>
-        /// Gets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double MeanDiameter70
-        {
-            get
-            {
-                return generalInputParameters.MeanDiameter70;
-            }
-        }
-
-        /// <summary>
-        /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
-        /// [°]
-        /// </summary>
-        public double BeddingAngle
-        {
-            get
-            {
-                return generalInputParameters.BeddingAngle;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for uplift.
-        /// </summary>
-        public double UpliftModelFactor
-        {
-            get
-            {
-                return generalInputParameters.UpliftModelFactor;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
-        /// </summary>
-        public double SellmeijerModelFactor
-        {
-            get
-            {
-                return generalInputParameters.SellmeijerModelFactor;
-            }
-        }
-
-        /// <summary>
-        /// Gets the critical exit gradient for heave.
-        /// </summary>
-        public double CriticalHeaveGradient
-        {
-            get
-            {
-                return generalInputParameters.CriticalHeaveGradient;
-            }
-        }
-
-        #endregion
 
         #region Probabilistic parameters
 

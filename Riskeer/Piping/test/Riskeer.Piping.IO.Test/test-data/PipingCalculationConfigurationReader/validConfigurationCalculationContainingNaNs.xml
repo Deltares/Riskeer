@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
-    <waterstand>NaN</waterstand>
+    <toetstype/>
     <intredepunt>NaN</intredepunt>
     <uittredepunt>NaN</uittredepunt>
     <stochasten>

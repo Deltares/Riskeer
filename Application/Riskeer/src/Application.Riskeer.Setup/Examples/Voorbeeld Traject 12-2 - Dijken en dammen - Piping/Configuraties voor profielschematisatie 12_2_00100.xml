@@ -1,29 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
-  <berekening naam="12_2_00100 Segment_12004_1D1">
-    <hblocatie>YM_2_12-2_dk_00012</hblocatie>
-    <profielschematisatie>12_2_00100</profielschematisatie>
-    <intredepunt>0.5</intredepunt>
-    <uittredepunt>69</uittredepunt>
-    <ondergrondmodel>12004_Piping</ondergrondmodel>
-    <ondergrondschematisatie>Segment_12004_1D1</ondergrondschematisatie>
-    <stochasten>
-      <stochast naam="binnendijksewaterstand">
-        <verwachtingswaarde>0</verwachtingswaarde>
-        <standaardafwijking>0.1</standaardafwijking>
-      </stochast>
-      <stochast naam="dempingsfactor">
-        <verwachtingswaarde>0.7</verwachtingswaarde>
-        <standaardafwijking>0.1</standaardafwijking>
-      </stochast>
-    </stochasten>
-    <scenario>
-      <gebruik>true</gebruik>
-      <bijdrage>75</bijdrage>
-    </scenario>
-  </berekening>
   <berekening naam="12_2_00100 Segment_12004_1D2">
-    <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+    <semi-probabilistisch>
+      <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+    </semi-probabilistisch>
     <profielschematisatie>12_2_00100</profielschematisatie>
     <intredepunt>0.5</intredepunt>
     <uittredepunt>69</uittredepunt>
@@ -41,31 +21,107 @@
     </stochasten>
     <scenario>
       <gebruik>true</gebruik>
-      <bijdrage>25</bijdrage>
+      <bijdrage>30</bijdrage>
     </scenario>
   </berekening>
-  <map naam="Gevoeligheid">
-    <berekening naam="1D2 met andere waterstand">
-      <waterstand>1.4</waterstand>
-      <profielschematisatie>12_2_00100</profielschematisatie>
-      <intredepunt>0.5</intredepunt>
-      <uittredepunt>69</uittredepunt>
-      <ondergrondmodel>12004_Piping</ondergrondmodel>
-      <ondergrondschematisatie>Segment_12004_1D2</ondergrondschematisatie>
-      <stochasten>
-        <stochast naam="binnendijksewaterstand">
-          <verwachtingswaarde>0</verwachtingswaarde>
-          <standaardafwijking>0.1</standaardafwijking>
-        </stochast>
-        <stochast naam="dempingsfactor">
-          <verwachtingswaarde>0.7</verwachtingswaarde>
-          <standaardafwijking>0.1</standaardafwijking>
-        </stochast>
-      </stochasten>
-      <scenario>
-        <gebruik>false</gebruik>
-        <bijdrage>80</bijdrage>
-      </scenario>
-    </berekening>
-  </map>
+  <berekening naam="12_2_00100 Segment_12004_1D2">
+    <probabilistisch>
+      <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+      <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
+      <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
+    </probabilistisch>
+    <profielschematisatie>12_2_00100</profielschematisatie>
+    <intredepunt>0.5</intredepunt>
+    <uittredepunt>69</uittredepunt>
+    <ondergrondmodel>12004_Piping</ondergrondmodel>
+    <ondergrondschematisatie>Segment_12004_1D2</ondergrondschematisatie>
+    <stochasten>
+      <stochast naam="binnendijksewaterstand">
+        <verwachtingswaarde>0</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>0.7</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>30</bijdrage>
+    </scenario>
+  </berekening>
+  <berekening naam="12_2_00100 Segment_12004_1D1">
+    <semi-probabilistisch>
+      <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+    </semi-probabilistisch>
+    <profielschematisatie>12_2_00100</profielschematisatie>
+    <intredepunt>0.5</intredepunt>
+    <uittredepunt>69</uittredepunt>
+    <ondergrondmodel>12004_Piping</ondergrondmodel>
+    <ondergrondschematisatie>Segment_12004_1D1</ondergrondschematisatie>
+    <stochasten>
+      <stochast naam="binnendijksewaterstand">
+        <verwachtingswaarde>0</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>0.7</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>70</bijdrage>
+    </scenario>
+  </berekening>
+   <berekening naam="12_2_00100 Segment_12004_1D1 met andere waterstand">
+    <semi-probabilistisch>
+      <waterstand>2</waterstand>
+    </semi-probabilistisch>
+    <profielschematisatie>12_2_00100</profielschematisatie>
+    <intredepunt>0.5</intredepunt>
+    <uittredepunt>69</uittredepunt>
+    <ondergrondmodel>12004_Piping</ondergrondmodel>
+    <ondergrondschematisatie>Segment_12004_1D1</ondergrondschematisatie>
+    <stochasten>
+      <stochast naam="binnendijksewaterstand">
+        <verwachtingswaarde>0</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>0.7</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>70</bijdrage>
+    </scenario>
+  </berekening>
+  <berekening naam="12_2_00100 Segment_12004_1D1">
+    <probabilistisch>
+      <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+      <doorsnedeillustratiepunteninlezen>true</doorsnedeillustratiepunteninlezen>
+      <vakillustratiepunteninlezen>true</vakillustratiepunteninlezen>
+    </probabilistisch>
+    <profielschematisatie>12_2_00100</profielschematisatie>
+    <intredepunt>0.5</intredepunt>
+    <uittredepunt>69</uittredepunt>
+    <ondergrondmodel>12004_Piping</ondergrondmodel>
+    <ondergrondschematisatie>Segment_12004_1D1</ondergrondschematisatie>
+    <stochasten>
+      <stochast naam="binnendijksewaterstand">
+        <verwachtingswaarde>0</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>0.7</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>70</bijdrage>
+    </scenario>
+  </berekening>
 </configuratie>

@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Plugin.FileImporter;
@@ -43,11 +44,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void Constructor_WithoutFailureMechanism_CreatesNewInstance()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModelReplaceDataStrategy(null);
+            void Call() => new PipingStochasticSoilModelReplaceDataStrategy(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -68,11 +69,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingStochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty);
+            void Call() => strategy.UpdateModelWithImportedData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importedDataCollection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
         [Test]
@@ -82,11 +83,11 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingStochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<PipingStochasticSoilModel>(), null);
+            void Call() => strategy.UpdateModelWithImportedData(new List<PipingStochasticSoilModel>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -171,14 +172,14 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
                 {
                     StochasticSoilModel = existingModel,
                     StochasticSoilProfile = existingModel.StochasticSoilProfiles.First()
                 },
-                Output = new PipingOutput(new PipingOutput.ConstructionProperties())
+                Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties())
             };
 
             var failureMechanism = new PipingFailureMechanism();

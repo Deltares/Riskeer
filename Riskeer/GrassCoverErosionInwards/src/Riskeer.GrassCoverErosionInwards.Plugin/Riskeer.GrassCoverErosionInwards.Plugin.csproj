@@ -32,9 +32,6 @@
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Util\Riskeer.GrassCoverErosionInwards.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder-open-document-text.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

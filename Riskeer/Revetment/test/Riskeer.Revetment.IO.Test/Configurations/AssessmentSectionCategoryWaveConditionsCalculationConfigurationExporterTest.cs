@@ -90,7 +90,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                     Path.Combine(
                                                                         nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
-            // Call and Assert
+            // Call & Assert
             WriteAndValidate(new[]
             {
                 calculationGroup

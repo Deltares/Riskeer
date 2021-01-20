@@ -96,10 +96,7 @@ namespace Riskeer.Storage.Core.Test
                 Assert.IsTrue(File.Exists(filePath));
 
                 // Call
-                TestDelegate test = () => writer.Perform(() =>
-                {
-                    throw exception;
-                });
+                TestDelegate test = () => writer.Perform(() => { throw exception; });
 
                 Exception actualException = Assert.Throws(exception.GetType(), test);
                 Assert.AreSame(exception, actualException);

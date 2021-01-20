@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {
@@ -31,10 +30,11 @@ namespace Riskeer.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="PipingStochasticSoilModel"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilModelSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingStochasticSoilModel>
+    /// <typeparam name="T">The type of object properties.</typeparam>
+    public class PipingInputContextStochasticSoilModelSelectionEditor<T> : SelectionEditor<T, PipingStochasticSoilModel> where T : IHasStochasticSoilModel
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextStochasticSoilModelSelectionEditor"/>.
+        /// Creates a new instance of <see cref="PipingInputContextStochasticSoilModelSelectionEditor{T}"/>.
         /// </summary>
         public PipingInputContextStochasticSoilModelSelectionEditor()
         {

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.Data.Properties;
 
 namespace Riskeer.Piping.Data
@@ -38,10 +39,22 @@ namespace Riskeer.Piping.Data
         /// </summary>
         public GeneralPipingInput()
         {
-            UpliftModelFactor = 1.0;
-            SellmeijerModelFactor = 1.0;
+            UpliftModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+            SellmeijerModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.12
+            };
             waterVolumetricWeight = new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces, 9.81);
-            CriticalHeaveGradient = 0.3;
+            CriticalHeaveGradient = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.5,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
             WhitesDragCoefficient = 0.25;
             BeddingAngle = 37;
             WaterKinematicViscosity = 1.33e-6;
@@ -53,9 +66,9 @@ namespace Riskeer.Piping.Data
         #region Heave specific parameters
 
         /// <summary>
-        /// Gets the critical exit gradient for heave.
+        /// Gets the distribution for the critical exit gradient for heave.
         /// </summary>
-        public double CriticalHeaveGradient { get; }
+        public LogNormalDistribution CriticalHeaveGradient { get; }
 
         #endregion
 
@@ -95,14 +108,14 @@ namespace Riskeer.Piping.Data
         #region Model factors
 
         /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for uplift.
+        /// Gets the distribution used to account for uncertainty in the model for uplift.
         /// </summary>
-        public double UpliftModelFactor { get; }
+        public LogNormalDistribution UpliftModelFactor { get; }
 
         /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// Gets the distribution used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
-        public double SellmeijerModelFactor { get; }
+        public LogNormalDistribution SellmeijerModelFactor { get; }
 
         #endregion
 

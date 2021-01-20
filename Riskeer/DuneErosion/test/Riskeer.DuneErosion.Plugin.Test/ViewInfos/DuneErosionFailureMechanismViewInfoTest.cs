@@ -61,7 +61,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, info.Image);
         }
 
         [Test]

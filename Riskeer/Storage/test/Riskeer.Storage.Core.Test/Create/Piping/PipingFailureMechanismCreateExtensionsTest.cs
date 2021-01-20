@@ -27,6 +27,8 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
@@ -46,11 +48,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            void Call() => failureMechanism.Create(null);
 
             // Assert
-            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("registry", parameterName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -240,11 +242,13 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         {
             // Setup
             var calculationGroup = new CalculationGroup();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var semiProbabilisticPipingCalculationScenario = new SemiProbabilisticPipingCalculationScenario();
+            var probabilisticPipingCalculationScenario = new ProbabilisticPipingCalculationScenario();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(semiProbabilisticPipingCalculationScenario);
+            failureMechanism.CalculationsGroup.Children.Add(probabilisticPipingCalculationScenario);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -262,13 +266,23 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(calculationGroup.Name, childGroupEntity.Name);
             Assert.AreEqual(0, childGroupEntity.Order);
 
-            PipingCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.PipingCalculationEntities
-                                                                  .OrderBy(ce => ce.Order)
-                                                                  .ToArray();
-            Assert.AreEqual(1, calculationEntities.Length);
-            PipingCalculationEntity calculationEntity = calculationEntities[0];
-            Assert.AreEqual(calculation.Name, calculationEntity.Name);
-            Assert.AreEqual(1, calculationEntity.Order);
+            SemiProbabilisticPipingCalculationEntity[] semiProbabilisticPipingCalculationEntities = entity.CalculationGroupEntity
+                                                                                                          .SemiProbabilisticPipingCalculationEntities
+                                                                                                          .OrderBy(ce => ce.Order)
+                                                                                                          .ToArray();
+            Assert.AreEqual(1, semiProbabilisticPipingCalculationEntities.Length);
+            SemiProbabilisticPipingCalculationEntity semiProbabilisticPipingCalculationEntity = semiProbabilisticPipingCalculationEntities[0];
+            Assert.AreEqual(semiProbabilisticPipingCalculationScenario.Name, semiProbabilisticPipingCalculationEntity.Name);
+            Assert.AreEqual(1, semiProbabilisticPipingCalculationEntity.Order);
+
+            ProbabilisticPipingCalculationEntity[] probabilisticPipingCalculationEntities = entity.CalculationGroupEntity
+                                                                                                  .ProbabilisticPipingCalculationEntities
+                                                                                                  .OrderBy(ce => ce.Order)
+                                                                                                  .ToArray();
+            Assert.AreEqual(1, probabilisticPipingCalculationEntities.Length);
+            ProbabilisticPipingCalculationEntity probabilisticPipingCalculationEntity = probabilisticPipingCalculationEntities[0];
+            Assert.AreEqual(probabilisticPipingCalculationScenario.Name, probabilisticPipingCalculationEntity.Name);
+            Assert.AreEqual(2, probabilisticPipingCalculationEntity.Order);
         }
 
         private static void AssertSurfaceLine(PipingSurfaceLine surfaceLine, SurfaceLineEntity entity)

@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Helpers;
+using Core.Common.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -66,13 +67,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
+        /// <param name="calculationType">The type of the calculation to add.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> addCalculationAction)
+            Action<TCalculationContext> addCalculationAction,
+            CalculationType calculationType)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction, calculationType));
             return this;
         }
 
@@ -91,7 +94,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs all calculations in a calculation group.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
-        /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
@@ -99,13 +101,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
-            CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationContext> calculateAllAction,
+            Action<TCalculationContext> calculateAllAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, calculateAllAction, enableMenuItemFunction));
             return this;
         }
 
@@ -153,7 +154,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
@@ -161,14 +161,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
             TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction,
+            Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TCalculation, TCalculationContext>(
+                                                 calculationContext, calculateAction, enableMenuItemFunction));
             return this;
         }
 
@@ -450,10 +450,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
         /// </summary>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// supported import actions.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddImportItem()
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the supported <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        public RiskeerContextMenuBuilder AddImportItem(IEnumerable<ImportInfo> importInfos = null)
         {
-            contextMenuBuilder.AddImportItem();
+            contextMenuBuilder.AddImportItem(importInfos);
             return this;
         }
 
@@ -463,10 +467,17 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="text">The text of the import item.</param>
         /// <param name="toolTip">The tooltip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
+        /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/> instances, representing one or more
+        /// supported import actions.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="text"/> is <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolTip"/> or <paramref name="image"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>When no <paramref name="importInfos"/> parameter is provided, the supported <see cref="ImportInfo"/>
+        /// instances - as registered by the plugins - will be resolved dynamically.</remarks>
+        public RiskeerContextMenuBuilder AddImportItem(string text, string toolTip, Image image, IEnumerable<ImportInfo> importInfos = null)
         {
-            contextMenuBuilder.AddCustomImportItem(text, toolTip, image);
+            contextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
             return this;
         }
 

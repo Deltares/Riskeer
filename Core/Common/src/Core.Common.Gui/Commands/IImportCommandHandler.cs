@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Core.Common.Gui.Plugin;
+
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
@@ -27,11 +30,11 @@ namespace Core.Common.Gui.Commands
     public interface IImportCommandHandler
     {
         /// <summary>
-        /// Indicates if there are importers for the given target object.
+        /// Gets all supported <see cref="ImportInfo"/> instances for the provided <paramref name="target"/>.
         /// </summary>
-        /// <param name="target">The target object to check importer availability for.</param>
-        /// <returns><c>true</c> if there are importers available, <c>false</c> otherwise.</returns>
-        bool CanImportOn(object target);
+        /// <param name="target">The data object to get the supported <see cref="ImportInfo"/> instances for.</param>
+        /// <returns>An enumeration of <see cref="ImportInfo"/> instances.</returns>
+        IEnumerable<ImportInfo> GetSupportedImportInfos(object target);
 
         /// <summary>
         /// Perform the import workflow by the following steps:
@@ -44,6 +47,8 @@ namespace Core.Common.Gui.Commands
         /// </list>
         /// </summary>
         /// <param name="target">The data object to import to.</param>
-        void ImportOn(object target);
+        /// <param name="supportedImportInfos">The <see cref="ImportInfo"/> instances representing the importers available
+        /// for the target object.</param>
+        void ImportOn(object target, IEnumerable<ImportInfo> supportedImportInfos);
     }
 }

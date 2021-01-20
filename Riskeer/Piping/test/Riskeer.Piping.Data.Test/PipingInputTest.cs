@@ -65,60 +65,32 @@ namespace Riskeer.Piping.Data.Test
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var inputParameters = new PipingInput(generalInputParameters);
+            var pipingInput = new TestPipingInput();
 
             // Assert
-            Assert.IsInstanceOf<CloneableObservable>(inputParameters);
-            Assert.IsInstanceOf<ICalculationInputWithHydraulicBoundaryLocation>(inputParameters);
+            Assert.IsInstanceOf<CloneableObservable>(pipingInput);
+            Assert.IsInstanceOf<ICalculationInputWithHydraulicBoundaryLocation>(pipingInput);
 
-            DistributionAssert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
-            DistributionAssert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
+            DistributionAssert.AreEqual(phreaticLevelExit, pipingInput.PhreaticLevelExit);
+            DistributionAssert.AreEqual(dampingFactorExit, pipingInput.DampingFactorExit);
 
-            Assert.IsNull(inputParameters.SurfaceLine);
-            Assert.IsNull(inputParameters.StochasticSoilModel);
-            Assert.IsNull(inputParameters.StochasticSoilProfile);
-            Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(pipingInput.SurfaceLine);
+            Assert.IsNull(pipingInput.StochasticSoilModel);
+            Assert.IsNull(pipingInput.StochasticSoilProfile);
+            Assert.IsNull(pipingInput.HydraulicBoundaryLocation);
 
-            Assert.AreEqual(generalInputParameters.UpliftModelFactor, inputParameters.UpliftModelFactor);
-            Assert.AreEqual(generalInputParameters.SellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, inputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, inputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInputParameters.Gravity, inputParameters.Gravity);
-            Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, inputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight, inputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, inputParameters.WhitesDragCoefficient);
-            Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
-            Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
-
-            Assert.IsNaN(inputParameters.ExitPointL);
-            Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
-            Assert.IsNaN(inputParameters.EntryPointL);
-            Assert.AreEqual(2, inputParameters.EntryPointL.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.AssessmentLevel);
-            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
-        }
-
-        [Test]
-        public void Constructor_GeneralPipingInputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new PipingInput(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.IsNaN(pipingInput.ExitPointL);
+            Assert.AreEqual(2, pipingInput.ExitPointL.NumberOfDecimalPlaces);
+            Assert.IsNaN(pipingInput.EntryPointL);
+            Assert.AreEqual(2, pipingInput.EntryPointL.NumberOfDecimalPlaces);
         }
 
         [Test]
         public void ExitPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = CreateSurfaceLine()
             };
@@ -136,17 +108,17 @@ namespace Riskeer.Piping.Data.Test
         public void ExitPointL_ExitPointEqualSmallerThanEntryPoint_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 EntryPointL = (RoundedDouble) 3.5
             };
 
             // Call
-            TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble) value;
+            void Call() => pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -158,15 +130,15 @@ namespace Riskeer.Piping.Data.Test
         public void ExitPointL_ExitPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.EntryPointL = RoundedDouble.NaN;
 
             // Call
-            TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
+            void Call() => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -177,7 +149,7 @@ namespace Riskeer.Piping.Data.Test
         public void ExitPointL_SetToNew_ValueIsRounded(double exitPointValue)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.EntryPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.ExitPointL.NumberOfDecimalPlaces;
@@ -195,7 +167,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             PipingSurfaceLine surfaceLine = CreateSurfaceLine();
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new TestPipingInput();
 
             // Call
             RoundedPoint2DCollection localGeometry = surfaceLine.LocalGeometry;
@@ -210,17 +182,17 @@ namespace Riskeer.Piping.Data.Test
         public void EntryPointL_EntryPointEqualOrGreaterThanExitPoint_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 ExitPointL = (RoundedDouble) 3.5
             };
 
             // Call
-            TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble) value;
+            void Call() => pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -232,14 +204,15 @@ namespace Riskeer.Piping.Data.Test
         public void EntryPointL_EntryPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.ExitPointL = RoundedDouble.NaN;
+
             // Call
-            TestDelegate call = () => input.EntryPointL = (RoundedDouble) value;
+            void Call() => input.EntryPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -251,7 +224,7 @@ namespace Riskeer.Piping.Data.Test
         public void EntryPointL_SetToNew_ValueIsRounded(double entryPointValue)
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
             input.ExitPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.EntryPointL.NumberOfDecimalPlaces;
@@ -268,7 +241,7 @@ namespace Riskeer.Piping.Data.Test
         public void SurfaceLine_WithDikeToes_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -292,7 +265,7 @@ namespace Riskeer.Piping.Data.Test
         public void SurfaceLine_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -323,7 +296,7 @@ namespace Riskeer.Piping.Data.Test
         public void SurfaceLine_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -354,7 +327,7 @@ namespace Riskeer.Piping.Data.Test
         public void SynchronizeEntryAndExitPointInput_SurfaceLineNull_EntryPointLAndExitPointLNaN()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 EntryPointL = (RoundedDouble) 3,
                 ExitPointL = (RoundedDouble) 5
@@ -372,7 +345,7 @@ namespace Riskeer.Piping.Data.Test
         public void SynchronizeEntryAndExitPointInput_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -403,7 +376,7 @@ namespace Riskeer.Piping.Data.Test
         public void SynchronizeEntryAndExitPointInput_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -434,7 +407,7 @@ namespace Riskeer.Piping.Data.Test
         public void IsEntryAndExitPointInputSynchronized_SurfaceLineNull_ReturnFalse()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             // Call
             bool synchronized = input.IsEntryAndExitPointInputSynchronized;
@@ -460,7 +433,7 @@ namespace Riskeer.Piping.Data.Test
             surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 SurfaceLine = surfaceLine
             };
@@ -490,7 +463,7 @@ namespace Riskeer.Piping.Data.Test
             surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 SurfaceLine = surfaceLine
             };
@@ -509,7 +482,7 @@ namespace Riskeer.Piping.Data.Test
         public void GivenSurfaceLineSet_WhenSurfaceLineNull_ThenEntryAndExitPointsNaN()
         {
             // Given
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -538,7 +511,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(3)
@@ -564,7 +537,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new LogNormalDistribution(3)
@@ -586,27 +559,10 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_SetToNew_ValueIsRounded()
-        {
-            // Setup
-            const double assessmentLevel = 1.111111;
-            var input = new PipingInput(new GeneralPipingInput());
-
-            int originalNumberOfDecimalPlaces = input.AssessmentLevel.NumberOfDecimalPlaces;
-
-            // Call
-            input.AssessmentLevel = (RoundedDouble) assessmentLevel;
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new PipingInput(new GeneralPipingInput());
+            var original = new TestPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
@@ -621,7 +577,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new PipingInput(new GeneralPipingInput());
+            var original = new TestPipingInput();
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 

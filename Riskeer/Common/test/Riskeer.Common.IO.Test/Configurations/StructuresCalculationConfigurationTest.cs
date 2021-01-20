@@ -29,15 +29,14 @@ namespace Riskeer.Common.IO.Test.Configurations
     public class StructuresCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutName_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new TestStructuresCalculationConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("value", exception.ParamName);
-            Assert.AreEqual("Name is required for a calculation configuration.\r\nParameter name: value", exception.Message);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -65,21 +64,6 @@ namespace Riskeer.Common.IO.Test.Configurations
             Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.WaveReduction);
             Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new TestStructuresCalculationConfiguration("valid name");
-
-            // Call
-            void Call() => calculationConfiguration.Name = null;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("value", exception.ParamName);
-            Assert.AreEqual("Name is required for a calculation configuration.\r\nParameter name: value", exception.Message);
         }
 
         private class TestStructuresCalculationConfiguration : StructuresCalculationConfiguration

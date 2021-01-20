@@ -50,8 +50,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
 
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
                 calculationInputs.Where(calculation =>
-                                            calculation.InputParameters.ForeshoreProfile != null &&
-                                            calculation.InputParameters.HydraulicBoundaryLocation != null);
+                                            calculation.InputParameters.ForeshoreProfile != null
+                                            && calculation.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

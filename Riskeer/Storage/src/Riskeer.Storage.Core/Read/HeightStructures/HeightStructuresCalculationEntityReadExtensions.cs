@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
         private static void ReadOutput(StructuresCalculation<HeightStructuresInput> calculation,
                                        HeightStructuresCalculationEntity entity)
         {
-            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.SingleOrDefault();
             if (outputEntity == null)
             {
                 return;

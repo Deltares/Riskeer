@@ -27,8 +27,12 @@ using Core.Common.TestUtil;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -54,25 +58,26 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> without hydraulic boundary location or design water level.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without hydraulic boundary location.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> without hydraulic boundary location or design water level.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without surface line.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocation<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> with manual design water level set.
+        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> with manual design water level set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> with a manual design water level.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithAssessmentLevel()
+        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with a manual design water level.</returns>
+        public static SemiProbabilisticPipingCalculationScenario GetPipingCalculationScenarioWithAssessmentLevel()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
-
+            var calculation = GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
@@ -81,24 +86,28 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> without surface line.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without surface line.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> without surface line.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSurfaceLine()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without surface line.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSurfaceLine<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.SurfaceLine = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> without soil model.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without soil model.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> without soil model .</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSoilModel()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without soil model .</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSoilModel<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.StochasticSoilModel = null;
             calculation.InputParameters.StochasticSoilProfile = null;
 
@@ -106,24 +115,28 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> without soil profile.
+        /// Gets a <typeparamref name="TCalculationScenario"/> without soil profile.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> without soil profile.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSoilProfile()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> without soil profile.</returns>
+        public static TCalculationScenario GetPipingCalculationScenarioWithoutSoilProfile<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.InputParameters.StochasticSoilProfile = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>.
+        /// Gets a <typeparamref name="TCalculationScenario"/> with relevance set to <c>false</c>.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>.</returns>
-        public static PipingCalculationScenario GetIrrelevantPipingCalculationScenario()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/> with relevance set to <c>false</c>.</returns>
+        public static TCalculationScenario GetIrrelevantPipingCalculationScenario<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            var calculation = GetPipingCalculationScenario<TCalculationScenario>();
             calculation.Contribution = (RoundedDouble) 0.5432;
             calculation.IsRelevant = false;
 
@@ -131,10 +144,12 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/>.
+        /// Gets a <typeparamref name="TCalculationScenario"/>.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/>.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenario()
+        /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+        /// <returns>A <typeparamref name="TCalculationScenario"/>.</returns>
+        public static TCalculationScenario GetPipingCalculationScenario<TCalculationScenario>()
+            where TCalculationScenario : IPipingCalculationScenario<PipingInput>, new()
         {
             var surfaceLine = new PipingSurfaceLine("PK001_0001")
             {
@@ -146,7 +161,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TCalculationScenario
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
@@ -176,12 +191,12 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> with <c>double.NaN</c> values set.
+        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithNaNs()
+        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
+        public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithNaNs()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
+            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
@@ -201,14 +216,38 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
+        public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithNaNs()
+        {
+            var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+            calculation.Contribution = RoundedDouble.NaN;
+            calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
+            calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
+
+            return calculation;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
         /// and <c>double.PositiveInfinity</c> values set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// <returns>A <see cref="SemiProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
         /// and <c>double.PositiveInfinity</c> values.</returns>
-        public static PipingCalculationScenario GetPipingCalculationScenarioWithInfinities()
+        public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithInfinities()
         {
-            PipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
+            SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
             calculation.InputParameters.SurfaceLine.SetGeometry(new[]
@@ -218,6 +257,39 @@ namespace Riskeer.Piping.Data.TestUtil
             });
 
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.EntryPointL = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.ExitPointL = (RoundedDouble) double.PositiveInfinity;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = (RoundedDouble) double.NegativeInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = (RoundedDouble) double.PositiveInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+
+            return calculation;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="ProbabilisticPipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values.</returns>
+        public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithInfinities()
+        {
+            var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
+
+            calculation.InputParameters.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, double.NegativeInfinity, 0),
+                new Point3D(0, double.PositiveInfinity, 0)
+            });
+
             calculation.InputParameters.EntryPointL = (RoundedDouble) double.NegativeInfinity;
             calculation.InputParameters.ExitPointL = (RoundedDouble) double.PositiveInfinity;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
@@ -275,7 +347,6 @@ namespace Riskeer.Piping.Data.TestUtil
                 new Point2D(-5, 5),
                 new Point2D(5, 5)
             }, new[]
-
             {
                 new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
             });
@@ -294,18 +365,17 @@ namespace Riskeer.Piping.Data.TestUtil
                 stochasticSoilModel2
             }, "some/path/to/stochasticsoilmodels");
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TestPipingCalculationScenario();
+            var calculationWithOutput = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
-            var calculationWithSurfaceLineAndSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithSurfaceLineAndSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -315,24 +385,23 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
-            var calculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithHydraulicBoundaryLocation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var calculationWithSurfaceLineAndStochasticSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -342,8 +411,8 @@ namespace Riskeer.Piping.Data.TestUtil
                 }
             };
 
-            var subCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            var subCalculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            var subCalculation = new TestPipingCalculationScenario();
+            var subCalculationWithOutput = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -351,10 +420,9 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new TestPipingCalculationScenario(true)
             {
                 InputParameters =
                 {
@@ -362,17 +430,16 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
-            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
+            var subCalculationWithHydraulicBoundaryLocation = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var subCalculationWithSurfaceLineAndStochasticSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            var subCalculationWithSurfaceLineAndStochasticSoilModel = new TestPipingCalculationScenario
             {
                 InputParameters =
                 {
@@ -441,8 +508,6 @@ namespace Riskeer.Piping.Data.TestUtil
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(random.NextDouble(),
                                                                           PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            input.UseAssessmentLevelManualInput = random.NextBoolean();
-            input.AssessmentLevel = random.NextRoundedDouble();
             input.PhreaticLevelExit = new NormalDistribution
             {
                 Mean = random.NextRoundedDouble(),
@@ -456,14 +521,40 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="PipingOutput"/>.
+        /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
-        /// <returns>A random instance of <see cref="PipingOutput"/>.</returns>
-        public static PipingOutput GetRandomPipingOutput()
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToPipingInput(SemiProbabilisticPipingInput input)
+        {
+            SetRandomDataToPipingInput((PipingInput) input);
+
+            var random = new Random(21);
+            input.UseAssessmentLevelManualInput = random.NextBoolean();
+            input.AssessmentLevel = random.NextRoundedDouble();
+        }
+
+        /// <summary>
+        /// This method sets random data values to all properties of <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToPipingInput(ProbabilisticPipingInput input)
+        {
+            SetRandomDataToPipingInput((PipingInput) input);
+
+            var random = new Random(21);
+            input.ShouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+            input.ShouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="SemiProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <returns>A random instance of <see cref="SemiProbabilisticPipingOutput"/>.</returns>
+        public static SemiProbabilisticPipingOutput GetRandomSemiProbabilisticPipingOutput()
         {
             var random = new Random(22);
 
-            return new PipingOutput(new PipingOutput.ConstructionProperties
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = random.NextDouble(),
                 HeaveFactorOfSafety = random.NextDouble(),
@@ -474,6 +565,116 @@ namespace Riskeer.Piping.Data.TestUtil
                 SellmeijerCriticalFall = random.NextDouble(),
                 SellmeijerReducedFall = random.NextDouble()
             });
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="SemiProbabilisticPipingOutput"/> with the given values.
+        /// </summary>
+        /// <param name="heaveFactorOfSafety">The heave factor of safety.</param>
+        /// <param name="upliftFactorOfSafety">The uplift factor of safety.</param>
+        /// <param name="sellmeijerFactorOfSafety">The sellmeijer factor of safety.</param>
+        /// <returns>The created <see cref="SemiProbabilisticPipingOutput"/>.</returns>
+        public static SemiProbabilisticPipingOutput GetSemiProbabilisticPipingOutput(double heaveFactorOfSafety, double upliftFactorOfSafety, double sellmeijerFactorOfSafety)
+        {
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
+            {
+                HeaveFactorOfSafety = heaveFactorOfSafety,
+                UpliftFactorOfSafety = upliftFactorOfSafety,
+                SellmeijerFactorOfSafety = sellmeijerFactorOfSafety
+            });
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
+        /// with <see cref="TestTopLevelIllustrationPoint"/>. 
+        /// </summary>
+        /// <returns>The created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput()
+        {
+            return GetRandomPartialProbabilisticPipingOutput(new TestGeneralResult<TestTopLevelIllustrationPoint>());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput{T}"/>
+        /// with <see cref="TestTopLevelIllustrationPoint"/>. 
+        /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
+        /// <returns>The created <see cref="PartialProbabilisticPipingOutput{T}"/>.</returns>
+        public static PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> GetRandomPartialProbabilisticPipingOutput(
+            GeneralResult<TestTopLevelIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new TestPartialProbabilisticPipingOutput(random.NextDouble(),
+                                                            generalResult);
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticFaultTreePipingOutput"/>.
+        /// </summary>
+        /// <returns>The created <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
+        public static PartialProbabilisticFaultTreePipingOutput GetRandomPartialProbabilisticFaultTreePipingOutput()
+        {
+            return GetRandomPartialProbabilisticFaultTreePipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticFaultTreePipingOutput"/>
+        /// with <see cref="TopLevelFaultTreeIllustrationPoint"/>. 
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to set to the output.</param>
+        /// <returns>The created <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
+        public static PartialProbabilisticFaultTreePipingOutput GetRandomPartialProbabilisticFaultTreePipingOutput(
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new PartialProbabilisticFaultTreePipingOutput(random.NextDouble(),
+                                                                 generalResult);
+        }
+        
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.
+        /// </summary>
+        /// <returns>The created <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.</returns>
+        public static PartialProbabilisticSubMechanismPipingOutput GetRandomPartialProbabilisticSubMechanismPipingOutput()
+        {
+            return GetRandomPartialProbabilisticSubMechanismPipingOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticSubMechanismPipingOutput"/>
+        /// with <see cref="TopLevelSubMechanismIllustrationPoint"/>. 
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to set to the output.</param>
+        /// <returns>The created <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.</returns>
+        public static PartialProbabilisticSubMechanismPipingOutput GetRandomPartialProbabilisticSubMechanismPipingOutput(
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new PartialProbabilisticSubMechanismPipingOutput(random.NextDouble(),
+                                                                    generalResult);
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/> with illustration points.
+        /// </summary>
+        /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/> with illustration points.</returns>
+        public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+        {
+            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(),
+                                                 GetRandomPartialProbabilisticPipingOutput());
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/> without illustration points.
+        /// </summary>
+        /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/> without illustration points.</returns>
+        public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+        {
+            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(null),
+                                                 GetRandomPartialProbabilisticPipingOutput(null));
         }
     }
 }

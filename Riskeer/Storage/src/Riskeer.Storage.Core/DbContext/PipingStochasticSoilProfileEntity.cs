@@ -38,7 +38,8 @@ namespace Riskeer.Storage.Core.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PipingStochasticSoilProfileEntity()
         {
-            PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+            ProbabilisticPipingCalculationEntities = new HashSet<ProbabilisticPipingCalculationEntity>();
+            SemiProbabilisticPipingCalculationEntities = new HashSet<SemiProbabilisticPipingCalculationEntity>();
         }
 
         public long PipingStochasticSoilProfileEntityId { get; set; }
@@ -47,10 +48,13 @@ namespace Riskeer.Storage.Core.DbContext
         public double Probability { get; set; }
         public int Order { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
-
         public virtual PipingSoilProfileEntity PipingSoilProfileEntity { get; set; }
         public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProbabilisticPipingCalculationEntity> ProbabilisticPipingCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
     }
 }

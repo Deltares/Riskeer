@@ -22,14 +22,14 @@
 using System;
 using System.Collections;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
-using Riskeer.Storage.Core.Read.Piping;
+using Riskeer.Storage.Core.Read.Piping.Probabilistic;
+using Riskeer.Storage.Core.Read.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
@@ -49,21 +49,13 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
         /// <see cref="CalculationGroup"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <param name="generalPipingInput">The calculation input parameters for piping.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/>
-        /// or <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
-        internal static CalculationGroup ReadAsPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector,
-                                                                      GeneralPipingInput generalPipingInput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static CalculationGroup ReadAsPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
-            }
-
-            if (generalPipingInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             var group = new CalculationGroup
@@ -73,16 +65,19 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
-                    group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput));
+                    group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as PipingCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is SemiProbabilisticPipingCalculationEntity semiProbabilisticChildCalculationEntity)
                 {
-                    group.Children.Add(childCalculationEntity.Read(collector, generalPipingInput));
+                    group.Children.Add(semiProbabilisticChildCalculationEntity.Read(collector));
+                }
+
+                if (childEntity is ProbabilisticPipingCalculationEntity probabilisticChildCalculationEntity)
+                {
+                    group.Children.Add(probabilisticChildCalculationEntity.Read(collector));
                 }
             }
 
@@ -113,14 +108,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as MacroStabilityInwardsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is MacroStabilityInwardsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -153,14 +146,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is GrassCoverErosionInwardsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -193,14 +184,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is GrassCoverErosionOutwardsWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -233,14 +222,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsHeightStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as HeightStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is HeightStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -273,14 +260,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsClosingStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as ClosingStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is ClosingStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -313,14 +298,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as StabilityPointStructuresCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is StabilityPointStructuresCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -353,14 +336,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as StabilityStoneCoverWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is StabilityStoneCoverWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -393,14 +374,12 @@ namespace Riskeer.Storage.Core.Read
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
-                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
-                if (childCalculationGroupEntity != null)
+                if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector));
                 }
 
-                var childCalculationEntity = childEntity as WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
-                if (childCalculationEntity != null)
+                if (childEntity is WaveImpactAsphaltCoverWaveConditionsCalculationEntity childCalculationEntity)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector));
                 }
@@ -417,7 +396,12 @@ namespace Riskeer.Storage.Core.Read
                 sortedList.Add(groupEntity.Order, groupEntity);
             }
 
-            foreach (PipingCalculationEntity calculationEntity in entity.PipingCalculationEntities)
+            foreach (SemiProbabilisticPipingCalculationEntity calculationEntity in entity.SemiProbabilisticPipingCalculationEntities)
+            {
+                sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+
+            foreach (ProbabilisticPipingCalculationEntity calculationEntity in entity.ProbabilisticPipingCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }

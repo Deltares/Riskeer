@@ -88,9 +88,13 @@ namespace Riskeer.Piping.IO.Configurations
                     }, Resources.PipingConfiguratieSchema0To1)
             }) {}
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when the value of
+        /// <see cref="PipingCalculationConfigurationType"/> is not supported.</exception>
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
+            return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
+                                                      GetCalculationType(calculationElement))
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
@@ -101,8 +105,32 @@ namespace Riskeer.Piping.IO.Configurations
                 StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
                 PhreaticLevelExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
                 DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
-                Scenario = calculationElement.GetScenarioConfiguration()
+                Scenario = calculationElement.GetScenarioConfiguration(),
+                ShouldProfileSpecificIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ShouldProfileSpecificIllustrationPointsBeCalculated),
+                ShouldSectionSpecificIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ShouldSectionSpecificIllustrationPointsBeCalculated)
             };
+        }
+
+        /// <summary>
+        /// Gets the type of the calculation.
+        /// </summary>
+        /// <param name="calculationElement">The read calculation element to parse.</param>
+        /// <returns>A <see cref="PipingCalculationConfigurationType"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the value of
+        /// <see cref="PipingCalculationConfigurationType"/> is not supported.</exception>
+        private static PipingCalculationConfigurationType GetCalculationType(XElement calculationElement)
+        {
+            if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SemiProbabilistic) != null)
+            {
+                return PipingCalculationConfigurationType.SemiProbabilistic;
+            }
+
+            if (calculationElement.GetDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.Probabilistic) != null)
+            {
+                return PipingCalculationConfigurationType.Probabilistic;
+            }
+
+            throw new NotSupportedException();
         }
     }
 }

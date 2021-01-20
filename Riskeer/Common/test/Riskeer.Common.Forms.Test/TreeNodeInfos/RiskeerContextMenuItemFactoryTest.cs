@@ -37,6 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -90,7 +91,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateAddCalculationItem_Always_CreatesDecoratedItem()
+        [TestCaseSource(typeof(CalculationTypeTestHelper), nameof(CalculationTypeTestHelper.CalculationTypeWithImageCases))]
+        public void CreateAddCalculationItem_Always_CreatesDecoratedItem(CalculationType calculationType, Bitmap expectedImage)
         {
             // Setup
             var mocks = new MockRepository();
@@ -103,12 +105,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {});
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {}, calculationType);
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
             Assert.AreEqual("Voeg een nieuwe berekening toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.FailureMechanismIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(expectedImage, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -120,14 +122,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
+
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var counter = 0;
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => counter++);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => counter++, calculationType);
 
             // Call
             toolStripItem.PerformClick();
@@ -767,7 +770,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
 
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -809,7 +812,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.InputParameters).Return(input);
             calculation.Expect(c => c.HasOutput).Return(hasOutput);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             if (hasOutput)
@@ -986,7 +989,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TestCalculation, TestCalculationContext>(
+                calculationContext, null, context => null);
 
             // Assert
             Assert.AreEqual("Be&rekenen", toolStripItem.Text);
@@ -1013,7 +1017,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TestCalculation, TestCalculationContext>(
+                calculationContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual("Be&rekenen", toolStripItem.Text);
@@ -1038,7 +1043,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             var counter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TestCalculation, TestCalculationContext>(
+                calculationContext, context => counter++, context => null);
 
             // Call
             toolStripItem.PerformClick();
@@ -1153,7 +1159,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1180,7 +1186,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1213,7 +1219,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1235,7 +1241,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
@@ -1266,7 +1272,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, context => counter++, context => null);
 
             // Call
             toolStripItem.PerformClick();

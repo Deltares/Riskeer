@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
   <berekening naam="Calculation">
+    <toetstype/>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <intredepunt>2.2</intredepunt>
     <uittredepunt>200.2</uittredepunt>

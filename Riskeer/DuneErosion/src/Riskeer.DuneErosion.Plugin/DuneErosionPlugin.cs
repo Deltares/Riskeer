@@ -136,7 +136,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant

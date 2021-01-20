@@ -213,7 +213,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]
-        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
+        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySentToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -510,7 +510,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         #region Dike height calculations
 
         [Test]
-        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(
+        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySentToService(
             [Values(BreakWaterType.Caisson,
                 BreakWaterType.Wall,
                 BreakWaterType.Dam)]
@@ -985,7 +985,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         #region Overtopping rate calculations
 
         [Test]
-        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySendToService(
+        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySentToService(
             [Values(BreakWaterType.Caisson,
                 BreakWaterType.Wall,
                 BreakWaterType.Dam)]

@@ -120,19 +120,19 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [TestCase(true, 0, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 0, true)")]
-        [TestCase(true, 1, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 1, true)")]
-        [TestCase(true, 2, false, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 2, false)")]
-        [TestCase(false, 0, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(false, 0, true)")]
-        public void PropertyAttributes_WithOrWithoutForeshoreProfileAndForelands_ReturnExpectedValues(bool withDikeProfile, int forlands, bool expectedCoordinatesPropertyReadOnly)
+        [TestCase(true, 0, true, TestName = "Properties_WithOrWithoutForeshoreProfileAndPoints_ReturnValues(true, 0, true)")]
+        [TestCase(true, 1, true, TestName = "Properties_WithOrWithoutForeshoreProfileAndPoints_ReturnValues(true, 1, true)")]
+        [TestCase(true, 2, false, TestName = "Properties_WithOrWithoutForeshoreProfileAndPoints_ReturnValues(true, 2, false)")]
+        [TestCase(false, 0, true, TestName = "Properties_WithOrWithoutForeshoreProfileAndPoints_ReturnValues(false, 0, true)")]
+        public void PropertyAttributes_WithOrWithoutForeshoreProfileAndPoints_ReturnExpectedValues(bool withForeshoreProfile, int numberOfProfilePoints, bool expectedCoordinatesPropertyReadOnly)
         {
             // Setup
             var input = new TestWaveConditionsInput();
 
-            if (withDikeProfile)
+            if (withForeshoreProfile)
             {
                 var point2Ds = new List<Point2D>();
-                for (var i = 0; i < forlands; i++)
+                for (var i = 0; i < numberOfProfilePoints; i++)
                 {
                     point2Ds.Add(new Point2D(i, i));
                 }

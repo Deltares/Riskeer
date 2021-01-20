@@ -32,6 +32,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -311,7 +312,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -436,7 +437,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -476,9 +477,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
@@ -512,7 +516,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -579,9 +583,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
@@ -614,7 +621,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
@@ -1640,6 +1647,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
@@ -1664,7 +1672,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     // Check expectancies in TearDown()
                 }
             }
@@ -1690,6 +1698,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();

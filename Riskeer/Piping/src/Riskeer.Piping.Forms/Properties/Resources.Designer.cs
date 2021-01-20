@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -82,6 +82,15 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakinformatie.
+        /// </summary>
+        public static string Categories_FailureMechanismSection {
+            get {
+                return ResourceManager.GetString("Categories_FailureMechanismSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heave.
         /// </summary>
         public static string Categories_Heave {
@@ -96,6 +105,24 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string Categories_Piping {
             get {
                 return ResourceManager.GetString("Categories_Piping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening doorsnede.
+        /// </summary>
+        public static string Categories_ProfileSpecificCalculation {
+            get {
+                return ResourceManager.GetString("Categories_ProfileSpecificCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening vak.
+        /// </summary>
+        public static string Categories_SectionSpecificCalculation {
+            get {
+                return ResourceManager.GetString("Categories_SectionSpecificCalculation", resourceCulture);
             }
         }
         
@@ -318,12 +345,39 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probabilistisch.
+        /// </summary>
+        public static string PipingCalculationsView_CreateRow_Calculation_type_probabilistic {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_CreateRow_Calculation_type_probabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistisch.
+        /// </summary>
+        public static string PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dempingsfactor bij uittredepunt
         ///[-].
         /// </summary>
         public static string PipingCalculationsView_DampingFactorExit_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_DampingFactorExit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toets.
+        /// </summary>
+        public static string PipingCalculationsView_InitializeDataGridView_Assessment_description {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_Assessment_description", resourceCulture);
             }
         }
         
@@ -366,6 +420,25 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Probabilistische berekeningen.
+        /// </summary>
+        public static string PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
+        /// </summary>
+        public static string PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculat" +
+                        "ions", resourceCulture);
             }
         }
         
@@ -628,6 +701,26 @@ namespace Riskeer.Piping.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("PipingInputIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Probabilistische berekeningen.
+        /// </summary>
+        public static string PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations {
+            get {
+                return ResourceManager.GetString("PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calcula" +
+                        "tions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
+        /// </summary>
+        public static string PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations {
+            get {
+                return ResourceManager.GetString("PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilisti" +
+                        "c_Calculations", resourceCulture);
             }
         }
         
@@ -1160,6 +1253,15 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probabilistische toets.
+        /// </summary>
+        public static string PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecteer profielschematisaties.
         /// </summary>
         public static string PipingSurfaceLineSelectionDialog_Select_SurfaceLines {
@@ -1169,20 +1271,47 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is..
+        ///   Looks up a localized string similar to Semi-probabilistische toets.
         /// </summary>
-        public static string Probabilistics_Shift_Description {
+        public static string PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox {
             get {
-                return ResourceManager.GetString("Probabilistics_Shift_Description", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschuiving.
+        ///   Looks up a localized string similar to Sterkte berekening doorsnede.
         /// </summary>
-        public static string Probabilistics_Shift_Symbol {
+        public static string ProbabilisticProfileSpecificOutput_DisplayName {
             get {
-                return ResourceManager.GetString("Probabilistics_Shift_Symbol", resourceCulture);
+                return ResourceManager.GetString("ProbabilisticProfileSpecificOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening vak.
+        /// </summary>
+        public static string ProbabilisticSectionSpecificOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilisticSectionSpecificOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldProfileSpecificIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen .
+        /// </summary>
+        public static string ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldSectionSpecificIllustrationPointsBeCalculated_DisplayName", resourceCulture);
             }
         }
         

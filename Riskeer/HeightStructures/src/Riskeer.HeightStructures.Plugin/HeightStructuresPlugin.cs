@@ -162,7 +162,7 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new ViewInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseHeightStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
@@ -222,7 +222,8 @@ namespace Riskeer.HeightStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<HeightStructuresInputContext>
             {
@@ -544,7 +545,7 @@ namespace Riskeer.HeightStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation, CalculationType.Probabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -561,7 +562,6 @@ namespace Riskeer.HeightStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -686,11 +686,13 @@ namespace Riskeer.HeightStructures.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, HeightStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(HeightStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism, context.AssessmentSection));
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                       context.FailureMechanism,
+                                                                                       context.AssessmentSection));
         }
 
         #endregion
@@ -733,8 +735,7 @@ namespace Riskeer.HeightStructures.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -760,11 +761,13 @@ namespace Riskeer.HeightStructures.Plugin
             HeightStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationScenarioContext context)
+        private void Calculate(HeightStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism, context.AssessmentSection));
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
+                                                                                     context.FailureMechanism,
+                                                                                     context.AssessmentSection));
         }
 
         private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationScenarioContext context, object parentData)

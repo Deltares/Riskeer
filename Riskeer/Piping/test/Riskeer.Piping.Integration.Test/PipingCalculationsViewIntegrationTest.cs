@@ -29,6 +29,8 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Views;
 
@@ -38,11 +40,11 @@ namespace Riskeer.Piping.Integration.Test
     public class PipingCalculationsViewIntegrationTest
     {
         private const int nameColumnIndex = 0;
-        private const int hydraulicBoundaryLocationsColumnIndex = 1;
-        private const int stochasticSoilModelsColumnIndex = 2;
-        private const int stochasticSoilProfilesColumnIndex = 3;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
-        private const int exitPointLColumnIndex = 8;
+        private const int hydraulicBoundaryLocationsColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
+        private const int exitPointLColumnIndex = 9;
 
         [Test]
         public void PipingCalculationsView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
@@ -71,14 +73,14 @@ namespace Riskeer.Piping.Integration.Test
                 DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation1 = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
                         SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation2 = new ProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -117,7 +119,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(2, dataGridView.Rows.Count);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
-                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation3 = new SemiProbabilisticPipingCalculationScenario();
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);
@@ -138,7 +140,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(exitPointL.ToString(), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
 
                 // Add another calculation and assign all soil models
-                var pipingCalculation4 = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation4 = new SemiProbabilisticPipingCalculationScenario();
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation4);
                 failureMechanism.CalculationsGroup.NotifyObservers();
                 pipingCalculation4.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");

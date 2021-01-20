@@ -90,11 +90,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
+            Assert.AreEqual(1017, input.FaultTreeModelId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.IsNotNull(input.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
-            CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
+            CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandPoints);
             Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
             Assert.AreEqual(expectedBeta, input.Beta);
 
@@ -166,9 +167,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
                        exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                        exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary) {}
 
-            public override HydraRingFailureMechanismType FailureMechanismType { get; } = (HydraRingFailureMechanismType) 1000;
+            public override HydraRingFailureMechanismType FailureMechanismType => (HydraRingFailureMechanismType) 1000;
 
-            public override int VariableId { get; } = -1;
+            public override int VariableId => -1;
         }
     }
 }

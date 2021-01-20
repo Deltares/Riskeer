@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -55,17 +56,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(null,
-                                                                 importCommandHandler,
-                                                                 exportCommandHandler,
-                                                                 updateCommandHandler,
-                                                                 viewCommands,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(null,
+                                                      importCommandHandler,
+                                                      exportCommandHandler,
+                                                      updateCommandHandler,
+                                                      viewCommands,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -84,17 +85,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 null,
-                                                                 exportCommandHandler,
-                                                                 updateCommandHandler,
-                                                                 viewCommands,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      null,
+                                                      exportCommandHandler,
+                                                      updateCommandHandler,
+                                                      viewCommands,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -113,17 +114,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 importCommandHandler,
-                                                                 null,
-                                                                 updateCommandHandler,
-                                                                 viewCommands,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      importCommandHandler,
+                                                      null,
+                                                      updateCommandHandler,
+                                                      viewCommands,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -142,17 +143,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 importCommandHandler,
-                                                                 exportCommandHandler,
-                                                                 null,
-                                                                 viewCommands,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      importCommandHandler,
+                                                      exportCommandHandler,
+                                                      null,
+                                                      viewCommands,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -171,17 +172,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 importCommandHandler,
-                                                                 exportCommandHandler,
-                                                                 updateCommandHandler,
-                                                                 null,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      importCommandHandler,
+                                                      exportCommandHandler,
+                                                      updateCommandHandler,
+                                                      null,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -201,17 +202,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 importCommandHandler,
-                                                                 exportCommandHandler,
-                                                                 updateCommandHandler,
-                                                                 viewCommands,
-                                                                 null,
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      importCommandHandler,
+                                                      exportCommandHandler,
+                                                      updateCommandHandler,
+                                                      viewCommands,
+                                                      null,
+                                                      treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
             }
 
             mocks.VerifyAll();
@@ -228,17 +229,17 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                             importCommandHandler,
-                                                             exportCommandHandler,
-                                                             updateCommandHandler,
-                                                             viewCommands,
-                                                             new object(),
-                                                             null);
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  new object(),
+                                                  null);
 
             // Assert
-            string message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-            Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
         }
 
         [Test]
@@ -255,16 +256,16 @@ namespace Core.Common.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommands,
-                                                                 importCommandHandler,
-                                                                 exportCommandHandler,
-                                                                 updateCommandHandler,
-                                                                 viewCommands,
-                                                                 new object(),
-                                                                 treeViewControl);
+                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                      importCommandHandler,
+                                                      exportCommandHandler,
+                                                      updateCommandHandler,
+                                                      viewCommands,
+                                                      new object(),
+                                                      treeViewControl);
 
                 // Assert
-                Assert.DoesNotThrow(test);
+                Assert.DoesNotThrow(Call);
             }
 
             mocks.VerifyAll();
@@ -591,7 +592,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddImportItem_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        public void AddImportItemWithoutParameters_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
         {
             // Setup
             var nodeData = new object();
@@ -601,7 +602,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
 
             mocks.ReplayAll();
 
@@ -623,6 +630,151 @@ namespace Core.Common.Gui.Test.ContextMenu
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddImportItemWithImportInfosParameter_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        {
+            // Setup
+            var nodeData = new object();
+
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+
+            mocks.ReplayAll();
+
+            ImportInfo[] importInfos = hasImportersForNodeData
+                                           ? new[]
+                                           {
+                                               new ImportInfo()
+                                           }
+                                           : new ImportInfo[0];
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     nodeData,
+                                                     treeViewControl);
+
+                // Call
+                ContextMenuStrip result = builder.AddImportItem(importInfos).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+
+                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddImportItemWithTextualParameters_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var nodeData = new object();
+
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            importCommandHandler.Expect(ch => ch.GetSupportedImportInfos(nodeData))
+                                .Return(hasImportersForNodeData
+                                            ? new[]
+                                            {
+                                                new ImportInfo()
+                                            }
+                                            : new ImportInfo[0]);
+            mocks.ReplayAll();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     nodeData,
+                                                     treeViewControl);
+
+                // Call
+                ContextMenuStrip result = builder.AddImportItem(text, toolTip, image).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+
+                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddImportItemWithAllParameters_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var nodeData = new object();
+
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+
+            mocks.ReplayAll();
+
+            ImportInfo[] importInfos = hasImportersForNodeData
+                                           ? new[]
+                                           {
+                                               new ImportInfo()
+                                           }
+                                           : new ImportInfo[0];
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     nodeData,
+                                                     treeViewControl);
+
+                // Call
+                ContextMenuStrip result = builder.AddImportItem(text, toolTip, image, importInfos).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+
+                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
             }
 
             mocks.VerifyAll();
@@ -663,50 +815,6 @@ namespace Core.Common.Gui.Test.ContextMenu
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Update, Resources.Update_ToolTip, Resources.RefreshIcon, hasUpdatesForNodeData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AddCustomImportItem_WhenBuild_ItemAddedToContenxtMenu(bool hasImportersForNodeData)
-        {
-            // Setup
-            const string text = "import";
-            const string toolTip = "import tooltip";
-            Image image = Resources.ImportIcon;
-
-            var nodeData = new object();
-
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
-
-            mocks.ReplayAll();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
-
-                // Call
-                ContextMenuStrip result = builder.AddCustomImportItem(text, toolTip, image).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
             }
 
             mocks.VerifyAll();

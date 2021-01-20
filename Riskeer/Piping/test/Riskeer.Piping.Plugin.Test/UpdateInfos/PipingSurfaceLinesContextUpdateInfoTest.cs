@@ -33,6 +33,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;
@@ -144,7 +145,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario());
 
             var surfaceLines = new PipingSurfaceLineCollection();
             var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -174,9 +175,9 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

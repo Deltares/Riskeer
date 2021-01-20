@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
@@ -31,10 +30,11 @@ namespace Riskeer.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="PipingSurfaceLine"/> from a collection.
     /// </summary>
-    public class PipingInputContextSurfaceLineSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingSurfaceLine>
+    /// <typeparam name="T">The type of object properties.</typeparam>
+    public class PipingInputContextSurfaceLineSelectionEditor<T> : SelectionEditor<T, PipingSurfaceLine> where T : IHasSurfaceLineProperty
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextSurfaceLineSelectionEditor"/>.
+        /// Creates a new instance of <see cref="PipingInputContextSurfaceLineSelectionEditor{T}"/>.
         /// </summary>
         public PipingInputContextSurfaceLineSelectionEditor()
         {

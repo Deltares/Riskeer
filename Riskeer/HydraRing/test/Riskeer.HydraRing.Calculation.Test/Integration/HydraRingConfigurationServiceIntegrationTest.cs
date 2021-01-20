@@ -28,6 +28,7 @@ using Riskeer.Common.Util;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Data.Settings;
@@ -43,7 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             "Deltares", $"HydraRing-{HydraRingFileConstants.HydraRingVersionNumber}");
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForAssessmentLevelCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -140,7 +141,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -237,7 +238,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -401,7 +402,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDikeHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForDikeHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -564,7 +565,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForOvertoppingRateCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -726,7 +727,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -900,7 +901,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveConditionsCosineCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1022,7 +1023,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1146,7 +1147,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1280,7 +1281,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1416,7 +1417,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1554,7 +1555,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1722,7 +1723,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1890,7 +1891,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2056,7 +2057,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2222,7 +2223,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -2270,6 +2271,329 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 8);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Fetches];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [AreaPoints];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [PresentationSections];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Profiles];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Forelands];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SetUpHeights];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Swells];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [WaveReductions];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Areas];" + Environment.NewLine +
+                                            "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Projects];" + Environment.NewLine +
+                                            "INSERT INTO [Projects] VALUES (1, 'BOI', 'Riskeer calculation');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Breakwaters];" + Environment.NewLine;
+
+            string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDatabaseCreationScript(databaseFilePath);
+
+                // Assert
+                string creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
+        }
+
+        [Test]
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForPipingCalculationInputWithCoverageLayer_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        {
+            // Setup
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
+            const int hydraulicBoundaryLocationId = 700004;
+
+            const double sectionLength = 1.1;
+            const double phreaticLevelExitMean = 2.2;
+            const double phreaticLevelExitStandardDeviation = 3.3;
+            const double waterVolumetricWeight = 4.4;
+            const double effectiveThicknessCoverageLayerMean = 5.5;
+            const double effectiveThicknessCoverageLayerStandardDeviation = 6.6;
+            const double saturatedVolumicWeightOfCoverageLayerMean = 7.7;
+            const double saturatedVolumicWeightOfCoverageLayerStandardDeviation = 8.8;
+            const double saturatedVolumicWeightOfCoverageLayerShift = 9.9;
+            const double upliftModelFactorMean = 10.0;
+            const double upliftModelFactorStandardDeviation = 11.1;
+            const double dampingFactorExitMean = 12.2;
+            const double dampingFactorExitStandardDeviation = 13.3;
+            const double seepageLengthMean = 14.4;
+            const double seepageLengthCoefficientOfVariation = 15.5;
+            const double thicknessAquiferLayerMean = 16.6;
+            const double thicknessAquiferLayerStandardDeviation = 17.7;
+            const double sandParticlesVolumicWeight = 18.8;
+            const double sellmeijerModelFactorMean = 19.9;
+            const double sellmeijerModelFactorStandardDeviation = 20.0;
+            const double beddingAngle = 21.1;
+            const double whitesDragCoefficient = 22.2;
+            const double waterKinematicViscosity = 23.3;
+            const double darcyPermeabilityMean = 24.4;
+            const double darcyPermeabilityCoefficientOfVariation = 25.5;
+            const double diameter70Mean = 26.6;
+            const double diameter70CoefficientOfVariation = 27.7;
+            const double gravity = 28.8;
+            const double criticalHeaveGradientMean = 29.9;
+            const double criticalHeaveGradientStandardDeviation = 30.0;
+
+            var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
+
+            hydraRingConfigurationService.AddHydraRingCalculationInput(
+                new PipingCalculationInput(
+                    hydraulicBoundaryLocationId, sectionLength, phreaticLevelExitMean, phreaticLevelExitStandardDeviation,
+                    waterVolumetricWeight, effectiveThicknessCoverageLayerMean, effectiveThicknessCoverageLayerStandardDeviation,
+                    saturatedVolumicWeightOfCoverageLayerMean, saturatedVolumicWeightOfCoverageLayerStandardDeviation,
+                    saturatedVolumicWeightOfCoverageLayerShift, upliftModelFactorMean, upliftModelFactorStandardDeviation,
+                    dampingFactorExitMean, dampingFactorExitStandardDeviation, seepageLengthMean, seepageLengthCoefficientOfVariation,
+                    thicknessAquiferLayerMean, thicknessAquiferLayerStandardDeviation, sandParticlesVolumicWeight,
+                    sellmeijerModelFactorMean, sellmeijerModelFactorStandardDeviation, beddingAngle, whitesDragCoefficient,
+                    waterKinematicViscosity, darcyPermeabilityMean, darcyPermeabilityCoefficientOfVariation, diameter70Mean,
+                    diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation)
+                {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
+                    DesignTablesSetting = new DesignTablesSetting(17.17, 18.18),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            311, numericsSetting
+                        },
+                        {
+                            313, numericsSetting
+                        },
+                        {
+                            314, numericsSetting
+                        }
+                    },
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
+                });
+
+            string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+                                            "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Sections];" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 1.1);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [DesignTables];" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 103, 1, 1, 1, 58, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Numerics];" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 311, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 313, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 314, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 42, 0, 2, 2.2, 3.3, NULL, NULL, 1, 0, 1.1);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 43, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 44, 0, 4, 5.5, 6.6, NULL, NULL, 1, 0, 200);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 45, 0, 4, 7.7, 8.8, 9.9, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 46, 0, 4, 10, 11.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 47, 0, 4, 12.2, 13.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 48, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 3000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 49, 0, 4, 16.6, 17.7, NULL, NULL, 1, 0, 1500);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 50, 23.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 51, 0, 4, 19.9, 20, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 52, 21.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 53, 22.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 54, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 55, 0, 4, 24.4, NULL, NULL, NULL, 0, 25.5, 600);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 56, 0, 4, 26.6, NULL, NULL, NULL, 0, 27.7, 180);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 58, 28.8, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 124, 0, 4, 29.9, 30, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 103, 1, 1, 3015);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Fetches];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [AreaPoints];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [PresentationSections];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Profiles];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Forelands];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SetUpHeights];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Swells];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [WaveReductions];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Areas];" + Environment.NewLine +
+                                            "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Projects];" + Environment.NewLine +
+                                            "INSERT INTO [Projects] VALUES (1, 'BOI', 'Riskeer calculation');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Breakwaters];" + Environment.NewLine;
+
+            string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDatabaseCreationScript(databaseFilePath);
+
+                // Assert
+                string creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
+        }
+
+        [Test]
+        public void WriteDatabaseCreationScript_HydraRingConfigurationForPipingCalculationInputWithoutCoverageLayer_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        {
+            // Setup
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
+            const int hydraulicBoundaryLocationId = 700004;
+
+            const double sectionLength = 1.1;
+            const double phreaticLevelExitMean = 2.2;
+            const double phreaticLevelExitStandardDeviation = 3.3;
+            const double waterVolumetricWeight = 4.4;
+            const double upliftModelFactorMean = 5.5;
+            const double upliftModelFactorStandardDeviation = 6.6;
+            const double dampingFactorExitMean = 7.7;
+            const double dampingFactorExitStandardDeviation = 8.8;
+            const double seepageLengthMean = 9.9;
+            const double seepageLengthCoefficientOfVariation = 10.0;
+            const double thicknessAquiferLayerMean = 11.1;
+            const double thicknessAquiferLayerStandardDeviation = 12.2;
+            const double sandParticlesVolumicWeight = 13.3;
+            const double sellmeijerModelFactorMean = 14.4;
+            const double sellmeijerModelFactorStandardDeviation = 15.5;
+            const double beddingAngle = 16.6;
+            const double whitesDragCoefficient = 17.7;
+            const double waterKinematicViscosity = 18.8;
+            const double darcyPermeabilityMean = 19.9;
+            const double darcyPermeabilityCoefficientOfVariation = 20.0;
+            const double diameter70Mean = 21.1;
+            const double diameter70CoefficientOfVariation = 22.2;
+            const double gravity = 23.3;
+            const double criticalHeaveGradientMean = 24.4;
+            const double criticalHeaveGradientStandardDeviation = 25.5;
+
+            var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
+
+            hydraRingConfigurationService.AddHydraRingCalculationInput(
+                new PipingCalculationInput(
+                    hydraulicBoundaryLocationId, sectionLength, phreaticLevelExitMean, phreaticLevelExitStandardDeviation,
+                    waterVolumetricWeight, upliftModelFactorMean, upliftModelFactorStandardDeviation, dampingFactorExitMean,
+                    dampingFactorExitStandardDeviation, seepageLengthMean, seepageLengthCoefficientOfVariation,
+                    thicknessAquiferLayerMean, thicknessAquiferLayerStandardDeviation, sandParticlesVolumicWeight,
+                    sellmeijerModelFactorMean, sellmeijerModelFactorStandardDeviation, beddingAngle, whitesDragCoefficient,
+                    waterKinematicViscosity, darcyPermeabilityMean, darcyPermeabilityCoefficientOfVariation, diameter70Mean,
+                    diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation)
+                {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
+                    DesignTablesSetting = new DesignTablesSetting(17.17, 18.18),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            311, numericsSetting
+                        },
+                        {
+                            313, numericsSetting
+                        },
+                        {
+                            314, numericsSetting
+                        }
+                    },
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
+                });
+
+            string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+                                            "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Sections];" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 1.1);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [DesignTables];" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 103, 1, 1, 1, 58, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [Numerics];" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 311, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 313, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 103, 1, 1, 314, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
+                                            "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 42, 0, 2, 2.2, 3.3, NULL, NULL, 1, 0, 1.1);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 43, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 44, 0, 0, 0, NULL, NULL, NULL, 1, 0, 200);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 45, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 46, 0, 4, 5.5, 6.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 47, 0, 4, 7.7, 8.8, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 48, 0, 4, 9.9, NULL, NULL, NULL, 0, 10, 3000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 49, 0, 4, 11.1, 12.2, NULL, NULL, 1, 0, 1500);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 50, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 51, 0, 4, 14.4, 15.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 52, 16.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 53, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 54, 18.8, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 55, 0, 4, 19.9, NULL, NULL, NULL, 0, 20, 600);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 56, 0, 4, 21.1, NULL, NULL, NULL, 0, 22.2, 180);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 58, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 103, 1, 1, 124, 0, 4, 24.4, 25.5, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
+                                            Environment.NewLine +
+                                            "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                                            "INSERT INTO [SectionFaultTreeModels] VALUES (1, 103, 1, 1, 3014);" + Environment.NewLine +
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +

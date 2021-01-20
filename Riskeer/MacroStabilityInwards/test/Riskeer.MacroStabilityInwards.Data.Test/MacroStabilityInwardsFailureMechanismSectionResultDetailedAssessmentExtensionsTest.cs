@@ -278,7 +278,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         [TestCase(0.3, 0.7 + 1e-5)]
         [TestCase(-5, -8)]
         [TestCase(13, 2)]
-        public void GetDetailedAssessmentProbability_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             var mocks = new MockRepository();

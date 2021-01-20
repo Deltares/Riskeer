@@ -230,7 +230,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]
-        public void Run_Always_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
+        public void Run_Always_InputPropertiesCorrectlySentToService(BreakWaterType breakWaterType)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();

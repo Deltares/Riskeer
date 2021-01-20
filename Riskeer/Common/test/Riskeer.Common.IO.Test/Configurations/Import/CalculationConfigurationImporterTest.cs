@@ -765,7 +765,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void Import_ScenarioWithRevelantSet_DataAddedToModelReturnsTrue()
+        public void Import_ScenarioWithRelevantSet_DataAddedToModelReturnsTrue()
         {
             // Setup
             var random = new Random(45);

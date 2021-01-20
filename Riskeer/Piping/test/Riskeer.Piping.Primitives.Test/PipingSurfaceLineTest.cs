@@ -65,11 +65,11 @@ namespace Riskeer.Piping.Primitives.Test
             var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => surfaceLine.CopyProperties(null);
+            void Call() => surfaceLine.CopyProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("fromSurfaceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("fromSurfaceLine", exception.ParamName);
         }
 
         [Test]

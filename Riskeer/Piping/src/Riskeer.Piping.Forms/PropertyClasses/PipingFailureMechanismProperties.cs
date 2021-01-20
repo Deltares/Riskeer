@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -30,6 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -99,14 +101,16 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(criticalHeaveGradientPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_Description))]
-        public double CriticalHeaveGradient
+        public LogNormalDistributionDesignVariableProperties CriticalHeaveGradient
         {
             get
             {
-                return data.GeneralInput.CriticalHeaveGradient;
+                return new LogNormalDistributionDesignVariableProperties(
+                    SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
             }
         }
 
@@ -406,27 +410,31 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(upLiftModelFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_Description))]
-        public double UpliftModelFactor
+        public LogNormalDistributionDesignVariableProperties UpliftModelFactor
         {
             get
             {
-                return data.GeneralInput.UpliftModelFactor;
+                return new LogNormalDistributionDesignVariableProperties(
+                    SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(data.GeneralInput));
             }
         }
 
         [DynamicVisible]
         [PropertyOrder(sellMeijerModelFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_Description))]
-        public double SellmeijerModelFactor
+        public LogNormalDistributionDesignVariableProperties SellmeijerModelFactor
         {
             get
             {
-                return data.GeneralInput.SellmeijerModelFactor;
+                return new LogNormalDistributionDesignVariableProperties(
+                    SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(data.GeneralInput));
             }
         }
 

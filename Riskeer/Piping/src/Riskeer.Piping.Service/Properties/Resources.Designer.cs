@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -102,16 +102,6 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m..
-        /// </summary>
-        internal static string PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_va" +
-                        "lid_range_of_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability {
@@ -139,29 +129,11 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer {
             get {
                 return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer", resourceCulture);
             }
         }
         
@@ -176,7 +148,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt..
+        ///   Looks up a localized string similar to Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine {
             get {
@@ -222,12 +194,130 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_i" +
+                        "n_temporary_directory_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} &apos;{1}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
+        ///{2}.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_fo" +
+                        "r_calculation_with_name_1_click_details_for_last_error_report_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De piping sterkte berekening voor {0} &apos;{1}&apos; is mislukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_fo" +
+                        "r_calculation_with_name_1_no_error_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoin" +
+                        "ts_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren sterkte berekening voor {0}.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0 {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to doorsnede.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ProfileSpecific {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ProfileSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to vak.
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_SectionSpecific {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_SectionSpecific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Cannot_determine_section_for_calculation {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Canno" +
+                        "t_determine_section_for_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sections_imported {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sect" +
+                        "ions_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        /// </summary>
+        internal static string ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight {
+            get {
+                return ResourceManager.GetString("ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverag" +
+                        "eLayer_shift_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m..
+        /// </summary>
+        internal static string SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model {
+            get {
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_" +
+                        "value_0_not_in_valid_range_of_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
+        /// </summary>
+        internal static string SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {
+            get {
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_Piezomet" +
+                        "ricHeadExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
+        internal static string SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_b" +
-                        "e_larger_than_WaterVolumetricWeight", resourceCulture);
+                return ResourceManager.GetString("SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCov" +
+                        "erageLayer_must_be_larger_than_WaterVolumetricWeight", resourceCulture);
             }
         }
     }

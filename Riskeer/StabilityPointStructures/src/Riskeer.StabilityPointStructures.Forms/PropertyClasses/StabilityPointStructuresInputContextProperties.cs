@@ -155,8 +155,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             // Note: A default initialized calculation doesn't have InflowModelType initialized to any of these 2 values.
-            if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert ||
-                data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
+            if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert
+                || data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
             {
                 if (propertyName == nameof(DrainCoefficient))
                 {
@@ -175,8 +175,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
 
             // Note: A default initialized calculation doesn't have LoadSchematizationType initialized to any of these 2 values.
-            if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear ||
-                data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
+            if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear
+                || data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
             {
                 if (propertyName == nameof(ConstructiveStrengthLinearLoadModel))
                 {

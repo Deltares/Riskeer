@@ -42,17 +42,17 @@ namespace Riskeer.Piping.KernelWrapper.Test
         public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
         {
             // Call
-            var actual = new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties());
+            var pipingCalculatorResult = new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties());
 
             // Assert
-            Assert.IsNaN(actual.UpliftFactorOfSafety);
-            Assert.IsNaN(actual.HeaveFactorOfSafety);
-            Assert.IsNaN(actual.SellmeijerFactorOfSafety);
-            Assert.IsNaN(actual.UpliftEffectiveStress);
-            Assert.IsNaN(actual.HeaveGradient);
-            Assert.IsNaN(actual.SellmeijerCreepCoefficient);
-            Assert.IsNaN(actual.SellmeijerCriticalFall);
-            Assert.IsNaN(actual.SellmeijerReducedFall);
+            Assert.IsNaN(pipingCalculatorResult.UpliftFactorOfSafety);
+            Assert.IsNaN(pipingCalculatorResult.HeaveFactorOfSafety);
+            Assert.IsNaN(pipingCalculatorResult.SellmeijerFactorOfSafety);
+            Assert.IsNaN(pipingCalculatorResult.UpliftEffectiveStress);
+            Assert.IsNaN(pipingCalculatorResult.HeaveGradient);
+            Assert.IsNaN(pipingCalculatorResult.SellmeijerCreepCoefficient);
+            Assert.IsNaN(pipingCalculatorResult.SellmeijerCriticalFall);
+            Assert.IsNaN(pipingCalculatorResult.SellmeijerReducedFall);
         }
 
         [Test]
@@ -82,17 +82,17 @@ namespace Riskeer.Piping.KernelWrapper.Test
             };
 
             // Call
-            var actual = new PipingCalculatorResult(constructionProperties);
+            var pipingCalculatorResult = new PipingCalculatorResult(constructionProperties);
 
             // Assert
-            Assert.AreEqual(foSuValue, actual.UpliftFactorOfSafety);
-            Assert.AreEqual(foShValue, actual.HeaveFactorOfSafety);
-            Assert.AreEqual(foSsValue, actual.SellmeijerFactorOfSafety);
-            Assert.AreEqual(upliftEffectiveStress, actual.UpliftEffectiveStress);
-            Assert.AreEqual(heaveGradient, actual.HeaveGradient);
-            Assert.AreEqual(sellmeijerCreepCoefficient, actual.SellmeijerCreepCoefficient);
-            Assert.AreEqual(sellmeijerCriticalFall, actual.SellmeijerCriticalFall);
-            Assert.AreEqual(sellmeijerReducedFall, actual.SellmeijerReducedFall);
+            Assert.AreEqual(foSuValue, pipingCalculatorResult.UpliftFactorOfSafety);
+            Assert.AreEqual(foShValue, pipingCalculatorResult.HeaveFactorOfSafety);
+            Assert.AreEqual(foSsValue, pipingCalculatorResult.SellmeijerFactorOfSafety);
+            Assert.AreEqual(upliftEffectiveStress, pipingCalculatorResult.UpliftEffectiveStress);
+            Assert.AreEqual(heaveGradient, pipingCalculatorResult.HeaveGradient);
+            Assert.AreEqual(sellmeijerCreepCoefficient, pipingCalculatorResult.SellmeijerCreepCoefficient);
+            Assert.AreEqual(sellmeijerCriticalFall, pipingCalculatorResult.SellmeijerCriticalFall);
+            Assert.AreEqual(sellmeijerReducedFall, pipingCalculatorResult.SellmeijerReducedFall);
         }
     }
 }

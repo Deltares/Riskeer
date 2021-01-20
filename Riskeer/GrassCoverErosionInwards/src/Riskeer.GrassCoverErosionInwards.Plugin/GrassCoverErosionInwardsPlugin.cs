@@ -178,7 +178,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new ViewInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -226,7 +226,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
-                    () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
+                    context.WrappedData, () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
 
             yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>
@@ -236,7 +236,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
-                    () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
+                    context.WrappedData, () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
 
             yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>
@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
-                    () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
+                    context.WrappedData, () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
 
             yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
@@ -297,7 +297,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
             {
@@ -331,7 +332,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
                 Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
-                Image = context => Resources.OutputIcon,
+                Image = context => RiskeerCommonFormsResources.CalculationOutputFolderIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -692,7 +693,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation, CalculationType.Probabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -707,7 +708,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -833,7 +833,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                         context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -883,8 +883,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -911,10 +910,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
         }
 
-        private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationScenarioContext context)
+        private void Calculate(GrassCoverErosionInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                           context.FailureMechanism,
                                                                                                                           context.AssessmentSection));
         }

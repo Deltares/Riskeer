@@ -37,7 +37,8 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.Test.Views
@@ -276,7 +277,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanism,
             PipingFailureMechanismSectionResult,
             PipingFailureMechanismSectionResultRow,
-            PipingCalculationScenario>
+            SemiProbabilisticPipingCalculationScenario>
         {
             protected override PipingFailureMechanismResultView CreateResultView(PipingFailureMechanism failureMechanism)
             {
@@ -285,9 +286,9 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                             new AssessmentSectionStub());
             }
 
-            protected override PipingCalculationScenario CreateCalculation()
+            protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
             {
-                return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                return SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
             }
         }
 

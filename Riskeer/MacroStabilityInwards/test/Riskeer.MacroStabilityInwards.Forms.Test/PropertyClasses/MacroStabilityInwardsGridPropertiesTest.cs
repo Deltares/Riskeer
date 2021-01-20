@@ -197,11 +197,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnGrid()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsInput input = calculationItem.InputParameters;
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsInput input = calculation.InputParameters;
             MacroStabilityInwardsGrid grid = input.LeftGrid;
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, input);
+            var handler = new ObservablePropertyChangeHandler(calculation, input);
             var properties = new MacroStabilityInwardsGridProperties(grid, handler, false);
 
             var random = new Random(21);

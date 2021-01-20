@@ -25,26 +25,27 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingScenariosView"/>.
+    /// This class represents a row of <see cref="SemiProbabilisticPipingCalculationScenario"/> in the <see cref="PipingScenariosView"/>.
     /// </summary>
-    public class PipingScenarioRow : ScenarioRow<PipingCalculationScenario>
+    public class PipingScenarioRow : ScenarioRow<SemiProbabilisticPipingCalculationScenario>
     {
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private DerivedPipingOutput derivedOutput;
+        private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="PipingCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="SemiProbabilisticPipingCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal PipingScenarioRow(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism,
+        internal PipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism,
                                    IAssessmentSection assessmentSection) : base(calculationScenario)
         {
             if (failureMechanism == null)
@@ -66,19 +67,19 @@ namespace Riskeer.Piping.Forms.Views
         public override double FailureProbability => derivedOutput?.PipingProbability ?? double.NaN;
 
         /// <summary>
-        /// Gets the failure probability of uplift sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of uplift sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double FailureProbabilityUplift => derivedOutput?.UpliftProbability ?? double.NaN;
 
         /// <summary>
-        /// Gets the failure probability of heave sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of heave sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double FailureProbabilityHeave => derivedOutput?.HeaveProbability ?? double.NaN;
 
         /// <summary>
-        /// Gets the failure probability of sellmeijer sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of sellmeijer sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double FailureProbabilitySellmeijer => derivedOutput?.SellmeijerProbability ?? double.NaN;
@@ -91,7 +92,7 @@ namespace Riskeer.Piping.Forms.Views
         private void CreateDerivedOutput()
         {
             derivedOutput = CalculationScenario.HasOutput
-                                ? DerivedPipingOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
+                                ? DerivedSemiProbabilisticPipingOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
                                 : null;
         }
     }

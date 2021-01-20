@@ -158,4 +158,26 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="CalculationGroup_Add_SemiProbabilisticCalculation" xml:space="preserve">
+    <value>Semi-probabilistische berekening &amp;toevoegen</value>
+  </data>
+  <data name="CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.</value>
+  </data>
+  <data name="CalculationGroup_Add_ProbabilisticCalculation" xml:space="preserve">
+    <value>&amp;Probabilistische berekening toevoegen</value>
+  </data>
+  <data name="CalculationGroup_Add_ProbabilisticCalculation_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.</value>
+  </data>
+  <data name="PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

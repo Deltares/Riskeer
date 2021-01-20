@@ -48,10 +48,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);
             Assert.AreEqual(26, dunesBoundaryConditionsCalculationInput.VariableId);
+            Assert.AreEqual(8, dunesBoundaryConditionsCalculationInput.FaultTreeModelId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(dunesBoundaryConditionsCalculationInput.Section);
             CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ProfilePoints);
-            CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ForelandsPoints);
+            CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ForelandPoints);
             Assert.IsNull(dunesBoundaryConditionsCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, dunesBoundaryConditionsCalculationInput.Beta);
 

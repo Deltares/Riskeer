@@ -35,11 +35,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="OvertoppingOutputGeneralResultFaultTreeIllustrationPointView"/>.
         /// </summary>
+        /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
         /// that must be presented.</param>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="getGeneralResultFunc"/> is <c>null</c>.</exception>
-        public OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
-            : base(getGeneralResultFunc) {}
+        /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
+        public OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
+            GrassCoverErosionInwardsCalculation calculation,
+            Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
+            : base(calculation, getGeneralResultFunc) {}
     }
 }

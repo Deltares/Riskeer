@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -52,25 +51,26 @@ namespace Riskeer.Common.Forms.Test
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var dialog = new TestSelectionDialogBase(testForm))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
             }
         }
 
         [Test]
-        public void Constructor_DialogParentIsNull_ThrowsArgumentNullException()
+        public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestSelectionDialogBase(null);
+            void Call() => new TestSelectionDialogBase(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("dialogParent", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dialogParent", exception.ParamName);
         }
 
         [Test]
@@ -82,8 +82,6 @@ namespace Riskeer.Common.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(new Size(240, 90), dialog.AutoScrollMinSize);
-
                 CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
@@ -109,21 +107,6 @@ namespace Riskeer.Common.Forms.Test
         }
 
         [Test]
-        public void Constructor_Always_SetMinimumSize()
-        {
-            // Setup
-            using (var dialog = new TestSelectionDialogBase(testForm))
-            {
-                // Call
-                dialog.Show();
-
-                // Assert
-                Assert.AreEqual(370, dialog.MinimumSize.Width);
-                Assert.AreEqual(550, dialog.MinimumSize.Height);
-            }
-        }
-
-        [Test]
         public void GivenDialogWithSelectedItems_WhenCloseWithoutConfirmation_ThenReturnsEmptyCollection()
         {
             // Given
@@ -135,10 +118,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -162,10 +145,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -178,7 +161,7 @@ namespace Riskeer.Common.Forms.Test
         }
 
         [Test]
-        public void GivenDialogWithSelectedItems_WhenDoForSelectedButton_ThenReturnsSelectedCollection()
+        public void GivenDialogWithSelectedItems_WhenDoForSelectedButtonClicked_ThenReturnsSelectedCollection()
         {
             // Given
             var selectedItem = new object();
@@ -190,10 +173,10 @@ namespace Riskeer.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
-
                 dialog.Show();
+                
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -293,6 +276,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
+                
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
 
                 // Call

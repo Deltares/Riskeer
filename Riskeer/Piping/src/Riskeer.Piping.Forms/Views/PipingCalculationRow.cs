@@ -33,22 +33,33 @@ using Riskeer.Piping.Data.SoilProfile;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingCalculationsView"/>.
+    /// This class represents a row of <see cref="IPipingCalculationScenario{TPipingInput}"/> in the <see cref="PipingCalculationsView"/>.
     /// </summary>
-    public class PipingCalculationRow : CalculationRow<PipingCalculationScenario>
+    public class PipingCalculationRow : CalculationRow<IPipingCalculationScenario<PipingInput>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="PipingCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="IPipingCalculationScenario{TPipingInput}"/> this row contains.</param>
+        /// <param name="calculationType">The description of the type of calculation scenario that is presented in the row.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal PipingCalculationRow(PipingCalculationScenario calculationScenario,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
+        internal PipingCalculationRow(IPipingCalculationScenario<PipingInput> calculationScenario,
+                                      string calculationType,
                                       IObservablePropertyChangeHandler handler)
-            : base(calculationScenario, handler) {}
+            : base(calculationScenario, handler)
+        {
+            CalculationType = calculationType;
+        }
 
         /// <summary>
-        /// Gets or sets the stochastic soil model of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the description of the type of calculation scenario that is presented in the row.
+        /// </summary>
+        public string CalculationType { get; }
+        
+        /// <summary>
+        /// Gets or sets the stochastic soil model of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel> StochasticSoilModel
         {
@@ -64,7 +75,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the stochastic soil profile of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the stochastic soil profile of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile> StochasticSoilProfile
         {
@@ -80,7 +91,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets the stochastic soil profile probability of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the stochastic soil profile probability of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public RoundedDouble StochasticSoilProfileProbability =>
             Calculation.InputParameters.StochasticSoilProfile != null
@@ -88,7 +99,7 @@ namespace Riskeer.Piping.Forms.Views
                 : new RoundedDouble(2);
 
         /// <summary>
-        /// Gets or sets the damping factory exit mean of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the damping factory exit mean of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public RoundedDouble DampingFactorExitMean
         {
@@ -103,7 +114,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the phreatic level exit mean of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the phreatic level exit mean of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public RoundedDouble PhreaticLevelExitMean
         {
@@ -118,7 +129,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the entry point l of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the entry point l of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public RoundedDouble EntryPointL
         {
@@ -133,7 +144,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the exit point l of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the exit point l of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         public RoundedDouble ExitPointL
         {

@@ -55,10 +55,10 @@ namespace Riskeer.Common.Service.Test.Structures
         public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService(null);
+            void Call() => new TestStructuresCalculationService(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
@@ -71,10 +71,10 @@ namespace Riskeer.Common.Service.Test.Structures
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestStructuresCalculationService.Validate(null, assessmentSection);
+            void Call() => TestStructuresCalculationService.Validate(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -86,10 +86,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var calculation = new TestStructuresCalculation();
 
             // Call
-            TestDelegate test = () => TestStructuresCalculationService.Validate(calculation, null);
+            void Call() => TestStructuresCalculationService.Validate(calculation, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -108,10 +108,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = true;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -145,10 +145,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = true;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -176,10 +176,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -205,10 +205,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(new TestStructuresCalculation(), assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(new TestStructuresCalculation(), assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -242,10 +242,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -280,10 +280,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -320,10 +320,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -360,10 +360,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
@@ -403,10 +403,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
@@ -446,10 +446,10 @@ namespace Riskeer.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
@@ -470,11 +470,10 @@ namespace Riskeer.Common.Service.Test.Structures
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(null, new GeneralTestInput(), CreateCalculationSettings());
+            void Call() => new TestStructuresCalculationService(messageProvider).Calculate(null, new GeneralTestInput(), CreateCalculationSettings());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -488,11 +487,10 @@ namespace Riskeer.Common.Service.Test.Structures
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(new TestStructuresCalculation(), null, CreateCalculationSettings());
+            void Call() => new TestStructuresCalculationService(messageProvider).Calculate(new TestStructuresCalculation(), null, CreateCalculationSettings());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -506,11 +504,10 @@ namespace Riskeer.Common.Service.Test.Structures
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(new TestStructuresCalculation(), new GeneralTestInput(), null);
+            void Call() => new TestStructuresCalculationService(messageProvider).Calculate(new TestStructuresCalculation(), new GeneralTestInput(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -616,10 +613,10 @@ namespace Riskeer.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
+                void Call() => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
@@ -673,10 +670,10 @@ namespace Riskeer.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
+                void Call() => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -728,10 +725,10 @@ namespace Riskeer.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
+                void Call() => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
@@ -782,10 +779,10 @@ namespace Riskeer.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
+                void Call() => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
 
@@ -841,10 +838,10 @@ namespace Riskeer.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
+                void Call() => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
 
@@ -959,7 +956,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 var structuresCalculationService = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
@@ -969,10 +966,10 @@ namespace Riskeer.Common.Service.Test.Structures
                     {
                         exceptionThrown = true;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -1018,24 +1015,14 @@ namespace Riskeer.Common.Service.Test.Structures
 
             public override int VariableId { get; }
 
-            public override HydraRingSection Section
-            {
-                get
-                {
-                    return new HydraRingSection(0, 0, 0);
-                }
-            }
+            public override int FaultTreeModelId { get; }
+
+            public override HydraRingSection Section => new HydraRingSection(0, 0, 0);
         }
 
         private class GeneralTestInput
         {
-            public double N
-            {
-                get
-                {
-                    return 0;
-                }
-            }
+            public double N => 0;
         }
     }
 }

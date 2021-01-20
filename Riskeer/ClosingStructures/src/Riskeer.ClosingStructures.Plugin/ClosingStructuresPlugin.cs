@@ -97,7 +97,7 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return new ViewInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseClosingStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
@@ -153,7 +153,8 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
@@ -540,7 +541,7 @@ namespace Riskeer.ClosingStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation, CalculationType.Probabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -557,7 +558,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        ValidateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        context,
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
@@ -680,10 +680,10 @@ namespace Riskeer.ClosingStructures.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(ClosingStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                                                      context.FailureMechanism,
                                                                                                                      context.AssessmentSection));
         }
@@ -729,8 +729,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               context,
                               Validate,
                               EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresCalculationScenarioContext>(
                               context,
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
@@ -756,10 +755,10 @@ namespace Riskeer.ClosingStructures.Plugin
             ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationScenarioContext context)
+        private void Calculate(ClosingStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
                                                                                                                    context.FailureMechanism,
                                                                                                                    context.AssessmentSection));
         }

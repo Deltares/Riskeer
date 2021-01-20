@@ -625,10 +625,10 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        public void Import_ScenarioWithRelevantSet_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml");
 
             var calculationGroup = new CalculationGroup();
 

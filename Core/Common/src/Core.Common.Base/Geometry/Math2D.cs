@@ -398,8 +398,8 @@ namespace Core.Common.Base.Geometry
         /// <returns><c>true</c> if the vectors are collinear, <c>false</c> otherwise.</returns>
         private static bool AreCollinear(Vector<double> vector1, Vector<double> vector2, Vector<double> tailsVector)
         {
-            return Math.Abs(PerpDotProduct(vector1, tailsVector)) < epsilonForComparisons &&
-                   Math.Abs(PerpDotProduct(vector2, tailsVector)) < epsilonForComparisons;
+            return Math.Abs(PerpDotProduct(vector1, tailsVector)) < epsilonForComparisons
+                   && Math.Abs(PerpDotProduct(vector2, tailsVector)) < epsilonForComparisons;
         }
 
         private static Segment2DIntersectSegment2DResult HandleCollinearSegmentIntersection(Segment2D segment1, Segment2D segment2, Vector<double> v, Vector<double> w)

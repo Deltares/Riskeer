@@ -30,7 +30,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
-using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Service;
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Integration.Test
                 DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput())
+                var pipingCalculation1 = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Integration.Test
                             sl => sl.Name == "PK001_0001")
                     }
                 };
-                var pipingCalculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                var pipingCalculation2 = new SemiProbabilisticPipingCalculationScenario
                 {
                     InputParameters =
                     {
@@ -121,14 +121,14 @@ namespace Riskeer.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                pipingCalculation1.Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024);
+                pipingCalculation1.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4),
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
-                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation3 = new SemiProbabilisticPipingCalculationScenario();
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4),

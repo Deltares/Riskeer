@@ -665,7 +665,7 @@ handmatig</value>
   <data name="DataTypeDisplayName_csv_file_filter_Extension" xml:space="preserve">
     <value>csv</value>
   </data>
-  <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="HydraulicCalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calculation_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HydraulicBoundaryLocationsExporter_DisplayName" xml:space="preserve">
@@ -1591,6 +1591,21 @@ scenario
   <data name="StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName" xml:space="preserve">
     <value>toegestane peilverhoging komberging
 [m]</value>
+  </data>
+  <data name="ProbabilisticCalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProbabilisticCalculationIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SemiProbabilisticCalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SemiProbabilisticCalculationIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Probabilistics_Shift_Description" xml:space="preserve">
+    <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
+  </data>
+  <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
+    <value>Verschuiving</value>
+  </data>
+  <data name="CalculationOutputFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-open-document-text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WaterVolumetricWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van water [kN/m³]</value>

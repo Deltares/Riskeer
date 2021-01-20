@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -94,28 +93,28 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             // Assert
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(Convert.ToBoolean(entity.RelevantForScenario), calculation.IsRelevant);
-            AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
             HeightStructuresInput input = calculation.InputParameters;
             Assert.IsFalse(input.UseForeshore);
             Assert.IsFalse(input.UseBreakWater);
 
-            AssertRoundedDouble(entity.StructureNormalOrientation, input.StructureNormalOrientation);
-            AssertRoundedDouble(entity.ModelFactorSuperCriticalFlowMean, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertRoundedDouble(entity.AllowedLevelIncreaseStorageMean, input.AllowedLevelIncreaseStorage.Mean);
-            AssertRoundedDouble(entity.AllowedLevelIncreaseStorageStandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
-            AssertRoundedDouble(entity.FlowWidthAtBottomProtectionMean, input.FlowWidthAtBottomProtection.Mean);
-            AssertRoundedDouble(entity.FlowWidthAtBottomProtectionStandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertRoundedDouble(entity.CriticalOvertoppingDischargeMean, input.CriticalOvertoppingDischarge.Mean);
-            AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.StructureNormalOrientation, input.StructureNormalOrientation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.ModelFactorSuperCriticalFlowMean, input.ModelFactorSuperCriticalFlow.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.AllowedLevelIncreaseStorageMean, input.AllowedLevelIncreaseStorage.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.AllowedLevelIncreaseStorageStandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.FlowWidthAtBottomProtectionMean, input.FlowWidthAtBottomProtection.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.FlowWidthAtBottomProtectionStandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.CriticalOvertoppingDischargeMean, input.CriticalOvertoppingDischarge.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
-            AssertRoundedDouble(entity.WidthFlowAperturesMean, input.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, input.WidthFlowApertures.StandardDeviation);
-            AssertRoundedDouble(entity.StormDurationMean, input.StormDuration.Mean);
-            AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
-            AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);
-            AssertRoundedDouble(entity.DeviationWaveDirection, input.DeviationWaveDirection);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.WidthFlowAperturesMean, input.WidthFlowApertures.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, input.WidthFlowApertures.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.StormDurationMean, input.StormDuration.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.DeviationWaveDirection, input.DeviationWaveDirection);
 
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.IsNull(input.ForeshoreProfile);
@@ -279,11 +278,6 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             StructuresOutput calculationOutput = calculation.Output;
             Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
-        }
-
-        private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
-        {
-            Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
         }
     }
 }

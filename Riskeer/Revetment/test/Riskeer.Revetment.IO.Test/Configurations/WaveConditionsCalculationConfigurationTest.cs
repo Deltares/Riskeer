@@ -33,10 +33,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationConfiguration(null);
+            void Call() => new WaveConditionsCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -114,19 +115,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual(breakWaterType, readWaveConditionsCalculation.WaveReduction.BreakWaterType);
             Assert.AreEqual(breakWaterHeight, readWaveConditionsCalculation.WaveReduction.BreakWaterHeight);
             Assert.AreEqual(useForeshore, readWaveConditionsCalculation.WaveReduction.UseForeshoreProfile);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new WaveConditionsCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

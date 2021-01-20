@@ -38,7 +38,6 @@ using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -87,11 +86,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1, random);
 
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
+            var emptyPipingCalculation = new TestPipingCalculationScenario();
+            var pipingCalculation = new TestPipingCalculationScenario(true);
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
@@ -181,10 +177,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
 
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
+            var pipingCalculation = new TestPipingCalculationScenario(true);
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
@@ -266,7 +259,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation
             });
 
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var emptyPipingCalculation = new TestPipingCalculationScenario();
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 

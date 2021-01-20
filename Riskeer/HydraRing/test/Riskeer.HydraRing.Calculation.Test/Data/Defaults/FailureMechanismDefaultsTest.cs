@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Defaults
             {
                 2,
                 3
-            }, 4, 5, 6);
+            }, 4, 5);
 
             // Assert
             Assert.AreEqual(1, failureMechanismDefaults.MechanismId);
@@ -44,9 +44,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Defaults
                 2,
                 3
             }, failureMechanismDefaults.SubMechanismIds);
-            Assert.AreEqual(4, failureMechanismDefaults.FaultTreeModelId);
-            Assert.AreEqual(5, failureMechanismDefaults.PreprocessorFaultTreeModelId);
-            Assert.AreEqual(6, failureMechanismDefaults.PreprocessorMechanismId);
+            Assert.AreEqual(4, failureMechanismDefaults.PreprocessorFaultTreeModelId);
+            Assert.AreEqual(5, failureMechanismDefaults.PreprocessorMechanismId);
             Assert.AreEqual(7, failureMechanismDefaults.PreprocessorSubMechanismId);
         }
     }

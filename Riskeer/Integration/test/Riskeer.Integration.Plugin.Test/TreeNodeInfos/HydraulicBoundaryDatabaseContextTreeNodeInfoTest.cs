@@ -34,6 +34,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -145,7 +146,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddCustomImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -184,7 +185,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomImportItem()
+        public void ContextMenuStrip_Always_AddImportItem()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -193,7 +194,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            {
+                new ImportInfo()
+            });
             var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
             var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();

@@ -36,7 +36,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             void Call() => new GrassCoverErosionInwardsCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(Call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -63,19 +64,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(readCalculation.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsNull(readCalculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.IsNull(readCalculation.Scenario);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new GrassCoverErosionInwardsCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

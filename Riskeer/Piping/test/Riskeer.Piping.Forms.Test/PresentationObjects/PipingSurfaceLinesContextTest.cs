@@ -80,11 +80,11 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var surfaceLines = new PipingSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesContext(surfaceLines, null, assessmentSection);
+            void Call() => new PipingSurfaceLinesContext(surfaceLines, null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
     }

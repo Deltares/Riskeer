@@ -120,16 +120,13 @@
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
     <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
-    <value>Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.</value>
-  </data>
   <data name="PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected" xml:space="preserve">
     <value>Er is geen ondergrondschematisatie geselecteerd.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_SurfaceLine_selected" xml:space="preserve">
     <value>Er is geen profielschematisatie geselecteerd.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit" xml:space="preserve">
+  <data name="SemiProbabilisticPipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit" xml:space="preserve">
     <value>Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_value_for_EntryPointL" xml:space="preserve">
@@ -139,7 +136,7 @@
     <value>De waarde voor 'uittredepunt' moet een concreet getal zijn.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine" xml:space="preserve">
-    <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>
+    <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt. Er wordt een deklaagdikte gebruikt gelijk aan 0.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer" xml:space="preserve">
     <value>Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden.</value>
@@ -159,10 +156,41 @@
   <data name="PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight" xml:space="preserve">
     <value>Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.</value>
   </data>
-  <data name="PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model" xml:space="preserve">
+  <data name="SemiProbabilisticPipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model" xml:space="preserve">
     <value>Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
+  <data name="SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
     <value>Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
+    <value>De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0" xml:space="preserve">
+    <value>Uitvoeren sterkte berekening voor {0}</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report" xml:space="preserve">
+    <value>De piping sterkte berekening voor {0} '{1}' is mislukt. Er is geen foutrapport beschikbaar.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2" xml:space="preserve">
+    <value>De piping sterkte berekening voor {0} '{1}' is mislukt. Bekijk het foutrapport door op details te klikken.
+{2}</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1" xml:space="preserve">
+    <value>De piping sterkte berekening voor {0} is uitgevoerd op de tijdelijke locatie '{1}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_Calculate_Error_in_reading_illustrationPoints_for_CalculationName_0_CalculationType_1_with_ErrorMessage_2" xml:space="preserve">
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} ({1}): {2} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ProfileSpecific" xml:space="preserve">
+    <value>doorsnede</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_SectionSpecific" xml:space="preserve">
+    <value>vak</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ValidateFailureMechanismHasSections_No_sections_imported" xml:space="preserve">
+    <value>Er is geen vakindeling geïmporteerd.</value>
+  </data>
+  <data name="ProbabilisticPipingCalculationService_ValidateCalculationInMultipleSections_Cannot_determine_section_for_calculation" xml:space="preserve">
+    <value>Kan geen vak bepalen voor deze berekening: de locatie van de profielschematisatie bevindt zich op de scheiding van twee vakken.</value>
   </data>
 </root>

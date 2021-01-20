@@ -100,10 +100,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_CreatesInstanceOfViewType()
+        public void CreateInstance_WithContext_CreatesInstanceOfViewType()
         {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            TOutputContext context = GetContext(calculation);
+            
             // Call
-            IView view = info.CreateInstance(null);
+            IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<TView>(view);

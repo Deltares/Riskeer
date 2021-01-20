@@ -27,18 +27,40 @@ All rights reserved.
       </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="berekening/hrlocatie">
+  <!--Add version attribute.-->
+  <xsl:template match="configuratie">
+    <xsl:copy>
+      <xsl:attribute name="versie">1</xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+
+  <!--Add 'semi-probabilistisch' element, and move 'hrlocatie' and 'toetspeil' to it.-->
+  <xsl:template match="berekening">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()[not(self::toetspeil or self::hrlocatie)]"/>
+      <xsl:element name="semi-probabilistisch">
+        <xsl:apply-templates select="hrlocatie"/>
+        <xsl:apply-templates select="toetspeil"/>
+      </xsl:element>
+    </xsl:copy>
+  </xsl:template>
+
+  <!--Rename 'hrlocatie' to 'hblocatie'.-->
+  <xsl:template match="hrlocatie">
     <xsl:element name="hblocatie">
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="berekening/toetspeil">
+  <!--Rename 'toetspeil' to 'waterstand'.-->
+  <xsl:template match="toetspeil">
     <xsl:element name="waterstand">
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
+  <!--Rename 'polderpeil' stochast to 'binnendijksewaterstand'.-->
   <xsl:template match="stochast/@naam[.='polderpeil']">
     <xsl:attribute name="naam">
       <xsl:value-of select="'binnendijksewaterstand'"/>

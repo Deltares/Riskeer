@@ -75,23 +75,7 @@ namespace Core.Common.Gui.Commands
             this.inquiryHelper = inquiryHelper;
         }
 
-        public bool CanImportOn(object target)
-        {
-            return GetSupportedImportInfos(target).Any();
-        }
-
-        public void ImportOn(object target)
-        {
-            ImportInfo importInfo = GetSupportedImporterUsingDialog(target);
-            if (importInfo == null)
-            {
-                return;
-            }
-
-            ImportItemsUsingDialog(importInfo, target);
-        }
-
-        private IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
+        public IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
         {
             if (target == null)
             {
@@ -100,22 +84,34 @@ namespace Core.Common.Gui.Commands
 
             Type targetType = target.GetType();
 
-            return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
+            return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType))
+                                             && (info.IsEnabled == null || info.IsEnabled(target)));
         }
 
-        private ImportInfo GetSupportedImporterUsingDialog(object target)
+        public void ImportOn(object target, IEnumerable<ImportInfo> supportedImportInfos)
         {
-            ImportInfo[] supportedImportInfos = GetSupportedImportInfos(target).ToArray();
-            if (supportedImportInfos.Length == 0)
+            ImportInfo importInfo = SelectImportInfo(target, supportedImportInfos.ToArray());
+
+            if (importInfo == null)
             {
-                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
-                                Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
-                log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_,
+                return;
+            }
+
+            ImportItemsUsingDialog(importInfo, target);
+        }
+
+        private ImportInfo SelectImportInfo(object target, IReadOnlyList<ImportInfo> supportedImportInfos)
+        {
+            if (supportedImportInfos.Count == 0)
+            {
+                MessageBox.Show(Resources.GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item,
+                                Resources.GuiImportHandler_SelectImportInfo_Error);
+                log.ErrorFormat(Resources.GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_,
                                 target);
                 return null;
             }
 
-            if (supportedImportInfos.Length == 1)
+            if (supportedImportInfos.Count == 1)
             {
                 return supportedImportInfos[0];
             }

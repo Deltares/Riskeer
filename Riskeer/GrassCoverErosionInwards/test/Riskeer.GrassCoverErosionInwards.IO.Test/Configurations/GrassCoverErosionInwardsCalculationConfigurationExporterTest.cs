@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationExporter), $"{fileName}.xml"));
 
-            // Call and Assert
+            // Call & Assert
             WriteAndValidate(calculations, expectedXmlFilePath);
         }
 

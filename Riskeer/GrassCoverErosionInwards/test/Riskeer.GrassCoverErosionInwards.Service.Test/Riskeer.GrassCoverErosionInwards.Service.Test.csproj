@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj" />
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>

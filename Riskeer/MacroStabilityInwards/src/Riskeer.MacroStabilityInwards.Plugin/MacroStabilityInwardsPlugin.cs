@@ -240,7 +240,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -324,7 +324,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.SemiProbabilistic);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<MacroStabilityInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
@@ -767,7 +768,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
+                   .AddCreateCalculationItem(nodeData, AddCalculationScenario, CalculationType.SemiProbabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -780,7 +781,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                        nodeData,
                        ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
-                       group,
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
@@ -867,11 +867,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.FailureMechanism.GeneralInput, context.AssessmentSection);
         }
 
-        private void CalculateAllInCalculationGroup(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(MacroStabilityInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism.GeneralInput, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                            context.FailureMechanism.GeneralInput,
+                                                                                            context.AssessmentSection));
         }
 
         #endregion
@@ -901,7 +903,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            MacroStabilityInwardsCalculation calculation = nodeData.WrappedData;
+            MacroStabilityInwardsCalculationScenario calculation = nodeData.WrappedData;
 
             return builder.AddExportItem()
                           .AddSeparator()
@@ -912,8 +914,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .AddValidateCalculationItem(
                               nodeData,
                               Validate)
-                          .AddPerformCalculationItem(
-                              calculation,
+                          .AddPerformCalculationItem<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsCalculationScenarioContext>(
                               nodeData,
                               Calculate)
                           .AddSeparator()
@@ -944,11 +945,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             MacroStabilityInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism.GeneralInput, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
+        private void Calculate(MacroStabilityInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism.GeneralInput, context.AssessmentSection));
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(context.WrappedData,
+                                                                                          context.FailureMechanism.GeneralInput,
+                                                                                          context.AssessmentSection));
         }
 
         #endregion

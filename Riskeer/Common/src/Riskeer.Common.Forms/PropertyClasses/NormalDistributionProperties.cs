@@ -37,6 +37,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
         public NormalDistributionProperties(NormalDistribution distribution) : base(distribution) {}
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
+        /// <exception cref="ArgumentException">Thrown when any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public NormalDistributionProperties(
             DistributionReadOnlyProperties readOnlyProperties,

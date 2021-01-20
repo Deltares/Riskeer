@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile)
             };
             var inputContext = new MacroStabilityInwardsInputContext(input,
-                                                                     calculationItem,
+                                                                     calculation,
                                                                      Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                      new[]
                                                                      {
@@ -125,7 +125,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 new Point3D(2, 3, 0)
             });
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
                 StochasticSoilProfile = stochasticSoilProfile
             };
             var inputParametersContext = new MacroStabilityInwardsInputContext(input,
-                                                                               calculationItem,
+                                                                               calculation,
                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                new[]
                                                                                {

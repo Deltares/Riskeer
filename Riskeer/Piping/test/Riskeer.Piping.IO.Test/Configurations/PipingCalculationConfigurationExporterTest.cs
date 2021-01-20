@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
@@ -26,6 +27,8 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.IO.Configurations;
 
@@ -33,89 +36,183 @@ namespace Riskeer.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+    {
+        [Test]
+        public void Export_NotSupportedCalculationScenarioType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var exporter = new PipingCalculationConfigurationExporter(new[]
+            {
+                new TestPipingCalculationScenario()
+            }, "NotSupportedCalculationType.xml");
+
+            // Call
+            void Call() => exporter.Export();
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+        }
+
+        private abstract class PipingCalculationConfigurationExporterTestFixture : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
-            PipingCalculationScenario,
+            IPipingCalculationScenario<PipingInput>,
             PipingCalculationConfiguration>
-    {
-        private static IEnumerable<TestCaseData> Calculations
         {
-            get
-            {
-                const string testNameFormat = "{m}({0:40}.xml)";
+            protected const string testNameFormat = "{m}({0:40}.xml)";
 
-                yield return new TestCaseData("calculationWithoutHydraulicLocation",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithAssessmentLevel",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithoutSurfaceLine",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithoutSoilModel",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithoutSoilProfile",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationIrrelevant",
-                                              PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithNaNs",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData("calculationWithInfinities",
-                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities())
-                    .SetName(testNameFormat);
-                yield return new TestCaseData(
-                        "folderWithSubfolderAndCalculation",
-                        new CalculationGroup
-                        {
-                            Name = "PK001_0001",
-                            Children =
-                            {
-                                PipingTestDataGenerator.GetPipingCalculationScenario(),
-                                new CalculationGroup
-                                {
-                                    Name = "PK001_0002",
-                                    Children =
-                                    {
-                                        PipingTestDataGenerator.GetPipingCalculationScenario()
-                                    }
-                                }
-                            }
-                        }
-                    )
-                    .SetName(testNameFormat);
+            protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+            {
+                return new PipingCalculationConfigurationExporter(calculations, filePath);
+            }
+
+            protected void PerformTest(string expectedFileName, ICalculationBase calculation)
+            {
+                // Setup
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                    TestDataPath.Riskeer.Piping.IO,
+                    Path.Combine(nameof(PipingCalculationConfigurationExporter), $"{expectedFileName}.xml"));
+
+                // Call & Assert
+                WriteAndValidate(new[]
+                {
+                    calculation
+                }, expectedXmlFilePath);
             }
         }
 
-        [Test]
-        [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
+        private class SemiProbabilisticPipingCalculationConfigurationExporterTest : PipingCalculationConfigurationExporterTestFixture
         {
-            // Setup
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Riskeer.Piping.IO,
-                Path.Combine(nameof(PipingCalculationConfigurationExporter), $"{expectedFileName}.xml"));
-
-            // Call and Assert
-            WriteAndValidate(new[]
+            private static IEnumerable<TestCaseData> Calculations
             {
-                calculation
-            }, expectedXmlFilePath);
+                get
+                {
+                    yield return new TestCaseData("semiProbabilisticCalculationWithoutHydraulicLocation",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocation<SemiProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithAssessmentLevel",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithoutSurfaceLine",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine<SemiProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithoutSoilModel",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel<SemiProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithoutSoilProfile",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile<SemiProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationIrrelevant",
+                                                  PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithNaNs",
+                                                  PipingTestDataGenerator.GetSemiProbabilisticPipingCalculationScenarioWithNaNs())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("semiProbabilisticCalculationWithInfinities",
+                                                  PipingTestDataGenerator.GetSemiProbabilisticPipingCalculationScenarioWithInfinities())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData(
+                            "folderWithSubfolderAndSemiProbabilisticCalculation",
+                            new CalculationGroup
+                            {
+                                Name = "PK001_0001",
+                                Children =
+                                {
+                                    PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>(),
+                                    new CalculationGroup
+                                    {
+                                        Name = "PK001_0002",
+                                        Children =
+                                        {
+                                            PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>()
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                        .SetName(testNameFormat);
+                }
+            }
+
+            [Test]
+            [TestCaseSource(nameof(Calculations))]
+            public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
+            {
+                PerformTest(expectedFileName, calculation);
+            }
+
+            protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
+            {
+                return new SemiProbabilisticPipingCalculationScenario();
+            }
         }
 
-        protected override PipingCalculationScenario CreateCalculation()
+        private class ProbabilisticPipingCalculationConfigurationExporterTest : PipingCalculationConfigurationExporterTestFixture
         {
-            return new PipingCalculationScenario(new GeneralPipingInput());
-        }
+            private static IEnumerable<TestCaseData> Calculations
+            {
+                get
+                {
+                    yield return new TestCaseData("probabilisticCalculationWithoutHydraulicLocation",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocation<ProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationWithoutSurfaceLine",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine<ProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationWithoutSoilModel",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel<ProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationWithoutSoilProfile",
+                                                  PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile<ProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationIrrelevant",
+                                                  PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario<ProbabilisticPipingCalculationScenario>())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationWithNaNs",
+                                                  PipingTestDataGenerator.GetProbabilisticPipingCalculationScenarioWithNaNs())
+                        .SetName(testNameFormat);
+                    yield return new TestCaseData("probabilisticCalculationWithInfinities",
+                                                  PipingTestDataGenerator.GetProbabilisticPipingCalculationScenarioWithInfinities())
+                        .SetName(testNameFormat);
 
-        protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
-        {
-            return new PipingCalculationConfigurationExporter(calculations, filePath);
+                    var probabilisticPipingCalculationScenarioWithIllustrationPoints = PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
+                    probabilisticPipingCalculationScenarioWithIllustrationPoints.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
+                    probabilisticPipingCalculationScenarioWithIllustrationPoints.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
+
+                    yield return new TestCaseData(
+                            "folderWithSubfolderAndProbabilisticCalculation",
+                            new CalculationGroup
+                            {
+                                Name = "PK001_0001",
+                                Children =
+                                {
+                                    probabilisticPipingCalculationScenarioWithIllustrationPoints,
+                                    new CalculationGroup
+                                    {
+                                        Name = "PK001_0002",
+                                        Children =
+                                        {
+                                            PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>()
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                        .SetName(testNameFormat);
+                }
+            }
+
+            [Test]
+            [TestCaseSource(nameof(Calculations))]
+            public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
+            {
+                PerformTest(expectedFileName, calculation);
+            }
+
+            protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
+            {
+                return new ProbabilisticPipingCalculationScenario();
+            }
         }
     }
 }

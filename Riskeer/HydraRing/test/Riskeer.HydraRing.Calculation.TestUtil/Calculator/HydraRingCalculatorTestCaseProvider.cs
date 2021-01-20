@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
 {
     /// <summary>
-    /// Class that provide test cases which can be used to test objects using hydra ring calculators.
+    /// Class that provide test cases which can be used to test objects using Hydra-Ring calculators.
     /// </summary>
     public static class HydraRingCalculatorTestCaseProvider
     {

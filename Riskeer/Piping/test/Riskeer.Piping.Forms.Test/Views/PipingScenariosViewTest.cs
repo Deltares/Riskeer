@@ -34,6 +34,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
@@ -89,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var pipingScenarioView = new PipingScenariosView(calculationGroup, new PipingFailureMechanism(), assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<ScenariosView<PipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>>(pipingScenarioView);
+                Assert.IsInstanceOf<ScenariosView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>>(pipingScenarioView);
                 Assert.AreSame(calculationGroup, pipingScenarioView.Data);
             }
 
@@ -101,7 +102,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Call
             ShowPipingScenariosView(new PipingFailureMechanism());
-            
+
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(7, dataGridView.ColumnCount);
@@ -191,7 +192,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                new PipingCalculationScenario(new GeneralPipingInput())
+                new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Calculation 1",
                     InputParameters =
@@ -209,7 +210,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         ExitPointL = (RoundedDouble) 4.4444
                     }
                 },
-                new PipingCalculationScenario(new GeneralPipingInput())
+                new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Calculation 2",
                     InputParameters =
@@ -226,7 +227,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         EntryPointL = (RoundedDouble) 7.7777,
                         ExitPointL = (RoundedDouble) 8.8888
                     },
-                    Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024)
+                    Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024)
                 }
             });
 

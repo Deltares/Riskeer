@@ -23,7 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Riskeer.Common.Forms;
+using Core.Common.Controls.Dialogs;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
@@ -35,8 +36,10 @@ namespace Riskeer.Piping.Forms
     /// A dialog which allows the user to make a selection from a given set of <see cref="PipingSurfaceLine"/>. Upon
     /// closing of the dialog, the selected <see cref="PipingSurfaceLine"/> can be obtained.
     /// </summary>
-    public class PipingSurfaceLineSelectionDialog : SelectionDialogBase<PipingSurfaceLine>
+    public partial class PipingSurfaceLineSelectionDialog : DialogBase
     {
+        private const int selectItemColumnIndex = 0;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLineSelectionDialog"/>.
         /// </summary>
@@ -44,17 +47,141 @@ namespace Riskeer.Piping.Forms
         /// <param name="surfaceLines">The collection of <see cref="PipingSurfaceLine"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<PipingSurfaceLine> surfaceLines)
-            : base(dialogParent)
+            : base(dialogParent, RiskeerCommonFormsResources.GenerateScenariosIcon, 370, 550)
         {
             if (surfaceLines == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLines));
             }
 
-            Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
-            InitializeDataGridView(RiskeerCommonFormsResources.SurfaceLine_DisplayName);
+            InitializeComponent();
+            InitializeEventHandlers();
+            Localize();
 
-            SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
+            SelectedItems = new List<PipingSurfaceLine>();
+
+            Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
+            InitializeDataGridView();
+
+            DataGridViewControl.SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
+            SemiProbabilisticCheckBox.Checked = true;
         }
+
+        /// <summary>
+        /// Gets a collection of selected <see cref="PipingSurfaceLine"/> if they were selected
+        /// in the dialog and a confirmation was given. If no confirmation was given or no 
+        /// <see cref="PipingSurfaceLine"/> was selected, then an empty collection is returned.
+        /// </summary>
+        public IEnumerable<PipingSurfaceLine> SelectedItems { get; private set; }
+
+        /// <summary>
+        /// Gets an indicator whether to generate semi-probabilistic calculation scenarios.
+        /// </summary>
+        public bool GenerateSemiProbabilistic { get; private set; }
+
+        /// <summary>
+        /// Gets an indicator whether to generate probabilistic calculation scenarios.
+        /// </summary>
+        public bool GenerateProbabilistic { get; private set; }
+
+        protected override Button GetCancelButton()
+        {
+            return CustomCancelButton;
+        }
+
+        private void InitializeDataGridView()
+        {
+            DataGridViewControl.AddCheckBoxColumn(nameof(SelectableRow<PipingSurfaceLine>.Selected),
+                                                  RiskeerCommonFormsResources.SelectionDialogBase_ColumnSelect_DisplayName);
+            DataGridViewControl.AddTextBoxColumn(nameof(SelectableRow<PipingSurfaceLine>.Name),
+                                                 RiskeerCommonFormsResources.SurfaceLine_DisplayName, true, DataGridViewAutoSizeColumnMode.Fill);
+        }
+
+        private void Localize()
+        {
+            SelectAllButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Select_all;
+            DeselectAllButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
+            DoForSelectedButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Generate;
+            CustomCancelButton.Text = RiskeerCommonFormsResources.SelectionDialogBase_SelectionDialogBase_Cancel;
+            SemiProbabilisticCheckBox.Text = Resources.PipingSurfaceLineSelectionDialog_SemiProbabilisticCheckBox;
+            ProbabilisticCheckBox.Text = Resources.PipingSurfaceLineSelectionDialog_ProbabilisticCheckBox;
+        }
+
+        private void SetSelectedItems()
+        {
+            SelectedItems = GetSelectedItems();
+        }
+
+        private IEnumerable<SelectableRow<PipingSurfaceLine>> GetSelectableRows()
+        {
+            return DataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => row.DataBoundItem).Cast<SelectableRow<PipingSurfaceLine>>().ToArray();
+        }
+
+        private IEnumerable<PipingSurfaceLine> GetSelectedItems()
+        {
+            return GetSelectableRows().Where(row => row.Selected).Select(row => row.Item).ToArray();
+        }
+
+        #region Event handling
+
+        private void SelectAllButton_Click(object sender, EventArgs e)
+        {
+            GetSelectableRows().ForEachElementDo(row => row.Selected = true);
+            DataGridViewControl.RefreshDataGridView();
+            UpdateDoForSelectedButton();
+        }
+
+        private void DeselectAllButton_Click(object sender, EventArgs e)
+        {
+            GetSelectableRows().ForEachElementDo(row => row.Selected = false);
+            DataGridViewControl.RefreshDataGridView();
+            UpdateDoForSelectedButton();
+        }
+
+        private void InitializeEventHandlers()
+        {
+            DataGridViewControl.CellValueChanged += DataGridViewCellValueChanged;
+        }
+
+        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != selectItemColumnIndex)
+            {
+                return;
+            }
+
+            UpdateDoForSelectedButton();
+        }
+
+        private void DoForSelectedButton_Click(object sender, EventArgs e)
+        {
+            SetSelectedItems();
+            Close();
+        }
+
+        private void CustomCancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void SemiProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            GenerateSemiProbabilistic = SemiProbabilisticCheckBox.Checked;
+            UpdateDoForSelectedButton();
+        }
+
+        private void ProbabilisticCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            GenerateProbabilistic = ProbabilisticCheckBox.Checked;
+            UpdateDoForSelectedButton();
+        }
+
+        private void UpdateDoForSelectedButton()
+        {
+            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected)
+                                          && (GenerateSemiProbabilistic || GenerateProbabilistic);
+        }
+
+        #endregion
     }
 }

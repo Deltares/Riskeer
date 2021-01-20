@@ -97,5 +97,10 @@ namespace Riskeer.Common.IO.FileImporters
                 }
             }
         }
+
+        public virtual void DoPostUpdateActions()
+        {
+            // Do nothing
+        }
     }
 }

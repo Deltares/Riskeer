@@ -33,7 +33,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StabilityStoneCoverWaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the stability stone cover related wave conditions calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationConfiguration(string name)
             : base(name) {}

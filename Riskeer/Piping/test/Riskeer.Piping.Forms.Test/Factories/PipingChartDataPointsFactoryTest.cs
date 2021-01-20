@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 
@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateEntryPointPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = null,
                 EntryPointL = (RoundedDouble) 10.0
@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateEntryPointPoint_EntryPointNaN_ReturnsEmptyPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = GetSurfaceLineWithGeometry(),
                 EntryPointL = RoundedDouble.NaN
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateEntryPointPoint_GivenPipingInput_ReturnsEntryPointPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = GetSurfaceLineWithGeometry()
             };
@@ -134,7 +134,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateExitPointPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = null,
                 ExitPointL = (RoundedDouble) 10.0
@@ -151,7 +151,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateExitPointPoint_ExitPointNaN_ReturnsEmptyPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = GetSurfaceLineWithGeometry(),
                 ExitPointL = RoundedDouble.NaN
@@ -168,7 +168,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateExitPointPoint_GivenPipingInput_ReturnsExitPointPointsArray()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 SurfaceLine = GetSurfaceLineWithGeometry()
             };

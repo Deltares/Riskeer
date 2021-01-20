@@ -27,8 +27,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
@@ -45,7 +47,9 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
-            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            var invalidPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    new TestHydraulicBoundaryLocation());
 
             // Make invalid by having surface line partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
@@ -61,11 +65,13 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
             double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
-                PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                generalInput.WaterVolumetricWeight,
+                PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
                 input.StochasticSoilProfile.SoilProfile);
@@ -104,17 +110,19 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 ExitPointL = (RoundedDouble) 10,
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile
             };
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
-                PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                generalInput.WaterVolumetricWeight,
+                PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
                 input.StochasticSoilProfile.SoilProfile);
@@ -147,17 +155,19 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 ExitPointL = (RoundedDouble) 10,
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile
             };
 
+            var generalInput = new GeneralPipingInput();
+
             // Call
             double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                input.WaterVolumetricWeight,
-                PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                generalInput.WaterVolumetricWeight,
+                PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
                 input.SurfaceLine,
                 input.StochasticSoilProfile.SoilProfile);
@@ -170,13 +180,13 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculatePiezometricHeadAtExit_Always_ReturnsResult()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             // Call
             double result = InputParameterCalculationService.CalculatePiezometricHeadAtExit(
                 (RoundedDouble) 0.0,
-                PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
-                PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
+                SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
             // Assert
             Assert.IsFalse(double.IsNaN(result));
@@ -186,16 +196,19 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            var validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
+            var generalInput = new GeneralPipingInput();
 
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 PipingInput inputParameters = validPipingCalculation.InputParameters;
                 InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
-                    inputParameters.WaterVolumetricWeight,
-                    PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
+                    generalInput.WaterVolumetricWeight,
+                    PipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     inputParameters.ExitPointL,
                     inputParameters.SurfaceLine,
                     inputParameters.StochasticSoilProfile.SoilProfile);
@@ -205,12 +218,12 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                 EffectiveThicknessCalculatorStub effectiveThicknessCalculator = testFactory.LastCreatedEffectiveThicknessCalculator;
 
                 Assert.AreEqual(input.ExitPointL.Value, effectiveThicknessCalculator.ExitPointXCoordinate);
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                Assert.AreEqual(PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                 effectiveThicknessCalculator.PhreaticLevel,
                                 input.PhreaticLevelExit.GetAccuracy());
                 AssertEqualSoilProfiles(input.StochasticSoilProfile.SoilProfile, effectiveThicknessCalculator.SoilProfile);
                 AssertEqualSurfaceLines(input.SurfaceLine, effectiveThicknessCalculator.SurfaceLine);
-                Assert.AreEqual(input.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
+                Assert.AreEqual(generalInput.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
             }
         }
 
@@ -219,7 +232,9 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            PipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            var validPipingCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
+                    new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
@@ -227,18 +242,18 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                 // Call
                 InputParameterCalculationService.CalculatePiezometricHeadAtExit(
                     assessmentLevel,
-                    PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
-                    PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
+                    SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                    PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
                 // Assert
                 var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = testFactory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(assessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                Assert.AreEqual(PipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                 piezometricHeadAtExitCalculator.PhiPolder,
                                 input.PhreaticLevelExit.GetAccuracy());
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
                                 piezometricHeadAtExitCalculator.RExit,
                                 input.DampingFactorExit.GetAccuracy());
             }

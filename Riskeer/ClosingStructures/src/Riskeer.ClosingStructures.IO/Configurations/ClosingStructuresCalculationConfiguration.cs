@@ -32,7 +32,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="ClosingStructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the closing structures calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public ClosingStructuresCalculationConfiguration(string name) : base(name) {}
 

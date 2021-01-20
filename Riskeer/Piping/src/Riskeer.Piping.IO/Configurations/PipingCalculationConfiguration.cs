@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Configurations
@@ -29,16 +30,30 @@ namespace Riskeer.Piping.IO.Configurations
     /// </summary>
     public class PipingCalculationConfiguration : IConfigurationItem
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="PipingCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the piping calculation.</param>
+        /// <param name="calculationType">The piping calculation type.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public PipingCalculationConfiguration(string name)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/>
+        /// has an invalid value.</exception>
+        public PipingCalculationConfiguration(string name, PipingCalculationConfigurationType calculationType)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (!Enum.IsDefined(typeof(PipingCalculationConfigurationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType),
+                                                       (int) calculationType,
+                                                       typeof(PipingCalculationConfigurationType));
+            }
+
             Name = name;
+            CalculationType = calculationType;
         }
 
         /// <summary>
@@ -92,24 +107,23 @@ namespace Riskeer.Piping.IO.Configurations
         public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the piping calculation.
+        /// Gets or sets if the illustration points should be calculated for profile specific calculations.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
+        public bool? ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
 
-                name = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for section specific calculations.
+        /// </summary>
+        public bool? ShouldSectionSpecificIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets the piping calculation type.
+        /// </summary>
+        public PipingCalculationConfigurationType CalculationType { get; }
+
+        /// <summary>
+        /// Gets the name of the piping calculation.
+        /// </summary>
+        public string Name { get; }
     }
 }

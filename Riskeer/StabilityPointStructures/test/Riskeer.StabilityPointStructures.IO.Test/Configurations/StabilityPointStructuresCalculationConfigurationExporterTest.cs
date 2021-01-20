@@ -124,7 +124,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
             string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");
 
-            // Call and Assert
+            // Call & Assert
             WriteAndValidate(calculations, expectedXmlFilePath);
         }
 

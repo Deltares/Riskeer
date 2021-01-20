@@ -46,11 +46,11 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_CalculationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CallConfigurationFilePathConstructor(null, "test.xml");
+            void Call() => CallConfigurationFilePathConstructor(null, "test.xml");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            AssertNullCalculations(exception);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
@@ -58,10 +58,10 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
+            void Call() => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.Common.IO.TestUtil
             TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
-            AssertDefaultConstructedInstance(exporter);
+            Assert.IsInstanceOf<CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>>(exporter);
         }
 
         [Test]
@@ -93,11 +93,11 @@ namespace Riskeer.Common.IO.TestUtil
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
                 IEnumerable<Tuple<string, LogLevelConstant>> logMessages = GetExpectedExportFailedLogMessages(filePath);
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, logMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, logMessages);
                 Assert.IsFalse(isExported);
             }
         }
@@ -122,15 +122,15 @@ namespace Riskeer.Common.IO.TestUtil
 
             // Call
             var isExported = true;
-            Action call = () => isExported = exporter.Export();
+            void Call() => isExported = exporter.Export();
 
             // Assert
             IEnumerable<Tuple<string, LogLevelConstant>> logMessages = GetExpectedExportFailedLogMessages(filePath);
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, logMessages);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, logMessages);
             Assert.IsFalse(isExported);
         }
 
-        protected virtual IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)
+        private static IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)
         {
             return new[]
             {
@@ -138,18 +138,6 @@ namespace Riskeer.Common.IO.TestUtil
                     $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
                     + "Er is geen configuratie geëxporteerd.", LogLevelConstant.Error)
             };
-        }
-
-        protected virtual void AssertNullCalculations(ArgumentNullException exception)
-        {
-            Assert.IsNotNull(exception);
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-            Assert.AreEqual("calculations", exception.ParamName);
-        }
-
-        protected virtual void AssertDefaultConstructedInstance(TCalculationConfigurationExporter exporter)
-        {
-            Assert.IsInstanceOf<CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>>(exporter);
         }
 
         protected void WriteAndValidate(IEnumerable<ICalculationBase> configuration, string expectedXmlFilePath)

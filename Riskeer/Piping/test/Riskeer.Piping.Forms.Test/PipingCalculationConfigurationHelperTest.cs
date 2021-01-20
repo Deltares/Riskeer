@@ -28,6 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
@@ -36,21 +38,6 @@ namespace Riskeer.Piping.Forms.Test
     [TestFixture]
     public class PipingCalculationConfigurationHelperTest
     {
-        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, PipingCalculationScenario calculationInput)
-        {
-            Assert.AreEqual(generalInput.BeddingAngle, calculationInput.InputParameters.BeddingAngle);
-            Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(generalInput.Gravity, calculationInput.InputParameters.Gravity);
-            Assert.AreEqual(generalInput.MeanDiameter70, calculationInput.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInput.SandParticlesVolumicWeight.Value, calculationInput.InputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInput.SellmeijerModelFactor, calculationInput.InputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(generalInput.SellmeijerReductionFactor, calculationInput.InputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInput.UpliftModelFactor, calculationInput.InputParameters.UpliftModelFactor);
-            Assert.AreEqual(generalInput.WaterKinematicViscosity, calculationInput.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInput.WaterVolumetricWeight.Value, calculationInput.InputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInput.WhitesDragCoefficient, calculationInput.InputParameters.WhitesDragCoefficient);
-        }
-
         #region GetPipingSoilProfilesForSurfaceLine
 
         [Test]
@@ -293,42 +280,24 @@ namespace Riskeer.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                null,
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new GeneralPipingInput());
+            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                null, true, true, Enumerable.Empty<PipingStochasticSoilModel>());
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("surfaceLines", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("surfaceLines", exception.ParamName);
         }
 
         [Test]
         public void GenerateCalculationItemsStructure_WithoutSoilModels_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(),
-                null,
-                new GeneralPipingInput());
+            void Call() => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                Enumerable.Empty<PipingSurfaceLine>(), true, true, null);
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilModels", parameter);
-        }
-
-        [Test]
-        public void GenerateCalculationItemsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                null);
-
-            // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("generalInput", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilModels", exception.ParamName);
         }
 
         [Test]
@@ -350,13 +319,11 @@ namespace Riskeer.Piping.Forms.Test
             IEnumerable<ICalculationBase> result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    pipingSurfaceLines,
-                    Enumerable.Empty<PipingStochasticSoilModel>(),
-                    new GeneralPipingInput()).ToArray();
-            };
+                    pipingSurfaceLines, true, true, Enumerable.Empty<PipingStochasticSoilModel>()).ToArray();
+            }
 
             // Assert
             const string format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
@@ -367,12 +334,12 @@ namespace Riskeer.Piping.Forms.Test
                 Tuple.Create(string.Format(format, testName3), LogLevelConstant.Warn),
                 Tuple.Create(string.Format(format, testName4), LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations()
+        public void GenerateCalculationItemsStructure_SurfaceLineIntersectingSoilModelAndGenerateSemiProbabilisticAndProbabilisticFalse_ReturnEmptyCollection()
         {
             // Setup
             var soilProfile1 = new PipingStochasticSoilProfile(
@@ -421,31 +388,90 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines,
-                availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                surfaceLines, false, false,
+                availableSoilModels).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(result);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GenerateForCalculationTypes))]
+        public void GenerateCalculationItemsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations(bool generateSemiProbabilistic, bool generateProbabilistic)
+        {
+            // Setup
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                0.3, new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D)
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D)
+            );
+
+            var soilModel = new PipingStochasticSoilModel("A", new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }, new[]
+            {
+                soilProfile1,
+                soilProfile2
+            });
+
+            PipingStochasticSoilModel[] availableSoilModels =
+            {
+                soilModel
+            };
+
+            var surfaceLine = new PipingSurfaceLine("surface line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
+            });
+
+            PipingSurfaceLine[] surfaceLines =
+            {
+                surfaceLine
+            };
+
+            // Call
+            IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                surfaceLines, generateSemiProbabilistic,
+                generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
-            var calculationGroup = result.First() as CalculationGroup;
-            Assert.NotNull(calculationGroup);
+            var calculationGroup = (CalculationGroup) result.First();
 
-            Assert.AreEqual(2, calculationGroup.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
+            if (generateSemiProbabilistic)
+            {
+                SemiProbabilisticPipingCalculationScenario[] semiProbabilisticCalculationScenarios =
+                    calculationGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
+                Assert.AreEqual(2, semiProbabilisticCalculationScenarios.Length);
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup.Children[0];
-            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+                AssertCalculationScenario(semiProbabilisticCalculationScenarios[0], soilProfile1, surfaceLine);
+                AssertCalculationScenario(semiProbabilisticCalculationScenarios[1], soilProfile2, surfaceLine);
+            }
 
-            PipingInput calculationInput1 = pipingCalculationScenario1.InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
+            if (generateProbabilistic)
+            {
+                ProbabilisticPipingCalculationScenario[] probabilisticCalculationScenarios =
+                    calculationGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
+                Assert.AreEqual(2, probabilisticCalculationScenarios.Length);
 
-            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup.Children[1];
-            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario2.Contribution);
-
-            PipingInput calculationInput2 = pipingCalculationScenario2.InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
+                AssertCalculationScenario(probabilisticCalculationScenarios[0], soilProfile1, surfaceLine);
+                AssertCalculationScenario(probabilisticCalculationScenarios[1], soilProfile2, surfaceLine);
+            }
         }
 
         [Test]
@@ -497,24 +523,24 @@ namespace Riskeer.Piping.Forms.Test
             IEnumerable<ICalculationBase> result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines,
-                    availableSoilModels,
-                    new GeneralPipingInput()).ToArray();
-            };
+                    surfaceLines, true, true, availableSoilModels).ToArray();
+            }
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+            var expectedMessage = Tuple.Create(
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessage);
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
+        [TestCaseSource(nameof(GenerateForCalculationTypes))]
+        public void GenerateCalculationItemsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels(
+            bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Setup
             const double y = 1.1;
@@ -573,35 +599,37 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines,
-                availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
-            var calculationGroup = result.First() as CalculationGroup;
-            Assert.NotNull(calculationGroup);
+            var calculationGroup = (CalculationGroup) result.First();
 
-            Assert.AreEqual(2, calculationGroup.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
+            if (generateSemiProbabilistic)
+            {
+                SemiProbabilisticPipingCalculationScenario[] semiProbabilisticCalculationScenarios =
+                    calculationGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
+                Assert.AreEqual(2, semiProbabilisticCalculationScenarios.Length);
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup.Children[0];
-            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+                AssertCalculationScenario(semiProbabilisticCalculationScenarios[0], soilProfile1, surfaceLine);
+                AssertCalculationScenario(semiProbabilisticCalculationScenarios[1], soilProfile2, surfaceLine);
+            }
 
-            PipingInput calculationInput1 = pipingCalculationScenario1.InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
+            if (generateProbabilistic)
+            {
+                ProbabilisticPipingCalculationScenario[] probabilisticCalculationScenarios =
+                    calculationGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
+                Assert.AreEqual(2, probabilisticCalculationScenarios.Length);
 
-            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup.Children[1];
-            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario2.Contribution);
-
-            PipingInput calculationInput2 = pipingCalculationScenario2.InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
+                AssertCalculationScenario(probabilisticCalculationScenarios[0], soilProfile1, surfaceLine);
+                AssertCalculationScenario(probabilisticCalculationScenarios[1], soilProfile2, surfaceLine);
+            }
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels()
+        [TestCaseSource(nameof(GenerateForCalculationTypes))]
+        public void GenerateCalculationItemsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels(
+            bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Setup
             var soilProfile1 = new PipingStochasticSoilProfile(
@@ -670,44 +698,44 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines,
-                availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                surfaceLines, generateSemiProbabilistic, generateProbabilistic, availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
-            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as CalculationGroup;
-            Assert.NotNull(calculationGroup1);
+            var calculationGroup1 = (CalculationGroup) result.First(g => g.Name == surfaceLineName1);
+            var calculationGroup2 = (CalculationGroup) result.First(g => g.Name == surfaceLineName2);
 
-            Assert.AreEqual(2, calculationGroup1.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
+            if (generateSemiProbabilistic)
+            {
+                SemiProbabilisticPipingCalculationScenario[] semiProbabilisticCalculationScenariosGroup1 =
+                    calculationGroup1.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup1.Children[0];
-            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+                Assert.AreEqual(2, semiProbabilisticCalculationScenariosGroup1.Length);
+                AssertCalculationScenario(semiProbabilisticCalculationScenariosGroup1[0], soilProfile1, surfaceLine1);
+                AssertCalculationScenario(semiProbabilisticCalculationScenariosGroup1[1], soilProfile2, surfaceLine1);
 
-            PipingInput calculationInput1 = pipingCalculationScenario1.InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
+                SemiProbabilisticPipingCalculationScenario[] semiProbabilisticCalculationScenariosGroup2 =
+                    calculationGroup2.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
 
-            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup1.Children[1];
-            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario1.Contribution);
+                Assert.AreEqual(1, semiProbabilisticCalculationScenariosGroup2.Length);
+                AssertCalculationScenario(semiProbabilisticCalculationScenariosGroup2[0], soilProfile2, surfaceLine2);
+            }
 
-            PipingInput calculationInput2 = pipingCalculationScenario2.InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
+            if (generateProbabilistic)
+            {
+                ProbabilisticPipingCalculationScenario[] probabilisticCalculationScenariosGroup1 =
+                    calculationGroup1.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
 
-            var calculationGroup2 = result.First(g => g.Name == surfaceLineName2) as CalculationGroup;
-            Assert.NotNull(calculationGroup2);
+                Assert.AreEqual(2, probabilisticCalculationScenariosGroup1.Length);
+                AssertCalculationScenario(probabilisticCalculationScenariosGroup1[0], soilProfile1, surfaceLine1);
+                AssertCalculationScenario(probabilisticCalculationScenariosGroup1[1], soilProfile2, surfaceLine1);
 
-            Assert.AreEqual(1, calculationGroup2.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculationScenario));
+                ProbabilisticPipingCalculationScenario[] probabilisticCalculationScenariosGroup2 =
+                    calculationGroup2.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
 
-            var pipingCalculationScenario3 = (PipingCalculationScenario) calculationGroup2.Children[0];
-            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario1.Contribution);
-
-            PipingInput calculationInput3 = pipingCalculationScenario3.InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput3.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine2, calculationInput3.SurfaceLine);
+                Assert.AreEqual(1, probabilisticCalculationScenariosGroup2.Length);
+                AssertCalculationScenario(probabilisticCalculationScenariosGroup2[0], soilProfile2, surfaceLine2);
+            }
         }
 
         [Test]
@@ -780,41 +808,32 @@ namespace Riskeer.Piping.Forms.Test
             ICalculationBase[] result = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines,
-                    availableSoilModels,
-                    new GeneralPipingInput()).ToArray();
-            };
+                    surfaceLines, true, true, availableSoilModels).ToArray();
+            }
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+            var expectedMessage = Tuple.Create(
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{surfaceLineName2}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessage, 1);
 
             Assert.AreEqual(1, result.Length);
-            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as CalculationGroup;
-            Assert.NotNull(calculationGroup1);
+            var calculationGroup1 = (CalculationGroup) result.First(g => g.Name == surfaceLineName1);
 
-            Assert.AreEqual(2, calculationGroup1.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
+            Assert.AreEqual(4, calculationGroup1.Children.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(IPipingCalculationScenario<PipingInput>));
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup1.Children[0];
-            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
-
-            PipingInput calculationInput1 = pipingCalculationScenario1.InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
-
-            PipingInput calculationInput2 = ((PipingCalculationScenario) calculationGroup1.Children[1]).InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
-            Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
+            AssertCalculationScenario((SemiProbabilisticPipingCalculationScenario) calculationGroup1.Children[0], soilProfile1, surfaceLine1);
+            AssertCalculationScenario((ProbabilisticPipingCalculationScenario) calculationGroup1.Children[1], soilProfile1, surfaceLine1);
+            AssertCalculationScenario((SemiProbabilisticPipingCalculationScenario) calculationGroup1.Children[2], soilProfile2, surfaceLine1);
+            AssertCalculationScenario((ProbabilisticPipingCalculationScenario) calculationGroup1.Children[3], soilProfile2, surfaceLine1);
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameGeneralInputAndSemiProbabilisticInput()
+        public void GenerateCalculationItemsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameAndSemiProbabilisticInput()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -858,29 +877,27 @@ namespace Riskeer.Piping.Forms.Test
                 surfaceLine
             };
 
-            var generalInput = new GeneralPipingInput();
-
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines,
-                availableSoilModels,
-                generalInput).ToArray();
+                surfaceLines, true, true,
+                availableSoilModels).ToArray();
 
             // Assert
-            var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
-            Assert.NotNull(group);
-            var calculationInput1 = (PipingCalculationScenario) group.Children[0];
-            var calculationInput2 = (PipingCalculationScenario) group.Children[1];
+            var group = (CalculationGroup) result.First(sl => sl.Name == surfaceLine.Name);
 
-            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", calculationInput1.Name);
-            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", calculationInput2.Name);
+            var semiProbabilisticCalculationScenario1 = (SemiProbabilisticPipingCalculationScenario) group.Children[0];
+            var probabilisticCalculationScenario1 = (ProbabilisticPipingCalculationScenario) group.Children[1];
+            var semiProbabilisticCalculationScenario2 = (SemiProbabilisticPipingCalculationScenario) group.Children[2];
+            var probabilisticCalculationScenario2 = (ProbabilisticPipingCalculationScenario) group.Children[3];
 
-            CompareGeneralInputToInput(generalInput, calculationInput1);
-            CompareGeneralInputToInput(generalInput, calculationInput2);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", semiProbabilisticCalculationScenario1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", probabilisticCalculationScenario1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", semiProbabilisticCalculationScenario2.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", probabilisticCalculationScenario2.Name);
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_SoilProfileEqualNames_CalculationsGetUniqueName()
+        public void GenerateCalculationItemsStructure_SoilProfileEqualNames_CalculationScenariosGetUniqueName()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -933,20 +950,43 @@ namespace Riskeer.Piping.Forms.Test
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                surfaceLines,
-                availableSoilModels,
-                new GeneralPipingInput()).ToArray();
+                surfaceLines, true, true, availableSoilModels).ToArray();
 
             // Assert
-            var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
-            Assert.NotNull(group);
-            var calculationInput1 = (PipingCalculationScenario) group.Children[0];
-            var calculationInput2 = (PipingCalculationScenario) group.Children[1];
-            var calculationInput3 = (PipingCalculationScenario) group.Children[2];
+            var group = (CalculationGroup) result.First(sl => sl.Name == surfaceLine.Name);
 
-            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", calculationInput1.Name);
-            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name} (1)", calculationInput2.Name);
-            Assert.AreEqual($"{surfaceLine.Name} {soilProfile3.Name} (2)", calculationInput3.Name);
+            var semiProbabilisticPipingCalculationScenario1 = (SemiProbabilisticPipingCalculationScenario) group.Children[0];
+            var probabilisticPipingCalculationScenario1 = (ProbabilisticPipingCalculationScenario) group.Children[1];
+            var semiProbabilisticPipingCalculationScenario2 = (SemiProbabilisticPipingCalculationScenario) group.Children[2];
+            var probabilisticPipingCalculationScenario2 = (ProbabilisticPipingCalculationScenario) group.Children[3];
+            var semiProbabilisticPipingCalculationScenario3 = (SemiProbabilisticPipingCalculationScenario) group.Children[4];
+            var probabilisticPipingCalculationScenario3 = (ProbabilisticPipingCalculationScenario) group.Children[5];
+
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", semiProbabilisticPipingCalculationScenario1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", probabilisticPipingCalculationScenario1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name} (1)", semiProbabilisticPipingCalculationScenario2.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name} (1)", probabilisticPipingCalculationScenario2.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile3.Name} (2)", semiProbabilisticPipingCalculationScenario3.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile3.Name} (2)", probabilisticPipingCalculationScenario3.Name);
+        }
+
+        private static IEnumerable<TestCaseData> GenerateForCalculationTypes
+        {
+            get
+            {
+                yield return new TestCaseData(true, true);
+                yield return new TestCaseData(true, false);
+                yield return new TestCaseData(false, true);
+            }
+        }
+
+        private static void AssertCalculationScenario(IPipingCalculationScenario<PipingInput> calculationScenario,
+                                                      PipingStochasticSoilProfile stochasticSoilProfile, PipingSurfaceLine surfaceLine)
+        {
+            PipingInput input = calculationScenario.InputParameters;
+            Assert.AreSame(stochasticSoilProfile, input.StochasticSoilProfile);
+            Assert.AreSame(surfaceLine, input.SurfaceLine);
+            Assert.AreEqual((RoundedDouble) stochasticSoilProfile.Probability, calculationScenario.Contribution);
         }
 
         #endregion

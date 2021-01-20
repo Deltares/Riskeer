@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -544,16 +544,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen wijzigingen om bij te werken..
         /// </summary>
         public static string CalculationItem_No_changes_to_update_ToolTip {
@@ -667,6 +657,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationOutput_TargetReliability_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_TargetReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CalculationOutputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("CalculationOutputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2492,6 +2492,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HydraulicCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("HydraulicCalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
         /// </summary>
         public static string HydraulicLoads_Calculate_All_ToolTip {
@@ -2918,6 +2928,34 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ProbabilisticCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("ProbabilisticCalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is..
+        /// </summary>
+        public static string Probabilistics_Shift_Description {
+            get {
+                return ResourceManager.GetString("Probabilistics_Shift_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschuiving.
+        /// </summary>
+        public static string Probabilistics_Shift_Symbol {
+            get {
+                return ResourceManager.GetString("Probabilistics_Shift_Symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde kon niet geïnterpreteerd worden als een kans..
         /// </summary>
         public static string Probability_Could_not_parse_string_to_probability {
@@ -3290,6 +3328,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static System.Drawing.Bitmap SelectionDialogIcon {
             get {
                 object obj = ResourceManager.GetObject("SelectionDialogIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SemiProbabilisticCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("SemiProbabilisticCalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

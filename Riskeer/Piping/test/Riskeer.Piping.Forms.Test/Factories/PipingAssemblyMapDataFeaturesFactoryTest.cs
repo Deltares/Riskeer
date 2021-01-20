@@ -44,11 +44,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateSimpleAssemblyFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(null);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -84,11 +84,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(null, assessmentSection);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -96,11 +96,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateDetailedAssemblyFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(new PipingFailureMechanism(), null);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(new PipingFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -138,11 +138,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(null, assessmentSection);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -150,11 +150,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateTailorMadeAssemblyFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(new PipingFailureMechanism(), null);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(new PipingFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -192,11 +192,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(null, assessmentSection);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -204,11 +204,11 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateCombinedAssemblyFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(new PipingFailureMechanism(), null);
+            void Call() => PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(new PipingFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]

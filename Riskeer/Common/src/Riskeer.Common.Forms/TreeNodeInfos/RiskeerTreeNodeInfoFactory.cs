@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 
@@ -79,17 +80,19 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
+        /// <param name="calculationType">The type of the calculation.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Func<TCalculationContext, object[]> childNodeObjects,
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
-            Action<TCalculationContext, object> onNodeRemoved)
+            Action<TCalculationContext, object> onNodeRemoved,
+            CalculationType calculationType)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
             {
                 Text = context => context.WrappedData.Name,
-                Image = context => Resources.CalculationIcon,
+                Image = context => CalculationTypeHelper.GetCalculationTypeImage(calculationType),
                 EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,

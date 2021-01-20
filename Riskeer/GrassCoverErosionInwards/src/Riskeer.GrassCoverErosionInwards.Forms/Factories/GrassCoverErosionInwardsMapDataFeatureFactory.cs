@@ -49,8 +49,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             }
 
             IEnumerable<GrassCoverErosionInwardsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
-                calculations.Where(c => c.InputParameters.DikeProfile != null &&
-                                        c.InputParameters.HydraulicBoundaryLocation != null);
+                calculations.Where(c => c.InputParameters.DikeProfile != null
+                                        && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

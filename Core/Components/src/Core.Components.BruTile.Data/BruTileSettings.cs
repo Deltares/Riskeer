@@ -37,27 +37,27 @@ namespace Core.Components.BruTile.Data
         /// Gets a value indicating the maximum number of threads used for retrieving
         /// map tiles.
         /// </summary>
-        public static int MaximumNumberOfThreads { get; } = 4;
+        public static int MaximumNumberOfThreads => 4;
 
         /// <summary>
         /// Gets a value indicating which format should be used to store the tiles.
         /// </summary>
-        public static string PersistentCacheFormat { get; } = "png";
+        public static string PersistentCacheFormat => "png";
 
         /// <summary>
         /// Gets a value indicating how long tiles remain valid.
         /// </summary>
-        public static int PersistentCacheExpireInDays { get; } = 14;
+        public static int PersistentCacheExpireInDays => 14;
 
         /// <summary>
         /// Gets the <see cref="MemoryCache{T}.MinTiles"/> value
         /// </summary>
-        public static int MemoryCacheMinimum { get; } = 100;
+        public static int MemoryCacheMinimum => 100;
 
         /// <summary>
         /// Gets the <see cref="MemoryCache{T}.MaxTiles"/> value
         /// </summary>
-        public static int MemoryCacheMaximum { get; } = 200;
+        public static int MemoryCacheMaximum => 200;
 
         /// <summary>
         /// Gets the root directory path for the persistent cache.

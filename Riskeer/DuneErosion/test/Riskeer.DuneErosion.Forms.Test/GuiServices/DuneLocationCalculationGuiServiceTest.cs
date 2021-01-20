@@ -115,8 +115,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase)
-                             .Repeat.Any();
+                             .Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -154,8 +153,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase)
-                             .Repeat.Any();
+                             .Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -191,8 +189,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase)
-                             .Repeat.Any();
+                             .Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -244,8 +241,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase)
-                             .Repeat.Any();
+                             .Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

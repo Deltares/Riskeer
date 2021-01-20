@@ -187,10 +187,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsInput input = calculationItem.InputParameters;
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, input);
+            var handler = new ObservablePropertyChangeHandler(calculation, input);
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, handler);
 
             var random = new Random(21);

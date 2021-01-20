@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using Core.Common.Data.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil
 {
@@ -39,7 +41,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingOutput original, PipingOutput clone)
+        public static void AreClones(SemiProbabilisticPipingOutput original, SemiProbabilisticPipingOutput clone)
         {
             Assert.AreEqual(original.UpliftFactorOfSafety, clone.UpliftFactorOfSafety);
             Assert.AreEqual(original.HeaveFactorOfSafety, clone.HeaveFactorOfSafety);
@@ -59,15 +61,26 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ProbabilisticPipingOutput original, ProbabilisticPipingOutput clone)
+        {
+            CoreCloneAssert.AreObjectClones(original.SectionSpecificOutput, clone.SectionSpecificOutput, AreClones);
+            CoreCloneAssert.AreObjectClones(original.ProfileSpecificOutput, clone.ProfileSpecificOutput, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingInput original, PipingInput clone)
         {
-            Assert.AreSame(TypeUtils.GetField<GeneralPipingInput>(original, "generalInputParameters"), TypeUtils.GetField<GeneralPipingInput>(clone, "generalInputParameters"));
             Assert.AreEqual(original.EntryPointL, clone.EntryPointL);
             Assert.AreEqual(original.ExitPointL, clone.ExitPointL);
             CoreCloneAssert.AreObjectClones(original.PhreaticLevelExit, clone.PhreaticLevelExit, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.DampingFactorExit, clone.DampingFactorExit, DistributionAssert.AreEqual);
-            Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
-            Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
             Assert.AreSame(original.SurfaceLine, clone.SurfaceLine);
             Assert.AreSame(original.StochasticSoilModel, clone.StochasticSoilModel);
             Assert.AreSame(original.StochasticSoilProfile, clone.StochasticSoilProfile);
@@ -82,10 +95,53 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingCalculation original, PipingCalculation clone)
+        public static void AreClones(SemiProbabilisticPipingInput original, SemiProbabilisticPipingInput clone)
         {
-            Assert.AreEqual(original.Name, clone.Name);
-            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
+            AreClones((PipingInput) original, clone);
+            Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
+            Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ProbabilisticPipingInput original, ProbabilisticPipingInput clone)
+        {
+            AreClones((PipingInput) original, clone);
+            Assert.AreEqual(original.ShouldProfileSpecificIllustrationPointsBeCalculated, clone.ShouldProfileSpecificIllustrationPointsBeCalculated);
+            Assert.AreEqual(original.ShouldSectionSpecificIllustrationPointsBeCalculated, clone.ShouldSectionSpecificIllustrationPointsBeCalculated);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(PipingCalculation<PipingInput> original, PipingCalculation<PipingInput> clone)
+        {
+            CommonCloneAssert.AreClones(original, clone);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(SemiProbabilisticPipingCalculation original, SemiProbabilisticPipingCalculation clone)
+        {
+            CommonCloneAssert.AreClones(original, clone);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
@@ -98,11 +154,69 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingCalculationScenario original, PipingCalculationScenario clone)
+        public static void AreClones(ProbabilisticPipingCalculation original, ProbabilisticPipingCalculation clone)
         {
-            AreClones((PipingCalculation) original, clone);
+            CommonCloneAssert.AreClones(original, clone);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
+            CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(SemiProbabilisticPipingCalculationScenario original, SemiProbabilisticPipingCalculationScenario clone)
+        {
+            AreClones((SemiProbabilisticPipingCalculation) original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ProbabilisticPipingCalculationScenario original, ProbabilisticPipingCalculationScenario clone)
+        {
+            AreClones((ProbabilisticPipingCalculation) original, clone);
+            Assert.AreEqual(original.Contribution, clone.Contribution);
+            Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones<T>(PartialProbabilisticPipingOutput<T> original, PartialProbabilisticPipingOutput<T> clone)
+            where T : TopLevelIllustrationPointBase
+        {
+            Assert.AreEqual(original.Reliability, clone.Reliability);
+            CoreCloneAssert.AreObjectClones(original.GeneralResult, clone.GeneralResult, CommonCloneAssert.AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        private static void AreClones(IPartialProbabilisticPipingOutput original, IPartialProbabilisticPipingOutput clone)
+        {
+            Assert.AreEqual(original.Reliability, clone.Reliability);
         }
     }
 }
