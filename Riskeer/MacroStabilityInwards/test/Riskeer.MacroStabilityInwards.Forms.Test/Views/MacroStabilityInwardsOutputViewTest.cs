@@ -48,23 +48,32 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsOutputView(null,
-                                                                          new GeneralMacroStabilityInwardsInput(),
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            void Call() => new MacroStabilityInwardsOutputView(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
+        }
+        
+        [Test]
+        public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), null, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("generalInput", paramName);
         }
 
         [Test]
         public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), null);
+            void Call() => new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
         }
 
