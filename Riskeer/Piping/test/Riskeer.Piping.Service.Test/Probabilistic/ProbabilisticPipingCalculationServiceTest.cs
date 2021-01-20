@@ -1126,7 +1126,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1272,7 +1272,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            AddSoilProfileWithoutCoverageLayer(false);
+            AddSoilProfile(false);
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
@@ -1330,7 +1330,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1399,7 +1399,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1469,7 +1469,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1541,7 +1541,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1615,7 +1615,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1679,7 +1679,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1742,7 +1742,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1806,7 +1806,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = false;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = false;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1870,7 +1870,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1938,7 +1938,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2007,7 +2007,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2075,7 +2075,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = true;
             calculation.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
-            AddSoilProfileWithoutCoverageLayer(withCoverageLayer);
+            AddSoilProfile(withCoverageLayer);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2326,8 +2326,8 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                                                             false,
                                                             string.Empty);
         }
-        
-        private void AddSoilProfileWithoutCoverageLayer(bool withCoverageLayer)
+
+        private void AddSoilProfile(bool withCoverageLayer)
         {
             if (!withCoverageLayer)
             {
