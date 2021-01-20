@@ -566,7 +566,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionReadOnlyProperties.StandardDeviation,
+                    DistributionReadOnlyProperties.None,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
             }

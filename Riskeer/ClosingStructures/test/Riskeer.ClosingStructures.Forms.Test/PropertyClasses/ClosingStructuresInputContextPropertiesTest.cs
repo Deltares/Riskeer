@@ -181,7 +181,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                 nameof(ClosingStructuresInputContextProperties.FailureProbabilityReparation));
 
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, false);
 
             mockRepository.VerifyAll();
         }

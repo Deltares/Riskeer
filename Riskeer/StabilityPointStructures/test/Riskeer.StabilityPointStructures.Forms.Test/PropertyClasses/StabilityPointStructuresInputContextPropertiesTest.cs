@@ -877,7 +877,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Afvoercoëfficiënt [-]",
                 "Afvoercoëfficiënt.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, false);
 
             PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[linearFloodedCulvertAreaFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
@@ -1110,7 +1110,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Afvoercoëfficiënt [-]",
                 "Afvoercoëfficiënt.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, false);
 
             PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[quadraticFloodedCulvertAreaFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
