@@ -17,6 +17,7 @@
       </stochast>
       <stochast naam="afvoercoefficient">
         <verwachtingswaarde>1</verwachtingswaarde>
+        <standaardafwijking>0.2</standaardafwijking>
       </stochast>
     </stochasten>
     <illustratiepunteninlezen>false</illustratiepunteninlezen>

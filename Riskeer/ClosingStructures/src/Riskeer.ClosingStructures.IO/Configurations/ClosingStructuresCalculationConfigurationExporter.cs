@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion,
                 FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
-                DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean(),
+                DrainCoefficient = input.DrainCoefficient.ToStochastConfiguration(),
                 ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
                 Scenario = calculation.ToScenarioConfiguration()
             };

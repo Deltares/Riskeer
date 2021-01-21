@@ -55,7 +55,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
             var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration(calculation.Name)
             {
-                DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean(),
+                DrainCoefficient = input.DrainCoefficient.ToStochastConfiguration(),
                 FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
                 FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion,
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
