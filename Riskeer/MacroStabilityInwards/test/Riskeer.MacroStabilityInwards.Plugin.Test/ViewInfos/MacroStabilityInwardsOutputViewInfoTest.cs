@@ -35,6 +35,7 @@ using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -97,6 +98,43 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(scenario, viewData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var calculationOutputContext = new MacroStabilityInwardsOutputContext(
+                calculation, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(calculationOutputContext);
+
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithOutput_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+            var calculationOutputContext = new MacroStabilityInwardsOutputContext(
+                calculation, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(calculationOutputContext);
+
+            // Assert
+            Assert.IsTrue(additionalDataCheck);
             mocks.VerifyAll();
         }
 
