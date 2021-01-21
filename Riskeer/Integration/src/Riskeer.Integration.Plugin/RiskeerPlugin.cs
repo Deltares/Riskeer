@@ -1589,6 +1589,11 @@ namespace Riskeer.Integration.Plugin
         private static bool CloseStructuresOutputViewForData(GeneralResultFaultTreeIllustrationPointView view, object o)
         {
             var calculation = (IStructuresCalculation) view.Data;
+            if (o is GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints)
+            {
+                return ReferenceEquals(calculation.Output.GeneralResult, illustrationPoints);
+            }
+            
             if (o is StructuresOutput output)
             {
                 return ReferenceEquals(calculation.Output, output);

@@ -218,6 +218,40 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 }
             }
             
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedIllustrationPoints_ReturnsTrue()
+            {
+                // Setup
+                var calculationScenario = (StructuresCalculationScenario<T>) GetCalculation();
+                calculationScenario.Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, calculationScenario.Output.GeneralResult);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedIllustrationPoints_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = (StructuresCalculationScenario<T>) GetCalculation();
+                calculationScenario.Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, new TestGeneralResultFaultTreeIllustrationPoint());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+            
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new RiskeerPlugin())
