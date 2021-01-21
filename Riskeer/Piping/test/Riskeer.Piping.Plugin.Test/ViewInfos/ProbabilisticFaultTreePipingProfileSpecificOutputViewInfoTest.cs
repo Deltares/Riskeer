@@ -19,244 +19,51 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using System.Threading;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
-using Riskeer.Piping.Primitives;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class ProbabilisticFaultTreePipingProfileSpecificOutputViewInfoTest
+    public class ProbabilisticFaultTreePipingProfileSpecificOutputViewInfoTest : ProbabilisticPipingOutputViewInfoTestBase<
+        ProbabilisticFaultTreePipingProfileSpecificOutputView, ProbabilisticPipingProfileSpecificOutputContext>
     {
-        private PipingPlugin plugin;
-        private ViewInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
-        [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
-        {
-            // Assert
-            Assert.AreEqual(typeof(ProbabilisticPipingProfileSpecificOutputContext), info.DataType);
-            Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
-        }
-
-        [Test]
-        public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new PipingFailureMechanism(), assessmentSection);
-
-            // Call
-            object viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(calculationScenario, viewData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetViewName_Always_ReturnsCorrectViewName()
-        {
-            // Call
-            string viewName = info.GetViewName(null, null);
-
-            // Assert
-            Assert.AreEqual("Sterkte berekening doorsnede", viewName);
-        }
+        protected override string ViewName => "Sterkte berekening doorsnede";
         
-        [Test]
-        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsTrue()
+        protected override IView GetView(ICalculation data)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-            
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
-            
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
+            return new ProbabilisticFaultTreePipingProfileSpecificOutputView(
+                (ProbabilisticPipingCalculationScenario) data,
+                () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
-        [Test]
-        public void AdditionalDataCheck_CalculationWithoutFaultTreeOutput_ReturnsFalse()
+        protected override ProbabilisticPipingProfileSpecificOutputContext GetContext(
+            ProbabilisticPipingCalculationScenario calculationScenario, IAssessmentSection assessmentSection)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-            
-            var calculation = new ProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-            };
-            
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                calculation, new PipingFailureMechanism(), assessmentSection);
-            
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
-            // Assert
-            Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
+            return new ProbabilisticPipingProfileSpecificOutputContext(
+                calculationScenario, new PipingFailureMechanism(), assessmentSection);
         }
 
-        [Test]
-        public void AdditionalDataCheck_CalculationWithFaultTreeOutput_ReturnsTrue()
+        protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-            
-            var calculation = new ProbabilisticPipingCalculationScenario
-            {
-                Output = new ProbabilisticPipingOutput(
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
-            };
-            
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                calculation, new PipingFailureMechanism(), assessmentSection);
-            
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
         }
 
-        [Test]
-        public void CreateInstance_WithContext_ReturnsView()
+        protected override ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
-
-            // Call
-            IView view = info.CreateInstance(context);
-
-            // Assert
-            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputView>(view);
-            mocks.VerifyAll();
-        }
-
-        [TestFixture]
-        public class ProbabilisticPipingProfileSpecificOutputViewTester : ShouldCloseViewWithCalculationDataTester
-        {
-            protected override bool ShouldCloseMethod(IView view, object o)
-            {
-                using (var plugin = new PipingPlugin())
-                {
-                    return plugin.GetViewInfos()
-                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView))
-                                 .CloseForData(view, o);
-                }
-            }
-
-            protected override IView GetView(ICalculation data)
-            {
-                return new ProbabilisticFaultTreePipingProfileSpecificOutputView(
-                    (ProbabilisticPipingCalculationScenario) data,
-                    () => new TestGeneralResultFaultTreeIllustrationPoint());
-            }
-
-            protected override ICalculation GetCalculation()
-            {
-                return new ProbabilisticPipingCalculationScenario();
-            }
-
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-            {
-                return new ProbabilisticPipingCalculationScenarioContext(
-                    new ProbabilisticPipingCalculationScenario(),
-                    new CalculationGroup(),
-                    Enumerable.Empty<PipingSurfaceLine>(),
-                    Enumerable.Empty<PipingStochasticSoilModel>(),
-                    new PipingFailureMechanism(),
-                    new AssessmentSectionStub());
-            }
-
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-            {
-                return new PipingCalculationGroupContext(
-                    new CalculationGroup
-                    {
-                        Children =
-                        {
-                            new ProbabilisticPipingCalculationScenario()
-                        }
-                    },
-                    null,
-                    Enumerable.Empty<PipingSurfaceLine>(),
-                    Enumerable.Empty<PipingStochasticSoilModel>(),
-                    new PipingFailureMechanism(),
-                    new AssessmentSectionStub());
-            }
-
-            protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-            {
-                return new PipingFailureMechanismContext(
-                    new PipingFailureMechanism
-                    {
-                        CalculationsGroup =
-                        {
-                            Children =
-                            {
-                                new ProbabilisticPipingCalculationScenario()
-                            }
-                        }
-                    }, new AssessmentSectionStub());
-            }
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput());
         }
     }
 }
