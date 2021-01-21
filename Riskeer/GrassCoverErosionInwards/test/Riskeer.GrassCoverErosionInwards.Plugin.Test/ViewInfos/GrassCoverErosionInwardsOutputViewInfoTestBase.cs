@@ -215,6 +215,45 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 }
             }
 
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedIllustrationPoints_ReturnsTrue()
+            {
+                // Setup
+                var illustrationPoints = new TestGeneralResultFaultTreeIllustrationPoint();
+                var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput(illustrationPoints)
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, illustrationPoints);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedIllustrationPoints_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, new TestGeneralResultFaultTreeIllustrationPoint());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new GrassCoverErosionInwardsPlugin())

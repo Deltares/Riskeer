@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -33,6 +34,7 @@ using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.Helpers;
@@ -225,7 +227,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseOutputViewForData,
+                CloseForData = (view, o) => CloseOutputViewForData(
+                    view, o, calculation => calculation.Output.OvertoppingOutput.GeneralResult),
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.OvertoppingOutput.HasGeneralResult,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
@@ -237,7 +240,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseOutputViewForData,
+                CloseForData = (view, o) => CloseOutputViewForData(
+                    view, o, calculation => calculation.Output.DikeHeightOutput.GeneralResult),
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.DikeHeightOutput != null
                                                  && context.WrappedData.Output.DikeHeightOutput.HasGeneralResult,
@@ -250,7 +254,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseOutputViewForData,
+                CloseForData = (view, o) => CloseOutputViewForData(
+                    view, o, calculation => calculation.Output.OvertoppingRateOutput.GeneralResult),
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.OvertoppingRateOutput != null
                                                  && context.WrappedData.Output.OvertoppingRateOutput.HasGeneralResult,
@@ -504,9 +509,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseOutputViewForData(GeneralResultFaultTreeIllustrationPointView view, object o)
+        private static bool CloseOutputViewForData(
+            GeneralResultFaultTreeIllustrationPointView view, object o,
+            Func<GrassCoverErosionInwardsCalculationScenario, GeneralResult<TopLevelFaultTreeIllustrationPoint>> getIllustrationPointsFunc)
         {
             var calculation = (GrassCoverErosionInwardsCalculationScenario) view.Data;
+            if (o is GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints)
+            {
+                return ReferenceEquals(getIllustrationPointsFunc(calculation), illustrationPoints);
+            }
 
             if (o is GrassCoverErosionInwardsOutput output)
             {
