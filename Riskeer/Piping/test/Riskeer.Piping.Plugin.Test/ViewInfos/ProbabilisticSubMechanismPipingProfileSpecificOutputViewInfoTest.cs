@@ -22,9 +22,9 @@
 using System.Threading;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -49,10 +49,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 () => new TestGeneralResultSubMechanismIllustrationPoint());
         }
 
-        protected override ProbabilisticPipingProfileSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario, IAssessmentSection assessmentSection)
+        protected override ProbabilisticPipingProfileSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario)
         {
             return new ProbabilisticPipingProfileSpecificOutputContext(
-                calculationScenario, new PipingFailureMechanism(), assessmentSection);
+                calculationScenario, new PipingFailureMechanism(), new AssessmentSectionStub());
         }
 
         protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)

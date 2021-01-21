@@ -25,20 +25,15 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
@@ -100,91 +95,67 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            TOutputContext context = GetContext(calculationScenario, assessmentSection);
+            TOutputContext context = GetContext(calculationScenario);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
-            mocks.VerifyAll();
         }
-        
+
         [Test]
         public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TOutputContext context = GetContext(new ProbabilisticPipingCalculationScenario(), assessmentSection);
+            TOutputContext context = GetContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
                 Output = GetOutputWithCorrectIllustrationPoints(null)
             };
-            TOutputContext context = GetContext(calculationScenario, assessmentSection);
+            TOutputContext context = GetContext(calculationScenario);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputWithIncorrectIllustrationPointsType_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
                 Output = GetOutputWithIncorrectIllustrationPoints()
             };
-            TOutputContext context = GetContext(calculationScenario, assessmentSection);
+            TOutputContext context = GetContext(calculationScenario);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputWithCorrectIllustrationPointsType_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
                 Output = GetOutputWithCorrectIllustrationPoints(new GeneralResult<TTopLevelIllustrationPoint>(
@@ -192,36 +163,29 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                                                                     new Stochast[0],
                                                                     new TTopLevelIllustrationPoint[0]))
             };
-            TOutputContext context = GetContext(calculationScenario, assessmentSection);
+            TOutputContext context = GetContext(calculationScenario);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TOutputContext context = GetContext(new ProbabilisticPipingCalculationScenario(), assessmentSection);
+            TOutputContext context = GetContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<TView>(view);
-            mocks.VerifyAll();
         }
 
-        protected abstract TOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario,
-                                                     IAssessmentSection assessmentSection);
+        protected abstract TOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario);
 
         protected abstract ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TTopLevelIllustrationPoint> generalResult);
 

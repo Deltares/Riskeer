@@ -22,7 +22,6 @@
 using System.Threading;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -48,7 +47,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 () => new TestGeneralResultSubMechanismIllustrationPoint());
         }
 
-        protected override ProbabilisticPipingSectionSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario, IAssessmentSection assessmentSection)
+        protected override ProbabilisticPipingSectionSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario)
         {
             return new ProbabilisticPipingSectionSpecificOutputContext(calculationScenario);
         }
