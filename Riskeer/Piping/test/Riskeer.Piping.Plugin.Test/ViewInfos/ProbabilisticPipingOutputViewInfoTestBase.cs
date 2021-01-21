@@ -29,9 +29,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
@@ -48,9 +51,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     /// </summary>
     /// <typeparam name="TView">The type of view.</typeparam>
     /// <typeparam name="TOutputContext">The type of output context.</typeparam>
+    /// <typeparam name="TTopLevelIllustrationPoint">The type of the top level illustration point.</typeparam>
     [Apartment(ApartmentState.STA)]
-    public abstract class ProbabilisticPipingOutputViewInfoTestBase<TView, TOutputContext> : ShouldCloseViewWithCalculationDataTester
-        where TView : IView
+    public abstract class ProbabilisticPipingOutputViewInfoTestBase<TView, TOutputContext, TTopLevelIllustrationPoint> : ShouldCloseViewWithCalculationDataTester
+        where TView : IView where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
     {
         private PipingPlugin plugin;
         private ViewInfo info;
@@ -110,6 +114,24 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             Assert.AreSame(calculationScenario, viewData);
             mocks.VerifyAll();
         }
+        
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TOutputContext context = GetContext(new ProbabilisticPipingCalculationScenario(), assessmentSection);
+
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
+
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
@@ -121,7 +143,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                Output = GetOutputWithCorrectIllustrationPoints(null)
             };
             TOutputContext context = GetContext(calculationScenario, assessmentSection);
 
@@ -165,7 +187,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
-                Output = GetOutputWithCorrectIllustrationPoints()
+                Output = GetOutputWithCorrectIllustrationPoints(new GeneralResult<TTopLevelIllustrationPoint>(
+                                                                    new WindDirection("test", 0),
+                                                                    new Stochast[0],
+                                                                    new TTopLevelIllustrationPoint[0]))
             };
             TOutputContext context = GetContext(calculationScenario, assessmentSection);
 
@@ -198,7 +223,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         protected abstract TOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario,
                                                      IAssessmentSection assessmentSection);
 
-        protected abstract ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints();
+        protected abstract ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TTopLevelIllustrationPoint> generalResult);
 
         protected abstract ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints();
 

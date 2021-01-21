@@ -24,6 +24,7 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -37,7 +38,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     [TestFixture]
     [Apartment(ApartmentState.STA)]
     public class ProbabilisticSubMechanismPipingProfileSpecificOutputViewInfoTest : ProbabilisticPipingOutputViewInfoTestBase<
-        ProbabilisticSubMechanismPipingProfileSpecificOutputView, ProbabilisticPipingProfileSpecificOutputContext>
+        ProbabilisticSubMechanismPipingProfileSpecificOutputView, ProbabilisticPipingProfileSpecificOutputContext, TopLevelSubMechanismIllustrationPoint>
     {
         protected override string ViewName => "Sterkte berekening doorsnede";
 
@@ -54,10 +55,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 calculationScenario, new PipingFailureMechanism(), assessmentSection);
         }
 
-        protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints()
+        protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
-            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
-                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput());
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult));
         }
 
         protected override ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints()

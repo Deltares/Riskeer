@@ -24,6 +24,7 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -36,7 +37,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     [TestFixture]
     [Apartment(ApartmentState.STA)]
     public class ProbabilisticFaultTreePipingSectionSpecificOutputViewInfoTest : ProbabilisticPipingOutputViewInfoTestBase<
-        ProbabilisticFaultTreePipingSectionSpecificOutputView, ProbabilisticPipingSectionSpecificOutputContext>
+        ProbabilisticFaultTreePipingSectionSpecificOutputView, ProbabilisticPipingSectionSpecificOutputContext, TopLevelFaultTreeIllustrationPoint>
     {
         protected override string ViewName => "Sterkte berekening vak";
 
@@ -53,10 +54,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             return new ProbabilisticPipingSectionSpecificOutputContext(calculationScenario);
         }
 
-        protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints()
+        protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
-            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult));
         }
 
         protected override ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints()
