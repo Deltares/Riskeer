@@ -42,13 +42,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     {
         protected override string ViewName => "Sterkte berekening doorsnede";
 
-        protected override IView GetView(ICalculation data)
-        {
-            return new ProbabilisticSubMechanismPipingProfileSpecificOutputView(
-                (ProbabilisticPipingCalculationScenario) data,
-                () => new TestGeneralResultSubMechanismIllustrationPoint());
-        }
-
         protected override ProbabilisticPipingProfileSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario)
         {
             return new ProbabilisticPipingProfileSpecificOutputContext(
@@ -57,14 +50,35 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
         protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
-            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult),
-                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult));
+            return OutputWithCorrectIllustrationPoints(generalResult);
         }
 
         protected override ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints()
         {
             return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
                                                  PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
+        }
+        
+        private static ProbabilisticPipingOutput OutputWithCorrectIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        {
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(generalResult));
+        }
+
+        [TestFixture]
+        public class ShouldCloseProbabilisticSubMechanismPipingProfileSpecificOutputViewTester : ShouldCloseProbabilisticPipingOutputViewTester
+        {
+            protected override IView GetView(ICalculation data)
+            {
+                return new ProbabilisticSubMechanismPipingProfileSpecificOutputView(
+                    (ProbabilisticPipingCalculationScenario) data,
+                    () => new TestGeneralResultSubMechanismIllustrationPoint());
+            }
+
+            protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+            {
+                return OutputWithCorrectIllustrationPoints(generalResult);
+            }
         }
     }
 }

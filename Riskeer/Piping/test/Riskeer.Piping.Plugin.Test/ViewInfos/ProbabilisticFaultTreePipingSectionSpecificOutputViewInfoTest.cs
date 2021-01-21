@@ -40,13 +40,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     {
         protected override string ViewName => "Sterkte berekening vak";
 
-        protected override IView GetView(ICalculation data)
-        {
-            return new ProbabilisticFaultTreePipingSectionSpecificOutputView(
-                (ProbabilisticPipingCalculationScenario) data,
-                () => new TestGeneralResultFaultTreeIllustrationPoint());
-        }
-
         protected override ProbabilisticPipingSectionSpecificOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario)
         {
             return new ProbabilisticPipingSectionSpecificOutputContext(calculationScenario);
@@ -54,14 +47,35 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
         protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
-            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult),
-                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult));
+            return OutputWithCorrectIllustrationPoints(generalResult);
         }
 
         protected override ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints()
         {
             return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
                                                  PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput());
+        }
+        
+        private static ProbabilisticPipingOutput OutputWithCorrectIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            return new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult),
+                                                 PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(generalResult));
+        }
+
+        [TestFixture]
+        public class ShouldCloseProbabilisticFaultTreePipingSectionSpecificOutputView : ShouldCloseProbabilisticPipingOutputViewTester
+        {
+            protected override IView GetView(ICalculation data)
+            {
+                return new ProbabilisticFaultTreePipingSectionSpecificOutputView(
+                    (ProbabilisticPipingCalculationScenario) data,
+                    () => new TestGeneralResultFaultTreeIllustrationPoint());
+            }
+
+            protected override ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+            {
+                return OutputWithCorrectIllustrationPoints(generalResult);
+            }
         }
     }
 }

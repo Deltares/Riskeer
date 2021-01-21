@@ -48,16 +48,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     /// <typeparam name="TOutputContext">The type of output context.</typeparam>
     /// <typeparam name="TTopLevelIllustrationPoint">The type of the top level illustration point.</typeparam>
     [Apartment(ApartmentState.STA)]
-    public abstract class ProbabilisticPipingOutputViewInfoTestBase<TView, TOutputContext, TTopLevelIllustrationPoint> : ShouldCloseViewWithCalculationDataTester
-        where TView : IView where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
+    public abstract class ProbabilisticPipingOutputViewInfoTestBase<TView, TOutputContext, TTopLevelIllustrationPoint>
+        where TView : IView
+        where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
     {
         private PipingPlugin plugin;
         private ViewInfo info;
-
-        /// <summary>
-        /// Gets the name of the view.
-        /// </summary>
-        protected abstract string ViewName { get; }
 
         [SetUp]
         public void SetUp()
@@ -182,83 +178,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             Assert.IsInstanceOf<TView>(view);
         }
 
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedOutput_ReturnsTrue()
-        {
-            // Setup
-            var calculationScenario = new ProbabilisticPipingCalculationScenario
-            {
-                Output = GetOutputWithCorrectIllustrationPoints(null)
-            };
-
-            using (IView view = GetView(calculationScenario))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, calculationScenario.Output);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
-        {
-            // Setup
-            var calculationScenario = new ProbabilisticPipingCalculationScenario
-            {
-                Output = GetOutputWithCorrectIllustrationPoints(null)
-            };
-
-            using (IView view = GetView(calculationScenario))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, GetOutputWithCorrectIllustrationPoints(null));
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedIllustrationPoints_ReturnsTrue()
-        {
-            // Setup
-            GeneralResult<TTopLevelIllustrationPoint> illustrationPoints = GetGeneralResult();
-
-            var calculationScenario = new ProbabilisticPipingCalculationScenario
-            {
-                Output = GetOutputWithCorrectIllustrationPoints(illustrationPoints)
-            };
-
-            using (IView view = GetView(calculationScenario))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, illustrationPoints);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedIllustrationPoints_ReturnsFalse()
-        {
-            // Setup
-            var calculationScenario = new ProbabilisticPipingCalculationScenario
-            {
-                Output = GetOutputWithCorrectIllustrationPoints(GetGeneralResult())
-            };
-
-            using (IView view = GetView(calculationScenario))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, GetGeneralResult());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
+        /// <summary>
+        /// Gets the name of the view.
+        /// </summary>
+        protected abstract string ViewName { get; }
 
         protected abstract TOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario);
 
@@ -266,65 +189,154 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
         protected abstract ProbabilisticPipingOutput GetOutputWithIncorrectIllustrationPoints();
 
-        protected override bool ShouldCloseMethod(IView view, object o)
-        {
-            return info.CloseForData(view, o);
-        }
-
-        protected override ICalculation GetCalculation()
-        {
-            return new ProbabilisticPipingCalculationScenario();
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new ProbabilisticPipingCalculationScenarioContext(
-                new ProbabilisticPipingCalculationScenario(),
-                new CalculationGroup(),
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new PipingCalculationGroupContext(
-                new CalculationGroup
-                {
-                    Children =
-                    {
-                        new ProbabilisticPipingCalculationScenario()
-                    }
-                },
-                null,
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new PipingFailureMechanismContext(
-                new PipingFailureMechanism
-                {
-                    CalculationsGroup =
-                    {
-                        Children =
-                        {
-                            new ProbabilisticPipingCalculationScenario()
-                        }
-                    }
-                }, new AssessmentSectionStub());
-        }
-
         private static GeneralResult<TTopLevelIllustrationPoint> GetGeneralResult()
         {
             return new GeneralResult<TTopLevelIllustrationPoint>(
                 new WindDirection("test", 0),
                 new Stochast[0],
                 new TTopLevelIllustrationPoint[0]);
+        }
+
+        [TestFixture]
+        public abstract class ShouldCloseProbabilisticPipingOutputViewTester : ShouldCloseViewWithCalculationDataTester
+        {
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedOutput_ReturnsTrue()
+            {
+                // Setup
+                var calculationScenario = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = GetOutputWithCorrectIllustrationPoints(null)
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, calculationScenario.Output);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = GetOutputWithCorrectIllustrationPoints(null)
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, GetOutputWithCorrectIllustrationPoints(null));
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedIllustrationPoints_ReturnsTrue()
+            {
+                // Setup
+                GeneralResult<TTopLevelIllustrationPoint> illustrationPoints = GetGeneralResult();
+
+                var calculationScenario = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = GetOutputWithCorrectIllustrationPoints(illustrationPoints)
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, illustrationPoints);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedIllustrationPoints_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = new ProbabilisticPipingCalculationScenario
+                {
+                    Output = GetOutputWithCorrectIllustrationPoints(GetGeneralResult())
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, GetGeneralResult());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+
+            protected abstract ProbabilisticPipingOutput GetOutputWithCorrectIllustrationPoints(GeneralResult<TTopLevelIllustrationPoint> generalResult);
+
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                using (var plugin = new PipingPlugin())
+                {
+                    return plugin.GetViewInfos()
+                                 .First(tni => tni.ViewType == typeof(TView))
+                                 .CloseForData(view, o);
+                }
+            }
+
+            protected override ICalculation GetCalculation()
+            {
+                return new ProbabilisticPipingCalculationScenario();
+            }
+
+            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            {
+                return new ProbabilisticPipingCalculationScenarioContext(
+                    new ProbabilisticPipingCalculationScenario(),
+                    new CalculationGroup(),
+                    Enumerable.Empty<PipingSurfaceLine>(),
+                    Enumerable.Empty<PipingStochasticSoilModel>(),
+                    new PipingFailureMechanism(),
+                    new AssessmentSectionStub());
+            }
+
+            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            {
+                return new PipingCalculationGroupContext(
+                    new CalculationGroup
+                    {
+                        Children =
+                        {
+                            new ProbabilisticPipingCalculationScenario()
+                        }
+                    },
+                    null,
+                    Enumerable.Empty<PipingSurfaceLine>(),
+                    Enumerable.Empty<PipingStochasticSoilModel>(),
+                    new PipingFailureMechanism(),
+                    new AssessmentSectionStub());
+            }
+
+            protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            {
+                return new PipingFailureMechanismContext(
+                    new PipingFailureMechanism
+                    {
+                        CalculationsGroup =
+                        {
+                            Children =
+                            {
+                                new ProbabilisticPipingCalculationScenario()
+                            }
+                        }
+                    }, new AssessmentSectionStub());
+            }
         }
     }
 }
