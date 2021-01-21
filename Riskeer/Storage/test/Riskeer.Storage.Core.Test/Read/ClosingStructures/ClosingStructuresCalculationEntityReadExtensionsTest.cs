@@ -83,6 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                 InsideWaterLevelStandardDeviation = 17.17,
                 DeviationWaveDirection = 18.18,
                 DrainCoefficientMean = 19.19,
+                DrainCoefficientStandardDeviation = 0.02,
                 FactorStormDurationOpenStructure = 20.20,
                 ThresholdHeightOpenWeirMean = 21.21,
                 ThresholdHeightOpenWeirStandardDeviation = 22.22,
@@ -134,6 +135,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual(entity.InsideWaterLevelStandardDeviation, inputParameters.InsideWaterLevel.StandardDeviation.Value);
             Assert.AreEqual(entity.DeviationWaveDirection, inputParameters.DeviationWaveDirection.Value);
             Assert.AreEqual(entity.DrainCoefficientMean, inputParameters.DrainCoefficient.Mean.Value);
+            Assert.AreEqual(entity.DrainCoefficientStandardDeviation, inputParameters.DrainCoefficient.StandardDeviation.Value);
             Assert.AreEqual(entity.FactorStormDurationOpenStructure, inputParameters.FactorStormDurationOpenStructure.Value);
             Assert.AreEqual(entity.ThresholdHeightOpenWeirMean, inputParameters.ThresholdHeightOpenWeir.Mean.Value);
             Assert.AreEqual(entity.ThresholdHeightOpenWeirStandardDeviation, inputParameters.ThresholdHeightOpenWeir.StandardDeviation.Value);
@@ -173,6 +175,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                 InsideWaterLevelStandardDeviation = null,
                 DeviationWaveDirection = null,
                 DrainCoefficientMean = null,
+                DrainCoefficientStandardDeviation = null,
                 FactorStormDurationOpenStructure = null,
                 ThresholdHeightOpenWeirMean = null,
                 ThresholdHeightOpenWeirStandardDeviation = null,
@@ -210,6 +213,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             Assert.IsNaN(inputParameters.InsideWaterLevel.StandardDeviation);
             Assert.IsNaN(inputParameters.DeviationWaveDirection);
             Assert.IsNaN(inputParameters.DrainCoefficient.Mean);
+            Assert.IsNaN(inputParameters.DrainCoefficient.StandardDeviation);
             Assert.IsNaN(inputParameters.FactorStormDurationOpenStructure);
             Assert.IsNaN(inputParameters.ThresholdHeightOpenWeir.Mean);
             Assert.IsNaN(inputParameters.ThresholdHeightOpenWeir.StandardDeviation);

@@ -113,7 +113,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 LoadSchematizationType = Convert.ToByte(LoadSchematizationType.Quadratic),
                 VolumicWeightWater = 47.47,
                 FactorStormDurationOpenStructure = 48.48,
-                DrainCoefficientMean = 49.49
+                DrainCoefficientMean = 49.49,
+                DrainCoefficientStandardDeviation = 0.02
             };
             var collector = new ReadConversionCollector();
 
@@ -185,6 +186,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.VolumicWeightWater, inputParameters.VolumicWeightWater.Value);
             Assert.AreEqual(entity.FactorStormDurationOpenStructure, inputParameters.FactorStormDurationOpenStructure.Value);
             Assert.AreEqual(entity.DrainCoefficientMean, inputParameters.DrainCoefficient.Mean.Value);
+            Assert.AreEqual(entity.DrainCoefficientStandardDeviation, inputParameters.DrainCoefficient.StandardDeviation.Value);
             Assert.IsFalse(calculation.HasOutput);
         }
 
@@ -239,7 +241,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 AreaFlowAperturesStandardDeviation = null,
                 VolumicWeightWater = null,
                 FactorStormDurationOpenStructure = null,
-                DrainCoefficientMean = null
+                DrainCoefficientMean = null,
+                DrainCoefficientStandardDeviation = null
             };
             var collector = new ReadConversionCollector();
 
@@ -296,6 +299,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             Assert.IsNaN(inputParameters.VolumicWeightWater);
             Assert.IsNaN(inputParameters.FactorStormDurationOpenStructure);
             Assert.IsNaN(inputParameters.DrainCoefficient.Mean);
+            Assert.IsNaN(inputParameters.DrainCoefficient.StandardDeviation);
         }
 
         [Test]

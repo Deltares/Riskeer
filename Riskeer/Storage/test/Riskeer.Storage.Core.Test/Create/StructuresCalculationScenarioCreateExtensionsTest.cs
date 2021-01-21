@@ -509,6 +509,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
             Assert.AreEqual(inputParameters.DeviationWaveDirection.Value, entity.DeviationWaveDirection);
             Assert.AreEqual(inputParameters.DrainCoefficient.Mean.Value, entity.DrainCoefficientMean);
+            Assert.AreEqual(inputParameters.DrainCoefficient.StandardDeviation.Value, entity.DrainCoefficientStandardDeviation);
             Assert.AreEqual(inputParameters.FactorStormDurationOpenStructure.Value, entity.FactorStormDurationOpenStructure);
             Assert.AreEqual(inputParameters.ThresholdHeightOpenWeir.Mean.Value, entity.ThresholdHeightOpenWeirMean);
             Assert.AreEqual(inputParameters.ThresholdHeightOpenWeir.StandardDeviation.Value, entity.ThresholdHeightOpenWeirStandardDeviation);
@@ -629,6 +630,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.InsideWaterLevelStandardDeviation);
             Assert.IsNull(entity.DeviationWaveDirection);
             Assert.IsNull(entity.DrainCoefficientMean);
+            Assert.IsNull(entity.DrainCoefficientStandardDeviation);
             Assert.IsNull(entity.FactorStormDurationOpenStructure);
             Assert.IsNull(entity.ThresholdHeightOpenWeirMean);
             Assert.IsNull(entity.ThresholdHeightOpenWeirStandardDeviation);
@@ -956,6 +958,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(inputParameters.VolumicWeightWater.Value, entity.VolumicWeightWater);
             Assert.AreEqual(inputParameters.FactorStormDurationOpenStructure.Value, entity.FactorStormDurationOpenStructure);
             Assert.AreEqual(inputParameters.DrainCoefficient.Mean.Value, entity.DrainCoefficientMean);
+            Assert.AreEqual(inputParameters.DrainCoefficient.StandardDeviation.Value, entity.DrainCoefficientStandardDeviation);
             Assert.AreEqual(Convert.ToByte(inputParameters.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
@@ -1142,6 +1145,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.VolumicWeightWater);
             Assert.IsNull(entity.FactorStormDurationOpenStructure);
             Assert.IsNull(entity.DrainCoefficientMean);
+            Assert.IsNull(entity.DrainCoefficientStandardDeviation);
         }
 
         [Test]

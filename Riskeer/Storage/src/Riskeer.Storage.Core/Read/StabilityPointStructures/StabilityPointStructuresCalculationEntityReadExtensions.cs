@@ -116,6 +116,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
             inputParameters.VolumicWeightWater = (RoundedDouble) entity.VolumicWeightWater.ToNullAsNaN();
             inputParameters.FactorStormDurationOpenStructure = (RoundedDouble) entity.FactorStormDurationOpenStructure.ToNullAsNaN();
             inputParameters.DrainCoefficient.Mean = (RoundedDouble) entity.DrainCoefficientMean.ToNullAsNaN();
+            inputParameters.DrainCoefficient.StandardDeviation = (RoundedDouble) entity.DrainCoefficientStandardDeviation.ToNullAsNaN();
         }
 
         private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation,

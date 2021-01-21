@@ -85,6 +85,7 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
             inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
             inputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) entity.ModelFactorSuperCriticalFlowMean.ToNullAsNaN();
             inputParameters.DrainCoefficient.Mean = (RoundedDouble) entity.DrainCoefficientMean.ToNullAsNaN();
+            inputParameters.DrainCoefficient.StandardDeviation = (RoundedDouble) entity.DrainCoefficientStandardDeviation.ToNullAsNaN();
             inputParameters.FactorStormDurationOpenStructure = (RoundedDouble) entity.FactorStormDurationOpenStructure.ToNullAsNaN();
             inputParameters.ThresholdHeightOpenWeir.Mean = (RoundedDouble) entity.ThresholdHeightOpenWeirMean.ToNullAsNaN();
             inputParameters.ThresholdHeightOpenWeir.StandardDeviation = (RoundedDouble) entity.ThresholdHeightOpenWeirStandardDeviation.ToNullAsNaN();

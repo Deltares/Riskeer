@@ -142,6 +142,7 @@ namespace Riskeer.Storage.Core.Create
             entity.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
 
             entity.DrainCoefficientMean = input.DrainCoefficient.Mean.ToNaNAsNull();
+            entity.DrainCoefficientStandardDeviation = input.DrainCoefficient.StandardDeviation.ToNaNAsNull();
 
             entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.ToNaNAsNull();
 
@@ -341,6 +342,7 @@ namespace Riskeer.Storage.Core.Create
             entity.VolumicWeightWater = input.VolumicWeightWater.ToNaNAsNull();
             entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.ToNaNAsNull();
             entity.DrainCoefficientMean = input.DrainCoefficient.Mean.ToNaNAsNull();
+            entity.DrainCoefficientStandardDeviation = input.DrainCoefficient.StandardDeviation.ToNaNAsNull();
         }
 
         private static void SetStabilityPointStructuresOutputEntity(StructuresCalculation<StabilityPointStructuresInput> calculation,
