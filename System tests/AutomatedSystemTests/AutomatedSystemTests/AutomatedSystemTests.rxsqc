@@ -33,5 +33,10 @@
     "Enabled": "True",
     "TestSuite": "TestScript20",
     "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "TestScript17",
+    "RunConfig": "TestRun"
   }
 ]

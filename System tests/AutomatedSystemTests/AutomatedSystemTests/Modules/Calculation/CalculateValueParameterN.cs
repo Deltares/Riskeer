@@ -43,6 +43,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             valueOfParameterInPropertiesPanel = "";
             fmLabel = "";
+            nameOfParameterInPropertiesPanel = "";
         }
 
         /// <summary>
@@ -65,16 +66,6 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             get { return _valueOfParameterInPropertiesPanel; }
             set { _valueOfParameterInPropertiesPanel = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
-        /// </summary>
-        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
-        public string nameOfParameterInPropertiesPanel
-        {
-            get { return repo.nameOfParameterInPropertiesPanel; }
-            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
         /// <summary>
@@ -105,6 +96,16 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             get { return repo.fmLabel; }
             set { repo.fmLabel = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("afe1ce8e-ff00-4307-a9d8-1f91fa796fad")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion

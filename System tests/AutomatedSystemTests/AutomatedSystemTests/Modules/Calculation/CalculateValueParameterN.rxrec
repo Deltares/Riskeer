@@ -31,6 +31,10 @@ mode="Global">
 		id="e5da979c-abe6-4a71-b419-78bbd2a92489"
 		name="fmLabel">
 		</var>
+		<var
+		id="afe1ce8e-ff00-4307-a9d8-1f91fa796fad"
+		name="nameOfParameterInPropertiesPanel">
+		</var>
 	</variables>
 	<recorditems>
 		<invokeactionrecorditem

@@ -7551,6 +7551,8 @@ namespace AutomatedSystemTests
             RepoItemInfo _allesvaliderenInfo;
             RepoItemInfo _berekenenInfo;
             RepoItemInfo _berekeningtoevoegenInfo;
+            RepoItemInfo _semiprobberekeningtoevoegenInfo;
+            RepoItemInfo _probberekeningtoevoegenInfo;
             RepoItemInfo _bijwerkenInfo;
             RepoItemInfo _duplicerenInfo;
             RepoItemInfo _eigenschappenInfo;
@@ -7588,6 +7590,8 @@ namespace AutomatedSystemTests
                 _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
                 _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
                 _berekeningtoevoegenInfo = new RepoItemInfo(this, "BerekeningToevoegen", "menuitem[@accessiblename='Berekening toevoegen']", 30000, null, "a538b968-f904-4d07-a69c-e87f3bb3d12b");
+                _semiprobberekeningtoevoegenInfo = new RepoItemInfo(this, "SemiProbBerekeningToevoegen", "menuitem[@accessiblename='Semi-probabilistische berekening toevoegen']", 30000, null, "10ff5289-4c15-4670-ac30-51057b2dc94a");
+                _probberekeningtoevoegenInfo = new RepoItemInfo(this, "ProbBerekeningToevoegen", "menuitem[@accessiblename='Probabilistische berekening toevoegen']", 30000, null, "ed5b1a57-0234-4bee-b8d5-a91968b5905f");
                 _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
                 _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
                 _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
@@ -7779,6 +7783,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _berekeningtoevoegenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SemiProbBerekeningToevoegen item.
+            /// </summary>
+            [RepositoryItem("10ff5289-4c15-4670-ac30-51057b2dc94a")]
+            public virtual Ranorex.MenuItem SemiProbBerekeningToevoegen
+            {
+                get
+                {
+                    return _semiprobberekeningtoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SemiProbBerekeningToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("10ff5289-4c15-4670-ac30-51057b2dc94a")]
+            public virtual RepoItemInfo SemiProbBerekeningToevoegenInfo
+            {
+                get
+                {
+                    return _semiprobberekeningtoevoegenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ProbBerekeningToevoegen item.
+            /// </summary>
+            [RepositoryItem("ed5b1a57-0234-4bee-b8d5-a91968b5905f")]
+            public virtual Ranorex.MenuItem ProbBerekeningToevoegen
+            {
+                get
+                {
+                    return _probberekeningtoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ProbBerekeningToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("ed5b1a57-0234-4bee-b8d5-a91968b5905f")]
+            public virtual RepoItemInfo ProbBerekeningToevoegenInfo
+            {
+                get
+                {
+                    return _probberekeningtoevoegenInfo;
                 }
             }
 
@@ -9209,7 +9261,7 @@ namespace AutomatedSystemTests
             /// Creates a new DialogGenerateCalculations  folder.
             /// </summary>
             public DialogGenerateCalculationsAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DialogGenerateCalculations", "/form[@controlname='SelectionDialogBase']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
+                    base("DialogGenerateCalculations", "/form[@controlname~'SelectionDialog']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder11(this);
                 _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
@@ -9310,7 +9362,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder11(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container[@controlname='ButtonGroupBox']/container/table", parentFolder, 30000, null, false, "4cff6d90-7520-4ee7-a00a-538e505578e2", "")
+                    base("Table", "container[@controlname='ButtonGroupBox']/container//table", parentFolder, 30000, null, false, "4cff6d90-7520-4ee7-a00a-538e505578e2", "")
             {
                 _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
             }

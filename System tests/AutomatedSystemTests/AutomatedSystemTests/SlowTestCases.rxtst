@@ -959,6 +959,31 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="13dd6db9-9c5c-4eab-9976-db04a9720ae9"
+			name="Piping">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STPH">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="140ef1f1-259f-4088-85cf-cdea43086c44"
 			name="OpenViewForFailureMechanismContribution"
@@ -5888,6 +5913,31 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="7d7be126-022c-488b-8f23-7c870f028b6f"
+			name="NotPiping">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="6e262def-ea48-4168-bbec-fd066c51ec61">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STPH">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="7dbc4712-c9e2-4a9f-91ed-7a2900231ed3"
 			name="ConcatenateStrings"
@@ -10065,6 +10115,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="d5ce15b2-2d11-4923-9ac0-a147905f75fa"
+			name="AddSingleSemiProbPipingCalculation"
+			ref="d800f93d-b1a8-4b54-9c91-375105501d0a"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="d72ede2e-4621-4a52-8898-f61b9b9487e1"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
 			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
@@ -12446,10 +12502,22 @@
 										id="c057e9b9-521c-4bf3-a98c-023dea7bdddc"
 										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
-										<testmodule
-										id="94e53586-e9d8-45fb-b6e6-2f85252c9384"
-										name="AddSingleCalculation">
-										</testmodule>
+										<smartfoldernode
+										id="13dd6db9-9c5c-4eab-9976-db04a9720ae9"
+										name="Piping">
+											<testmodule
+											id="d5ce15b2-2d11-4923-9ac0-a147905f75fa"
+											name="AddSingleSemiProbPipingCalculation">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="7d7be126-022c-488b-8f23-7c870f028b6f"
+										name="NotPiping">
+											<testmodule
+											id="94e53586-e9d8-45fb-b6e6-2f85252c9384"
+											name="AddSingleCalculation">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
@@ -25749,6 +25817,9 @@
 			id="13c42c08-2853-4310-8e85-3b7c6154f98c">
 			</testcontainer>
 			<testcontainer
+			id="13dd6db9-9c5c-4eab-9976-db04a9720ae9">
+			</testcontainer>
+			<testcontainer
 			id="1434590f-9f27-4928-93c5-cdd29d01ef3f">
 			</testcontainer>
 			<testcontainer
@@ -26182,6 +26253,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7d2e68a2-7f8f-4c6e-98e2-5bbc24a09fd9">
+			</testcontainer>
+			<testcontainer
+			id="7d7be126-022c-488b-8f23-7c870f028b6f">
 			</testcontainer>
 			<testcontainer
 			id="7e179496-d708-4941-ad69-c4332728e537">

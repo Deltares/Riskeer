@@ -189,6 +189,30 @@
       <UserCode>true</UserCode>
       <id>c56d8c8b-01ce-49d5-9406-a322234a230d</id>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleProbPipingCalculation.cs">
+      <BoundTo>93be5df1-c9c5-494f-9525-c161ed4c8b2a</BoundTo>
+      <DependentUpon>AddSingleProbPipingCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>92d7dd2e-bc3a-4d6b-ab57-9f41eeaa04fd</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleProbPipingCalculation.UserCode.cs">
+      <BoundTo>93be5df1-c9c5-494f-9525-c161ed4c8b2a</BoundTo>
+      <DependentUpon>AddSingleProbPipingCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>66529ae3-b3f2-4115-bcb9-9debc20f8a5d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleSemiProbPipingCalculation.cs">
+      <BoundTo>7c5d2c03-b86c-4efa-a6f6-d13da480c0af</BoundTo>
+      <DependentUpon>AddSingleSemiProbPipingCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>0a232b0e-1ed0-4f3c-aab4-548c0b7b22c0</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddSingleSemiProbPipingCalculation.UserCode.cs">
+      <BoundTo>7c5d2c03-b86c-4efa-a6f6-d13da480c0af</BoundTo>
+      <DependentUpon>AddSingleSemiProbPipingCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fb8e1cc8-6224-40a6-be5a-f2d862c867cb</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\ExpandAllSubnodesCurrentlySelectedItem.cs">
       <BoundTo>4a0bb83e-26ea-4823-b060-8664722113d0</BoundTo>
       <DependentUpon>ExpandAllSubnodesCurrentlySelectedItem.rxrec</DependentUpon>
@@ -2453,6 +2477,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
+    <Content Include="TestScript17.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>e628eaf2-1f96-4a16-8a7e-626762630802</id>
+    </Content>
     <Content Include="TestScript20.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>c8e4c805-a560-48ab-8e2f-ecba0b4b4411</id>
@@ -2510,6 +2538,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a2d91913-d614-41ff-8c15-cc5dc4bd268e</id>
       <recordtableid>1416f2d8-f6a5-488a-9c9f-04bd1a3b1f3f</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\AddSingleProbPipingCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>93be5df1-c9c5-494f-9525-c161ed4c8b2a</id>
+      <recordtableid>dddf0eff-611e-427c-8867-603295771796</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\AddSingleSemiProbPipingCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7c5d2c03-b86c-4efa-a6f6-d13da480c0af</id>
+      <recordtableid>d800f93d-b1a8-4b54-9c91-375105501d0a</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\ExpandAllSubnodesCurrentlySelectedItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

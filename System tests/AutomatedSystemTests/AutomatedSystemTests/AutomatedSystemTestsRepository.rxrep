@@ -2002,6 +2002,24 @@ FjcAAAAASUVORK5CYII=
 			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
+			id="10ff5289-4c15-4670-ac30-51057b2dc94a"
+			name="SemiProbBerekeningToevoegen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Semi-probabilistische berekening toevoegen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="ed5b1a57-0234-4bee-b8d5-a91968b5905f"
+			name="ProbBerekeningToevoegen"
+			refimgid="11c1d52f-3062-4347-95c6-24fb6b77e845"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Probabilistische berekening toevoegen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
 			id="8d25a5c5-e67d-4b4c-93a4-f94323bb7d79"
 			name="Bijwerken"
 			refimgid="701155c2-8867-4559-802c-2d50303a6619"
@@ -2684,7 +2702,6 @@ gg==
 		id="42112570-aca4-4418-aa9e-8d74dbb65cc6"
 		isrooted="True"
 		name="DialogGenerateCalculations"
-		refpath="/form[@controlname='SelectionDialogBase']"
 		searchtimeout="30000ms"
 		usecache="True">
 			<folder
@@ -2702,10 +2719,10 @@ gg==
 				name="UseCellRowIndexth"
 				refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
 				searchtimeout="30000ms">
-					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
+					/form[@controlname~'SelectionDialog']/container[@controlname='ButtonGroupBox']/container//table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
 				</item>
 				<basepath>
-					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table
+					/form[@controlname~'SelectionDialog']/container[@controlname='ButtonGroupBox']/container//table
 				</basepath>
 			</folder>
 			<item
@@ -2715,7 +2732,7 @@ gg==
 			name="GenerateButton"
 			refimgid="cd642f45-a153-4427-a178-331abd3f56c1"
 			searchtimeout="30000ms">
-				/form[@controlname='SelectionDialogBase']/container/button[@controlname='DoForSelectedButton']
+				/form[@controlname~'SelectionDialog']/container/button[@controlname='DoForSelectedButton']
 			</item>
 			<item
 			addcaps="button,control,nativewindow"
@@ -2723,12 +2740,11 @@ gg==
 			id="66fd60b5-d7a8-43eb-82cb-e4707b8474de"
 			name="SelectAllButton"
 			refimgid="f43f6a31-512f-466a-8850-7b899e38fe4f"
-			refpath="/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container[@controlname='panel2']/button[@controlname='SelectAllButton']"
 			searchtimeout="30000ms">
-				/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']
+				/form[@controlname~'SelectionDialog']/container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']
 			</item>
 			<basepath>
-				/form[@controlname='SelectionDialogBase']
+				/form[@controlname~'SelectionDialog']
 			</basepath>
 			<icon>
 				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
