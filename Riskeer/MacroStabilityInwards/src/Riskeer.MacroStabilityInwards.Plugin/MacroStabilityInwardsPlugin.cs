@@ -296,7 +296,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput,
                 CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData, context.FailureMechanism.GeneralInput,
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
@@ -551,6 +551,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
+        }
+
+        private static bool CloseOutputViewForData(MacroStabilityInwardsOutputView view, object o)
+        {
+            if (o is MacroStabilityInwardsOutput output)
+            {
+                var calculation = (MacroStabilityInwardsCalculationScenario) view.Data;
+                return ReferenceEquals(calculation.Output, output);
+            }
+
+            return RiskeerPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
         #endregion

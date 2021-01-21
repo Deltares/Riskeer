@@ -159,6 +159,44 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         [TestFixture]
         public class ShouldCloseMacroStabilityInwardsOutputViewTester : ShouldCloseViewWithCalculationDataTester
         {
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedOutput_ReturnsTrue()
+            {
+                // Setup
+                var calculationScenario = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, calculationScenario.Output);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, MacroStabilityInwardsOutputTestFactory.CreateOutput());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+            
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new MacroStabilityInwardsPlugin())
