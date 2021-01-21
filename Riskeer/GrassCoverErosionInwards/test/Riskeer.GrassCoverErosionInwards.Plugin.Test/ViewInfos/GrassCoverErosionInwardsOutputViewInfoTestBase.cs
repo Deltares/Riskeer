@@ -177,6 +177,44 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         [TestFixture]
         public abstract class ShouldCloseGrassCoverErosionInwardsOutputViewTester : ShouldCloseViewWithCalculationDataTester
         {
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedOutput_ReturnsTrue()
+            {
+                // Setup
+                var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, calculationScenario.Output);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, new TestGrassCoverErosionInwardsOutput());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new GrassCoverErosionInwardsPlugin())
@@ -189,7 +227,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             protected override ICalculation GetCalculation()
             {
-                return new GrassCoverErosionInwardsCalculation();
+                return new GrassCoverErosionInwardsCalculationScenario();
             }
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
@@ -207,7 +245,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                     {
                         Children =
                         {
-                            new GrassCoverErosionInwardsCalculation()
+                            new GrassCoverErosionInwardsCalculationScenario()
                         }
                     },
                     null,
@@ -224,7 +262,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                         {
                             Children =
                             {
-                                new GrassCoverErosionInwardsCalculation()
+                                new GrassCoverErosionInwardsCalculationScenario()
                             }
                         }
                     },

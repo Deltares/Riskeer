@@ -40,6 +40,7 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Plugin;
@@ -224,7 +225,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.OvertoppingOutput.HasGeneralResult,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
@@ -236,7 +237,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.DikeHeightOutput != null
                                                  && context.WrappedData.Output.DikeHeightOutput.HasGeneralResult,
@@ -249,7 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.OvertoppingRateOutput != null
                                                  && context.WrappedData.Output.OvertoppingRateOutput.HasGeneralResult,
@@ -501,6 +502,18 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        private static bool CloseOutputViewForData(GeneralResultFaultTreeIllustrationPointView view, object o)
+        {
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) view.Data;
+
+            if (o is GrassCoverErosionInwardsOutput output)
+            {
+                return ReferenceEquals(calculation.Output, output);
+            }
+
+            return RiskeerPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
         #endregion
