@@ -34,7 +34,6 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
@@ -159,10 +158,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var calculationScenario = new ProbabilisticPipingCalculationScenario
             {
-                Output = GetOutputWithCorrectIllustrationPoints(new GeneralResult<TTopLevelIllustrationPoint>(
-                                                                    new WindDirection("test", 0),
-                                                                    new Stochast[0],
-                                                                    new TTopLevelIllustrationPoint[0]))
+                Output = GetOutputWithCorrectIllustrationPoints(GetGeneralResult())
             };
             TOutputContext context = GetContext(calculationScenario);
 
@@ -194,7 +190,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 Output = GetOutputWithCorrectIllustrationPoints(null)
             };
-            
+
             using (IView view = GetView(calculationScenario))
             {
                 // Call
@@ -213,11 +209,51 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 Output = GetOutputWithCorrectIllustrationPoints(null)
             };
-            
+
             using (IView view = GetView(calculationScenario))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, GetOutputWithCorrectIllustrationPoints(null));
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedIllustrationPoints_ReturnsTrue()
+        {
+            // Setup
+            GeneralResult<TTopLevelIllustrationPoint> illustrationPoints = GetGeneralResult();
+
+            var calculationScenario = new ProbabilisticPipingCalculationScenario
+            {
+                Output = GetOutputWithCorrectIllustrationPoints(illustrationPoints)
+            };
+
+            using (IView view = GetView(calculationScenario))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, illustrationPoints);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedIllustrationPoints_ReturnsFalse()
+        {
+            // Setup
+            var calculationScenario = new ProbabilisticPipingCalculationScenario
+            {
+                Output = GetOutputWithCorrectIllustrationPoints(GetGeneralResult())
+            };
+
+            using (IView view = GetView(calculationScenario))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, GetGeneralResult());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -281,6 +317,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                         }
                     }
                 }, new AssessmentSectionStub());
+        }
+
+        private static GeneralResult<TTopLevelIllustrationPoint> GetGeneralResult()
+        {
+            return new GeneralResult<TTopLevelIllustrationPoint>(
+                new WindDirection("test", 0),
+                new Stochast[0],
+                new TTopLevelIllustrationPoint[0]);
         }
     }
 }
