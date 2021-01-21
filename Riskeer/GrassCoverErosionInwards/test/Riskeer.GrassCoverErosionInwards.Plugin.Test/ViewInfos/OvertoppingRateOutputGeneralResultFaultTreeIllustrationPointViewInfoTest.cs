@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
@@ -33,6 +34,25 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView, OvertoppingRateOutputContext>
     {
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOvertoppingRateOutput_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.1),
+                                                            new TestDikeHeightOutput(0.2),
+                                                            null)
+            };
+            OvertoppingRateOutputContext context = GetContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = Info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+        }
+        
         protected override string ViewName => "Overslagdebiet";
 
         protected override IView GetView(ICalculation data)

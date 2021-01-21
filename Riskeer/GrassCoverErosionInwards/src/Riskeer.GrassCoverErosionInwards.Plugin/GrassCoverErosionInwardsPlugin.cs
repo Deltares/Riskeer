@@ -225,6 +225,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                AdditionalDataCheck = context => context.WrappedData.HasOutput
+                                                 && context.WrappedData.Output.OvertoppingOutput.HasGeneralResult,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
@@ -235,6 +237,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                AdditionalDataCheck = context => context.WrappedData.HasOutput
+                                                 && context.WrappedData.Output.DikeHeightOutput != null
+                                                 && context.WrappedData.Output.DikeHeightOutput.HasGeneralResult,
                 CreateInstance = context => new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
@@ -245,6 +250,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                AdditionalDataCheck = context => context.WrappedData.HasOutput
+                                                 && context.WrappedData.Output.OvertoppingRateOutput != null
+                                                 && context.WrappedData.Output.OvertoppingRateOutput.HasGeneralResult,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };

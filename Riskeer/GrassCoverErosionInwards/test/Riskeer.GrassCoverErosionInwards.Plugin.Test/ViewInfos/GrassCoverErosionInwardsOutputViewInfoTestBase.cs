@@ -28,10 +28,12 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
@@ -46,18 +48,22 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         where TView : IView
     {
         private GrassCoverErosionInwardsPlugin plugin;
-        private ViewInfo info;
 
         /// <summary>
         /// Gets the name of the view.
         /// </summary>
         protected abstract string ViewName { get; }
 
+        /// <summary>
+        /// Gets the <see cref="ViewInfo"/>.
+        /// </summary>
+        protected ViewInfo Info { get; private set; }
+
         [SetUp]
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(TView));
+            Info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(TView));
         }
 
         [TearDown]
@@ -70,16 +76,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(TOutputContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(Resources.GeneralOutputIcon, info.Image);
+            Assert.AreEqual(typeof(TOutputContext), Info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), Info.ViewDataType);
+            TestHelper.AssertImagesAreEqual(Resources.GeneralOutputIcon, Info.Image);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Call
-            string viewName = info.GetViewName(null, null);
+            string viewName = Info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual(ViewName, viewName);
@@ -93,10 +99,58 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             TOutputContext context = GetContext(calculation);
 
             // Call
-            object viewData = info.GetViewData(context);
+            object viewData = Info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculation, viewData);
+        }
+        
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            TOutputContext context = GetContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = Info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+        }
+        
+        [Test]
+        public void AdditionalDataCheck_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+            TOutputContext context = GetContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = Info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+        }
+        
+        [Test]
+        public void AdditionalDataCheck_CalculationWithOutputAndIllustrationPoints_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+            TOutputContext context = GetContext(calculation);
+            
+            // Call
+            bool additionalDataCheck = Info.AdditionalDataCheck(context);
+            
+            // Assert
+            Assert.IsTrue(additionalDataCheck);
         }
 
         [Test]
@@ -107,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             TOutputContext context = GetContext(calculation);
             
             // Call
-            IView view = info.CreateInstance(context);
+            IView view = Info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<TView>(view);
@@ -122,7 +176,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override bool ShouldCloseMethod(IView view, object o)
         {
-            return info.CloseForData(view, o);
+            return Info.CloseForData(view, o);
         }
 
         protected override ICalculation GetCalculation()
