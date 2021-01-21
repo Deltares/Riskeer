@@ -41,8 +41,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     /// <summary>
     /// Base class for grass cover erosion inwards output view into tests.
     /// </summary>
-    /// <typeparam name="TView">The type of view involved.</typeparam>
-    /// <typeparam name="TOutputContext">The type of output context involved.</typeparam>
+    /// <typeparam name="TView">The type of view.</typeparam>
+    /// <typeparam name="TOutputContext">The type of output context.</typeparam>
     [Apartment(ApartmentState.STA)]
     public abstract class GrassCoverErosionInwardsOutputViewInfoTestBase<TView, TOutputContext> : ShouldCloseViewWithCalculationDataTester
         where TView : IView
@@ -92,7 +92,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedGrassCoverErosionInwardsCalculation()
+        public void GetViewData_WithContext_ReturnsWrappedGrassCoverErosionInwardsCalculation()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
