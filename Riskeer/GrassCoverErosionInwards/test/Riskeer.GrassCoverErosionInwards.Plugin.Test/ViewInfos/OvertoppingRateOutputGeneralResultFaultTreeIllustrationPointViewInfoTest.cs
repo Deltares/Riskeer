@@ -34,6 +34,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView, OvertoppingRateOutputContext>
     {
+        protected override string ViewName => "Overslagdebiet";
+
         [Test]
         public void AdditionalDataCheck_CalculationWithoutOvertoppingRateOutput_ReturnsFalse()
         {
@@ -45,25 +47,28 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                             null)
             };
             OvertoppingRateOutputContext context = GetContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = Info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
-        }
-        
-        protected override string ViewName => "Overslagdebiet";
-
-        protected override IView GetView(ICalculation data)
-        {
-            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
-                (GrassCoverErosionInwardsCalculation) data, () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
         protected override OvertoppingRateOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
             return new OvertoppingRateOutputContext(calculation);
+        }
+
+        [TestFixture]
+        public class ShouldCloseOvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView : ShouldCloseGrassCoverErosionInwardsOutputViewTester
+        {
+            protected override IView GetView(ICalculation data)
+            {
+                return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
+                    (GrassCoverErosionInwardsCalculation) data,
+                    () => new TestGeneralResultFaultTreeIllustrationPoint());
+            }
         }
     }
 }

@@ -38,17 +38,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     {
         protected override string ViewName => "Sterkte berekening";
 
-        protected override IView GetView(ICalculation data)
-        {
-            return new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
-                (GrassCoverErosionInwardsCalculation) data,
-                () => new TestGeneralResultFaultTreeIllustrationPoint());
-        }
-
         protected override OvertoppingOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
             return new OvertoppingOutputContext(calculation, new GrassCoverErosionInwardsFailureMechanism(),
                                                 new AssessmentSectionStub());
+        }
+
+        [TestFixture]
+        public class ShouldCloseOvertoppingOutputGeneralResultFaultTreeIllustrationPointView : ShouldCloseGrassCoverErosionInwardsOutputViewTester
+        {
+            protected override IView GetView(ICalculation data)
+            {
+                return new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
+                    (GrassCoverErosionInwardsCalculation) data,
+                    () => new TestGeneralResultFaultTreeIllustrationPoint());
+            }
         }
     }
 }

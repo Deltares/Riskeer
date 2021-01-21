@@ -36,6 +36,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<DikeHeightOutputGeneralResultFaultTreeIllustrationPointView, DikeHeightOutputContext>
     {
+        protected override string ViewName => "HBN";
+
         [Test]
         public void AdditionalDataCheck_CalculationWithoutDikeHeightOutput_ReturnsFalse()
         {
@@ -47,26 +49,28 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                             new TestOvertoppingRateOutput(0.2))
             };
             DikeHeightOutputContext context = GetContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = Info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
-        }
-        
-        protected override string ViewName => "HBN";
-
-        protected override IView GetView(ICalculation data)
-        {
-            return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
-                (GrassCoverErosionInwardsCalculation) data,
-                () => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
         protected override DikeHeightOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
             return new DikeHeightOutputContext(calculation);
+        }
+
+        [TestFixture]
+        public class ShouldCloseDikeHeightOutputGeneralResultFaultTreeIllustrationPointView : ShouldCloseGrassCoverErosionInwardsOutputViewTester
+        {
+            protected override IView GetView(ICalculation data)
+            {
+                return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
+                    (GrassCoverErosionInwardsCalculation) data,
+                    () => new TestGeneralResultFaultTreeIllustrationPoint());
+            }
         }
     }
 }

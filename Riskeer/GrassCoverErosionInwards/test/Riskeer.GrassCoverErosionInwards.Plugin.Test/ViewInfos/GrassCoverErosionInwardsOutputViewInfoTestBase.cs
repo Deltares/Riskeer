@@ -44,20 +44,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     /// <typeparam name="TView">The type of view.</typeparam>
     /// <typeparam name="TOutputContext">The type of output context.</typeparam>
     [Apartment(ApartmentState.STA)]
-    public abstract class GrassCoverErosionInwardsOutputViewInfoTestBase<TView, TOutputContext> : ShouldCloseViewWithCalculationDataTester
+    public abstract class GrassCoverErosionInwardsOutputViewInfoTestBase<TView, TOutputContext>
         where TView : IView
     {
         private GrassCoverErosionInwardsPlugin plugin;
-
-        /// <summary>
-        /// Gets the name of the view.
-        /// </summary>
-        protected abstract string ViewName { get; }
-
-        /// <summary>
-        /// Gets the <see cref="ViewInfo"/>.
-        /// </summary>
-        protected ViewInfo Info { get; private set; }
 
         [SetUp]
         public void SetUp()
@@ -104,21 +94,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreSame(calculation, viewData);
         }
-        
+
         [Test]
         public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
             TOutputContext context = GetContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = Info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
         }
-        
+
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
         {
@@ -128,14 +118,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
             TOutputContext context = GetContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = Info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
         }
-        
+
         [Test]
         public void AdditionalDataCheck_CalculationWithOutputAndIllustrationPoints_ReturnsTrue()
         {
@@ -145,10 +135,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
             TOutputContext context = GetContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = Info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsTrue(additionalDataCheck);
         }
@@ -159,7 +149,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
             TOutputContext context = GetContext(calculation);
-            
+
             // Call
             IView view = Info.CreateInstance(context);
 
@@ -168,59 +158,78 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         /// <summary>
+        /// Gets the name of the view.
+        /// </summary>
+        protected abstract string ViewName { get; }
+
+        /// <summary>
+        /// Gets the <see cref="ViewInfo"/>.
+        /// </summary>
+        protected ViewInfo Info { get; private set; }
+
+        /// <summary>
         /// Returns an output context object.
         /// </summary>
         /// <param name="calculation">The calculation that must be set as wrapped data of the context.</param>
         /// <returns>An output context object.</returns>
         protected abstract TOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation);
 
-        protected override bool ShouldCloseMethod(IView view, object o)
+        [TestFixture]
+        public abstract class ShouldCloseGrassCoverErosionInwardsOutputViewTester : ShouldCloseViewWithCalculationDataTester
         {
-            return Info.CloseForData(view, o);
-        }
-
-        protected override ICalculation GetCalculation()
-        {
-            return new GrassCoverErosionInwardsCalculation();
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
-                                                                          new CalculationGroup(),
-                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                          new AssessmentSectionStub());
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new GrassCoverErosionInwardsCalculationGroupContext(
-                new CalculationGroup
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                using (var plugin = new GrassCoverErosionInwardsPlugin())
                 {
-                    Children =
-                    {
-                        new GrassCoverErosionInwardsCalculation()
-                    }
-                },
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                new AssessmentSectionStub());
-        }
+                    return plugin.GetViewInfos()
+                                 .First(tni => tni.ViewType == typeof(TView))
+                                 .CloseForData(view, o);
+                }
+            }
 
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new GrassCoverErosionInwardsFailureMechanismContext(
-                new GrassCoverErosionInwardsFailureMechanism
-                {
-                    CalculationsGroup =
+            protected override ICalculation GetCalculation()
+            {
+                return new GrassCoverErosionInwardsCalculation();
+            }
+
+            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            {
+                return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+                                                                              new CalculationGroup(),
+                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                              new AssessmentSectionStub());
+            }
+
+            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            {
+                return new GrassCoverErosionInwardsCalculationGroupContext(
+                    new CalculationGroup
                     {
                         Children =
                         {
                             new GrassCoverErosionInwardsCalculation()
                         }
-                    }
-                },
-                new AssessmentSectionStub());
+                    },
+                    null,
+                    new GrassCoverErosionInwardsFailureMechanism(),
+                    new AssessmentSectionStub());
+            }
+
+            protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            {
+                return new GrassCoverErosionInwardsFailureMechanismContext(
+                    new GrassCoverErosionInwardsFailureMechanism
+                    {
+                        CalculationsGroup =
+                        {
+                            Children =
+                            {
+                                new GrassCoverErosionInwardsCalculation()
+                            }
+                        }
+                    },
+                    new AssessmentSectionStub());
+            }
         }
     }
 }
