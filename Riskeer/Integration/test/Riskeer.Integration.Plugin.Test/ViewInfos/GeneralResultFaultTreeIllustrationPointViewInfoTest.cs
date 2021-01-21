@@ -181,8 +181,43 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 : base(wrappedData, assessmentSection) {}
         }
 
-        public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
+        public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester<T> : ShouldCloseViewWithCalculationDataTester
+            where T : IStructuresCalculationInput, new()
         {
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedOutput_ReturnsTrue()
+            {
+                // Setup
+                var calculationScenario = (StructuresCalculationScenario<T>) GetCalculation();
+                calculationScenario.Output = new TestStructuresOutput();
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, calculationScenario.Output);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+            }
+
+            [Test]
+            public void ShouldCloseMethod_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
+            {
+                // Setup
+                var calculationScenario = (StructuresCalculationScenario<T>) GetCalculation();
+                calculationScenario.Output = new TestStructuresOutput();
+
+                using (IView view = GetView(calculationScenario))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, new TestStructuresOutput());
+
+                    // Assert
+                    Assert.IsFalse(closeForData);
+                }
+            }
+            
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new RiskeerPlugin())
@@ -200,11 +235,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseHeightViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseHeightViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester<HeightStructuresInput>
         {
             protected override ICalculation GetCalculation()
             {
-                return new StructuresCalculation<HeightStructuresInput>();
+                return new StructuresCalculationScenario<HeightStructuresInput>();
             }
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
@@ -249,11 +284,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseClosingViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseClosingViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester<ClosingStructuresInput>
         {
             protected override ICalculation GetCalculation()
             {
-                return new StructuresCalculation<ClosingStructuresInput>();
+                return new StructuresCalculationScenario<ClosingStructuresInput>();
             }
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
@@ -298,11 +333,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseStabilityPointViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseStabilityPointViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester<StabilityPointStructuresInput>
         {
             protected override ICalculation GetCalculation()
             {
-                return new StructuresCalculation<StabilityPointStructuresInput>();
+                return new StructuresCalculationScenario<StabilityPointStructuresInput>();
             }
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()

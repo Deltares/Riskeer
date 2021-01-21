@@ -660,7 +660,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.HasGeneralResult,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseStructuresOutputViewForData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
@@ -1580,6 +1580,21 @@ namespace Riskeer.Integration.Plugin
         private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object o)
         {
             return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region GeneralResultFaultTreeIllustrationPointView ViewInfo
+
+        private static bool CloseStructuresOutputViewForData(GeneralResultFaultTreeIllustrationPointView view, object o)
+        {
+            var calculation = (IStructuresCalculation) view.Data;
+            if (o is StructuresOutput output)
+            {
+                return ReferenceEquals(calculation.Output, output);
+            }
+
+            return RiskeerPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
         #endregion
