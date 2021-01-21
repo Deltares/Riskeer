@@ -34,6 +34,7 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
@@ -183,6 +184,44 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<TView>(view);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedOutput_ReturnsTrue()
+        {
+            // Setup
+            var calculationScenario = new ProbabilisticPipingCalculationScenario
+            {
+                Output = GetOutputWithCorrectIllustrationPoints(null)
+            };
+            
+            using (IView view = GetView(calculationScenario))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationScenario.Output);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedOutput_ReturnsFalse()
+        {
+            // Setup
+            var calculationScenario = new ProbabilisticPipingCalculationScenario
+            {
+                Output = GetOutputWithCorrectIllustrationPoints(null)
+            };
+            
+            using (IView view = GetView(calculationScenario))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, GetOutputWithCorrectIllustrationPoints(null));
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         protected abstract TOutputContext GetContext(ProbabilisticPipingCalculationScenario calculationScenario);

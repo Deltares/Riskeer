@@ -35,6 +35,7 @@ using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
@@ -315,7 +316,7 @@ namespace Riskeer.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseProbabilisticPipingOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.ProfileSpecificOutput.HasGeneralResult
                                                  && context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
@@ -323,14 +324,14 @@ namespace Riskeer.Piping.Plugin
                     context.WrappedData,
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
-            
+
             yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingProfileSpecificOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
-                AdditionalDataCheck = context => context.WrappedData.HasOutput 
+                CloseForData = CloseProbabilisticPipingOutputViewForData,
+                AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.ProfileSpecificOutput.HasGeneralResult
                                                  && context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
                 CreateInstance = context =>
@@ -346,7 +347,7 @@ namespace Riskeer.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseProbabilisticPipingOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.SectionSpecificOutput.HasGeneralResult
                                                  && context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
@@ -357,13 +358,13 @@ namespace Riskeer.Piping.Plugin
                         () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult);
                 }
             };
-            
+
             yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingSectionSpecificOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseProbabilisticPipingOutputViewForData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput
                                                  && context.WrappedData.Output.SectionSpecificOutput.HasGeneralResult
                                                  && context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
@@ -723,6 +724,18 @@ namespace Riskeer.Piping.Plugin
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
+        }
+
+        private static bool CloseProbabilisticPipingOutputViewForData<T>(GeneralResultIllustrationPointView<T> view, object o)
+            where T : TopLevelIllustrationPointBase
+        {
+            if (o is ProbabilisticPipingOutput output)
+            {
+                var calculation = (ProbabilisticPipingCalculationScenario) view.Data;
+                return ReferenceEquals(calculation.Output, output);
+            }
+
+            return RiskeerPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
         #endregion
