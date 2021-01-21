@@ -143,15 +143,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                     .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                        "validConfigurationDrainCoefficientStandardDeviation.xml",
-                        "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")
-                    .SetName(testNameFormat);
-                yield return new TestCaseData(
-                        "validConfigurationDrainCoefficientVariationCoefficient.xml",
-                        "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")
-                    .SetName(testNameFormat);
-
-                yield return new TestCaseData(
                         "validConfigurationEvaluationLevelWithoutStructure.xml",
                         "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.")
                     .SetName(testNameFormat);
