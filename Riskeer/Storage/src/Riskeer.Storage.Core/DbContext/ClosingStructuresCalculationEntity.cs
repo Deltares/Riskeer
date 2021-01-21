@@ -65,6 +65,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte InflowModelType { get; set; }
         public double? DeviationWaveDirection { get; set; }
         public double? DrainCoefficientMean { get; set; }
+        public double? DrainCoefficientStandardDeviation { get; set; }
         public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public byte RelevantForScenario { get; set; }

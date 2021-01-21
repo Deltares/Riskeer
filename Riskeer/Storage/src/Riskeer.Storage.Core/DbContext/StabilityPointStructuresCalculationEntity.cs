@@ -86,6 +86,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? VolumicWeightWater { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public double? DrainCoefficientMean { get; set; }
+        public double? DrainCoefficientStandardDeviation { get; set; }
         public byte RelevantForScenario { get; set; }
         public double? ScenarioContribution { get; set; }
 
