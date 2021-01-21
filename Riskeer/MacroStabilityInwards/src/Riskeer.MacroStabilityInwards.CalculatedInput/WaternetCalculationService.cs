@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       CreateExtremeCalculatorInput(input,generalInput, assessmentLevel),
+                                                                                       CreateExtremeCalculatorInput(input, generalInput, assessmentLevel),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
