@@ -32,6 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
@@ -99,6 +100,61 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+            mocks.ReplayAll();
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+            structuresCalculation.Expect(c => c.HasOutput).Return(true);
+            structuresCalculation.Expect(c => c.Output).Return(new TestStructuresOutput());
+            mocks.ReplayAll();
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            
+            // Assert
+            Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_CalculationWithOutputAndIllustrationPoints_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+            structuresCalculation.Expect(c => c.HasOutput).Return(true);
+            structuresCalculation.Expect(c => c.Output).Return(new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            mocks.ReplayAll();
+            
+            // Call
+            bool additionalDataCheck = info.AdditionalDataCheck(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            
+            // Assert
+            Assert.IsTrue(additionalDataCheck);
             mocks.VerifyAll();
         }
 

@@ -659,6 +659,7 @@ namespace Riskeer.Integration.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
+                AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.HasGeneralResult,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
