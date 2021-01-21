@@ -188,14 +188,6 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
         protected override bool ValidateSpecificStochasts()
         {
-            if (Configuration.DrainCoefficient?.StandardDeviation != null
-                || Configuration.DrainCoefficient?.VariationCoefficient != null)
-            {
-                Log.LogCalculationConversionError(RiskeerCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
-                                                  Configuration.Name);
-                return false;
-            }
-
             if (Configuration.FlowVelocityStructureClosable?.StandardDeviation != null
                 || Configuration.FlowVelocityStructureClosable?.VariationCoefficient != null)
             {

@@ -152,46 +152,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Assign_WithSpreadForDrainCoefficient_LogsErrorReturnFalse(bool withStandardDeviation)
-        {
-            // Setup
-            var configuration = new ClosingStructuresCalculationConfiguration("name")
-            {
-                StructureId = "some structure",
-                DrainCoefficient = new StochastConfiguration
-                {
-                    Mean = 8.1
-                }
-            };
-            if (withStandardDeviation)
-            {
-                configuration.DrainCoefficient.StandardDeviation = 0.8;
-            }
-            else
-            {
-                configuration.DrainCoefficient.VariationCoefficient = 0.8;
-            }
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-
-            var assigner = new ClosingStructuresCalculationStochastAssigner(
-                configuration,
-                calculation);
-
-            var valid = true;
-
-            // Call
-            Action test = () => valid = assigner.Assign();
-
-            // Assert
-            const string expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
         public void Assign_WithAllStochastsSet_SetExpectedValuesOnInput()
         {
             // Setup
@@ -235,7 +195,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 },
                 DrainCoefficient = new StochastConfiguration
                 {
-                    Mean = 8.1
+                    Mean = 8.1,
+                    StandardDeviation = 8.5
                 },
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {

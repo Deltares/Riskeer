@@ -53,44 +53,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Assign_WithSpreadForDrainCoefficient_LogsErrorReturnFalse(bool withStandardDeviation)
-        {
-            // Setup
-            var configuration = new StabilityPointStructuresCalculationConfiguration("name")
-            {
-                StructureId = "some structure"
-            };
-            configuration.DrainCoefficient = new StochastConfiguration();
-            configuration.DrainCoefficient.Mean = 8.1;
-            if (withStandardDeviation)
-            {
-                configuration.DrainCoefficient.StandardDeviation = 0.8;
-            }
-            else
-            {
-                configuration.DrainCoefficient.VariationCoefficient = 0.8;
-            }
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            var assigner = new StabilityPointStructuresCalculationStochastAssigner(
-                configuration,
-                calculation);
-
-            var valid = true;
-
-            // Call
-            Action test = () => valid = assigner.Assign();
-
-            // Assert
-            const string expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void Assign_WithSpreadForFlowVelocityStructureClosable_LogsErrorReturnFalse(bool withStandardDeviation)
         {
             // Setup
@@ -179,7 +141,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 },
                 DrainCoefficient = new StochastConfiguration
                 {
-                    Mean = 10
+                    Mean = 10,
+                    StandardDeviation = 10.10
                 },
                 FlowVelocityStructureClosable = new StochastConfiguration
                 {

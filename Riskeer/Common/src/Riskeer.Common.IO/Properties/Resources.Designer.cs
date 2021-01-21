@@ -1999,16 +1999,6 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
-        /// </summary>
-        public static string StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
-            get {
-                return ResourceManager.GetString("StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_" +
-                        "DrainCoefficient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De kolom &apos;{0}&apos; mag maar één keer gedefinieerd zijn..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once {
