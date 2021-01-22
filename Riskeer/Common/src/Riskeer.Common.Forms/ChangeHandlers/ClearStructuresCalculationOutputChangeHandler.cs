@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
@@ -34,6 +35,13 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     public class ClearStructuresCalculationOutputChangeHandler<TStructuresInput> : ClearCalculationOutputChangeHandlerBase<StructuresCalculationScenario<TStructuresInput>>
         where TStructuresInput : IStructuresCalculationInput, new()
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ClearStructuresCalculationOutputChangeHandler{TStructuresInput}"/>.
+        /// </summary>
+        /// <param name="calculations">The calculations to clear the output for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the calculation output.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearStructuresCalculationOutputChangeHandler(
             IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculations,
             IInquiryHelper inquiryHelper, IViewCommands viewCommands)
