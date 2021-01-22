@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -406,31 +407,39 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = failureMechanismContext.WrappedData
-                                                                                                                    .Calculations
-                                                                                                                    .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = context.WrappedData
+                                                                                         .Calculations
+                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                         .ToArray();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            IViewCommands viewCommands = Gui.ViewCommands;
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
-                              failureMechanismContext,
+                              context,
                               ValidateAllInFailureMechanism,
                               EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
-                              failureMechanismContext,
+                              context,
                               CalculateAllInFailureMechanism,
                               EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
-                          .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
-                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(inquiryHelper, calculations))
+                          .AddClearAllCalculationOutputInFailureMechanismItem(
+                              () => calculations.Any(c => c.HasOutput),
+                              new StructuresClearCalculationOutputChangeHandler<StabilityPointStructuresInput>(
+                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                              () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                              CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
