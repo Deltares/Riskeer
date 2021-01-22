@@ -582,7 +582,8 @@ namespace Riskeer.Storage.Core.Test.Create
                     DeviationWaveDirection = RoundedDouble.NaN,
                     DrainCoefficient =
                     {
-                        Mean = RoundedDouble.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     FactorStormDurationOpenStructure = RoundedDouble.NaN,
                     ThresholdHeightOpenWeir =
@@ -1085,7 +1086,8 @@ namespace Riskeer.Storage.Core.Test.Create
                     FactorStormDurationOpenStructure = RoundedDouble.NaN,
                     DrainCoefficient =
                     {
-                        Mean = RoundedDouble.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     }
                 }
             };
