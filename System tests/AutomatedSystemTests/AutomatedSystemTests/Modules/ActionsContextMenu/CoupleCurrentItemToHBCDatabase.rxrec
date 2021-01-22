@@ -770,11 +770,11 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 			</helperscreenshot>
 		</mouseitem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>
-				Wait time (300ms) so that dialog is started up
+				Wait time (1s) so that dialog is started up
 			</comment>
 			<bindings>
 			</bindings>

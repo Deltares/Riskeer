@@ -112,9 +112,9 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(6));
             repo.OpenDialog.ButtonOpen.Click();
             
-            // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(7));
-            Delay.Duration(300, false);
+            // Wait time (1s) so that dialog is started up
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (1s) so that dialog is started up\r\nWaiting for 1s.", new RecordItemIndex(7));
+            Delay.Duration(1000, false);
             
             Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(8));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(30000);

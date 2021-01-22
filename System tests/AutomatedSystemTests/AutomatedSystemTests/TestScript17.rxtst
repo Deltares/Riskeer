@@ -1331,7 +1331,7 @@
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
-			VideoRecordingMode="Off"
+			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
 			enabletracingscreenshots="True"
 			id="a59e818e-0bec-4264-a741-1252f409412e"
