@@ -428,7 +428,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new StructuresClearCalculationOutputChangeHandler<ClosingStructuresInput>(
+                              new ClearStructuresCalculationOutputChangeHandler<ClosingStructuresInput>(
                                   calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),

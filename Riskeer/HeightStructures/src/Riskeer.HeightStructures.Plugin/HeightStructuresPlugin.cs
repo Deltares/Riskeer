@@ -432,7 +432,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new StructuresClearCalculationOutputChangeHandler<HeightStructuresInput>(
+                              new ClearStructuresCalculationOutputChangeHandler<HeightStructuresInput>(
                                   calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),

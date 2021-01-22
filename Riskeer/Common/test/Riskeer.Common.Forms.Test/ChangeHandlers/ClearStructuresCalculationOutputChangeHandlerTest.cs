@@ -31,7 +31,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class StructuresClearCalculationOutputChangeHandlerTest
+    public class ClearStructuresCalculationOutputChangeHandlerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var changeHandler = new StructuresClearCalculationOutputChangeHandler<TestStructuresInput>(
+            var changeHandler = new ClearStructuresCalculationOutputChangeHandler<TestStructuresInput>(
                 Enumerable.Empty<StructuresCalculation<TestStructuresInput>>(), inquiryHelper, viewCommands);
 
             // Assert
@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculations[1].Output));
             mocks.ReplayAll();
 
-            var changeHandler = new StructuresClearCalculationOutputChangeHandler<TestStructuresInput>(
+            var changeHandler = new ClearStructuresCalculationOutputChangeHandler<TestStructuresInput>(
                 calculations, inquiryHelper, viewCommands);
 
             // When

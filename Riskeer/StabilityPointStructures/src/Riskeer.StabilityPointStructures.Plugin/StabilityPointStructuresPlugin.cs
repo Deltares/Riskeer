@@ -435,7 +435,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new StructuresClearCalculationOutputChangeHandler<StabilityPointStructuresInput>(
+                              new ClearStructuresCalculationOutputChangeHandler<StabilityPointStructuresInput>(
                                   calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
