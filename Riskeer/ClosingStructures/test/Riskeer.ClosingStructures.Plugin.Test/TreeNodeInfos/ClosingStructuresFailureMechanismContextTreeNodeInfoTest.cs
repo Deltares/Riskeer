@@ -139,9 +139,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
-            Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+            Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
             Assert.IsNull(calculationsFolder.Parent);
-            Assert.AreEqual(failureMechanism, calculationsFolder.FailureMechanism);
+            Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -582,7 +582,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",
@@ -676,7 +676,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",
