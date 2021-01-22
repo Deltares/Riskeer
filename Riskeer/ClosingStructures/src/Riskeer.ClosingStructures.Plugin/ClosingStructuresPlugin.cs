@@ -404,10 +404,10 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            StructuresCalculation<ClosingStructuresInput>[] calculations = context.WrappedData
-                                                                                  .Calculations
-                                                                                  .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                  .ToArray();
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculations = context.WrappedData
+                                                                                          .Calculations
+                                                                                          .Cast<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                          .ToArray();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
 

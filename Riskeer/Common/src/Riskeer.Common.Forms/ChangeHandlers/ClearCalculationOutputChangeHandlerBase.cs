@@ -32,9 +32,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Base class for handling clearing calculation output.
     /// </summary>
-    /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-    public abstract class ClearCalculationOutputChangeHandlerBase<TCalculation> : IClearCalculationOutputChangeHandler
-        where TCalculation : ICalculation
+    /// <typeparam name="TCalculationScenario">The type of calculation scenarios.</typeparam>
+    public abstract class ClearCalculationOutputChangeHandlerBase<TCalculationScenario> : IClearCalculationOutputChangeHandler
+        where TCalculationScenario : ICalculationScenario
     {
         private readonly IInquiryHelper inquiryHelper;
 
@@ -43,9 +43,11 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// </summary>
         /// <param name="calculations">The calculations to clear the output for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
-        /// <param name="viewCommands"></param>
+        /// <param name="viewCommands">The view commands used to close views for the calculation output.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected ClearCalculationOutputChangeHandlerBase(IEnumerable<TCalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        protected ClearCalculationOutputChangeHandlerBase(IEnumerable<TCalculationScenario> calculations,
+                                                          IInquiryHelper inquiryHelper,
+                                                          IViewCommands viewCommands)
         {
             if (calculations == null)
             {
@@ -78,7 +80,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
 
             var affectedCalculations = new List<ICalculation>();
 
-            foreach (TCalculation calculation in Calculations)
+            foreach (TCalculationScenario calculation in Calculations)
             {
                 calculation.ClearOutput();
                 affectedCalculations.Add(calculation);
@@ -90,7 +92,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <summary>
         /// Gets the calculations.
         /// </summary>
-        protected IEnumerable<TCalculation> Calculations { get; }
+        protected IEnumerable<TCalculationScenario> Calculations { get; }
 
         /// <summary>
         /// Gets the <see cref="IViewCommands"/>.

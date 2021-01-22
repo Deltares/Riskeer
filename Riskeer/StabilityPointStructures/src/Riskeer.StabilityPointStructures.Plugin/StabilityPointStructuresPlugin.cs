@@ -411,10 +411,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            StructuresCalculation<StabilityPointStructuresInput>[] calculations = context.WrappedData
-                                                                                         .Calculations
-                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                         .ToArray();
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculations = context.WrappedData
+                                                                                                 .Calculations
+                                                                                                 .Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>()
+                                                                                                 .ToArray();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
 

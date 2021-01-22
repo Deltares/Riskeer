@@ -28,14 +28,14 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling clearing the output of <see cref="StructuresCalculation{T}"/> 
+    /// Class for handling clearing the output of <see cref="StructuresCalculationScenario{T}"/> 
     /// </summary>
     /// <typeparam name="TStructuresInput">The type of structures input.</typeparam>
-    public class ClearStructuresCalculationOutputChangeHandler<TStructuresInput> : ClearCalculationOutputChangeHandlerBase<StructuresCalculation<TStructuresInput>>
+    public class ClearStructuresCalculationOutputChangeHandler<TStructuresInput> : ClearCalculationOutputChangeHandlerBase<StructuresCalculationScenario<TStructuresInput>>
         where TStructuresInput : IStructuresCalculationInput, new()
     {
         public ClearStructuresCalculationOutputChangeHandler(
-            IEnumerable<StructuresCalculation<TStructuresInput>> calculations,
+            IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculations,
             IInquiryHelper inquiryHelper, IViewCommands viewCommands)
             : base(calculations, inquiryHelper, viewCommands) {}
 

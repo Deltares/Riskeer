@@ -407,10 +407,10 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            StructuresCalculation<HeightStructuresInput>[] calculations = context.WrappedData
-                                                                                 .Calculations
-                                                                                 .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                 .ToArray();
+            StructuresCalculationScenario<HeightStructuresInput>[] calculations = context.WrappedData
+                                                                                         .Calculations
+                                                                                         .Cast<StructuresCalculationScenario<HeightStructuresInput>>()
+                                                                                         .ToArray();
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;

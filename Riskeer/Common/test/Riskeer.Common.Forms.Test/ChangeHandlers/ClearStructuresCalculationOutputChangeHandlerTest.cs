@@ -44,10 +44,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Call
             var changeHandler = new ClearStructuresCalculationOutputChangeHandler<TestStructuresInput>(
-                Enumerable.Empty<StructuresCalculation<TestStructuresInput>>(), inquiryHelper, viewCommands);
+                Enumerable.Empty<StructuresCalculationScenario<TestStructuresInput>>(), inquiryHelper, viewCommands);
 
             // Assert
-            Assert.IsInstanceOf<ClearCalculationOutputChangeHandlerBase<StructuresCalculation<TestStructuresInput>>>(changeHandler);
+            Assert.IsInstanceOf<ClearCalculationOutputChangeHandlerBase<StructuresCalculationScenario<TestStructuresInput>>>(changeHandler);
             mocks.VerifyAll();
         }
 
