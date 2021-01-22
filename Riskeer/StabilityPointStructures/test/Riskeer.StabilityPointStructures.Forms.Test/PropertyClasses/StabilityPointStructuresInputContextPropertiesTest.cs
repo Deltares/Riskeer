@@ -1446,6 +1446,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.DrainCoefficient.Mean = newMean);
         }
+        
+        [Test]
+        public void DrainCoefficient_StandardDeviationChanged_InputChangedAndObservablesNotified()
+        {
+            RoundedDouble newStandardDeviation = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotificationsAndOutput(
+                properties => properties.DrainCoefficient.StandardDeviation = newStandardDeviation);
+        }
 
         [Test]
         public void LevelCrestStructure_MeanChanged_InputChangedAndObservablesNotified()

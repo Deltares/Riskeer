@@ -229,6 +229,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
                 "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
                 "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[DrainCoefficientStandardDeviation] IS 0.2 " +
                 "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
                 "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
                 "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
@@ -289,6 +290,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
                 "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
                 "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[DrainCoefficientStandardDeviation] IS 0.2 " +
                 "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
                 "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
                 "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
@@ -508,6 +510,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
                 "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
                 "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[DrainCoefficientStandardDeviation] IS 0.2 " +
                 "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
                 "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
                 "AND NEW.[RelevantForScenario] = 1 " +
@@ -587,6 +590,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
                 "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
                 "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[DrainCoefficientStandardDeviation] IS 0.2 " +
                 "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
                 "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
                 "AND NEW.[RelevantForScenario] = 0 " +
