@@ -32,19 +32,20 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Base class for handling clearing calculation output.
     /// </summary>
-    public abstract class ClearCalculationOutputChangeHandlerBase : IClearCalculationOutputChangeHandler
+    /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+    public abstract class ClearCalculationOutputChangeHandlerBase<TCalculation> : IClearCalculationOutputChangeHandler
+        where TCalculation : ICalculation
     {
-        private readonly IEnumerable<ICalculation> calculations;
         private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearCalculationOutputChangeHandlerBase"/>.
+        /// Creates a new instance of <see cref="ClearCalculationOutputChangeHandlerBase{TCalculation}"/>.
         /// </summary>
         /// <param name="calculations">The calculations to clear the output for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="viewCommands"></param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected ClearCalculationOutputChangeHandlerBase(IEnumerable<ICalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        protected ClearCalculationOutputChangeHandlerBase(IEnumerable<TCalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
             if (calculations == null)
             {
@@ -61,15 +62,10 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(viewCommands));
             }
 
-            this.calculations = calculations;
+            Calculations = calculations;
             this.inquiryHelper = inquiryHelper;
             ViewCommands = viewCommands;
         }
-        
-        /// <summary>
-        /// Gets the <see cref="IViewCommands"/>.
-        /// </summary>
-        protected IViewCommands ViewCommands { get; }
 
         public bool InquireConfirmation()
         {
@@ -80,13 +76,23 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         {
             DoPreUpdateActions();
 
-            foreach (ICalculation calculation in calculations)
+            foreach (TCalculation calculation in Calculations)
             {
                 calculation.ClearOutput();
             }
 
-            return calculations;
+            return (IEnumerable<IObservable>) Calculations;
         }
+
+        /// <summary>
+        /// Gets the calculations.
+        /// </summary>
+        protected IEnumerable<TCalculation> Calculations { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IViewCommands"/>.
+        /// </summary>
+        protected IViewCommands ViewCommands { get; }
 
         /// <summary>
         /// Performs pre-update actions

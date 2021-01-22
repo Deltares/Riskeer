@@ -39,11 +39,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-                var mocks = new MockRepository();
-                var inquiryHelper = mocks.Stub<IInquiryHelper>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                mocks.ReplayAll();
-            
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => new TestClearCalculationOutputChangeHandler(null, inquiryHelper, viewCommands);
 
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => new TestClearCalculationOutputChangeHandler(Enumerable.Empty<ICalculation>(), null, viewCommands);
 
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             const string expectedInquiry = "Weet u zeker dat u alle uitvoer wilt wissen?";
-            
+
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation(expectedInquiry)).Return(expectedConfirmation);
@@ -119,10 +119,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             var changeHandler = new TestClearCalculationOutputChangeHandler(Enumerable.Empty<ICalculation>(), inquiryHelper, viewCommands);
-            
+
             // Call
             bool confirmation = changeHandler.InquireConfirmation();
-            
+
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
             mocks.VerifyAll();
@@ -141,37 +141,37 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculation2.Expect(c => c.ClearOutput());
             mocks.ReplayAll();
 
-            ICalculation[] calculations = 
+            ICalculation[] calculations =
             {
                 calculation1,
                 calculation2
             };
-            
+
             var changeHandler = new TestClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands);
-            
+
             // Precondition
             Assert.IsFalse(changeHandler.DoPreUpdateActionsExecuted);
 
             // Call
             IEnumerable<IObservable> affectedCalculations = changeHandler.ClearCalculations();
-            
+
             // Assert
             Assert.IsTrue(changeHandler.DoPreUpdateActionsExecuted);
             CollectionAssert.AreEqual(calculations, affectedCalculations);
             mocks.VerifyAll();
         }
-        
-        private class TestClearCalculationOutputChangeHandler : ClearCalculationOutputChangeHandlerBase
+
+        private class TestClearCalculationOutputChangeHandler : ClearCalculationOutputChangeHandlerBase<ICalculation>
         {
-            public TestClearCalculationOutputChangeHandler(IEnumerable<ICalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands) 
+            public TestClearCalculationOutputChangeHandler(IEnumerable<ICalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
                 : base(calculations, inquiryHelper, viewCommands) {}
-            
+
+            public bool DoPreUpdateActionsExecuted { get; private set; }
+
             protected override void DoPreUpdateActions()
             {
                 DoPreUpdateActionsExecuted = true;
             }
-
-            public bool DoPreUpdateActionsExecuted { get; private set; }
-        }   
+        }
     }
 }
