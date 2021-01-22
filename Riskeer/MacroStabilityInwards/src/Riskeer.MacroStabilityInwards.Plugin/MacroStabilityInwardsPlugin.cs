@@ -27,6 +27,7 @@ using Components.Persistence.Stability;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -52,6 +53,7 @@ using Riskeer.Common.Plugin;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms;
+using Riskeer.MacroStabilityInwards.Forms.ChangeHandlers;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Forms.Views;
@@ -446,20 +448,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static bool CloseFailureMechanismViewForData(MacroStabilityInwardsFailureMechanismView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
 
-            return assessmentSection != null
+            return o is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<MacroStabilityInwardsFailureMechanism>;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -467,7 +465,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
+            if (o is IFailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -650,24 +649,34 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(MacroStabilityInwardsFailureMechanismContext macroStabilityInwardsFailureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(MacroStabilityInwardsFailureMechanismContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(macroStabilityInwardsFailureMechanismContext, treeViewControl));
+            MacroStabilityInwardsCalculationScenario[] calculations = context.WrappedData
+                                                                             .Calculations
+                                                                             .Cast<MacroStabilityInwardsCalculationScenario>()
+                                                                             .ToArray();
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(macroStabilityInwardsFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
-                              macroStabilityInwardsFailureMechanismContext,
+                              context,
                               ValidateAllInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
-                              macroStabilityInwardsFailureMechanismContext,
+                              context,
                               CalculateAllInFailureMechanism)
                           .AddSeparator()
-                          .AddClearAllCalculationOutputInFailureMechanismItem(macroStabilityInwardsFailureMechanismContext.WrappedData)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(
+                              () => calculations.Any(c => c.HasOutput),
+                              new ClearMacroStabilityInwardsCalculationOutputChangeHandler(
+                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -718,10 +727,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as MacroStabilityInwardsCalculationScenario;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is MacroStabilityInwardsCalculationScenario calculation)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              nodeData.WrappedData,
@@ -730,7 +736,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                              nodeData.FailureMechanism,
                                                                                              nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                           nodeData.WrappedData,
