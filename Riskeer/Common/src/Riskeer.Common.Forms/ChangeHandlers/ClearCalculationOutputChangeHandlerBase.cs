@@ -76,12 +76,15 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         {
             DoPreUpdateActions();
 
+            var affectedCalculations = new List<ICalculation>();
+
             foreach (TCalculation calculation in Calculations)
             {
                 calculation.ClearOutput();
+                affectedCalculations.Add(calculation);
             }
 
-            return (IEnumerable<IObservable>) Calculations;
+            return affectedCalculations;
         }
 
         /// <summary>

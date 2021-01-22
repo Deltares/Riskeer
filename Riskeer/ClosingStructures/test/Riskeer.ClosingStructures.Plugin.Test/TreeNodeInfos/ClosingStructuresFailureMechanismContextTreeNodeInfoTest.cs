@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -230,6 +230,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -297,6 +298,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -445,7 +447,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
@@ -458,6 +460,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -485,7 +488,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
@@ -498,6 +501,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -527,7 +531,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -550,6 +554,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -575,7 +580,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var mainWindow = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
@@ -613,7 +617,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
@@ -708,6 +713,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -733,28 +739,22 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
         {
             // Setup
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-
-            var calculationWithOutput = new TestClosingStructuresCalculationScenario
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {
                     Children =
                     {
-                        calculationWithIllustrationPoints,
                         calculationWithOutput,
-                        new TestClosingStructuresCalculationScenario()
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
                     }
                 }
             };
@@ -769,6 +769,231 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
+        {
+            // Given
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
+                    }
+                }
+            };
+
+            var calculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithOutput.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.StrictMock<IViewCommands>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        {
+            // Given
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var calculationWithoutOutput = new StructuresCalculationScenario<ClosingStructuresInput>();
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        calculationWithoutOutput
+                    }
+                }
+            };
+
+            var affectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithOutput.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithoutOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var viewCommands = mocksRepository.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithOutput.Output));
+
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        {
+            // Setup
+            var calculationWithIllustrationPoints = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -788,19 +1013,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
         {
             // Setup
-            var calculationWithOutput = new TestClosingStructuresCalculationScenario
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {
                     Children =
                     {
                         calculationWithOutput,
-                        new TestClosingStructuresCalculationScenario()
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
                     }
                 }
             };
@@ -815,6 +1040,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -834,17 +1060,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
+            var calculationWithIllustrationPoints = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestClosingStructuresCalculationScenario
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {
@@ -852,7 +1078,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         calculationWithIllustrationPoints,
                         calculationWithOutput,
-                        new TestClosingStructuresCalculationScenario()
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
                     }
                 }
             };
@@ -879,6 +1105,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -901,17 +1128,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
+            var calculationWithIllustrationPoints = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestClosingStructuresCalculationScenario
+            var calculationWithOutput = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {
@@ -919,7 +1146,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         calculationWithIllustrationPoints,
                         calculationWithOutput,
-                        new TestClosingStructuresCalculationScenario()
+                        new StructuresCalculationScenario<ClosingStructuresInput>()
                     }
                 }
             };
@@ -950,6 +1177,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
