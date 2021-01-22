@@ -312,18 +312,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
-            {
-                calculationWithOutput
-            });
-
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(
+                () => true, changeHandler);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -339,17 +333,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
-            {
-                calculationWithoutOutput
-            });
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(
+                () => false, changeHandler);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -361,84 +350,54 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
+        public void GivenCreateClearAllCalculationOutputInFailureMechanismItem_WhenClickPerformedAndActionContinued_ThenClearCalculationsPerformedAndObserversNotified()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculation1 = mocks.StrictMock<ICalculation>();
+            var calculation2 = mocks.StrictMock<ICalculation>();
+            var calculation3 = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            calculationWithOutputMock1.Expect(c => c.ClearOutput());
-            calculationWithOutputMock1.Expect(c => c.NotifyObservers());
-            calculationWithOutputMock2.Expect(c => c.ClearOutput());
-            calculationWithOutputMock2.Expect(c => c.NotifyObservers());
-
-            var failureMechanism = new TestFailureMechanism(new[]
+            var changeHandler = mocks.StrictMock<IClearCalculationOutputChangeHandler>();
+            changeHandler.Expect(ch => ch.InquireConfirmation()).Return(true);
+            changeHandler.Expect(ch => ch.ClearCalculations()).Return(new[]
             {
-                calculationWithOutputMock1,
-                calculationWithOutputMock2,
-                calculationWithoutOutput
+                calculation1,
+                calculation2,
+                calculation3
             });
 
+            calculation1.Expect(c => c.NotifyObservers());
+            calculation2.Expect(c => c.NotifyObservers());
+            calculation3.Expect(c => c.NotifyObservers());
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(
+                () => true, changeHandler);
 
-                messageBox.ClickOk();
-            };
-
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
-
-            // Call
+            // When
             toolStripItem.PerformClick();
 
-            // Assert
+            // Then
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
+        public void GivenCreateClearAllCalculationOutputInFailureMechanismItem_WhenWhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
-
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
-            {
-                calculationWithOutputMock1,
-                calculationWithOutputMock2,
-                calculationWithoutOutput
-            });
-
+            var changeHandler = mocks.StrictMock<IClearCalculationOutputChangeHandler>();
+            changeHandler.Expect(ch => ch.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(
+                () => true, changeHandler);
 
-                messageBox.ClickCancel();
-            };
-
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
-
-            // Call
+            // When
             toolStripItem.PerformClick();
 
-            // Assert
+            // Then
             mocks.VerifyAll();
         }
 
