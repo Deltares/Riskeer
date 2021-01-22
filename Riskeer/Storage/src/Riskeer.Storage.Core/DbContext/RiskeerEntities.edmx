@@ -720,6 +720,7 @@
           <Property Name="IllustrationPointResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubMechanismIllustrationPointEntityId" Type="integer" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Value" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
@@ -1458,6 +1459,7 @@
           <Property Name="SubMechanismIllustrationPointStochastEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubMechanismIllustrationPointEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Duration" Type="real" Nullable="false" />
           <Property Name="Alpha" Type="real" Nullable="false" />
           <Property Name="Realization" Type="real" Nullable="false" />
@@ -5847,6 +5849,7 @@
           <Property Name="IllustrationPointResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubMechanismIllustrationPointEntityId" Type="Int64" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SubMechanismIllustrationPointEntity" Relationship="RiskeerEntitiesModel.FK_IllustrationPointResultEntity_0_0" FromRole="IllustrationPointResultEntity" ToRole="SubMechanismIllustrationPointEntity" />
@@ -6662,6 +6665,7 @@
           <Property Name="SubMechanismIllustrationPointStochastEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubMechanismIllustrationPointEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
           <Property Name="Realization" Type="Double" Nullable="false" />
@@ -9359,6 +9363,7 @@
               <MappingFragment StoreEntitySet="IllustrationPointResultEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="SubMechanismIllustrationPointEntityId" ColumnName="SubMechanismIllustrationPointEntityId" />
                 <ScalarProperty Name="IllustrationPointResultEntityId" ColumnName="IllustrationPointResultEntityId" />
@@ -10132,6 +10137,7 @@
                 <ScalarProperty Name="Realization" ColumnName="Realization" />
                 <ScalarProperty Name="Alpha" ColumnName="Alpha" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SubMechanismIllustrationPointEntityId" ColumnName="SubMechanismIllustrationPointEntityId" />
                 <ScalarProperty Name="SubMechanismIllustrationPointStochastEntityId" ColumnName="SubMechanismIllustrationPointStochastEntityId" />
