@@ -503,6 +503,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Afvoercoëfficiënt [-]",
                                                                             "Afvoercoëfficiënt.",
                                                                             true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, false);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
