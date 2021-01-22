@@ -206,11 +206,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in the failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the calculation output.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        public RiskeerContextMenuBuilder AddClearAllCalculationOutputInFailureMechanismItem(
+            Func<bool> isContextItemEnabledFunc, IClearCalculationOutputChangeHandler changeHandler)
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(
+                                                 isContextItemEnabledFunc, changeHandler));
             return this;
         }
 

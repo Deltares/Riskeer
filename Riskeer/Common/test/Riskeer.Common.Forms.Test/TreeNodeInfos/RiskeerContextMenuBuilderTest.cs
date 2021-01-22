@@ -227,91 +227,35 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInFailureMechanismItem_WhenBuildWithCalculationOutput_ItemAddedToContextMenuEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddClearAllCalculationOutputInFailureMechanismItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
         {
             // Setup
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis de uitvoer van alle berekeningen binnen dit toetsspoor."
+                                                : "Er zijn geen berekeningen met uitvoer om te wissen.";
+
             var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
-            {
-                calculationWithOutput
-            });
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
+                              .WhenCalled(arg =>
+                              {
+                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  Assert.AreEqual("&Wis alle uitvoer...", contextMenuItem.Text);
+                                  Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
+                                  Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
+                              });
             mocks.ReplayAll();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                                importCommandHandler,
-                                                                exportCommandHandler,
-                                                                updateCommandHandler,
-                                                                viewCommands,
-                                                                failureMechanism,
-                                                                treeViewControl);
-                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
-                // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
+            // Call
+            riskeerContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(
+                () => isEnabled, changeHandler);
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "&Wis alle uitvoer...",
-                                                              "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
-                                                              RiskeerFormsResources.ClearIcon);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddClearAllCalculationOutputInFailureMechanismItem_WhenBuildWithoutCalculationOutput_ItemAddedToContextMenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new List<ICalculation>());
-
-            mocks.ReplayAll();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                                importCommandHandler,
-                                                                exportCommandHandler,
-                                                                updateCommandHandler,
-                                                                viewCommands,
-                                                                failureMechanism,
-                                                                treeViewControl);
-                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
-
-                // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "&Wis alle uitvoer...",
-                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                              RiskeerFormsResources.ClearIcon,
-                                                              false);
-            }
-
+            // Assert
             mocks.VerifyAll();
         }
 
