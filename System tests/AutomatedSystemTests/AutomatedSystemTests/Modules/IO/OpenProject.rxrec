@@ -487,6 +487,30 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 			<bindings>
 			</bindings>
 		</explicitdelayitem>
+		<validationitem
+		action="AttributeNotContains"
+		duration="100ms"
+		enabled="True"
+		optional="False"
+		searchpropertyid="b6f69a67-0f58-4cdb-a455-944103b7a065">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="073038e2-924e-4a9e-b82b-1d992e9dd9ce"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bericht']
+				</path>
+			</info>
+			<matchname>
+				Text
+			</matchname>
+			<matchvalue>
+				Openen van project is mislukt.
+			</matchvalue>
+		</validationitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

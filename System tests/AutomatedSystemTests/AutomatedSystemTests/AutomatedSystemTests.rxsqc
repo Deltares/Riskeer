@@ -38,5 +38,15 @@
     "Enabled": "True",
     "TestSuite": "TestScript17",
     "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "TestScript19",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "TestScript22",
+    "RunConfig": "TestRun"
   }
 ]

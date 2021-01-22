@@ -69,16 +69,6 @@ namespace AutomatedSystemTests.Modules.Calculation
         }
 
         /// <summary>
-        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
-        /// </summary>
-        [TestVariable("afe1ce8e-ff00-4307-a9d8-1f91fa796fad")]
-        public string nameOfParameterInPropertiesPanel
-        {
-            get { return repo.nameOfParameterInPropertiesPanel; }
-            set { repo.nameOfParameterInPropertiesPanel = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringTrajectName.
         /// </summary>
         [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
@@ -106,6 +96,16 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             get { return repo.fmLabel; }
             set { repo.fmLabel = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("afe1ce8e-ff00-4307-a9d8-1f91fa796fad")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion

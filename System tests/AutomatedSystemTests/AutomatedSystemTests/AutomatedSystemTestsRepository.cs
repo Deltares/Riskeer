@@ -7277,6 +7277,7 @@ namespace AutomatedSystemTests
         public partial class MessagesDataGridViewFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder _genericrowmessage;
+            AutomatedSystemTestsRepositoryFolders.LastRowMessageFolder _lastrowmessage;
 
             /// <summary>
             /// Creates a new MessagesDataGridView  folder.
@@ -7285,6 +7286,7 @@ namespace AutomatedSystemTests
                     base("MessagesDataGridView", "?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, true, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
             {
                 _genericrowmessage = new AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder(this);
+                _lastrowmessage = new AutomatedSystemTestsRepositoryFolders.LastRowMessageFolder(this);
             }
 
             /// <summary>
@@ -7318,6 +7320,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder GenericRowMessage
             {
                 get { return _genericrowmessage; }
+            }
+
+            /// <summary>
+            /// The LastRowMessage folder.
+            /// </summary>
+            [RepositoryFolder("b8b81b1e-3805-45e2-bbbf-bd069416fe50")]
+            public virtual AutomatedSystemTestsRepositoryFolders.LastRowMessageFolder LastRowMessage
+            {
+                get { return _lastrowmessage; }
             }
         }
 
@@ -7444,6 +7455,133 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genericcelliconInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The LastRowMessageFolder folder.
+        /// </summary>
+        [RepositoryFolder("b8b81b1e-3805-45e2-bbbf-bd069416fe50")]
+        public partial class LastRowMessageFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _lastcellmessageInfo;
+            LastCellIconInfoClass _lastcelliconInfo;
+
+            /// <summary>
+            /// Creates a new LastRowMessage  folder.
+            /// </summary>
+            public LastRowMessageFolder(RepoGenBaseFolder parentFolder) :
+                    base("LastRowMessage", "row[@accessiblename='Row 0']", parentFolder, 30000, null, false, "b8b81b1e-3805-45e2-bbbf-bd069416fe50", "")
+            {
+                _lastcellmessageInfo = new RepoItemInfo(this, "LastCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "073038e2-924e-4a9e-b82b-1d992e9dd9ce");
+                _lastcelliconInfo = new LastCellIconInfoClass(this);
+            }
+
+            /// <summary>
+            /// The LastCellIconInfoClass folder.
+            /// </summary>
+            [RepositoryItemInfo("681f78f5-27fe-4bad-a2ff-cc072cca5be6")]
+            public class LastCellIconInfoClass : RepoItemInfo
+            {
+                /// <summary>
+                /// LastCellIconInfoClass class constructor.
+                /// </summary>
+                public LastCellIconInfoClass(RepoGenBaseFolder parentFolder)
+                    : base(parentFolder, "LastCellIcon", "cell[@accessiblename>' Row']", 30000, null, "681f78f5-27fe-4bad-a2ff-cc072cca5be6")
+                { }
+
+                /// <summary>
+                /// Gets the ErrorIcon item image.
+                /// </summary>
+                /// <returns>The ErrorIcon image.</returns>
+                [RepositoryImage("665de6ca-e067-4d0f-baa5-45da0f1bc156")]
+                public CompressedImage GetErrorIcon()
+                {
+                    return GetImage("665de6ca-e067-4d0f-baa5-45da0f1bc156");
+                }
+
+                /// <summary>
+                /// Gets the ErrorIcon item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("665de6ca-e067-4d0f-baa5-45da0f1bc156")]
+                public CompressedImage GetErrorIcon(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("665de6ca-e067-4d0f-baa5-45da0f1bc156", cropRect);
+                }
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("b8b81b1e-3805-45e2-bbbf-bd069416fe50")]
+            public virtual Ranorex.Row Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("b8b81b1e-3805-45e2-bbbf-bd069416fe50")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The LastCellMessage item.
+            /// </summary>
+            [RepositoryItem("073038e2-924e-4a9e-b82b-1d992e9dd9ce")]
+            public virtual Ranorex.Cell LastCellMessage
+            {
+                get
+                {
+                    return _lastcellmessageInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The LastCellMessage item info.
+            /// </summary>
+            [RepositoryItemInfo("073038e2-924e-4a9e-b82b-1d992e9dd9ce")]
+            public virtual RepoItemInfo LastCellMessageInfo
+            {
+                get
+                {
+                    return _lastcellmessageInfo;
+                }
+            }
+
+            /// <summary>
+            /// The LastCellIcon item.
+            /// </summary>
+            [RepositoryItem("681f78f5-27fe-4bad-a2ff-cc072cca5be6")]
+            public virtual Ranorex.Cell LastCellIcon
+            {
+                get
+                {
+                    return _lastcelliconInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The LastCellIcon item info.
+            /// </summary>
+            [RepositoryItemInfo("681f78f5-27fe-4bad-a2ff-cc072cca5be6")]
+            public virtual LastCellIconInfoClass LastCellIconInfo
+            {
+                get
+                {
+                    return _lastcelliconInfo;
                 }
             }
         }

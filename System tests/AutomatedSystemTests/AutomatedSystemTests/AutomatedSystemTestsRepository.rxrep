@@ -1864,6 +1864,50 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
 					</basepath>
 				</folder>
+				<folder
+				capname="row"
+				id="b8b81b1e-3805-45e2-bbbf-bd069416fe50"
+				isrooted="True"
+				name="LastRowMessage"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="073038e2-924e-4a9e-b82b-1d992e9dd9ce"
+					name="LastCellMessage"
+					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bericht']
+					</item>
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="681f78f5-27fe-4bad-a2ff-cc072cca5be6"
+					name="LastCellIcon"
+					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
+					searchtimeout="30000ms">
+						<image
+						guid="665de6ca-e067-4d0f-baa5-45da0f1bc156"
+						name="ErrorIcon">
+							iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAflJREFUOE/Fk/9LE2Ecx/u/+iG0NL9c5+bZdI1NkuI0z+NBtsMIdLqz
+dkWiEzGJ2M2dY4JgYAZB+xeCyF/8YWw6dTnPtXOnnvpDvuNZnI4JJUFvPgfPvT/Pi8/n+Xbj53Wl
+quo/hTOZjKZpkiQ953kEBviFWUlfUDWcSqX8hBRDXjMRsT6oiHJialfo9JM+pCqTfusSjPS4IBiz
+8llq0Yq/PFIeIKx55fRzUo+IIcFdxdtwNpsNBAKl2RDIw7F2BPXLA45yf9vJp0Th9ZOAX8Q06kM2
+jIXpo54KOeo0g07qG31siWd/PGas1YV0N6NpcepDNoyNwfKsWBgYrUZ9YMWeVr27xZge098oEiHU
+h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
+9zDGwtxwTViSSCk6Yc7JtElUM95NlpcTwHY6Gradd/YUIT81XrttbFi2p+14RaNNohr1geUctzfZ
++oPF6FfHrdob9uuoRHEnzB++j9Nq+xFFj4SBbTB1INOCDxNqHxWEOzDidufkR+ZSTH8lbrlac/db
+Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
+0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
+						</image>
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;' Row']
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
 				</basepath>

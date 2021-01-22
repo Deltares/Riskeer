@@ -2481,9 +2481,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>e628eaf2-1f96-4a16-8a7e-626762630802</id>
     </Content>
+    <Content Include="TestScript19.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>54d6fb57-8bd0-4793-95a2-14239084e336</id>
+    </Content>
     <Content Include="TestScript20.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>c8e4c805-a560-48ab-8e2f-ecba0b4b4411</id>
+    </Content>
+    <Content Include="TestScript22.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>971cfd47-4816-4ae9-adb6-a86bd6f7f032</id>
     </Content>
     <Content Include="VerySlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
