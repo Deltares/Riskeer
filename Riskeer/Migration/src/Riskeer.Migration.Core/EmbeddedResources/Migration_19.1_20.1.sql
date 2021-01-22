@@ -372,7 +372,21 @@ INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPR
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
-INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
+INSERT INTO IllustrationPointResultEntity (
+    [IllustrationPointResultEntityId],
+    [SubMechanismIllustrationPointEntityId],
+    [Description],
+    [Unit],
+    [Value],
+    [Order]) 
+SELECT
+    [IllustrationPointResultEntityId],
+    [SubMechanismIllustrationPointEntityId],
+    [Description],
+    "-",
+    [Value],
+    [Order]
+FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
@@ -643,7 +657,25 @@ INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
-INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
+INSERT INTO SubMechanismIllustrationPointStochastEntity (
+    [SubMechanismIllustrationPointStochastEntityId],
+    [SubMechanismIllustrationPointEntityId],
+    [Name],
+    [Unit],
+    [Duration],
+    [Alpha],
+    [Realization],
+    [Order]) 
+SELECT
+    [SubMechanismIllustrationPointStochastEntityId],
+    [SubMechanismIllustrationPointEntityId],
+    [Name],
+    "-",
+    [Duration],
+    [Alpha],
+    [Realization],
+    [Order] 
+FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;

@@ -73,12 +73,14 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
             var illustrationPointResultEntityOne = new IllustrationPointResultEntity
             {
                 Description = "Description",
+                Unit = "-",
                 Value = random.NextDouble(),
                 Order = 0
             };
             var illustrationPointResultEntityTwo = new IllustrationPointResultEntity
             {
                 Description = "Description_Two",
+                Unit = "m",
                 Value = random.NextDouble(),
                 Order = 1
             };
@@ -115,6 +117,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
             var stochastEntityOne = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = "Stochast",
+                Unit = "-",
                 Alpha = random.NextDouble(),
                 Duration = random.NextDouble(),
                 Realization = random.NextDouble(),
@@ -123,6 +126,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
             var stochastEntityTwo = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = "Stochast_Two",
+                Unit = "m",
                 Alpha = random.NextDouble(),
                 Duration = random.NextDouble(),
                 Realization = random.NextDouble(),
@@ -165,6 +169,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
                                                               IllustrationPointResult readIllustrationPointResult)
         {
             Assert.AreEqual(illustrationPointResultEntity.Description, readIllustrationPointResult.Description);
+            Assert.AreEqual(illustrationPointResultEntity.Unit, readIllustrationPointResult.Unit);
             Assert.AreEqual(illustrationPointResultEntity.Value, readIllustrationPointResult.Value,
                             readIllustrationPointResult.Value.GetAccuracy());
         }
@@ -173,6 +178,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
                                                SubMechanismIllustrationPointStochast readStochast)
         {
             Assert.AreEqual(stochastEntity.Name, readStochast.Name);
+            Assert.AreEqual(stochastEntity.Unit, readStochast.Unit);
             Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
             Assert.AreEqual(stochastEntity.Duration, readStochast.Duration, readStochast.Duration.GetAccuracy());
             Assert.AreEqual(stochastEntity.Realization, readStochast.Realization, readStochast.Realization.GetAccuracy());

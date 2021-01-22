@@ -269,6 +269,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
                 SubMechanismIllustrationPointStochast stochast = stochasts[i];
 
                 Assert.AreEqual(stochastEntity.Name, stochast.Name);
+                Assert.AreEqual(stochastEntity.Unit, stochast.Unit);
                 Assert.AreEqual(stochastEntity.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
                 Assert.AreEqual(stochastEntity.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
                 Assert.AreEqual(stochastEntity.Realization, stochast.Realization, stochast.Realization.GetAccuracy());

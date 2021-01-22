@@ -107,6 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
                 SubMechanismIllustrationPointStochastEntity stochastEntity = stochastEntities[i];
 
                 TestHelper.AssertAreEqualButNotSame(stochast.Name, stochastEntity.Name);
+                TestHelper.AssertAreEqualButNotSame(stochast.Unit, stochastEntity.Unit);
                 Assert.AreEqual(stochast.Duration, stochastEntity.Duration, stochast.Duration.GetAccuracy());
                 Assert.AreEqual(stochast.Alpha, stochastEntity.Alpha, stochast.Alpha.GetAccuracy());
                 Assert.AreEqual(stochast.Realization, stochastEntity.Realization, stochast.Realization.GetAccuracy());
@@ -149,6 +150,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
                 IllustrationPointResultEntity illustrationPointResultEntity = resultEntities[i];
 
                 TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, illustrationPointResultEntity.Description);
+                TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Unit, illustrationPointResultEntity.Unit);
                 Assert.AreEqual(illustrationPointResult.Value, illustrationPointResultEntity.Value,
                                 illustrationPointResult.Value.GetAccuracy());
                 Assert.AreEqual(i, illustrationPointResultEntity.Order);

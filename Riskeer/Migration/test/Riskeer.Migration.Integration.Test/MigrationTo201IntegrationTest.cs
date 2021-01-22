@@ -77,6 +77,9 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertPipingCalculation(reader, sourceFilePath);
                     AssertPipingOutput(reader, sourceFilePath);
+
+                    AssertIllustrationPointResult(reader, sourceFilePath);
+                    AssertSubMechanismIllustrationPointStochast(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -687,6 +690,50 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertIllustrationPointResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.IllustrationPointResultEntity" +
+                ") " +
+                "FROM IllustrationPointResultEntity NEW " +
+                "JOIN SOURCEPROJECT.IllustrationPointResultEntity OLD USING(IllustrationPointResultEntityId) " +
+                "WHERE NEW.[IllustrationPointResultEntityId] = OLD.[IllustrationPointResultEntityId] " +
+                "AND NEW.[SubMechanismIllustrationPointEntityId] = OLD.[SubMechanismIllustrationPointEntityId] " +
+                "AND NEW.[Description] = OLD.[Description] " +
+                "AND NEW.[Unit] = \"-\" " +
+                "AND NEW.[Value] IS OLD.[Value] " +
+                "AND NEW.[Order] = OLD.[Order]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
+        }
+        
+        private static void AssertSubMechanismIllustrationPointStochast(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.SubMechanismIllustrationPointStochastEntity" +
+                ") " +
+                "FROM SubMechanismIllustrationPointStochastEntity NEW " +
+                "JOIN SOURCEPROJECT.SubMechanismIllustrationPointStochastEntity OLD USING(SubMechanismIllustrationPointStochastEntityId) " +
+                "WHERE NEW.[SubMechanismIllustrationPointStochastEntityId] = OLD.[SubMechanismIllustrationPointStochastEntityId] " +
+                "AND NEW.[SubMechanismIllustrationPointEntityId] = OLD.[SubMechanismIllustrationPointEntityId] " +
+                "AND NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[Unit] = \"-\" " +
+                "AND NEW.[Duration] IS OLD.[Duration] " +
+                "AND NEW.[Alpha] IS OLD.[Alpha] " +
+                "AND NEW.[Realization] IS OLD.[Realization] " +
+                "AND NEW.[Order] = OLD.[Order]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)

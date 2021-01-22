@@ -59,6 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, entity.Description);
+            TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Unit, entity.Unit);
             Assert.AreEqual(illustrationPointResult.Value, entity.Value, illustrationPointResult.Value.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
