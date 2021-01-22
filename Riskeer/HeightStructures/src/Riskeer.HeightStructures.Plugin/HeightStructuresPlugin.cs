@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -406,11 +407,13 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = context.WrappedData
-                                                                                            .Calculations
-                                                                                            .Cast<StructuresCalculation<HeightStructuresInput>>();
+            StructuresCalculation<HeightStructuresInput>[] calculations = context.WrappedData
+                                                                                 .Calculations
+                                                                                 .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                 .ToArray();
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -427,9 +430,13 @@ namespace Riskeer.HeightStructures.Plugin
                               CalculateAllInFailureMechanism,
                               EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
-                          .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
-                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(inquiryHelper, calculations))
+                          .AddClearAllCalculationOutputInFailureMechanismItem(
+                              () => calculations.Any(c => c.HasOutput),
+                              new StructuresClearCalculationOutputChangeHandler<HeightStructuresInput>(
+                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                              () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                              CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
