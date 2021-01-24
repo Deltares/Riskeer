@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 
 namespace Riskeer.Piping.Forms.ChangeHandlers
@@ -32,23 +34,35 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling clearing the output of <see cref="ProbabilisticPipingCalculationScenario"/>.
     /// </summary>
-    public class ClearProbabilisticPipingCalculationOutputChangeHandler : ClearCalculationOutputChangeHandlerBase<ProbabilisticPipingCalculationScenario>
+    public class ClearPipingCalculationOutputChangeHandler : ClearCalculationOutputChangeHandlerBase<IPipingCalculationScenario<PipingInput>>
     {
+        private readonly Func<IPipingCalculationScenario<PipingInput>, ICalculationOutput> getOutputFunc;
+
         /// <summary>
-        /// Creates a new instance of <see cref="ClearProbabilisticPipingCalculationOutputChangeHandler"/>.
+        /// Creates a new instance of <see cref="ClearPipingCalculationOutputChangeHandler"/>.
         /// </summary>
         /// <param name="calculations">The calculations to clear the output for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="viewCommands">The view commands used to close views for the calculation output.</param>
+        /// <param name="getOutputFunc">The <see cref="Func{T1,TResult}"/> to get the output of a calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearProbabilisticPipingCalculationOutputChangeHandler(
-            IEnumerable<ProbabilisticPipingCalculationScenario> calculations,
-            IInquiryHelper inquiryHelper, IViewCommands viewCommands)
-            : base(calculations, inquiryHelper, viewCommands) {}
+        public ClearPipingCalculationOutputChangeHandler(
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculations,
+            IInquiryHelper inquiryHelper, IViewCommands viewCommands,
+            Func<IPipingCalculationScenario<PipingInput>, ICalculationOutput> getOutputFunc)
+            : base(calculations, inquiryHelper, viewCommands)
+        {
+            if (getOutputFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getOutputFunc));
+            }
+            
+            this.getOutputFunc = getOutputFunc;
+        }
 
         protected override void DoPreUpdateActions()
         {
-            Calculations.ForEachElementDo(calculation => ViewCommands.RemoveAllViewsForItem(calculation.Output));
+            Calculations.ForEachElementDo(calculation => ViewCommands.RemoveAllViewsForItem(getOutputFunc(calculation)));
         }
     }
 }

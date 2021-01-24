@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.ChangeHandlers;
@@ -32,8 +34,28 @@ using Riskeer.Piping.Forms.ChangeHandlers;
 namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class ClearProbabilisticPipingCalculationOutputChangeHandlerTest
+    public class ClearPipingCalculationOutputChangeHandlerTest
     {
+        [Test]
+        public void Constructor_GetOutputFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+            
+            // Call
+            void Call() => new ClearPipingCalculationOutputChangeHandler(
+            Enumerable.Empty<IPipingCalculationScenario<PipingInput>>(),
+            inquiryHelper, viewCommands, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getOutputFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -44,11 +66,12 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var changeHandler = new ClearProbabilisticPipingCalculationOutputChangeHandler(
-                Enumerable.Empty<ProbabilisticPipingCalculationScenario>(), inquiryHelper, viewCommands);
+            var changeHandler = new ClearPipingCalculationOutputChangeHandler(
+                Enumerable.Empty<IPipingCalculationScenario<PipingInput>>(),
+                inquiryHelper, viewCommands, calculation => null);
 
             // Assert
-            Assert.IsInstanceOf<ClearCalculationOutputChangeHandlerBase<ProbabilisticPipingCalculationScenario>>(changeHandler);
+            Assert.IsInstanceOf<ClearCalculationOutputChangeHandlerBase<IPipingCalculationScenario<PipingInput>>>(changeHandler);
             mocks.VerifyAll();
         }
 
@@ -75,8 +98,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculations[1].Output));
             mocks.ReplayAll();
 
-            var changeHandler = new ClearProbabilisticPipingCalculationOutputChangeHandler(
-                calculations, inquiryHelper, viewCommands);
+            var changeHandler = new ClearPipingCalculationOutputChangeHandler(
+                calculations, inquiryHelper, viewCommands, calculation => ((ProbabilisticPipingCalculationScenario) calculation).Output);
 
             // When
             changeHandler.ClearCalculations();
