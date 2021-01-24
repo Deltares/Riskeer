@@ -40,7 +40,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -68,7 +67,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
-        private const int contextMenuClearIndex = 7;
+        private const int contextMenuClearAllIndex = 7;
         private const int contextMenuClearIllustrationPointsIndex = 8;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
@@ -234,79 +233,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void GivenMultiplePipingCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenPipingOutputCleared(bool confirm)
-        {
-            // Given
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation1 = new TestPipingCalculationScenario(true);
-                var pipingCalculation2 = new TestPipingCalculationScenario(true);
-
-                var observer = mocks.StrictMock<IObserver>();
-                if (confirm)
-                {
-                    observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
-                }
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
-                failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
-                failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
-
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-
-                    messageBoxText = messageBox.Text;
-                    messageBoxTitle = messageBox.Title;
-
-                    if (confirm)
-                    {
-                        messageBox.ClickOk();
-                    }
-                    else
-                    {
-                        messageBox.ClickCancel();
-                    }
-                };
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
-
-                    // Then
-                    foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
-                    {
-                        Assert.AreNotEqual(confirm, calc.HasOutput);
-                    }
-
-                    Assert.AreEqual("Bevestigen", messageBoxTitle);
-                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_FailureMechanismHasCalculationWithOutput_ReturnsContextMenuWithCommonItems()
         {
             // Setup
@@ -336,6 +262,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -413,159 +340,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_ContextMenuItemsClearOutputAndClearIllustrationPointsDisabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
-                failureMechanism.Stub(dm => dm.Calculations).Return(new[]
-                {
-                    new TestPipingCalculationScenario()
-                });
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
-
-                    ToolStripItem clearIllustrationPointsItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearIllustrationPointsItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithOutput_ContextMenuItemClearAllOutputEnabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation = new TestPipingCalculationScenario(true);
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", clearOutputItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsOutputEnabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                };
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis alle berekende illustratiepunten binnen dit toetsspoor.", clearOutputItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismHasCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndToolTipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
-                };
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
@@ -590,6 +364,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -644,6 +419,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -735,6 +511,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -780,6 +557,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -838,12 +616,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
@@ -917,12 +695,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -1015,6 +793,524 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.IsTrue(failureMechanism.IsRelevant);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
+        {
+            // Setup
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
+        {
+            // Given
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithOutput.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        {
+            // Given
+            var semiProbabilisticCalculationWithOutput = new SemiProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+            };
+            var probabilisticCalculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var probabilisticCalculationWithoutOutput = new ProbabilisticPipingCalculationScenario();
+            var semiProbabilisticCalculationWithoutOutput = new SemiProbabilisticPipingCalculationScenario();
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        semiProbabilisticCalculationWithOutput,
+                        probabilisticCalculationWithOutput,
+                        semiProbabilisticCalculationWithoutOutput,
+                        probabilisticCalculationWithoutOutput
+                    }
+                }
+            };
+
+            var affectedCalculationObserver = mocks.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            semiProbabilisticCalculationWithOutput.Attach(affectedCalculationObserver);
+            probabilisticCalculationWithOutput.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocks.StrictMock<IObserver>();
+            semiProbabilisticCalculationWithoutOutput.Attach(unaffectedCalculationObserver);
+            probabilisticCalculationWithoutOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(semiProbabilisticCalculationWithOutput.Output));
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(probabilisticCalculationWithOutput.Output));
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(probabilisticCalculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenTestCalculationWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenNotSupportedExceptionThrown()
+        {
+            // Given
+            var calculation = new TestPipingCalculationScenario(true);
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    void Call() => contextMenu.Items[contextMenuClearAllIndex].PerformClick();
+
+                    // Then
+                    Assert.Throws<NotSupportedException>(Call);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        {
+            // Setup
+            var calculationWithIllustrationPoints = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
+        {
+            // Setup
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithIllustrationPoints.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                    Assert.IsTrue(calculationWithIllustrationPoints.Output.ProfileSpecificOutput.HasGeneralResult);
+                    Assert.IsTrue(calculationWithIllustrationPoints.Output.SectionSpecificOutput.HasGeneralResult);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+
+            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new ProbabilisticPipingCalculationScenario()
+                    }
+                }
+            };
+
+            var affectedCalculationObserver = mocks.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithIllustrationPoints.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                    Assert.IsFalse(calculationWithIllustrationPoints.Output.ProfileSpecificOutput.HasGeneralResult);
+                    Assert.IsFalse(calculationWithIllustrationPoints.Output.SectionSpecificOutput.HasGeneralResult);
                 }
             }
         }

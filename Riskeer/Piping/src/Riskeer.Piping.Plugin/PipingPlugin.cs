@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -618,20 +619,16 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            return assessmentSection != null
+            return o is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as PipingFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<PipingFailureMechanism>;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -639,7 +636,8 @@ namespace Riskeer.Piping.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = o as PipingFailureMechanism;
+            if (o is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -866,10 +864,15 @@ namespace Riskeer.Piping.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            IEnumerable<ProbabilisticPipingCalculationScenario> calculations = pipingFailureMechanismContext.WrappedData
-                                                                                                            .Calculations
-                                                                                                            .OfType<ProbabilisticPipingCalculationScenario>();
+            IPipingCalculationScenario<PipingInput>[] calculations = pipingFailureMechanismContext.WrappedData
+                                                                                                  .Calculations
+                                                                                                  .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                                                  .ToArray();
+
+            ProbabilisticPipingCalculationScenario[] probabilisticCalculations = calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                                                                             .ToArray(); 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
@@ -884,10 +887,25 @@ namespace Riskeer.Piping.Plugin
                               pipingFailureMechanismContext,
                               CalculateAllInFailureMechanism)
                           .AddSeparator()
-                          .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(
+                              () => calculations.Any(c => c.HasOutput),
+                              new ClearPipingCalculationOutputChangeHandler(
+                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands,
+                                  calculation =>
+                                  {
+                                      switch (calculation)
+                                      {
+                                          case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                                              return semiProbabilisticPipingCalculationScenario.Output;
+                                          case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                                              return probabilisticPipingCalculationScenario.Output;
+                                          default:
+                                              throw new NotSupportedException();
+                                      }
+                                  }))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
-                              () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateChangeHandler(inquiryHelper, calculations))
+                              () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
+                              CreateChangeHandler(inquiryHelper, probabilisticCalculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
