@@ -135,94 +135,35 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInGroupItem_WhenBuildWithCalculationOutput_ItemAddedToContextMenuEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddClearAllCalculationOutputInGroupItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
         {
             // Setup
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen."
+                                                : "Er zijn geen berekeningen met uitvoer om te wissen.";
+
             var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
+                              .WhenCalled(arg =>
+                              {
+                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  Assert.AreEqual("&Wis alle uitvoer...", contextMenuItem.Text);
+                                  Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
+                                  Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
+                              });
             mocks.ReplayAll();
 
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithOutput
-                }
-            };
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                                importCommandHandler,
-                                                                exportCommandHandler,
-                                                                updateCommandHandler,
-                                                                viewCommands,
-                                                                calculationGroup, treeViewControl);
-                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
-                // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
+            // Call
+            riskeerContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(
+                () => isEnabled, changeHandler);
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "&Wis alle uitvoer...",
-                                                              "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RiskeerFormsResources.ClearIcon);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddClearAllCalculationOutputInGroupItem_WhenBuildWithoutCalculationOutput_ItemAddedToContextMenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                                importCommandHandler,
-                                                                exportCommandHandler,
-                                                                updateCommandHandler,
-                                                                viewCommands,
-                                                                calculationGroup,
-                                                                treeViewControl);
-                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
-
-                // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "&Wis alle uitvoer...",
-                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                              RiskeerFormsResources.ClearIcon,
-                                                              false);
-            }
-
+            // Assert
             mocks.VerifyAll();
         }
 
