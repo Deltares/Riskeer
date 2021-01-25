@@ -1,0 +1,550 @@
+D:\buildAgent\work\71f1f045dd80b512\DelftTools.Utils.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Delta Shell
+	Product:	Delta Shell
+	Prod version:	1.1.0.34097
+	File version:	1.1.0.34097
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\Deltares.Mathematics.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Deltares.Mathematics
+	Product:	DeltaShellLight Standard
+	Prod version:	16.1.5.1550
+	File version:	16.1.5.1550
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\Deltares.Standard.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Deltares.Standard
+	Product:	DeltaShellLight Standard
+	Prod version:	16.1.5.1550
+	File version:	16.1.5.1550
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\Deltares.WTIPiping.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Piping
+	Product:	Piping
+	Prod version:	16.2.1.4574
+	File version:	16.2.1.4574
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\Deltares.WTIStructuralFailure.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	WTI Structural Failure
+	Product:	Deltares.WTIStructuralFailure
+	Prod version:	18.1.1.7503
+	File version:	18.1.1.7503
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\DeltaShell.Plugins.MorphAn.Domain.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	MorphAn Domain
+	Product:	MorphAn Domain
+	Prod version:	1.4.0
+	File version:	1.4.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\DeltaShell.Plugins.MorphAn.TRDA.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	MorphAn TRDA
+	Product:	MorphAn TRDA
+	Prod version:	1.4.0
+	File version:	1.4.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dikesOverflow.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	dikesOverflow
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\DikesOvertopping.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	dikesOvertopping
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dllDikesOvertopping.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	VTV Dikes Overtopping
+	Product:	VTV Dikes Overtopping
+	Prod version:	16.2.2.4445
+	File version:	16.2.2.4445
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dllHydraulicDunes.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	dllHydraulicDunes
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dllStructuresClosure2018.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	VTV Structures Closure
+	Product:	VTV Structures Closure
+	Prod version:	18.1.1.7499
+	File version:	18.1.1.7499
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dllStructuresConstFailure2017.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	VTV Structures Structural Failure
+	Product:	VTV Structures Structural Failure
+	Prod version:	18.1.1.7503
+	File version:	18.1.1.7503
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\dllStructuresOvertopping2017.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	VTV Structures Overtopping
+	Product:	VTV Structures Overtopping
+	Prod version:	16.2.1.4547
+	File version:	16.2.1.4547
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\duneErosion.Native.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	duneErosion.Native
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\DynamicLib-DaF.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	DaF Module
+	Product:	DaF module: Dam and Foreshore module (dynamic library)
+	Prod version:	20.1.2.717
+	File version:	20.1.2.717
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\feedbackDLL.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Feedback dll
+	Product:	Feedback
+	Prod version:	20.1.1.56
+	File version:	20.1.1.56
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HRutilitiesDll.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HR utilities dll
+	Product:	HR utilities native
+	Prod version:	18.1.1.7503
+	File version:	18.1.1.7503
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HydraRing.Database.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HydraRing.Database
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HydraRing.DuneErosionWrapper.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HydraRing.DuneErosionWrapper
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HydraRing.IO.Native.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HydraRing.IO.Native.dll
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HydraRing.Piping2017Wrapper.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HydraRing.Piping2017Wrapper
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\HydraRing.PluginShared.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	HydraRing.PluginShared
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\hydraring_computation.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	hydraring_computation
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\ICSharpCode.SharpZipLib.dll:
+	Verified:	Unsigned
+	Link date:	11:23 2-8-2005
+	Publisher:	n/a
+	Company:	 
+	Description:	ICSharpCode.SharpZipLibrary
+	Product:	#ZipLibrary
+	Prod version:	0.84.0.0
+	File version:	0.84.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libifcoremd.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Intel(r) Fortran Compiler RTL (thread-safe) 
+	Product:	Intel(r) Visual Fortran Compiler
+	Prod version:	16.0 - 001
+	File version:	16.0 - 001
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libifcorert.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Intel(r) Fortran Compiler RTL (non-thread-safe)
+	Product:	Intel(r) Visual Fortran Compiler
+	Prod version:	16.0 - 001
+	File version:	16.0 - 001
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libifportmd.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Intel(r) Fortran portability library (thread-safe) 
+	Product:	Intel(r) Visual Fortran Compiler
+	Prod version:	16.0 - 001
+	File version:	16.0 - 001
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libiomp5md.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Intel(R) OpenMP* Runtime Library
+	Product:	Intel(R) OpenMP* Runtime Library
+	Prod version:	5.0
+	File version:	20160622
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libiompstubs5md.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Intel(R) OpenMP* Runtime Library
+	Product:	Intel(R) OpenMP* Runtime Library
+	Prod version:	5.0
+	File version:	20160622
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\libmmd.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	Math Library for Intel(r) Compilers (thread-safe)
+	Product:	Intel(R) C/C++/Fortran Compiler
+	Prod version:	16.0.0
+	File version:	16.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\log4net.dll:
+	Verified:	Unsigned
+	Link date:	13:24 30-3-2006
+	Publisher:	n/a
+	Company:	The Apache Software Foundation
+	Description:	log4net for .NET Framework 2.0
+	Product:	log4net
+	Prod version:	1.2
+	File version:	1.2.10.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\LumenWorks.Framework.IO.dll:
+	Verified:	Unsigned
+	Link date:	22:12 10-11-2011
+	Publisher:	n/a
+	Company:	n/a
+	Description:	LumenWorks.Framework.IO
+	Product:	LumenWorks.Framework.IO
+	Prod version:	3.8.0.0
+	File version:	3.8.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\MathNet.Numerics.dll:
+	Verified:	Unsigned
+	Link date:	17:27 21-9-2015
+	Publisher:	n/a
+	Company:	Math.NET Project
+	Description:	Math.NET Numerics
+	Product:	Math.NET Numerics
+	Prod version:	3.7.1
+	File version:	3.7.1.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\msvcr110.dll:
+	Verified:	Signed
+	Signing date:	09:50 6-11-2012
+	Publisher:	Microsoft Corporation
+	Company:	Microsoft Corporation
+	Description:	Microsoftr C Runtime Library
+	Product:	Microsoftr Visual Studior 2012
+	Prod version:	11.00.51106.1
+	File version:	11.00.51106.1 built by: Q11REL
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\msvcrt.dll:
+	Verified:	Unsigned
+	Link date:	11:40 29-8-2002
+	Publisher:	n/a
+	Company:	Microsoft Corporation
+	Description:	Windows NT CRT DLL
+	Product:	Microsoftr Windowsr Operating System
+	Prod version:	7.0.2600.1106
+	File version:	7.0.2600.1106 (xpsp1.020828-1920)
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\NDepend.Helpers.FileDirectoryPath.dll:
+	Verified:	Unsigned
+	Link date:	16:43 13-10-2008
+	Publisher:	n/a
+	Company:	n/a
+	Description:	NDepend.Framework.Path
+	Product:	NDepend.Framework.Path
+	Prod version:	1.0.0.0
+	File version:	1.0.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\nunit.framework.dll:
+	Verified:	Unsigned
+	Link date:	05:16 23-10-2012
+	Publisher:	n/a
+	Company:	NUnit.org
+	Description:	 
+	Product:	NUnit
+	Prod version:	2.6.2.12296
+	File version:	2.6.2.12296
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\piping2017.Native.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	piping2017.Native
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\PostSharp.dll:
+	Verified:	Unsigned
+	Link date:	20:26 13-12-2012
+	Publisher:	n/a
+	Company:	SharpCrafters s.r.o.
+	Description:	PostSharp
+	Product:	PostSharp 2.1
+	Prod version:	2.1.7.28
+	File version:	2.1.7.28
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\probabilisticLib.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	probabilistic native dll
+	Product:	probabilistic native
+	Prod version:	20.1.1.397
+	File version:	20.1.1.397
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\protobuf-net.dll:
+	Verified:	Unsigned
+	Link date:	09:20 30-9-2013
+	Publisher:	n/a
+	Company:	Marc Gravell
+	Description:	protobuf-net
+	Product:	protobuf-net
+	Prod version:	2.0.0.668
+	File version:	2.0.0.668
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\ProtoBufRemote.dll:
+	Verified:	Unsigned
+	Link date:	08:35 31-3-2014
+	Publisher:	n/a
+	Company:	n/a
+	Description:	ProtoBufRemote
+	Product:	ProtoBufRemote
+	Prod version:	1.0.0.0
+	File version:	1.0.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\structuresClosure2018.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	structuresClosure2018
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\structuresOvertopping2017.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	structuresOvertopping2017
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\structuresStructuralFailure2017.Native.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	structuresStructuralFailure2017.Native
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10167
+	File version:	20.1.2.10167
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\StructuresStructuralFailure2017wrapper.dll:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	Structures2017wrapper
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\svml_dispmd.dll:
+	Verified:	Signed
+	Signing date:	04:51 12-8-2016
+	Publisher:	Intel(R) Software Development Products
+	Company:	Intel Corporation
+	Description:	SVML Library for Intel(r) Compilers (thread-safe)
+	Product:	Intel(R) C/C++/Fortran Compiler
+	Prod version:	16.0.0
+	File version:	16.0.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\System.Data.SQLite.dll:
+	Verified:	Unsigned
+	Link date:	23:14 23-12-2013
+	Publisher:	n/a
+	Company:	http://system.data.sqlite.org/
+	Description:	System.Data.SQLite Core
+	Product:	System.Data.SQLite
+	Prod version:	1.0.90.0
+	File version:	1.0.90.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\System.Data.SQLite.Linq.dll:
+	Verified:	Unsigned
+	Link date:	23:14 23-12-2013
+	Publisher:	n/a
+	Company:	http://system.data.sqlite.org/
+	Description:	System.Data.SQLite for LINQ
+	Product:	System.Data.SQLite
+	Prod version:	1.0.90.0
+	File version:	1.0.90.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\x64\SQLite.Interop.dll:
+	Verified:	Unsigned
+	Link date:	23:19 23-12-2013
+	Publisher:	n/a
+	Company:	Robert Simpson, et al.
+	Description:	System.Data.SQLite Interop Assembly
+	Product:	System.Data.SQLite
+	Prod version:	1.0.90.0
+	File version:	1.0.90.0
+	MachineType:	64-bit
+D:\buildAgent\work\71f1f045dd80b512\x86\SQLite.Interop.dll:
+	Verified:	Unsigned
+	Link date:	23:17 23-12-2013
+	Publisher:	n/a
+	Company:	Robert Simpson, et al.
+	Description:	System.Data.SQLite Interop Assembly
+	Product:	System.Data.SQLite
+	Prod version:	1.0.90.0
+	File version:	1.0.90.0
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\exePreprocessClosure2017.exe:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	exePreprocessorClosure2017
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\exeRingComputation.exe:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	exeRingComputation
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
+D:\buildAgent\work\71f1f045dd80b512\MechanismComputation.exe:
+	Verified:	Signed
+	Signing date:	14:54 18-1-2021
+	Publisher:	Stichting Deltares
+	Company:	Deltares
+	Description:	exeMechanismComputation
+	Product:	Hydra-Ring
+	Prod version:	20.1.2.10168
+	File version:	20.1.2.10168
+	MachineType:	32-bit
