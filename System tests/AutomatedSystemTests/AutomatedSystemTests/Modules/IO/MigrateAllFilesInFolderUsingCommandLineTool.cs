@@ -77,17 +77,31 @@ namespace AutomatedSystemTests.Modules.IO
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
                 
-                //string commandToRun = "..\\..\\..\\..\\..\\bin\\Debug\\Application\\Built-in\\Managed\\Core\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath;
-                string commandToRun = "dir *.*";
+                //string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Application\\Built-in\\Managed\\Core\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >borrame.log";
+                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >borrame.log";
+                //string commandToRun = "/C dir *.* >borrame.log";
                 
-                var psi = new ProcessStartInfo(commandToRun) {
-                    UseShellExecute = true,
-                    CreateNoWindow = false
-                        };
+                RunCommand(commandToRun);
+               //var psi = new ProcessStartInfo(commandToRun) {
+               //     UseShellExecute = true,
+               //     CreateNoWindow = false
+               //         };
                 //Process.Start(psi);
                 
-                System.Diagnostics.Process.Start("dir *.*");
+                //System.Diagnostics.Process.Start("dir *.*");
                 }
+        }
+        
+        private void RunCommand(string arguments)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal; //.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = arguments;
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
         }
     }
 }

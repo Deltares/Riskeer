@@ -3058,6 +3058,26 @@
 			id="7afa684a-e56c-40bf-a558-205a01981f48"
 			name="ValidateResultsArePresentPresentInDocumentView">
 			</smartfoldernode>
+			<testmodule
+			id="7b46487b-8340-4162-8283-7cb9b6adc135"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="migrationSourceFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="7cae3723-56cc-46ba-9370-bcd530937e5e"
 			name="CloseView">
@@ -3982,7 +4002,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\External\Project_15a_15b_15c_zonder_resultaten.risk">
+					value="X:\script15\input\Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -5378,6 +5398,14 @@
 					name="scriptOutputFolder"
 					value="">
 					</param>
+					<param
+					name="migrationSourceFolder"
+					value="X:\script15\previous">
+					</param>
+					<param
+					name="migrationTargetFolder"
+					value="X:\script15\input">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -6132,6 +6160,10 @@
 							<testmodule
 							id="f9fa10a4-99b8-4076-b4f8-2c0e0940be6d"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="7b46487b-8340-4162-8283-7cb9b6adc135"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
@@ -15479,9 +15511,6 @@
 			id="32a9abb3-6d3e-48db-bead-8095281ea75c">
 			</testcontainer>
 			<testcontainer
-			id="37d99e11-0635-4c04-bec0-191fa870e60d">
-			</testcontainer>
-			<testcontainer
 			id="384a4933-2908-4423-9d4a-912d2fac3951">
 			</testcontainer>
 			<testcontainer
@@ -15765,9 +15794,6 @@
 			</testcontainer>
 			<testcontainer
 			id="bfd4a3f7-8b3f-48c9-b761-bcbcc2fb23fe">
-			</testcontainer>
-			<testcontainer
-			id="c25bc42c-e8a4-4af0-bccd-5621c9fffb0f">
 			</testcontainer>
 			<testcontainer
 			id="c50ee907-ba85-4bed-9a8f-8b71cb88fb74">
