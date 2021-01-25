@@ -142,26 +142,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInGroupItem_GroupWithCalculationOutput_CreatesDecoratedAndEnabledItem()
+        public void CreateClearAllCalculationOutputInGroupItem_EnabledFuncTrue_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithOutput
-                }
-            };
-
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(
+                () => true, changeHandler);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -173,26 +163,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInGroupItem_GroupWithoutCalculationOutput_CreatesDecoratedAndDisabledItem()
+        public void CreateClearAllCalculationOutputInGroupItem_EnabledFuncFalse_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
-
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-
+            var changeHandler = mocks.Stub<IClearCalculationOutputChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithoutOutput
-                }
-            };
-
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(
+                () => false, changeHandler);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -204,111 +184,59 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
+        public void CreateClearAllCalculationOutputInGroupItem_WhenClickPerformedAndActionContinued_ThenClearCalculationsPerformedAndObserversNotified()
         {
-            var messageBoxText = "";
-            var messageBoxTitle = "";
+            // Given
             var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculation1 = mocks.StrictMock<ICalculation>();
+            var calculation2 = mocks.StrictMock<ICalculation>();
+            var calculation3 = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
+            var changeHandler = mocks.StrictMock<IClearCalculationOutputChangeHandler>();
+            changeHandler.Expect(ch => ch.InquireConfirmation()).Return(true);
+            changeHandler.Expect(ch => ch.ClearCalculations()).Return(new[]
+            {
+                calculation1,
+                calculation2,
+                calculation3
+            });
 
-            calculationWithOutputMock1.Expect(c => c.ClearOutput());
-            calculationWithOutputMock1.Expect(c => c.NotifyObservers());
-            calculationWithOutputMock2.Expect(c => c.ClearOutput());
-            calculationWithOutputMock2.Expect(c => c.NotifyObservers());
-
+            calculation1.Expect(c => c.NotifyObservers());
+            calculation2.Expect(c => c.NotifyObservers());
+            calculation3.Expect(c => c.NotifyObservers());
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(
+                () => true, changeHandler);
 
-                messageBox.ClickOk();
-            };
-
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithOutputMock1,
-                    new CalculationGroup
-                    {
-                        Children =
-                        {
-                            calculationWithOutputMock2,
-                            calculationWithoutOutput
-                        }
-                    }
-                }
-            };
-
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
-
-            // Call
+            // When
             toolStripItem.PerformClick();
 
-            // Assert
-            Assert.AreEqual("Bevestigen", messageBoxTitle);
-            Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-
+            // Then
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
+        public void CreateClearAllCalculationOutputInGroupItem_WhenWhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
+            // Given
             var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
-
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
+            var changeHandler = mocks.StrictMock<IClearCalculationOutputChangeHandler>();
+            changeHandler.Expect(ch => ch.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(
+                () => true, changeHandler);
 
-                messageBox.ClickCancel();
-            };
-
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithOutputMock1,
-                    new CalculationGroup
-                    {
-                        Children =
-                        {
-                            calculationWithOutputMock2,
-                            calculationWithoutOutput
-                        }
-                    }
-                }
-            };
-
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
-
-            // Call
+            // When
             toolStripItem.PerformClick();
 
-            // Assert
+            // Then
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInFailureMechanismItem_FailureMechanismWithCalculationOutput_CreatesDecoratedAndEnabledItem()
+        public void CreateClearAllCalculationOutputInFailureMechanismItem_EnabledFuncTrue_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -329,7 +257,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInFailureMechanismItem_FailureMechanismWithoutCalculationOutput_CreatesDecoratedAndDisabledItem()
+        public void CreateClearAllCalculationOutputInFailureMechanismItem_EnabledFuncFalse_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();

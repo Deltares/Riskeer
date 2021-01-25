@@ -83,23 +83,26 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in the calculation group.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group to clear the output for.</param>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the calculation output.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
+        public static StrictContextMenuItem CreateClearAllCalculationOutputInGroupItem(
+            Func<bool> isContextItemEnabledFunc, IClearCalculationOutputChangeHandler changeHandler)
         {
-            var clearAllItem = new StrictContextMenuItem(
+            bool enabled = isContextItemEnabledFunc();
+
+            string toolTip = enabled
+                                 ? Resources.CalculationGroup_ClearOutput_ToolTip
+                                 : Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+            
+            return new StrictContextMenuItem(
                 Resources.Clear_all_output,
-                Resources.CalculationGroup_ClearOutput_ToolTip,
+                toolTip,
                 Resources.ClearIcon,
-                (o, args) => ClearAllCalculationOutputInGroup(calculationGroup));
-
-            if (!calculationGroup.HasOutput())
+                (o, args) => ClearAllCalculationOutput(changeHandler))
             {
-                clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
-            }
-
-            return clearAllItem;
+                Enabled = enabled
+            };
         }
 
         /// <summary>
@@ -310,7 +313,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 Resources.Clear_all_output,
                 toolTip,
                 Resources.ClearIcon,
-                (o, args) => ClearAllCalculationOutputInFailureMechanism(changeHandler))
+                (o, args) => ClearAllCalculationOutput(changeHandler))
             {
                 Enabled = enabled
             };
@@ -643,7 +646,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             }
         }
 
-        private static void ClearAllCalculationOutputInFailureMechanism(IClearCalculationOutputChangeHandler changeHandler)
+        private static void ClearAllCalculationOutput(IClearCalculationOutputChangeHandler changeHandler)
         {
             if (changeHandler.InquireConfirmation())
             {
