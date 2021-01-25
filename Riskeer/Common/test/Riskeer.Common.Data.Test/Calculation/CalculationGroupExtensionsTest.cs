@@ -59,7 +59,7 @@ namespace Riskeer.Common.Data.Test.Calculation
         }
 
         [Test]
-        public void GetCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
+        public void GetCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursivelyInAnyOrder()
         {
             // Setup
             var mocks = new MockRepository();
@@ -96,49 +96,6 @@ namespace Riskeer.Common.Data.Test.Calculation
                 calculation4
             };
             CollectionAssert.AreEquivalent(itemsThatShouldBeFound, result);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearCalculationOutput_ForCalculationGroupWithGroupsAndCalculations_OutputOfRelevantCalculationsIsClearedAndObserversAreNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation2 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-            var calculation4 = mocks.StrictMock<ICalculation>();
-
-            calculation1.Expect(c => c.HasOutput).Return(true);
-            calculation2.Expect(c => c.HasOutput).Return(true);
-            calculation3.Expect(c => c.HasOutput).Return(false);
-            calculation4.Expect(c => c.HasOutput).Return(false);
-            calculation1.Expect(c => c.ClearOutput());
-            calculation2.Expect(c => c.ClearOutput());
-            calculation1.Expect(c => c.NotifyObservers());
-            calculation2.Expect(c => c.NotifyObservers());
-
-            mocks.ReplayAll();
-
-            var subsubGroup = new CalculationGroup();
-            subsubGroup.Children.Add(calculation4);
-
-            var subgroup1 = new CalculationGroup();
-            subgroup1.Children.Add(calculation2);
-            subgroup1.Children.Add(subsubGroup);
-
-            var subgroup2 = new CalculationGroup();
-            subgroup2.Children.Add(calculation3);
-
-            var rootGroup = new CalculationGroup();
-            rootGroup.Children.Add(subgroup1);
-            rootGroup.Children.Add(calculation1);
-            rootGroup.Children.Add(subgroup2);
-
-            // Call
-            rootGroup.ClearCalculationOutput();
-
-            // Assert
             mocks.VerifyAll();
         }
 

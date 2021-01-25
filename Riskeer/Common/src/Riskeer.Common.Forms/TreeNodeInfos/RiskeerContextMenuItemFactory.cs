@@ -665,16 +665,6 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             calculationGroup.NotifyObservers();
         }
 
-        private static void ClearAllCalculationOutputInGroup(CalculationGroup calculationGroup)
-        {
-            if (MessageBox.Show(Resources.CalculationGroup_ClearOutput_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            calculationGroup.ClearCalculationOutput();
-        }
-
         private static void ClearCalculationOutput(ICalculation calculation)
         {
             if (MessageBox.Show(Resources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)

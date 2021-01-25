@@ -42,8 +42,7 @@ namespace Riskeer.Common.Data.Calculation
             {
                 children.Add(calculationItem);
 
-                var nestedCalculationGroup = calculationItem as CalculationGroup;
-                if (nestedCalculationGroup != null)
+                if (calculationItem is CalculationGroup nestedCalculationGroup)
                 {
                     children.AddRange(GetAllChildrenRecursive(nestedCalculationGroup));
                 }
@@ -63,34 +62,18 @@ namespace Riskeer.Common.Data.Calculation
             var calculations = new List<ICalculation>();
             foreach (ICalculationBase calculationItem in calculationGroup.Children)
             {
-                var calculation = calculationItem as ICalculation;
-                if (calculation != null)
+                if (calculationItem is ICalculation calculation)
                 {
                     calculations.Add(calculation);
                 }
 
-                var nestedCalculationGroup = calculationItem as CalculationGroup;
-                if (nestedCalculationGroup != null)
+                if (calculationItem is CalculationGroup nestedCalculationGroup)
                 {
                     calculations.AddRange(GetCalculations(nestedCalculationGroup));
                 }
             }
 
             return calculations;
-        }
-
-        /// <summary>
-        /// Clears the output of all calculations with output in a calculation group.
-        /// </summary>
-        /// <param name="calculationGroup">The calculation group to clear the output for.</param>
-        /// <remarks>The calculation group is enumerated recursively, also taking into account nested calculations.</remarks>
-        public static void ClearCalculationOutput(this CalculationGroup calculationGroup)
-        {
-            foreach (ICalculation calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
-            {
-                calc.ClearOutput();
-                calc.NotifyObservers();
-            }
         }
 
         /// <summary>
