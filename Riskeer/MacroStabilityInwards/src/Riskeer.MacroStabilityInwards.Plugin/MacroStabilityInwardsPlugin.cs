@@ -675,8 +675,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new ClearMacroStabilityInwardsCalculationOutputChangeHandler(
-                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                              CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -764,6 +763,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateMacroStabilityInwardsCalculationsItem(nodeData);
 
+            MacroStabilityInwardsCalculationScenario[] calculations = group.GetCalculations()
+                                                                           .Cast<MacroStabilityInwardsCalculationScenario>()
+                                                                           .ToArray();
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
+
             if (!isNestedGroup)
             {
                 builder.AddOpenItem()
@@ -802,7 +808,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands));
 
             if (isNestedGroup)
             {
@@ -973,6 +981,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         }
 
         #endregion
+
+        private static ClearMacroStabilityInwardsCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearMacroStabilityInwardsCalculationOutputChangeHandler(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands);
+        }
 
         #endregion
 
