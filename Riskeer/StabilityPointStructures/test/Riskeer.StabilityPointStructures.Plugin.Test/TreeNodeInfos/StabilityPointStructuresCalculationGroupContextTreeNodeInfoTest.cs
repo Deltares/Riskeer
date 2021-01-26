@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
@@ -545,6 +546,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -576,6 +578,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -645,8 +648,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -684,8 +688,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -723,8 +728,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -763,8 +769,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -836,9 +843,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 ChangeStructure(structure);
@@ -921,9 +928,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 ChangeStructure(structure);
@@ -1014,9 +1021,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 ChangeStructure(structure);
@@ -1072,6 +1079,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1129,6 +1137,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1142,6 +1151,218 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>(),
+                    new CalculationGroup
+                    {
+                        Children =
+                        {
+                            new StructuresCalculationScenario<StabilityPointStructuresInput>
+                            {
+                                Output = new TestStructuresOutput()
+                            }
+                        }
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                calculationGroup, null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndexRootGroup];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>()
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                calculationGroup, null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearAllIndexRootGroup];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
+        {
+            // Given
+            var calculationWithOutput = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>()
+                }
+            };
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithOutput.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                calculationGroup, null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        {
+            // Given
+            var calculationWithOutput = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var calculationWithoutOutput = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    calculationWithoutOutput
+                }
+            };
+
+            var affectedCalculationObserver = mocks.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithOutput.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithoutOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                calculationGroup, null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithOutput.Output));
+
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(calculationWithOutput.HasOutput);
                 }
             }
         }
@@ -1180,6 +1401,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1223,6 +1445,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1283,6 +1506,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1350,6 +1574,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1734,7 +1959,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());

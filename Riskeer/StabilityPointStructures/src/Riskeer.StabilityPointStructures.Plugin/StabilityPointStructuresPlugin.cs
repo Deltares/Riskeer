@@ -435,11 +435,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new ClearStructuresCalculationOutputChangeHandler<StabilityPointStructuresInput>(
-                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                              CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateChangeHandler(inquiryHelper, calculations))
+                              CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -523,15 +522,17 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
-            StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
-                                                                                  .GetCalculations()
-                                                                                  .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                  .ToArray();
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculations = group
+                                                                                          .GetCalculations()
+                                                                                          .OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>()
+                                                                                          .ToArray();
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             if (!isNestedGroup)
             {
@@ -563,8 +564,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -576,9 +578,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(
+                       () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
@@ -851,10 +856,17 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static ClearStructuresCalculationOutputChangeHandler<StabilityPointStructuresInput> CreateClearCalculationOutputChangeHandler(
+            IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearStructuresCalculationOutputChangeHandler<StabilityPointStructuresInput>(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands);
         }
 
         private static string EnableValidateAndCalculateMenu(IAssessmentSection assessmentSection)
