@@ -602,11 +602,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInFailureMechanismItem(
                        () => calculations.Any(c => c.HasOutput),
-                       new ClearGrassCoverErosionInwardsCalculationOutputChangeHandler(
-                           calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                        () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateChangeHandler(inquiryHelper, calculations))
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()
@@ -693,13 +692,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
 
-            GrassCoverErosionInwardsCalculation[] calculations = context.WrappedData
-                                                                        .GetCalculations()
-                                                                        .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                        .ToArray();
+            GrassCoverErosionInwardsCalculationScenario[] calculations = context.WrappedData
+                                                                                .GetCalculations()
+                                                                                .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                .ToArray();
             StrictContextMenuItem updateDikeProfileItem = CreateUpdateAllDikeProfilesItem(calculations);
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -744,9 +744,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(
+                       () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
@@ -1037,10 +1040,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static ClearGrassCoverErosionInwardsCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearGrassCoverErosionInwardsCalculationOutputChangeHandler(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands);
         }
 
         private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
