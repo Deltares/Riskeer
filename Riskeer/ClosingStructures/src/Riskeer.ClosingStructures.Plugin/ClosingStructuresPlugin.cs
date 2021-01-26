@@ -428,11 +428,10 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new ClearStructuresCalculationOutputChangeHandler<ClosingStructuresInput>(
-                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                              CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateChangeHandler(inquiryHelper, calculations))
+                              CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -518,13 +517,17 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
-            StructuresCalculation<ClosingStructuresInput>[] calculations = group
-                                                                           .GetCalculations()
-                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculations = group
+                                                                                   .GetCalculations()
+                                                                                   .Cast<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                   .ToArray();
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             if (!isNestedGroup)
             {
@@ -556,8 +559,9 @@ namespace Riskeer.ClosingStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -569,9 +573,12 @@ namespace Riskeer.ClosingStructures.Plugin
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(
+                       () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
@@ -841,10 +848,17 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static ClearStructuresCalculationOutputChangeHandler<ClosingStructuresInput> CreateClearCalculationOutputChangeHandler(
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearStructuresCalculationOutputChangeHandler<ClosingStructuresInput>(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands);
         }
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations, IAssessmentSection assessmentSection)
