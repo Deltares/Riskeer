@@ -467,8 +467,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(
                        () => calculations.Any(c => c.HasOutput),
-                       new WaveConditionsCalculationOutputChangeHandler(
-                           calculations.Where(c => c.HasOutput), inquiryHelper));
+                       CreateClearWaveConditionsCalculationOutputChangeHandler(calculations, inquiryHelper));
 
             if (isNestedGroup)
             {
@@ -615,6 +614,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
             return builder
                    .AddExportItem()
@@ -622,8 +623,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddDuplicateCalculationItem(calculation, nodeData)
                    .AddSeparator()
                    .AddRenameItem()
-                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
-                                                               SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddUpdateForeshoreProfileOfCalculationItem(
+                       calculation, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(nodeData,
                                                Validate,
@@ -631,7 +633,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddPerformCalculationItem<StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverWaveConditionsCalculationContext>(
                        nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
                    .AddSeparator()
-                   .AddClearCalculationOutputItem(calculation)
+                   .AddClearCalculationOutputItem(
+                       () => calculation.HasOutput,
+                       CreateClearWaveConditionsCalculationOutputChangeHandler(new[]
+                       {
+                           calculation
+                       }, inquiryHelper))
                    .AddDeleteItem()
                    .AddSeparator()
                    .AddCollapseAllItem()
@@ -684,6 +691,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        private static WaveConditionsCalculationOutputChangeHandler CreateClearWaveConditionsCalculationOutputChangeHandler(
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, IInquiryHelper inquiryHelper)
+        {
+            return new WaveConditionsCalculationOutputChangeHandler(
+                calculations.Where(c => c.HasOutput), inquiryHelper);
         }
 
         #endregion

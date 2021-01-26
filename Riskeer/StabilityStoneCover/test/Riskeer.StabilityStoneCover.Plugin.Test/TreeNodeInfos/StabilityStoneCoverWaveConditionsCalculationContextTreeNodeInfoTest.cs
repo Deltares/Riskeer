@@ -1590,169 +1590,171 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
         {
-            // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
+            // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Name = "A",
-                Output = null
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
-                                                                                  parent,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(
+                calculation, new CalculationGroup(), new StabilityStoneCoverFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[clearOutputMenuItemIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void GivenCalculationWithOutput_ThenClearOutputItemEnabled()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
         {
-            // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
-            var parent = new CalculationGroup();
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Name = "A",
-                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
-            };
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
-                                                                                  parent,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(
+                calculation, new CalculationGroup(), new StabilityStoneCoverFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Wis de uitvoer van deze berekening.",
-                                                                  RiskeerCommonFormsResources.ClearIcon);
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[clearOutputMenuItemIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
+        public void GivenCalculationsWithOutput_WhenClearCalculationOutputClickedAndAborted_ThenInquiryAndCalculationOutputNotCleared()
         {
             // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Name = "A",
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
-            calculation.Attach(observer);
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
-                                                                                  parent,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculation.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(
+                calculation, new CalculationGroup(), new StabilityStoneCoverFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
-                    validateMenuItem.PerformClick();
+                    contextMenu.Items[clearOutputMenuItemIndex].PerformClick();
 
                     // Then
-                    Assert.IsNull(calculation.Output);
-                    // Check expectancies in TearDown()
+                    Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculation.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearCalculationOutputClickedAndContinued_ThenInquiryAndCalculationOutputCleared()
+        {
+            // Given
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
+            };
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            calculation.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(
+                calculation, new CalculationGroup(), new StabilityStoneCoverFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[clearOutputMenuItemIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(calculation.HasOutput);
                 }
             }
         }
