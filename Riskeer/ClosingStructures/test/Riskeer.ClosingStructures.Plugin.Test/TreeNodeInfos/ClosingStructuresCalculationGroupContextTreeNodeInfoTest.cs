@@ -669,8 +669,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = true;
 
                 // Call
@@ -727,8 +725,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -768,7 +764,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var nodeData = new ClosingStructuresCalculationGroupContext(
                 calculationGroup, null, new ClosingStructuresFailureMechanism(), assessmentSection);
-            
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -777,8 +773,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -807,7 +801,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var nodeData = new ClosingStructuresCalculationGroupContext(
                 calculationGroup, null, new ClosingStructuresFailureMechanism(), assessmentSection);
-            
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -816,8 +810,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -872,8 +864,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -939,8 +929,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
@@ -953,7 +941,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
         public void ContextMenuStrip_CalculationGroupWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
         {
@@ -990,8 +978,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1034,8 +1020,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1095,8 +1079,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1163,8 +1145,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {

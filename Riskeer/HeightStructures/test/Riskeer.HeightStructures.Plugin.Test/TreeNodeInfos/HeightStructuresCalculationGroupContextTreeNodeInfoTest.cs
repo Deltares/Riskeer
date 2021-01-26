@@ -795,8 +795,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = true;
 
                 // Call
@@ -853,8 +851,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -904,8 +900,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
@@ -942,8 +936,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -998,8 +990,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1065,8 +1055,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
@@ -1117,8 +1105,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
@@ -1160,8 +1146,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1221,8 +1205,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1289,8 +1271,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {

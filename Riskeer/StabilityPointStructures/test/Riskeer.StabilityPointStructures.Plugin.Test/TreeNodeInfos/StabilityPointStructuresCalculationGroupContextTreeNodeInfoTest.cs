@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
@@ -1082,8 +1081,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = true;
 
                 // Call
@@ -1140,8 +1137,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1191,8 +1186,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
@@ -1229,8 +1222,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1285,8 +1276,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.StrictMock<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1352,8 +1341,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
@@ -1404,8 +1391,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
@@ -1447,8 +1432,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1508,8 +1491,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1576,8 +1557,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1754,8 +1733,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
@@ -1841,8 +1818,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Call
@@ -1905,8 +1880,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
@@ -1964,8 +1937,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -2030,8 +2001,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
