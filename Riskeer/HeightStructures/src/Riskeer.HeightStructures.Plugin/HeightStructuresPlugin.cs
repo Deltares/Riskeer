@@ -432,11 +432,10 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new ClearStructuresCalculationOutputChangeHandler<HeightStructuresInput>(
-                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands))
+                              CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateChangeHandler(inquiryHelper, calculations))
+                              CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -521,14 +520,17 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
-            StructuresCalculation<HeightStructuresInput>[] calculations = group
-                                                                          .GetCalculations()
-                                                                          .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                          .ToArray();
+            StructuresCalculationScenario<HeightStructuresInput>[] calculations = group
+                                                                                  .GetCalculations()
+                                                                                  .OfType<StructuresCalculationScenario<HeightStructuresInput>>()
+                                                                                  .ToArray();
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             if (!isNestedGroup)
             {
@@ -560,8 +562,9 @@ namespace Riskeer.HeightStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -573,9 +576,12 @@ namespace Riskeer.HeightStructures.Plugin
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(
+                       () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
@@ -848,10 +854,17 @@ namespace Riskeer.HeightStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static ClearStructuresCalculationOutputChangeHandler<HeightStructuresInput> CreateClearCalculationOutputChangeHandler(
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearStructuresCalculationOutputChangeHandler<HeightStructuresInput>(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands);
         }
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations,
