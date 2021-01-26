@@ -470,8 +470,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(
                        () => calculations.Any(c => c.HasOutput),
-                       new WaveConditionsCalculationOutputChangeHandler(
-                           calculations.Where(c => c.HasOutput), inquiryHelper));
+                       CreateClearWaveConditionsCalculationOutputChangeHandler(calculations, inquiryHelper));
 
             if (isNestedGroup)
             {
@@ -618,21 +617,29 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, nodeData)
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
-                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                          .AddUpdateForeshoreProfileOfCalculationItem(
+                              calculation, inquiryHelper,
+                              SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
-                          .AddValidateCalculationItem(nodeData,
-                                                      Validate,
-                                                      EnableValidateAndCalculateMenuItemForCalculation)
+                          .AddValidateCalculationItem(
+                              nodeData, Validate,
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                               nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearWaveConditionsCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -684,6 +691,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        private static WaveConditionsCalculationOutputChangeHandler CreateClearWaveConditionsCalculationOutputChangeHandler(
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, IInquiryHelper inquiryHelper)
+        {
+            return new WaveConditionsCalculationOutputChangeHandler(
+                calculations.Where(c => c.HasOutput), inquiryHelper);
         }
 
         #endregion
