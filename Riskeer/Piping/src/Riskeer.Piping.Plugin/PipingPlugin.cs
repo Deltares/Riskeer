@@ -870,7 +870,7 @@ namespace Riskeer.Piping.Plugin
                                                                                                   .ToArray();
 
             ProbabilisticPipingCalculationScenario[] probabilisticCalculations = calculations.OfType<ProbabilisticPipingCalculationScenario>()
-                                                                                             .ToArray(); 
+                                                                                             .ToArray();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
 
@@ -889,23 +889,10 @@ namespace Riskeer.Piping.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(
                               () => calculations.Any(c => c.HasOutput),
-                              new ClearPipingCalculationOutputChangeHandler(
-                                  calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands,
-                                  calculation =>
-                                  {
-                                      switch (calculation)
-                                      {
-                                          case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
-                                              return semiProbabilisticPipingCalculationScenario.Output;
-                                          case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
-                                              return probabilisticPipingCalculationScenario.Output;
-                                          default:
-                                              throw new NotSupportedException();
-                                      }
-                                  }))
+                              CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
-                              CreateChangeHandler(inquiryHelper, probabilisticCalculations))
+                              CreateIllustrationPointsChangeHandler(inquiryHelper, probabilisticCalculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1022,6 +1009,7 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             if (!isNestedGroup)
             {
@@ -1064,10 +1052,12 @@ namespace Riskeer.Piping.Plugin
                        nodeData,
                        CalculateAllInCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(
                        () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
-                       CreateChangeHandler(inquiryHelper, probabilisticCalculations));
+                       CreateIllustrationPointsChangeHandler(inquiryHelper, probabilisticCalculations));
 
             if (isNestedGroup)
             {
@@ -1459,10 +1449,29 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
         {
             return new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static ClearPipingCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+        {
+            return new ClearPipingCalculationOutputChangeHandler(
+                calculations.Where(c => c.HasOutput), inquiryHelper, viewCommands,
+                calculation =>
+                {
+                    switch (calculation)
+                    {
+                        case SemiProbabilisticPipingCalculationScenario semiProbabilisticPipingCalculationScenario:
+                            return semiProbabilisticPipingCalculationScenario.Output;
+                        case ProbabilisticPipingCalculationScenario probabilisticPipingCalculationScenario:
+                            return probabilisticPipingCalculationScenario.Output;
+                        default:
+                            throw new NotSupportedException();
+                    }
+                });
         }
 
         /// <summary>
