@@ -121,7 +121,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var changeHandler = new TestClearCalculationOutputChangeHandler(Enumerable.Empty<ICalculationScenario>(), inquiryHelper, viewCommands);
 
             // Call
-            bool confirmation = changeHandler.InquireConfirmation();
+            bool confirmation = changeHandler.InquireConfirmation(expectedInquiry);
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);

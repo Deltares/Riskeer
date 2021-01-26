@@ -32,8 +32,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <summary>
         /// Gets confirmation for clearing the illustration points.
         /// </summary>
+        /// <param name="confirmationMessage">The confirmation message to which the user needs to answer.</param>
         /// <returns><c>true</c> when confirmation is given, <c>false</c> otherwise.</returns>
-        bool InquireConfirmation();
+        bool InquireConfirmation(string confirmationMessage);
 
         /// <summary>
         /// Clears all illustration points and returns the affected objects.

@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
@@ -69,9 +68,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers
             ViewCommands = viewCommands;
         }
 
-        public bool InquireConfirmation()
+        public bool InquireConfirmation(string confirmationMessage)
         {
-            return inquiryHelper.InquireContinuation(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output);
+            return inquiryHelper.InquireContinuation(confirmationMessage);
         }
 
         public IEnumerable<IObservable> ClearCalculations()

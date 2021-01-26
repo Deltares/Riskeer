@@ -96,7 +96,7 @@ namespace Riskeer.Revetment.Forms.Test.ChangeHandlers
             var changeHandler = new WaveConditionsCalculationOutputChangeHandler(Enumerable.Empty<ICalculation<WaveConditionsInput>>(), inquiryHelper);
 
             // Call
-            bool confirmation = changeHandler.InquireConfirmation();
+            bool confirmation = changeHandler.InquireConfirmation(expectedInquiry);
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);

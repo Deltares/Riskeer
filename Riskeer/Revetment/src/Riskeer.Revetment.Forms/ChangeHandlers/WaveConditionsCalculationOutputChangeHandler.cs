@@ -26,7 +26,6 @@ using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Revetment.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.ChangeHandlers
 {
@@ -61,9 +60,9 @@ namespace Riskeer.Revetment.Forms.ChangeHandlers
             this.inquiryHelper = inquiryHelper;
         }
 
-        public bool InquireConfirmation()
+        public bool InquireConfirmation(string confirmationMessage)
         {
-            return inquiryHelper.InquireContinuation(RiskeerCommonFormsResources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output);
+            return inquiryHelper.InquireContinuation(confirmationMessage);
         }
 
         public IEnumerable<IObservable> ClearCalculations()
