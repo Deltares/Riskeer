@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.ChangeHandlers;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.Revetment.Service;
@@ -250,21 +251,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseWaveImpactAsphaltCoverFailureMechanismViewForData(WaveImpactAsphaltCoverFailureMechanismView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;
 
-            return assessmentSection != null
+            return o is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>;
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -272,7 +268,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
+            if (dataToCloseFor is IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -395,17 +392,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as WaveImpactAsphaltCoverWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                                     nodeData.WrappedData,
                                                                                                     nodeData.FailureMechanism,
                                                                                                     nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                          nodeData.WrappedData,
@@ -432,7 +426,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group
                                                                              .GetCalculations()
-                                                                             .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
+                                                                             .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                             .ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -460,17 +455,23 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAllInCalculationGroup,
-                                                          EnableValidateAndCalculateMenuItemForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(nodeData,
-                                                         CalculateAllInCalculationGroup,
-                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddValidateAllCalculationsInGroupItem(
+                       nodeData,
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(
+                       nodeData,
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       new WaveConditionsCalculationOutputChangeHandler(
+                           calculations.Where(c => c.HasOutput), inquiryHelper));
 
             if (isNestedGroup)
             {
