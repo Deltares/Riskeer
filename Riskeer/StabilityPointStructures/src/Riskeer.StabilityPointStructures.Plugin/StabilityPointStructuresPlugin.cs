@@ -281,20 +281,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
-            return assessmentSection != null
+            return o is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
         {
-            var assessmentSection = viewData as IAssessmentSection;
-            var failureMechanism = viewData as StabilityPointStructuresFailureMechanism;
-            var failureMechanismContext = viewData as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
-            if (assessmentSection != null)
+            if (viewData is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -302,7 +298,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = viewData as StabilityPointStructuresFailureMechanism;
+            if (viewData is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -733,8 +730,11 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
@@ -742,9 +742,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddDuplicateCalculationItem(calculation, context)
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                                      GetInquiryHelper(),
-                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                          .AddUpdateForeshoreProfileOfCalculationItem(
+                              calculation,
+                              inquiryHelper,
+                              SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
@@ -756,8 +757,14 @@ namespace Riskeer.StabilityPointStructures.Plugin
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
-                          .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper, viewCommands))
+                          .AddClearIllustrationPointsOfCalculationItem
+                              (() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
