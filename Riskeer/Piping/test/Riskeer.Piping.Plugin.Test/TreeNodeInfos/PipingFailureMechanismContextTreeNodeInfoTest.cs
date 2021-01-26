@@ -801,19 +801,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
         {
             // Setup
-            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
-            };
-
             var failureMechanism = new PipingFailureMechanism
             {
                 CalculationsGroup =
                 {
                     Children =
                     {
-                        calculationWithOutput,
-                        new ProbabilisticPipingCalculationScenario()
+                        new TestPipingCalculationScenario(true),
+                        new TestPipingCalculationScenario()
                     }
                 }
             };
@@ -854,7 +849,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        new ProbabilisticPipingCalculationScenario()
+                        new TestPipingCalculationScenario()
                     }
                 }
             };
@@ -889,10 +884,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
         {
             // Given
-            var calculationWithOutput = new ProbabilisticPipingCalculationScenario
-            {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
-            };
+            var calculationWithOutput = new TestPipingCalculationScenario(true);
 
             var failureMechanism = new PipingFailureMechanism
             {
@@ -900,8 +892,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        calculationWithOutput,
-                        new ProbabilisticPipingCalculationScenario()
+                        calculationWithOutput
                     }
                 }
             };
@@ -941,7 +932,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
 
-                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                    Assert.IsTrue(new TestPipingCalculationScenario(true).HasOutput);
                 }
             }
         }
