@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.ChangeHandlers;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.Service;
 using Riskeer.StabilityStoneCover.Data;
@@ -250,21 +251,16 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static bool CloseStabilityStoneCoverFailureMechanismViewForData(StabilityStoneCoverFailureMechanismView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityStoneCoverFailureMechanism;
 
-            return assessmentSection != null
+            return o is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<StabilityStoneCoverFailureMechanism>;
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -272,7 +268,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
+            if (dataToCloseFor is IFailureMechanismContext<StabilityStoneCoverFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -393,17 +390,14 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as StabilityStoneCoverWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is StabilityStoneCoverWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                                  nodeData.WrappedData,
                                                                                                  nodeData.FailureMechanism,
                                                                                                  nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                                       nodeData.WrappedData,
@@ -458,17 +452,23 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAllInCalculationGroup,
-                                                          EnableValidateAndCalculateMenuItemForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(nodeData,
-                                                         CalculateAllInCalculationGroup,
-                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddValidateAllCalculationsInGroupItem(
+                       nodeData,
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(
+                       nodeData,
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       new WaveConditionsCalculationOutputChangeHandler(
+                           calculations.Where(c => c.HasOutput), inquiryHelper));
 
             if (isNestedGroup)
             {

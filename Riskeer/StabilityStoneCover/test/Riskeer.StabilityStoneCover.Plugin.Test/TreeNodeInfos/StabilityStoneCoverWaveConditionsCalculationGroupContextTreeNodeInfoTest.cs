@@ -1195,171 +1195,200 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
         {
             // Setup
-            var group = new CalculationGroup();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation(),
+                    new CalculationGroup
+                    {
+                        Children =
+                        {
+                            new StabilityStoneCoverWaveConditionsCalculation
+                            {
+                                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
+                            }
+                        }
+                    }
+                }
+            };
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
-
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearOutputIndexRootGroup];
 
                     // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                    Assert.IsTrue(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation()
+                }
+            };
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-            var group = new CalculationGroup();
-            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            group.Children.Add(calculationA);
-            group.Children.Add(calculationB);
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearOutputIndexRootGroup];
 
                     // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                    Assert.IsFalse(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        [TestCase(true, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearOutputAfterConfirmation(true)")]
-        [TestCase(false, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearOutputAfterConfirmation(false)")]
-        public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
         {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
-
-            var observerA = mocks.StrictMock<IObserver>();
-            var observerB = mocks.StrictMock<IObserver>();
-            if (confirm)
+            // Given
+            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
             {
-                observerA.Expect(o => o.UpdateObserver());
-                observerB.Expect(o => o.UpdateObserver());
-            }
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
+            };
 
-            var group = new CalculationGroup();
-            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationA.Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
-            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationB.Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
-            group.Children.Add(calculationA);
-            group.Children.Add(calculationB);
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    new StabilityStoneCoverWaveConditionsCalculation()
+                }
+            };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithOutput.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+            var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
             {
-                var dialog = new MessageBoxTester(wnd);
-                if (confirm)
-                {
-                    dialog.ClickOk();
-                }
-                else
-                {
-                    dialog.ClickCancel();
-                }
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
             };
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Call
-                    contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
+                    // When
+                    contextMenu.Items[contextMenuClearOutputIndexRootGroup].PerformClick();
 
-                    // Assert
-                    if (confirm)
-                    {
-                        Assert.IsNull(calculationA.Output);
-                        Assert.IsNull(calculationB.Output);
-                    }
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        {
+            // Given
+            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
+            };
+
+            var calculationWithoutOutput = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    calculationWithoutOutput
+                }
+            };
+
+            var affectedCalculationObserver = mocks.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithOutput.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithoutOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new StabilityStoneCoverFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearOutputIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(calculationWithOutput.HasOutput);
                 }
             }
         }
