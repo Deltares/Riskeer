@@ -1261,6 +1261,9 @@ namespace Riskeer.Piping.Plugin
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
+
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, nodeData)
@@ -1275,7 +1278,12 @@ namespace Riskeer.Piping.Plugin
                               nodeData,
                               CalculateSemiProbabilistic)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -1332,9 +1340,10 @@ namespace Riskeer.Piping.Plugin
                                                                                                object parentData, TreeViewControl treeViewControl)
         {
             ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(GetInquiryHelper(),
-                                                                                                         calculation);
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
@@ -1352,10 +1361,16 @@ namespace Riskeer.Piping.Plugin
                               nodeData,
                               CalculateProbabilistic)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                              changeHandler)
+                              new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(
+                                  inquiryHelper, calculation))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
