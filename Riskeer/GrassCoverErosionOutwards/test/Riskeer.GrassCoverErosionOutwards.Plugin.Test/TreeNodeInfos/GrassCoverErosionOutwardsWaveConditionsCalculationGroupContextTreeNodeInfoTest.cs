@@ -1243,176 +1243,200 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
         {
             // Setup
-            var group = new CalculationGroup();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                    new CalculationGroup
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionOutwardsWaveConditionsCalculation
+                            {
+                                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
+                            }
+                        }
+                    }
+                }
+            };
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
-
-            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                              failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
-            var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearOutputIndexRootGroup];
 
                     // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                    Assert.IsTrue(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                }
+            };
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            var group = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryDatabase.Locations.First());
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryDatabase.Locations.First());
-            group.Children.Add(calculationA);
-            group.Children.Add(calculationB);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                              failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
-            var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearOutputIndexRootGroup];
 
                     // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                    Assert.IsFalse(toolStripItem.Enabled);
                 }
             }
         }
 
         [Test]
-        [TestCase(true, TestName = "Menu_ClickClearAllOutput_ClearAllOutputAfterConfirmation(true)")]
-        [TestCase(false, TestName = "Menu_ClickClearAllOutput_ClearAllOutputAfterConfirmation(false)")]
-        public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
         {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
-
-            var observerA = mocks.StrictMock<IObserver>();
-            var observerB = mocks.StrictMock<IObserver>();
-            if (confirm)
+            // Given
+            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                observerA.Expect(o => o.UpdateObserver());
-                observerB.Expect(o => o.UpdateObserver());
-            }
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
+            };
 
-            var group = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationA.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationB.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-            group.Children.Add(calculationA);
-            group.Children.Add(calculationB);
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                }
+            };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithOutput.Attach(calculationObserver);
 
-            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                              failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
-            var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+            var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
             {
-                var dialog = new MessageBoxTester(wnd);
-                if (confirm)
-                {
-                    dialog.ClickOk();
-                }
-                else
-                {
-                    dialog.ClickCancel();
-                }
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
             };
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Call
-                    contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
+                    // When
+                    contextMenu.Items[contextMenuClearOutputIndexRootGroup].PerformClick();
 
-                    // Assert
-                    if (confirm)
-                    {
-                        Assert.IsNull(calculationA.Output);
-                        Assert.IsNull(calculationB.Output);
-                    }
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        {
+            // Given
+            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
+            };
+
+            var calculationWithoutOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    calculationWithoutOutput
+                }
+            };
+
+            var affectedCalculationObserver = mocks.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithOutput.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocks.StrictMock<IObserver>();
+            calculationWithoutOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                calculationGroup, null, new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearOutputIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                    Assert.IsFalse(calculationWithOutput.HasOutput);
                 }
             }
         }

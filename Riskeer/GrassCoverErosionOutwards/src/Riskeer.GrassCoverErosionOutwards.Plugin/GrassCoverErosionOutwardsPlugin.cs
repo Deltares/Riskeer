@@ -61,6 +61,7 @@ using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
 using Riskeer.GrassCoverErosionOutwards.Plugin.FileImporters;
 using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.ChangeHandlers;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -414,20 +415,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private static bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
         {
-            var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
-            return assessmentSection != null
+            return data is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -435,7 +432,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
+            if (o is IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -450,16 +448,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                   .Single();
 
-            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
             }
@@ -697,17 +693,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as GrassCoverErosionOutwardsWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                                        nodeData.WrappedData,
                                                                                                        nodeData.FailureMechanism,
                                                                                                        nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                             nodeData.WrappedData,
@@ -763,8 +756,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
-                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(
+                       calculations, inquiryHelper,
+                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
@@ -775,7 +769,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        CalculateAllInCalculationGroup,
                        EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(
+                       () => calculations.Any(c => c.HasOutput),
+                       new WaveConditionsCalculationOutputChangeHandler(
+                           calculations.Where(c => c.HasOutput), inquiryHelper));
 
             if (isNestedGroup)
             {
