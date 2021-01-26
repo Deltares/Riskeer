@@ -900,11 +900,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, TreeViewControl treeViewControl)
         {
-            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(GetInquiryHelper(),
-                                                                                                              calculation);
+            GrassCoverErosionInwardsCalculationScenario calculation = context.WrappedData;
 
             StrictContextMenuItem updateDikeProfile = CreateUpdateDikeProfileItem(context);
+
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
@@ -923,9 +924,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               Calculate,
                               EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
-                          .AddClearIllustrationPointsOfCalculationItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                                                                       changeHandler)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper, viewCommands))
+                          .AddClearIllustrationPointsOfCalculationItem(
+                              () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
+                              new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(
+                                  inquiryHelper, calculation))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
