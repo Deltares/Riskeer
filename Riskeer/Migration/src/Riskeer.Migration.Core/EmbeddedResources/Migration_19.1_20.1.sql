@@ -734,6 +734,24 @@ SELECT
 	WHERE [NrDeleted] > 0
 	LIMIT 1;
 
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+    JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+SELECT
+    "19.1",
+    "20.1",
+    "* Alle berekende resultaten van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld zijn verwijderd."
+FROM TempLogOutputDeleted
+WHERE [NrDeleted] > 0
+    LIMIT 1;
+
 DROP TABLE TempLogOutputDeleted;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
