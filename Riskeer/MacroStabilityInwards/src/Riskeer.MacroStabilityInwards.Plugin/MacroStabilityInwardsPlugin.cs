@@ -931,6 +931,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             MacroStabilityInwardsCalculationScenario calculation = nodeData.WrappedData;
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+            IViewCommands viewCommands = Gui.ViewCommands;
+
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, nodeData)
@@ -944,7 +947,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                               nodeData,
                               Calculate)
                           .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
+                          .AddClearCalculationOutputItem(
+                              () => calculation.HasOutput,
+                              CreateClearCalculationOutputChangeHandler(new[]
+                              {
+                                  calculation
+                              }, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
