@@ -198,11 +198,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of a calculation.
         /// </summary>
-        /// <param name="calculation">The calculation to clear the output for.</param>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the calculation output.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
+        public RiskeerContextMenuBuilder AddClearCalculationOutputItem(
+            Func<bool> isContextItemEnabledFunc, IClearCalculationOutputChangeHandler changeHandler)
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(
+                                                 isContextItemEnabledFunc, changeHandler));
             return this;
         }
 
