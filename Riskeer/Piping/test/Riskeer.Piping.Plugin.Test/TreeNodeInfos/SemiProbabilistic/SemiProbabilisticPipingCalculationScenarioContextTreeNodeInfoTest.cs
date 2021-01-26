@@ -1015,7 +1015,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputEnabled()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearCalculationOutputEnabled()
         {
             // Setup
             var calculation = new SemiProbabilisticPipingCalculationScenario
@@ -1054,7 +1054,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutOutput_ContextMenuItemClearCalculationsOutputDisabled()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearCalculationOutputDisabled()
         {
             // Setup
             var calculation = new SemiProbabilisticPipingCalculationScenario();
@@ -1090,7 +1090,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndAborted_ThenInquiryAndCalculationsOutputNotCleared()
+        public void GivenCalculationWithOutput_WhenClearCalculationOutputClickedAndAborted_ThenInquiryAndCalculationOutputNotCleared()
         {
             // Given
             var calculation = new SemiProbabilisticPipingCalculationScenario
@@ -1143,7 +1143,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenClearAllCalculationsOutputClickedAndContinued_ThenInquiryAndOutputViewsClosedAndCalculationsOutputCleared()
+        public void GivenCalculationWithOutput_WhenClearCalculationOutputClickedAndContinued_ThenInquiryAndOutputViewClosedAndCalculationOutputCleared()
         {
             // Given
             var calculation = new SemiProbabilisticPipingCalculationScenario

@@ -1659,7 +1659,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenClearCalculationOutputClickedAndAborted_ThenInquiryAndCalculationOutputNotCleared()
+        public void GivenCalculationWithOutput_WhenClearCalculationOutputClickedAndAborted_ThenInquiryAndCalculationOutputNotCleared()
         {
             // Given
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -1709,7 +1709,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenClearCalculationOutputClickedAndContinued_ThenInquiryAndCalculationOutputCleared()
+        public void GivenCalculationWithOutput_WhenClearCalculationOutputClickedAndContinued_ThenInquiryAndCalculationOutputCleared()
         {
             // Given
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
