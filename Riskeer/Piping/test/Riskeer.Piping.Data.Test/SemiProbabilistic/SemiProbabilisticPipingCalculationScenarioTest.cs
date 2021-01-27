@@ -49,20 +49,43 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Contribution_Always_ReturnsSetValue()
+        [SetCulture("nl-NL")]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(-0.1)]
+        [TestCase(1.0001)]
+        [TestCase(1.1)]
+        public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
-            var random = new Random(21);
-            RoundedDouble contribution = random.NextRoundedDouble();
-
-            var scenario = new SemiProbabilisticPipingCalculationScenario();
+            var calculationScenario = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
-            scenario.Contribution = contribution;
+            void Call() => calculationScenario.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(contribution, scenario.Contribution, scenario.Contribution.GetAccuracy());
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, "De waarde moet binnen het bereik [0% en 100%] liggen.");
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(0.00001)]
+        [TestCase(0.0001)]
+        [TestCase(1.0)]
+        [TestCase(1.00001)]
+        public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
+        {
+            // Setup
+            var calculationScenario = new SemiProbabilisticPipingCalculationScenario();
+
+            // Call
+            calculationScenario.Contribution = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(4, calculationScenario.Contribution.NumberOfDecimalPlaces);
+            Assert.AreEqual(newValue, calculationScenario.Contribution, calculationScenario.Contribution.GetAccuracy());
         }
 
         [Test]

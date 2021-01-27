@@ -420,4 +420,7 @@
   <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
     <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>
   </data>
+  <data name="Contribution_must_be_within_Range_0_and_100" xml:space="preserve">
+    <value>De waarde moet binnen het bereik [0% en 100%] liggen.</value>
+  </data>
 </root>
