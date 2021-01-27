@@ -197,7 +197,6 @@ namespace Riskeer.Piping.Data.TestUtil
         public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithNaNs()
         {
             SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
-            calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
@@ -248,7 +247,6 @@ namespace Riskeer.Piping.Data.TestUtil
         public static SemiProbabilisticPipingCalculationScenario GetSemiProbabilisticPipingCalculationScenarioWithInfinities()
         {
             SemiProbabilisticPipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
-            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
             calculation.InputParameters.SurfaceLine.SetGeometry(new[]
             {
