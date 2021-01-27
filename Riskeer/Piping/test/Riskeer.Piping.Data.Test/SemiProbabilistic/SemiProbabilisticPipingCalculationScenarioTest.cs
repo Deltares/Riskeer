@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         [TestCase(-0.1)]
         [TestCase(1.0001)]
         [TestCase(1.1)]
-        public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentException(double newValue)
+        public void Contribution_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
             var calculationScenario = new SemiProbabilisticPipingCalculationScenario();
@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         [TestCase(0.0001)]
         [TestCase(1.0)]
         [TestCase(1.00001)]
-        public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
+        public void Contribution_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
         {
             // Setup
             var calculationScenario = new SemiProbabilisticPipingCalculationScenario();
