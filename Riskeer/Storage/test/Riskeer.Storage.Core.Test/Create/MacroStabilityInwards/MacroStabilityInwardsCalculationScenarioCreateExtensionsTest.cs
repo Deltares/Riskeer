@@ -60,7 +60,6 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     SlipPlaneMinimumDepth = RoundedDouble.NaN,
@@ -120,8 +119,6 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-
-            Assert.IsNull(entity.ScenarioContribution);
 
             Assert.IsNull(entity.AssessmentLevel);
             Assert.IsNull(entity.SlipPlaneMinimumDepth);
