@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Properties;
@@ -34,20 +35,25 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         where TCalculation : ICalculation
     {
         private readonly IInquiryHelper inquiryHelper;
-        protected TCalculation Calculation;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationChangeHandlerBase{TCalculation}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         protected ClearIllustrationPointsOfCalculationChangeHandlerBase(
-            TCalculation calculation, IInquiryHelper inquiryHelper)
+            TCalculation calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
             if (inquiryHelper == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHelper));
+            }
+
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException(nameof(viewCommands));
             }
 
             if (calculation == null)
@@ -57,6 +63,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
 
             this.inquiryHelper = inquiryHelper;
             Calculation = calculation;
+            ViewCommands = viewCommands;
         }
 
         public bool InquireConfirmation()
@@ -70,5 +77,15 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         {
             Calculation.NotifyObservers();
         }
+
+        /// <summary>
+        /// Gets the <see cref="TCalculation"/>.
+        /// </summary>
+        protected TCalculation Calculation { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IViewCommands"/>.
+        /// </summary>
+        protected IViewCommands ViewCommands { get; }
     }
 }

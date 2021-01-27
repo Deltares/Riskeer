@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,10 +39,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new TestClearIllustrationPointsOfCalculationChangeHandler(null, inquiryHelper);
+            void Call() => new TestClearIllustrationPointsOfCalculationChangeHandler(null, inquiryHelper, viewCommands);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,12 +54,35 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         [Test]
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+            
             // Call
-            void Call() => new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), null);
+            void Call() => new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), null, viewCommands);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("inquiryHelper", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), inquiryHelper, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,10 +91,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), inquiryHelper);
+            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), inquiryHelper, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IClearIllustrationPointsOfCalculationChangeHandler>(handler);
@@ -87,9 +113,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation(expectedInquiry)).Return(expectedConfirmation);
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), inquiryHelper);
+            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(new TestCalculation(), inquiryHelper, viewCommands);
 
             // Call
             bool confirmation = handler.InquireConfirmation();
@@ -105,6 +132,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -112,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var calculation = new TestCalculation();
             calculation.Attach(observer);
 
-            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(calculation, inquiryHelper);
+            var handler = new TestClearIllustrationPointsOfCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
             // Call
             handler.DoPostUpdateActions();
@@ -123,8 +151,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
         private class TestClearIllustrationPointsOfCalculationChangeHandler : ClearIllustrationPointsOfCalculationChangeHandlerBase<TestCalculation>
         {
-            public TestClearIllustrationPointsOfCalculationChangeHandler(TestCalculation calculation, IInquiryHelper inquiryHelper)
-                : base(calculation, inquiryHelper) {}
+            public TestClearIllustrationPointsOfCalculationChangeHandler(TestCalculation calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+                : base(calculation, inquiryHelper, viewCommands) {}
 
             public override bool ClearIllustrationPoints()
             {
