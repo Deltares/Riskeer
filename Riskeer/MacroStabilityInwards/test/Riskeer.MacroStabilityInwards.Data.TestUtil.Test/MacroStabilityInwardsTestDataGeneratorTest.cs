@@ -156,7 +156,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsTrue(calculation.IsRelevant);
-            Assert.IsNaN(calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
@@ -217,7 +216,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsTrue(calculation.IsRelevant);
-            Assert.AreEqual(double.PositiveInfinity, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             MacroStabilityInwardsInput input = calculation.InputParameters;

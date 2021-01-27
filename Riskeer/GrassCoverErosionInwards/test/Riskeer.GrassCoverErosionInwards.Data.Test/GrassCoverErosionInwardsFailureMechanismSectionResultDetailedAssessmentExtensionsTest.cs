@@ -274,11 +274,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(0.2, 0.8 - 1e5)]
+        [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
         [TestCase(0.3, 0.7 + 1e-5)]
-        [TestCase(-5, -8)]
-        [TestCase(13, 2)]
         public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
