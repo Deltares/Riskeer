@@ -1061,7 +1061,8 @@ namespace Riskeer.Storage.Core.Test.Read
                             LeftGridNrOfHorizontalPoints = 5,
                             LeftGridNrOfVerticalPoints = 5,
                             RightGridNrOfHorizontalPoints = 5,
-                            RightGridNrOfVerticalPoints = 5
+                            RightGridNrOfVerticalPoints = 5,
+                            ScenarioContribution = 0.1
                         }
                     }
                 }
@@ -2665,7 +2666,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         {
                             Name = "B",
                             Order = 0,
-                            IdenticalApertures = 1
+                            IdenticalApertures = 1,
+                            ScenarioContribution = 0.1
                         }
                     }
                 },
@@ -2959,7 +2961,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         new StabilityPointStructuresCalculationEntity
                         {
                             Name = "B",
-                            Order = 0
+                            Order = 0,
+                            ScenarioContribution = 0.1
                         }
                     }
                 },

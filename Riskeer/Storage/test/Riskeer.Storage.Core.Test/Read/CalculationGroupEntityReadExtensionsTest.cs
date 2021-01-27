@@ -149,13 +149,15 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 1,
                         Name = "2",
-                        DampingFactorExitMean = 2
+                        DampingFactorExitMean = 2,
+                        ScenarioContribution = 0.1
                     },
                     new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 0,
                         Name = "1",
-                        DampingFactorExitMean = 1
+                        DampingFactorExitMean = 1,
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -229,13 +231,15 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 0,
                         Name = "calculation1",
-                        DampingFactorExitMean = 1
+                        DampingFactorExitMean = 1,
+                        ScenarioContribution = 0.1
                     },
                     new SemiProbabilisticPipingCalculationEntity
                     {
                         Order = 3,
                         Name = "calculation3",
-                        DampingFactorExitMean = 2
+                        DampingFactorExitMean = 2,
+                        ScenarioContribution = 0.1
                     }
                 },
                 ProbabilisticPipingCalculationEntities =
@@ -244,13 +248,15 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 2,
                         Name = "calculation2",
-                        DampingFactorExitMean = 1
+                        DampingFactorExitMean = 1,
+                        ScenarioContribution = 0.1
                     },
                     new ProbabilisticPipingCalculationEntity
                     {
                         Order = 5,
                         Name = "calculation4",
-                        DampingFactorExitMean = 2
+                        DampingFactorExitMean = 2,
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
@@ -409,7 +415,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         LeftGridNrOfHorizontalPoints = 5,
                         LeftGridNrOfVerticalPoints = 5,
                         RightGridNrOfHorizontalPoints = 5,
-                        RightGridNrOfVerticalPoints = 5
+                        RightGridNrOfVerticalPoints = 5,
+                        ScenarioContribution = 0.1
                     },
                     new MacroStabilityInwardsCalculationEntity
                     {
@@ -419,7 +426,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         LeftGridNrOfHorizontalPoints = 5,
                         LeftGridNrOfVerticalPoints = 5,
                         RightGridNrOfHorizontalPoints = 5,
-                        RightGridNrOfVerticalPoints = 5
+                        RightGridNrOfVerticalPoints = 5,
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -457,7 +465,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         LeftGridNrOfHorizontalPoints = 5,
                         LeftGridNrOfVerticalPoints = 5,
                         RightGridNrOfHorizontalPoints = 5,
-                        RightGridNrOfVerticalPoints = 5
+                        RightGridNrOfVerticalPoints = 5,
+                        ScenarioContribution = 0.1
                     },
                     new MacroStabilityInwardsCalculationEntity
                     {
@@ -467,7 +476,8 @@ namespace Riskeer.Storage.Core.Test.Read
                         LeftGridNrOfHorizontalPoints = 5,
                         LeftGridNrOfVerticalPoints = 5,
                         RightGridNrOfHorizontalPoints = 5,
-                        RightGridNrOfVerticalPoints = 5
+                        RightGridNrOfVerticalPoints = 5,
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
@@ -615,12 +625,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        ScenarioContribution = 0.1
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -653,12 +665,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        ScenarioContribution = 0.1
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
@@ -997,12 +1011,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new HeightStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        ScenarioContribution = 0.1
                     },
                     new HeightStructuresCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -1035,12 +1051,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new HeightStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        ScenarioContribution = 0.1
                     },
                     new HeightStructuresCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
@@ -1189,13 +1207,15 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 0,
                         Name = "1",
-                        IdenticalApertures = 1
+                        IdenticalApertures = 1,
+                        ScenarioContribution = 0.1
                     },
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 1,
                         Name = "2",
-                        IdenticalApertures = 1
+                        IdenticalApertures = 1,
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -1229,13 +1249,15 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 0,
                         Name = "calculation1",
-                        IdenticalApertures = 1
+                        IdenticalApertures = 1,
+                        ScenarioContribution = 0.1
                     },
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 2,
                         Name = "calculation2",
-                        IdenticalApertures = 1
+                        IdenticalApertures = 1,
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
@@ -1243,7 +1265,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new CalculationGroupEntity
                     {
                         Order = 1,
-                        Name = "group1"
+                        Name = "group1",
                     },
                     new CalculationGroupEntity
                     {
@@ -1383,12 +1405,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new StabilityPointStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        ScenarioContribution = 0.1
                     },
                     new StabilityPointStructuresCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        ScenarioContribution = 0.1
                     }
                 }
             };
@@ -1421,12 +1445,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new StabilityPointStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        ScenarioContribution = 0.1
                     },
                     new StabilityPointStructuresCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        ScenarioContribution = 0.1
                     }
                 },
                 CalculationGroupEntity1 =
