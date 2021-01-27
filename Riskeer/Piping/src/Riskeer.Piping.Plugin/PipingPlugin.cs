@@ -1369,8 +1369,7 @@ namespace Riskeer.Piping.Plugin
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                              new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(
-                                  inquiryHelper, calculation))
+                              new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()

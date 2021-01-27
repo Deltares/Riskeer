@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             // Call
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>>(handler);
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             var calculation = new ProbabilisticPipingCalculationScenario();
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
 
             // Call
             bool result = handler.ClearIllustrationPoints();
@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
             };
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
 
             // Call
             bool result = handler.ClearIllustrationPoints();
@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
 
             // Call
             bool result = handler.ClearIllustrationPoints();

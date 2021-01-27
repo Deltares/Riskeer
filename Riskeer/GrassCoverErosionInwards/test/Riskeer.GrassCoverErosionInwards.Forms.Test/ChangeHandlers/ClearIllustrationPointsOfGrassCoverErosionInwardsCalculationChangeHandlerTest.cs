@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(calculation, inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<GrassCoverErosionInwardsCalculation>>(handler);
@@ -64,7 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(calculation, inquiryHelper);
 
             // Call
             bool result = handler.ClearIllustrationPoints();

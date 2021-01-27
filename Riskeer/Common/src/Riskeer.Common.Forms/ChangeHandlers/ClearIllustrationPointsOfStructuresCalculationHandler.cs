@@ -34,12 +34,12 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructuresCalculationHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearIllustrationPointsOfStructuresCalculationHandler(IInquiryHelper inquiryHelper,
-                                                                     IStructuresCalculation calculation)
-            : base(inquiryHelper, calculation) {}
+        public ClearIllustrationPointsOfStructuresCalculationHandler(
+            IStructuresCalculation calculation, IInquiryHelper inquiryHelper)
+            : base(calculation, inquiryHelper) {}
 
         public override bool ClearIllustrationPoints()
         {

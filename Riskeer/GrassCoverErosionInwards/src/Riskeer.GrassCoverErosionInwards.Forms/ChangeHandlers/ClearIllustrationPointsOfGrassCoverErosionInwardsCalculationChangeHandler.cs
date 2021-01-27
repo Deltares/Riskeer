@@ -36,12 +36,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                         GrassCoverErosionInwardsCalculation calculation)
-            : base(inquiryHelper, calculation) {}
+        public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(
+            GrassCoverErosionInwardsCalculation calculation, IInquiryHelper inquiryHelper)
+            : base(calculation, inquiryHelper) {}
 
         public override bool ClearIllustrationPoints()
         {

@@ -723,7 +723,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                     TreeViewControl treeViewControl)
         {
             StructuresCalculationScenario<ClosingStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, GetInquiryHelper());
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;

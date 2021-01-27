@@ -932,8 +932,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
                               () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                              new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(
-                                  inquiryHelper, calculation))
+                              new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(calculation, inquiryHelper))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
