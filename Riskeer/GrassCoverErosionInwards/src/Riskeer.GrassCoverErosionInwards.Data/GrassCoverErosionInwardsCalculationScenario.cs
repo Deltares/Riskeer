@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {
@@ -30,7 +32,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsCalculationScenario : GrassCoverErosionInwardsCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
-
+        private const int contributionNumberOfDecimalPlaces = 4;
+        private static readonly Range<RoundedDouble> contributionValidityRange = new Range<RoundedDouble>(new RoundedDouble(contributionNumberOfDecimalPlaces),
+                                                                                                          new RoundedDouble(contributionNumberOfDecimalPlaces, 1.0));
+        
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
@@ -45,7 +50,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public RoundedDouble Contribution
         {
             get => contribution;
-            set => contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
+            set
+            {
+                RoundedDouble newValue = value.ToPrecision(contributionNumberOfDecimalPlaces);
+
+                if (!contributionValidityRange.InRange(newValue))
+                {
+                    throw new ArgumentOutOfRangeException(null, string.Format(RiskeerCommonDataResources.Contribution_must_be_within_Range_0_and_100));
+                }
+
+                contribution = newValue;
+            }
         }
     }
 }
