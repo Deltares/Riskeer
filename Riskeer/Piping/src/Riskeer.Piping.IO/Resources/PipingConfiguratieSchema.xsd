@@ -78,7 +78,7 @@ All rights reserved.
   <xs:element name="toetsType" abstract="true" />
 
   <!--Specificeert de semi-probabilistische berekening. Indien dit element is opgenomen,
-  mag geen probabilistsich worden opgenomen (en andersom).-->
+  mag geen probabilistische berekening worden opgenomen (en andersom).-->
   <xs:element name="semi-probabilistisch" substitutionGroup="toetsType">
     <xs:complexType>
       <xs:all>
@@ -88,7 +88,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de probabilistische berekening. Indien dit element is opgenomen,
-  mag geen semi-probabilistsich worden opgenomen (en andersom).-->
+  mag geen semi-probabilistische berekening worden opgenomen (en andersom).-->
   <xs:element name="probabilistisch" substitutionGroup="toetsType">
     <xs:complexType>
       <xs:all>
