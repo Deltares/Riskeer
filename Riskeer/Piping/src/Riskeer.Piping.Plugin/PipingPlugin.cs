@@ -1336,8 +1336,8 @@ namespace Riskeer.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                               object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(
+            ProbabilisticPipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -1369,7 +1369,8 @@ namespace Riskeer.Piping.Plugin
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                              new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper))
+                              new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(
+                                  calculation, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
