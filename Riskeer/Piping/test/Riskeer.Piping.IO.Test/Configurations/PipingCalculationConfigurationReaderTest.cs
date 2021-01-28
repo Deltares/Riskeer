@@ -406,8 +406,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             protected abstract PipingCalculationConfigurationType CalculationConfigurationType { get; }
 
-            protected abstract void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true);
-
             protected void AssertConfigurationGeneralProperties(PipingCalculationConfiguration configuration)
             {
                 Assert.AreEqual(CalculationConfigurationType, configuration.CalculationType);
@@ -534,10 +532,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             private void SetCalculationType(string readFilePath, string writeFilePath)
             {
                 string text = File.ReadAllText(readFilePath);
-                text = text.Replace("<toetstype/>", $"<{CalculationType}/>");
-                text = text.Replace("<toetstype>", $"<{CalculationType}>");
-                text = text.Replace("</toetstype>", $"</{CalculationType}>");
-                File.WriteAllText(writeFilePath, text);
+                text = text.Replace("toetstype", $"{CalculationType}");
+                File.WriteAllText(writeFilePath, text.Replace("toetstype", $"{CalculationType}"));
             }
         }
 
@@ -670,7 +666,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 Assert.IsNaN(configuration.AssessmentLevel);
             }
 
-            protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
+            private void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
             {
                 AssertConfigurationGeneralProperties(configuration);
 
@@ -766,7 +762,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 AssertConfiguration(configuration);
             }
 
-            protected override void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation = true)
+            private void AssertConfiguration(PipingCalculationConfiguration configuration)
             {
                 AssertConfigurationGeneralProperties(configuration);
 
