@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,17 +34,18 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
     public class ClearIllustrationPointsOfStructuresCalculationHandlerTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation();
 
             // Call
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, inquiryHelper);
+            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, inquiryHelper, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<IStructuresCalculation>>(handler);
@@ -52,41 +53,61 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetCalculationConfigurations))]
-        public void ClearIllustrationPoints_WithVariousCalculationConfigurations_ClearsIllustrationPointsAndReturnsExpectedResult(
-            TestStructuresCalculation calculation, bool expectedResult)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationWithoutIllustrationPoints_WhenClearIllustrationPoints_ThenNothingHappensAndReturnFalse(
+            bool hasOutput)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, inquiryHelper);
+            var calculation = new TestStructuresCalculation
+            {
+                Output = hasOutput
+                             ? new TestStructuresOutput()
+                             : null
+            };
 
-            bool hasOutput = calculation.HasOutput;
+            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, inquiryHelper, viewCommands);
 
-            // Call
+            // When
             bool isCalculationAffected = handler.ClearIllustrationPoints();
 
-            // Assert
-            Assert.AreEqual(expectedResult, isCalculationAffected);
+            // Then
+            Assert.IsFalse(isCalculationAffected);
             Assert.AreEqual(hasOutput, calculation.HasOutput);
-
             Assert.IsNull(calculation.Output?.GeneralResult);
             mocks.VerifyAll();
         }
 
-        private static IEnumerable<TestCaseData> GetCalculationConfigurations()
+        [Test]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPoints_ThenViewClosedAndIllustrationPointsClearedAndReturnTrue()
         {
-            yield return new TestCaseData(new TestStructuresCalculation(), false);
-            yield return new TestCaseData(new TestStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            }, false);
-            yield return new TestCaseData(new TestStructuresCalculation
+            // Given
+            var calculation = new TestStructuresCalculation
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            }, true);
+            };
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculation.Output.GeneralResult));
+            mocks.ReplayAll();
+
+            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, inquiryHelper, viewCommands);
+
+            // When
+            bool isCalculationAffected = handler.ClearIllustrationPoints();
+
+            // Then
+            Assert.IsTrue(isCalculationAffected);
+            Assert.IsTrue(calculation.HasOutput);
+            Assert.IsNull(calculation.Output.GeneralResult);
+            mocks.VerifyAll();
         }
     }
 }

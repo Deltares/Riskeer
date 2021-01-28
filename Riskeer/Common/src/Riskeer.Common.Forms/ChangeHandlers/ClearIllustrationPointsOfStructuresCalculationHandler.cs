@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Structures;
 
@@ -36,15 +37,18 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// </summary>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructuresCalculationHandler(
-            IStructuresCalculation calculation, IInquiryHelper inquiryHelper)
-            : base(calculation, inquiryHelper) {}
+            IStructuresCalculation calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(calculation, inquiryHelper, viewCommands) {}
 
         public override bool ClearIllustrationPoints()
         {
             if (Calculation.HasOutput && Calculation.Output.HasGeneralResult)
             {
+                ViewCommands.RemoveAllViewsForItem(Calculation.Output.GeneralResult);
+                
                 Calculation.ClearIllustrationPoints();
                 return true;
             }
