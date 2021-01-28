@@ -731,7 +731,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                     TreeViewControl treeViewControl)
         {
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, GetInquiryHelper());
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
@@ -764,7 +763,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                   calculation
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem
-                              (() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
+                              (() => IllustrationPointsHelper.HasIllustrationPoints(calculation),
+                               new ClearIllustrationPointsOfStructuresCalculationHandler(
+                                   calculation, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()

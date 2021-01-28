@@ -723,7 +723,6 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                     TreeViewControl treeViewControl)
         {
             StructuresCalculationScenario<ClosingStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, GetInquiryHelper());
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
@@ -755,7 +754,10 @@ namespace Riskeer.ClosingStructures.Plugin
                               {
                                   calculation
                               }, inquiryHelper, viewCommands))
-                          .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationItem(
+                              () => IllustrationPointsHelper.HasIllustrationPoints(calculation),
+                              new ClearIllustrationPointsOfStructuresCalculationHandler(
+                                  calculation, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()

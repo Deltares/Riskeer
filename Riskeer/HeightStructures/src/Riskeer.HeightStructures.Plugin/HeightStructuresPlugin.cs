@@ -729,7 +729,6 @@ namespace Riskeer.HeightStructures.Plugin
                                                                     TreeViewControl treeViewControl)
         {
             StructuresCalculationScenario<HeightStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(calculation, GetInquiryHelper());
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             IViewCommands viewCommands = Gui.ViewCommands;
@@ -761,7 +760,9 @@ namespace Riskeer.HeightStructures.Plugin
                                   calculation
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
-                              () => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
+                              () => IllustrationPointsHelper.HasIllustrationPoints(calculation),
+                              new ClearIllustrationPointsOfStructuresCalculationHandler(
+                                  calculation, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
