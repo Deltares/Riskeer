@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
@@ -38,20 +39,45 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         /// </summary>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(
-            ProbabilisticPipingCalculationScenario calculation, IInquiryHelper inquiryHelper)
-            : base(calculation, inquiryHelper) {}
+            ProbabilisticPipingCalculationScenario calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(calculation, inquiryHelper, viewCommands) {}
 
         public override bool ClearIllustrationPoints()
         {
             if (ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(Calculation))
             {
+                if (Calculation.Output.SectionSpecificOutput.HasGeneralResult)
+                {
+                    CloseView(Calculation.Output.SectionSpecificOutput);
+                }
+                if (Calculation.Output.ProfileSpecificOutput.HasGeneralResult)
+                {
+                    CloseView(Calculation.Output.ProfileSpecificOutput);
+                }
+
                 Calculation.ClearIllustrationPoints();
                 return true;
             }
 
             return false;
+        }
+
+        private void CloseView(IPartialProbabilisticPipingOutput partialOutput)
+        {
+            switch (partialOutput)
+            {
+                case PartialProbabilisticFaultTreePipingOutput faultTreeOutput:
+                    ViewCommands.RemoveAllViewsForItem(faultTreeOutput.GeneralResult);
+                    break;
+                case PartialProbabilisticSubMechanismPipingOutput subMechanismOutput:
+                    ViewCommands.RemoveAllViewsForItem(subMechanismOutput.GeneralResult);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

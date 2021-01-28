@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -33,17 +36,18 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
     public class ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandlerTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             // Call
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>>(handler);
@@ -51,72 +55,152 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithoutOutput_ReturnsFalse()
+        public void GivenCalculationWithoutOutput_WhenClearIllustrationPoints_ThenNothingHappensAndReturnFalse()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             var calculation = new ProbabilisticPipingCalculationScenario();
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(
+                calculation, inquiryHelper, viewCommands);
 
-            // Call
-            bool result = handler.ClearIllustrationPoints();
+            // When
+            bool isCalculationAffected = handler.ClearIllustrationPoints();
 
-            // Assert
-            Assert.IsFalse(result);
+            // Then
+            Assert.IsFalse(isCalculationAffected);
+            Assert.IsFalse(calculation.HasOutput);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
+        public void ClearIllustrationPoints_SectionSpecificWithIllustrationAndUnsupportedPartialOutput_ThrowsNotSupportedException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            // Given
+            var sectionSpecificOutput = new TestPartialProbabilisticPipingOutput(0, new TestGeneralResultTopLevelIllustrationPoint());
+            var profileSpecificOutput = new TestPartialProbabilisticPipingOutput(0, null);
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                Output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput)
             };
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
 
-            // Call
-            bool result = handler.ClearIllustrationPoints();
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
-            // Assert
-            Assert.IsFalse(result);
+            // When
+            void Call() => handler.ClearIllustrationPoints();
+
+            // Then
+            Assert.Throws<NotSupportedException>(Call);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithOutputWithIllustrationPoints_ClearsIllustrationPointsAndReturnsTrue()
+        public void ClearIllustrationPoints_ProfileSpecificWithIllustrationAndUnsupportedPartialOutput_ThrowsNotSupportedException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            // Given
+            var sectionSpecificOutput = new TestPartialProbabilisticPipingOutput(0, null);
+            var profileSpecificOutput = new TestPartialProbabilisticPipingOutput(0, new TestGeneralResultTopLevelIllustrationPoint());
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                Output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput)
             };
 
-            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper);
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
+
+            // When
+            void Call() => handler.ClearIllustrationPoints();
+
+            // Then
+            Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPartialOutputs))]
+        public void GivenCalculationWithOutputWithVariousIllustrationPointsConfigurations_WhenClearIllustrationPoints_ThenViewClosedAndIllustrationPointsClearedAndReturnTrue(
+            IPartialProbabilisticPipingOutput sectionSpecificOutput,
+            IPartialProbabilisticPipingOutput profileSpecificOutput)
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculationScenario
+            {
+                Output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput)
+            };
+            
+            bool hasSectionSpecificIllustrationPoints = sectionSpecificOutput.HasGeneralResult;
+            bool hasProfileSpecificIllustrationPoints = profileSpecificOutput.HasGeneralResult;
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            if (hasSectionSpecificIllustrationPoints)
+            {
+                SetViewCommandsExpectancies(sectionSpecificOutput, viewCommands);
+            }
+            
+            if (hasProfileSpecificIllustrationPoints)
+            {
+                SetViewCommandsExpectancies(profileSpecificOutput, viewCommands);
+            }
+
+            mocks.ReplayAll();
+
+            var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
             // Call
-            bool result = handler.ClearIllustrationPoints();
+            bool isCalculationAffected = handler.ClearIllustrationPoints();
 
             // Assert
-            Assert.IsTrue(result);
-
-            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.ProfileSpecificOutput).GeneralResult);
-            Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.SectionSpecificOutput).GeneralResult);
+            bool expectedResult = hasSectionSpecificIllustrationPoints || hasProfileSpecificIllustrationPoints;
+            Assert.AreEqual(expectedResult, isCalculationAffected);
+            Assert.IsTrue(calculation.HasOutput);
+            Assert.IsFalse(calculation.Output.SectionSpecificOutput.HasGeneralResult);
+            Assert.IsFalse(calculation.Output.ProfileSpecificOutput.HasGeneralResult);
             mocks.VerifyAll();
+        }
+
+        private static void SetViewCommandsExpectancies(IPartialProbabilisticPipingOutput sectionSpecificOutput, IViewCommands viewCommands)
+        {
+            if (sectionSpecificOutput is PartialProbabilisticFaultTreePipingOutput faultTreeOutput)
+            {
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(faultTreeOutput.GeneralResult));
+            }
+            else if (sectionSpecificOutput is PartialProbabilisticSubMechanismPipingOutput subMechanismOutput)
+            {
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(subMechanismOutput.GeneralResult));
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetPartialOutputs()
+        {
+            PartialProbabilisticFaultTreePipingOutput faultTreeOutputWithIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
+            PartialProbabilisticFaultTreePipingOutput faultTreeOutputWithoutIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
+            PartialProbabilisticSubMechanismPipingOutput subMechanismOutputWithIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput();
+            PartialProbabilisticSubMechanismPipingOutput subMechanismOutputWithoutIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null);
+
+            yield return new TestCaseData(faultTreeOutputWithIllustrationPoints, faultTreeOutputWithIllustrationPoints);
+            yield return new TestCaseData(faultTreeOutputWithIllustrationPoints, faultTreeOutputWithoutIllustrationPoints);
+            yield return new TestCaseData(faultTreeOutputWithoutIllustrationPoints, faultTreeOutputWithIllustrationPoints);
+            yield return new TestCaseData(faultTreeOutputWithoutIllustrationPoints, faultTreeOutputWithoutIllustrationPoints);
+
+            yield return new TestCaseData(subMechanismOutputWithIllustrationPoints, subMechanismOutputWithIllustrationPoints);
+            yield return new TestCaseData(subMechanismOutputWithIllustrationPoints, subMechanismOutputWithoutIllustrationPoints);
+            yield return new TestCaseData(subMechanismOutputWithoutIllustrationPoints, subMechanismOutputWithIllustrationPoints);
+            yield return new TestCaseData(subMechanismOutputWithoutIllustrationPoints, subMechanismOutputWithoutIllustrationPoints);
         }
     }
 }
