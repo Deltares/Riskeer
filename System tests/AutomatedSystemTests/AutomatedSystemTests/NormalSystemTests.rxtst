@@ -1660,6 +1660,14 @@
 					name="categoryBoundariesTraject"
 					value="">
 					</param>
+					<param
+					name="folderProjectPreviousRelease"
+					value="X:\script22\previousRelease">
+					</param>
+					<param
+					name="folderProjectsCurrentRelease"
+					value="X:\script22\currentRelease">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -8836,7 +8844,7 @@
 				<parameters>
 					<param
 					name="fileToOpen"
-					value="X:\script22\currentVersion\Project_assemblage_22.risk">
+					value="X:\script22\currentRelease\Project_assemblage_22.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -13803,6 +13811,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="a80fc18d-fb55-42ca-bb3f-fc8cc9dd74f7"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="migrationSourceFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="e143dc8f-d1a1-49d8-b681-d0c99b13d652"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="a8115f26-2e67-46ae-8b44-1169e653aac1"
 			name="LogWarningMessage"
 			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
@@ -15798,7 +15840,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="bd1be8a4-49e2-4eea-8f1c-bb069c9ecdc1"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
@@ -24960,6 +25001,10 @@
 							<testmodule
 							id="ab3d7781-c2f1-4317-9477-3e8f16f8be4a"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="a80fc18d-fb55-42ca-bb3f-fc8cc9dd74f7"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
