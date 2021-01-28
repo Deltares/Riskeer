@@ -50,18 +50,6 @@ namespace Riskeer.Storage.Core.DbContext
         public string Name { get; set; }
         public string Comments { get; set; }
         public double? ModelFactorSuperCriticalFlowMean { get; set; }
-        public double? LevelCrestStructureMean { get; set; }
-        public double? LevelCrestStructureStandardDeviation { get; set; }
-        public double? DeviationWaveDirection { get; set; }
-        public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
-
-        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
-        public virtual HeightStructureEntity HeightStructureEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
-
         public double? StructureNormalOrientation { get; set; }
         public double? AllowedLevelIncreaseStorageMean { get; set; }
         public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
@@ -75,12 +63,23 @@ namespace Riskeer.Storage.Core.DbContext
         public double? WidthFlowAperturesMean { get; set; }
         public double? WidthFlowAperturesStandardDeviation { get; set; }
         public double? StormDurationMean { get; set; }
+        public double? LevelCrestStructureMean { get; set; }
+        public double? LevelCrestStructureStandardDeviation { get; set; }
+        public double? DeviationWaveDirection { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }
         public byte BreakWaterType { get; set; }
         public double? BreakWaterHeight { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double ScenarioContribution { get; set; }
+
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        public virtual HeightStructureEntity HeightStructureEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
     }
 }
