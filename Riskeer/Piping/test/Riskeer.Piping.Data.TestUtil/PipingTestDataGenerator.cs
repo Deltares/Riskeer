@@ -632,7 +632,7 @@ namespace Riskeer.Piping.Data.TestUtil
             return new PartialProbabilisticFaultTreePipingOutput(random.NextDouble(),
                                                                  generalResult);
         }
-        
+
         /// <summary>
         /// Creates a random instance of <see cref="PartialProbabilisticSubMechanismPipingOutput"/>.
         /// </summary>

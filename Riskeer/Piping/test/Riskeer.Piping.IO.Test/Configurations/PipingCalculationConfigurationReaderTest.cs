@@ -532,13 +532,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
             private void SetCalculationType(string readFilePath, string writeFilePath)
             {
                 string text = File.ReadAllText(readFilePath);
-                text = text.Replace("toetstype", $"{CalculationType}");
+                text = text.Replace("toetstype", CalculationType);
                 File.WriteAllText(writeFilePath, text.Replace("toetstype", $"{CalculationType}"));
             }
         }
 
         /// <summary>
-        /// Test Fixture for running <see cref="PipingCalculationConfigurationReader"/> tests for
+        /// Test fixture for running <see cref="PipingCalculationConfigurationReader"/> tests for
         /// <see cref="PipingCalculationConfigurationType.SemiProbabilistic"/>. 
         /// </summary>
         [TestFixture]
@@ -687,7 +687,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         /// <summary>
-        /// Test Fixture for running <see cref="PipingCalculationConfigurationReader"/> tests for
+        /// Test fixture for running <see cref="PipingCalculationConfigurationReader"/> tests for
         /// <see cref="PipingCalculationConfigurationType.Probabilistic"/>. 
         /// </summary>
         [TestFixture]
