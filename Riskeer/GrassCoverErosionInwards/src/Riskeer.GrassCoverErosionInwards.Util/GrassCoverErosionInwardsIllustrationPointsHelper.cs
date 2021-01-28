@@ -65,21 +65,68 @@ namespace Riskeer.GrassCoverErosionInwards.Util
             return calculations.Any(HasIllustrationPoints);
         }
 
-        private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        /// <summary>
+        /// Determines whether a <see cref="GrassCoverErosionInwardsOutput"/>
+        /// has overtopping illustration point results.
+        /// </summary>
+        /// <param name="output">The output to check.</param>
+        /// <returns><c>true</c> when <paramref name="output"/> has overtopping illustration point results,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        public static bool HasOverToppingIllustrationPoints(GrassCoverErosionInwardsOutput output)
         {
-            return output.OvertoppingOutput.HasGeneralResult
-                   || HasDikeHeightOutputWithIllustrationPoints(output)
-                   || HasOverToppingRateOutputWithIllustrationPoints(output);
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return output.OvertoppingOutput.HasGeneralResult;
         }
 
-        private static bool HasOverToppingRateOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        /// <summary>
+        /// Determines whether a <see cref="GrassCoverErosionInwardsOutput"/>
+        /// has overtopping dike height with illustration point results.
+        /// </summary>
+        /// <param name="output">The output to check.</param>
+        /// <returns><c>true</c> when <paramref name="output"/> has dike height output with illustration point results,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        public static bool HasDikeHeightOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
         {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return output.DikeHeightOutput != null && output.DikeHeightOutput.HasGeneralResult;
+        }
+
+        /// <summary>
+        /// Determines whether a <see cref="GrassCoverErosionInwardsOutput"/>
+        /// has overtopping rate output with illustration point results.
+        /// </summary>
+        /// <param name="output">The output to check.</param>
+        /// <returns><c>true</c> when <paramref name="output"/> has overtopping rate output with illustration point results,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        public static bool HasOverToppingRateOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
             return output.OvertoppingRateOutput != null && output.OvertoppingRateOutput.HasGeneralResult;
         }
 
-        private static bool HasDikeHeightOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
         {
-            return output.DikeHeightOutput != null && output.DikeHeightOutput.HasGeneralResult;
+            return HasOverToppingIllustrationPoints(output)
+                   || HasDikeHeightOutputWithIllustrationPoints(output)
+                   || HasOverToppingRateOutputWithIllustrationPoints(output);
         }
     }
 }

@@ -80,6 +80,120 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
         }
 
+        [Test]
+        public void HasOverToppingIllustrationPoints_OutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingIllustrationPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void HasOverToppingIllustrationPoints_WithOrWithoutIllustrationPoints_ReturnsExpectedResult(bool expectedHasIllustrationPoints)
+        {
+            // Setup
+            var output = new TestGrassCoverErosionInwardsOutput(
+                expectedHasIllustrationPoints
+                    ? new TestGeneralResultFaultTreeIllustrationPoint()
+                    : null);
+
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingIllustrationPoints(output);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        [Test]
+        public void HasDikeHeightOutputWithIllustrationPoints_OutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => GrassCoverErosionInwardsIllustrationPointsHelper.HasDikeHeightOutputWithIllustrationPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void HasDikeHeightOutputWithIllustrationPoints_DikeHeightOutputNull_ReturnsFalse()
+        {
+            // Setup
+            var output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.1), null,
+                                                            new TestOvertoppingRateOutput(0.2));
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasDikeHeightOutputWithIllustrationPoints(output);
+
+            // Assert
+            Assert.IsFalse(hasIllustrationPoints);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void HasDikeHeightOutputWithIllustrationPoints_WithOrWithoutIllustrationPoints_ReturnsExpectedResult(bool expectedHasIllustrationPoints)
+        {
+            // Setup
+            var output = new TestGrassCoverErosionInwardsOutput(
+                expectedHasIllustrationPoints
+                    ? new TestGeneralResultFaultTreeIllustrationPoint()
+                    : null);
+
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasDikeHeightOutputWithIllustrationPoints(output);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        [Test]
+        public void HasOverToppingRateOutputWithIllustrationPoints_OutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingRateOutputWithIllustrationPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void HasOverToppingRateOutputWithIllustrationPoints_OvertoppingRateOutputNull_ReturnsFalse()
+        {
+            // Setup
+            var output = new GrassCoverErosionInwardsOutput(
+                new TestOvertoppingOutput(0.1), new TestDikeHeightOutput(0.2), null);
+
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingRateOutputWithIllustrationPoints(output);
+
+            // Assert
+            Assert.IsFalse(hasIllustrationPoints);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void HasOverToppingRateOutputWithIllustrationPoints_WithOrWithoutIllustrationPoints_ReturnsExpectedResult(bool expectedHasIllustrationPoints)
+        {
+            // Setup
+            var output = new TestGrassCoverErosionInwardsOutput(
+                expectedHasIllustrationPoints
+                    ? new TestGeneralResultFaultTreeIllustrationPoint()
+                    : null);
+
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingRateOutputWithIllustrationPoints(output);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
         private static IEnumerable<TestCaseData> GetCalculationCollectionConfigurations()
         {
             foreach (TestCaseData configuration in GetCalculationConfigurations())
