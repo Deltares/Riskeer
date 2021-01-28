@@ -898,7 +898,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context,
+                                                                    object parentData, TreeViewControl treeViewControl)
         {
             GrassCoverErosionInwardsCalculationScenario calculation = context.WrappedData;
 
@@ -932,7 +933,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               }, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationItem(
                               () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
-                              new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(calculation, inquiryHelper))
+                              new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(
+                                  calculation, inquiryHelper, viewCommands))
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
