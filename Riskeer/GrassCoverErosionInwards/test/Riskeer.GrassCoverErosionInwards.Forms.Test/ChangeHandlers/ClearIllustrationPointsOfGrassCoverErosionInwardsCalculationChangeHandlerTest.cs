@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
 
         [Test]
         [Combinatorial]
-        public void ClearIllustrationPoints_WithVariousCalculationConfigurations_ClearsIllustrationPointsAndReturnsExpectedResult(
+        public void GivenCalculationWithOutputWithVariousIllustrationPointsConfigurations_WhenClearIllustrationPoints_ThenViewClosedAndIllustrationPointsClearedAndReturnTrue(
             [Values(true, false)] bool hasOvertoppingIllustrationPoints,
             [Values(true, false)] bool hasDikeHeightIllustrationPoints,
             [Values(true, false)] bool hasOvertoppingRateIllustrationPoints)
@@ -119,6 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             {
                 viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculation.Output.OvertoppingRateOutput.GeneralResult));
             }
+
             mocks.ReplayAll();
 
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
