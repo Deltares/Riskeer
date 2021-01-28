@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -38,20 +39,43 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
         /// </summary>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(
-            GrassCoverErosionInwardsCalculation calculation, IInquiryHelper inquiryHelper)
-            : base(calculation, inquiryHelper) {}
+            GrassCoverErosionInwardsCalculation calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(calculation, inquiryHelper, viewCommands) {}
 
         public override bool ClearIllustrationPoints()
         {
             if (GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(Calculation))
             {
+                CloseViews();
+
                 Calculation.ClearIllustrationPoints();
                 return true;
             }
 
             return false;
+        }
+
+        private void CloseViews()
+        {
+            GrassCoverErosionInwardsOutput output = Calculation.Output;
+
+            if (GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingIllustrationPoints(output))
+            {
+                ViewCommands.RemoveAllViewsForItem(output.OvertoppingOutput.GeneralResult);
+            }
+
+            if (GrassCoverErosionInwardsIllustrationPointsHelper.HasDikeHeightOutputWithIllustrationPoints(output))
+            {
+                ViewCommands.RemoveAllViewsForItem(output.DikeHeightOutput.GeneralResult);
+            }
+
+            if (GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingRateOutputWithIllustrationPoints(output))
+            {
+                ViewCommands.RemoveAllViewsForItem(output.OvertoppingRateOutput.GeneralResult);
+            }
         }
     }
 }
