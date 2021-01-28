@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(isRelevant),
-                ScenarioContribution = contribution.ToNaNAsNull(),
+                ScenarioContribution = contribution,
                 Name = name,
                 Comments = comments,
                 EntryPointL = entryPoint.ToNaNAsNull(),

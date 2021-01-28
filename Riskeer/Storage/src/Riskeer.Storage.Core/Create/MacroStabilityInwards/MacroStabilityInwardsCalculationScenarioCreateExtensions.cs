@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
             {
                 Name = calculation.Name.DeepClone(),
                 Comment = calculation.Comments.Body.DeepClone(),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
                 Order = order
             };
