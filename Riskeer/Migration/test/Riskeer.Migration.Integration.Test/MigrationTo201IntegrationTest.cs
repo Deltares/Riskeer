@@ -165,24 +165,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ZoneBoundaryRight] IS OLD.[ZoneBoundaryRight]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculation);
-            
-            // string validateScenarioContribution = 
-            //     $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-            //     "SELECT SUM([IsInvalid]) = 0 " +
-            //     "FROM " +
-            //     "(" +
-            //     "SELECT " +
-            //     "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
-            //     "THEN 0 " +
-            //     "ELSE OLD.[ScenarioContribution]" +
-            //     "END AS [IsInvalid] " +
-            //     "FROM MacroStabilityInwardsCalculationEntity NEW " +
-            //     "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity OLD " +
-            //     "ON NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
-            //     "); " +
-            //     "DETACH SOURCEPROJECT;";
-            // reader.AssertReturnedDataIsValid(validateScenarioContribution);
-            
+
             const string validateContributions =
                 "SELECT COUNT() = 0 " +
                 "FROM MacroStabilityInwardsCalculationEntity " +
@@ -767,23 +750,6 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculation);
-            
-            // string validateScenarioContribution = 
-            //     $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-            //     "SELECT SUM([IsInvalid]) = 0 " +
-            //     "FROM " +
-            //     "(" +
-            //     "SELECT " +
-            //     "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
-            //     "THEN 0 " +
-            //     "ELSE OLD.[ScenarioContribution]" +
-            //     "END AS [IsInvalid] " +
-            //     "FROM SemiProbabilisticPipingCalculationEntity NEW " +
-            //     "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
-            //     "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
-            //     "); " +
-            //     "DETACH SOURCEPROJECT;";
-            // reader.AssertReturnedDataIsValid(validateScenarioContribution);
             
             const string validateContributions =
                 "SELECT COUNT() = 0 " +
