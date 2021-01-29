@@ -33,11 +33,13 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected()
+        [TestCase("MigrationTestProject191.risk", 3, false)]
+        [TestCase("MigrationTestProject191InvalidScenarioContributions.risk", 5, true)]
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, int expectedAmountOfMessage, bool invalidScenarioContributions)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                               "MigrationTestProject191.risk");
+                                                               filePath);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
@@ -83,10 +85,10 @@ namespace Riskeer.Migration.Integration.Test
                     AssertSubMechanismIllustrationPointStochast(reader, sourceFilePath);
                 }
 
-                AssertLogDatabase(logFilePath);
+                AssertLogDatabase(logFilePath, expectedAmountOfMessage, invalidScenarioContributions);
             }
         }
-
+        
         private static void AssertMacroStabilityInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateCalculation =
@@ -164,22 +166,28 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculation);
             
-            string validateScenarioContribution = 
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-                "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM " +
-                "(" +
-                "SELECT " +
-                "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
-                "THEN 0 " +
-                "ELSE OLD.[ScenarioContribution]" +
-                "END AS [IsInvalid] " +
-                "FROM MacroStabilityInwardsCalculationEntity NEW " +
-                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity OLD " +
-                "ON NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
-                "); " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateScenarioContribution);
+            // string validateScenarioContribution = 
+            //     $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+            //     "SELECT SUM([IsInvalid]) = 0 " +
+            //     "FROM " +
+            //     "(" +
+            //     "SELECT " +
+            //     "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
+            //     "THEN 0 " +
+            //     "ELSE OLD.[ScenarioContribution]" +
+            //     "END AS [IsInvalid] " +
+            //     "FROM MacroStabilityInwardsCalculationEntity NEW " +
+            //     "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity OLD " +
+            //     "ON NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+            //     "); " +
+            //     "DETACH SOURCEPROJECT;";
+            // reader.AssertReturnedDataIsValid(validateScenarioContribution);
+            
+            const string validateContributions =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationEntity " +
+                "WHERE [ScenarioContribution] IS NULL OR [ScenarioContribution] < 0 OR [ScenarioContribution] > 1 ;";
+            reader.AssertReturnedDataIsValid(validateContributions);
         }
 
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -760,22 +768,28 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculation);
             
-            string validateScenarioContribution = 
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-                "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM " +
-                "(" +
-                "SELECT " +
-                "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
-                "THEN 0 " +
-                "ELSE OLD.[ScenarioContribution]" +
-                "END AS [IsInvalid] " +
-                "FROM SemiProbabilisticPipingCalculationEntity NEW " +
-                "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
-                "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
-                "); " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateScenarioContribution);
+            // string validateScenarioContribution = 
+            //     $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+            //     "SELECT SUM([IsInvalid]) = 0 " +
+            //     "FROM " +
+            //     "(" +
+            //     "SELECT " +
+            //     "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
+            //     "THEN 0 " +
+            //     "ELSE OLD.[ScenarioContribution]" +
+            //     "END AS [IsInvalid] " +
+            //     "FROM SemiProbabilisticPipingCalculationEntity NEW " +
+            //     "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
+            //     "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
+            //     "); " +
+            //     "DETACH SOURCEPROJECT;";
+            // reader.AssertReturnedDataIsValid(validateScenarioContribution);
+            
+            const string validateContributions =
+                "SELECT COUNT() = 0 " +
+                "FROM SemiProbabilisticPipingCalculationEntity " +
+                "WHERE [ScenarioContribution] IS NULL OR [ScenarioContribution] < 0 OR [ScenarioContribution] > 1 ;";
+            reader.AssertReturnedDataIsValid(validateContributions);
         }
 
         private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
@@ -970,13 +984,13 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertLogDatabase(string logFilePath)
+        private static void AssertLogDatabase(string logFilePath, int expectedAmountOfMessages, bool invalidScenarioContributions)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(5, messages.Count);
+                Assert.AreEqual(expectedAmountOfMessages, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
@@ -987,12 +1001,16 @@ namespace Riskeer.Migration.Integration.Test
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld zijn verwijderd."),
                     messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
-                    messages[i]);
+
+                if (invalidScenarioContributions)
+                {
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
+                        messages[i++]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
+                        messages[i]);
+                }
             }
         }
     }
