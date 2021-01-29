@@ -163,6 +163,23 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ZoneBoundaryRight] IS OLD.[ZoneBoundaryRight]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculation);
+            
+            string validateScenarioContribution = 
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "(" +
+                "SELECT " +
+                "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
+                "THEN 0 " +
+                "ELSE OLD.[ScenarioContribution]" +
+                "END AS [IsInvalid] " +
+                "FROM MacroStabilityInwardsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity OLD " +
+                "ON NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+                "); " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateScenarioContribution);
         }
 
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -749,7 +766,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM " +
                 "(" +
                 "SELECT " +
-                "CASE WHEN (OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0) " +
+                "CASE WHEN OLD.[ScenarioContribution] IS NULL OR OLD.[ScenarioContribution] < 0 OR OLD.[ScenarioContribution] > 1 " +
                 "THEN 0 " +
                 "ELSE OLD.[ScenarioContribution]" +
                 "END AS [IsInvalid] " +
@@ -959,7 +976,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(4, messages.Count);
+                Assert.AreEqual(5, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
@@ -970,9 +987,9 @@ namespace Riskeer.Migration.Integration.Test
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld zijn verwijderd."),
                     messages[i++]);
-                // MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                //     new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
-                //     messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
+                    messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "* Alle scenario bijdragen van van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."),
                     messages[i]);
