@@ -387,7 +387,146 @@ SELECT
     [Value],
     [Order]
 FROM [SOURCEPROJECT].IllustrationPointResultEntity;
-INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
+INSERT INTO MacroStabilityInwardsCalculationEntity (
+    [MacroStabilityInwardsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [SurfaceLineEntityId],
+    [MacroStabilityInwardsStochasticSoilProfileEntityId],
+    [HydraulicLocationEntityId],
+    [Order],
+    [Name],
+    [Comment],
+    [RelevantForScenario],
+    [ScenarioContribution],
+    [AssessmentLevel],
+    [UseAssessmentLevelManualInput],
+    [SlipPlaneMinimumDepth],
+    [SlipPlaneMinimumLength],
+    [MaximumSliceWidth],
+    [MoveGrid],
+    [GridDeterminationType],
+    [TangentLineDeterminationType],
+    [TangentLineZTop],
+    [TangentLineZBottom],
+    [TangentLineNumber],
+    [LeftGridXLeft],
+    [LeftGridXRight],
+    [LeftGridNrOfHorizontalPoints],
+    [LeftGridZTop],
+    [LeftGridZBottom],
+    [LeftGridNrOfVerticalPoints],
+    [RightGridXLeft],
+    [RightGridXRight],
+    [RightGridNrOfHorizontalPoints],
+    [RightGridZTop],
+    [RightGridZBottom],
+    [RightGridNrOfVerticalPoints],
+    [DikeSoilScenario],
+    [WaterLevelRiverAverage],
+    [DrainageConstructionPresent],
+    [DrainageConstructionCoordinateX],
+    [DrainageConstructionCoordinateZ],
+    [MinimumLevelPhreaticLineAtDikeTopRiver],
+    [MinimumLevelPhreaticLineAtDikeTopPolder],
+    [AdjustPhreaticLine3And4ForUplift],
+    [LeakageLengthOutwardsPhreaticLine3],
+    [LeakageLengthInwardsPhreaticLine3],
+    [LeakageLengthOutwardsPhreaticLine4],
+    [LeakageLengthInwardsPhreaticLine4],
+    [PiezometricHeadPhreaticLine2Outwards],
+    [PiezometricHeadPhreaticLine2Inwards],
+    [LocationInputExtremeWaterLevelPolder],
+    [LocationInputExtremeUseDefaultOffsets],
+    [LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver],
+    [LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder],
+    [LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside],
+    [LocationInputExtremePhreaticLineOffsetDikeToeAtPolder],
+    [LocationInputExtremePenetrationLength],
+    [LocationInputDailyWaterLevelPolder],
+    [LocationInputDailyUseDefaultOffsets],
+    [LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver],
+    [LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder],
+    [LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside],
+    [LocationInputDailyPhreaticLineOffsetDikeToeAtPolder],
+    [CreateZones],
+    [ZoningBoundariesDeterminationType],
+    [ZoneBoundaryLeft],
+    [ZoneBoundaryRight])
+SELECT
+    [MacroStabilityInwardsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [SurfaceLineEntityId],
+    [MacroStabilityInwardsStochasticSoilProfileEntityId],
+    [HydraulicLocationEntityId],
+    [Order],
+    [Name],
+    [Comment],
+    [RelevantForScenario],
+    CASE
+        WHEN [ScenarioContribution] IS NULL
+            THEN 0
+        WHEN [ScenarioContribution] > 1
+            THEN 1
+        WHEN [ScenarioContribution] < 0
+            THEN 0
+    ELSE
+        [ScenarioContribution]
+    END,
+    [AssessmentLevel],
+    [UseAssessmentLevelManualInput],
+    [SlipPlaneMinimumDepth],
+    [SlipPlaneMinimumLength],
+    [MaximumSliceWidth],
+    [MoveGrid],
+    [GridDeterminationType],
+    [TangentLineDeterminationType],
+    [TangentLineZTop],
+    [TangentLineZBottom],
+    [TangentLineNumber],
+    [LeftGridXLeft],
+    [LeftGridXRight],
+    [LeftGridNrOfHorizontalPoints],
+    [LeftGridZTop],
+    [LeftGridZBottom],
+    [LeftGridNrOfVerticalPoints],
+    [RightGridXLeft],
+    [RightGridXRight],
+    [RightGridNrOfHorizontalPoints],
+    [RightGridZTop],
+    [RightGridZBottom],
+    [RightGridNrOfVerticalPoints],
+    [DikeSoilScenario],
+    [WaterLevelRiverAverage],
+    [DrainageConstructionPresent],
+    [DrainageConstructionCoordinateX],
+    [DrainageConstructionCoordinateZ],
+    [MinimumLevelPhreaticLineAtDikeTopRiver],
+    [MinimumLevelPhreaticLineAtDikeTopPolder],
+    [AdjustPhreaticLine3And4ForUplift],
+    [LeakageLengthOutwardsPhreaticLine3],
+    [LeakageLengthInwardsPhreaticLine3],
+    [LeakageLengthOutwardsPhreaticLine4],
+    [LeakageLengthInwardsPhreaticLine4],
+    [PiezometricHeadPhreaticLine2Outwards],
+    [PiezometricHeadPhreaticLine2Inwards],
+    [LocationInputExtremeWaterLevelPolder],
+    [LocationInputExtremeUseDefaultOffsets],
+    [LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver],
+    [LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder],
+    [LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside],
+    [LocationInputExtremePhreaticLineOffsetDikeToeAtPolder],
+    [LocationInputExtremePenetrationLength],
+    [LocationInputDailyWaterLevelPolder],
+    [LocationInputDailyUseDefaultOffsets],
+    [LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver],
+    [LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder],
+    [LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside],
+    [LocationInputDailyPhreaticLineOffsetDikeToeAtPolder],
+    [CreateZones],
+    [ZoningBoundariesDeterminationType],
+    [ZoneBoundaryLeft],
+    [ZoneBoundaryRight]  
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
@@ -436,7 +575,16 @@ SELECT
     [DampingFactorExitMean],
     [DampingFactorExitStandardDeviation],
     [RelevantForScenario],
-    [ScenarioContribution],
+    CASE
+        WHEN [ScenarioContribution] IS NULL
+            THEN 0
+        WHEN [ScenarioContribution] > 1 
+            THEN 1
+        WHEN [ScenarioContribution] < 0 
+            THEN 0
+    ELSE 
+        [ScenarioContribution]
+    END,
     [AssessmentLevel],
     [UseAssessmentLevelManualInput]
 FROM [SOURCEPROJECT].PipingCalculationEntity;
@@ -753,6 +901,54 @@ WHERE [NrDeleted] > 0
     LIMIT 1;
 
 DROP TABLE TempLogOutputDeleted;
+
+CREATE TEMP TABLE TempMacroStabilityInwardsValuesAdjusted 
+(
+	'NrAdjusted' INTEGER NOT NULL
+);
+
+INSERT INTO TempMacroStabilityInwardsValuesAdjusted SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity
+WHERE (
+[ScenarioContribution] > 1.0 OR [ScenarioContribution] < 0.0 OR [ScenarioContribution] IS NULL
+    );
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+SELECT
+    "19.1",
+    "20.1",
+    "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."
+FROM TempMacroStabilityInwardsValuesAdjusted
+WHERE [NrAdjusted] > 0
+    LIMIT 1;
+
+DROP TABLE TempMacroStabilityInwardsValuesAdjusted;
+
+CREATE TEMP TABLE TempPipingValuesAdjusted 
+(
+	'NrAdjusted' INTEGER NOT NULL
+);
+
+INSERT INTO TempPipingValuesAdjusted SELECT COUNT() FROM [SOURCEPROJECT].PipingCalculationEntity
+WHERE (
+    [ScenarioContribution] > 1.0 OR [ScenarioContribution] < 0.0 OR [ScenarioContribution] IS NULL
+    );
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+SELECT
+    "19.1",
+    "20.1",
+    "* Alle scenario bijdragen van van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."
+FROM TempPipingValuesAdjusted
+WHERE [NrAdjusted] > 0
+    LIMIT 1;
+
+DROP TABLE TempPipingValuesAdjusted;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
