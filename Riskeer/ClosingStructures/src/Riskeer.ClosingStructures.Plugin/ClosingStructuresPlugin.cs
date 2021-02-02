@@ -428,7 +428,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
+                              CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -575,7 +575,7 @@ namespace Riskeer.ClosingStructures.Plugin
                        CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(
                        () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
+                       CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands));
 
             if (isNestedGroup)
             {
@@ -857,9 +857,9 @@ namespace Riskeer.ClosingStructures.Plugin
         #endregion
 
         private static ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
-            IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
-            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(calculations, inquiryHelper, viewCommands);
         }
 
         private static ClearStructuresCalculationOutputChangeHandler<ClosingStructuresInput> CreateClearCalculationOutputChangeHandler(

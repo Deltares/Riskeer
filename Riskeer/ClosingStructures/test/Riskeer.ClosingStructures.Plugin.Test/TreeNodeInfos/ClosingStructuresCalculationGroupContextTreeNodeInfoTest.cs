@@ -1095,7 +1095,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndViewsClosedAndIllustrationPointsCleared()
         {
             // Given
             var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
@@ -1141,9 +1141,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithIllustrationPoints.Output.GeneralResult));
+
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocks.ReplayAll();
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
