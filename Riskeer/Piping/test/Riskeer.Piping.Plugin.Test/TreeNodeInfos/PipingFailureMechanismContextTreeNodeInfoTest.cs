@@ -1234,12 +1234,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndViewsClosedAndIllustrationPointsCleared()
         {
             // Given
             var calculationWithIllustrationPoints = new ProbabilisticPipingCalculationScenario
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                Output = new ProbabilisticPipingOutput(
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                    PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
             };
 
             var calculationWithOutput = new ProbabilisticPipingCalculationScenario
@@ -1283,10 +1285,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(
+                                        ((PartialProbabilisticFaultTreePipingOutput) calculationWithIllustrationPoints.Output.ProfileSpecificOutput).GeneralResult));
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(
+                                        ((PartialProbabilisticFaultTreePipingOutput) calculationWithIllustrationPoints.Output.SectionSpecificOutput).GeneralResult));
+                
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

@@ -892,7 +892,7 @@ namespace Riskeer.Piping.Plugin
                               CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
-                              CreateIllustrationPointsChangeHandler(inquiryHelper, probabilisticCalculations))
+                              CreateIllustrationPointsChangeHandler(probabilisticCalculations, inquiryHelper, viewCommands))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1057,7 +1057,7 @@ namespace Riskeer.Piping.Plugin
                        CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(
                        () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(probabilisticCalculations),
-                       CreateIllustrationPointsChangeHandler(inquiryHelper, probabilisticCalculations));
+                       CreateIllustrationPointsChangeHandler(probabilisticCalculations, inquiryHelper, viewCommands));
 
             if (isNestedGroup)
             {
@@ -1465,9 +1465,9 @@ namespace Riskeer.Piping.Plugin
         }
 
         private static ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
-            IInquiryHelper inquiryHelper, IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
+            IEnumerable<ProbabilisticPipingCalculationScenario> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
-            return new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(inquiryHelper, calculations);
+            return new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(calculations, inquiryHelper, viewCommands);
         }
 
         private static ClearPipingCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(
