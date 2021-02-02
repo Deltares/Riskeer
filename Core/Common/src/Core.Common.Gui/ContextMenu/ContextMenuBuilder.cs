@@ -141,7 +141,7 @@ namespace Core.Common.Gui.ContextMenu
             AddItem(guiItemsFactory.CreateUpdateItem());
             return this;
         }
-        
+
         public IContextMenuBuilder AddPropertiesItem()
         {
             AddItem(guiItemsFactory.CreatePropertiesItem());

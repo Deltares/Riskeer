@@ -96,8 +96,8 @@ namespace Core.Common.Gui.Helpers
             string folderPath = null;
             using (var dialog = new FolderBrowserDialog
             {
-               ShowNewFolderButton = true,
-               Description = Resources.SaveFileDialog_Title
+                ShowNewFolderButton = true,
+                Description = Resources.SaveFileDialog_Title
             })
             {
                 DialogResult result = dialog.ShowDialog(dialogParent);
