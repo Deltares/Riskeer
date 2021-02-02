@@ -205,18 +205,19 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
         private static IEnumerable<TestCaseData> GetPartialOutputs()
         {
-            PartialProbabilisticFaultTreePipingOutput faultTreeOutputWithIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
-            PartialProbabilisticFaultTreePipingOutput faultTreeOutputWithoutIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
-            PartialProbabilisticSubMechanismPipingOutput subMechanismOutputWithIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput();
-            PartialProbabilisticSubMechanismPipingOutput subMechanismOutputWithoutIllustrationPoints = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null);
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null));
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput());
 
-            yield return new TestCaseData(faultTreeOutputWithIllustrationPoints, faultTreeOutputWithIllustrationPoints);
-            yield return new TestCaseData(faultTreeOutputWithIllustrationPoints, faultTreeOutputWithoutIllustrationPoints);
-            yield return new TestCaseData(faultTreeOutputWithoutIllustrationPoints, faultTreeOutputWithIllustrationPoints);
-
-            yield return new TestCaseData(subMechanismOutputWithIllustrationPoints, subMechanismOutputWithIllustrationPoints);
-            yield return new TestCaseData(subMechanismOutputWithIllustrationPoints, subMechanismOutputWithoutIllustrationPoints);
-            yield return new TestCaseData(subMechanismOutputWithoutIllustrationPoints, subMechanismOutputWithIllustrationPoints);
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput());
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null));
+            yield return new TestCaseData(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null),
+                                          PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput());
         }
     }
 }
