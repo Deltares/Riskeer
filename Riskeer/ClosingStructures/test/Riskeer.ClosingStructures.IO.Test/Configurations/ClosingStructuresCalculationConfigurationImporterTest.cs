@@ -62,6 +62,12 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationStormDurationStandardDeviation.xml",
                                               "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")
                     .SetName(testNameFormat);
+                yield return new TestCaseData("validConfigurationDrainCoefficientVariationCoefficient.xml",
+                                              "Indien voor parameter 'afvoercoefficient' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData("validConfigurationInvalidDrainCoefficientStandardDeviation.xml",
+                                              "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'afvoercoefficient'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationFailureProbabilityOpenStructureWithoutStructure.xml",
                                               "Er is geen kunstwerk opgegeven om kans mislukken sluiting aan toe te voegen.")
                     .SetName(testNameFormat);

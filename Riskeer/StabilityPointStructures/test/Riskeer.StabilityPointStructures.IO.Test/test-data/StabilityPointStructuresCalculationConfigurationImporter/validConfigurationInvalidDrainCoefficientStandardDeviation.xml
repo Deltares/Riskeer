@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="1">
+  <berekening naam="Berekening 1">
+    <stochasten>
+      <stochast naam="afvoercoefficient">
+        <standaardafwijking>-0.01</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

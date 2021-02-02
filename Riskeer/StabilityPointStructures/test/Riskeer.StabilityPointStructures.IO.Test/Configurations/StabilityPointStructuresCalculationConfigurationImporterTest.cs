@@ -143,6 +143,17 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                     .SetName(testNameFormat);
 
                 yield return new TestCaseData(
+                        "validConfigurationDrainCoefficientVariationCoefficient.xml",
+                        "Indien voor parameter 'afvoercoefficient' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationInvalidDrainCoefficientStandardDeviation.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'afvoercoefficient'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
                         "validConfigurationEvaluationLevelWithoutStructure.xml",
                         "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.")
                     .SetName(testNameFormat);
