@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
@@ -34,19 +35,21 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling clearing illustration points from a collection of probabilistic piping calculation scenarios.
     /// </summary>
-    public class ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
+    public class ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler : ClearIllustrationPointsAndCloseViewOfCalculationCollectionChangeHandlerBase
     {
         private readonly IEnumerable<ProbabilisticPipingCalculationScenario> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                              IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
-            : base(inquiryHelper)
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
+            IEnumerable<ProbabilisticPipingCalculationScenario> calculations,
+            IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(inquiryHelper, viewCommands)
         {
             if (calculations == null)
             {
@@ -56,7 +59,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             this.calculations = calculations;
         }
 
-        public override IEnumerable<IObservable> ClearIllustrationPoints()
+        protected override IEnumerable<IObservable> PerformClearIllustrationPoints()
         {
             var affectedObjects = new List<IObservable>();
             foreach (ProbabilisticPipingCalculationScenario calculation in calculations.Where(ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints))
@@ -68,9 +71,40 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             return affectedObjects;
         }
 
+        protected override void CloseView(IViewCommands viewCommands)
+        {
+            foreach (ProbabilisticPipingCalculationScenario calculation in calculations.Where(ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints))
+            {
+                if (calculation.Output.SectionSpecificOutput.HasGeneralResult)
+                {
+                    CloseView(calculation.Output.SectionSpecificOutput, viewCommands);
+                }
+
+                if (calculation.Output.ProfileSpecificOutput.HasGeneralResult)
+                {
+                    CloseView(calculation.Output.ProfileSpecificOutput, viewCommands);
+                }
+            }
+        }
+
         protected override string GetConfirmationMessage()
         {
             return RiskeerCommonFormsResources.ClearIllustrationPointsCalculationCollection_ConfirmationMessage;
+        }
+
+        private static void CloseView(IPartialProbabilisticPipingOutput partialOutput, IViewCommands viewCommands)
+        {
+            switch (partialOutput)
+            {
+                case PartialProbabilisticFaultTreePipingOutput faultTreeOutput:
+                    viewCommands.RemoveAllViewsForItem(faultTreeOutput.GeneralResult);
+                    break;
+                case PartialProbabilisticSubMechanismPipingOutput subMechanismOutput:
+                    viewCommands.RemoveAllViewsForItem(subMechanismOutput.GeneralResult);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

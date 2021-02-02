@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void ClearIllustrationPoints_Always_ReturnsAffectedCalculations()
+        public void ClearIllustrationPoints_Always_ClosesViewsAndReturnsAffectedCalculations()
         {
             // Setup
             var random = new Random(21);

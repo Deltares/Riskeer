@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         [Test]
         public void ClearIllustrationPoints_ProfileSpecificWithIllustrationAndUnsupportedPartialOutput_ThrowsNotSupportedException()
         {
-            // Given
+            // Setup
             var sectionSpecificOutput = new TestPartialProbabilisticPipingOutput(0, null);
             var profileSpecificOutput = new TestPartialProbabilisticPipingOutput(0, new TestGeneralResultTopLevelIllustrationPoint());
             var calculation = new ProbabilisticPipingCalculationScenario
@@ -121,10 +121,10 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
-            // When
+            // Call
             void Call() => handler.ClearIllustrationPoints();
 
-            // Then
+            // Assert
             Assert.Throws<NotSupportedException>(Call);
             mocks.VerifyAll();
         }
@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             IPartialProbabilisticPipingOutput sectionSpecificOutput,
             IPartialProbabilisticPipingOutput profileSpecificOutput)
         {
-            // Setup
+            // Given
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput)
@@ -161,10 +161,10 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(calculation, inquiryHelper, viewCommands);
 
-            // Call
+            // When
             bool isCalculationAffected = handler.ClearIllustrationPoints();
 
-            // Assert
+            // Then
             bool expectedResult = hasSectionSpecificIllustrationPoints || hasProfileSpecificIllustrationPoints;
             Assert.AreEqual(expectedResult, isCalculationAffected);
             Assert.IsTrue(calculation.HasOutput);
