@@ -1123,7 +1123,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndViewsClosedAndIllustrationPointsCleared()
         {
             // Given
             var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculationScenario
@@ -1170,10 +1170,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var viewCommands = mocksRepository.StrictMock<IViewCommands>();
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithIllustrationPoints.Output.OvertoppingOutput.GeneralResult));
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithIllustrationPoints.Output.DikeHeightOutput.GeneralResult));
+                viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithIllustrationPoints.Output.OvertoppingRateOutput.GeneralResult));
+
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewCommands).Return(mocksRepository.Stub<IViewCommands>());
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;

@@ -605,7 +605,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                        () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
+                       CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()
@@ -749,7 +749,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(
                        () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
+                       CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands));
 
             if (isNestedGroup)
             {
@@ -1050,9 +1050,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         #endregion
 
         private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
-            IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
-            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(calculations, inquiryHelper);
+            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(calculations, inquiryHelper, viewCommands);
         }
 
         private static ClearGrassCoverErosionInwardsCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(
