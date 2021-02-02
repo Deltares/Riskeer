@@ -61,6 +61,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
+                    AssertHydraulicLocationOutput(reader);
+                    
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
 
@@ -84,6 +86,14 @@ namespace Riskeer.Migration.Integration.Test
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HydraulicLocationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
         }
 
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -782,7 +792,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationEntity",
                 "HydraulicLocationEntity",
-                "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
