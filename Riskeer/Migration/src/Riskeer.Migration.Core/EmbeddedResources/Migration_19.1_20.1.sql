@@ -129,7 +129,6 @@ LEFT JOIN(
 	FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity)
 USING(ClosingStructuresCalculationEntityId);
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
-INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity (
 	[ClosingStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
@@ -343,7 +342,6 @@ LEFT JOIN(
 	FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity)
 USING(HeightStructuresCalculationEntityId);
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
-INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity (
 	[HeightStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
@@ -629,7 +627,6 @@ LEFT JOIN(
 	FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity)
 USING(StabilityPointStructuresCalculationEntityId);
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
-INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity (
 	[StabilityPointStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],

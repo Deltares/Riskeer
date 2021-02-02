@@ -73,12 +73,15 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionOutwardsOutput(reader);
                     
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
+                    AssertClosingStructuresOutput(reader);
                     AssertClosingStructuresSectionResult(reader, sourceFilePath);
 
                     AssertHeightStructuresCalculation(reader, sourceFilePath);
+                    AssertHeightStructuresOutput(reader);
                     AssertHeightStructuresSectionResult(reader, sourceFilePath);
 
                     AssertStabilityPointStructuresCalculation(reader, sourceFilePath);
+                    AssertStabilityPointStructuresOutput(reader);
                     AssertStabilityPointStructuresSectionResult(reader, sourceFilePath);
 
                     AssertMacroStabilityInwardsOutput(reader);
@@ -141,6 +144,30 @@ namespace Riskeer.Migration.Integration.Test
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [GrassCoverErosionOutwardsWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [ClosingStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HeightStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityPointStructuresOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
@@ -805,7 +832,6 @@ namespace Riskeer.Migration.Integration.Test
                 "CalculationGroupEntity",
                 "ClosingStructureEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
-                "ClosingStructuresOutputEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneErosionSectionResultEntity",
@@ -831,7 +857,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresOutputEntity",
                 "HydraulicBoundaryDatabaseEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationEntity",
@@ -863,7 +888,6 @@ namespace Riskeer.Migration.Integration.Test
                 "ProjectEntity",
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresOutputEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
