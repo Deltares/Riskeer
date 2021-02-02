@@ -83,18 +83,18 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                 InsideWaterLevelStandardDeviation = 17.17,
                 DeviationWaveDirection = 18.18,
                 DrainCoefficientMean = 19.19,
-                DrainCoefficientStandardDeviation = 0.02,
-                FactorStormDurationOpenStructure = 20.20,
-                ThresholdHeightOpenWeirMean = 21.21,
-                ThresholdHeightOpenWeirStandardDeviation = 22.22,
-                AreaFlowAperturesMean = 23.23,
-                AreaFlowAperturesStandardDeviation = 24.24,
-                FailureProbabilityOpenStructure = 0.25,
-                FailureProbabilityReparation = 0.26,
-                IdenticalApertures = 27,
-                LevelCrestStructureNotClosingMean = 28.28,
-                LevelCrestStructureNotClosingStandardDeviation = 29.29,
-                ProbabilityOpenStructureBeforeFlooding = 0.30
+                DrainCoefficientStandardDeviation = 20.20,
+                FactorStormDurationOpenStructure = 21.21,
+                ThresholdHeightOpenWeirMean = 22.22,
+                ThresholdHeightOpenWeirStandardDeviation = 23.23,
+                AreaFlowAperturesMean = 24.24,
+                AreaFlowAperturesStandardDeviation = 25.25,
+                FailureProbabilityOpenStructure = 0.26,
+                FailureProbabilityReparation = 0.27,
+                IdenticalApertures = 28,
+                LevelCrestStructureNotClosingMean = 29.29,
+                LevelCrestStructureNotClosingStandardDeviation = 30.30,
+                ProbabilityOpenStructureBeforeFlooding = 0.31
             };
             var collector = new ReadConversionCollector();
 

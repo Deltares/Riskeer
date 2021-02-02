@@ -881,7 +881,8 @@ namespace Riskeer.Storage.Core.Test.Create
                     FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                     DrainCoefficient =
                     {
-                        Mean = random.NextRoundedDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }

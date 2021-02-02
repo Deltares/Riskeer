@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 VolumicWeightWater = 47.47,
                 FactorStormDurationOpenStructure = 48.48,
                 DrainCoefficientMean = 49.49,
-                DrainCoefficientStandardDeviation = 0.02
+                DrainCoefficientStandardDeviation = 50.50
             };
             var collector = new ReadConversionCollector();
 
