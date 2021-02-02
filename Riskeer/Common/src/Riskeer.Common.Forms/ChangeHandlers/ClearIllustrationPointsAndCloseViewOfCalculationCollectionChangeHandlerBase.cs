@@ -58,8 +58,16 @@ namespace Riskeer.Common.Forms.ChangeHandlers
             return PerformClearIllustrationPoints();
         }
 
+        /// <summary>
+        /// Performs the clear illustration points action.
+        /// </summary>
+        /// <returns>The affected objects by the operation.</returns>
         protected abstract IEnumerable<IObservable> PerformClearIllustrationPoints();
 
+        /// <summary>
+        /// Closes the views for the illustration points.
+        /// </summary>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         protected abstract void CloseView(IViewCommands viewCommands);
     }
 }

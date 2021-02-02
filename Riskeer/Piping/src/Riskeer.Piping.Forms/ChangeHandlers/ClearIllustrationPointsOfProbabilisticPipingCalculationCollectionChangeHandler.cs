@@ -71,6 +71,9 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             return affectedObjects;
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when a calculations has
+        /// <see cref="IPartialProbabilisticPipingOutput"/> that is of an unsupported type.</exception>
         protected override void CloseView(IViewCommands viewCommands)
         {
             foreach (ProbabilisticPipingCalculationScenario calculation in calculations.Where(ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints))
@@ -92,6 +95,12 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             return RiskeerCommonFormsResources.ClearIllustrationPointsCalculationCollection_ConfirmationMessage;
         }
 
+        /// <summary>
+        /// Closes the view for the illustration points on the given <paramref name="partialOutput"/>.
+        /// </summary>
+        /// <param name="partialOutput">The output that contains the illustration points to close the view for.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="partialOutput"/> is of an unsupported type.</exception>
         private static void CloseView(IPartialProbabilisticPipingOutput partialOutput, IViewCommands viewCommands)
         {
             switch (partialOutput)

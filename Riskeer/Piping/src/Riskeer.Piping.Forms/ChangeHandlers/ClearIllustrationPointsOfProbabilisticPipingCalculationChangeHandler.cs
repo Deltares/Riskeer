@@ -45,6 +45,9 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             ProbabilisticPipingCalculationScenario calculation, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
             : base(calculation, inquiryHelper, viewCommands) {}
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when a calculations has
+        /// <see cref="IPartialProbabilisticPipingOutput"/> that is of an unsupported type.</exception>
         public override bool ClearIllustrationPoints()
         {
             if (ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(Calculation))
@@ -53,6 +56,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
                 {
                     CloseView(Calculation.Output.SectionSpecificOutput);
                 }
+
                 if (Calculation.Output.ProfileSpecificOutput.HasGeneralResult)
                 {
                     CloseView(Calculation.Output.ProfileSpecificOutput);
@@ -65,6 +69,11 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
             return false;
         }
 
+        /// <summary>
+        /// Closes the view for the illustration points on the given <paramref name="partialOutput"/>.
+        /// </summary>
+        /// <param name="partialOutput">The output that contains the illustration points to close the view for.</param>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="partialOutput"/> is of an unsupported type.</exception>
         private void CloseView(IPartialProbabilisticPipingOutput partialOutput)
         {
             switch (partialOutput)
