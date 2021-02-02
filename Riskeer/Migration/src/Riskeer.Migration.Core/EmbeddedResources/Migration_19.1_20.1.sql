@@ -231,10 +231,7 @@ LEFT JOIN(
 		END AS IsLinkedToSectionResult
 	FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity)
 USING(GrassCoverErosionInwardsCalculationEntityId);
-INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
-INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
 	[GrassCoverErosionInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],

@@ -64,6 +64,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertHydraulicLocationOutput(reader);
                     
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsOutput(reader);
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
 
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
@@ -88,7 +89,25 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
-        private void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
+        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+            
+            const string validateDikeHeightOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateDikeHeightOutput);
+            
+            const string validateOvertoppingRateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
+        }
+
+        private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
         {
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
@@ -775,10 +794,7 @@ namespace Riskeer.Migration.Integration.Test
                 "GeneralResultFaultTreeIllustrationPointStochastEntity",
                 "GeneralResultSubMechanismIllustrationPointEntity",
                 "GeneralResultSubMechanismIllustrationPointStochastEntity",
-                "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionInwardsOutputEntity",
-                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
