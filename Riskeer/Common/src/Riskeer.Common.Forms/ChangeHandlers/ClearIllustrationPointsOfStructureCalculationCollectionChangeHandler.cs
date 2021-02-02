@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Properties;
@@ -33,19 +35,20 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// Class for handling clearing illustration points from a collection of structure calculations.
     /// </summary>
     public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler
-        : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
+        : ClearIllustrationPointsAndCloseViewOfCalculationCollectionChangeHandlerBase
     {
         private readonly IEnumerable<IStructuresCalculation> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                    IEnumerable<IStructuresCalculation> calculations)
-            : base(inquiryHelper)
+        public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
+            IEnumerable<IStructuresCalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(inquiryHelper, viewCommands)
         {
             if (calculations == null)
             {
@@ -55,9 +58,17 @@ namespace Riskeer.Common.Forms.ChangeHandlers
             this.calculations = calculations;
         }
 
-        public override IEnumerable<IObservable> ClearIllustrationPoints()
+        protected override IEnumerable<IObservable> PerformClearIllustrationPoints()
         {
             return RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(calculations);
+        }
+
+        protected override void CloseView(IViewCommands viewCommands)
+        {
+            foreach (IStructuresCalculation calculation in calculations.Where(c => c.HasOutput && c.Output.HasGeneralResult))
+            {
+                viewCommands.RemoveAllViewsForItem(calculation.Output.GeneralResult);
+            }
         }
 
         protected override string GetConfirmationMessage()

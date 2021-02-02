@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -42,32 +43,33 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
-                inquiryHelper, null);
+            void Call() => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(null, inquiryHelper, viewCommands);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
-                inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
+                Enumerable.Empty<TestStructuresCalculation>(), inquiryHelper, viewCommands);
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsAndCloseViewOfCalculationCollectionChangeHandlerBase>(handler);
             mocks.VerifyAll();
         }
 
@@ -81,10 +83,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
-                inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
+                Enumerable.Empty<TestStructuresCalculation>(), inquiryHelper, viewCommands);
 
             // Call
             bool confirmation = handler.InquireConfirmation();
@@ -95,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void ClearIllustrationPoints_Always_ReturnsAffectedCalculations()
+        public void ClearIllustrationPoints_Always_ClosesViewsAndReturnsAffectedCalculations()
         {
             // Setup
             var calculationWithIllustrationPoints = new TestStructuresCalculation
@@ -116,8 +119,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             };
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithIllustrationPoints.Output.GeneralResult));
+            
             var calculationWithIllustrationPointsObserver = mocks.StrictMock<IObserver>();
             calculationWithIllustrationPoints.Attach(calculationWithIllustrationPointsObserver);
 
@@ -125,7 +130,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
+                calculations, inquiryHelper, viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();
