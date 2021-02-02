@@ -69,6 +69,8 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertStabilityStoneCoverOutput(reader);
                     AssertWaveImpactAsphaltCoverOutput(reader);
+
+                    AssertGrassCoverErosionOutwardsOutput(reader);
                     
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
                     AssertClosingStructuresSectionResult(reader, sourceFilePath);
@@ -131,6 +133,14 @@ namespace Riskeer.Migration.Integration.Test
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [WaveImpactAsphaltCoverWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertGrassCoverErosionOutwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionOutwardsWaveConditionsOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
@@ -817,7 +827,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
@@ -871,7 +880,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
             };
 
             foreach (string table in tables)
