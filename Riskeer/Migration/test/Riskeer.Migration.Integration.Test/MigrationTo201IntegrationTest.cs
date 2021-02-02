@@ -68,6 +68,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
 
                     AssertStabilityStoneCoverOutput(reader);
+                    AssertWaveImpactAsphaltCoverOutput(reader);
                     
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
                     AssertClosingStructuresSectionResult(reader, sourceFilePath);
@@ -122,6 +123,14 @@ namespace Riskeer.Migration.Integration.Test
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [StabilityStoneCoverWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertWaveImpactAsphaltCoverOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [WaveImpactAsphaltCoverWaveConditionsOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
@@ -863,7 +872,6 @@ namespace Riskeer.Migration.Integration.Test
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
             };
 
             foreach (string table in tables)
