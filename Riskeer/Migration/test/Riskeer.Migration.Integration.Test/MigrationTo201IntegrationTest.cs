@@ -89,6 +89,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingCalculation(reader, sourceFilePath);
                     AssertPipingOutput(reader, sourceFilePath);
 
+                    AssertDuneLocationOutput(reader);
+                    
                     AssertIllustrationPointResult(reader, sourceFilePath);
                     AssertSubMechanismIllustrationPointStochast(reader, sourceFilePath);
                 }
@@ -168,6 +170,14 @@ namespace Riskeer.Migration.Integration.Test
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [StabilityPointStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertDuneLocationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationCalculationOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
@@ -837,7 +847,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DuneErosionSectionResultEntity",
                 "DuneLocationCalculationCollectionEntity",
                 "DuneLocationCalculationEntity",
-                "DuneLocationCalculationOutputEntity",
                 "DuneLocationEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
