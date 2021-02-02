@@ -464,7 +464,12 @@ SELECT
 	[SellmeijerCreepCoefficient],
 	[SellmeijerCriticalFall],
 	[SellmeijerReducedFall]
-FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+WHERE PipingCalculationEntityId IN (
+    SELECT PipingCalculationEntityId
+    FROM [SOURCEPROJECT].PipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 1
+    );
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
@@ -738,7 +743,7 @@ INSERT INTO TempLogOutputDeleted
 SELECT COUNT()
 FROM [SOURCEPROJECT].PipingCalculationOutputEntity
     JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId)
-WHERE UseAssessmentLevelManualInput = 1;
+WHERE UseAssessmentLevelManualInput = 0;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
@@ -747,7 +752,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 SELECT
     "19.1",
     "20.1",
-    "* Alle berekende resultaten van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld zijn verwijderd."
+    "* Alle berekende resultaten van het toetsspoor 'Piping' zijn verwijderd, behalve die waarbij de waterstand handmatig is ingevuld."
 FROM TempLogOutputDeleted
 WHERE [NrDeleted] > 0
     LIMIT 1;

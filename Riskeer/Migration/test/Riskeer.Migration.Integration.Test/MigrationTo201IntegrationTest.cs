@@ -673,7 +673,8 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.PipingCalculationOutputEntity" +
+                "FROM SOURCEPROJECT.PipingCalculationOutputEntity " +
+                "WHERE PipingCalculationEntityId IN (SELECT PipingCalculationEntityId FROM SOURCEPROJECT.PipingCalculationEntity WHERE UseAssessmentLevelManualInput IS 1) " +
                 ") " +
                 "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
                 "JOIN SOURCEPROJECT.PipingCalculationOutputEntity OLD " +
@@ -873,7 +874,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld zijn verwijderd."),
+                    new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Piping' zijn verwijderd, behalve die waarbij de waterstand handmatig is ingevuld."),
                     messages[i]);
             }
         }
