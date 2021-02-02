@@ -393,11 +393,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             var random = new Random(22);
             var input = new ClosingStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
-            };
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
@@ -408,6 +403,11 @@ namespace Riskeer.ClosingStructures.Data.Test
             input.ModelFactorSuperCriticalFlow = distributionToSet;
 
             // Assert
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
+            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
         }
 
@@ -419,11 +419,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -434,6 +429,11 @@ namespace Riskeer.ClosingStructures.Data.Test
             input.DrainCoefficient = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
@@ -491,11 +491,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -506,6 +501,11 @@ namespace Riskeer.ClosingStructures.Data.Test
             input.AreaFlowApertures = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 

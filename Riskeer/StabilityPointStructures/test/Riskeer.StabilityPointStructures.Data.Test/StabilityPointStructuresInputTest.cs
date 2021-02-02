@@ -544,11 +544,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -559,6 +554,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             input.DrainCoefficient = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
@@ -570,11 +570,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var coefficientOfVariation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = input.FlowVelocityStructureClosable.CoefficientOfVariation
-            };
             var distributionToSet = new VariationCoefficientNormalDistribution(5)
             {
                 Mean = mean,
@@ -585,6 +580,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             input.FlowVelocityStructureClosable = distributionToSet;
 
             // Assert
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = input.FlowVelocityStructureClosable.CoefficientOfVariation
+            };
             DistributionTestHelper.AssertDistributionCorrectlySet(input.FlowVelocityStructureClosable, distributionToSet, expectedDistribution);
         }
 
