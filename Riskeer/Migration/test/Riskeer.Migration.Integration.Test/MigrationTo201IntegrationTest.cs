@@ -91,7 +91,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertDuneLocationOutput(reader);
                     
-                    AssertIllustrationPointResult(reader, sourceFilePath);
+                    AssertIllustrationPointResults(reader);
                     AssertSubMechanismIllustrationPointStochast(reader, sourceFilePath);
                 }
 
@@ -788,25 +788,57 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOutput);
         }
         
-        private static void AssertIllustrationPointResult(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
         {
-            string validateSectionResults =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.IllustrationPointResultEntity" +
-                ") " +
-                "FROM IllustrationPointResultEntity NEW " +
-                "JOIN SOURCEPROJECT.IllustrationPointResultEntity OLD USING(IllustrationPointResultEntityId) " +
-                "WHERE NEW.[IllustrationPointResultEntityId] = OLD.[IllustrationPointResultEntityId] " +
-                "AND NEW.[SubMechanismIllustrationPointEntityId] = OLD.[SubMechanismIllustrationPointEntityId] " +
-                "AND NEW.[Description] = OLD.[Description] " +
-                "AND NEW.[Unit] = \"-\" " +
-                "AND NEW.[Value] IS OLD.[Value] " +
-                "AND NEW.[Order] = OLD.[Order]; " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSectionResults);
+            const string validateFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPoint);
+            
+            const string validateFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPointStochast);
+            
+            const string validateFaultTreeSubmechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeSubmechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeSubmechanismIllustrationPoint);
+            
+            const string validateGeneralResultFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPoint);
+            
+            const string validateGeneralResultFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPointStochast);
+            
+            const string validateGeneralResultSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPoint);
+            
+            const string validateGeneralResultSubMechanismIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPointStochast);
+            
+            const string validateIllustrationPointResult =
+                "SELECT COUNT() = 0 " +
+                "FROM [IllustrationPointResultEntity]; ";
+            reader.AssertReturnedDataIsValid(validateIllustrationPointResult);
+            
+            const string validateTopLevelFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelFaultTreeIllustrationPoint);
+            
+            const string validateTopLevelSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
         }
         
         private static void AssertSubMechanismIllustrationPointStochast(MigratedDatabaseReader reader, string sourceFilePath)
@@ -850,14 +882,7 @@ namespace Riskeer.Migration.Integration.Test
                 "DuneLocationEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
-                "FaultTreeIllustrationPointEntity",
-                "FaultTreeIllustrationPointStochastEntity",
-                "FaultTreeSubmechanismIllustrationPointEntity",
                 "ForeshoreProfileEntity",
-                "GeneralResultFaultTreeIllustrationPointEntity",
-                "GeneralResultFaultTreeIllustrationPointStochastEntity",
-                "GeneralResultSubMechanismIllustrationPointEntity",
-                "GeneralResultSubMechanismIllustrationPointStochastEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
@@ -870,7 +895,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationEntity",
                 "HydraulicLocationEntity",
-                "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
@@ -907,8 +931,6 @@ namespace Riskeer.Migration.Integration.Test
                 "SubMechanismIllustrationPointStochastEntity",
                 "SurfaceLineEntity",
                 "TechnicalInnovationSectionResultEntity",
-                "TopLevelFaultTreeIllustrationPointEntity",
-                "TopLevelSubMechanismIllustrationPointEntity",
                 "VersionEntity",
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
