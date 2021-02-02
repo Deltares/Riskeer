@@ -67,6 +67,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionInwardsOutput(reader);
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
 
+                    AssertStabilityStoneCoverOutput(reader);
+                    
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
                     AssertClosingStructuresSectionResult(reader, sourceFilePath);
 
@@ -112,6 +114,14 @@ namespace Riskeer.Migration.Integration.Test
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [HydraulicLocationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertStabilityStoneCoverOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityStoneCoverWaveConditionsOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
@@ -839,7 +849,6 @@ namespace Riskeer.Migration.Integration.Test
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
                 "StochastEntity",
                 "StochasticSoilModelEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
