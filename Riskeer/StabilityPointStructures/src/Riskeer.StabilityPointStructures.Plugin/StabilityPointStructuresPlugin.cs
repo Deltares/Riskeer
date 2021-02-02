@@ -435,7 +435,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                               CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                              CreateIllustrationPointsChangeHandler(inquiryHelper, calculations))
+                              CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -580,7 +580,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        CreateClearCalculationOutputChangeHandler(calculations, inquiryHelper, viewCommands))
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(
                        () => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateIllustrationPointsChangeHandler(inquiryHelper, calculations));
+                       CreateIllustrationPointsChangeHandler(calculations, inquiryHelper, viewCommands));
 
             if (isNestedGroup)
             {
@@ -865,9 +865,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
         #endregion
 
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
-            IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
         {
-            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
+            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(calculations, inquiryHelper, viewCommands);
         }
 
         private static ClearStructuresCalculationOutputChangeHandler<StabilityPointStructuresInput> CreateClearCalculationOutputChangeHandler(
