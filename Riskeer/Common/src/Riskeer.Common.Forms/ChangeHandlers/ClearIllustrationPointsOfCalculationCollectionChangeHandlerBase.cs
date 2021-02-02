@@ -38,7 +38,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHelper"/> is <c>null</c>.</exception>
         protected ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase(IInquiryHelper inquiryHelper)
         {
             if (inquiryHelper == null)
