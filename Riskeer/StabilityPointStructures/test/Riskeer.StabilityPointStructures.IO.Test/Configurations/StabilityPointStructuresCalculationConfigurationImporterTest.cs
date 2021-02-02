@@ -755,6 +755,10 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                     {
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     },
+                    DrainCoefficient =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
                     FailureCollisionEnergy =
                     {
                         CoefficientOfVariation = (RoundedDouble) 0.1
@@ -931,7 +935,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                     },
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) 0.1
+                        Mean = (RoundedDouble) 0.1,
+                        StandardDeviation = (RoundedDouble) 0.1
                     },
                     EvaluationLevel = (RoundedDouble) 0.1,
                     FactorStormDurationOpenStructure = (RoundedDouble) 0.002,

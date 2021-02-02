@@ -11,7 +11,9 @@
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
       <stochast naam="modelfactoroverloopdebiet" />
-      <stochast naam="afvoercoefficient" />
+      <stochast naam="afvoercoefficient">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
       <stochast naam="breedtedoorstroomopening">
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>

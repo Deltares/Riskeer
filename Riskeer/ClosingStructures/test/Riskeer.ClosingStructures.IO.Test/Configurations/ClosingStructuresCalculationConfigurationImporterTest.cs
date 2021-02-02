@@ -423,7 +423,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                     },
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) 1.1
+                        Mean = (RoundedDouble) 1.1,
+                        StandardDeviation = (RoundedDouble) 0.1
                     },
                     InsideWaterLevel =
                     {
@@ -579,6 +580,10 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                     AreaFlowApertures =
                     {
                         StandardDeviation = (RoundedDouble) 1
+                    },
+                    DrainCoefficient =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
                     },
                     InsideWaterLevel =
                     {
