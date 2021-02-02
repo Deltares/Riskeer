@@ -21,11 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Service;
+using Riskeer.GrassCoverErosionInwards.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
@@ -34,19 +37,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
     /// Class for handling clearing the illustration points of a collection of grass cover erosion inwards calculations.
     /// </summary>
     public class ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler
-        : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
+        : ClearIllustrationPointsAndCloseViewOfCalculationCollectionChangeHandlerBase
     {
         private readonly IEnumerable<GrassCoverErosionInwardsCalculation> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                                   IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
-            : base(inquiryHelper)
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="viewCommands">The view commands used to close views for the illustration points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IInquiryHelper inquiryHelper, IViewCommands viewCommands)
+            : base(inquiryHelper, viewCommands)
         {
             if (calculations == null)
             {
@@ -56,9 +60,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
             this.calculations = calculations;
         }
 
-        public override IEnumerable<IObservable> ClearIllustrationPoints()
+        protected override IEnumerable<IObservable> PerformClearIllustrationPoints()
         {
             return GrassCoverErosionInwardsDataSynchronizationService.ClearIllustrationPoints(calculations);
+        }
+
+        protected override void CloseView(IViewCommands viewCommands)
+        {
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations.Where(GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints))
+            {
+                GrassCoverErosionInwardsOutput output = calculation.Output;
+
+                if (GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingIllustrationPoints(output))
+                {
+                    viewCommands.RemoveAllViewsForItem(output.OvertoppingOutput.GeneralResult);
+                }
+
+                if (GrassCoverErosionInwardsIllustrationPointsHelper.HasDikeHeightOutputWithIllustrationPoints(output))
+                {
+                    viewCommands.RemoveAllViewsForItem(output.DikeHeightOutput.GeneralResult);
+                }
+
+                if (GrassCoverErosionInwardsIllustrationPointsHelper.HasOverToppingRateOutputWithIllustrationPoints(output))
+                {
+                    viewCommands.RemoveAllViewsForItem(output.OvertoppingRateOutput.GeneralResult);
+                }
+            }
         }
 
         protected override string GetConfirmationMessage()

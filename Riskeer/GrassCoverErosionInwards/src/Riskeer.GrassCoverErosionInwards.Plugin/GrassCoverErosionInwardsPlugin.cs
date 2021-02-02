@@ -1052,7 +1052,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateIllustrationPointsChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
+            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(calculations, inquiryHelper);
         }
 
         private static ClearGrassCoverErosionInwardsCalculationOutputChangeHandler CreateClearCalculationOutputChangeHandler(

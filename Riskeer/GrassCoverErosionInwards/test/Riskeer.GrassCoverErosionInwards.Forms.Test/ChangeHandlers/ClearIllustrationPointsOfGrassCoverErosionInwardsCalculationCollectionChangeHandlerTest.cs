@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Helpers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,6 +33,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers;
+using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
 {
@@ -44,32 +46,33 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
-                inquiryHelper, null);
+            void Call() => new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(null, inquiryHelper, viewCommands);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
-                inquiryHelper, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
+                Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), inquiryHelper, viewCommands);
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsAndCloseViewOfCalculationCollectionChangeHandlerBase>(handler);
             mocks.VerifyAll();
         }
 
@@ -83,10 +86,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
-                inquiryHelper, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
+                Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), inquiryHelper, viewCommands);
 
             // Call
             bool confirmation = handler.InquireConfirmation();
@@ -101,53 +105,52 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
         {
             // Setup
             var random = new Random(21);
-            var overtoppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
-                                                                                             null,
-                                                                                             null);
-            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOvertoppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
             {
-                Output = overtoppingOutputWithIllustrationPoints
+                Output = new GrassCoverErosionInwardsOutput(
+                    new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                    null, null)
             };
 
-            var dikeHeightOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
-                                                                                            new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
-                                                                                            null);
             var calculationWithDikeHeightWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
             {
-                Output = dikeHeightOutputWithIllustrationPoints
+                Output = new GrassCoverErosionInwardsOutput(
+                    new TestOvertoppingOutput(random.NextDouble()),
+                    new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                    null)
             };
 
-            var overtoppingRateOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
-                                                                                                 null,
-                                                                                                 new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
             var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
             {
-                Output = overtoppingRateOutputWithIllustrationPoints
+                Output = new GrassCoverErosionInwardsOutput(
+                    new TestOvertoppingOutput(random.NextDouble()),
+                    null, new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()))
             };
 
-            var outputWithNoIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
-                                                                                    null,
-                                                                                    null);
             var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation
             {
-                Output = outputWithNoIllustrationPoints
+                Output = new GrassCoverErosionInwardsOutput(
+                    new TestOvertoppingOutput(random.NextDouble()), null, null)
             };
 
             GrassCoverErosionInwardsCalculation[] calculations =
             {
                 calculationWitNoIllustrationPoints,
-                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
                 calculationWithDikeHeightWithIllustrationPoints,
                 new GrassCoverErosionInwardsCalculation()
             };
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithOvertoppingOutputWithIllustrationPoints.Output.OvertoppingOutput.GeneralResult));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithOvertoppingRateWithIllustrationPoints.Output.OvertoppingRateOutput.GeneralResult));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(calculationWithDikeHeightWithIllustrationPoints.Output.DikeHeightOutput.GeneralResult));
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
-                inquiryHelper, calculations);
+            var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(calculations, inquiryHelper, viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();
@@ -155,7 +158,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             // Assert
             CollectionAssert.AreEquivalent(new[]
             {
-                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
                 calculationWithDikeHeightWithIllustrationPoints
             }, affectedObjects);
@@ -163,20 +166,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             GrassCoverErosionInwardsCalculation[] calculationsWithOutput =
             {
                 calculationWitNoIllustrationPoints,
-                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
                 calculationWithDikeHeightWithIllustrationPoints
             };
             Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
-
-            Assert.IsTrue(calculationsWithOutput.All(calc =>
-            {
-                GrassCoverErosionInwardsOutput output = calc.Output;
-
-                return !output.OvertoppingOutput.HasGeneralResult
-                       && output.DikeHeightOutput?.GeneralResult == null
-                       && output.OvertoppingRateOutput?.GeneralResult == null;
-            }));
+            Assert.IsFalse(calculationsWithOutput.Any(GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints));
             mocks.VerifyAll();
         }
     }
