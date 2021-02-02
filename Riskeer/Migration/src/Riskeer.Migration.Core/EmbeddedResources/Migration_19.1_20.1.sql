@@ -690,25 +690,64 @@ CREATE TEMP TABLE TempLogOutputDeleted
 	'NrDeleted' INTEGER NOT NULL
 );
 
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
-
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
-	[FromVersion],
-	[ToVersion],
-	[LogMessage])
-SELECT
-	"19.1",
-	"20.1",
-	"* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."
-	FROM TempLogOutputDeleted
-	WHERE [NrDeleted] > 0
-	LIMIT 1;
-
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeSubMechanismIllustrationPointEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].IllustrationPointResultEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
 INSERT INTO TempLogOutputDeleted
 SELECT COUNT()
 FROM [SOURCEPROJECT].PipingCalculationOutputEntity
-    JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId)
-WHERE UseAssessmentLevelManualInput = 0;
+WHERE PipingCalculationEntityId IN (
+    SELECT PipingCalculationEntityId
+    FROM [SOURCEPROJECT].PipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 0
+    );
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+WHERE PipingCalculationEntityId IN (
+    SELECT PipingCalculationEntityId
+    FROM [SOURCEPROJECT].PipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 0
+    );
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+	'NrRemaining' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+WHERE PipingCalculationEntityId IN (
+    SELECT PipingCalculationEntityId
+    FROM [SOURCEPROJECT].PipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 1
+    );
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+WHERE PipingCalculationEntityId IN (
+    SELECT PipingCalculationEntityId
+    FROM [SOURCEPROJECT].PipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 1
+    );
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
@@ -717,12 +756,18 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 SELECT
     "19.1",
     "20.1",
-    "* Alle berekende resultaten van het toetsspoor 'Piping' zijn verwijderd, behalve die waarbij de waterstand handmatig is ingevuld."
+    CASE
+        WHEN [NrRemaining] > 0
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld."
+        ELSE "* Alle berekende resultaten zijn verwijderd."
+        END
 FROM TempLogOutputDeleted
+         LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
     LIMIT 1;
 
 DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
