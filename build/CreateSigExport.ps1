@@ -1,6 +1,3 @@
-Remove-Item .\Riskeer_src_*.zip
-Remove-Item .\repo-output*.zip
-if ( Test-Path '.\Riskeer_src' -PathType Container ) { Remove-Item -recurse -path .\Riskeer_src}
 mkdir Riskeer_src
 git archive --output ./repo-output.zip HEAD: Application build/DatabaseStructure.sql Core Migration Riskeer
 Get-ChildItem ./ | Where-Object { $_.Extension -eq ".zip" } | ForEach-Object { expand-archive $_.FullName Riskeer_src/ }
