@@ -76,19 +76,8 @@ namespace AutomatedSystemTests.Modules.IO
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
-                
-                //string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Application\\Built-in\\Managed\\Core\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >borrame.log";
                 string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >borrame.log";
-                //string commandToRun = "/C dir *.* >borrame.log";
-                
                 RunCommand(commandToRun);
-               //var psi = new ProcessStartInfo(commandToRun) {
-               //     UseShellExecute = true,
-               //     CreateNoWindow = false
-               //         };
-                //Process.Start(psi);
-                
-                //System.Diagnostics.Process.Start("dir *.*");
                 }
         }
         
