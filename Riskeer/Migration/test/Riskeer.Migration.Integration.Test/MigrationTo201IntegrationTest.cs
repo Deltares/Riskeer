@@ -33,11 +33,13 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected()
+        [TestCase("MigrationTestProject191NoManualAssessmentLevels.risk", false)]
+        [TestCase("MigrationTestProject191.risk", true)]
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, bool manualAssessmentLevels)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                               "MigrationTestProject191.risk");
+                                                               filePath);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
@@ -95,7 +97,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertSubMechanismIllustrationPointStochast(reader, sourceFilePath);
                 }
 
-                AssertLogDatabase(logFilePath);
+                AssertLogDatabase(logFilePath, manualAssessmentLevels);
             }
         }
 
@@ -965,7 +967,7 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertLogDatabase(string logFilePath)
+        private static void AssertLogDatabase(string logFilePath, bool manualAssessmentLevels)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
@@ -977,7 +979,9 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld."),
+                    manualAssessmentLevels ?
+                        new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld.") :
+                        new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten zijn verwijderd."),
                     messages[i]);
             }
         }
