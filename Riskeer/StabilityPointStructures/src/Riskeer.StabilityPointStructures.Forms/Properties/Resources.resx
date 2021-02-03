@@ -233,7 +233,7 @@
   </data>
   <data name="StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_DisplayName" xml:space="preserve">
     <value>lineaire belastingschematisering constructieve sterkte
-[kN/m]</value>
+[kN/m²]</value>
   </data>
   <data name="StabilityPointStructuresCalculationsView_ConstructiveStrength_Quadratic_LoadModel_DisplayName" xml:space="preserve">
     <value>kwadratische belastingschematisering constructieve sterkte
@@ -245,6 +245,6 @@
   </data>
   <data name="StabilityPointStructuresCalculationsView_Quadratic_LoadModel_DisplayName" xml:space="preserve">
     <value>kwadratische belastingschematisering stabiliteit
-[kN/m²]</value>
+[kN/m]</value>
   </data>
 </root>

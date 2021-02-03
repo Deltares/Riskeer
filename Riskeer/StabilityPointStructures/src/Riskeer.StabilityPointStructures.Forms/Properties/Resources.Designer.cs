@@ -119,7 +119,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to lineaire belastingschematisering constructieve sterkte
-        ///[kN/m].
+        ///[kN/m²].
         /// </summary>
         public static string StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_DisplayName {
             get {
@@ -151,7 +151,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to kwadratische belastingschematisering stabiliteit
-        ///[kN/m²].
+        ///[kN/m].
         /// </summary>
         public static string StabilityPointStructuresCalculationsView_Quadratic_LoadModel_DisplayName {
             get {
