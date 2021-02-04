@@ -60,15 +60,15 @@ namespace Core.Common.Gui.Converters
                 throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
-            PropertyInfo unitPropertyInfo = GetUnit(source);
+            PropertyInfo unitPropertyInfo = GetUnitPropertyInfo(source);
 
-            object propertyInfoObject = unitPropertyInfo.GetValue(source, new object[0]);
-            if (propertyInfoObject == null)
+            object unit = unitPropertyInfo.GetValue(source, new object[0]);
+            if (unit == null)
             {
-                return base.GetName(source);
+                throw new ArgumentNullException(nameof(unit));
             }
 
-            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(propertyInfoObject)}]";
+            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unit)}]";
         }
 
         /// <summary>
@@ -99,7 +99,15 @@ namespace Core.Common.Gui.Converters
             return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
         }
 
-        private PropertyInfo GetUnit(object source)
+        /// <summary>
+        /// Gets the unit property info from the <paramref name="source"/>.
+        /// </summary>
+        /// <param name="source">The source to obtain the unit property info of.</param>
+        /// <returns>The <see cref="PropertyInfo"/> of the property.</returns>
+        /// <exception cref="ArgumentException">Thrown when the property used for the unit of
+        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
+        /// </exception>
+        private PropertyInfo GetUnitPropertyInfo(object source)
         {
             PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
             if (unitPropertyInfo == null)
