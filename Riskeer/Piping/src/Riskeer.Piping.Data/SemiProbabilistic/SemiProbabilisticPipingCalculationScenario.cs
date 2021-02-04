@@ -19,9 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using Riskeer.Common.Data.Helpers;
 
 namespace Riskeer.Piping.Data.SemiProbabilistic
 {
@@ -30,9 +29,6 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// </summary>
     public class SemiProbabilisticPipingCalculationScenario : SemiProbabilisticPipingCalculation, IPipingCalculationScenario<SemiProbabilisticPipingInput>
     {
-        private const int contributionNumberOfDecimalPlaces = 4;
-        private static readonly Range<RoundedDouble> contributionValidityRange = new Range<RoundedDouble>(new RoundedDouble(contributionNumberOfDecimalPlaces),
-                                                                                                          new RoundedDouble(contributionNumberOfDecimalPlaces, 1.0));
         private RoundedDouble contribution;
 
         /// <summary>
@@ -41,7 +37,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         public SemiProbabilisticPipingCalculationScenario()
         {
             IsRelevant = true;
-            contribution = new RoundedDouble(4, 1.0);
+            contribution = new RoundedDouble(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces, 1.0);
         }
 
         public bool IsRelevant { get; set; }
@@ -51,12 +47,9 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             get => contribution;
             set
             {
-                RoundedDouble newValue = value.ToPrecision(contributionNumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces);
 
-                if (!contributionValidityRange.InRange(newValue))
-                {
-                    throw new ArgumentOutOfRangeException(null, string.Format(RiskeerCommonDataResources.Contribution_must_be_within_Range_0_and_100));
-                }
+                CalculationScenarioHelper.ValidateScenarioContribution(newValue);
 
                 contribution = newValue;
             }

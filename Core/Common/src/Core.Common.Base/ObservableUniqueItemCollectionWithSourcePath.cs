@@ -77,7 +77,7 @@ namespace Core.Common.Base
         /// <param name="i">The index.</param>
         /// <returns>The element at index <paramref name="i"/> in the collection.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="i"/> is not 
-        /// between [0, <see cref="Count"/>)</exception>
+        /// between [0, <see cref="Count"/>]</exception>
         public TElement this[int i]
         {
             get

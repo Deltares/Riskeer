@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Helpers;
 
 namespace Riskeer.Piping.Data.Probabilistic
 {
@@ -36,7 +37,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         public ProbabilisticPipingCalculationScenario()
         {
             IsRelevant = true;
-            contribution = new RoundedDouble(4, 1.0);
+            contribution = new RoundedDouble(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces, 1.0);
         }
 
         public bool IsRelevant { get; set; }

@@ -50,13 +50,7 @@ namespace Riskeer.Common.Data.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.NaN)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(-0.1)]
-        [TestCase(1.0001)]
-        [TestCase(1.1)]
+        [TestCaseSource(typeof(CalculationScenarioTestHelper), nameof(CalculationScenarioTestHelper.GetInvalidScenarioContributionValues))]
         public void Contribution_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
@@ -70,13 +64,8 @@ namespace Riskeer.Common.Data.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(0.00001)]
-        [TestCase(0.0001)]
-        [TestCase(1.0)]
-        [TestCase(1.00001)]
-        public void Contribution_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
+        [TestCaseSource(typeof(CalculationScenarioTestHelper), nameof(CalculationScenarioTestHelper.GetValidScenarioContributionValues))]
+        public void Contribution_SetValidValue_ValueSet(double newValue)
         {
             // Setup
             var calculationScenario = new StructuresCalculationScenario<TestStructuresInput>();

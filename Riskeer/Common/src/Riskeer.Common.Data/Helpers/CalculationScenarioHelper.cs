@@ -21,24 +21,37 @@
 
 using System;
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Properties;
 
-namespace Riskeer.Common.Data.Calculation
+namespace Riskeer.Common.Data.Helpers
 {
     /// <summary>
-    /// Defines a calculation scenario.
+    /// Helper class for dealing with <see cref="ICalculationScenario"/>.
     /// </summary>
-    public interface ICalculationScenario : ICalculation
+    public static class CalculationScenarioHelper
     {
         /// <summary>
-        /// Gets or sets whether this scenario is relevant or not.
+        /// Gets the scenario contribution number of decimal places.
         /// </summary>
-        bool IsRelevant { get; set; }
+        public static int ContributionNumberOfDecimalPlaces => 4;
 
+        private static readonly Range<RoundedDouble> contributionValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(ContributionNumberOfDecimalPlaces),
+            new RoundedDouble(ContributionNumberOfDecimalPlaces, 1.0));
+        
         /// <summary>
-        /// Gets or sets the contribution of the scenario.
+        /// Validates whether the <paramref name="value"/> is valid.
         /// </summary>
+        /// <param name="value">The value to validate.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not 
         /// between [0, 1].</exception>
-        RoundedDouble Contribution { get; set; }
+        public static void ValidateScenarioContribution(RoundedDouble value)
+        {
+            if (!contributionValidityRange.InRange(value))
+            {
+                throw new ArgumentOutOfRangeException(null, string.Format(Resources.Contribution_must_be_within_Range_0_and_100));
+            }
+        }
     }
 }
