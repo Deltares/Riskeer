@@ -629,26 +629,6 @@ INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SO
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
-INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
-INSERT INTO SubMechanismIllustrationPointStochastEntity (
-    [SubMechanismIllustrationPointStochastEntityId],
-    [SubMechanismIllustrationPointEntityId],
-    [Name],
-    [Unit],
-    [Duration],
-    [Alpha],
-    [Realization],
-    [Order]) 
-SELECT
-    [SubMechanismIllustrationPointStochastEntityId],
-    [SubMechanismIllustrationPointEntityId],
-    [Name],
-    "-",
-    [Duration],
-    [Alpha],
-    [Realization],
-    [Order] 
-FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (
@@ -665,6 +645,40 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPR
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
+
+/*
+Outputs that used HydraRing are not migrated
+*/
+-- ClosingStructuresOutputEntity
+-- DuneLocationOutputEntity
+-- GrassCoverErosionInwardsDikeHeightOutputEntity
+-- GrassCoverErosionInwardsOutputEntity
+-- GrassCoverErosionInwardsOvertoppingRateOutputEntity
+-- GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+-- GrassCoverErosionOutwardsWaveConditionsOutputEntity
+-- HeightStructuresOutputEntity
+-- HydraulicLocationOutputEntity
+-- PipingCalculationOutputEntity where UseManualAssessmentLevel is 0
+-- StabilityPointStructuresOutputEntity
+-- StabilityStoneCoverWaveConditionsOutputEntity
+-- WaveImpactAsphaltCoverWaveConditionsOutputEntity
+-- FaultTreeIllustrationPointEntity
+-- FaultTreeIllustrationPointStochastEntity
+-- FaultTreeSubMechanismIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointStochastEntity
+-- GeneralResultSubMechanismIllustrationPointEntity
+-- GeneralResultSubMechanismIllustrationPointStochastEntity
+-- IllustrationPointResultEntity
+-- SubMechanismIllustrationPointEntity
+-- SubMechanismIllustrationPointStochastEntity
+-- TopLevelFaultTreeIllustrationPointEntity
+-- TopLevelSubMechanismIllustrationPointEntity
+
+/*
+ Outputs that used MacroStabilityInwards kernel are not migrated
+ */
+ -- MacroStabilityInwardsCalculationOutputEntity
 
 /* 
 Write migration logging
@@ -701,24 +715,6 @@ INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStruc
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].FaultTreeSubMechanismIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].IllustrationPointResultEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
-INSERT INTO TempLogOutputDeleted
-SELECT COUNT()
-FROM [SOURCEPROJECT].PipingCalculationOutputEntity
-WHERE PipingCalculationEntityId IN (
-    SELECT PipingCalculationEntityId
-    FROM [SOURCEPROJECT].PipingCalculationEntity
-    WHERE UseAssessmentLevelManualInput IS 0
-    );
 INSERT INTO TempLogOutputDeleted
 SELECT COUNT()
 FROM [SOURCEPROJECT].PipingCalculationOutputEntity
@@ -740,19 +736,11 @@ WHERE PipingCalculationEntityId IN (
     FROM [SOURCEPROJECT].PipingCalculationEntity
     WHERE UseAssessmentLevelManualInput IS 1
     );
-INSERT INTO TempLogOutputRemaining
-SELECT COUNT()
-FROM [SOURCEPROJECT].PipingCalculationOutputEntity
-WHERE PipingCalculationEntityId IN (
-    SELECT PipingCalculationEntityId
-    FROM [SOURCEPROJECT].PipingCalculationEntity
-    WHERE UseAssessmentLevelManualInput IS 1
-    );
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
-[LogMessage])
+    [LogMessage])
 SELECT
     "19.1",
     "20.1",
@@ -773,7 +761,8 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-SELECT "19.1",
+SELECT 
+    "19.1",
 	"20.1", 
 	"* Geen aanpassingen."
 	WHERE (
