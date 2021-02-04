@@ -162,8 +162,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         [TestCase(nameof(IllustrationPointsDatabaseConstants.AlphaValue), IllustrationPointsDatabaseConstants.AlphaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.BetaValue), IllustrationPointsDatabaseConstants.BetaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Duration), IllustrationPointsDatabaseConstants.Duration)]
-        [TestCase(nameof(IllustrationPointsDatabaseConstants.IllustrationPointResultValue), IllustrationPointsDatabaseConstants.IllustrationPointResultValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Realization), IllustrationPointsDatabaseConstants.Realization)]
+        [TestCase(nameof(IllustrationPointsDatabaseConstants.IllustrationPointUnit), IllustrationPointsDatabaseConstants.IllustrationPointUnit)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.WindDirectionAngle), IllustrationPointsDatabaseConstants.WindDirectionAngle)]
         public void Parse_ValueNullInDatabase_ThrowsHydraRingFileParserException(string directoryIdentifier, string identifier)
         {
@@ -290,10 +290,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
             Assert.AreEqual(new[]
             {
-                Tuple.Create("Z", -0.00136652),
-                Tuple.Create("Considered water level", 1.24846),
-                Tuple.Create("Computed local water level", 1.24983)
-            }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
+                Tuple.Create("Z", -0.00136652, "-"),
+                Tuple.Create("Considered water level", 1.24846, "m+NAP"),
+                Tuple.Create("Computed local water level", 1.24983, "m+NAP")
+            }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value, s.Unit)));
         }
 
         [Test]
