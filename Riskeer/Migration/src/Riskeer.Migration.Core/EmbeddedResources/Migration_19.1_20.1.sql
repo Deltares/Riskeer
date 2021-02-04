@@ -654,7 +654,6 @@ Outputs that used HydraRing are not migrated
 -- GrassCoverErosionInwardsDikeHeightOutputEntity
 -- GrassCoverErosionInwardsOutputEntity
 -- GrassCoverErosionInwardsOvertoppingRateOutputEntity
--- GrassCoverErosionOutwardsHydraulicLocationOutputEntity
 -- GrassCoverErosionOutwardsWaveConditionsOutputEntity
 -- HeightStructuresOutputEntity
 -- HydraulicLocationOutputEntity
