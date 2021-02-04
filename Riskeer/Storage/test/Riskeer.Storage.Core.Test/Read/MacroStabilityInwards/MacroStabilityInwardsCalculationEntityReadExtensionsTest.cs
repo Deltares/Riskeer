@@ -274,7 +274,8 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
                 LeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 LeftGridNrOfVerticalPoints = random.Next(1, 100),
                 RightGridNrOfHorizontalPoints = random.Next(1, 100),
-                RightGridNrOfVerticalPoints = random.Next(1, 100)
+                RightGridNrOfVerticalPoints = random.Next(1, 100),
+                ScenarioContribution = 0.1
             };
         }
     }

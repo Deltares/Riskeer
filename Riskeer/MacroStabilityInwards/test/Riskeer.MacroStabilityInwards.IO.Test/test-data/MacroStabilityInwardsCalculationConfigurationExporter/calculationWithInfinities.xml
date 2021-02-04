@@ -89,7 +89,7 @@
     </grids>
     <scenario>
       <gebruik>true</gebruik>
-      <bijdrage>INF</bijdrage>
+      <bijdrage>100</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

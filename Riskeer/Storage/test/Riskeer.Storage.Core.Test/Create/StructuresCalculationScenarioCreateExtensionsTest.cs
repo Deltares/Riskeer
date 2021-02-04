@@ -191,7 +191,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
-                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StructureNormalOrientation = RoundedDouble.NaN,
@@ -247,7 +246,6 @@ namespace Riskeer.Storage.Core.Test.Create
             HeightStructuresCalculationEntity entity = calculation.CreateForHeightStructures(registry, 0);
 
             // Assert
-            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.AllowedLevelIncreaseStorageMean);
@@ -533,7 +531,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
-                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StormDuration =
@@ -612,7 +609,6 @@ namespace Riskeer.Storage.Core.Test.Create
             ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, order);
 
             // Assert
-            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StormDurationMean);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.BreakWaterHeight);
@@ -973,7 +969,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
-                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StormDuration =
@@ -1101,7 +1096,6 @@ namespace Riskeer.Storage.Core.Test.Create
             StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, order);
 
             // Assert
-            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StormDurationMean);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.BreakWaterHeight);

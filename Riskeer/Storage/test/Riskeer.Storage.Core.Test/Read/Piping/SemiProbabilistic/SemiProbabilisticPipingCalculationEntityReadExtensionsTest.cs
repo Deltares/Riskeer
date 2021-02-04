@@ -125,7 +125,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1
+                DampingFactorExitMean = 1,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -161,7 +162,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1
+                DampingFactorExitMean = 1,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -187,7 +189,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 AssessmentLevel = 5.81,
-                UseAssessmentLevelManualInput = Convert.ToByte(false)
+                UseAssessmentLevelManualInput = Convert.ToByte(false),
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -211,7 +214,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                UseAssessmentLevelManualInput = Convert.ToByte(false)
+                UseAssessmentLevelManualInput = Convert.ToByte(false),
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -241,7 +245,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1
+                DampingFactorExitMean = 1,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -293,7 +298,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1
+                DampingFactorExitMean = 1,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -315,7 +321,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 SemiProbabilisticPipingCalculationOutputEntities =
                 {
                     new SemiProbabilisticPipingCalculationOutputEntity()
-                }
+                },
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();

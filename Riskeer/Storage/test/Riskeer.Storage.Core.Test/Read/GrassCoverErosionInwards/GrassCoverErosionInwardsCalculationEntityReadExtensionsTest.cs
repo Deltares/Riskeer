@@ -80,7 +80,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
                 ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
                 RelevantForScenario = Convert.ToByte(random.NextBoolean()),
-                ScenarioContribution = 4.5
+                ScenarioContribution = 0.45
             };
 
             var collector = new ReadConversionCollector();
@@ -124,7 +124,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = null,
-                ScenarioContribution = null,
+                ScenarioContribution = 0.1,
                 Comments = null,
                 Orientation = null,
                 CriticalFlowRateMean = null,
@@ -140,7 +140,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNull(calculation.Name);
-            Assert.IsNaN(calculation.Contribution);
             Assert.IsNull(calculation.Comments.Body);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
@@ -163,7 +162,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var dikeProfileEntity = new DikeProfileEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                DikeProfileEntity = dikeProfileEntity
+                DikeProfileEntity = dikeProfileEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -188,7 +188,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                DikeProfileEntity = dikeProfileEntity
+                DikeProfileEntity = dikeProfileEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -209,7 +210,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -229,7 +231,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -251,7 +254,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 GrassCoverErosionInwardsOutputEntities =
                 {
                     new GrassCoverErosionInwardsOutputEntity()
-                }
+                },
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();

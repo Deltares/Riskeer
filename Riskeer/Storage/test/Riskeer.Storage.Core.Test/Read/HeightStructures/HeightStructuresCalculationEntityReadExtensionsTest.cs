@@ -129,7 +129,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             // Setup
             var entity = new HeightStructuresCalculationEntity
             {
-                ScenarioContribution = null,
+                ScenarioContribution = 0.1,
                 StructureNormalOrientation = null,
                 ModelFactorSuperCriticalFlowMean = null,
                 AllowedLevelIncreaseStorageMean = null,
@@ -151,8 +151,6 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsNaN(calculation.Contribution);
-
             HeightStructuresInput inputParameters = calculation.InputParameters;
             Assert.IsNaN(inputParameters.StructureNormalOrientation);
             Assert.IsNaN(inputParameters.ModelFactorSuperCriticalFlow.Mean);
@@ -178,7 +176,8 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var structureEntity = new HeightStructureEntity();
             var entity = new HeightStructuresCalculationEntity
             {
-                HeightStructureEntity = structureEntity
+                HeightStructureEntity = structureEntity,
+                ScenarioContribution = 0.1
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -198,7 +197,8 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new HeightStructuresCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -239,7 +239,8 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 UseBreakWater = Convert.ToByte(!flagUsage),
                 ForeshoreProfileEntity = foreshoreEntity,
                 BreakWaterType = Convert.ToByte(type),
-                BreakWaterHeight = breakWaterHeight
+                BreakWaterHeight = breakWaterHeight,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -266,7 +267,8 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 HeightStructuresOutputEntities =
                 {
                     new HeightStructuresOutputEntity()
-                }
+                },
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();

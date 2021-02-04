@@ -210,7 +210,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithNaNs()
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
-            calculation.Contribution = RoundedDouble.NaN;
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
@@ -276,7 +275,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithInfinities()
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
-            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
             input.SurfaceLine.SetGeometry(new[]

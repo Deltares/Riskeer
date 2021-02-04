@@ -362,6 +362,15 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde moet binnen het bereik [0% en 100%] liggen..
+        /// </summary>
+        public static string Contribution_must_be_within_Range_0_and_100 {
+            get {
+                return ResourceManager.GetString("Contribution_must_be_within_Range_0_and_100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_Range_0_ {

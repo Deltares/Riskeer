@@ -196,7 +196,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             // Setup
             var entity = new StabilityPointStructuresCalculationEntity
             {
-                ScenarioContribution = null,
+                ScenarioContribution = 0.1,
                 StructureNormalOrientation = null,
                 AllowedLevelIncreaseStorageMean = null,
                 AllowedLevelIncreaseStorageStandardDeviation = null,
@@ -250,8 +250,6 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsNaN(calculation.Contribution);
-
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
             Assert.IsNaN(inputParameters.StructureNormalOrientation);
             Assert.IsNaN(inputParameters.AllowedLevelIncreaseStorage.Mean);
@@ -310,7 +308,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var structureEntity = new StabilityPointStructureEntity();
             var entity = new StabilityPointStructuresCalculationEntity
             {
-                StabilityPointStructureEntity = structureEntity
+                StabilityPointStructureEntity = structureEntity,
+                ScenarioContribution = 0.1
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -330,7 +329,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new StabilityPointStructuresCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -351,7 +351,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var profileEntity = new ForeshoreProfileEntity();
             var entity = new StabilityPointStructuresCalculationEntity
             {
-                ForeshoreProfileEntity = profileEntity
+                ForeshoreProfileEntity = profileEntity,
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
@@ -373,7 +374,8 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 StabilityPointStructuresOutputEntities =
                 {
                     new StabilityPointStructuresOutputEntity()
-                }
+                },
+                ScenarioContribution = 0.1
             };
 
             var collector = new ReadConversionCollector();
