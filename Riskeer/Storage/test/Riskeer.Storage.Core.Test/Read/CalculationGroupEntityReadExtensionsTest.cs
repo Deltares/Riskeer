@@ -1265,7 +1265,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new CalculationGroupEntity
                     {
                         Order = 1,
-                        Name = "group1",
+                        Name = "group1"
                     },
                     new CalculationGroupEntity
                     {
