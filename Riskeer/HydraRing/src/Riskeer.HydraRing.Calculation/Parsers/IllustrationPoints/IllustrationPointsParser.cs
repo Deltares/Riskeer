@@ -279,7 +279,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                     subMechanismResults[key] = new List<IllustrationPointResult>();
                 }
 
-                subMechanismResults[key].Add(new IllustrationPointResult(description,unit, value));
+                subMechanismResults[key].Add(new IllustrationPointResult(description, unit, value));
             }
         }
 

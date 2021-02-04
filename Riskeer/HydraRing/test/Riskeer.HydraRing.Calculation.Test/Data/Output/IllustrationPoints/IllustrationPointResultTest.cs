@@ -38,6 +38,17 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("description", paramName);
         }
+        
+        [Test]
+        public void Constructor_UnitNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new IllustrationPointResult("IllustrationPointResult", null, new Random(21).NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unit", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_Always_ReturnsNewInstance()

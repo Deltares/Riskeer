@@ -38,6 +38,17 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
+        
+        [Test]
+        public void Constructor_UnitNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new SubMechanismIllustrationPointStochast("stochast name", null, double.NaN, double.NaN, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unit", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_WithParameters_ReturnsNewInstance()

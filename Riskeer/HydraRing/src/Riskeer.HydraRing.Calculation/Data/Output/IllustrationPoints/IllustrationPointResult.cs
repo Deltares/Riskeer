@@ -43,6 +43,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
                 throw new ArgumentNullException(nameof(description));
             }
 
+            if (unit == null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
+
             Description = description;
             Unit = unit;
             Value = value;

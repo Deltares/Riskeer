@@ -42,6 +42,11 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         public SubMechanismIllustrationPointStochast(string name, string unit, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
+            if (unit == null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
+            
             Unit = unit;
             Realization = realization;
         }
