@@ -110,11 +110,11 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             // Setup
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("unique", "[-]", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("non-unique", "[-]", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0),
-                new SubMechanismIllustrationPointStochast("nonunique", "[-]", 0, 0, 0)
+                new SubMechanismIllustrationPointStochast("unique", "-", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "-", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", "-", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "-", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", "-", 0, 0, 0)
             };
 
             // Call
@@ -132,9 +132,9 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var random = new Random(21);
             var results = new[]
             {
-                new IllustrationPointResult("non-unique", "[-]", 0),
-                new IllustrationPointResult("non-unique", "[-]", 0),
-                new IllustrationPointResult("unique", "[-]", 0)
+                new IllustrationPointResult("non-unique", "-", 0),
+                new IllustrationPointResult("non-unique", "-", 0),
+                new IllustrationPointResult("unique", "-", 0)
             };
 
             // Call
@@ -155,12 +155,12 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                              new[]
                                                              {
                                                                  new SubMechanismIllustrationPointStochast("Random name 1",
-                                                                                                           "[-]",
+                                                                                                           "-",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble()),
                                                                  new SubMechanismIllustrationPointStochast("Random name 2",
-                                                                                                           "[-]",
+                                                                                                           "-",
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextDouble())
@@ -168,10 +168,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                              new[]
                                                              {
                                                                  new IllustrationPointResult("Random description 1",
-                                                                                             "[-]",
+                                                                                             "-",
                                                                                              random.NextDouble()),
                                                                  new IllustrationPointResult("Random description 2",
-                                                                                             "[-]",
+                                                                                             "-",
                                                                                              random.NextDouble())
                                                              });
 

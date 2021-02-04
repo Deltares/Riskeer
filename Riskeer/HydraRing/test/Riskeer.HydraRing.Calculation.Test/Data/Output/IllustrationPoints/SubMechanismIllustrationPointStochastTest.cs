@@ -32,7 +32,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SubMechanismIllustrationPointStochast(null, "[-]", double.NaN, double.NaN, double.NaN);
+            void Call() => new SubMechanismIllustrationPointStochast(null, "-", double.NaN, double.NaN, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -55,7 +55,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             const string name = "stochast name";
-            const string unit = "[-]";
+            const string unit = "-";
 
             var random = new Random(21);
             double duration = random.NextDouble();

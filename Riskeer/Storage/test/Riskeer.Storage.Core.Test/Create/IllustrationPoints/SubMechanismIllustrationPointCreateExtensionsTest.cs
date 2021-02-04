@@ -72,12 +72,12 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(21);
             var stochastOne = new SubMechanismIllustrationPointStochast("stochast name",
-                                                                        "[-]",
+                                                                        "-",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
             var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two",
-                                                                        "[-]",
+                                                                        "-",
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
@@ -123,8 +123,8 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            var illustrationPointResultOne = new IllustrationPointResult("result description", "[-]", random.NextDouble());
-            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "[kN]", random.NextDouble());
+            var illustrationPointResultOne = new IllustrationPointResult("result description", "-", random.NextDouble());
+            var illustrationPointResultTwo = new IllustrationPointResult("result description two", "kN", random.NextDouble());
             IllustrationPointResult[] illustrationPointResults =
             {
                 illustrationPointResultOne,

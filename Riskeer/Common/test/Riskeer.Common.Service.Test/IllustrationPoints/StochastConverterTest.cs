@@ -79,7 +79,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         {
             // Setup
             const string name = "name";
-            const string unit = "[-]";
+            const string unit = "-";
 
             var random = new Random(21);
             double duration = random.Next();

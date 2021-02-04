@@ -34,6 +34,6 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         /// <param name="name">The name of the stochast.</param>
         /// <param name="alpha">The alpha value of the stochast.</param>
         public TestSubMechanismIllustrationPointStochast(string name, double alpha)
-            : base(name, "[-]", 1, alpha, 3) {}
+            : base(name, "-", 1, alpha, 3) {}
     }
 }

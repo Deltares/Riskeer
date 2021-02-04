@@ -154,11 +154,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             double beta = random.NextDouble();
             var stochasts = new[]
             {
-                new SubMechanismIllustrationPointStochast("some name", "[-]", random.NextDouble(), random.NextDouble(), random.NextDouble())
+                new SubMechanismIllustrationPointStochast("some name", "-", random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             var illustrationPointResults = new[]
             {
-                new IllustrationPointResult("some description", "[-]",random.NextDouble())
+                new IllustrationPointResult("some description", "-",random.NextDouble())
             };
 
             const string illustrationPointName = "name";

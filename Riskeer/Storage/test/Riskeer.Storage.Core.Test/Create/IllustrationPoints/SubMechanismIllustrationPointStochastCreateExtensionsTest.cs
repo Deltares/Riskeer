@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(123);
             var stochast = new SubMechanismIllustrationPointStochast("Some description",
-                                                                     "[-]",
+                                                                     "-",
                                                                      random.NextDouble(),
                                                                      random.NextDouble(),
                                                                      random.NextDouble());

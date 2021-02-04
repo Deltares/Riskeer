@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(123);
             var illustrationPointResult = new IllustrationPointResult("Some description",
-                                                                      "[-]",
+                                                                      "-",
                                                                       random.NextDouble());
             int order = random.Next();
 

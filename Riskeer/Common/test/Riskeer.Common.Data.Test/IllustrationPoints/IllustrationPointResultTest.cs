@@ -34,7 +34,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new IllustrationPointResult(null, "[-]", new Random(21).NextDouble());
+            void Call() => new IllustrationPointResult(null, "-", new Random(21).NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             const string description = "illustration point";
-            const string unit = "[-]";
+            const string unit = "-";
 
             var random = new Random(21);
             double value = random.NextDouble();
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var original = new IllustrationPointResult("Random description", "[-]", random.NextDouble());
+            var original = new IllustrationPointResult("Random description", "-", random.NextDouble());
 
             // Call
             object clone = original.Clone();

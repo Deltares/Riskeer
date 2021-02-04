@@ -32,7 +32,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new IllustrationPointResult(null, "[-]", 0);
+            void Call() => new IllustrationPointResult(null, "-", 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -55,7 +55,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             const string description = "some description";
-            const string unit = "[-]";
+            const string unit = "-";
             const double value = 123;
 
             // Call

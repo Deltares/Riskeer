@@ -54,7 +54,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             const string name = "Stochast name";
-            const string unit = "[-]";
+            const string unit = "-";
 
             var random = new Random(21);
             double duration = random.NextDouble();
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             // Setup
             var random = new Random(21);
             var original = new SubMechanismIllustrationPointStochast("Random name",
-                                                                     "[-]",
+                                                                     "-",
                                                                      random.NextDouble(),
                                                                      random.NextDouble(),
                                                                      random.NextDouble());
