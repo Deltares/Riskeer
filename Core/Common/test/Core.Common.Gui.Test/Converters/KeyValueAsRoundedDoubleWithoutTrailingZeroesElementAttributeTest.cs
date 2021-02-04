@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void GetName_ValidProperties_ReturnsExpectedValu()
+        public void GetName_ValidProperties_ReturnsExpectedValue()
         {
             // Setup
             const string expectedName = "expectedName";
@@ -132,6 +132,26 @@ namespace Core.Common.Gui.Test.Converters
 
             // Assert
             const string expectedMessage = "Unit property 'IDoNotExist' was not found on type TestObject.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+        
+        [Test]
+        public void GetName_UnitNull_ThrowsArgumentException()
+        {
+            // Setup
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
+                                                                                             nameof(TestObject.Unit),
+                                                                                             nameof(TestObject.Value));
+
+            // Call
+            void Call() =>
+                attribute.GetName(new TestObject
+                {
+                    Unit = null
+                });
+
+            // Assert
+            const string expectedMessage = "Unit property 'Unit' was not of type string.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 

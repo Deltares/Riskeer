@@ -65,7 +65,7 @@ namespace Core.Common.Gui.Converters
             object unit = unitPropertyInfo.GetValue(source, new object[0]);
             if (unit == null)
             {
-                throw new ArgumentNullException(nameof(unit));
+                throw new ArgumentException($"Unit property '{unitPropertyName}' was not of type string.");
             }
 
             return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unit)}]";
