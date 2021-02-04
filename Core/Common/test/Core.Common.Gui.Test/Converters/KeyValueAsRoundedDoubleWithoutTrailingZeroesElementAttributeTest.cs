@@ -36,7 +36,7 @@ namespace Core.Common.Gui.Test.Converters
             // Call
             void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(null,
                                                                                             nameof(TestObject.Unit),
-                                                                                            "value");
+                                                                                            nameof(TestObject.Value));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,9 +47,9 @@ namespace Core.Common.Gui.Test.Converters
         public void Constructor_WithoutUnitPropertyName_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
                                                                                             null,
-                                                                                            "value");
+                                                                                            nameof(TestObject.Value));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,7 +60,7 @@ namespace Core.Common.Gui.Test.Converters
         public void Constructor_WithoutValuePropertyName_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+            void Call() => new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
                                                                                             nameof(TestObject.Unit),
                                                                                             null);
 
@@ -73,36 +73,16 @@ namespace Core.Common.Gui.Test.Converters
         public void Constructor_WithParameters_CreatesNewInstance()
         {
             // Call
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("name",
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
                                                                                              nameof(TestObject.Unit),
-                                                                                             "value");
+                                                                                             nameof(TestObject.Value));
 
             // Assert
             Assert.IsInstanceOf<Attribute>(attribute);
         }
 
         [Test]
-        public void GetName_WithObjectWithProperty_ReturnsValueOfProperty()
-        {
-            // Setup
-            const string expectedName = "expectedName";
-
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
-                                                                                             nameof(TestObject.Unit),
-                                                                                             nameof(TestObject.Value));
-
-            // Call
-            string name = attribute.GetName(new TestObject
-            {
-                Name = expectedName
-            });
-
-            // Assert
-            Assert.AreEqual(expectedName, name);
-        }
-
-        [Test]
-        public void GetName_WithObjectWithProperties_ReturnsValueOfProperties()
+        public void GetName_ValidProperties_ReturnsExpectedValu()
         {
             // Setup
             const string expectedName = "expectedName";
@@ -124,7 +104,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void GetName_WithObjectWithoutPropertyWithName_ThrowsArgumentException()
+        public void GetName_InvalidNameProperty_ThrowsArgumentException()
         {
             // Setup
             var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute("IDoNotExist",
@@ -140,7 +120,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void GetName_WithObjectWithoutPropertyWithUnit_ThrowsArgumentException()
+        public void GetName_InvalidUnitProperty_ThrowsArgumentException()
         {
             // Setup
             var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
@@ -206,7 +186,7 @@ namespace Core.Common.Gui.Test.Converters
             // Setup
             int expectedValue = new Random(21).Next(3, 50);
 
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.NonStringName),
+            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
                                                                                              nameof(TestObject.Unit),
                                                                                              nameof(TestObject.NonRoundedDoubleValue));
 
@@ -223,7 +203,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void GetValue_WithObjectWithoutPropertyWithName_ThrowsArgumentException()
+        public void GetValue_InvalidValueProperty_ThrowsArgumentException()
         {
             // Setup
             var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
@@ -243,10 +223,6 @@ namespace Core.Common.Gui.Test.Converters
             public string Name { get; set; }
             public string Unit { get; set; }
             public RoundedDouble Value { get; set; }
-
-            public int NonStringName { get; set; }
-
-            public int NonStringUnit { get; set; }
             public int NonRoundedDoubleValue { get; set; }
         }
     }
