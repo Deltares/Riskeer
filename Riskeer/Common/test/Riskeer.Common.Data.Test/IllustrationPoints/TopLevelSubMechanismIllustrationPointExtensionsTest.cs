@@ -51,11 +51,13 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                                                                                                   "closing situation",
                                                                                                   new TestSubMechanismIllustrationPoint(new[]
                                                                                                   {
-                                                                                                      new SubMechanismIllustrationPointStochast(stochastNameA, "[-]",
+                                                                                                      new SubMechanismIllustrationPointStochast(stochastNameA,
+                                                                                                                                                "[-]",
                                                                                                                                                 random.NextDouble(),
                                                                                                                                                 random.NextDouble(),
                                                                                                                                                 random.NextDouble()),
-                                                                                                      new SubMechanismIllustrationPointStochast(stochastNameB, "[-]",
+                                                                                                      new SubMechanismIllustrationPointStochast(stochastNameB,
+                                                                                                                                                "[-]",
                                                                                                                                                 random.NextDouble(),
                                                                                                                                                 random.NextDouble(),
                                                                                                                                                 random.NextDouble())

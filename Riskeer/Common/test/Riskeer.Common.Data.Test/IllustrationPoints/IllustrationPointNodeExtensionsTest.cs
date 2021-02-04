@@ -33,10 +33,10 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void GetStochastNames_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => IllustrationPointNodeExtensions.GetStochastNames(null);
+            void Call() => IllustrationPointNodeExtensions.GetStochastNames(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("illustrationPointNode", exception.ParamName);
         }
 
@@ -49,11 +49,13 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             const string stochastNameB = "Stochast B";
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint(new[]
             {
-                new SubMechanismIllustrationPointStochast(stochastNameA, "[-]",
+                new SubMechanismIllustrationPointStochast(stochastNameA,
+                                                          "[-]",
                                                           random.NextDouble(),
                                                           random.NextDouble(),
                                                           random.NextDouble()),
-                new SubMechanismIllustrationPointStochast(stochastNameB, "[-]",
+                new SubMechanismIllustrationPointStochast(stochastNameB,
+                                                          "[-]",
                                                           random.NextDouble(),
                                                           random.NextDouble(),
                                                           random.NextDouble())

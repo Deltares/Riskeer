@@ -43,7 +43,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Convert_ValidArgument_ExpectedProperties()
+        public void Convert_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);

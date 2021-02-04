@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("description", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_UnitNull_ThrowsArgumentNullException()
         {
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var original = new IllustrationPointResult("Random description","[-]",random.NextDouble());
+            var original = new IllustrationPointResult("Random description", "[-]", random.NextDouble());
 
             // Call
             object clone = original.Clone();
