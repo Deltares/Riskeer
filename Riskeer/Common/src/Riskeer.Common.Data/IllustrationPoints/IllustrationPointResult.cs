@@ -33,6 +33,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// Creates a new instance of <see cref="IllustrationPointResult"/>.
         /// </summary>
         /// <param name="description">The description.</param>
+        /// <param name="unit">The unit.</param>
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/>
         /// is <c>null</c>.</exception>
@@ -42,9 +43,14 @@ namespace Riskeer.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(description));
             }
+            
+            if (unit == null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
 
-            Unit = unit;
             Description = description;
+            Unit = unit;
             Value = new RoundedDouble(5, value);
         }
 

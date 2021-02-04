@@ -40,6 +40,17 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("description", exception.ParamName);
         }
+        
+        [Test]
+        public void Constructor_UnitNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new IllustrationPointResult("IllustrationPointResult", null, new Random(21).NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unit", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_ValidArguments_ReturnExpectedValues()

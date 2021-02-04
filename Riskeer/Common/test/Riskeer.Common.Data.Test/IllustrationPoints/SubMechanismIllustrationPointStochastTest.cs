@@ -31,6 +31,25 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
     public class SubMechanismIllustrationPointStochastTest
     {
         [Test]
+        public void Constructor_UnitNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string name = "Stochast name";
+            
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+            double realization = random.NextDouble();
+
+            // Call
+            void Call() => new SubMechanismIllustrationPointStochast(name, null, duration, alpha, realization);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unit", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ValidArguments_ReturnExpectedValues()
         {
             // Setup
