@@ -31,8 +31,6 @@ namespace Core.Common.Gui.Converters
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueElementAttribute : Attribute
     {
-        protected readonly string namePropertyName;
-
         /// <summary>
         /// Creates a new instance of <see cref="KeyValueElementAttribute"/>.
         /// </summary>
@@ -41,7 +39,7 @@ namespace Core.Common.Gui.Converters
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public KeyValueElementAttribute(string namePropertyName, string valuePropertyName)
         {
-            this.namePropertyName = namePropertyName;
+            NamePropertyName = namePropertyName;
             ValuePropertyName = valuePropertyName;
             if (valuePropertyName == null)
             {
@@ -65,10 +63,10 @@ namespace Core.Common.Gui.Converters
         /// </exception>
         public virtual string GetName(object source)
         {
-            PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
+            PropertyInfo namePropertyInfo = source.GetType().GetProperty(NamePropertyName);
             if (namePropertyInfo == null)
             {
-                throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
+                throw new ArgumentException($"Name property '{NamePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
             return Convert.ToString(namePropertyInfo.GetValue(source, new object[0]));
@@ -93,6 +91,11 @@ namespace Core.Common.Gui.Converters
 
             return Convert.ToString(valuePropertyInfo.GetValue(source, new object[0]));
         }
+
+        /// <summary>
+        /// Gets the name of the property to show as value.
+        /// </summary>
+        protected string NamePropertyName { get; }
 
         /// <summary>
         /// Gets the name of the property to show as value.
