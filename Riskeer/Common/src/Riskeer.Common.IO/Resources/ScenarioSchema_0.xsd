@@ -42,10 +42,7 @@ All rights reserved.
   <!--Specificeert de bijdrage aan het scenario.-->
   <xs:element name="bijdrage">
     <xs:simpleType>
-      <xs:restriction base="xs:double">
-        <xs:minInclusive value="0"/>
-        <xs:maxInclusive value="100"/>
-      </xs:restriction>
+      <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
 

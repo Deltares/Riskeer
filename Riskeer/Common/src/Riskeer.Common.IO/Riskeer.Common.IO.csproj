@@ -46,6 +46,9 @@
     <None Include="Resources\XmlGeometrySchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Update="Resources\ScenarioSchema_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />

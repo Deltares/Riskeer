@@ -25,7 +25,7 @@ All rights reserved.
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
 
   <!--Definitie voor het specificeren van een berekeningsscenario.-->
-  <xs:include schemaLocation="ScenarioSchema.xsd"/>
+  <xs:include schemaLocation="ScenarioSchema_0.xsd"/>
 
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft. Hierin
   wordt een keuze gegeven voor specificatie van een HB locatie of een 
