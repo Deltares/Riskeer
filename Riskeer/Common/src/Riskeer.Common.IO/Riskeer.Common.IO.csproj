@@ -46,7 +46,7 @@
     <None Include="Resources\XmlGeometrySchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Update="Resources\ScenarioSchema_0.xsd">
+    <None Include="Resources\ScenarioSchema_0.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

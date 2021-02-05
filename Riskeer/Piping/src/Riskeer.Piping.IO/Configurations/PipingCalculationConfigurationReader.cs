@@ -40,7 +40,8 @@ namespace Riskeer.Piping.IO.Configurations
     {
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
-        private const string scenarioSchemaName = "ScenarioSchema.xsd";
+        private const string scenarioSchemaVersion0Name = "ScenarioSchema_0.xsd";
+        private const string scenarioSchemaVersion1Name = "ScenarioSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationReader"/>.
@@ -69,7 +70,7 @@ namespace Riskeer.Piping.IO.Configurations
                             stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
                         },
                         {
-                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                            scenarioSchemaVersion0Name, RiskeerCommonIOResources.ScenarioSchema_0
                         }
                     }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
@@ -83,7 +84,7 @@ namespace Riskeer.Piping.IO.Configurations
                             stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
                         },
                         {
-                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                            scenarioSchemaVersion1Name, RiskeerCommonIOResources.ScenarioSchema
                         }
                     }, Resources.PipingConfiguratieSchema0To1)
             }) {}

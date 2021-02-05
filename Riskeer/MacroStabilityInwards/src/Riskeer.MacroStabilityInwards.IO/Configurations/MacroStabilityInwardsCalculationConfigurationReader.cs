@@ -40,7 +40,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
     public class MacroStabilityInwardsCalculationConfigurationReader
         : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
-        private const string scenarioSchemaName = "ScenarioSchema.xsd";
+        private const string scenarioSchemaVersion0Name = "ScenarioSchema_0.xsd";
+        private const string scenarioSchemaVersion1Name = "ScenarioSchema.xsd";
         private const string waternetCreatorSchemaSchemaName = "MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd";
         private const string slopeStabilityZonesSchemaName = "MacroStabiliteitBinnenwaartsZonesSchema.xsd";
         private const string slopeStabilityGridsSchemaName = "MacroStabiliteitBinnenwaartsGridsSchema.xsd";
@@ -66,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                     new Dictionary<string, string>
                     {
                         {
-                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                            scenarioSchemaVersion0Name, RiskeerCommonIOResources.ScenarioSchema_0
                         },
                         {
                             waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
@@ -83,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                     new Dictionary<string, string>
                     {
                         {
-                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                            scenarioSchemaVersion1Name, RiskeerCommonIOResources.ScenarioSchema
                         },
                         {
                             waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
