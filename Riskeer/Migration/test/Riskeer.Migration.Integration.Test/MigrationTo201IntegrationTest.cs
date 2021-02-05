@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Migration.Core;
@@ -33,10 +35,8 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        [TestCase("MigrationTestProject191.risk", "Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld.")]
-        [TestCase("MigrationTestProject191NoManualAssessmentLevels.risk", "Alle berekende resultaten zijn verwijderd.")]
-        [TestCase("MigrationTestProject191NoOutput.risk", "Geen aanpassingen.")]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, string expectedMessage)
+        [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, string[] expectedMessages)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
@@ -86,6 +86,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityPointStructuresOutput(reader);
                     AssertStabilityPointStructuresSectionResult(reader, sourceFilePath);
 
+                    AssertMacroStabilityInwardsCalculation(reader, sourceFilePath);
                     AssertMacroStabilityInwardsOutput(reader);
 
                     AssertPipingCalculation(reader, sourceFilePath);
@@ -96,8 +97,28 @@ namespace Riskeer.Migration.Integration.Test
                     AssertIllustrationPointResults(reader);
                 }
 
-                AssertLogDatabase(logFilePath, expectedMessage);
+                AssertLogDatabase(logFilePath, expectedMessages);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
+        {
+            yield return new TestCaseData("MigrationTestProject191.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld.",
+                "Alle scenario bijdragen van van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%.",
+                "Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."
+            });
+
+            yield return new TestCaseData("MigrationTestProject191NoManualAssessmentLevels.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd."
+            });
+
+            yield return new TestCaseData("MigrationTestProject191NoOutput.risk", new[]
+            {
+                "Geen aanpassingen."
+            });
         }
 
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
@@ -712,6 +733,242 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateSectionResults);
         }
 
+        private static void AssertMacroStabilityInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculationWithScenarioContributionNullOrBelowZero =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity " +
+                "WHERE ScenarioContribution IS NULL " +
+                "OR ScenarioContribution <= 0 " +
+                ")" +
+                "FROM MacroStabilityInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity OLD USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[MacroStabilityInwardsStochasticSoilProfileEntityId] IS OLD.[MacroStabilityInwardsStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[Order] = OLD.[Order] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comment] IS OLD.[Comment] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = 0 " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput] " +
+                "AND NEW.[SlipPlaneMinimumDepth] IS OLD.[SlipPlaneMinimumDepth] " +
+                "AND NEW.[SlipPlaneMinimumLength] IS OLD.[SlipPlaneMinimumLength] " +
+                "AND NEW.[MaximumSliceWidth] IS OLD.[MaximumSliceWidth] " +
+                "AND NEW.[MoveGrid] = OLD.[MoveGrid] " +
+                "AND NEW.[GridDeterminationType] = OLD.[GridDeterminationType] " +
+                "AND NEW.[TangentLineDeterminationType] = OLD.[TangentLineDeterminationType] " +
+                "AND NEW.[TangentLineZTop] IS OLD.[TangentLineZTop] " +
+                "AND NEW.[TangentLineZBottom] IS OLD.[TangentLineZBottom] " +
+                "AND NEW.[TangentLineNumber] = OLD.[TangentLineNumber] " +
+                "AND NEW.[LeftGridXLeft] IS OLD.[LeftGridXLeft] " +
+                "AND NEW.[LeftGridXRight] IS OLD.[LeftGridXRight] " +
+                "AND NEW.[LeftGridNrOfHorizontalPoints] = OLD.[LeftGridNrOfHorizontalPoints] " +
+                "AND NEW.[LeftGridZTop] IS OLD.[LeftGridZTop] " +
+                "AND NEW.[LeftGridZBottom] IS OLD.[LeftGridZBottom] " +
+                "AND NEW.[LeftGridNrOfVerticalPoints] = OLD.[LeftGridNrOfVerticalPoints] " +
+                "AND NEW.[RightGridXLeft] IS OLD.[RightGridXLeft] " +
+                "AND NEW.[RightGridXRight] IS OLD.[RightGridXRight] " +
+                "AND NEW.[RightGridNrOfHorizontalPoints] = OLD.[RightGridNrOfHorizontalPoints] " +
+                "AND NEW.[RightGridZTop] IS OLD.[RightGridZTop] " +
+                "AND NEW.[RightGridZBottom] IS OLD.[RightGridZBottom] " +
+                "AND NEW.[RightGridNrOfVerticalPoints] = OLD.[RightGridNrOfVerticalPoints] " +
+                "AND NEW.[DikeSoilScenario] = OLD.[DikeSoilScenario] " +
+                "AND NEW.[WaterLevelRiverAverage] IS OLD.[WaterLevelRiverAverage] " +
+                "AND NEW.[DrainageConstructionPresent] = OLD.[DrainageConstructionPresent] " +
+                "AND NEW.[DrainageConstructionCoordinateX] IS OLD.[DrainageConstructionCoordinateX] " +
+                "AND NEW.[DrainageConstructionCoordinateZ] IS OLD.[DrainageConstructionCoordinateZ] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopRiver] IS OLD.[MinimumLevelPhreaticLineAtDikeTopRiver] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopPolder] IS OLD.[MinimumLevelPhreaticLineAtDikeTopPolder] " +
+                "AND NEW.[AdjustPhreaticLine3And4ForUplift] = OLD.[AdjustPhreaticLine3And4ForUplift] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine3] IS OLD.[LeakageLengthOutwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine3] IS OLD.[LeakageLengthInwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine4] IS OLD.[LeakageLengthOutwardsPhreaticLine4] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine4] IS OLD.[LeakageLengthInwardsPhreaticLine4] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Outwards] IS OLD.[PiezometricHeadPhreaticLine2Outwards] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Inwards] IS OLD.[PiezometricHeadPhreaticLine2Inwards] " +
+                "AND NEW.[LocationInputExtremeWaterLevelPolder] IS OLD.[LocationInputExtremeWaterLevelPolder] " +
+                "AND NEW.[LocationInputExtremeUseDefaultOffsets] = OLD.[LocationInputExtremeUseDefaultOffsets] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[LocationInputExtremePenetrationLength] IS OLD.[LocationInputExtremePenetrationLength] " +
+                "AND NEW.[LocationInputDailyWaterLevelPolder] IS OLD.[LocationInputDailyWaterLevelPolder] " +
+                "AND NEW.[LocationInputDailyUseDefaultOffsets] = OLD.[LocationInputDailyUseDefaultOffsets] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[CreateZones] = OLD.[CreateZones] " +
+                "AND NEW.[ZoningBoundariesDeterminationType] = OLD.[ZoningBoundariesDeterminationType] " +
+                "AND NEW.[ZoneBoundaryLeft] IS OLD.[ZoneBoundaryLeft] " +
+                "AND NEW.[ZoneBoundaryRight] IS OLD.[ZoneBoundaryRight]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithScenarioContributionNullOrBelowZero);
+
+            string validateCalculationWithScenarioContributionAboveOne =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity " +
+                "WHERE ScenarioContribution >= 1 " +
+                ")" +
+                "FROM MacroStabilityInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity OLD USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[MacroStabilityInwardsStochasticSoilProfileEntityId] IS OLD.[MacroStabilityInwardsStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[Order] = OLD.[Order] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comment] IS OLD.[Comment] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = 1 " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput] " +
+                "AND NEW.[SlipPlaneMinimumDepth] IS OLD.[SlipPlaneMinimumDepth] " +
+                "AND NEW.[SlipPlaneMinimumLength] IS OLD.[SlipPlaneMinimumLength] " +
+                "AND NEW.[MaximumSliceWidth] IS OLD.[MaximumSliceWidth] " +
+                "AND NEW.[MoveGrid] = OLD.[MoveGrid] " +
+                "AND NEW.[GridDeterminationType] = OLD.[GridDeterminationType] " +
+                "AND NEW.[TangentLineDeterminationType] = OLD.[TangentLineDeterminationType] " +
+                "AND NEW.[TangentLineZTop] IS OLD.[TangentLineZTop] " +
+                "AND NEW.[TangentLineZBottom] IS OLD.[TangentLineZBottom] " +
+                "AND NEW.[TangentLineNumber] = OLD.[TangentLineNumber] " +
+                "AND NEW.[LeftGridXLeft] IS OLD.[LeftGridXLeft] " +
+                "AND NEW.[LeftGridXRight] IS OLD.[LeftGridXRight] " +
+                "AND NEW.[LeftGridNrOfHorizontalPoints] = OLD.[LeftGridNrOfHorizontalPoints] " +
+                "AND NEW.[LeftGridZTop] IS OLD.[LeftGridZTop] " +
+                "AND NEW.[LeftGridZBottom] IS OLD.[LeftGridZBottom] " +
+                "AND NEW.[LeftGridNrOfVerticalPoints] = OLD.[LeftGridNrOfVerticalPoints] " +
+                "AND NEW.[RightGridXLeft] IS OLD.[RightGridXLeft] " +
+                "AND NEW.[RightGridXRight] IS OLD.[RightGridXRight] " +
+                "AND NEW.[RightGridNrOfHorizontalPoints] = OLD.[RightGridNrOfHorizontalPoints] " +
+                "AND NEW.[RightGridZTop] IS OLD.[RightGridZTop] " +
+                "AND NEW.[RightGridZBottom] IS OLD.[RightGridZBottom] " +
+                "AND NEW.[RightGridNrOfVerticalPoints] = OLD.[RightGridNrOfVerticalPoints] " +
+                "AND NEW.[DikeSoilScenario] = OLD.[DikeSoilScenario] " +
+                "AND NEW.[WaterLevelRiverAverage] IS OLD.[WaterLevelRiverAverage] " +
+                "AND NEW.[DrainageConstructionPresent] = OLD.[DrainageConstructionPresent] " +
+                "AND NEW.[DrainageConstructionCoordinateX] IS OLD.[DrainageConstructionCoordinateX] " +
+                "AND NEW.[DrainageConstructionCoordinateZ] IS OLD.[DrainageConstructionCoordinateZ] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopRiver] IS OLD.[MinimumLevelPhreaticLineAtDikeTopRiver] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopPolder] IS OLD.[MinimumLevelPhreaticLineAtDikeTopPolder] " +
+                "AND NEW.[AdjustPhreaticLine3And4ForUplift] = OLD.[AdjustPhreaticLine3And4ForUplift] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine3] IS OLD.[LeakageLengthOutwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine3] IS OLD.[LeakageLengthInwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine4] IS OLD.[LeakageLengthOutwardsPhreaticLine4] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine4] IS OLD.[LeakageLengthInwardsPhreaticLine4] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Outwards] IS OLD.[PiezometricHeadPhreaticLine2Outwards] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Inwards] IS OLD.[PiezometricHeadPhreaticLine2Inwards] " +
+                "AND NEW.[LocationInputExtremeWaterLevelPolder] IS OLD.[LocationInputExtremeWaterLevelPolder] " +
+                "AND NEW.[LocationInputExtremeUseDefaultOffsets] = OLD.[LocationInputExtremeUseDefaultOffsets] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[LocationInputExtremePenetrationLength] IS OLD.[LocationInputExtremePenetrationLength] " +
+                "AND NEW.[LocationInputDailyWaterLevelPolder] IS OLD.[LocationInputDailyWaterLevelPolder] " +
+                "AND NEW.[LocationInputDailyUseDefaultOffsets] = OLD.[LocationInputDailyUseDefaultOffsets] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[CreateZones] = OLD.[CreateZones] " +
+                "AND NEW.[ZoningBoundariesDeterminationType] = OLD.[ZoningBoundariesDeterminationType] " +
+                "AND NEW.[ZoneBoundaryLeft] IS OLD.[ZoneBoundaryLeft] " +
+                "AND NEW.[ZoneBoundaryRight] IS OLD.[ZoneBoundaryRight]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithScenarioContributionAboveOne);
+
+            string validateCalculationWithValidScenarioContribution =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity " +
+                "WHERE ScenarioContribution >= 0 " +
+                "AND ScenarioContribution <= 1 " +
+                ")" +
+                "FROM MacroStabilityInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity OLD USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[MacroStabilityInwardsStochasticSoilProfileEntityId] IS OLD.[MacroStabilityInwardsStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[Order] = OLD.[Order] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comment] IS OLD.[Comment] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution] " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput] " +
+                "AND NEW.[SlipPlaneMinimumDepth] IS OLD.[SlipPlaneMinimumDepth] " +
+                "AND NEW.[SlipPlaneMinimumLength] IS OLD.[SlipPlaneMinimumLength] " +
+                "AND NEW.[MaximumSliceWidth] IS OLD.[MaximumSliceWidth] " +
+                "AND NEW.[MoveGrid] = OLD.[MoveGrid] " +
+                "AND NEW.[GridDeterminationType] = OLD.[GridDeterminationType] " +
+                "AND NEW.[TangentLineDeterminationType] = OLD.[TangentLineDeterminationType] " +
+                "AND NEW.[TangentLineZTop] IS OLD.[TangentLineZTop] " +
+                "AND NEW.[TangentLineZBottom] IS OLD.[TangentLineZBottom] " +
+                "AND NEW.[TangentLineNumber] = OLD.[TangentLineNumber] " +
+                "AND NEW.[LeftGridXLeft] IS OLD.[LeftGridXLeft] " +
+                "AND NEW.[LeftGridXRight] IS OLD.[LeftGridXRight] " +
+                "AND NEW.[LeftGridNrOfHorizontalPoints] = OLD.[LeftGridNrOfHorizontalPoints] " +
+                "AND NEW.[LeftGridZTop] IS OLD.[LeftGridZTop] " +
+                "AND NEW.[LeftGridZBottom] IS OLD.[LeftGridZBottom] " +
+                "AND NEW.[LeftGridNrOfVerticalPoints] = OLD.[LeftGridNrOfVerticalPoints] " +
+                "AND NEW.[RightGridXLeft] IS OLD.[RightGridXLeft] " +
+                "AND NEW.[RightGridXRight] IS OLD.[RightGridXRight] " +
+                "AND NEW.[RightGridNrOfHorizontalPoints] = OLD.[RightGridNrOfHorizontalPoints] " +
+                "AND NEW.[RightGridZTop] IS OLD.[RightGridZTop] " +
+                "AND NEW.[RightGridZBottom] IS OLD.[RightGridZBottom] " +
+                "AND NEW.[RightGridNrOfVerticalPoints] = OLD.[RightGridNrOfVerticalPoints] " +
+                "AND NEW.[DikeSoilScenario] = OLD.[DikeSoilScenario] " +
+                "AND NEW.[WaterLevelRiverAverage] IS OLD.[WaterLevelRiverAverage] " +
+                "AND NEW.[DrainageConstructionPresent] = OLD.[DrainageConstructionPresent] " +
+                "AND NEW.[DrainageConstructionCoordinateX] IS OLD.[DrainageConstructionCoordinateX] " +
+                "AND NEW.[DrainageConstructionCoordinateZ] IS OLD.[DrainageConstructionCoordinateZ] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopRiver] IS OLD.[MinimumLevelPhreaticLineAtDikeTopRiver] " +
+                "AND NEW.[MinimumLevelPhreaticLineAtDikeTopPolder] IS OLD.[MinimumLevelPhreaticLineAtDikeTopPolder] " +
+                "AND NEW.[AdjustPhreaticLine3And4ForUplift] = OLD.[AdjustPhreaticLine3And4ForUplift] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine3] IS OLD.[LeakageLengthOutwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine3] IS OLD.[LeakageLengthInwardsPhreaticLine3] " +
+                "AND NEW.[LeakageLengthOutwardsPhreaticLine4] IS OLD.[LeakageLengthOutwardsPhreaticLine4] " +
+                "AND NEW.[LeakageLengthInwardsPhreaticLine4] IS OLD.[LeakageLengthInwardsPhreaticLine4] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Outwards] IS OLD.[PiezometricHeadPhreaticLine2Outwards] " +
+                "AND NEW.[PiezometricHeadPhreaticLine2Inwards] IS OLD.[PiezometricHeadPhreaticLine2Inwards] " +
+                "AND NEW.[LocationInputExtremeWaterLevelPolder] IS OLD.[LocationInputExtremeWaterLevelPolder] " +
+                "AND NEW.[LocationInputExtremeUseDefaultOffsets] = OLD.[LocationInputExtremeUseDefaultOffsets] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputExtremePhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[LocationInputExtremePenetrationLength] IS OLD.[LocationInputExtremePenetrationLength] " +
+                "AND NEW.[LocationInputDailyWaterLevelPolder] IS OLD.[LocationInputDailyWaterLevelPolder] " +
+                "AND NEW.[LocationInputDailyUseDefaultOffsets] = OLD.[LocationInputDailyUseDefaultOffsets] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] IS OLD.[LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside] " +
+                "AND NEW.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] IS OLD.[LocationInputDailyPhreaticLineOffsetDikeToeAtPolder] " +
+                "AND NEW.[CreateZones] = OLD.[CreateZones] " +
+                "AND NEW.[ZoningBoundariesDeterminationType] = OLD.[ZoningBoundariesDeterminationType] " +
+                "AND NEW.[ZoneBoundaryLeft] IS OLD.[ZoneBoundaryLeft] " +
+                "AND NEW.[ZoneBoundaryRight] IS OLD.[ZoneBoundaryRight]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithValidScenarioContribution);
+        }
+
         private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
         {
             const string macroStabilityInwardsCalculationOutputEntityTable =
@@ -723,12 +980,14 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertPipingCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateCalculation =
+            string validateCalculationWithScenarioContributionNullOrBelowZero =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.PipingCalculationEntity" +
+                "FROM SOURCEPROJECT.PipingCalculationEntity " +
+                "WHERE ScenarioContribution IS NULL " +
+                "OR ScenarioContribution <= 0 " +
                 ") " +
                 "FROM SemiProbabilisticPipingCalculationEntity NEW " +
                 "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
@@ -747,11 +1006,74 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[DampingFactorExitMean] IS OLD.[DampingFactorExitMean] " +
                 "AND NEW.[DampingFactorExitStandardDeviation] IS OLD.[DampingFactorExitStandardDeviation] " +
                 "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
-                "AND NEW.[ScenarioContribution] IS OLD.[ScenarioContribution] " +
+                "AND NEW.[ScenarioContribution] = 0 " +
                 "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
                 "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput]; " +
                 "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateCalculation);
+            reader.AssertReturnedDataIsValid(validateCalculationWithScenarioContributionNullOrBelowZero);
+
+            string validateCalculationWithScenarioContributionAboveOne =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingCalculationEntity " +
+                "WHERE ScenarioContribution >= 1 " +
+                ") " +
+                "FROM SemiProbabilisticPipingCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
+                "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId]" +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[PipingStochasticSoilProfileEntityId] IS OLD.[PipingStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[EntryPointL] IS OLD.[EntryPointL] " +
+                "AND NEW.[ExitPointL] IS OLD.[ExitPointL] " +
+                "AND NEW.[PhreaticLevelExitMean] IS OLD.[PhreaticLevelExitMean] " +
+                "AND NEW.[PhreaticLevelExitStandardDeviation] IS OLD.[PhreaticLevelExitStandardDeviation] " +
+                "AND NEW.[DampingFactorExitMean] IS OLD.[DampingFactorExitMean] " +
+                "AND NEW.[DampingFactorExitStandardDeviation] IS OLD.[DampingFactorExitStandardDeviation] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = 1 " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithScenarioContributionAboveOne);
+
+            string validateCalculationWithValidScenarioContribution =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingCalculationEntity " +
+                "WHERE ScenarioContribution >= 0 " +
+                "AND ScenarioContribution <= 1 " +
+                ") " +
+                "FROM SemiProbabilisticPipingCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingCalculationEntity OLD " +
+                "ON NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[PipingCalculationEntityId]" +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[SurfaceLineEntityId] IS OLD.[SurfaceLineEntityId] " +
+                "AND NEW.[PipingStochasticSoilProfileEntityId] IS OLD.[PipingStochasticSoilProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[EntryPointL] IS OLD.[EntryPointL] " +
+                "AND NEW.[ExitPointL] IS OLD.[ExitPointL] " +
+                "AND NEW.[PhreaticLevelExitMean] IS OLD.[PhreaticLevelExitMean] " +
+                "AND NEW.[PhreaticLevelExitStandardDeviation] IS OLD.[PhreaticLevelExitStandardDeviation] " +
+                "AND NEW.[DampingFactorExitMean] IS OLD.[DampingFactorExitMean] " +
+                "AND NEW.[DampingFactorExitStandardDeviation] IS OLD.[DampingFactorExitStandardDeviation] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution] " +
+                "AND NEW.[AssessmentLevel] IS OLD.[AssessmentLevel] " +
+                "AND NEW.[UseAssessmentLevelManualInput] = OLD.[UseAssessmentLevelManualInput]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithValidScenarioContribution);
         }
 
         private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
@@ -951,20 +1273,24 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertLogDatabase(string logFilePath, string expectedMessage)
+        private static void AssertLogDatabase(string logFilePath, IEnumerable<string> expectedMessages)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(2, messages.Count);
+                Assert.AreEqual(expectedMessages.Count() + 1, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, $"* {expectedMessage}"),
-                    messages[i]);
+
+                foreach (string expectedMessage in expectedMessages)
+                {
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("19.1", newVersion, $"* {expectedMessage}"),
+                        messages[i++]);
+                }
             }
         }
     }
