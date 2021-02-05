@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
             {
                 Name = entity.Name,
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution,
                 Comments =
                 {
                     Body = entity.Comment

@@ -47,10 +47,10 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("collector", exception.ParamName);
         }
 
@@ -275,7 +275,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
                 LeftGridNrOfVerticalPoints = random.Next(1, 100),
                 RightGridNrOfHorizontalPoints = random.Next(1, 100),
                 RightGridNrOfVerticalPoints = random.Next(1, 100),
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
         }
     }

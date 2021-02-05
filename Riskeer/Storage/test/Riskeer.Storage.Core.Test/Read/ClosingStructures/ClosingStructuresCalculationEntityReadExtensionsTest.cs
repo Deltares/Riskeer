@@ -104,7 +104,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(Convert.ToBoolean(entity.RelevantForScenario), calculation.IsRelevant);
-            Assert.AreEqual(entity.ScenarioContribution, calculation.Contribution);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
             Assert.AreEqual(entity.Comments, calculation.Comments.Body);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
@@ -156,7 +156,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             // Setup
             var entity = new ClosingStructuresCalculationEntity
             {
-                ScenarioContribution = 0.1,
+                ScenarioContribution = 0,
                 StructureNormalOrientation = null,
                 ModelFactorSuperCriticalFlowMean = null,
                 AllowedLevelIncreaseStorageMean = null,
@@ -231,7 +231,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             {
                 ClosingStructureEntity = structureEntity,
                 IdenticalApertures = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -253,7 +253,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
                 IdenticalApertures = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -276,7 +276,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             {
                 ForeshoreProfileEntity = profileEntity,
                 IdenticalApertures = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -300,7 +300,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                     new ClosingStructuresOutputEntity()
                 },
                 IdenticalApertures = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();

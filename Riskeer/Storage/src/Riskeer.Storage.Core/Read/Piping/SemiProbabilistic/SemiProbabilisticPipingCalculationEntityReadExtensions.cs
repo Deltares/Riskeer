@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution,
                 Name = entity.Name,
                 Comments =
                 {

@@ -129,7 +129,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             // Setup
             var entity = new HeightStructuresCalculationEntity
             {
-                ScenarioContribution = 0.1,
+                ScenarioContribution = 0,
                 StructureNormalOrientation = null,
                 ModelFactorSuperCriticalFlowMean = null,
                 AllowedLevelIncreaseStorageMean = null,
@@ -177,7 +177,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var entity = new HeightStructuresCalculationEntity
             {
                 HeightStructureEntity = structureEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -198,7 +198,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var entity = new HeightStructuresCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -240,7 +240,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 ForeshoreProfileEntity = foreshoreEntity,
                 BreakWaterType = Convert.ToByte(type),
                 BreakWaterHeight = breakWaterHeight,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -268,7 +268,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 {
                     new HeightStructuresOutputEntity()
                 },
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();

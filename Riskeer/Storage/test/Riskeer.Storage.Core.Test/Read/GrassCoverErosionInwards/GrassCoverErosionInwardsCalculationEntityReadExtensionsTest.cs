@@ -92,7 +92,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(entity.Comments, calculation.Comments.Body);
             AssertBoolean(entity.RelevantForScenario, calculation.IsRelevant);
-            Assert.AreEqual(entity.ScenarioContribution, calculation.Contribution);
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             Assert.AreEqual(entity.Orientation, input.Orientation.Value);
@@ -124,7 +124,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = null,
-                ScenarioContribution = 0.1,
+                ScenarioContribution = 0,
                 Comments = null,
                 Orientation = null,
                 CriticalFlowRateMean = null,
@@ -163,7 +163,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 DikeProfileEntity = dikeProfileEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -189,7 +189,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 DikeProfileEntity = dikeProfileEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -211,7 +211,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -255,7 +255,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 {
                     new GrassCoverErosionInwardsOutputEntity()
                 },
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();

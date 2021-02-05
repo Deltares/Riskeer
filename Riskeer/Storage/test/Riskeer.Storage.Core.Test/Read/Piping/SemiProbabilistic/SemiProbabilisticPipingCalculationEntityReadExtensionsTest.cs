@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
             var entity = new SemiProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(isRelevant),
-                ScenarioContribution = contribution.ToNaNAsNull(),
+                ScenarioContribution = contribution,
                 Name = name,
                 Comments = comments,
                 EntryPointL = entryPoint.ToNaNAsNull(),
@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
 
             // Assert
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
-            Assert.AreEqual(contribution, calculation.Contribution, 1e-6);
+            RoundedDoubleTestHelper.AssertRoundedDouble(contribution, calculation.Contribution);
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -163,7 +163,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -190,7 +190,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 DampingFactorExitMean = 1,
                 AssessmentLevel = 5.81,
                 UseAssessmentLevelManualInput = Convert.ToByte(false),
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -215,7 +215,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 UseAssessmentLevelManualInput = Convert.ToByte(false),
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -246,7 +246,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -299,7 +299,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();
@@ -322,7 +322,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
                 {
                     new SemiProbabilisticPipingCalculationOutputEntity()
                 },
-                ScenarioContribution = 0.1
+                ScenarioContribution = 0
             };
 
             var collector = new ReadConversionCollector();

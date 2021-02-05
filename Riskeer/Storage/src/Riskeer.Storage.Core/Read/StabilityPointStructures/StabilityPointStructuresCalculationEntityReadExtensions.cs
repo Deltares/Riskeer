@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
             {
                 Name = entity.Name,
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution,
                 Comments =
                 {
                     Body = entity.Comments
