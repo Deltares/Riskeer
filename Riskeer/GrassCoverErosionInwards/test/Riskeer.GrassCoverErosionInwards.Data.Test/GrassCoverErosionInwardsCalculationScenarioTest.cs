@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             void Call() => calculationScenario.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, "De waarde moet binnen het bereik [0% en 100%] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, "De waarde moet binnen het bereik [0 en 100] liggen.");
         }
 
         [Test]
