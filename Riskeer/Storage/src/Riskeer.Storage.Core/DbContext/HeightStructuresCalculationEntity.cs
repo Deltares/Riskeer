@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? LevelCrestStructureStandardDeviation { get; set; }
         public double? DeviationWaveDirection { get; set; }
         public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
+        public double ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HeightStructureEntity HeightStructureEntity { get; set; }

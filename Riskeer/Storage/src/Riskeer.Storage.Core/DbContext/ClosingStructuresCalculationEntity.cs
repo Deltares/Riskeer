@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
+        public double ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ClosingStructureEntity ClosingStructureEntity { get; set; }

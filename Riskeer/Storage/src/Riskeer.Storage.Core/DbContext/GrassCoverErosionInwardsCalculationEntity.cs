@@ -62,7 +62,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
         public byte ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
         public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
+        public double ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }

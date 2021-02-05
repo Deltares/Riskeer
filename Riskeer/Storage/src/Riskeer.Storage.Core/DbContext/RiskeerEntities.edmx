@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=D:\Development\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -144,7 +144,7 @@
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="ClosingStructuresFailureMechanismMetaEntity">
           <Key>
@@ -395,7 +395,7 @@
           <Property Name="ShouldOvertoppingRateIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="ShouldOvertoppingOutputIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsDikeHeightOutputEntity">
           <Key>
@@ -618,7 +618,7 @@
           <Property Name="BreakWaterHeight" Type="real" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
@@ -737,7 +737,7 @@
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
           <Property Name="AssessmentLevel" Type="real" />
           <Property Name="UseAssessmentLevelManualInput" Type="tinyint" Nullable="false" />
           <Property Name="SlipPlaneMinimumDepth" Type="real" />
@@ -1165,7 +1165,7 @@
           <Property Name="DampingFactorExitMean" Type="real" />
           <Property Name="DampingFactorExitStandardDeviation" Type="real" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
           <Property Name="AssessmentLevel" Type="real" />
           <Property Name="UseAssessmentLevelManualInput" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -1310,7 +1310,7 @@
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="ScenarioContribution" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -5133,7 +5133,7 @@
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_3_0" FromRole="ClosingStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_2_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructureEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -5451,7 +5451,7 @@
           <Property Name="ShouldOvertoppingRateIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="ShouldOvertoppingOutputIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="DikeProfileEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -5705,7 +5705,7 @@
           <Property Name="BreakWaterHeight" Type="Double" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="HeightStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_HeightStructuresCalculationEntity_2_0" FromRole="HeightStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HeightStructureEntity" Relationship="RiskeerEntitiesModel.FK_HeightStructuresCalculationEntity_1_0" FromRole="HeightStructuresCalculationEntity" ToRole="HeightStructureEntity" />
@@ -5867,7 +5867,7 @@
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <Property Name="AssessmentLevel" Type="Double" />
           <Property Name="UseAssessmentLevelManualInput" Type="Byte" Nullable="false" />
           <Property Name="SlipPlaneMinimumDepth" Type="Double" />
@@ -6336,7 +6336,7 @@
           <Property Name="DampingFactorExitMean" Type="Double" />
           <Property Name="DampingFactorExitStandardDeviation" Type="Double" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <Property Name="AssessmentLevel" Type="Double" />
           <Property Name="UseAssessmentLevelManualInput" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_SemiProbabilisticPipingCalculationEntity_3_0" FromRole="SemiProbabilisticPipingCalculationEntity" ToRole="CalculationGroupEntity" />
@@ -6489,7 +6489,7 @@
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="ScenarioContribution" Type="Double" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_3_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />

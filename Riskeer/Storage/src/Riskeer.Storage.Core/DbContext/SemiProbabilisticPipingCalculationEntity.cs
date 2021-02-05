@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? DampingFactorExitMean { get; set; }
         public double? DampingFactorExitStandardDeviation { get; set; }
         public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
+        public double ScenarioContribution { get; set; }
         public double? AssessmentLevel { get; set; }
         public byte UseAssessmentLevelManualInput { get; set; }
 

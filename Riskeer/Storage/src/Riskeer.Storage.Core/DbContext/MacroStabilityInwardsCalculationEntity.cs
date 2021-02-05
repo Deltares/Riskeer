@@ -50,7 +50,7 @@ namespace Riskeer.Storage.Core.DbContext
         public string Name { get; set; }
         public string Comment { get; set; }
         public byte RelevantForScenario { get; set; }
-        public double? ScenarioContribution { get; set; }
+        public double ScenarioContribution { get; set; }
         public double? AssessmentLevel { get; set; }
         public byte UseAssessmentLevelManualInput { get; set; }
         public double? SlipPlaneMinimumDepth { get; set; }
