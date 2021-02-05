@@ -112,7 +112,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 Name = calculation.Name.DeepClone(),
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
@@ -201,7 +201,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 Name = calculation.Name.DeepClone(),
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
@@ -266,7 +266,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 Name = calculation.Name.DeepClone(),
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };

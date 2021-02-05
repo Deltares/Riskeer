@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
                 Name = calculation.Name.DeepClone(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);

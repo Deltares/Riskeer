@@ -47,10 +47,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var scenario = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            TestDelegate call = () => scenario.Create(null, 0);
+            void Call() => scenario.Create(null, 0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
 

@@ -66,7 +66,7 @@ namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
             }
 
             Assert.AreEqual(Convert.ToByte(scenario.IsRelevant), entity.RelevantForScenario);
-            AssertAreEqual(scenario.Contribution, entity.ScenarioContribution);
+            Assert.AreEqual(scenario.Contribution, entity.ScenarioContribution);
 
             AssertInputParameters(scenario.InputParameters, entity);
         }
