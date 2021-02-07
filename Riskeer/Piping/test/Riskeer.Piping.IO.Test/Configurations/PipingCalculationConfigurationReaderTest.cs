@@ -240,7 +240,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.IsNotNull(configuration.PhreaticLevelExit.StandardDeviation);
                     Assert.IsNotNull(configuration.DampingFactorExit.Mean);
                     Assert.IsNotNull(configuration.DampingFactorExit.StandardDeviation);
-                    Assert.IsNotNull(configuration.Scenario.Contribution);
 
                     Assert.IsTrue(double.IsNegativeInfinity(configuration.EntryPointL.Value));
                     Assert.IsTrue(double.IsPositiveInfinity(configuration.ExitPointL.Value));
@@ -248,7 +247,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLevelExit.StandardDeviation.Value));
                     Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.Mean.Value));
                     Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.StandardDeviation.Value));
-                    Assert.IsTrue(double.IsNegativeInfinity(configuration.Scenario.Contribution.Value));
                 }
                 finally
                 {

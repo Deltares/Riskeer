@@ -189,10 +189,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.IsNotNull(configuration.AssessmentLevel);
-            Assert.IsNotNull(configuration.Scenario.Contribution);
 
             Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.WaterLevelRiverAverage.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.XCoordinateDrainageConstruction.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.ZCoordinateDrainageConstruction.Value));

@@ -352,7 +352,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             Assert.IsNull(configuration.WaveReduction.UseBreakWater);
             Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
             Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]

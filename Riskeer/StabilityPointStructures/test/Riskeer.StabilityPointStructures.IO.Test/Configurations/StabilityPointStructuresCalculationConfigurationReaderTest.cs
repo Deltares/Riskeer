@@ -691,8 +691,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.That(double.IsNegativeInfinity(configuration.WidthFlowApertures.StandardDeviation.Value));
 
             Assert.That(double.IsNegativeInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
-
-            Assert.That(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]

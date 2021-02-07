@@ -71,8 +71,5 @@
         <aantalpuntenhorizontaal>0</aantalpuntenhorizontaal>
       </rechtergrid>
     </grids>
-    <scenario>
-      <bijdrage>INF</bijdrage>
-    </scenario>
   </berekening>
 </configuratie>

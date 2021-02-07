@@ -438,7 +438,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsTrue(double.IsNegativeInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
             Assert.IsNull(configuration.WaveReduction.UseBreakWater);
             Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]

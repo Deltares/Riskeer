@@ -329,14 +329,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNotNull(configuration.WaveReduction.BreakWaterHeight);
             Assert.IsNotNull(configuration.CriticalFlowRate.Mean);
             Assert.IsNotNull(configuration.CriticalFlowRate.StandardDeviation);
-            Assert.IsNotNull(configuration.Scenario.Contribution);
 
             Assert.IsTrue(double.IsPositiveInfinity(configuration.Orientation.Value));
             Assert.IsTrue(double.IsNegativeInfinity(configuration.DikeHeight.Value));
             Assert.IsTrue(double.IsNegativeInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalFlowRate.Mean.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalFlowRate.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]
