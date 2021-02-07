@@ -444,6 +444,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                                               string.Format(message, adapter.ElementName, "string"));
             }
 
+            yield return new TestCaseData("invalidScenarioContributionBelow0.xml",
+                                          string.Format(message, "bijdrage", "-1"));
+            yield return new TestCaseData("invalidScenarioContributionAbove100.xml",
+                                          string.Format(message, "bijdrage", "101"));
+
             const string dataTypeBoolean = "Boolean";
             foreach (NameAdapter adapter in GetNameAdaptersOfBoolProperties())
             {

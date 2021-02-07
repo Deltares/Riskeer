@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -508,6 +508,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("invalidScenarioContributionNoDouble.xml",
                                                   "The 'bijdrage' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                         .SetName("invalidScenarioContributionNoDouble");
+                    yield return new TestCaseData("invalidScenarioContributionBelow0.xml",
+                                                  "The 'bijdrage' element is invalid - The value '-1' is invalid according to its datatype 'Double'")
+                        .SetName("invalidScenarioContributionBelow0");
+                    yield return new TestCaseData("invalidScenarioContributionAbove100.xml",
+                                                  "The 'bijdrage' element is invalid - The value '101' is invalid according to its datatype 'Double'")
+                        .SetName("invalidScenarioContributionAbove100");
                     yield return new TestCaseData("invalidScenarioMultipleRelevant.xml",
                                                   "Element 'gebruik' cannot appear more than once if content model type is \"all\".")
                         .SetName("invalidScenarioMultipleRelevant");
