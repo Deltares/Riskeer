@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="alpha">The alpha.</param>
         /// <param name="realization">The realization.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="unit"/> is <c>null</c>.</exception>
         public SubMechanismIllustrationPointStochast(string name, string unit, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {

@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// <param name="unit">The unit.</param>
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="unit"/> is <c>null</c>.</exception>
         public IllustrationPointResult(string description, string unit, double value)
         {
             if (description == null)

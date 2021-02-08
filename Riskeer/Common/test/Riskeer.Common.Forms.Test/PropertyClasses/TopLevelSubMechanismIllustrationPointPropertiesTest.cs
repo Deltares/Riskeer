@@ -158,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             };
             var illustrationPointResults = new[]
             {
-                new IllustrationPointResult("some description", "-",random.NextDouble())
+                new IllustrationPointResult("some description", "-", random.NextDouble())
             };
 
             const string illustrationPointName = "name";

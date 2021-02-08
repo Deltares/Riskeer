@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// <param name="alpha">The alpha value of the stochast.</param>
         /// <param name="realization">The realization of the stochast.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="unit"/> is <c>null</c>.</exception>
         public SubMechanismIllustrationPointStochast(string name, string unit, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {

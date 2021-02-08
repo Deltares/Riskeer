@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="unit">The unit.</param>
         /// <param name="value">The output of the sub mechanism illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/> 
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="unit"/> is <c>null</c>.</exception>
         public IllustrationPointResult(string description, string unit, double value)
         {
             if (description == null)
