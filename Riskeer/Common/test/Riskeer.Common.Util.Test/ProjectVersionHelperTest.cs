@@ -35,12 +35,12 @@ namespace Riskeer.Common.Util.Test
             string currentVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
-            Assert.AreEqual("20.1", currentVersion);
+            Assert.AreEqual("21.1", currentVersion);
         }
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("20.2")]
+        [TestCase("21.2")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
@@ -113,10 +113,10 @@ namespace Riskeer.Common.Util.Test
         public void ValidateVersion_ValidVersion_DoesNotThrowException(string validVersion)
         {
             // Call
-            TestDelegate call = () => ProjectVersionHelper.ValidateVersion(validVersion);
+            void Call() => ProjectVersionHelper.ValidateVersion(validVersion);
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -124,11 +124,11 @@ namespace Riskeer.Common.Util.Test
         public void ValidateVersion_InvalidVersion_ThrowArgumentException(string validVersion)
         {
             // Call
-            TestDelegate call = () => ProjectVersionHelper.ValidateVersion(validVersion);
+            void Call() => ProjectVersionHelper.ValidateVersion(validVersion);
 
             // Assert
-            string expectedMessage = $@"'{validVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            var expectedMessage = $@"'{validVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         private static TestCaseData[] ValidVersions()
@@ -141,7 +141,7 @@ namespace Riskeer.Common.Util.Test
                 new TestCaseData("17.3"),
                 new TestCaseData("18.1"),
                 new TestCaseData("19.1"),
-                new TestCaseData("20.1")
+                new TestCaseData("21.1")
             };
         }
 

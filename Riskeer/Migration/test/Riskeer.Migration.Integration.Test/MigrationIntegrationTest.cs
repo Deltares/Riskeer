@@ -159,7 +159,7 @@ namespace Riskeer.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 17.2.rtd", "17.3");
             yield return new FileToMigrate("Empty valid Release 17.3.rtd", "18.1");
             yield return new FileToMigrate("Empty valid Release 18.1.rtd", "19.1");
-            yield return new FileToMigrate("Empty valid Release 19.1.risk", "20.1");
+            yield return new FileToMigrate("Empty valid Release 19.1.risk", "21.1");
         }
 
         private class FileToMigrate
