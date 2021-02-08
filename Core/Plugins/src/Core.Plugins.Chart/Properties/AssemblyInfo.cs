@@ -24,4 +24,3 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Core.Plugins.Chart")]
 [assembly: AssemblyProduct("Core.Plugins.Chart")]
-[assembly: InternalsVisibleTo("Core.Plugins.Chart.Test")]
