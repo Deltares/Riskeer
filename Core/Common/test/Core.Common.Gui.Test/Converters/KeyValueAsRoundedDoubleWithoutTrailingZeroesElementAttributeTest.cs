@@ -134,26 +134,6 @@ namespace Core.Common.Gui.Test.Converters
             const string expectedMessage = "Unit property 'IDoNotExist' was not found on type TestObject.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
-        
-        [Test]
-        public void GetName_UnitNull_ThrowsArgumentException()
-        {
-            // Setup
-            var attribute = new KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(nameof(TestObject.Name),
-                                                                                             nameof(TestObject.Unit),
-                                                                                             nameof(TestObject.Value));
-
-            // Call
-            void Call() =>
-                attribute.GetName(new TestObject
-                {
-                    Unit = null
-                });
-
-            // Assert
-            const string expectedMessage = "Unit property 'Unit' was not of type string.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
-        }
 
         [Test]
         [SetCulture("nl-NL")]

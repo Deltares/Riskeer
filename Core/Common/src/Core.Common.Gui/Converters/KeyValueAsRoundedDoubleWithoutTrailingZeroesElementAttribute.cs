@@ -54,21 +54,15 @@ namespace Core.Common.Gui.Converters
 
         public override string GetName(object source)
         {
-            PropertyInfo namePropertyInfo = source.GetType().GetProperty(NamePropertyName);
-            if (namePropertyInfo == null)
+            PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
+            if (unitPropertyInfo == null)
             {
-                throw new ArgumentException($"Name property '{NamePropertyName}' was not found on type {source.GetType().Name}.");
+                throw new ArgumentException($"Unit property '{unitPropertyName}' was not found on type {source.GetType().Name}.");
             }
 
-            PropertyInfo unitPropertyInfo = GetUnitPropertyInfo(source);
+            var unit = Convert.ToString(unitPropertyInfo.GetValue(source, new object[0]));
 
-            object unit = unitPropertyInfo.GetValue(source, new object[0]);
-            if (unit == null)
-            {
-                throw new ArgumentException($"Unit property '{unitPropertyName}' was not of type string.");
-            }
-
-            return $"{Convert.ToString(namePropertyInfo.GetValue(source, new object[0]))} [{Convert.ToString(unit)}]";
+            return $"{base.GetName(source)} [{unit}]";
         }
 
         /// <summary>
@@ -97,25 +91,6 @@ namespace Core.Common.Gui.Converters
 
             var doubleValue = (RoundedDouble) valueProperty;
             return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
-        }
-
-        /// <summary>
-        /// Gets the unit property info from the <paramref name="source"/>.
-        /// </summary>
-        /// <param name="source">The source to obtain the unit property info of.</param>
-        /// <returns>The <see cref="PropertyInfo"/> of the property.</returns>
-        /// <exception cref="ArgumentException">Thrown when the property used for the unit of
-        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
-        /// </exception>
-        private PropertyInfo GetUnitPropertyInfo(object source)
-        {
-            PropertyInfo unitPropertyInfo = source.GetType().GetProperty(unitPropertyName);
-            if (unitPropertyInfo == null)
-            {
-                throw new ArgumentException($"Unit property '{unitPropertyName}' was not found on type {source.GetType().Name}.");
-            }
-
-            return unitPropertyInfo;
         }
     }
 }
