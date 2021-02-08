@@ -637,6 +637,24 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }
 
             [Test]
+            [TestCase("Version0ValidConfigurationContainingScenarioContributionAbove100", 100)]
+            [TestCase("Version0ValidConfigurationContainingScenarioContributionBelow0", 0)]
+            public void Read_ValidPreviousVersionConfigurationWithScenarioContribution_ReturnExpectedReadPipingCalculation(
+                string fileName, double expectedScenarioContribution)
+            {
+                // Setup
+                string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+                var reader = new PipingCalculationConfigurationReader(filePath);
+
+                // Call
+                IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+                // Assert
+                var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+                Assert.AreEqual(expectedScenarioContribution, configuration.Scenario.Contribution);
+            }
+
+            [Test]
             public void Read_ValidConfigurationWithSemiProbabilisticCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
             {
                 // Setup

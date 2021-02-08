@@ -67,4 +67,21 @@ All rights reserved.
     </xsl:attribute>
   </xsl:template>
 
+  <!--Adjust value of 'bijdrage' in 'scenario'.-->
+  <xsl:template match="scenario/bijdrage">
+    <xsl:copy>
+      <xsl:choose>
+        <xsl:when test=".&gt;100">
+          <xsl:number value="100"/>
+        </xsl:when>
+        <xsl:when test=".&lt;0">
+          <xsl:number value="0"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:copy>
+  </xsl:template>
+
 </xsl:stylesheet>
