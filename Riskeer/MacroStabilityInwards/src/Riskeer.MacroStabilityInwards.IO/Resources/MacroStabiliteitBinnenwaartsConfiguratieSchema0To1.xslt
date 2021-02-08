@@ -22,9 +22,9 @@ All rights reserved.
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="node()|@*">
-      <xsl:copy>
-          <xsl:apply-templates select="node()|@*"/>
-      </xsl:copy>
+    <xsl:copy>
+      <xsl:apply-templates select="node()|@*"/>
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="berekening/hrlocatie">
@@ -37,6 +37,23 @@ All rights reserved.
     <xsl:element name="waterstand">
       <xsl:apply-templates/>
     </xsl:element>
+  </xsl:template>
+
+  <!--Adjust value of 'bijdrage' in 'scenario'.-->
+  <xsl:template match="scenario/bijdrage">
+    <xsl:copy>
+      <xsl:choose>
+        <xsl:when test=".&gt;100">
+          <xsl:number value="100"/>
+        </xsl:when>
+        <xsl:when test=".&lt;0">
+          <xsl:number value="0"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:copy>
   </xsl:template>
 
 </xsl:stylesheet>
