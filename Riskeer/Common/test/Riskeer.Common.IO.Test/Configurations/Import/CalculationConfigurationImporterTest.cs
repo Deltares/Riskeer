@@ -50,8 +50,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new CalculationConfigurationImporter("",
-                                                                new CalculationGroup());
+            var importer = new CalculationConfigurationImporter("", new CalculationGroup());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<CalculationGroup>>(importer);
@@ -63,17 +62,16 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath, new CalculationGroup());
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
                                      "Er is geen berekeningenconfiguratie geïmporteerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
 
@@ -83,17 +81,16 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_dont_exist");
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath, new CalculationGroup());
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
                                      "Er is geen berekeningenconfiguratie geïmporteerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
 
@@ -102,15 +99,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             string filePath = Path.Combine(readerPath, "invalidFolderNoName.xml");
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath, new CalculationGroup());
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
@@ -129,8 +125,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             var calculationGroup = new CalculationGroup();
 
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -142,10 +137,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen gegevens gewijzigd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningenconfiguratie importeren afgebroken. Geen gegevens gewijzigd.", 1);
             CollectionAssert.IsEmpty(calculationGroup.Children);
             Assert.IsFalse(importSuccessful);
         }
@@ -158,7 +153,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             var progressChangeNotifications = new List<ProgressNotification>();
 
             var importer = new CalculationConfigurationImporter(filePath, new CalculationGroup());
-            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(
+                                            new ProgressNotification(description, step, steps)));
 
             // When
             importer.Import();
@@ -181,8 +177,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
             bool successful = importer.Import();
@@ -206,8 +201,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             var waveReductionConfiguration = new WaveReductionConfiguration
             {
@@ -247,8 +241,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
             importer.PublicReadWaveReductionParameters(null, testInput);
@@ -261,7 +254,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void ReadWaveReduction_WithConfigurationWithMissingParameter_MissingParameterUnchanged([Values(0, 1, 2, 3)] int parameterNotSet)
+        public void ReadWaveReduction_WithConfigurationWithMissingParameter_MissingParameterUnchanged(
+            [Values(0, 1, 2, 3)] int parameterNotSet)
         {
             // Setup
             const bool useForeshoreProfile = false;
@@ -271,7 +265,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             const bool newUseForeshoreProfile = true;
             const bool newUseBreakWater = true;
-            const double newheight = 11.1;
+            const double newHeight = 11.1;
             const ConfigurationBreakWaterType newBreakWaterType = ConfigurationBreakWaterType.Wall;
             const BreakWaterType expectedNewBreakWaterType = BreakWaterType.Wall;
 
@@ -294,7 +288,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             if (parameterNotSet != 2)
             {
-                waveReductionConfiguration.BreakWaterHeight = newheight;
+                waveReductionConfiguration.BreakWaterHeight = newHeight;
             }
 
             if (parameterNotSet != 3)
@@ -306,8 +300,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
             importer.PublicReadWaveReductionParameters(waveReductionConfiguration, testInput);
@@ -315,7 +308,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Assert
             Assert.AreEqual(testInput.UseForeshore, parameterNotSet == 0 ? useForeshoreProfile : newUseForeshoreProfile);
             Assert.AreEqual(testInput.UseBreakWater, parameterNotSet == 1 ? useBreakWater : newUseBreakWater);
-            Assert.AreEqual(testInput.BreakWater.Height, parameterNotSet == 2 ? height : newheight, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(testInput.BreakWater.Height, parameterNotSet == 2 ? height : newHeight, testInput.BreakWater.Height.GetAccuracy());
             Assert.AreEqual(testInput.BreakWater.Type, parameterNotSet == 3 ? breakWaterType : expectedNewBreakWaterType);
         }
 
@@ -327,16 +320,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            HydraulicBoundaryLocation location;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadHydraulicBoundaryLocation(null, null, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+            void Call() => importer.PublicTryReadHydraulicBoundaryLocation(
+                null, null, Enumerable.Empty<HydraulicBoundaryLocation>(), out HydraulicBoundaryLocation _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationName", exception.ParamName);
         }
 
@@ -348,16 +339,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            HydraulicBoundaryLocation location;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadHydraulicBoundaryLocation(null, "name", null, out location);
+            void Call() => importer.PublicTryReadHydraulicBoundaryLocation(null, "name", null, out HydraulicBoundaryLocation _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -369,13 +357,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            HydraulicBoundaryLocation location;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            bool valid = importer.PublicTryReadHydraulicBoundaryLocation(null, "name", Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+            bool valid = importer.PublicTryReadHydraulicBoundaryLocation(
+                null, "name", Enumerable.Empty<HydraulicBoundaryLocation>(), out HydraulicBoundaryLocation location);
 
             // Assert
             Assert.IsTrue(valid);
@@ -390,8 +376,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             HydraulicBoundaryLocation location = null;
             var valid = true;
@@ -400,11 +385,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             const string calculationName = "name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName, calculationName, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+            void Validate() => valid = importer.PublicTryReadHydraulicBoundaryLocation(
+                                   locationName, calculationName, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
 
             // Assert
-            string expectedMessage = $"De hydraulische belastingenlocatie '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            var expectedMessage = $"De hydraulische belastingenlocatie '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(location);
         }
@@ -420,11 +406,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             HydraulicBoundaryLocation expectedLocation = new TestHydraulicBoundaryLocation(locationName);
-            HydraulicBoundaryLocation location;
 
             // Call
             bool valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName,
@@ -435,7 +419,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                                                              expectedLocation,
                                                                              new TestHydraulicBoundaryLocation("otherNameB")
                                                                          },
-                                                                         out location);
+                                                                         out HydraulicBoundaryLocation location);
 
             // Assert
             Assert.IsTrue(valid);
@@ -450,16 +434,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            ForeshoreProfile profile;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadForeshoreProfile(null, null, Enumerable.Empty<ForeshoreProfile>(), out profile);
+            void Call() => importer.PublicTryReadForeshoreProfile(
+                null, null, Enumerable.Empty<ForeshoreProfile>(), out ForeshoreProfile _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationName", exception.ParamName);
         }
 
@@ -471,16 +453,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            ForeshoreProfile profile;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadForeshoreProfile(null, "name", null, out profile);
+            void Call() => importer.PublicTryReadForeshoreProfile(null, "name", null, out ForeshoreProfile _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
         }
 
@@ -492,13 +471,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            ForeshoreProfile profile;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            bool valid = importer.PublicTryReadForeshoreProfile(null, "name", Enumerable.Empty<ForeshoreProfile>(), out profile);
+            bool valid = importer.PublicTryReadForeshoreProfile(null, "name", Enumerable.Empty<ForeshoreProfile>(), out ForeshoreProfile profile);
 
             // Assert
             Assert.IsTrue(valid);
@@ -513,8 +489,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             ForeshoreProfile profile = null;
             var valid = true;
@@ -523,11 +498,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             const string calculationName = "name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadForeshoreProfile(profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
+            void Validate() => valid = importer.PublicTryReadForeshoreProfile(
+                                   profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
 
             // Assert
-            string expectedMessage = $"Het voorlandprofiel met ID '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            var expectedMessage = $"Het voorlandprofiel met ID '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
         }
@@ -543,11 +519,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             ForeshoreProfile expectedProfile = new TestForeshoreProfile(profileName);
-            ForeshoreProfile profile;
 
             // Call
             bool valid = importer.PublicTryReadForeshoreProfile(profileName,
@@ -558,7 +532,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                                                     expectedProfile,
                                                                     new TestForeshoreProfile("otherNameB")
                                                                 },
-                                                                out profile);
+                                                                out ForeshoreProfile profile);
 
             // Assert
             Assert.IsTrue(valid);
@@ -573,16 +547,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            StructureBase structure;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadStructure(null, null, Enumerable.Empty<TestStructure>(), out structure);
+            void Call() => importer.PublicTryReadStructure(
+                null, null, Enumerable.Empty<TestStructure>(), out StructureBase _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationName", exception.ParamName);
         }
 
@@ -594,16 +566,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            StructureBase structure;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            TestDelegate test = () => importer.PublicTryReadStructure(null, "name", null, out structure);
+            void Call() => importer.PublicTryReadStructure(null, "name", null, out StructureBase _);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
         }
 
@@ -615,13 +584,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            StructureBase structure;
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             // Call
-            bool valid = importer.PublicTryReadStructure(null, "name", Enumerable.Empty<StructureBase>(), out structure);
+            bool valid = importer.PublicTryReadStructure(null, "name", Enumerable.Empty<StructureBase>(),
+                                                         out StructureBase structure);
 
             // Assert
             Assert.IsTrue(valid);
@@ -636,23 +603,23 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
-            StructureBase profile = null;
+            StructureBase structure = null;
             var valid = true;
 
             const string structureId = "someAwesomeId";
             const string calculationName = "name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadStructure(structureId, calculationName, Enumerable.Empty<StructureBase>(), out profile);
+            void Validate() => valid = importer.PublicTryReadStructure(
+                                   structureId, calculationName, Enumerable.Empty<StructureBase>(), out structure);
 
             // Assert
-            string expectedMessage = $"Het kunstwerk met ID '{structureId}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            var expectedMessage = $"Het kunstwerk met ID '{structureId}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
-            Assert.IsNull(profile);
+            Assert.IsNull(structure);
         }
 
         [Test]
@@ -666,11 +633,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath, calculationGroup);
 
             var expectedProfile = new TestStructure(structureId);
-            StructureBase structure;
 
             // Call
             bool valid = importer.PublicTryReadStructure(structureId,
@@ -681,7 +646,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                                              expectedProfile,
                                                              new TestStructure("otherIdB")
                                                          },
-                                                         out structure);
+                                                         out StructureBase structure);
 
             // Assert
             Assert.IsTrue(valid);
@@ -724,13 +689,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Call
             var successful = true;
-            Action call = () => successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration(),
-                                                                                     calculationScenario);
+            void Call() => successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration(), calculationScenario);
 
             // Assert
             string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
                                      $"Berekening '{calculationScenarioName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(successful);
 
             mockRepository.VerifyAll();
@@ -929,15 +893,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
             {
                 Assert.AreEqual(expectedCalculationGroup.Children[i].Name, actualCalculationGroup.Children[i].Name);
-                var innerCalculationgroup = expectedCalculationGroup.Children[i] as CalculationGroup;
-                var innerCalculation = expectedCalculationGroup.Children[i] as TestCalculation;
 
-                if (innerCalculationgroup != null)
+                if (expectedCalculationGroup.Children[i] is CalculationGroup innerCalculationGroup)
                 {
-                    AssertCalculationGroup(innerCalculationgroup, (CalculationGroup) actualCalculationGroup.Children[i]);
+                    AssertCalculationGroup(innerCalculationGroup, (CalculationGroup) actualCalculationGroup.Children[i]);
                 }
 
-                if (innerCalculation != null)
+                if (expectedCalculationGroup.Children[i] is TestCalculation innerCalculation)
                 {
                     Assert.AreEqual(innerCalculation.Name, ((TestCalculation) actualCalculationGroup.Children[i]).Name);
                 }
@@ -955,13 +917,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             public BreakWater BreakWater { get; }
             public bool UseForeshore { get; set; }
 
-            public RoundedPoint2DCollection ForeshoreGeometry
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            public RoundedPoint2DCollection ForeshoreGeometry => throw new NotImplementedException();
         }
     }
 }
