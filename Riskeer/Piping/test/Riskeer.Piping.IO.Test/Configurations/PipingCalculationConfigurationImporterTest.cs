@@ -517,40 +517,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }
 
             [Test]
-            public void Import_ScenarioEmpty_LogMessageAndContinueImport()
-            {
-                // Setup
-                string filePath = TestHelper.GetScratchPadPath(nameof(Import_ScenarioEmpty_LogMessageAndContinueImport));
-                SetCalculationType(Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml"), filePath);
-
-                var calculationGroup = new CalculationGroup();
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-
-                var importer = new PipingCalculationConfigurationImporter(
-                    filePath, calculationGroup, Enumerable.Empty<HydraulicBoundaryLocation>(), pipingFailureMechanism);
-
-                var successful = false;
-
-                try
-                {
-                    // Call
-                    void Call() => successful = importer.Import();
-
-                    // Assert
-                    const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
-                                                   "Berekening 'Calculation' is overgeslagen.";
-                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
-                    Assert.IsTrue(successful);
-                    CollectionAssert.IsEmpty(calculationGroup.Children);
-                }
-                finally
-                {
-                    File.Delete(filePath);
-                }
-            }
-
-            [Test]
             public void Import_ScenarioWithContributionSet_DataAddedToModel()
             {
                 // Setup

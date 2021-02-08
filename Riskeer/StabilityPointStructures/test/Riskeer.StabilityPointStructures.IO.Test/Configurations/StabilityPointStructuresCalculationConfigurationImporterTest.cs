@@ -1070,33 +1070,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-                                                                                        calculationGroup,
-                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>());
-
-            var successful = false;
-
-            // Call
-            void Call() => successful = importer.Import();
-
-            // Assert
-            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
-                                           "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [Test]
         public void Import_ScenarioWithContributionSet_DataAddedToModel()
         {
             // Setup

@@ -274,33 +274,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithEmptyScenario.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
-                                                                                     calculationGroup,
-                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                     macroStabilityInwardsFailureMechanism);
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
-                                           "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [Test]
         public void Import_ScenarioWithContributionSet_DataAddedToModel()
         {
             // Setup
