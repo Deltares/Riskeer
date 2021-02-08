@@ -244,9 +244,6 @@
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingCalculation_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="PipingInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De opbouw van de ondergrond.</value>
   </data>
@@ -379,14 +376,6 @@
   <data name="PipingCalculationsView_CreateRow_Calculation_type_probabilistic" xml:space="preserve">
     <value>Probabilistisch</value>
   </data>
-  <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
-    <value>In oordeel</value>
-  </data>
-  <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage aan
-scenario
-[%]</value>
-  </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
     <value>Aandeel van schematisatie
 in het stochastische ondergrondmodel
@@ -395,10 +384,6 @@ in het stochastische ondergrondmodel
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
     <value>Kans op
 heave
-[1/jaar]</value>
-  </data>
-  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping" xml:space="preserve">
-    <value>Faalkans
 [1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer" xml:space="preserve">
@@ -537,16 +522,10 @@ opbarsten
     <value>Illustratiepunten inlezen </value>
     <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
-  <data name="PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations" xml:space="preserve">
+  <data name="PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_SemiProbabilistic_Calculations" xml:space="preserve">
     <value>Semi-probabilistische berekeningen</value>
   </data>
   <data name="PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations" xml:space="preserve">
-    <value>Probabilistische berekeningen</value>
-  </data>
-  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations" xml:space="preserve">
-    <value>Semi-probabilistische berekeningen</value>
-  </data>
-  <data name="PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations" xml:space="preserve">
     <value>Probabilistische berekeningen</value>
   </data>
 </root>

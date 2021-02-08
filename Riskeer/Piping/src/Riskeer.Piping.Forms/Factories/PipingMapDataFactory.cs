@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSemiProbabilisticCalculationsMapData()
         {
-            return RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations,
+            return RiskeerMapDataFactory.CreateCalculationsMapData(Resources.PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_SemiProbabilistic_Calculations,
                                                                    Color.MediumPurple);
         }
 

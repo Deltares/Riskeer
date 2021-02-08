@@ -204,9 +204,6 @@
   <data name="Orientation_Value_needs_to_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor de oriëntatie moet in het bereik {0} liggen.</value>
   </data>
-  <data name="ICalculation_DisplayName" xml:space="preserve">
-    <value>Berekening</value>
-  </data>
   <data name="StructureInflowModelType_FloodedCulvert_DisplayName" xml:space="preserve">
     <value>Verdronken koker</value>
   </data>

@@ -124,9 +124,6 @@
   <data name="SoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MacroStabilityInwardsCalculation_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="MacroStabilityInwardsInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De opbouw van de ondergrond.</value>
   </data>
@@ -184,22 +181,10 @@
   <data name="MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
   </data>
-  <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
-    <value>In oordeel</value>
-  </data>
-  <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage aan
-scenario
-[%]</value>
-  </data>
   <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
     <value>Aandeel van schematisatie
 in het stochastische ondergrondmodel
 [%]</value>
-  </data>
-  <data name="MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability" xml:space="preserve">
-    <value>Faalkans
-[1/jaar]</value>
   </data>
   <data name="MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>

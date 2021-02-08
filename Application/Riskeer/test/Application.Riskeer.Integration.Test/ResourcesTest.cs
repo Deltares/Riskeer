@@ -78,7 +78,7 @@ namespace Application.Riskeer.Integration.Test
             process.Start();
             process.WaitForExit();
 
-            // Assert
+            // AssertDotSpatialPlugin_GetViewInfoObjects_Map
             outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
             var lines = new List<string>();
             using (var reader = new StreamReader(outputFilePath))

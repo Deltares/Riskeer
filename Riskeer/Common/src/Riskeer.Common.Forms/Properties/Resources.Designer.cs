@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1772,16 +1772,6 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_sc" +
                         "enarios_must_have_valid_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet een geldige uitkomst hebben..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid" +
-                        "_output", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -388,15 +388,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string MacroStabilityInwardsCalculation_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculation_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen ondergrondschematisaties gevonden voor profielschematisatie &apos;{0}&apos;. De profielschematisatie is overgeslagen..
         /// </summary>
         public static string MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped {
@@ -423,26 +414,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationGroup_Generate_MacroStabilityInwardsCalculations_" +
                         "ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan
-        ///scenario
-        ///[%].
-        /// </summary>
-        public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In oordeel.
-        /// </summary>
-        public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_In_final_rating {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculationsView_InitializeDataGridView_In_final_rating", resourceCulture);
             }
         }
         
@@ -671,17 +642,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkans
-        ///[1/jaar].
-        /// </summary>
-        public static string MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStability" +
-                        "InwardsProbability", resourceCulture);
             }
         }
         

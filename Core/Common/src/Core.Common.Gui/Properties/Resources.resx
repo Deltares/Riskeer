@@ -478,9 +478,6 @@
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands" xml:space="preserve">
     <value>Kan geen 'IViewCommands'-afhankelijk element in het contextmenu creëren zonder een 'IViewCommands'.</value>
   </data>
-  <data name="DotSpatialPlugin_GetViewInfoObjects_Map" xml:space="preserve">
-    <value>Kaart</value>
-  </data>
   <data name="SplashScreen_SupportEmail" xml:space="preserve">
     <value>Website</value>
   </data>

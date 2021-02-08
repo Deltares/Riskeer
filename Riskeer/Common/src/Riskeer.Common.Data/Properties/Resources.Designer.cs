@@ -610,15 +610,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening.
-        /// </summary>
-        public static string ICalculation_DisplayName {
-            get {
-                return ResourceManager.GetString("ICalculation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben..
         /// </summary>
         public static string IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes {

@@ -307,15 +307,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string PipingCalculation_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingCalculation_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen ondergrondschematisaties gevonden voor profielschematisatie &apos;{0}&apos;. De profielschematisatie is overgeslagen..
         /// </summary>
         public static string PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped {
@@ -382,26 +373,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan
-        ///scenario
-        ///[%].
-        /// </summary>
-        public static string PipingCalculationsView_InitializeDataGridView_Contribution {
-            get {
-                return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_Contribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In oordeel.
-        /// </summary>
-        public static string PipingCalculationsView_InitializeDataGridView_In_final_rating {
-            get {
-                return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_In_final_rating", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aandeel van schematisatie
         ///in het stochastische ondergrondmodel
         ///[%].
@@ -420,25 +391,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Probabilistische berekeningen.
-        /// </summary>
-        public static string PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Probabilistisc_Calculations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
-        /// </summary>
-        public static string PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculations {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanismView_CreateCalculationsMapData_Semi_Probabilistisc_Calculat" +
-                        "ions", resourceCulture);
             }
         }
         
@@ -717,10 +669,10 @@ namespace Riskeer.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Semi-probabilistische berekeningen.
         /// </summary>
-        public static string PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilistic_Calculations {
+        public static string PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_SemiProbabilistic_Calculations {
             get {
-                return ResourceManager.GetString("PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_Semi_Probabilisti" +
-                        "c_Calculations", resourceCulture);
+                return ResourceManager.GetString("PipingMapDataFactory_CreateSemiProbabilisticCalculationsMapData_SemiProbabilistic" +
+                        "_Calculations", resourceCulture);
             }
         }
         
@@ -1074,16 +1026,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave {
             get {
                 return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkans
-        ///[1/jaar].
-        /// </summary>
-        public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping {
-            get {
-                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping", resourceCulture);
             }
         }
         
