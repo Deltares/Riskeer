@@ -162,6 +162,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         [TestCase(nameof(IllustrationPointsDatabaseConstants.AlphaValue), IllustrationPointsDatabaseConstants.AlphaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.BetaValue), IllustrationPointsDatabaseConstants.BetaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Duration), IllustrationPointsDatabaseConstants.Duration)]
+        [TestCase(nameof(IllustrationPointsDatabaseConstants.IllustrationPointResultValue), IllustrationPointsDatabaseConstants.IllustrationPointResultValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Realization), IllustrationPointsDatabaseConstants.Realization)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.WindDirectionAngle), IllustrationPointsDatabaseConstants.WindDirectionAngle)]
         public void Parse_ValueNullInDatabase_ThrowsHydraRingFileParserException(string directoryIdentifier, string identifier)
