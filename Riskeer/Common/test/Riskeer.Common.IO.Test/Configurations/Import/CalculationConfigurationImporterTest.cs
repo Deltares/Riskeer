@@ -701,7 +701,38 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void Import_ScenarioWithContributionSet_DataAddedToModelReturnsTrue()
+        public void PublicTrySetScenarioParameters_ScenarioWithNaNContribution_LogMessageReturnsFalse()
+        {
+            // Setup
+            const string calculationScenarioName = "calculationScenario";
+
+            var mockRepository = new MockRepository();
+            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
+            calculationScenario.Expect(cs => cs.Name).Return(calculationScenarioName);
+            mockRepository.ReplayAll();
+
+            var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
+                                                                new CalculationGroup());
+
+            // Call
+            var successful = true;
+
+            void Call() => successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration
+            {
+                Contribution = double.NaN
+            }, calculationScenario);
+
+            // Assert
+            string expectedMessage = "De contributie van een berekening moet een getal tussen 0 en 100 zijn. " +
+                                     $"Berekening '{calculationScenarioName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(successful);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PublicTrySetScenarioParameters_ScenarioWithContributionSet_DataAddedToModelReturnsTrue()
         {
             // Setup
             var random = new Random(45);
@@ -729,7 +760,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void Import_ScenarioWithRelevantSet_DataAddedToModelReturnsTrue()
+        public void PublicTrySetScenarioParameters_ScenarioWithRelevantSet_DataAddedToModelReturnsTrue()
         {
             // Setup
             var random = new Random(45);

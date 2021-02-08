@@ -330,7 +330,16 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             if (hasContribution)
             {
-                scenario.Contribution = (RoundedDouble) (scenarioConfiguration.Contribution.Value / 100);
+                double contribution = scenarioConfiguration.Contribution.Value;
+
+                if (double.IsNaN(contribution))
+                {
+                    Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_TrySetScenarioParameters_ScenarioContribution_Invalid,
+                                                      scenario.Name);
+                    return false;
+                }
+
+                scenario.Contribution = (RoundedDouble) (contribution / 100);
             }
 
             if (hasRelevance)
@@ -368,14 +377,12 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <exception cref="InvalidOperationException">Thrown when the item to parse is not valid.</exception>
         private ICalculationBase ParseReadConfigurationItem(IConfigurationItem readConfigurationItem)
         {
-            var readCalculationGroup = readConfigurationItem as CalculationGroupConfiguration;
-            if (readCalculationGroup != null)
+            if (readConfigurationItem is CalculationGroupConfiguration readCalculationGroup)
             {
                 return ParseReadCalculationGroup(readCalculationGroup);
             }
 
-            var readCalculation = readConfigurationItem as TReadCalculation;
-            if (readCalculation != null)
+            if (readConfigurationItem is TReadCalculation readCalculation)
             {
                 return ParseReadCalculation(readCalculation);
             }
