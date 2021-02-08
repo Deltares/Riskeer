@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Create.Piping.Probabilistic
             var entity = new ProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution,
                 Name = calculation.Name.DeepClone(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order

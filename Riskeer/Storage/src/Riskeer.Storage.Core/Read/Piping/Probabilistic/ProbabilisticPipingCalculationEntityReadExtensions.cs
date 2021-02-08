@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution,
                 Name = entity.Name,
                 Comments =
                 {

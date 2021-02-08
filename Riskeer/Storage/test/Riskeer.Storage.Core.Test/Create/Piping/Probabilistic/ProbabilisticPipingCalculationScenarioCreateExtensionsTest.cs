@@ -102,7 +102,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.Probabilistic
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.RelevantForScenario);
-            Assert.AreEqual(contribution, entity.ScenarioContribution);
+            Assert.AreEqual(calculation.Contribution, entity.ScenarioContribution);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
 

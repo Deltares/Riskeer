@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             var entity = new ProbabilisticPipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(isRelevant),
-                ScenarioContribution = contribution.ToNaNAsNull(),
+                ScenarioContribution = contribution,
                 Name = name,
                 Comments = comments,
                 EntryPointL = entryPoint.ToNaNAsNull(),
@@ -88,10 +88,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
 
             // Assert
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
-            Assert.AreEqual(contribution, calculation.Contribution, 1e-6);
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
+            RoundedDoubleTestHelper.AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
             RoundedDoubleTestHelper.AssertRoundedDouble(entryPoint, calculation.InputParameters.EntryPointL);
             RoundedDoubleTestHelper.AssertRoundedDouble(exitPoint, calculation.InputParameters.ExitPointL);
             RoundedDoubleTestHelper.AssertRoundedDouble(entity.PhreaticLevelExitMean, calculation.InputParameters.PhreaticLevelExit.Mean);
