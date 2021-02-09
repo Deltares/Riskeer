@@ -36,15 +36,15 @@ namespace Riskeer.Migration.Integration.Test
 
         [Test]
         [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, string[] expectedMessages)
+        public void Given191Project_WhenUpgradedTo211_ThenProjectAsExpected(string filePath, string[] expectedMessages)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                filePath);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo211_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given191Project_WhenUpgradedTo211_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
