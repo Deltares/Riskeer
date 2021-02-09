@@ -60,11 +60,11 @@ namespace Riskeer.Migration.Test
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ProjectMigrator(null);
+            void Call() => new ProjectMigrator(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("inquiryHelper", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
         }
 
         [Test]
@@ -95,11 +95,11 @@ namespace Riskeer.Migration.Test
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
-            TestDelegate call = () => migrator.ShouldMigrate(null);
+            void Call() => migrator.ShouldMigrate(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("filePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("filePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -116,13 +116,12 @@ namespace Riskeer.Migration.Test
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
-            TestDelegate call = () => migrator.ShouldMigrate(invalidFilePath);
+            void Call() => migrator.ShouldMigrate(invalidFilePath);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
-                                         .ParamName;
-            Assert.AreEqual("filePath", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                Call, "Bronprojectpad moet een geldig projectpad zijn.");
+            Assert.AreEqual("filePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -143,11 +142,11 @@ namespace Riskeer.Migration.Test
             var shouldMigrate = MigrationRequired.Yes;
 
             // Call
-            Action call = () => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
+            void Call() => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
 
             // Assert
-            string expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            var expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
             Assert.AreEqual(MigrationRequired.Aborted, shouldMigrate);
 
             mocks.VerifyAll();
@@ -173,7 +172,7 @@ namespace Riskeer.Migration.Test
 
             // Call
             var shouldMigrate = MigrationRequired.No;
-            Action call = () => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
+            void Call() => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
 
             // Assert
             var expectedLogMessages = new List<Tuple<string, LogLevelConstant>>();
@@ -183,7 +182,7 @@ namespace Riskeer.Migration.Test
                                                      LogLevelConstant.Warn));
             }
 
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedLogMessages, expectedLogMessages.Count);
 
             MigrationRequired expectedResult = confirmContinuation ? MigrationRequired.Yes : MigrationRequired.Aborted;
             Assert.AreEqual(expectedResult, shouldMigrate);
@@ -222,11 +221,11 @@ namespace Riskeer.Migration.Test
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
-            TestDelegate call = () => migrator.DetermineMigrationLocation(null);
+            void Call() => migrator.DetermineMigrationLocation(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("originalFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("originalFilePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -243,13 +242,12 @@ namespace Riskeer.Migration.Test
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
-            TestDelegate call = () => migrator.DetermineMigrationLocation(invalidFilePath);
+            void Call() => migrator.DetermineMigrationLocation(invalidFilePath);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
-                                         .ParamName;
-            Assert.AreEqual("originalFilePath", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                Call, "Bronprojectpad moet een geldig projectpad zijn.");
+            Assert.AreEqual("originalFilePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -296,7 +294,7 @@ namespace Riskeer.Migration.Test
 
             var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Riskeer project");
             string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
-            string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
+            var expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
@@ -308,13 +306,13 @@ namespace Riskeer.Migration.Test
             var targetFilePath = "arbitraryPath";
 
             // Call
-            Action call = () => targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
+            void Call() => targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create($"Het migreren van het projectbestand '{validFilePath}' is geannuleerd.",
-                                                                              LogLevelConstant.Warn);
+            var expectedLogMessage = Tuple.Create($"Het migreren van het projectbestand '{validFilePath}' is geannuleerd.",
+                                                  LogLevelConstant.Warn);
 
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedLogMessage, 1);
 
             Assert.IsNull(targetFilePath);
             mocks.VerifyAll();
@@ -335,11 +333,11 @@ namespace Riskeer.Migration.Test
             string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(null, targetFilePath);
+            void Call() => migrator.Migrate(null, targetFilePath);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -355,11 +353,11 @@ namespace Riskeer.Migration.Test
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
-            TestDelegate call = () => migrator.Migrate(sourceFilePath, null);
+            void Call() => migrator.Migrate(sourceFilePath, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("targetFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("targetFilePath", exception.ParamName);
         }
 
         [Test]
@@ -378,13 +376,12 @@ namespace Riskeer.Migration.Test
             string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(invalidFilePath, targetFilePath);
+            void Call() => migrator.Migrate(invalidFilePath, targetFilePath);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
-                                         .ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                Call, "Bronprojectpad moet een geldig projectpad zijn.");
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -403,13 +400,12 @@ namespace Riskeer.Migration.Test
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
-            TestDelegate call = () => migrator.Migrate(sourceFilePath, invalidFilePath);
+            void Call() => migrator.Migrate(sourceFilePath, invalidFilePath);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                                             call, "Doelprojectpad moet een geldig projectpad zijn.")
-                                         .ParamName;
-            Assert.AreEqual("targetFilePath", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                Call, "Doelprojectpad moet een geldig projectpad zijn.");
+            Assert.AreEqual("targetFilePath", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -428,7 +424,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}_log";
+            var logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -440,7 +436,7 @@ namespace Riskeer.Migration.Test
                 var migrationSuccessful = false;
 
                 // When 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+                void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Then
                 string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' " +
@@ -532,7 +528,7 @@ namespace Riskeer.Migration.Test
                     Tuple.Create(expectedMessage, LogLevelConstant.Info),
                     Tuple.Create(migrationLog.ToString(), LogLevelConstant.Info)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedLogMessagesAndLevel, 2);
 
                 Assert.IsTrue(migrationSuccessful);
 
@@ -559,7 +555,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}_log";
+            var logDirectory = $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}_log";
 
             string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
 
@@ -576,13 +572,13 @@ namespace Riskeer.Migration.Test
                 var migrationSuccessful = true;
 
                 // Call 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+                void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
-                Tuple<string, LogLevelConstant> logMessage = Tuple.Create(
+                var logMessage = Tuple.Create(
                     $"Het is niet mogelijk om het Riskeer logbestand '{logPath}' aan te maken.",
                     LogLevelConstant.Error);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, logMessage);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, logMessage);
                 Assert.IsFalse(migrationSuccessful);
 
                 Assert.IsTrue(File.Exists(logPath));
@@ -604,7 +600,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}_log";
+            var logDirectory = $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -619,10 +615,10 @@ namespace Riskeer.Migration.Test
                 var migrationSuccessful = true;
 
                 // Call 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+                void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
@@ -650,7 +646,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}_log";
+            var logDirectory = $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -662,10 +658,10 @@ namespace Riskeer.Migration.Test
                 var migrationSuccessful = true;
 
                 // Call 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+                void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
@@ -690,7 +686,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError)}_log";
+            var logDirectory = $"{nameof(Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -702,10 +698,10 @@ namespace Riskeer.Migration.Test
                 var migrationSuccessful = true;
 
                 // Call 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
+                void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
