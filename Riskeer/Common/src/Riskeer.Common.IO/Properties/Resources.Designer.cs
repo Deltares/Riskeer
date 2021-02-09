@@ -244,7 +244,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De contributie van een berekening moet een getal tussen 0 en 100 zijn..
+        ///   Looks up a localized string similar to De bijdrage van een berekening moet een getal tussen 0 en 100 zijn..
         /// </summary>
         public static string CalculationConfigurationImporter_TrySetScenarioParameters_ScenarioContribution_Invalid {
             get {

@@ -723,7 +723,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             }, calculationScenario);
 
             // Assert
-            string expectedMessage = "De contributie van een berekening moet een getal tussen 0 en 100 zijn. " +
+            string expectedMessage = "De bijdrage van een berekening moet een getal tussen 0 en 100 zijn. " +
                                      $"Berekening '{calculationScenarioName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(successful);

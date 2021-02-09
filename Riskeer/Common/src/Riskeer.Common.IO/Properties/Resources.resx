@@ -892,6 +892,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>..\resources\ScenarioSchema_0.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="CalculationConfigurationImporter_TrySetScenarioParameters_ScenarioContribution_Invalid" xml:space="preserve">
-    <value>De contributie van een berekening moet een getal tussen 0 en 100 zijn.</value>
+    <value>De bijdrage van een berekening moet een getal tussen 0 en 100 zijn.</value>
   </data>
 </root>
