@@ -269,6 +269,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         [Test]
         [TestCase("Version0ValidConfigurationContainingScenarioContributionAbove100", 100)]
         [TestCase("Version0ValidConfigurationContainingScenarioContributionBelow0", 0)]
+        [TestCase("Version0ValidConfigurationContainingScenarioContributionNaN", 0)]
         public void Read_ValidPreviousVersionConfigurationWithScenarioContribution_ReturnExpectedReadMacroStabilityInwardsCalculation(
             string fileName, double expectedScenarioContribution)
         {

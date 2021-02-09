@@ -77,6 +77,9 @@ All rights reserved.
         <xsl:when test=".&lt;0">
           <xsl:number value="0"/>
         </xsl:when>
+        <xsl:when test=".='NaN'">
+          <xsl:number value="0"/>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates/>
         </xsl:otherwise>
