@@ -921,7 +921,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 SELECT
     "19.1",
     "21.1",
-    "* Alle scenario bijdragen van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."
+    "* Alle scenario bijdragen van het toetsspoor 'Piping' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%. Eventueel ontbrekende waarden (NaN) zijn aangepast naar 0%."
 FROM TempPipingValuesAdjusted
 WHERE [NrAdjusted] > 0
     LIMIT 1;
@@ -947,7 +947,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 SELECT
     "19.1",
     "21.1",
-    "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%."
+    "* Alle scenario bijdragen van het toetsspoor 'Macrostabiliteit Binnenwaarts' waarbij de bijdrage groter is dan 100% of kleiner dan 0% zijn aangepast naar respectievelijk 100% en 0%. Eventueel ontbrekende waarden (NaN) zijn aangepast naar 0%."
 FROM TempMacroStabilityInwardsValuesAdjusted
 WHERE [NrAdjusted] > 0
     LIMIT 1;
