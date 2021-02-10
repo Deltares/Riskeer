@@ -40,10 +40,10 @@ namespace Core.Common.Gui.Test.Helpers
         [Test]
         [TestCase(null)]
         [TestCase("C:/test")]
-        public void GetFilePath_Always_ReturnsSelectedFilePath (string expectedFilePath)
+        public void GetFilePath_Always_ReturnsSelectedFilePath(string expectedFilePath)
         {
             // Setup
-            var  fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
+            var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();

@@ -481,7 +481,7 @@ namespace Core.Common.Geometry.Test
             // Setup
             Point2D[] outerRing = CreateCustomPolygon();
             Point2D[][] innerRings = CreateInnerRings();
-            
+
             // Call
             Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, innerRings);
 

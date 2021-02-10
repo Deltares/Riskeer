@@ -127,10 +127,7 @@ namespace Core.Common.TestUtil
 
         private void ShowControlInTestForm(bool modal)
         {
-            IsVisibleChanged += delegate
-            {
-                wasShown = true;
-            };
+            IsVisibleChanged += delegate { wasShown = true; };
 
             Show();
 
@@ -159,10 +156,7 @@ namespace Core.Common.TestUtil
                     wasShown = true;
                 }
             };
-            window.ContentRendered += delegate
-            {
-                wasShown = true;
-            };
+            window.ContentRendered += delegate { wasShown = true; };
 
             window.Show();
 

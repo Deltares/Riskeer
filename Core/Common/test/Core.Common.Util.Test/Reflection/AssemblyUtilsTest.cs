@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 
@@ -62,7 +63,7 @@ namespace Core.Common.Util.Test.Reflection
         public void GetAssemblyInfo_ForThisTestProjectAssembly_ReturnAssemblyInfoWithExpectedValues()
         {
             // Setup
-            var assembly = System.Reflection.Assembly.GetAssembly(GetType());
+            var assembly = Assembly.GetAssembly(GetType());
 
             // Call
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
@@ -79,7 +80,7 @@ namespace Core.Common.Util.Test.Reflection
         public void GetExecutingAssemblyInfo_ReturnAssemblyInfoForAssemblyUtilsAssembly()
         {
             // Setup
-            var assembly = System.Reflection.Assembly.GetAssembly(typeof(AssemblyUtils));
+            var assembly = Assembly.GetAssembly(typeof(AssemblyUtils));
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
 
             // Call
@@ -163,7 +164,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
-        private class MockedAssemblyWithoutLocation : System.Reflection.Assembly
+        private class MockedAssemblyWithoutLocation : Assembly
         {
             public override string Location => "";
         }

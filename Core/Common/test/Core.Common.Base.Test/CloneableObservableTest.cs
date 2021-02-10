@@ -56,10 +56,7 @@ namespace Core.Common.Base.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, (o, c) =>
-            {
-                CollectionAssert.IsEmpty(c.Observers);
-            });
+            CoreCloneAssert.AreObjectClones(original, clone, (o, c) => { CollectionAssert.IsEmpty(c.Observers); });
 
             mocks.VerifyAll();
         }

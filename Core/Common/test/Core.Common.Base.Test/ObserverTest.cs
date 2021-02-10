@@ -33,10 +33,7 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            using (var observer = new Observer(() =>
-            {
-                counter++;
-            }))
+            using (var observer = new Observer(() => { counter++; }))
             {
                 // Assert
                 Assert.IsInstanceOf<IObserver>(observer);

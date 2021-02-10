@@ -314,7 +314,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -325,7 +325,7 @@ namespace Core.Common.Controls.Test.DataGrid
                     int index = control.AddTextBoxColumn(propertyName, headerText, false, autoSizeMode, minimumWidth, format);
 
                     // Assert
-                    Assert.AreEqual(i+1, dataGridView.ColumnCount);
+                    Assert.AreEqual(i + 1, dataGridView.ColumnCount);
                     var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[i];
                     Assert.AreEqual(index, columnData.Index);
                 }
@@ -404,7 +404,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -416,7 +416,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                     // Assert
                     Assert.AreEqual(i + 1, dataGridView.ColumnCount);
-                    var columnData = (DataGridViewCheckBoxColumn)dataGridView.Columns[i];
+                    var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[i];
                     Assert.AreEqual(index, columnData.Index);
                 }
             }
@@ -516,7 +516,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -533,7 +533,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                     // Assert
                     Assert.AreEqual(i + 1, dataGridView.ColumnCount);
-                    var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[i];
+                    var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[i];
                     Assert.AreEqual(index, columnData.Index);
                 }
             }
@@ -580,7 +580,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -592,7 +592,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                     // Assert
                     Assert.AreEqual(i + 1, dataGridView.ColumnCount);
-                    var columnData = (DataGridViewColorColumn)dataGridView.Columns[i];
+                    var columnData = (DataGridViewColorColumn) dataGridView.Columns[i];
                     Assert.AreEqual(index, columnData.Index);
                 }
             }

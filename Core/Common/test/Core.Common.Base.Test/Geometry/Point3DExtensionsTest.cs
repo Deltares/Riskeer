@@ -76,7 +76,7 @@ namespace Core.Common.Base.Test.Geometry
             double originalZ = new Random(21).NextDouble();
 
             var pointToConvert = new Point3D(1.1, worldYCoordinate, originalZ);
-            
+
             var startPoint = new Point2D(1.0, 1.0);
             var endPoint = new Point2D(3.0, 4.0);
 
