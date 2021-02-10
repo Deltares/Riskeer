@@ -81,13 +81,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the above phreatic level of the layer.
-        /// [kN/m³]
+        /// [kN/mÂ³]
         /// </summary>
         public string AbovePhreaticLevel { get; }
 
         /// <summary>
         /// Gets the below phreatic level of the layer.
-        /// [kN/m³]
+        /// [kN/mÂ³]
         /// </summary>
         public string BelowPhreaticLevel { get; }
 
@@ -99,13 +99,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the cohesion of the layer.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         public string Cohesion { get; }
 
         /// <summary>
         /// Gets the friction angle of the layer.
-        /// [°]
+        /// [Â°]
         /// </summary>
         public string FrictionAngle { get; }
 
@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the POP of the layer.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         public string Pop { get; }
 

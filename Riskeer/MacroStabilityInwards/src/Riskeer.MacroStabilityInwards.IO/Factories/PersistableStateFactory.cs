@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         {
             Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layer.OuterRing.Points, layer.NestedLayers.Select(layers => layers.OuterRing.Points));
 
-            return  new PersistableStatePoint
+            return new PersistableStatePoint
             {
                 Id = idFactory.Create(),
                 LayerId = registry.GeometryLayers[stageType][layer],

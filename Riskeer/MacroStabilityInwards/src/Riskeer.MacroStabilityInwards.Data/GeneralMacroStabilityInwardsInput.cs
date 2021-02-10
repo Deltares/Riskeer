@@ -39,13 +39,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets the volumetric weight of water.
-        /// </summary>
-        public double WaterVolumetricWeight { get; }
-
-        /// <summary>
         /// Gets the model factor used to calculate a factor of safety from a stability factor.
         /// </summary>
         public double ModelFactor { get; }
+
+        /// <summary>
+        /// Gets the volumetric weight of water.
+        /// </summary>
+        public double WaterVolumetricWeight { get; }
     }
 }

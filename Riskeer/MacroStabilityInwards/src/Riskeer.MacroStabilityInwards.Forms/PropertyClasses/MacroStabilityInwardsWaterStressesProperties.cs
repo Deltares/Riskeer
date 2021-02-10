@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
-            
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));

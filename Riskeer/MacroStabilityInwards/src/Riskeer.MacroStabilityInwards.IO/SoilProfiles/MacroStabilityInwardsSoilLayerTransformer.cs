@@ -111,11 +111,9 @@ namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
             {
                 ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel, soilLayerName),
                 UsePop = TransformUsePop(soilLayer.UsePop, soilLayerName),
-
                 MaterialName = soilLayerName,
                 IsAquifer = TransformIsAquifer(soilLayer.IsAquifer, soilLayerName),
                 Color = SoilLayerColorConverter.Convert(soilLayer.Color),
-
                 AbovePhreaticLevel = TransformLogNormalDistribution(soilLayer.AbovePhreaticLevelMean,
                                                                     soilLayer.AbovePhreaticLevelCoefficientOfVariation,
                                                                     soilLayer.AbovePhreaticLevelShift,
@@ -126,7 +124,6 @@ namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
                                                                     soilLayer.BelowPhreaticLevelShift,
                                                                     soilLayerName,
                                                                     Resources.SoilLayerData_BelowPhreaticLevelDistribution_DisplayName),
-
                 Cohesion = TransformLogNormalDistribution(soilLayer.CohesionMean,
                                                           soilLayer.CohesionCoefficientOfVariation,
                                                           soilLayerName,

@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     {
         /// <summary>
         /// Gets the distribution for the preconsolidation stress.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         VariationCoefficientLogNormalDistribution Stress { get; }
 

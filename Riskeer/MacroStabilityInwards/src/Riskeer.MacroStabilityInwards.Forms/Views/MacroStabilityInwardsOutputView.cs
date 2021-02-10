@@ -37,9 +37,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly Observer inputObserver;
 
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         private MacroStabilityInwardsCalculationScenario data;
-        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputView"/>.

@@ -73,9 +73,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         private MacroStabilityInwardsCalculationScenario data;
-        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));

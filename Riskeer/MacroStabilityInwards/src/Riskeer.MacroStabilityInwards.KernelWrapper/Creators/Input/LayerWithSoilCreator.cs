@@ -41,14 +41,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <summary>
         /// Creates <see cref="LayerWithSoil"/> objects based on <paramref name="soilProfile"/>.
         /// </summary>
-        /// <param name="soilProfile">The <see cref="SoilProfile"/> to create <see cref="LayerWithSoil"/> objects for.</param>
+        /// <param name="soilProfile">The <see cref="Calculators.Input.SoilProfile"/> to create <see cref="LayerWithSoil"/> objects for.</param>
         /// <param name="layerLookup">The lookup to fill with the created layers.</param>
         /// <returns>An <see cref="Array"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
+        /// <see cref="Calculators.Input.WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
+        /// <see cref="Calculators.Input.WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         public static LayerWithSoil[] Create(SoilProfile soilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup)
         {
             if (soilProfile == null)
@@ -67,9 +67,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="layerLookup">The lookup to fill with the created layers.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
+        /// <see cref="Calculators.Input.WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
+        /// <see cref="Calculators.Input.WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         private static IEnumerable<LayerWithSoil> GetLayersWithSoilRecursively(IEnumerable<SoilLayer> soilLayers, IDictionary<SoilLayer, LayerWithSoil> layerLookup)
         {
             var layersWithSoil = new List<LayerWithSoil>();
@@ -120,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         /// <summary>
         /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>
-        /// for the <see cref="Soil.ShearStrengthAbovePhreaticLevelModel"/>.
+        /// for the <see cref="Deltares.MacroStability.CSharpWrapper.Input.Soil.ShearStrengthAbovePhreaticLevelModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
         /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>
@@ -151,7 +151,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         /// <summary>
         /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>
-        /// for the <see cref="Soil.ShearStrengthBelowPhreaticLevelModel"/>.
+        /// for the <see cref="Deltares.MacroStability.CSharpWrapper.Input.Soil.ShearStrengthBelowPhreaticLevelModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
         /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>
@@ -181,9 +181,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="WaterPressureInterpolationModel"/> into a <see cref="CSharpWrapperWaterPressureInterpolationModel"/>.
+        /// Converts a <see cref="Calculators.Input.WaterPressureInterpolationModel"/> into a <see cref="CSharpWrapperWaterPressureInterpolationModel"/>.
         /// </summary>
-        /// <param name="waterPressureInterpolationModel">The <see cref="WaterPressureInterpolationModel"/> to convert.</param>
+        /// <param name="waterPressureInterpolationModel">The <see cref="Calculators.Input.WaterPressureInterpolationModel"/> to convert.</param>
         /// <returns>A <see cref="CSharpWrapperWaterPressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is an invalid value.</exception>

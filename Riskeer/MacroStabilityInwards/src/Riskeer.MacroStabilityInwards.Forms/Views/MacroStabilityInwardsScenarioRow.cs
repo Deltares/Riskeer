@@ -43,8 +43,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculationScenario,
-                                                MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                IAssessmentSection assessmentSection)
+                                                  MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                  IAssessmentSection assessmentSection)
             : base(calculationScenario)
         {
             if (failureMechanism == null)

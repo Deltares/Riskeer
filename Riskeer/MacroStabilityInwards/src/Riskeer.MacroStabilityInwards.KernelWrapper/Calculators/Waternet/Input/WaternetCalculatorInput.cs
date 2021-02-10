@@ -227,7 +227,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             /// [kN/m³]
             /// </summary>
             public double WaterVolumetricWeight { internal get; set; }
-            
+
             #endregion
         }
 

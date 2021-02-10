@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
             this.generalInput = generalInput;

@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsCalculationRow(MacroStabilityInwardsCalculationScenario calculationScenario,
-                                                   IObservablePropertyChangeHandler handler)
+                                                     IObservablePropertyChangeHandler handler)
             : base(calculationScenario, handler) {}
 
         /// <summary>

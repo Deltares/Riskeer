@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
 
         private MacroStabilityInwardsCalculationScenario data;
-        private GeneralMacroStabilityInwardsInput generalInput;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
 
@@ -114,7 +114,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(data));
             }
-            
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));
