@@ -54,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("renderContext", paramName);
+            Assert.AreEqual("rc", paramName);
         }
 
         [Test]

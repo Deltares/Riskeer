@@ -80,11 +80,11 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// </summary>
         public IEnumerable<double> Dashes { get; set; }
 
-        public override void Render(IRenderContext renderContext)
+        public override void Render(IRenderContext rc)
         {
-            if (renderContext == null)
+            if (rc == null)
             {
-                throw new ArgumentNullException(nameof(renderContext));
+                throw new ArgumentNullException(nameof(rc));
             }
 
             if (!Lines.Any() || Lines.All(a => !a.Any()))
@@ -95,7 +95,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             VerifyAxes();
 
             OxyRect clippingRect = GetClippingRect();
-            renderContext.SetClip(clippingRect);
+            rc.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
             foreach (IEnumerable<DataPoint> line in Lines)
@@ -104,10 +104,10 @@ namespace Core.Components.OxyPlot.CustomSeries
                 var pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, line);
 
-                renderContext.DrawLine(pts0, Color, StrokeThickness, Dashes?.ToArray() ?? LineStyle.GetDashArray());
+                rc.DrawLine(pts0, Color, StrokeThickness, Dashes?.ToArray() ?? LineStyle.GetDashArray());
             }
 
-            renderContext.ResetClip();
+            rc.ResetClip();
         }
 
         protected override void UpdateMaxMin()

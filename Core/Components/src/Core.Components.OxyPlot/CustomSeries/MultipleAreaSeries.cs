@@ -86,11 +86,11 @@ namespace Core.Components.OxyPlot.CustomSeries
             }
         }
 
-        public override void Render(IRenderContext renderContext)
+        public override void Render(IRenderContext rc)
         {
-            if (renderContext == null)
+            if (rc == null)
             {
-                throw new ArgumentNullException(nameof(renderContext));
+                throw new ArgumentNullException(nameof(rc));
             }
 
             if (!Areas.Any() || Areas.All(a => !a.Any()))
@@ -101,7 +101,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             VerifyAxes();
 
             OxyRect clippingRect = GetClippingRect();
-            renderContext.SetClip(clippingRect);
+            rc.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
             foreach (IEnumerable<DataPoint> area in Areas)
@@ -110,10 +110,10 @@ namespace Core.Components.OxyPlot.CustomSeries
                 var pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
-                renderContext.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(Fill), Color, StrokeThickness);
+                rc.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(Fill), Color, StrokeThickness);
             }
 
-            renderContext.ResetClip();
+            rc.ResetClip();
         }
 
         protected override void UpdateMaxMin()
