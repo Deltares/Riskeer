@@ -60,8 +60,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                               .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
-                                             && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
+                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
+                                       && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
         }
 
         [TearDown]
