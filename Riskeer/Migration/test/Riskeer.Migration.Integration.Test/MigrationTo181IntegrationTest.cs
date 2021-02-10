@@ -1738,7 +1738,7 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        #region  Migrated Hydraulic Boundary Locations on Assessment section
+        #region Migrated Hydraulic Boundary Locations on Assessment section
 
         private static void AssertWaveHeightCalculationEntitiesOnAssessmentSection(MigratedDatabaseReader reader,
                                                                                    HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator queryGenerator)
