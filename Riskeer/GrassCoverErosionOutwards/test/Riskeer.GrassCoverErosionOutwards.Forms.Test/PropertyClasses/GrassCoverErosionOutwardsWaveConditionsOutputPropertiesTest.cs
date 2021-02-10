@@ -166,9 +166,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, "Hydraulische belastingen voor golfoploop", "Berekende hydraulische belastingen voor golfoploop."  )]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, "Hydraulische belastingen voor golfoploop", "Berekende hydraulische belastingen voor golfoploop.")]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, "Hydraulische belastingen voor golfklap", "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.")]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap voor toets op maat" , "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.")]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap voor toets op maat", "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.")]
         public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, string expectedDisplayName, string expectedDescription)
         {

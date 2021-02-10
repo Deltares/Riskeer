@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })
@@ -224,7 +224,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })
@@ -280,7 +280,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })
@@ -336,7 +336,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })
@@ -392,7 +392,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })
@@ -449,7 +449,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             }, new[]
                             {
                                 new TestWaveConditionsOutput()
-                            }, new []
+                            }, new[]
                             {
                                 new TestWaveConditionsOutput()
                             })

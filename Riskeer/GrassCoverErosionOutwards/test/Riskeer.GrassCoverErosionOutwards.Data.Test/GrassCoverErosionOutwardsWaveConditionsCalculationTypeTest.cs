@@ -44,14 +44,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 3
                     },
                     {
-                    GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 4
-                },
-                {
-                    GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 5
-                },
-                {
-                    GrassCoverErosionOutwardsWaveConditionsCalculationType.All, 6
-                }
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 4
+                    },
+                    {
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 5
+                    },
+                    {
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, 6
+                    }
                 };
             }
         }

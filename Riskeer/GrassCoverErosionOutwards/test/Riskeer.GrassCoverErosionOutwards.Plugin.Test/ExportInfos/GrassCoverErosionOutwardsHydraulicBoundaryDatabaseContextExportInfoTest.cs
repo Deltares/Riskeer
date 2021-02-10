@@ -60,8 +60,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                               .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)
-                                             && ei.Name.Equals("Waterstanden en golfhoogten uit marginale statistiek"));
+                         .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)
+                                       && ei.Name.Equals("Waterstanden en golfhoogten uit marginale statistiek"));
         }
 
         [TearDown]

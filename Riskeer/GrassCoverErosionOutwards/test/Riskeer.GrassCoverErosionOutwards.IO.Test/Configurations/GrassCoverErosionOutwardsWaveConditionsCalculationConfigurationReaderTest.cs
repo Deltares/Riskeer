@@ -114,7 +114,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration)readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
             AssertConfiguration(configuration);
         }
