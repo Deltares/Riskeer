@@ -370,19 +370,13 @@ namespace Riskeer.Common.Forms.Views
         /// Handle for subscribing to all individual calculation rows in the view.
         /// </summary>
         /// <param name="calculationRow">The specific calculation row to subscribe to.</param>
-        protected virtual void SubscribeToCalculationRow(TCalculationRow calculationRow)
-        {
-
-        }
+        protected virtual void SubscribeToCalculationRow(TCalculationRow calculationRow) {}
 
         /// <summary>
         /// Handle for unsubscribing from all individual calculation rows in the view.
         /// </summary>
         /// <param name="calculationRow">The specific calculation row to unsubscribe from.</param>
-        protected virtual void UnsubscribeFromCalculationRow(TCalculationRow calculationRow)
-        {
-            
-        }
+        protected virtual void UnsubscribeFromCalculationRow(TCalculationRow calculationRow) {}
 
         private void InitializeListBox()
         {
@@ -398,6 +392,22 @@ namespace Riskeer.Common.Forms.Views
             {
                 listBox.Items.AddRange(FailureMechanism.Sections.Cast<object>().ToArray());
                 listBox.SelectedItem = FailureMechanism.Sections.First();
+            }
+        }
+
+        private void FormatGridWithColumnStateDefinitions()
+        {
+            foreach (DataGridViewRow row in DataGridViewControl.Rows)
+            {
+                FormatRowWithColumnStateDefinitions(row);
+            }
+        }
+
+        private void FormatRowWithColumnStateDefinitions(DataGridViewRow row)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                DataGridViewControl.FormatCellWithColumnStateDefinition(cell.RowIndex, cell.ColumnIndex);
             }
         }
 
@@ -485,21 +495,5 @@ namespace Riskeer.Common.Forms.Views
         }
 
         #endregion
-
-        private void FormatGridWithColumnStateDefinitions()
-        {
-            foreach (DataGridViewRow row in DataGridViewControl.Rows)
-            {
-                FormatRowWithColumnStateDefinitions(row);
-            }
-        }
-
-        private void FormatRowWithColumnStateDefinitions(DataGridViewRow row)
-        {
-            foreach (DataGridViewCell cell in row.Cells)
-            {
-                DataGridViewControl.FormatCellWithColumnStateDefinition(cell.RowIndex, cell.ColumnIndex);
-            }
-        }
     }
 }

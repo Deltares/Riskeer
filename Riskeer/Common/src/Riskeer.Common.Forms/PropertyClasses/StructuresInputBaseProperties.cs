@@ -137,6 +137,26 @@ namespace Riskeer.Common.Forms.PropertyClasses
             };
         }
 
+        #region Output Settings
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public virtual bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         [DynamicPropertyOrderEvaluationMethod]
         public int DynamicPropertyOrderEvaluationMethod(string propertyName)
         {
@@ -348,7 +368,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         #region Schematization
 
-        #region  Incoming flow
+        #region Incoming flow
 
         [DynamicReadOnly]
         [DynamicPropertyOrder]
@@ -549,26 +569,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         }
 
         #endregion
-
-        #endregion
-
-        #region Output Settings
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
-        public virtual bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
 
         #endregion
     }

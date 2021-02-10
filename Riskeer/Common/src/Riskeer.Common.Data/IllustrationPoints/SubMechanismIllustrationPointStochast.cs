@@ -46,11 +46,11 @@ namespace Riskeer.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(unit));
             }
-            
+
             Unit = unit;
             Realization = new RoundedDouble(5, realization);
         }
-        
+
         /// <summary>
         /// Gets the unit of the stochast.
         /// </summary>

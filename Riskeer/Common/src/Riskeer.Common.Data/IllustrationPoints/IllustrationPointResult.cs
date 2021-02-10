@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(description));
             }
-            
+
             if (unit == null)
             {
                 throw new ArgumentNullException(nameof(unit));
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// Gets the description of the illustration point result.
         /// </summary>
         public string Description { get; }
-        
+
         /// <summary>
         /// Gets the unit of the illustration point result.
         /// </summary>

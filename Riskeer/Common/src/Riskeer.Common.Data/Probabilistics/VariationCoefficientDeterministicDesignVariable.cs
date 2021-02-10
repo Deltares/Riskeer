@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// This class defines a design variable for a deterministic variation coefficient distribution.
     /// </summary>
     /// <typeparam name="T">The type of the variation coefficient distribution.</typeparam>
-    public class VariationCoefficientDeterministicDesignVariable<T> : VariationCoefficientDesignVariable<T> 
+    public class VariationCoefficientDeterministicDesignVariable<T> : VariationCoefficientDesignVariable<T>
         where T : IVariationCoefficientDistribution
     {
         private readonly double deterministicValue;
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.Probabilistics
         {
             this.deterministicValue = deterministicValue;
         }
-        
+
         public override RoundedDouble GetDesignValue()
         {
             return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, deterministicValue);

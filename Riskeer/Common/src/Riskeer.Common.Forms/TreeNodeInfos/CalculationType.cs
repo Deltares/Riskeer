@@ -30,12 +30,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Defines a semi-probabilistic calculation.
         /// </summary>
         SemiProbabilistic = 1,
-        
+
         /// <summary>
         /// Defines a probabilistic calculation.
         /// </summary>
         Probabilistic = 2,
-        
+
         /// <summary>
         /// Defines a hydraulic calculation.
         /// </summary>

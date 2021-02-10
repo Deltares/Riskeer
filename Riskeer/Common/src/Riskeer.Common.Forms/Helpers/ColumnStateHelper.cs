@@ -88,6 +88,5 @@ namespace Riskeer.Common.Forms.Helpers
             columnStateDefinition.ReadOnly = true;
             columnStateDefinition.Style = CellStyle.Disabled;
         }
-
     }
 }

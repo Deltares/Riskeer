@@ -104,19 +104,19 @@ namespace Riskeer.Common.IO.SoilProfile
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         public double? StressMean { get; }
 
         /// <summary>
         /// Gets the value representing the coefficient of variation of the distribution for the preconsolidation stress.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         public double? StressCoefficientOfVariation { get; }
 
         /// <summary>
         /// Gets the value representing the shift of the distribution for the preconsolidation stress.
-        /// [kN/m²]
+        /// [kN/mÂ²]
         /// </summary>
         public double? StressShift { get; }
     }

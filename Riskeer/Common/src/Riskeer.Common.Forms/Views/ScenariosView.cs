@@ -81,22 +81,6 @@ namespace Riskeer.Common.Forms.Views
             InitializeComponent();
         }
 
-        /// <inheritdoc/>
-        /// <remarks>
-        /// Initialization is performed in <see cref="OnLoad"/> in order to
-        /// prevent errors due to virtual member calls in constructor.
-        /// </remarks>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            InitializeListBox();
-            InitializeDataGridView();
-
-            UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
-        }
-
         public object Data
         {
             get => CalculationGroup;
@@ -112,6 +96,22 @@ namespace Riskeer.Common.Forms.Views
         /// Gets the <see cref="CalculationGroup"/>.
         /// </summary>
         protected CalculationGroup CalculationGroup { get; private set; }
+
+        /// <inheritdoc/>
+        /// <remarks>
+        /// Initialization is performed in <see cref="OnLoad"/> in order to
+        /// prevent errors due to virtual member calls in constructor.
+        /// </remarks>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            InitializeListBox();
+            InitializeDataGridView();
+
+            UpdateSectionsListBox();
+            UpdateDataGridViewDataSource();
+        }
 
         /// <summary>
         /// Gets the input of a <see cref="TCalculationScenario"/>.

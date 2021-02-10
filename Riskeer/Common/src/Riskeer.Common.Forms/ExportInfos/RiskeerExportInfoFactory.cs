@@ -73,9 +73,9 @@ namespace Riskeer.Common.Forms.ExportInfos
         /// <param name="createFileExporter">The function to create the relevant exporter.</param>
         /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <returns>An <see cref="ExportInfo"/> object.</returns>
-        public static ExportInfo<TCalculationContext> CreateCalculationConfigurationExportInfo<TCalculationContext>
-            (Func<TCalculationContext, string, IFileExporter> createFileExporter,
-             IInquiryHelper inquiryHelper)
+        public static ExportInfo<TCalculationContext> CreateCalculationConfigurationExportInfo<TCalculationContext>(
+            Func<TCalculationContext, string, IFileExporter> createFileExporter,
+            IInquiryHelper inquiryHelper)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new ExportInfo<TCalculationContext>
@@ -85,8 +85,8 @@ namespace Riskeer.Common.Forms.ExportInfos
                 CreateFileExporter = createFileExporter,
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(
-                inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                       Resources.DataTypeDisplayName_xml_file_filter_Description))
+                    inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                           Resources.DataTypeDisplayName_xml_file_filter_Description))
             };
         }
     }

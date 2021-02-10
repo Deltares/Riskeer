@@ -134,7 +134,7 @@ namespace Riskeer.Common.IO.FileImporters
         protected override void DoPostImportUpdates()
         {
             failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
-            
+
             base.DoPostImportUpdates();
             var failureMechanismWithSectionResults = ImportTarget as IHasSectionResults<FailureMechanismSectionResult>;
             failureMechanismWithSectionResults?.SectionResults.NotifyObservers();

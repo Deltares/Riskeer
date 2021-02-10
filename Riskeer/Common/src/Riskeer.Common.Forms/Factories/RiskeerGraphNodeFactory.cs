@@ -170,10 +170,9 @@ namespace Riskeer.Common.Forms.Factories
             }
 
             return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1,
-                                 probability >= 0.00001 
+                                 probability >= 0.00001
                                      ? ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta))
                                      : probability.ToString("0.#####E+0", CultureInfo.CurrentCulture), beta);
-
         }
     }
 }
