@@ -154,10 +154,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
                                                                              context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = duneLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
@@ -248,7 +245,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             if (assessmentSection != null)
             {
-                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
             }
 
             if (failureMechanismContext != null)
