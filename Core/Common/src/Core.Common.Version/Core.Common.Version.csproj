@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Remove="Properties\GlobalAssembly.cs" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -9,10 +12,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="GlobalAssembly.cs" />
-  </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cmd /c &quot;&quot;$(SolutionDir)build\git_insert_hash.cmd&quot; &quot;$(SolutionDir)Core\Common\src\Core.Common.Version&quot; GlobalAssembly.cs.template GlobalAssembly.cs&quot;" />
+    <Exec Command="cmd /c &quot;&quot;$(SolutionDir)build\git_insert_hash.cmd&quot; &quot;$(SolutionDir)Core\Common\src\Core.Common.Version&quot; GlobalAssembly.cs.template Properties\GlobalAssembly.cs&quot;" />
   </Target>
 </Project>
