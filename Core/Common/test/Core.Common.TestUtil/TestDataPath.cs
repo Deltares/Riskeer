@@ -101,7 +101,6 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Service = "Riskeer.Integration.Service.Test";
                 public static readonly TestDataPath IO = "Riskeer.Integration.IO.Test";
                 public static readonly TestDataPath Plugin = "Riskeer.Integration.Plugin.Test";
-                public static readonly TestDataPath TestUtil = "Riskeer.Integration.TestUtil.Test";
             }
 
             public static class MacroStabilityInwards
