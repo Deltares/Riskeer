@@ -31,15 +31,15 @@ namespace Riskeer.Common.Data.Helpers
     /// </summary>
     public static class CalculationScenarioHelper
     {
+        private static readonly Range<RoundedDouble> contributionValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(ContributionNumberOfDecimalPlaces),
+            new RoundedDouble(ContributionNumberOfDecimalPlaces, 1.0));
+
         /// <summary>
         /// Gets the scenario contribution number of decimal places.
         /// </summary>
         public static int ContributionNumberOfDecimalPlaces => 4;
 
-        private static readonly Range<RoundedDouble> contributionValidityRange = new Range<RoundedDouble>(
-            new RoundedDouble(ContributionNumberOfDecimalPlaces),
-            new RoundedDouble(ContributionNumberOfDecimalPlaces, 1.0));
-        
         /// <summary>
         /// Validates whether the <paramref name="value"/> is valid.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Data.Helpers
         {
             if (!contributionValidityRange.InRange(value))
             {
-                throw new ArgumentOutOfRangeException(null, string.Format(Resources.Contribution_must_be_within_Range_0_and_100));
+                throw new ArgumentOutOfRangeException(null, Resources.Contribution_must_be_in_range);
             }
         }
     }
