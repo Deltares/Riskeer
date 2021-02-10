@@ -60,8 +60,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                               .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
-                                             && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
+                         .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
+                                       && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
         }
 
         [TearDown]
