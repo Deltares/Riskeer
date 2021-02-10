@@ -26,4 +26,3 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("Riskeer.Storage.Core")]
 [assembly: InternalsVisibleTo("Riskeer.Storage.Core.Test")]
 [assembly: InternalsVisibleTo("Riskeer.Storage.Core.TestUtil")]
-[assembly: InternalsVisibleTo("Riskeer.Storage.Core.TestUtil.Test")]
