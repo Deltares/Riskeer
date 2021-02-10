@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Read.Piping.Probabilistic
             inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldProfileSpecificIllustrationPointsBeCalculated);
             inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldSectionSpecificIllustrationPointsBeCalculated);
         }
-        
+
         private static void ReadCalculationOutputs(ProbabilisticPipingCalculationScenario calculation,
                                                    ProbabilisticPipingCalculationEntity entity)
         {

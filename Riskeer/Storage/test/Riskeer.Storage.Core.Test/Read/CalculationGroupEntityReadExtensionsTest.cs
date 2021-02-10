@@ -291,13 +291,13 @@ namespace Riskeer.Storage.Core.Test.Read
 
             var rootChildProbabilisticCalculation1 = (ProbabilisticPipingCalculationScenario) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildProbabilisticCalculation1.Name);
-            
+
             var rootChildSemiProbabilisticCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[3];
             Assert.AreEqual("calculation3", rootChildSemiProbabilisticCalculation2.Name);
 
             var rootChildGroup2 = (CalculationGroup) rootChildren[4];
             Assert.AreEqual("group2", rootChildGroup2.Name);
-            
+
             var rootChildProbabilisticCalculation2 = (ProbabilisticPipingCalculationScenario) rootChildren[5];
             Assert.AreEqual("calculation4", rootChildProbabilisticCalculation2.Name);
         }

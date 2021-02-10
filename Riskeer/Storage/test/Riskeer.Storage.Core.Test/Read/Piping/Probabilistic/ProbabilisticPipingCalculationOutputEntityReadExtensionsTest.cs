@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             // Assert
             var profileSpecificOutput = (PartialProbabilisticFaultTreePipingOutput) output.ProfileSpecificOutput;
             var sectionSpecificOutput = (PartialProbabilisticFaultTreePipingOutput) output.SectionSpecificOutput;
-            
+
             Assert.AreEqual(entity.ProfileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
 
@@ -83,6 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(
                 sectionSpecificOutput.GeneralResult, sectionSpecificGeneralResultEntity);
         }
+
         [Test]
         public void Read_EntityWithSubMechanismIllustrationPoints_ReturnProbabilisticPipingOutput()
         {
@@ -115,7 +116,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping.Probabilistic
             // Assert
             var profileSpecificOutput = (PartialProbabilisticSubMechanismPipingOutput) output.ProfileSpecificOutput;
             var sectionSpecificOutput = (PartialProbabilisticSubMechanismPipingOutput) output.SectionSpecificOutput;
-            
+
             Assert.AreEqual(entity.ProfileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.AreEqual(entity.SectionSpecificReliability, output.SectionSpecificOutput.Reliability);
 

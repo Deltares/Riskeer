@@ -335,7 +335,64 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         #endregion
-        
+
+        #region HeightStructures
+
+        [TestFixture]
+        private class HeightStructureRegistryTest : RegistryTest<
+            HeightStructure, HeightStructureEntity>
+        {
+            public HeightStructureRegistryTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override HeightStructure CreateDataModel()
+            {
+                return new TestHeightStructure();
+            }
+        }
+
+        #endregion
+
+        #region ClosingStructures
+
+        [TestFixture]
+        private class ClosingStructureRegistryTest : RegistryTest<
+            ClosingStructure, ClosingStructureEntity>
+        {
+            public ClosingStructureRegistryTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override ClosingStructure CreateDataModel()
+            {
+                return new TestClosingStructure();
+            }
+        }
+
+        #endregion
+
+        #region StabilityPointStructures
+
+        [TestFixture]
+        private class StabilityPointStructureStructureRegistryTest : RegistryTest<
+            StabilityPointStructure, StabilityPointStructureEntity>
+        {
+            public StabilityPointStructureStructureRegistryTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override StabilityPointStructure CreateDataModel()
+            {
+                return new TestStabilityPointStructure();
+            }
+        }
+
+        #endregion
+
         #region Piping
 
         [TestFixture]
@@ -498,64 +555,6 @@ namespace Riskeer.Storage.Core.Test.Create
             protected override MacroStabilityInwardsSurfaceLine CreateDataModel()
             {
                 return new MacroStabilityInwardsSurfaceLine(nameof(MacroStabilityInwardsSurfaceLine));
-            }
-        }
-
-        #endregion
-
-        #region HeightStructures
-
-        [TestFixture]
-        private class HeightStructureRegistryTest : RegistryTest<
-            HeightStructure, HeightStructureEntity>
-        {
-            public HeightStructureRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override HeightStructure CreateDataModel()
-            {
-                return new TestHeightStructure();
-            }
-        }
-
-        #endregion
-
-        #region ClosingStructures
-
-        [TestFixture]
-        private class ClosingStructureRegistryTest : RegistryTest<
-            ClosingStructure, ClosingStructureEntity>
-        {
-            public ClosingStructureRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override ClosingStructure CreateDataModel()
-            {
-                return new TestClosingStructure();
-            }
-        }
-
-        #endregion
-
-        #region StabilityPointStructures
-
-        [TestFixture]
-        private class StabilityPointStructureStructureRegistryTest : RegistryTest<
-            StabilityPointStructure, StabilityPointStructureEntity>
-        {
-            public StabilityPointStructureStructureRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m))
-            { }
-
-            protected override StabilityPointStructure CreateDataModel()
-            {
-                return new TestStabilityPointStructure();
             }
         }
 
