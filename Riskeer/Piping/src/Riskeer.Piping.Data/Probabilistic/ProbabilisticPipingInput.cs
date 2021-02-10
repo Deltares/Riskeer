@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// Gets or sets if the illustration points should be calculated for profile specific output.
         /// </summary>
         public bool ShouldProfileSpecificIllustrationPointsBeCalculated { get; set; }
-        
+
         /// <summary>
         /// Gets or sets if the illustration points should be calculated for section specific output.
         /// </summary>

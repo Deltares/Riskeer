@@ -102,10 +102,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var context = new ProbabilisticPipingSectionSpecificOutputContext(
                 new ProbabilisticPipingCalculationScenario());
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsTrue(additionalDataCheck);
         }
@@ -118,12 +118,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
-            
+
             var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
         }
@@ -138,12 +138,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
                     PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
             };
-            
+
             var context = new ProbabilisticPipingSectionSpecificOutputContext(calculation);
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsTrue(additionalDataCheck);
         }

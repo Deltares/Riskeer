@@ -323,7 +323,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Call
             var properties = new ProbabilisticSubMechanismPipingProfileSpecificOutputProperties(
                 output, calculation, failureMechanism, assessmentSection);
-            
+
             // Assert
             ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = PipingProbabilityAssessmentOutputFactory.Create(
                 output, calculation, failureMechanism, assessmentSection);
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     SurfaceLine = failureMechanism.SurfaceLines.First()
                 }
             };
-            
+
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null);
             var properties = new ProbabilisticSubMechanismPipingProfileSpecificOutputProperties(
                 output, calculation, failureMechanism, new AssessmentSectionStub());

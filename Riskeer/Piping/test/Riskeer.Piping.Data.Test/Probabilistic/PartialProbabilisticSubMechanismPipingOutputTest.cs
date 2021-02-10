@@ -39,8 +39,8 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var random = new Random(39);
             double reliability = random.NextDouble();
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultSubMechanismIllustrationPoint()
-                                                                                  : null;
+                                                                                     ? new TestGeneralResultSubMechanismIllustrationPoint()
+                                                                                     : null;
 
             // Call
             var partialProbabilisticPipingOutput = new PartialProbabilisticSubMechanismPipingOutput(reliability, generalResult);

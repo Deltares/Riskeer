@@ -102,7 +102,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual("Sterkte berekening doorsnede", viewName);
         }
-        
+
         [Test]
         public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsFalse()
         {
@@ -110,13 +110,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var context = new ProbabilisticPipingProfileSpecificOutputContext(
                 new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
             mocks.VerifyAll();
@@ -129,18 +129,18 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
-            
+
             var context = new ProbabilisticPipingProfileSpecificOutputContext(
                 calculation, new PipingFailureMechanism(), assessmentSection);
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
             mocks.VerifyAll();
@@ -153,20 +153,20 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = new ProbabilisticPipingOutput(
                     PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
                     PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput())
             };
-            
+
             var context = new ProbabilisticPipingProfileSpecificOutputContext(
                 calculation, new PipingFailureMechanism(), assessmentSection);
-            
+
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsTrue(additionalDataCheck);
             mocks.VerifyAll();

@@ -93,7 +93,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             Assert.IsInstanceOf<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.SectionSpecificOutput, objectProperties.Data);
         }
-        
+
         [Test]
         public void CreateInstance_WithContextWithOtherPartialOutput_Null()
         {

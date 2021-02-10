@@ -47,10 +47,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         {
             // Setup
             const PipingCalculationConfigurationType calculationType = (PipingCalculationConfigurationType) 99;
-            
+
             // Call
             void Call() => new PipingCalculationConfiguration("name", calculationType);
-            
+
             // Assert
             var expectedMessage = $"The value of argument '{nameof(calculationType)}' ({calculationType}) is invalid for Enum type '{nameof(PipingCalculationConfigurationType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);

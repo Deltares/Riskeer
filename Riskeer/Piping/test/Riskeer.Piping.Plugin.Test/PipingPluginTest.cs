@@ -242,7 +242,7 @@ namespace Riskeer.Piping.Plugin.Test
                     typeof(ProbabilisticPipingSectionSpecificOutputContext),
                     typeof(ProbabilisticPipingCalculationScenario),
                     typeof(ProbabilisticFaultTreePipingSectionSpecificOutputView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilisticPipingSectionSpecificOutputContext),
@@ -275,7 +275,7 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingFailureMechanismSectionsContext)));
             }
-            
+
             mocks.VerifyAll();
         }
 

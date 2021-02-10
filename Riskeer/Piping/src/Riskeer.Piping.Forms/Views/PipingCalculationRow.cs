@@ -57,7 +57,7 @@ namespace Riskeer.Piping.Forms.Views
         /// Gets the description of the type of calculation scenario that is presented in the row.
         /// </summary>
         public string CalculationType { get; }
-        
+
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>

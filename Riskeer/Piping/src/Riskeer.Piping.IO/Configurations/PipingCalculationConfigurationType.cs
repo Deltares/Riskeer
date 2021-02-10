@@ -30,7 +30,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// A semi-probabilistic calculation.
         /// </summary>
         SemiProbabilistic = 1,
-        
+
         /// <summary>
         /// A probabilistic calculation.
         /// </summary>

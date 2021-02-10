@@ -406,6 +406,7 @@ namespace Riskeer.Piping.Integration.Test
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, sectionLength, sectionSpecificInputs[0]);
             }
+
             mocks.VerifyAll();
         }
 
