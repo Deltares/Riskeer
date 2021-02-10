@@ -47,8 +47,8 @@ namespace Core.Components.BruTile.Test.Configurations
             TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration((WellKnownTileSource) invalidTileSource);
 
             // Assert
-            string exoectedMessage = $"The value of argument 'wellKnownTileSource' ({invalidTileSource}) is invalid for Enum type '{nameof(WellKnownTileSource)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, exoectedMessage).ParamName;
+            string expectedMessage = $"The value of argument 'wellKnownTileSource' ({invalidTileSource}) is invalid for Enum type '{nameof(WellKnownTileSource)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("wellKnownTileSource", parameterName);
         }
 
