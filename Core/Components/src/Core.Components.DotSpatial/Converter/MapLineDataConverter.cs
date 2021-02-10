@@ -25,13 +25,13 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
-using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Converter
 {

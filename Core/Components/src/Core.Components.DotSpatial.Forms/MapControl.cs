@@ -36,7 +36,6 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using GeoAPI.Geometries;
 using log4net;
-using ILog = log4net.ILog;
 using Timer = System.Timers.Timer;
 
 namespace Core.Components.DotSpatial.Forms

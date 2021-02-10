@@ -30,7 +30,6 @@ using DotSpatial.Symbology;
 using GeoAPI.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Test.MapFunctions
 {

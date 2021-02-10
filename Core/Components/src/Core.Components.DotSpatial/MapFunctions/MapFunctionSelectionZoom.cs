@@ -27,7 +27,6 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
-using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.MapFunctions
 {
@@ -139,7 +138,7 @@ namespace Core.Components.DotSpatial.MapFunctions
                     else if (geoStartPoint != null)
                     {
                         Envelope env = new Envelope(geoStartPoint.X, e.GeographicLocation.X,
-                                                     geoStartPoint.Y, e.GeographicLocation.Y);
+                                                    geoStartPoint.Y, e.GeographicLocation.Y);
                         if (Math.Abs(e.X - startPoint.X) > 1 && Math.Abs(e.Y - startPoint.Y) > 1)
                         {
                             e.Map.ViewExtents = env.ToExtent();

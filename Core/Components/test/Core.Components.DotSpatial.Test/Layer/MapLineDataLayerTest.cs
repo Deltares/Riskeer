@@ -34,7 +34,6 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
-using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Layer
 {

@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
 using GeoAPI.Geometries;
 using NUnit.Framework;
-using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Test.Projections
 {

@@ -41,13 +41,15 @@ namespace Core.Components.BruTile.IO
     /// </remarks>
     public class AsyncTileFetcher : ITileFetcher
     {
+        private static readonly object syncLock = new object();
+
         private readonly ConcurrentDictionary<TileIndex, int> activeTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
+
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
         private SmartThreadPool threadPool;
-        private static object syncLock = new object();
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -303,7 +305,7 @@ namespace Core.Components.BruTile.IO
             lock (syncLock)
             {
                 TileReceived?.Invoke(this, tileReceivedEventArgs);
-                
+
                 if (IsReady())
                 {
                     OnQueueEmpty(EventArgs.Empty);

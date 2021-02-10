@@ -29,7 +29,6 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using GeoAPI.Geometries;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
-using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Projections
 {

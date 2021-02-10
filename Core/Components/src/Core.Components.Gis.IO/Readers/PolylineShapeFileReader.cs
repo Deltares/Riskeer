@@ -30,10 +30,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
-using Coordinate = GeoAPI.Geometries.Coordinate;
+using GeoAPI.Geometries;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
-using IGeometry = GeoAPI.Geometries.IGeometry;
 
 namespace Core.Components.Gis.IO.Readers
 {

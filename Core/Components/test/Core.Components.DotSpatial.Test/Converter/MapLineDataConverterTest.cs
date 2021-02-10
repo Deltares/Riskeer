@@ -39,7 +39,6 @@ using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {

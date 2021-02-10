@@ -70,7 +70,6 @@ using GeoAPI.Geometries;
 using BruTileExtent = BruTile.Extent;
 using DotSpatialExtent = DotSpatial.Data.Extent;
 using DotSpatialLayer = DotSpatial.Symbology.Layer;
-using Point = System.Drawing.Point;
 using WorldFile = Core.Components.DotSpatial.Projections.WorldFile;
 
 namespace Core.Components.DotSpatial.Layer.BruTile
