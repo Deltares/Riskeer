@@ -29,7 +29,7 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// Representation of a <see cref="StructuresCalculationScenario{HeightStructuresInput}"/>
+    /// Representation of a <see cref="StructuresCalculationScenario{T}"/>
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class HeightStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<HeightStructuresInput>>

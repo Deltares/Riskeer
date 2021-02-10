@@ -272,12 +272,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 
         [Test]
         [TestCaseSource(typeof(HeightStructurePermutationHelper),
-            nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
-            new object[]
-            {
-                "UpdateStructuresWithImportedData",
-                "UpdatesOnlySingleChange"
-            })]
+                        nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
+                        new object[]
+                        {
+                            "UpdateStructuresWithImportedData",
+                            "UpdatesOnlySingleChange"
+                        })]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(HeightStructure readStructure)
         {
             // Setup

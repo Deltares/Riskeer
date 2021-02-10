@@ -155,12 +155,12 @@ namespace Riskeer.HeightStructures.Data.Test
 
         [Test]
         [TestCaseSource(typeof(HeightStructurePermutationHelper),
-            nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
-            new object[]
-            {
-                "IsStructureInputSynchronized",
-                "ReturnFalse"
-            })]
+                        nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
+                        new object[]
+                        {
+                            "IsStructureInputSynchronized",
+                            "ReturnFalse"
+                        })]
         public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(HeightStructure modifiedStructure)
         {
             // Setup

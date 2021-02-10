@@ -296,7 +296,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Call
                 void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
                 // Assert
@@ -469,7 +469,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                 new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -649,7 +649,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Call
                 void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
                 // Assert

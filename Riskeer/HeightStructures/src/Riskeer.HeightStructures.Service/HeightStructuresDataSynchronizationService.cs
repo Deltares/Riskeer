@@ -213,6 +213,7 @@ namespace Riskeer.HeightStructures.Service
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);
             }
+
             return changedObservables;
         }
     }

@@ -352,7 +352,7 @@ namespace Riskeer.HeightStructures.Data.Test
             calculationScenario3.IsRelevant = false;
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario4 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(5.0, 0.0),
                     new Point2D(10.0, 0.0)

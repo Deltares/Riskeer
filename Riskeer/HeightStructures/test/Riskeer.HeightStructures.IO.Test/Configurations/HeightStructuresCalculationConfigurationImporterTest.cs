@@ -535,6 +535,70 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+                                                                                calculationGroup,
+                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                Enumerable.Empty<ForeshoreProfile>(),
+                                                                                Enumerable.Empty<HeightStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 0.8765
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRelevantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+                                                                                calculationGroup,
+                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                Enumerable.Empty<ForeshoreProfile>(),
+                                                                                Enumerable.Empty<HeightStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
+        }
+
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
                   "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
@@ -563,70 +627,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [Test]
-        public void Import_ScenarioWithContributionSet_DataAddedToModel()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
-                                                                                 calculationGroup,
-                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<HeightStructure>());
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
-            Assert.IsTrue(successful);
-
-            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
-            {
-                Name = "Calculation",
-                Contribution = (RoundedDouble)0.8765
-            };
-
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>)calculationGroup.Children[0]);
-        }
-
-        [Test]
-        public void Import_ScenarioWithRelevantSet_DataAddedToModel()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
-                                                                                 calculationGroup,
-                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<HeightStructure>());
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
-            Assert.IsTrue(successful);
-
-            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
-            {
-                Name = "Calculation",
-                IsRelevant = false
-            };
-
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>)calculationGroup.Children[0]);
         }
 
         private static void AssertCalculation(StructuresCalculationScenario<HeightStructuresInput> expectedCalculation, StructuresCalculationScenario<HeightStructuresInput> actualCalculation)

@@ -49,13 +49,13 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                         CreateFullCalculation()
                     })
                     .SetName("Calculation configuration with all parameters set");
-                
+
                 yield return new TestCaseData("sparseConfiguration", new[]
                     {
                         new HeightStructuresCalculationConfiguration("sparse config")
                     })
                     .SetName("Calculation configuration with none of its parameters set");
-                
+
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
                     {
                         new CalculationGroupConfiguration("Testmap", new IConfigurationItem[]

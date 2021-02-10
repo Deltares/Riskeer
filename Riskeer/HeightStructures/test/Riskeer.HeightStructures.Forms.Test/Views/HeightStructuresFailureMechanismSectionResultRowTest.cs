@@ -1016,9 +1016,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
             yield return new TestCaseData(
-               SimpleAssessmentResultType.ProbabilityNegligible,
-               new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
-                   section => Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>()));
+                SimpleAssessmentResultType.ProbabilityNegligible,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>()));
             yield return new TestCaseData(
                 SimpleAssessmentResultType.ProbabilityNegligible,
                 new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
@@ -1256,7 +1256,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
