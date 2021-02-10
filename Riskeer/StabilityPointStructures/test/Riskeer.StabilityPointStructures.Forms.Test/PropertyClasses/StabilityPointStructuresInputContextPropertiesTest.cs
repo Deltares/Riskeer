@@ -1446,7 +1446,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.DrainCoefficient.Mean = newMean);
         }
-        
+
         [Test]
         public void DrainCoefficient_StandardDeviationChanged_InputChangedAndObservablesNotified()
         {

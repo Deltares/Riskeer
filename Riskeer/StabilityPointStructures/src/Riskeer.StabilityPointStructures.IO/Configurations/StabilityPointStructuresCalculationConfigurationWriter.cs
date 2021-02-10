@@ -124,6 +124,11 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                                            configuration.ThresholdHeightOpenWeir);
         }
 
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
+
         /// <summary>
         /// Writes the <paramref name="loadSchematizationType"/> in XML format to file.
         /// </summary>
@@ -166,11 +171,6 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
             writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement,
                                       converter.ConvertToInvariantString(inflowModelType.Value));
-        }
-
-        protected override int GetConfigurationVersion()
-        {
-            return 1;
         }
     }
 }

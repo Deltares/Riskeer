@@ -366,12 +366,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
         [Test]
         [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-            nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
-            new object[]
-            {
-                "IsStructureInputSynchronized",
-                "ReturnFalse"
-            })]
+                        nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
+                        new object[]
+                        {
+                            "IsStructureInputSynchronized",
+                            "ReturnFalse"
+                        })]
         public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(StabilityPointStructure modifiedStructure)
         {
             // Setup

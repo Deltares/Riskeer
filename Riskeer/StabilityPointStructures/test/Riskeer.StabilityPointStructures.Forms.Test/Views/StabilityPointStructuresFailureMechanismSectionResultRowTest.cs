@@ -1115,7 +1115,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), 
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call

@@ -239,12 +239,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 
         [Test]
         [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-            nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId),
-            new object[]
-            {
-                "UpdateStructuresWithImportedData",
-                "UpdatesOnlySingleChange"
-            })]
+                        nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId),
+                        new object[]
+                        {
+                            "UpdateStructuresWithImportedData",
+                            "UpdatesOnlySingleChange"
+                        })]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(StabilityPointStructure readStructure)
         {
             // Setup

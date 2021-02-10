@@ -84,9 +84,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 
         [Test]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure,
-            TestName = "ConvertTo_ForLinearConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Linear)")]
+                  TestName = "ConvertTo_ForLinearConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Linear)")]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure,
-            TestName = "ConvertTo_ForQuadraticConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Quadratic)")]
+                  TestName = "ConvertTo_ForQuadraticConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Quadratic)")]
         public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ConfigurationStabilityPointStructuresLoadSchematizationType value,
                                                                   string expectedText)
         {
@@ -136,9 +136,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 
         [Test]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, LoadSchematizationType.Linear,
-            TestName = "ConvertTo_LinearConfigurationStabilityPointStructuresLoadSchematizationType_ReturnLinearLoadSchematizationType")]
+                  TestName = "ConvertTo_LinearConfigurationStabilityPointStructuresLoadSchematizationType_ReturnLinearLoadSchematizationType")]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, LoadSchematizationType.Quadratic,
-            TestName = "ConvertTo_QuadraticConfigurationStabilityPointStructuresLoadSchematizationType_ReturnQuadraticLoadSchematizationType")]
+                  TestName = "ConvertTo_QuadraticConfigurationStabilityPointStructuresLoadSchematizationType_ReturnQuadraticLoadSchematizationType")]
         public void ConvertTo_ForAllEnumValues_ReturnExpectedType(ConfigurationStabilityPointStructuresLoadSchematizationType value,
                                                                   LoadSchematizationType expectedText)
         {
@@ -193,9 +193,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 
         [Test]
         [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
-            TestName = "ConvertFrom_LinearText_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
+                  TestName = "ConvertFrom_LinearText_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
         [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic,
-            TestName = "ConvertFrom_QuadraticText_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
+                  TestName = "ConvertFrom_QuadraticText_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
         public void ConvertFrom_Text_ReturnExpectedConfigurationStabilityPointStructuresLoadSchematizationType(string value,
                                                                                                                ConfigurationStabilityPointStructuresLoadSchematizationType expectedResult)
         {
@@ -255,9 +255,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 
         [Test]
         [TestCase(LoadSchematizationType.Linear, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
-            TestName = "ConvertFrom_ForLinearLoadSchematizationType_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
+                  TestName = "ConvertFrom_ForLinearLoadSchematizationType_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
         [TestCase(LoadSchematizationType.Quadratic, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic,
-            TestName = "ConvertFrom_ForQuadraticLoadSchematizationType_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
+                  TestName = "ConvertFrom_ForQuadraticLoadSchematizationType_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
         public void ConvertFrom_StabilityPointStructureInflowModelType_ReturnExpectedConfigurationInflowModelType(
             LoadSchematizationType value,
             ConfigurationStabilityPointStructuresLoadSchematizationType expectedResult)

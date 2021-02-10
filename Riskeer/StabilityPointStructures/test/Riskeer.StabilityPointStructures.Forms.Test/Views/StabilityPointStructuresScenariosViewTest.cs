@@ -100,7 +100,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             ShowStabilityPointStructuresScenariosView(new StabilityPointStructuresFailureMechanism());
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(4, dataGridView.ColumnCount);
             Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
@@ -114,7 +114,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Call
             ShowFullyConfiguredStabilityPointStructuresScenariosView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
