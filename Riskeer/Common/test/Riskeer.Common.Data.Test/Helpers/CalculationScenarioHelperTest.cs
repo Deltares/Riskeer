@@ -45,7 +45,6 @@ namespace Riskeer.Common.Data.Test.Helpers
         [TestCaseSource(typeof(CalculationScenarioTestHelper), nameof(CalculationScenarioTestHelper.GetInvalidScenarioContributionValues))]
         public void ValidateScenarioContribution_InvalidValue_ThrowsArgumentException(double newValue)
         {
-            
             // Call
             void Call() => CalculationScenarioHelper.ValidateScenarioContribution((RoundedDouble) newValue);
 

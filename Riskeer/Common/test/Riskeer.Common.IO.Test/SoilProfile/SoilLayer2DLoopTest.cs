@@ -77,10 +77,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () =>
-            {
-                new SoilLayer2DLoop(arrayWithDisconnectedSegment);
-            };
+            TestDelegate test = () => { new SoilLayer2DLoop(arrayWithDisconnectedSegment); };
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -105,10 +102,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () =>
-            {
-                new SoilLayer2DLoop(arrayWithInversedSegment);
-            };
+            TestDelegate test = () => { new SoilLayer2DLoop(arrayWithInversedSegment); };
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);

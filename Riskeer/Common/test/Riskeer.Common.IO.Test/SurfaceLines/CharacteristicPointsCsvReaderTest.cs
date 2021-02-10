@@ -433,7 +433,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                                          .WithLocation("op regel 2")
                                          .WithSubject("locatie 'Invalid'")
-                                         .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                         .Build("Karakteristiek punt heeft een coÃ¶rdinaatwaarde die niet omgezet kan worden naar een getal.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -464,7 +464,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                                          .WithLocation("op regel 2")
                                          .WithSubject("locatie 'InvalidNumber'")
-                                         .Build("Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                                         .Build("Karakteristiek punt heeft een coÃ¶rdinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }

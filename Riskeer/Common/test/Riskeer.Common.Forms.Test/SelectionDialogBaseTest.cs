@@ -120,7 +120,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
-                
+
                 var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -147,7 +147,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
-                
+
                 var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -175,7 +175,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
-                
+
                 var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Forms.Test
             {
                 dialog.SetDataSource(items);
                 dialog.Show();
-                
+
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
 
                 // Call

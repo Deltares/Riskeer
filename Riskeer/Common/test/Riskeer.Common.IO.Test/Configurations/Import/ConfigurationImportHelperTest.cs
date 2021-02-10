@@ -95,7 +95,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             const string expectedFormat = "{0} Berekening '{1}' is overgeslagen.";
             string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                                   $"Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden.";
+                                   $"Voor berekening '{calculationName}' is een variatiecoÃ«fficiÃ«nt gevonden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();
@@ -185,7 +185,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             const string calculationName = "some calculation name";
 
             const string expectedFormat = "{0} Berekening '{1}' is overgeslagen.";
-            string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+            string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoÃ«fficiÃ«nt. " +
                                    $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
 
             var mocks = new MockRepository();

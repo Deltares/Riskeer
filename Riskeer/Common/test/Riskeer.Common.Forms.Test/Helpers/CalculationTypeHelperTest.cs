@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Call
             Bitmap image = CalculationTypeHelper.GetCalculationTypeImage(calculationType);
-            
+
             // Assert
             TestHelper.AssertImagesAreEqual(expectedImage, image);
         }

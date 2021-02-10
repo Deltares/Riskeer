@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -183,7 +182,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                                               $"{Environment.NewLine}" +
                                               $"Berekende kans = {expectedProbability}{Environment.NewLine}" +
                                               $"Betrouwbaarheidsindex = {roundedBeta}</text>";
-            
+
             // Call
             GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
                                                                           childGraphNodes);

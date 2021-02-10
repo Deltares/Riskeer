@@ -174,10 +174,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 configuration);
 
             var progress = 0;
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                progress++;
-            });
+            importer.SetProgressChanged((description, step, steps) => { progress++; });
 
             var importResult = true;
 
@@ -221,10 +218,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 configuration);
 
             var progress = 0;
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                progress++;
-            });
+            importer.SetProgressChanged((description, step, steps) => { progress++; });
 
             var importResult = true;
 
@@ -264,10 +258,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             filter.Expect(f => f.IsValidForFailureMechanism(null))
                   .IgnoreArguments()
                   .Return(false)
-                  .WhenCalled(invocation =>
-                  {
-                      FilterFailureMechanismSpecificModel(invocation, failureMechanismType);
-                  })
+                  .WhenCalled(invocation => { FilterFailureMechanismSpecificModel(invocation, failureMechanismType); })
                   .Repeat
                   .Times(totalNrOfStochasticSoilModelInDatabase);
 
@@ -342,10 +333,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             filter.Expect(f => f.IsValidForFailureMechanism(null))
                   .IgnoreArguments()
                   .Return(false)
-                  .WhenCalled(invocation =>
-                  {
-                      FilterFailureMechanismSpecificModel(invocation, FailureMechanismType.None);
-                  })
+                  .WhenCalled(invocation => { FilterFailureMechanismSpecificModel(invocation, FailureMechanismType.None); })
                   .Repeat
                   .Times(totalNrOfStochasticSoilModelInDatabase);
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();

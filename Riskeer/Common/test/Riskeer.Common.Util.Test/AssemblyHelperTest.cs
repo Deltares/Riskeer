@@ -32,7 +32,7 @@ namespace Riskeer.Common.Util.Test
         {
             // Call
             string applicationDirectory = AssemblyHelper.GetApplicationDirectory();
-            
+
             // Assert
             Assert.IsTrue(Directory.Exists(applicationDirectory));
             Assert.AreEqual("Application", new DirectoryInfo(applicationDirectory).Name);

@@ -620,12 +620,12 @@ namespace Riskeer.Common.Data.Test.Structures
 
         [Test]
         [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
-            new object[]
-            {
-                "IsForeshoreProfileInputSynchronized",
-                "ReturnFalse"
-            })]
+                        nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
+                        new object[]
+                        {
+                            "IsForeshoreProfileInputSynchronized",
+                            "ReturnFalse"
+                        })]
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfilesOutOfSync_ReturnFalse(ForeshoreProfile modifiedProfile)
         {
             // Setup

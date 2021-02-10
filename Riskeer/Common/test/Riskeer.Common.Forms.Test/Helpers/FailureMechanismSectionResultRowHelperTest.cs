@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mocks.ReplayAll();
 
             var random = new Random(21);
-            ICalculationScenario[] calculationScenarios = 
+            ICalculationScenario[] calculationScenarios =
             {
                 calculationScenario
             };
@@ -120,7 +120,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mocks.ReplayAll();
 
             var random = new Random(21);
-            ICalculationScenario[] calculationScenarios = 
+            ICalculationScenario[] calculationScenarios =
             {
                 calculationScenario1,
                 calculationScenario2
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             calculationScenario.Stub(cs => cs.HasOutput).Return(true);
             mocks.ReplayAll();
 
-            ICalculationScenario[] calculationScenarios = 
+            ICalculationScenario[] calculationScenarios =
             {
                 calculationScenario
             };
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mocks.ReplayAll();
 
             var random = new Random(21);
-            ICalculationScenario[] calculationScenarios = 
+            ICalculationScenario[] calculationScenarios =
             {
                 calculationScenario
             };

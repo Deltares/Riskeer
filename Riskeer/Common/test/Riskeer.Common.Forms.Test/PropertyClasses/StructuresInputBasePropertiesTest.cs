@@ -87,12 +87,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            StructuresInputBaseProperties<
-                TestStructure, 
-                SimpleStructureInput, 
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
-                .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
+            StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
 
             // Call
             TestDelegate call = () => new SimpleStructuresInputProperties(null, constructionProperties, handler);
@@ -107,12 +102,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ChangeHandlerIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            StructuresInputBaseProperties<
-                TestStructure, 
-                SimpleStructureInput, 
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
-                .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
+            StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -133,12 +123,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            StructuresInputBaseProperties<
-                TestStructure,
-                SimpleStructureInput,
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
-                .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
+            StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -290,12 +275,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            StructuresInputBaseProperties<
-                TestStructure,
-                SimpleStructureInput,
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
-                .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
+            StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -341,12 +321,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
@@ -390,12 +365,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             // Call 
@@ -439,12 +409,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             // Call 
@@ -495,12 +460,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             // When
@@ -542,12 +502,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure,
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>, 
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             // Call
@@ -596,12 +551,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure, 
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>, 
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
             // Call
@@ -659,12 +609,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure, 
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
@@ -714,12 +659,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure, 
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
-                    .ConstructionProperties(),
+                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 new ObservablePropertyChangeHandler(inputContext.Calculation, calculation.InputParameters));
 
             inputContext.Attach(observer);
@@ -859,12 +799,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             return new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
         }
 
-        private static StructuresInputBaseProperties<
-            TestStructure, 
-            SimpleStructureInput, 
-            StructuresCalculation<SimpleStructureInput>,
-            IFailureMechanism>
-            .ConstructionProperties
+        private static StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties
             GetRandomConstructionProperties()
         {
             var structureObject = new object();
@@ -902,12 +837,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }.OrderBy(p => random.Next())
                  .ToList();
 
-            return new StructuresInputBaseProperties<
-                TestStructure, 
-                SimpleStructureInput, 
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
-                .ConstructionProperties
+            return new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties
             {
                 StructurePropertyIndex = randomObjectLookup.IndexOf(structureObject),
                 StructureLocationPropertyIndex = randomObjectLookup.IndexOf(structureLocationObject),

@@ -104,7 +104,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-            
+
             IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
             Assert.IsNull(illustrationPointsFaultTreeControl.Data);
 

@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
@@ -178,10 +177,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() =>
-            {
-                throw expectedException;
-            });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
@@ -198,10 +194,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() =>
-            {
-                throw expectedException;
-            });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);

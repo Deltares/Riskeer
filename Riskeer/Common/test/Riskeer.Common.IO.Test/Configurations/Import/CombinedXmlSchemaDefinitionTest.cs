@@ -98,14 +98,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
         [Test]
         [TestCase("textContent.xsd",
-            "'mainSchemaDefinition' invalid: Data at the root level is invalid. Line 1, position 1.",
-            typeof(XmlException))]
+                  "'mainSchemaDefinition' invalid: Data at the root level is invalid. Line 1, position 1.",
+                  typeof(XmlException))]
         [TestCase("invalidXsdContent.xsd",
-            "'mainSchemaDefinition' invalid: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
-            typeof(XmlSchemaException))]
+                  "'mainSchemaDefinition' invalid: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+                  typeof(XmlSchemaException))]
         [TestCase("referencingUndefinedNestedSchemaDefinition.xsd",
-            "'mainSchemaDefinition' invalid: 'SchemaLocation' must successfully resolve if <redefine> contains any child other than <annotation>.",
-            typeof(XmlSchemaException))]
+                  "'mainSchemaDefinition' invalid: 'SchemaLocation' must successfully resolve if <redefine> contains any child other than <annotation>.",
+                  typeof(XmlSchemaException))]
         public void Constructor_InvalidMainSchemaDefinition_ThrowArgumentException(string invalidMainSchemaDefinition,
                                                                                    string expectedMessage,
                                                                                    Type expectedInnerExceptionType)
@@ -132,11 +132,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
         [Test]
         [TestCase("textContent.xsd",
-            "'mainSchemaDefinition' invalid: The 'genericElement' element is not declared.",
-            typeof(XmlSchemaException))]
+                  "'mainSchemaDefinition' invalid: The 'genericElement' element is not declared.",
+                  typeof(XmlSchemaException))]
         [TestCase("invalidXsdContent.xsd",
-            "'mainSchemaDefinition' invalid: Cannot load the schema from the location 'NestedSchemaDefinition2.xsd' - The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
-            typeof(XmlSchemaException))]
+                  "'mainSchemaDefinition' invalid: Cannot load the schema from the location 'NestedSchemaDefinition2.xsd' - The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+                  typeof(XmlSchemaException))]
         public void Constructor_InvalidNestedSchemaDefinition_ThrowArgumentException(string invalidNestedSchemaDefinition,
                                                                                      string expectedMessage,
                                                                                      Type expectedInnerExceptionType)

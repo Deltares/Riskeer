@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.IsTrue(structureCollectionSourcePathProperty.IsReadOnly);
             Assert.AreEqual("Algemeen", structureCollectionSourcePathProperty.Category);
             Assert.AreEqual("Bronlocatie", structureCollectionSourcePathProperty.DisplayName);
-            Assert.AreEqual("De locatie van het bestand waaruit de kunstwerken zijn geïmporteerd.",
+            Assert.AreEqual("De locatie van het bestand waaruit de kunstwerken zijn geÃ¯mporteerd.",
                             structureCollectionSourcePathProperty.Description);
         }
     }

@@ -171,10 +171,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                                                                           "A");
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single());
-                });
+                TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
 
             mocks.VerifyAll();
@@ -377,10 +374,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                                                                     "A");
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single());
-                });
+                TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
 
             mocks.VerifyAll();

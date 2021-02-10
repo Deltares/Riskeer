@@ -220,7 +220,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 2);
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geÃ¯mporteerd vanuit bestand '{validFilePath}'.", 2);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
@@ -722,7 +722,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
+            var duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geÃ¯mporteerd.";
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn),
@@ -768,7 +768,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                                           .WithLocation("op regel 3")
                                           .WithSubject("profielschematisatie 'InvalidRow'")
-                                          .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                          .Build("Profielschematisatie heeft een coÃ¶rdinaatwaarde die niet omgezet kan worden naar een getal.");
             string characteristicPointsFilePath = Path.Combine(ioTestDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.krp.csv");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
@@ -826,7 +826,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string internalErrorMessage = new FileReaderErrorMessageBuilder(path)
                                           .WithLocation("op regel 2")
                                           .WithSubject("profielschematisatie 'Rotterdam1'")
-                                          .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
+                                          .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coÃ¶rdinaten te hebben in het lokale coÃ¶rdinatenstelsel).");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
@@ -1111,7 +1111,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            const string duplicateDefinitionMessage = "Meerdere karakteristieke punten definities gevonden voor locatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
+            const string duplicateDefinitionMessage = "Meerdere karakteristieke punten definities gevonden voor locatie 'Rotterdam1'. Alleen de eerste definitie wordt geÃ¯mporteerd.";
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn)
@@ -1212,7 +1212,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                                           .WithLocation("op regel 2")
                                           .WithSubject("locatie 'Rotterdam1Invalid'")
-                                          .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                          .Build("Karakteristiek punt heeft een coÃ¶rdinaatwaarde die niet omgezet kan worden naar een getal.");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"{internalErrorMessage} \r\nDeze locatie met karakteristieke punten wordt overgeslagen.", LogLevelConstant.Error),

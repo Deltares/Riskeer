@@ -101,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_GeneralResultWithoutIllustrationPoints_DataSetOnIllustrationPointControl()
         {
