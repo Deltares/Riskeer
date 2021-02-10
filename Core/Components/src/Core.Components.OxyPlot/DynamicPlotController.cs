@@ -26,7 +26,7 @@ namespace Core.Components.OxyPlot
     /// <summary>
     /// This class represents a controller for which certain interactions can be toggled.
     /// </summary>
-    internal sealed class DynamicPlotController : ControllerBase, IPlotController
+    public sealed class DynamicPlotController : ControllerBase, IPlotController
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DynamicPlotController"/>.

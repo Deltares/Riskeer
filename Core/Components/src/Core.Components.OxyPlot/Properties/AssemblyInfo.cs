@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Core.Components.OxyPlot")]
 [assembly: AssemblyProduct("Core.Components.OxyPlot")]
-[assembly: InternalsVisibleTo("Core.Components.OxyPlot.Forms")]
-[assembly: InternalsVisibleTo("Core.Components.OxyPlot.Test")]
