@@ -46,16 +46,16 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(unit));
             }
-            
+
             Unit = unit;
             Realization = realization;
         }
-        
+
         /// <summary>
         /// Gets the unit.
         /// </summary>
         public string Unit { get; }
-        
+
         /// <summary>
         /// Gets the realization.
         /// </summary>

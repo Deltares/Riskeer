@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("description", paramName);
         }
-        
+
         [Test]
         public void Constructor_UnitNull_ThrowsArgumentNullException()
         {

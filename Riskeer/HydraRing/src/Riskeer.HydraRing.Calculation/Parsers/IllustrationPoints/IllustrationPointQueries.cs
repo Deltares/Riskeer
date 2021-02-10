@@ -170,7 +170,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             "JOIN OutputVariables USING(OutputVariableId) " +
             $"WHERE {lastIteration} " +
             $"AND {firstPeriod};";
-        
+
         /// <summary>
         /// Selects all the illustration points from the fault tree.
         /// </summary>

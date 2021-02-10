@@ -57,12 +57,12 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// Gets the description.
         /// </summary>
         public string Description { get; }
-        
+
         /// <summary>
         /// Gets the unit.
         /// </summary>
         public string Unit { get; }
-        
+
         /// <summary>
         /// Gets the value.
         /// </summary>
