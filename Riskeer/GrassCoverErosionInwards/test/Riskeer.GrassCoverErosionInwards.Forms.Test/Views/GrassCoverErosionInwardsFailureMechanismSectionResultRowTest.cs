@@ -475,7 +475,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-
         #region Column States
 
         [Test]
@@ -1266,7 +1265,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 

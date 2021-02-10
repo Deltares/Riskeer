@@ -105,7 +105,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
             TOutputContext context = GetContext(calculation);
-            
+
             // Call
             IView view = info.CreateInstance(context);
 

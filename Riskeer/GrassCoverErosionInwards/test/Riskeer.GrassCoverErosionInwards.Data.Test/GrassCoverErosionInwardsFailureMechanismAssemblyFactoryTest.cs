@@ -447,7 +447,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), 
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                 new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
@@ -606,7 +606,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), 
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection);
 
                 // Assert

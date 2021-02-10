@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             {
                 return double.NaN;
             }
-            
+
             double totalDetailedAssessmentProbability = 0;
             foreach (GrassCoverErosionInwardsCalculationScenario scenario in relevantScenarios)
             {

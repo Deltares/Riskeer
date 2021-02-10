@@ -177,6 +177,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -197,6 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -285,6 +287,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Assert.IsInstanceOf<GrassCoverErosionInwardsScenariosView>(view);
                 Assert.AreSame(group, view.Data);
             }
+
             mocks.VerifyAll();
         }
     }

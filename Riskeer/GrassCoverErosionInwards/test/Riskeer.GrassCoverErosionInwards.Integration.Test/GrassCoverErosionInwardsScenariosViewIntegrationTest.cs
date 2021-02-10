@@ -195,8 +195,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 calculationsGroup.NotifyObservers();
 
-                var listBox = (ListBox)new ControlTester("listBox").TheObject;
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
 
@@ -259,9 +259,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                         }
                     });
                 }
-                
-                var listBox = (ListBox)new ControlTester("listBox").TheObject;
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
 

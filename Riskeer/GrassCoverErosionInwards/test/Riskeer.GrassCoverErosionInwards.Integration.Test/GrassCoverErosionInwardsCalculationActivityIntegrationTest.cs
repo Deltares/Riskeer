@@ -95,23 +95,23 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
         [Test]
         [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.NoCalculation,
-            TestName = "Run_OvertoppingOnly_ProgressTextSetAccordingly")]
+                  TestName = "Run_OvertoppingOnly_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-            TestName = "Run_OvertoppingRateNorm_ProgressTextSetAccordingly")]
+                  TestName = "Run_OvertoppingRateNorm_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-            TestName = "Run_OvertoppingRateRequiredProbability_ProgressTextSetAccordingly")]
+                  TestName = "Run_OvertoppingRateRequiredProbability_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.NoCalculation,
-            TestName = "Run_DikeHeightNorm_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightNorm_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-            TestName = "Run_DikeHeightNormAndOvertoppingRateNorm_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightNormAndOvertoppingRateNorm_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-            TestName = "Run_DikeHeightNormAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightNormAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.NoCalculation,
-            TestName = "Run_DikeHeightRequiredProbability_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightRequiredProbability_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-            TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingNorm_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingNorm_ProgressTextSetAccordingly")]
         [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-            TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
+                  TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
         public void Run_CombinationOfCalculations_ProgressTextSetAccordingly(DikeHeightCalculationType dikeHeightCalculationType, OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             var mockRepository = new MockRepository();
@@ -512,11 +512,11 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         [Test]
         public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySentToService(
             [Values(BreakWaterType.Caisson,
-                BreakWaterType.Wall,
-                BreakWaterType.Dam)]
+                    BreakWaterType.Wall,
+                    BreakWaterType.Dam)]
             BreakWaterType breakWaterType,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
             DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -987,11 +987,11 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         [Test]
         public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySentToService(
             [Values(BreakWaterType.Caisson,
-                BreakWaterType.Wall,
-                BreakWaterType.Dam)]
+                    BreakWaterType.Wall,
+                    BreakWaterType.Dam)]
             BreakWaterType breakWaterType,
             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
             OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup

@@ -259,6 +259,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
             }
+
             return affectedObjects;
         }
 

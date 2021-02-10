@@ -758,12 +758,12 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         [Combinatorial]
         public void Calculate_CalculationValid_ReturnOutput([Values(true, false)] bool useForeland,
                                                             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                DikeHeightCalculationType.NoCalculation)]
+                                                                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                                    DikeHeightCalculationType.NoCalculation)]
                                                             DikeHeightCalculationType dikeHeightCalculationType,
                                                             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                                                                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                OvertoppingRateCalculationType.NoCalculation)]
+                                                                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                                    OvertoppingRateCalculationType.NoCalculation)]
                                                             OvertoppingRateCalculationType overtoppingRateCalculationType,
                                                             [Values(true, false)] bool calculateIllustrationPoints)
         {
@@ -1065,6 +1065,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1073,7 +1074,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_CancelDikeHeightCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
             DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -1129,6 +1130,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsTrue(dikeHeightCalculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1137,7 +1139,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_CancelOvertoppingRateCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeOvertoppingRateCalculationStarts,
             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
             OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1197,6 +1199,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsTrue(overtoppingRateCalculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1272,6 +1275,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1346,6 +1350,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1422,6 +1427,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(overtoppingCalculator.LastErrorFileContent, exception.Message);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1498,6 +1504,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1573,6 +1580,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1649,6 +1657,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1725,6 +1734,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1800,6 +1810,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1876,6 +1887,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -3177,6 +3189,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Assert
                 Assert.IsNull(calculation.Output.DikeHeightOutput);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -3220,6 +3233,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Assert
                 Assert.IsNull(calculation.Output.OvertoppingRateOutput);
             }
+
             mockRepository.VerifyAll();
         }
 
