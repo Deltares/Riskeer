@@ -352,10 +352,10 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             testSettingsHelper = new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(WellKnownTileSourceLayerConfigurationTest))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(WmtsLayerConfigurationTest))
             };
 
-            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WellKnownTileSourceLayerConfigurationTest));
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WmtsLayerConfigurationTest));
         }
 
         [OneTimeTearDown]
