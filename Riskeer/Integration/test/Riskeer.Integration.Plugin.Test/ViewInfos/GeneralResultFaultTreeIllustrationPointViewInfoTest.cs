@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             mocks.ReplayAll();
-            
+
             // Call
             IView view = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
