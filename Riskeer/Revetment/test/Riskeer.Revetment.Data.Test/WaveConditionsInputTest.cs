@@ -215,12 +215,12 @@ namespace Riskeer.Revetment.Data.Test
 
         [Test]
         [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
-            new object[]
-            {
-                "IsForeshoreProfileInputSynchronized",
-                "ReturnFalse"
-            })]
+                        nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
+                        new object[]
+                        {
+                            "IsForeshoreProfileInputSynchronized",
+                            "ReturnFalse"
+                        })]
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputNotInSync_ReturnFalse(
             ForeshoreProfile modifiedProfile)
         {

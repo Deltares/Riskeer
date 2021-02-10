@@ -49,7 +49,7 @@ namespace Riskeer.Revetment.IO.Configurations
         /// </list>
         /// </exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, new []
+            : base(xmlFilePath, new[]
             {
                 Resources.BekledingenConfiguratieSchema_0,
                 Resources.BekledingenConfiguratieSchema

@@ -63,7 +63,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
             protected override void WriteWaveConditionsSpecificParameters(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
-            
+
             protected override int GetConfigurationVersion()
             {
                 return 1;

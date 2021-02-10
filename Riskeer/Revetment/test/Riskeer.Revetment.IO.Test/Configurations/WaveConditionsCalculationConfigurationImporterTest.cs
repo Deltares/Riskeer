@@ -95,11 +95,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationUpperRevetmentBoundBelowLowerRevetmentBound.xml",
-            "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
+                  "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
         [TestCase("validConfigurationUpperWaterLevelBoundBelowLowerWaterLevelBound.xml",
-            "Een waarde van '2,2' als ondergrens van de waterstanden is ongeldig. De bovengrens van de waterstanden moet boven de ondergrens liggen.")]
+                  "Een waarde van '2,2' als ondergrens van de waterstanden is ongeldig. De bovengrens van de waterstanden moet boven de ondergrens liggen.")]
         [TestCase("validConfigurationOrientationOutOfRange.xml",
-            "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
+                  "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
@@ -390,7 +390,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                                           nameof(WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration>));
 
             public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-                : base(xmlFilePath, new []
+                : base(xmlFilePath, new[]
                 {
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
