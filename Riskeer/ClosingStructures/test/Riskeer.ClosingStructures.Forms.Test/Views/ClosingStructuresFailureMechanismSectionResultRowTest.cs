@@ -1309,13 +1309,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
-                    sectionResult, 
+                    sectionResult,
                     new[]
                     {
                         calculation
                     },
-                    failureMechanism, 
-                    assessmentSection, 
+                    failureMechanism,
+                    assessmentSection,
                     ConstructionProperties);
 
                 // Call

@@ -100,7 +100,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             ShowClosingStructuresScenariosView(new ClosingStructuresFailureMechanism());
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(4, dataGridView.ColumnCount);
             Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
@@ -114,7 +114,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Call
             ShowFullyConfiguredClosingStructuresScenariosView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;

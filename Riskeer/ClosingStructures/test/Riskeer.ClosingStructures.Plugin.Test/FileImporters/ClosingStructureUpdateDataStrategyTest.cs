@@ -272,12 +272,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
 
         [Test]
         [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-            nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
-            new object[]
-            {
-                "UpdateStructuresWithImportedData",
-                "UpdatesOnlySingleChange"
-            })]
+                        nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
+                        new object[]
+                        {
+                            "UpdateStructuresWithImportedData",
+                            "UpdatesOnlySingleChange"
+                        })]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(ClosingStructure readStructure)
         {
             // Setup

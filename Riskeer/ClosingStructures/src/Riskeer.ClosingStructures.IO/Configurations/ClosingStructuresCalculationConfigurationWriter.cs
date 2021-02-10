@@ -90,6 +90,11 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                                            configuration.LevelCrestStructureNotClosing);
         }
 
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
+
         /// <summary>
         /// Writes the <paramref name="inflowModelType"/> in XML format to file.
         /// </summary>
@@ -108,11 +113,6 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                     ClosingStructuresConfigurationSchemaIdentifiers.InflowModelType,
                     new ConfigurationClosingStructureInflowModelTypeConverter().ConvertToInvariantString(inflowModelType));
             }
-        }
-
-        protected override int GetConfigurationVersion()
-        {
-            return 1;
         }
     }
 }

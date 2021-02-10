@@ -345,7 +345,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(21);
-            
+
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();

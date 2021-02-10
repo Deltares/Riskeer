@@ -232,12 +232,12 @@ namespace Riskeer.ClosingStructures.Data.Test
 
         [Test]
         [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-            nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
-            new object[]
-            {
-                "IsStructureInputSynchronized",
-                "ReturnFalse"
-            })]
+                        nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
+                        new object[]
+                        {
+                            "IsStructureInputSynchronized",
+                            "ReturnFalse"
+                        })]
         public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(ClosingStructure modifiedStructure)
         {
             // Setup
