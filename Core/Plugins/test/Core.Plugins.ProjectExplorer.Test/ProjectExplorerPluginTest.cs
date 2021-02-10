@@ -30,7 +30,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Plugins.ProjectExplorer.Exceptions;
-using Core.Plugins.ProjectExplorer.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
