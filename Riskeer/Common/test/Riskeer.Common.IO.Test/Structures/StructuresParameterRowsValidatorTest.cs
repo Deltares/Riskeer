@@ -1754,10 +1754,7 @@ namespace Riskeer.Common.IO.Test.Structures
 
         private static IEnumerable<TestCaseData> HeightStructureParameters()
         {
-            foreach (StructuresParameterRow parameterRow in GetAllValidHeightStructuresParameterRows())
-            {
-                yield return new TestCaseData(parameterRow).SetName(parameterRow.ParameterId);
-            }
+            return GetAllValidHeightStructuresParameterRows().Select(parameterRow => new TestCaseData(parameterRow));
         }
 
         #endregion

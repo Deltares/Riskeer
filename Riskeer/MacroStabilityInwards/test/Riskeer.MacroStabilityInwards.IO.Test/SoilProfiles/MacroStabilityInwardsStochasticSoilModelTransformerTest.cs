@@ -390,8 +390,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                           new[]
                                                                                           {
                                                                                               SoilLayer2DTestFactory.CreateSoilLayer2D()
-                                                                                          }, Enumerable.Empty<PreconsolidationStress>())))
-                    .SetName($"2D Soil Profile - {invalidProbability}");
+                                                                                          }, Enumerable.Empty<PreconsolidationStress>())));
                 yield return new TestCaseData(new StochasticSoilProfile(invalidProbability,
                                                                         new SoilProfile1D(id,
                                                                                           name,
@@ -399,8 +398,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                           new[]
                                                                                           {
                                                                                               SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
-                                                                                          })))
-                    .SetName($"1D Soil Profile - {invalidProbability}");
+                                                                                          })));
             }
         }
 
@@ -417,8 +415,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
                                                             {
                                                                 SoilLayer2DTestFactory.CreateSoilLayer2D()
                                                             },
-                                                            Enumerable.Empty<PreconsolidationStress>()))
-                .SetName("2D Soil Profile");
+                                                            Enumerable.Empty<PreconsolidationStress>()));
 
             yield return new TestCaseData(new SoilProfile1D(id,
                                                             name,
@@ -426,8 +423,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
                                                             new[]
                                                             {
                                                                 SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
-                                                            }))
-                .SetName("1D Soil Profile");
+                                                            }));
         }
     }
 }

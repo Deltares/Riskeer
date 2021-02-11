@@ -560,10 +560,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsNoGridPoints), new object[]
-        {
-            "CreateGridPointsWithGridDeterminationType"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsNoGridPoints))]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
@@ -574,10 +571,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnePoint), new object[]
-        {
-            "CreateGridPointsWithGridDeterminationType"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnePoint))]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNumberOfPointsOnePoint_AlwaysReturnsBottomLeftPoint(
             MacroStabilityInwardsGrid grid)
         {
@@ -592,10 +586,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints), new object[]
-        {
-            "CreateGridPointsWithGridDeterminationType"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints))]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
             MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -607,10 +598,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints), new object[]
-        {
-            "CreateGridPointsWithGridDeterminationType"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints))]
         public void CreateGridPointsWithGridDeterminationType_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
             (MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -622,10 +610,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWellDefinedGridSettings), new object[]
-        {
-            "CreateGridPointsWithGridDeterminationType"
-        })]
+        [TestCaseSource(nameof(GetWellDefinedGridSettings))]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
             MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -647,10 +632,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsNoGridPoints), new object[]
-        {
-            "CreateGridPoints"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsNoGridPoints))]
         public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
@@ -661,10 +643,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnePoint), new object[]
-        {
-            "CreateGridPoints"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnePoint))]
         public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsOnePoint_AlwaysReturnsBottomLeftPoint(
             MacroStabilityInwardsGrid grid)
         {
@@ -679,10 +658,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints), new object[]
-        {
-            "CreateGridPoints"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints))]
         public void CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
             MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -694,10 +670,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints), new object[]
-        {
-            "CreateGridPoints"
-        })]
+        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints))]
         public void CreateGridPoints_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
             (MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -709,10 +682,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWellDefinedGridSettings), new object[]
-        {
-            "CreateGridPoints"
-        })]
+        [TestCaseSource(nameof(GetWellDefinedGridSettings))]
         public void CreateGridPoints_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
             MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
@@ -1747,7 +1717,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
 
         #region Grid Settings
 
-        private static IEnumerable<TestCaseData> GetGridSettingsNoGridPoints(string prefix)
+        private static IEnumerable<TestCaseData> GetGridSettingsNoGridPoints()
         {
             var random = new Random(21);
 
@@ -1760,22 +1730,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName($"{prefix} - XLeftNaN");
+            });
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, double.NaN, zTop, zBottom)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName($"{prefix} - XRightNaN");
+            });
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, zBottom)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName($"{prefix} - ZTopNaN");
+            });
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, double.NaN)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName($"{prefix} - ZBottomNaN");
+            });
         }
 
         private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints(string prefix)
@@ -1791,10 +1761,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(2, gridRightLargerThanLeft.ZBottom),
                 new Point2D(3, gridRightLargerThanLeft.ZBottom),
                 new Point2D(gridRightLargerThanLeft.XRight, gridRightLargerThanLeft.ZBottom)
-            }).SetName($"{prefix} - XRight > XLeft");
+            });
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnlyVerticalPoints(string prefix)
+        private static IEnumerable<TestCaseData> GetGridSettingsOnlyVerticalPoints()
         {
             var gridTopLargerThanBottom = new MacroStabilityInwardsGrid(1, 3, 4, 1)
             {
@@ -1807,10 +1777,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(gridTopLargerThanBottom.XLeft, 2),
                 new Point2D(gridTopLargerThanBottom.XLeft, 3),
                 new Point2D(gridTopLargerThanBottom.XLeft, gridTopLargerThanBottom.ZTop)
-            }).SetName($"{prefix} - ZTop > ZBottom");
+            });
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnePoint(string prefix)
+        private static IEnumerable<TestCaseData> GetGridSettingsOnePoint()
         {
             const double zBottom = 1.0;
 
@@ -1819,10 +1789,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
             };
-            yield return new TestCaseData(grid).SetName($"{prefix} - XRight > XLeft, ZTop > ZBottom");
+            yield return new TestCaseData(grid);
         }
 
-        private static IEnumerable<TestCaseData> GetWellDefinedGridSettings(string prefix)
+        private static IEnumerable<TestCaseData> GetWellDefinedGridSettings()
         {
             var grid = new MacroStabilityInwardsGrid(1, 3, 3, 1)
             {
@@ -1840,7 +1810,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(grid.XLeft, grid.ZTop),
                 new Point2D(2, grid.ZTop),
                 new Point2D(grid.XRight, grid.ZTop)
-            }).SetName($"{prefix} - XRight > XLeft, ZTop > ZBottom");
+            });
         }
 
         #endregion
@@ -1858,7 +1828,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                           {
                                               new Point2D(0, 0),
                                               new Point2D(5, 0)
-                                          }).SetName("PhreaticLine not same length");
+                                          });
 
             yield return new TestCaseData(new[]
                                           {
@@ -1869,7 +1839,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                           {
                                               new Point2D(0, 0),
                                               new Point2D(10, 0)
-                                          }).SetName("WaternetLine not same length");
+                                          });
         }
 
         private static IEnumerable<TestCaseData> GetPhreaticLineAndWaternetLineConfigurationsBelowSurfaceLine()
@@ -1904,8 +1874,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                   new Point2D(0, 0),
                                                   new Point2D(0, -2)
                                               }
-                                          })
-                .SetName("Waternetline above phreatic line");
+                                          });
 
             yield return new TestCaseData(surfaceLine,
                                           CreateWaternetLine(bottomPoints, topPoints),
@@ -1919,8 +1888,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                   new Point2D(0, -2),
                                                   new Point2D(0, 0)
                                               }
-                                          })
-                .SetName("Waternetline below phreatic line");
+                                          });
 
             var linearlyIncreasingPoints = new[]
             {
@@ -1954,8 +1922,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                   new Point2D(5, 0),
                                                   new Point2D(5, 0)
                                               }
-                                          })
-                .SetName("Waternetline above phreatic line after intersection.");
+                                          });
             yield return new TestCaseData(surfaceLine,
                                           CreateWaternetLine(linearlyDecreasingPoints, linearlyIncreasingPoints),
                                           new[]
@@ -1976,8 +1943,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                   new Point2D(5, 0),
                                                   new Point2D(5, 0)
                                               }
-                                          })
-                .SetName("Waternetline below phreatic line after intersection.");
+                                          });
         }
 
         private static IEnumerable<TestCaseData> GetPhreaticLineAndWaternetLineConfigurationsAboveSurfaceLineAndOutsideXInterval()
@@ -2022,8 +1988,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                                  new Point2D(surfaceLineStartXCoordinate - offset, zoneTopYCoordinate),
                                                                  new Point2D(surfaceLineEndXCoordinate, zoneTopYCoordinate)
                                                              }),
-                                          expectedZones)
-                .SetName("Waternetline and phreatic line X coordinate left from surface line");
+                                          expectedZones);
 
             yield return new TestCaseData(surfaceLine,
                                           CreateWaternetLine(new[]
@@ -2036,8 +2001,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                                                                  new Point2D(surfaceLineStartXCoordinate, zoneTopYCoordinate),
                                                                  new Point2D(surfaceLineEndXCoordinate + offset, zoneTopYCoordinate)
                                                              }),
-                                          expectedZones)
-                .SetName("Waternetline and phreatic line X coordinate right from surface line");
+                                          expectedZones);
         }
 
         #endregion
