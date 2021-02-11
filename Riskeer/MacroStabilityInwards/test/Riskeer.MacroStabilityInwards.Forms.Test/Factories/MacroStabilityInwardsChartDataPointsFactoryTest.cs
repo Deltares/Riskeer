@@ -710,7 +710,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
             var outerRing = new Ring(new[]
             {
                 new Point2D(0.0, 10.0),
-                new Point2D(10.0, 10.0),
+                new Point2D(10.0, 10.0),    
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
             });
@@ -1748,7 +1748,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
             });
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints(string prefix)
+        private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints()
         {
             var gridRightLargerThanLeft = new MacroStabilityInwardsGrid(1, 4, 3, 1)
             {
