@@ -735,12 +735,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> GetColorCases()
         {
-            yield return new TestCaseData(null, Color.Empty)
-                .SetName("Color result Empty");
-            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
-                .SetName("Color result Purple");
-            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
-                .SetName("Color result Pink");
+            yield return new TestCaseData(null, Color.Empty);
+            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180));
+            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255));
         }
 
         #endregion
@@ -761,15 +758,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             };
 
             yield return new TestCaseData(SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0],
-                                                                                   Enumerable.Empty<Segment2D>()))
-                .SetName("OuterLoop_ContainsNoSegments");
+                                                                                   Enumerable.Empty<Segment2D>()));
 
             yield return new TestCaseData(SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
                                                                                    {
                                                                                        Enumerable.Empty<Segment2D>()
                                                                                    },
-                                                                                   validGeometry))
-                .SetName("Innerloop_ContainsCollectionWithElementWithNoSegments");
+                                                                                   validGeometry));
         }
 
         #endregion
@@ -778,57 +773,49 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer1D()
         {
-            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(), nameof(SoilLayer1D));
+            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer());
         }
 
         private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer2D()
         {
-            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_InvalidStochasticDistributionValues{{1}}_ThrowsImportedDataTransformException";
             const double invalidMean = 0;
 
             SoilLayerBase invalidCohesion = soilLayer();
             invalidCohesion.CohesionMean = invalidMean;
-            yield return new TestCaseData(invalidCohesion, "Cohesie"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidCohesion, "Cohesie");
 
             SoilLayerBase invalidFrictionAngle = soilLayer();
             invalidFrictionAngle.FrictionAngleMean = invalidMean;
-            yield return new TestCaseData(invalidFrictionAngle, "Wrijvingshoek"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidFrictionAngle, "Wrijvingshoek");
 
             SoilLayerBase invalidShearStrengthRatio = soilLayer();
             invalidShearStrengthRatio.ShearStrengthRatioMean = invalidMean;
-            yield return new TestCaseData(invalidShearStrengthRatio, "Schuifsterkte ratio (S)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidShearStrengthRatio, "Schuifsterkte ratio (S)");
 
             SoilLayerBase invalidStrengthIncreaseExponent = soilLayer();
             invalidStrengthIncreaseExponent.StrengthIncreaseExponentMean = invalidMean;
-            yield return new TestCaseData(invalidStrengthIncreaseExponent, "Sterkte toename exp (m)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidStrengthIncreaseExponent, "Sterkte toename exp (m)");
 
             SoilLayerBase invalidPop = soilLayer();
             invalidPop.PopMean = invalidMean;
-            yield return new TestCaseData(invalidPop, "POP"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPop, "POP");
 
             const double validMean = 1;
             const double invalidShift = 2;
             SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
             invalidBelowPhreaticLevel.BelowPhreaticLevelMean = validMean;
             invalidBelowPhreaticLevel.BelowPhreaticLevelShift = invalidShift;
-            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht");
 
             SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
             invalidAbovePhreaticLevel.AbovePhreaticLevelMean = validMean;
             invalidAbovePhreaticLevel.AbovePhreaticLevelShift = invalidShift;
-            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht");
         }
 
         #endregion
@@ -837,27 +824,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsSoilLayer1D()
         {
-            return IncorrectShiftedLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectShiftedLogNormalDistributions(() => new SoilLayer1D(0.0));
         }
 
         private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsTypeSoilLayer2D()
         {
-            return IncorrectShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
-
             SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
             invalidBelowPhreaticLevel.BelowPhreaticLevelDistributionType = -1;
-            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht");
 
             SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
             invalidAbovePhreaticLevel.AbovePhreaticLevelDistributionType = -1;
-            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht");
         }
 
         #endregion
@@ -866,94 +849,82 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer1D()
         {
-            return IncorrectNonShiftedLogNormalDistributionsType(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectNonShiftedLogNormalDistributionsType(() => new SoilLayer1D(0.0));
         }
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer1D()
         {
-            return IncorrectNonShiftedLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectNonShiftedLogNormalDistributionsShift(() => new SoilLayer1D(0.0));
         }
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer2D()
         {
-            return IncorrectNonShiftedLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectNonShiftedLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer2D()
         {
-            return IncorrectNonShiftedLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectNonShiftedLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsType(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsType(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
             const double validShift = 0.0;
 
             SoilLayerBase invalidCohesionDistribution = soilLayer();
             invalidCohesionDistribution.CohesionDistributionType = -1;
             invalidCohesionDistribution.CohesionShift = validShift;
-            yield return new TestCaseData(invalidCohesionDistribution, "Cohesie"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidCohesionDistribution, "Cohesie");
 
             SoilLayerBase invalidFrictionAngleDistribution = soilLayer();
             invalidFrictionAngleDistribution.FrictionAngleDistributionType = -1;
             invalidFrictionAngleDistribution.FrictionAngleShift = validShift;
-            yield return new TestCaseData(invalidFrictionAngleDistribution, "Wrijvingshoek"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidFrictionAngleDistribution, "Wrijvingshoek");
 
             SoilLayerBase invalidShearStrengthRatioDistribution = soilLayer();
             invalidShearStrengthRatioDistribution.ShearStrengthRatioDistributionType = -1;
             invalidShearStrengthRatioDistribution.ShearStrengthRatioShift = validShift;
-            yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio (S)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio (S)");
 
             SoilLayerBase invalidStrengthIncreaseExponentDistribution = soilLayer();
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistributionType = -1;
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentShift = validShift;
-            yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exp (m)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exp (m)");
 
             SoilLayerBase invalidPopDistribution = soilLayer();
             invalidPopDistribution.PopDistributionType = -1;
             invalidPopDistribution.PopShift = validShift;
-            yield return new TestCaseData(invalidPopDistribution, "POP"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPopDistribution, "POP");
         }
 
-        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_IncorrectShift{{1}}_ThrowsImportedDataTransformException";
             const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
 
             SoilLayerBase invalidCohesionShift = soilLayer();
             invalidCohesionShift.CohesionDistributionType = validDistributionType;
             invalidCohesionShift.CohesionShift = -1;
-            yield return new TestCaseData(invalidCohesionShift, "Cohesie"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidCohesionShift, "Cohesie");
 
             SoilLayerBase invalidFrictionAngleShift = soilLayer();
             invalidFrictionAngleShift.FrictionAngleDistributionType = validDistributionType;
             invalidFrictionAngleShift.FrictionAngleShift = -1;
-            yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek");
 
             SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
             invalidShearStrengthRatioShift.ShearStrengthRatioDistributionType = validDistributionType;
             invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
-            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio (S)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio (S)");
 
             SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
             invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistributionType = validDistributionType;
             invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
-            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exp (m)"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exp (m)");
 
             SoilLayerBase invalidPopShift = soilLayer();
             invalidPopShift.PopDistributionType = validDistributionType;
             invalidPopShift.PopShift = -1;
-            yield return new TestCaseData(invalidPopShift, "POP"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPopShift, "POP");
         }
 
         #endregion
