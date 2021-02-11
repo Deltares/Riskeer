@@ -434,8 +434,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             yield return new TestCaseData(failureMechanismSections,
                                           failureMechanismSectionResultsWithProbability,
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithProbability))
-                .SetName("SectionAssemblyResults with probability");
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithProbability));
 
             ExportableAggregatedFailureMechanismSectionAssemblyResult[] failureMechanismSectionResultsWithoutProbability =
             {
@@ -445,8 +444,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             yield return new TestCaseData(failureMechanismSections,
                                           failureMechanismSectionResultsWithoutProbability,
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutProbability))
-                .SetName("SectionAssemblyResults without probability");
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutProbability));
 
             ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly[] failureMechanismSectionResultsWithoutDetailedAssembly =
             {
@@ -456,8 +454,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             yield return new TestCaseData(failureMechanismSections,
                                           failureMechanismSectionResultsWithoutDetailedAssembly,
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutDetailedAssembly))
-                .SetName("SectionAssemblyResults without detailed assessment");
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutDetailedAssembly));
 
             ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult[] failureMechanismSectionResultsWithCombinedAssembly =
             {
@@ -467,8 +464,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             yield return new TestCaseData(failureMechanismSections,
                                           failureMechanismSectionResultsWithCombinedAssembly,
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedResult))
-                .SetName("SectionAssemblyResults with combined assessment");
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedResult));
 
             ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult[] failureMechanismSectionResultsWithCombinedProbabilityAssembly =
             {
@@ -478,8 +474,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             yield return new TestCaseData(failureMechanismSections,
                                           failureMechanismSectionResultsWithCombinedProbabilityAssembly,
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedProbabilityResult))
-                .SetName("SectionAssemblyResults with combined probability assessment");
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedProbabilityResult));
         }
 
         private static ExportableFailureMechanismSection CreateSection(int seed)
