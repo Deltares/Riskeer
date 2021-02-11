@@ -161,12 +161,9 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
-                  TestName = "SimpleAssembly")]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-                  TestName = "DetailedAssembly")]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                  TestName = "TailorMadeAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
         public void CreateWithoutProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
@@ -358,12 +355,9 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
-                  TestName = "SimpleAssembly")]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-                  TestName = "DetailedAssembly")]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                  TestName = "TailorMadeAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
         public void CreateWithProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
@@ -548,10 +542,8 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
-                  TestName = "SimpleAssembly")]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                  TestName = "TailorMadeAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
         public void CreateWithoutDetailedAssembly_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
             FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
