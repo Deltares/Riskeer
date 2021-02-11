@@ -1044,61 +1044,49 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                                                       "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridZTopAndZBottom.xml",
-                                          expectedZTopZBottomMessage)
-                .SetName("Invalid left grid ZTop And ZBottom");
+                                          expectedZTopZBottomMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridZTopAndZBottom.xml",
-                                          expectedZTopZBottomMessage)
-                .SetName("Invalid right grid ZTop And ZBottom");
+                                          expectedZTopZBottomMessage);
 
             const string expectedXLeftXRightMessage = "Een waarde van '10,00' als X links en '0,00' als X rechts is ongeldig. " +
                                                       "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridXLeftAndXRight.xml",
-                                          expectedXLeftXRightMessage)
-                .SetName("Invalid left grid XLeft And XRight");
+                                          expectedXLeftXRightMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridXLeftAndXRight.xml",
-                                          expectedXLeftXRightMessage)
-                .SetName("Invalid left grid XLeft And XRight");
+                                          expectedXLeftXRightMessage);
 
             const string expectedNumberOfHorizontalPointsTooLargeMessage = "Een waarde van '101' als aantal horizontale punten is ongeldig. " +
                                                                            "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
                                                                            "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfHorizontalPointsTooLarge.xml",
-                                          expectedNumberOfHorizontalPointsTooLargeMessage)
-                .SetName("Invalid left grid NumberOfHorizontalPoints too large");
+                                          expectedNumberOfHorizontalPointsTooLargeMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfHorizontalPointsTooLarge.xml",
-                                          expectedNumberOfHorizontalPointsTooLargeMessage)
-                .SetName("Invalid left grid NumberOfHorizontalPoints too large");
+                                          expectedNumberOfHorizontalPointsTooLargeMessage);
 
             const string expectedNumberOfHorizontalPointsTooLowMessage = "Een waarde van '0' als aantal horizontale punten is ongeldig. " +
                                                                          "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
                                                                          "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfHorizontalPointsTooLow.xml",
-                                          expectedNumberOfHorizontalPointsTooLowMessage)
-                .SetName("Invalid left grid NumberOfHorizontalPoints too low");
+                                          expectedNumberOfHorizontalPointsTooLowMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfHorizontalPointsTooLow.xml",
-                                          expectedNumberOfHorizontalPointsTooLowMessage)
-                .SetName("Invalid left grid NumberOfHorizontalPoints too low");
+                                          expectedNumberOfHorizontalPointsTooLowMessage);
 
             const string expectedNumberOfVerticalPointsTooLargeMessage = "Een waarde van '101' als aantal verticale punten is ongeldig. " +
                                                                          "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
                                                                          "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfVerticalPointsTooLarge.xml",
-                                          expectedNumberOfVerticalPointsTooLargeMessage)
-                .SetName("Invalid left grid NumberOfVerticalPoints too large");
+                                          expectedNumberOfVerticalPointsTooLargeMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfVerticalPointsTooLarge.xml",
-                                          expectedNumberOfVerticalPointsTooLargeMessage)
-                .SetName("Invalid left grid NumberOfVerticalPoints too large");
+                                          expectedNumberOfVerticalPointsTooLargeMessage);
 
             const string expectedNumberOfVerticalPointsTooLowMessage = "Een waarde van '0' als aantal verticale punten is ongeldig. " +
                                                                        "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
                                                                        "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfVerticalPointsTooLow.xml",
-                                          expectedNumberOfVerticalPointsTooLowMessage)
-                .SetName("Invalid left grid NumberOfVerticalPoints too low");
+                                          expectedNumberOfVerticalPointsTooLowMessage);
             yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfVerticalPointsTooLow.xml",
-                                          expectedNumberOfVerticalPointsTooLowMessage)
-                .SetName("Invalid left grid NumberOfVerticalPoints too low");
+                                          expectedNumberOfVerticalPointsTooLowMessage);
         }
     }
 }

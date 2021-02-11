@@ -453,26 +453,22 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             yield return new TestCaseData(
                 assessmentSection,
                 AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                signalingNorm / 30
-            ).SetName("FactorizedSignalingNorm");
+                signalingNorm / 30);
 
             yield return new TestCaseData(
                 assessmentSection,
                 AssessmentSectionCategoryType.SignalingNorm,
-                signalingNorm
-            ).SetName("SignalingNorm");
+                signalingNorm);
 
             yield return new TestCaseData(
                 assessmentSection,
                 AssessmentSectionCategoryType.LowerLimitNorm,
-                lowerLimitNorm
-            ).SetName("LowerLimitNorm");
+                lowerLimitNorm);
 
             yield return new TestCaseData(
                 assessmentSection,
                 AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                lowerLimitNorm * 30
-            ).SetName("FactorizedLowerLimitNorm");
+                lowerLimitNorm * 30);
         }
 
         private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormType()
@@ -489,15 +485,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 NormType.Signaling,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0)
-            ).SetName("SignalingNorm");
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 NormType.LowerLimit,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
-            ).SetName("LowerLimitNorm");
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
         }
     }
 }
