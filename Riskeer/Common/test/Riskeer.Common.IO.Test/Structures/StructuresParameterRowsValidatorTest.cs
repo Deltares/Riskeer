@@ -1863,10 +1863,7 @@ namespace Riskeer.Common.IO.Test.Structures
 
         private static IEnumerable<TestCaseData> ClosingStructureParameters()
         {
-            foreach (StructuresParameterRow parameterRow in GetAllValidClosingStructuresParameterRows())
-            {
-                yield return new TestCaseData(parameterRow).SetName(parameterRow.ParameterId);
-            }
+            return GetAllValidClosingStructuresParameterRows().Select(parameterRow => new TestCaseData(parameterRow));
         }
 
         #endregion
@@ -2048,10 +2045,7 @@ namespace Riskeer.Common.IO.Test.Structures
 
         private static IEnumerable<TestCaseData> StabilityPointStructureParameters()
         {
-            foreach (StructuresParameterRow parameterRow in GetAllValidStabilityPointStructuresParameterRows())
-            {
-                yield return new TestCaseData(parameterRow).SetName(parameterRow.ParameterId);
-            }
+            return GetAllValidStabilityPointStructuresParameterRows().Select(parameterRow => new TestCaseData(parameterRow));
         }
 
         #endregion
