@@ -1121,12 +1121,9 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> GetColorCases()
         {
-            yield return new TestCaseData(null, Color.Empty)
-                .SetName("Color result Empty");
-            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
-                .SetName("Color result Purple");
-            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
-                .SetName("Color result Pink");
+            yield return new TestCaseData(null, Color.Empty);
+            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180));
+            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255));
         }
 
         private static string CreateExpectedErrorMessageForParameterVariable(string materialName, string parameterName, string errorMessage)
@@ -1143,17 +1140,16 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer1D()
         {
-            return IncorrectLogNormalDistributionsType(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectLogNormalDistributionsType(() => new SoilLayer1D(0.0));
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer2D()
         {
-            return IncorrectLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsType(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsType(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
             const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
@@ -1164,8 +1160,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             invalidDiameterD70Distribution.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Distribution.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(invalidDiameterD70Distribution, "d70"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidDiameterD70Distribution, "d70");
 
             SoilLayerBase invalidPermeabilityDistribution = soilLayer();
             invalidPermeabilityDistribution.BelowPhreaticLevelDistributionType = validDistributionType;
@@ -1174,8 +1169,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             invalidPermeabilityDistribution.PermeabilityDistributionType = -1;
             invalidPermeabilityDistribution.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(invalidPermeabilityDistribution, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPermeabilityDistribution, "Doorlatendheid");
         }
 
         #endregion
@@ -1184,17 +1178,16 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer1D()
         {
-            return IncorrectLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectLogNormalDistributionsShift(() => new SoilLayer1D(0.0));
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer2D()
         {
-            return IncorrectLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_IncorrectShift{{1}}_ThrowsImportedDataTransformException";
             const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
@@ -1205,8 +1198,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             invalidDiameterD70Shift.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Shift.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(invalidDiameterD70Shift, "d70"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidDiameterD70Shift, "d70");
 
             SoilLayerBase invalidPermeabilityShift = soilLayer();
             invalidPermeabilityShift.BelowPhreaticLevelDistributionType = validDistributionType;
@@ -1215,8 +1207,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             invalidPermeabilityShift.PermeabilityDistributionType = validDistributionType;
             invalidPermeabilityShift.PermeabilityShift = -1;
 
-            yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid");
         }
 
         #endregion
@@ -1225,34 +1216,30 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer1D()
         {
-            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(), nameof(SoilLayer1D));
+            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer());
         }
 
         private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer2D()
         {
-            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D);
         }
 
-        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer)
         {
-            const string testNameFormat = "{0}Transform_InvalidStochasticDistributionValues{{1}}_ThrowsImportedDataTransformException";
             const double invalidMean = 0;
 
             SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
             invalidBelowPhreaticLevel.BelowPhreaticLevelMean = 1;
             invalidBelowPhreaticLevel.BelowPhreaticLevelShift = 2;
-            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht");
 
             SoilLayerBase invalidPermeability = soilLayer();
             invalidPermeability.PermeabilityMean = invalidMean;
-            yield return new TestCaseData(invalidPermeability, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidPermeability, "Doorlatendheid");
 
             SoilLayerBase invalidDiameterD70 = soilLayer();
             invalidDiameterD70.DiameterD70Mean = invalidMean;
-            yield return new TestCaseData(invalidDiameterD70, "d70"
-            ).SetName(string.Format(testNameFormat, typeName));
+            yield return new TestCaseData(invalidDiameterD70, "d70");
         }
 
         #endregion
