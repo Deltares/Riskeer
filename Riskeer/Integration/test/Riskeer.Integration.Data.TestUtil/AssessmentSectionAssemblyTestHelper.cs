@@ -127,8 +127,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
                 configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
-                IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
-                yield return new TestCaseData(assessmentSection).SetName(configuredFailureMechanism.Name);
+                yield return new TestCaseData(assessmentSection);
             }
         }
 
