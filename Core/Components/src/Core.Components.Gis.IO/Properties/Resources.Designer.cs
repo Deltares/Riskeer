@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -83,7 +83,7 @@ namespace Core.Components.Gis.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///

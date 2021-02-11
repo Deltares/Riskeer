@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -83,7 +83,7 @@ namespace Core.Components.PointedTree.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!--
-        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
