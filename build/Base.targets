@@ -9,7 +9,7 @@
     <LangVersion>7.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
-    <Copyright>Copyright © Deltares 2020</Copyright>
+    <Copyright>Copyright © Deltares 2021</Copyright>
     <Version>21.1.1</Version>
     <Configurations>Debug;Release;ReleaseForCodeCoverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
