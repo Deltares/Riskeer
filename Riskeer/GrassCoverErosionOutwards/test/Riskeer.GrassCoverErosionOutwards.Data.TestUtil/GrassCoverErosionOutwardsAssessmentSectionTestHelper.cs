@@ -67,40 +67,35 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0)
-            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0)
-            ).SetName("MechanismSpecificSignalingNorm");
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0)
-            ).SetName("MechanismSpecificLowerLimitNorm");
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
-            ).SetName("LowerLimitNorm");
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0)
-            ).SetName("FactorizedLowerLimitNorm");
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0));
         }
     }
 }

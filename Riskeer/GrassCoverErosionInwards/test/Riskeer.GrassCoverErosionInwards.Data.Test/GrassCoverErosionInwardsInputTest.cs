@@ -63,8 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = defaultOrientation,
                                             DikeHeight = defaultDikeHeight
-                                        }))
-                    .SetName("DifferentBreakWaterType");
+                                        }));
                 yield return new TestCaseData(
                         new DikeProfile(defaultLocation,
                                         defaultRoughnessPoints,
@@ -75,8 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = defaultOrientation,
                                             DikeHeight = defaultDikeHeight
-                                        }))
-                    .SetName("DifferentBreakWaterHeight");
+                                        }));
                 yield return new TestCaseData(
                         new DikeProfile(defaultLocation,
                                         defaultRoughnessPoints,
@@ -87,8 +85,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = defaultOrientation,
                                             DikeHeight = 2
-                                        }))
-                    .SetName("DifferentDikeHeight");
+                                        }));
                 yield return new TestCaseData(
                         new DikeProfile(defaultLocation,
                                         defaultRoughnessPoints,
@@ -99,8 +96,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = defaultOrientation,
                                             DikeHeight = defaultDikeHeight
-                                        }))
-                    .SetName("DifferentUseForeshore");
+                                        }));
                 yield return new TestCaseData(
                         new DikeProfile(defaultLocation,
                                         defaultRoughnessPoints,
@@ -111,8 +107,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = defaultOrientation,
                                             DikeHeight = defaultDikeHeight
-                                        }))
-                    .SetName("DifferentUseBreakWater");
+                                        }));
                 yield return new TestCaseData(
                         new DikeProfile(defaultLocation,
                                         defaultRoughnessPoints,
@@ -123,8 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                             Id = defaultId,
                                             Orientation = 12,
                                             DikeHeight = defaultDikeHeight
-                                        }))
-                    .SetName("DifferentOrientation");
+                                        }));
             }
         }
 

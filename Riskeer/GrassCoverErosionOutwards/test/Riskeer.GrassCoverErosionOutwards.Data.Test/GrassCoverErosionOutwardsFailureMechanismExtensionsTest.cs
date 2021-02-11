@@ -354,36 +354,31 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30)
-            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30));
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                GetMechanismSpecificNorm(failureMechanism, signalingNorm)
-            ).SetName("MechanismSpecificSignalingNorm");
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm));
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm)
-            ).SetName("MechanismSpecificLowerLimitNorm");
+                GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm));
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.LowerLimitNorm,
-                lowerLimitNorm
-            ).SetName("LowerLimitNorm");
+                lowerLimitNorm);
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                lowerLimitNorm * 30
-            ).SetName("FactorizedLowerLimitNorm");
+                lowerLimitNorm * 30);
         }
 
         private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
