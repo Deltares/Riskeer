@@ -44,6 +44,8 @@
     <EmbeddedResource Include="EmbeddedResources\Migration_18.1_19.1.sql" />
     <EmbeddedResource Include="EmbeddedResources\Migration_19.1_21.1.sql" />
     <EmbeddedResource Include="EmbeddedResources\DatabaseStructure21.1.sql" />
+    <EmbeddedResource Include="EmbeddedResources\DatabaseStructure21.2.sql" />
+    <EmbeddedResource Include="EmbeddedResources\Migration_21.1_21.2.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core">
