@@ -572,12 +572,9 @@ namespace Core.Common.Gui.Test
         {
             const string exceptionMessage = "I am an error message";
 
-            yield return new TestCaseData(new ArgumentException(exceptionMessage), exceptionMessage)
-                .SetName("ArgumentException");
-            yield return new TestCaseData(new CouldNotConnectException(exceptionMessage), exceptionMessage)
-                .SetName("CouldNotConnectException");
-            yield return new TestCaseData(new StorageValidationException(exceptionMessage), exceptionMessage)
-                .SetName("StorageValidationException");
+            yield return new TestCaseData(new ArgumentException(exceptionMessage), exceptionMessage);
+            yield return new TestCaseData(new CouldNotConnectException(exceptionMessage), exceptionMessage);
+            yield return new TestCaseData(new StorageValidationException(exceptionMessage), exceptionMessage);
         }
     }
 }
