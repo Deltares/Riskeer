@@ -193,7 +193,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [Combinatorial]
+        [TestCaseSource(nameof(GetExceptions))]
         public void Run_SaveProjectAsThrowsException_FailedWithAdditionalLogMessages(Exception exception, string errorMessage)
         {
             // Setup
