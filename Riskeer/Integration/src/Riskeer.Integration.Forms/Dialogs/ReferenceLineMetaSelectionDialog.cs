@@ -210,13 +210,13 @@ namespace Riskeer.Integration.Forms.Dialogs
                 AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
                 ReferenceLineMeta = referenceLineMeta;
 
-                SignalingValue = GetNormValue(referenceLineMeta.SignalingValue);
+                SignalingValue = TryGetNormValue(referenceLineMeta.SignalingValue);
                 if (SignalingValue != string.Empty)
                 {
                     SignalingReturnPeriod = referenceLineMeta.SignalingValue;
                 }
 
-                LowerLimitValue = GetNormValue(referenceLineMeta.LowerLimitValue);
+                LowerLimitValue = TryGetNormValue(referenceLineMeta.LowerLimitValue);
                 if (LowerLimitValue != string.Empty)
                 {
                     LowerLimitValueReturnPeriod = referenceLineMeta.LowerLimitValue;
@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             public int LowerLimitValueReturnPeriod { get; }
             public ReferenceLineMeta ReferenceLineMeta { get; }
 
-            private static string GetNormValue(int? returnPeriod)
+            private static string TryGetNormValue(int? returnPeriod)
             {
                 return returnPeriod.HasValue && returnPeriod > 0
                            ? ProbabilityFormattingHelper.FormatFromReturnPeriod(returnPeriod.Value)
