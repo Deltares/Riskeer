@@ -118,29 +118,25 @@ namespace Riskeer.Common.Data.TestUtil
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0)
-            ).SetName("FactorizedSignalingNorm");
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.SignalingNorm,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0)
-            ).SetName("SignalingNorm");
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
-            ).SetName("LowerLimitNorm");
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0)
-            ).SetName("FactorizedLowerLimitNorm");
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0));
         }
 
         private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
