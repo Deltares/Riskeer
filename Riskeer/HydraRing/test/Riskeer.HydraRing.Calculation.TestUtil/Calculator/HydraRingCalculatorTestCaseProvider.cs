@@ -49,16 +49,13 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
         {
             yield return new TestCaseData(false,
                                           "LastErrorFileContent",
-                                          $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContent")
-                .SetName(CreateTestName(testName, "LastErrorFileContent"));
+                                          $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContent");
             yield return new TestCaseData(true,
                                           null,
-                                          "Er is geen foutrapport beschikbaar.")
-                .SetName(CreateTestName(testName, "EndInFailure"));
+                                          "Er is geen foutrapport beschikbaar.");
             yield return new TestCaseData(true,
                                           "LastErrorFileContentAndEndInFailure",
-                                          $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContentAndEndInFailure")
-                .SetName(CreateTestName(testName, "LastErrorFileContentAndEndInFailure"));
+                                          $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContentAndEndInFailure");
         }
 
         /// <summary>
@@ -79,24 +76,11 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
         public static IEnumerable<TestCaseData> GetCalculatorFailingConditions(string testName)
         {
             yield return new TestCaseData(false,
-                                          "LastErrorFileContent")
-                .SetName(CreateTestName(testName, "LastErrorFileContent"));
+                                          "LastErrorFileContent");
             yield return new TestCaseData(true,
-                                          null)
-                .SetName(CreateTestName(testName, "EndInFailure"));
+                                          null);
             yield return new TestCaseData(true,
-                                          "LastErrorFileContentAndEndInFailure")
-                .SetName(CreateTestName(testName, "LastErrorFileContentAndEndInFailure"));
-        }
-
-        private static string CreateTestName(string testName, string parameter)
-        {
-            string parameters = $"({parameter})";
-            int newLength = parameters.Length < testName.Length
-                                ? testName.Length - parameters.Length
-                                : testName.Length;
-            string shortenedTestName = testName.Substring(0, newLength);
-            return string.Concat(shortenedTestName, parameters);
+                                          "LastErrorFileContentAndEndInFailure");
         }
     }
 }
