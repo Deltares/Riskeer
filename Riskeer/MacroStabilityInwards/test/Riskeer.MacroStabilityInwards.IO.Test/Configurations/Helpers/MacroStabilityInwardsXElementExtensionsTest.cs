@@ -36,37 +36,26 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         private static IEnumerable<TestCaseData> GetInvalidDoubleValues()
         {
             yield return new TestCaseData(string.Format(CultureInfo.InvariantCulture, "{0}9", double.MaxValue),
-                                          typeof(OverflowException))
-                .SetName("Larger than double.MaxValue");
+                                          typeof(OverflowException));
             yield return new TestCaseData(string.Format(CultureInfo.InvariantCulture, "{0}9", double.MinValue),
-                                          typeof(OverflowException))
-                .SetName("Smaller than double.MinValue");
+                                          typeof(OverflowException));
             yield return new TestCaseData("Tweeenveertig",
-                                          typeof(FormatException))
-                .SetName("Invalid format");
+                                          typeof(FormatException));
         }
 
         private static IEnumerable<TestCaseData> GetInvalidBoolValues()
         {
-            yield return new TestCaseData("0.05",
-                                          typeof(FormatException))
-                .SetName("double format");
-            yield return new TestCaseData("nope",
-                                          typeof(FormatException))
-                .SetName("String format");
+            yield return new TestCaseData("0.05", typeof(FormatException));
+            yield return new TestCaseData("nope", typeof(FormatException));
         }
 
         private static IEnumerable<TestCaseData> GetInvalidIntegerValues()
         {
             yield return new TestCaseData(string.Format(CultureInfo.InvariantCulture, "{0}9", int.MaxValue),
-                                          typeof(OverflowException))
-                .SetName("Larger than int.MaxValue");
+                                          typeof(OverflowException));
             yield return new TestCaseData(string.Format(CultureInfo.InvariantCulture, "{0}9", int.MinValue),
-                                          typeof(OverflowException))
-                .SetName("Smaller than int.MinValue");
-            yield return new TestCaseData("Tweeenveertig",
-                                          typeof(FormatException))
-                .SetName("Invalid format");
+                                          typeof(OverflowException));
+            yield return new TestCaseData("Tweeenveertig", typeof(FormatException));
         }
 
         #region GetMacroStabilityInwardsLocationInputConfiguration
