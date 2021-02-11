@@ -167,7 +167,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                                                          "A");
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
+                TestHelper.AssertLogMessageIsGenerated(call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
             }
 
             mockRepository.VerifyAll();
