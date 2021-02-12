@@ -32,15 +32,15 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "21.2";
 
         [Test]
-        public void Given172Project_WhenUpgradedTo173_ThenProjectAsExpected()
+        public void Given211Project_WhenUpgradedTo212_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject211.risk");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given172Project_WhenUpgradedTo173_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given172Project_WhenUpgradedTo173_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given211Project_WhenUpgradedTo212_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given211Project_WhenUpgradedTo212_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
