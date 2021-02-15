@@ -839,7 +839,7 @@
 			</testmodule>
 			<testcase
 			id="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
-			name="TestScript19"
+			name="Script19"
 			reportlevel="Info;20">
 				<parameters>
 					<param
@@ -2386,7 +2386,7 @@
 			enabletracingscreenshots="True"
 			id="f6079ad9-4317-469f-a440-77b14fcd1409"
 			junitreport="False"
-			name="TestScript19"
+			name="Script19"
 			reportcompress="False"
 			reportdirectoryname="Reports"
 			reportenabled="True"
@@ -2552,10 +2552,10 @@
 		<childhierarchy>
 			<testsuite
 			id="f6079ad9-4317-469f-a440-77b14fcd1409"
-			name="TestScript19">
+			name="Script19">
 				<testcase
 				id="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
-				name="TestScript19">
+				name="Script19">
 					<testcase
 					id="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					name="script19_HBN_en_overslagdebiet_berekenen_voor_GEKB">

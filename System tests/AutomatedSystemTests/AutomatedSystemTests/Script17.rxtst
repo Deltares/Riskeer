@@ -408,7 +408,7 @@
 			</testmodule>
 			<testcase
 			id="37adadfe-740c-4d17-b1f0-8610ec657a81"
-			name="TestScript17"
+			name="Script17"
 			reportlevel="Info;20">
 				<parameters>
 					<param
@@ -1336,7 +1336,7 @@
 			enabletracingscreenshots="True"
 			id="a59e818e-0bec-4264-a741-1252f409412e"
 			junitreport="False"
-			name="TestScript17"
+			name="Script17"
 			reportcompress="False"
 			reportdirectoryname="Reports"
 			reportenabled="True"
@@ -2051,10 +2051,10 @@
 		<childhierarchy>
 			<testsuite
 			id="a59e818e-0bec-4264-a741-1252f409412e"
-			name="TestScript17">
+			name="Script17">
 				<testcase
 				id="37adadfe-740c-4d17-b1f0-8610ec657a81"
-				name="TestScript17">
+				name="Script17">
 					<testcase
 					id="f0863890-96dc-43bc-b908-6af2669f44ba"
 					name="script17_Scenario’s_opstellen">

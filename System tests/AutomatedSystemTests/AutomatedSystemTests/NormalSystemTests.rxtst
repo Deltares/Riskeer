@@ -5981,10 +5981,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testcase
-			id="4d492061-048f-4be2-ab20-d63a8870b77a"
-			name="script00_StartUpApplicationForFirstTime">
-			</testcase>
 			<testmodule
 			id="4daef4ad-3437-43f5-93ea-f6753c41790b"
 			name="ConcatenateStrings"
@@ -7344,20 +7340,6 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="milisecondsToWait"
-					datasourceid="77116ac1-99e0-4980-bbc7-a47571455387"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="5a80c790-6ab8-41e6-81b5-410a048ac3a0"
@@ -9513,20 +9495,6 @@
 			name="SignallingValue">
 			</smartfoldernode>
 			<testmodule
-			id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
-			name="CloseAUT"
-			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
-					variablename="CloseAutProcessIDVar">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="73385f1b-35d1-439f-b431-4a488b071a75"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -9834,16 +9802,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="77116ac1-99e0-4980-bbc7-a47571455387"
-			name="WaitSomeTime">
-				<parameters>
-					<param
-					name="milisecondsToWait"
-					value="2000">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			id="772623cc-6da5-42da-a02b-8dd20a881ec0"
 			name="ProceedToImport">
@@ -13031,10 +12989,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<setup
-			id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
-			name="setup">
-			</setup>
 			<testmodule
 			id="9add6acd-75d7-4d90-b05f-e9a7874a3dfe"
 			name="LogWarningMessage"
@@ -19124,26 +19078,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="e645f15d-628b-45b4-9402-fb659010c88b"
-			name="StartAUT"
-			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
-					variablename="StartAutProcessIDVar">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
-					variablename="AppPath">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="e671358c-e52d-4348-abb9-30e322f47e6c"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -19935,10 +19869,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<teardown
-			id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
-			name="teardown">
-			</teardown>
 			<testmodule
 			id="f092c2f5-0985-4fd7-a07a-08ff254285e0"
 			name="LogInfoMessage"
@@ -21324,34 +21254,6 @@
 				<testcase
 				id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 				name="NormalSystemTests">
-					<testcase
-					id="4d492061-048f-4be2-ab20-d63a8870b77a"
-					name="script00_StartUpApplicationForFirstTime">
-						<setup
-						id="9abc769b-1681-4955-8bd9-37bb93bad2a0"
-						name="setup">
-							<testmodule
-							id="e645f15d-628b-45b4-9402-fb659010c88b"
-							name="StartAUT">
-							</testmodule>
-						</setup>
-						<smartfoldernode
-						id="77116ac1-99e0-4980-bbc7-a47571455387"
-						name="WaitSomeTime">
-							<testmodule
-							id="5a072796-7f81-4d32-aa67-24f4ddfc618d"
-							name="WaitForXMiliseconds">
-							</testmodule>
-						</smartfoldernode>
-						<teardown
-						id="f0795d0e-f5d9-44e0-a7a7-b7f1e1b769cb"
-						name="teardown">
-							<testmodule
-							id="731720e2-17f1-43f4-a05b-b8f3f10b80ef"
-							name="CloseAUT">
-							</testmodule>
-						</teardown>
-					</testcase>
 					<testcase
 					id="6a877048-89b6-4b16-8e16-fd8de63831cb"
 					name="script06_Vakindeling_maken_of_aanpassen">
@@ -44147,9 +44049,6 @@
 			id="4d200627-dfbb-48ec-863c-f4e07d1effee">
 			</testcontainer>
 			<testcontainer
-			id="4d492061-048f-4be2-ab20-d63a8870b77a">
-			</testcontainer>
-			<testcontainer
 			id="4dede171-f31a-4ffe-8612-39d868130ddf">
 			</testcontainer>
 			<testcontainer
@@ -44331,9 +44230,6 @@
 			</testcontainer>
 			<testcontainer
 			id="767df29c-0cea-452d-b228-88be26da989e">
-			</testcontainer>
-			<testcontainer
-			id="77116ac1-99e0-4980-bbc7-a47571455387">
 			</testcontainer>
 			<testcontainer
 			id="772623cc-6da5-42da-a02b-8dd20a881ec0">

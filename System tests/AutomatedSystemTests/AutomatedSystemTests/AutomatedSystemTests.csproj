@@ -2473,25 +2473,73 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <id>7b492769-a819-4f4a-90ea-42b2b47e3c79</id>
     </Content>
+    <Content Include="Script15.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>faacac5c-bf04-4ace-bbc3-437ef50a7a13</id>
+    </Content>
     <Content Include="SlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
     </Content>
-    <Content Include="TestScript17.rxtst">
+    <Content Include="Script06.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>017681e7-a1cd-435c-97f3-c3e53f0103c5</id>
+    </Content>
+    <Content Include="Script07.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>d22ddc80-dc4e-4b93-a1c6-4c5b4a25a22e</id>
+    </Content>
+    <Content Include="Script08.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>ffe68598-f23c-4246-906a-379eb7cbbdab</id>
+    </Content>
+    <Content Include="Script09.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>74a9176e-42d5-4004-bb6a-7149c20ff700</id>
+    </Content>
+    <Content Include="Script10.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>40e4f70b-04e6-4337-941c-12215781d44e</id>
+    </Content>
+    <Content Include="Script12.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>0681d234-3c03-459e-9350-7794bc35ac06</id>
+    </Content>
+    <Content Include="Script17.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>e628eaf2-1f96-4a16-8a7e-626762630802</id>
     </Content>
-    <Content Include="TestScript19.rxtst">
+    <Content Include="Script18.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>d572558c-1913-490b-9b06-ff4ecbca7899</id>
+    </Content>
+    <Content Include="Script19.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>54d6fb57-8bd0-4793-95a2-14239084e336</id>
     </Content>
-    <Content Include="TestScript20.rxtst">
+    <Content Include="Script20.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>c8e4c805-a560-48ab-8e2f-ecba0b4b4411</id>
     </Content>
-    <Content Include="TestScript22.rxtst">
+    <Content Include="Script21.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>127fdd63-075b-4417-8504-94dcccaa7198</id>
+    </Content>
+    <Content Include="Script22.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>971cfd47-4816-4ae9-adb6-a86bd6f7f032</id>
+    </Content>
+    <Content Include="Script27.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>e5e230fe-125b-4579-99dd-c3ebdd5630a1</id>
+    </Content>
+    <Content Include="Script28.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>b16374b2-5a01-4ff4-8a92-505b212f6a3d</id>
+    </Content>
+    <Content Include="Script29.rxtst">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <id>46c334e2-d9b9-44a3-aab0-9dc46cc81b6e</id>
     </Content>
     <Content Include="VerySlowTestCases.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -734,7 +734,7 @@
 			enabletracingscreenshots="True"
 			id="5b4e7d9b-732c-47ba-acfd-f7f668999d26"
 			junitreport="False"
-			name="TestScript20"
+			name="Script20"
 			reportcompress="False"
 			reportdirectoryname="Reports"
 			reportenabled="True"
@@ -1506,7 +1506,7 @@
 			</setup>
 			<testcase
 			id="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
-			name="TestScript20"
+			name="Script20"
 			reportlevel="Info;20">
 				<parameters>
 					<param
@@ -1940,10 +1940,10 @@
 		<childhierarchy>
 			<testsuite
 			id="5b4e7d9b-732c-47ba-acfd-f7f668999d26"
-			name="TestScript20">
+			name="Script20">
 				<testcase
 				id="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
-				name="TestScript20">
+				name="Script20">
 					<testcase
 					id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
 					name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
