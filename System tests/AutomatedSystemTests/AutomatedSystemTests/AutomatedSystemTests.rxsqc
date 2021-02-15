@@ -31,22 +31,82 @@
   },
   {
     "Enabled": "True",
-    "TestSuite": "TestScript20",
+    "TestSuite": "Script20",
     "RunConfig": "TestRun"
   },
   {
     "Enabled": "True",
-    "TestSuite": "TestScript17",
+    "TestSuite": "Script17",
     "RunConfig": "TestRun"
   },
   {
     "Enabled": "True",
-    "TestSuite": "TestScript19",
+    "TestSuite": "Script19",
     "RunConfig": "TestRun"
   },
   {
     "Enabled": "True",
-    "TestSuite": "TestScript22",
+    "TestSuite": "Script22",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script06",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script07",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script08",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script09",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script10",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script12",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script18",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script28",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script21",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script27",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script29",
+    "RunConfig": "TestRun"
+  },
+  {
+    "Enabled": "True",
+    "TestSuite": "Script15",
     "RunConfig": "TestRun"
   }
 ]

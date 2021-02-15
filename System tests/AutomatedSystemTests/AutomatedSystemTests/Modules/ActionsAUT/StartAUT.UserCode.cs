@@ -43,7 +43,7 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
         {
             Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.");
             //bool succesfulStartUp = false;
-            for (int i = 1; i < 11; i++) {
+            for (int i = 1; i < 16; i++) {
                 Report.Info("Attempt #" + i.ToString() + " to start up the application.");
                 StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
                 repo.RiskeerMainWindow.SelfInfo.WaitForExists(120000);

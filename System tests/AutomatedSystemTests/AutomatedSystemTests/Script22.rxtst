@@ -133,7 +133,7 @@
 			enabletracingscreenshots="True"
 			id="15dbd49b-1667-4f41-a2ad-d893f9494aab"
 			junitreport="False"
-			name="TestScript22"
+			name="Script22"
 			reportcompress="False"
 			reportdirectoryname="Reports"
 			reportenabled="True"
@@ -601,7 +601,7 @@
 			</smartfoldernode>
 			<testcase
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b"
-			name="TestScript22"
+			name="Script22"
 			reportlevel="Info;20">
 				<parameters>
 					<param
@@ -1343,10 +1343,10 @@
 		<childhierarchy>
 			<testsuite
 			id="15dbd49b-1667-4f41-a2ad-d893f9494aab"
-			name="TestScript22">
+			name="Script22">
 				<testcase
 				id="6754469b-6bef-4898-a3ce-f0500c72e37b"
-				name="TestScript22">
+				name="Script22">
 					<testcase
 					id="78337b07-06ac-4efb-b70c-3605a183e682"
 					name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">

@@ -1546,10 +1546,6 @@
 			id="21685056-714d-4d6e-9607-f0efc02331d2"
 			name="ScenariosView">
 			</smartfoldernode>
-			<teardown
-			id="21daf337-78d1-4703-962f-f5849e589cb5"
-			name="teardown">
-			</teardown>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="221f24ea-224c-4fe1-b0c7-0ab098014b8c"
@@ -2415,20 +2411,6 @@
 			id="390a84ae-13a8-402d-b7da-02d55eb4065f"
 			name="a)DuplicationOfCalculations">
 			</smartfoldernode>
-			<testmodule
-			id="39301a4c-e21a-439a-9d91-13c940f1db2c"
-			name="CloseAUT"
-			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
-					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
-					variablename="CloseAutProcessIDVar">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script21b_FMsGroup5NoDetailedAssessment"
 			id="39417ae9-8d22-4d2b-a119-86cc2e8f0d93"
@@ -4606,20 +4588,6 @@
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="612bb17a-abad-4923-8fa0-f9d31990588a"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="milisecondsToWait"
-					datasourceid="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="61d87bc0-f3bf-4d53-b490-4c8e4caa60cd"
 			name="MakeCurrentLayerInvisible">
@@ -5246,16 +5214,6 @@
 			name="ValidateCustomAssessmentInput">
 			</smartfoldernode>
 			<smartfoldernode
-			id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
-			name="WaitSomeTime">
-				<parameters>
-					<param
-					name="milisecondsToWait"
-					value="2000">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			id="6eeb4fc3-c4f8-4d8a-8fdf-e5bfc8ccd57f"
 			name="GenerateCalculationsScenarios">
 			</smartfoldernode>
@@ -5590,10 +5548,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<setup
-			id="763f0853-5775-4f9a-8e62-69d6fefc43d6"
-			name="setup">
-			</setup>
 			<smartfoldernode
 			id="764b0ac1-d5e5-438f-8bf1-6b043e3f2a9b"
 			name="ValidateStructureOfCalculationsFolder">
@@ -10088,10 +10042,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testcase
-			id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6"
-			name="script00_StartUpApplicationForFirstTime">
-			</testcase>
 			<testmodule
 			id="d5ccd44a-ff9c-4bfd-a6bf-1bc0ca921272"
 			name="ExportConfigurationSelectedCalculationToXMLFile"
@@ -11484,26 +11434,6 @@
 			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="ee496c34-0bd1-4128-b6aa-55e789fa3c85"
-			name="StartAUT"
-			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="AppProcessID"
-					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
-					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
-					variablename="StartAutProcessIDVar">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
-					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
-					variablename="AppPath">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="eed52168-c364-42cf-80b1-358d19de3aa9"
 			name="ConfigureCalculations">
@@ -12291,34 +12221,6 @@
 				<testcase
 				id="9ba180c1-dae9-430d-9429-ffc99b49d7de"
 				name="SlowTestCases">
-					<testcase
-					id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6"
-					name="script00_StartUpApplicationForFirstTime">
-						<setup
-						id="763f0853-5775-4f9a-8e62-69d6fefc43d6"
-						name="setup">
-							<testmodule
-							id="ee496c34-0bd1-4128-b6aa-55e789fa3c85"
-							name="StartAUT">
-							</testmodule>
-						</setup>
-						<smartfoldernode
-						id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1"
-						name="WaitSomeTime">
-							<testmodule
-							id="612bb17a-abad-4923-8fa0-f9d31990588a"
-							name="WaitForXMiliseconds">
-							</testmodule>
-						</smartfoldernode>
-						<teardown
-						id="21daf337-78d1-4703-962f-f5849e589cb5"
-						name="teardown">
-							<testmodule
-							id="39301a4c-e21a-439a-9d91-13c940f1db2c"
-							name="CloseAUT">
-							</testmodule>
-						</teardown>
-					</testcase>
 					<testcase
 					id="399c5dcc-7c81-4475-8469-6cb801148d86"
 					name="script17_Scenario’s_opstellen">
@@ -26180,9 +26082,6 @@
 			id="6eaf83a3-5a9a-47bf-9450-6a2c08942924">
 			</testcontainer>
 			<testcontainer
-			id="6ecd9215-a5dd-4e08-91ed-0ba345b942a1">
-			</testcontainer>
-			<testcontainer
 			id="6eeb4fc3-c4f8-4d8a-8fdf-e5bfc8ccd57f">
 			</testcontainer>
 			<testcontainer
@@ -26547,9 +26446,6 @@
 			</testcontainer>
 			<testcontainer
 			id="d49a708b-51da-4be2-8094-9bdf8f16a7f4">
-			</testcontainer>
-			<testcontainer
-			id="d5828e8f-de4d-4e9b-b468-83eaf835c0b6">
 			</testcontainer>
 			<testcontainer
 			id="d7c2afd3-bb18-4ad3-a96a-d0770366c396">

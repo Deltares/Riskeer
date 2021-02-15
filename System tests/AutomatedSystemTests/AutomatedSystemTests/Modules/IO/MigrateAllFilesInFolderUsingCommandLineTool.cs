@@ -76,7 +76,7 @@ namespace AutomatedSystemTests.Modules.IO
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
-                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >borrame.log";
+                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >migration.log";
                 RunCommand(commandToRun);
                 }
         }
