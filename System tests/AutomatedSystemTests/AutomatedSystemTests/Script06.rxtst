@@ -1930,7 +1930,7 @@
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
-			VideoRecordingMode="Off"
+			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
 			enabletracingscreenshots="True"
 			id="aeadcf4c-d1da-4486-9f6c-a36722b66876"
@@ -4904,5 +4904,11 @@
 		</testconfiguration>
 	</testconfigurations>
 	<references>
+		<reference>
+			Newtonsoft.Json.dll
+		</reference>
+		<reference>
+			Ranorex Automation Helpers.dll
+		</reference>
 	</references>
 </testsuitedoc>
