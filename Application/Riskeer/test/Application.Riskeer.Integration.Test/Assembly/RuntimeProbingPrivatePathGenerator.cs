@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using Riskeer.Common.Util;
 
@@ -60,7 +61,7 @@ namespace Application.Riskeer.Integration.Test.Assembly
         {
             privatePath += assemblyDirectory + ";";
 
-            foreach (string directory in Directory.GetDirectories(assemblyDirectory))
+            foreach (string directory in Directory.GetDirectories(assemblyDirectory).Where(d => !d.Contains("Standalone")))
             {
                 AddAssemblyPathsRecursively(directory, ref privatePath);
             }
