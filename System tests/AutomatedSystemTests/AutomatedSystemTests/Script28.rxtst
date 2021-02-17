@@ -1501,7 +1501,7 @@
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
-			VideoRecordingMode="Off"
+			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
 			enabletracingscreenshots="True"
 			id="a000d6fa-0eb3-453d-8a12-2cd5c294bee2"
@@ -1511,7 +1511,7 @@
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
-			reporttemplatefolder=""
+			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<smartfoldernode
@@ -2185,10 +2185,14 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="db4db05f-327a-4bbb-bbad-5256af6b24b6"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
 			type="UserCode">
+				<description>
+					<![CDATA[Cannot migrate from previous versions (results would be deleted) and cannot migrate from current version (not supported)]]>
+				</description>
 				<databinding>
 					<var
 					dataname="folderProjectPreviousRelease"

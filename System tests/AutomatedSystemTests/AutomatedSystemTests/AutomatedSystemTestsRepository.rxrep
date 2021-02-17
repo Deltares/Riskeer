@@ -1878,7 +1878,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					name="LastCellMessage"
 					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bericht']
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']/cell[@accessiblename&gt;'Bericht']
 					</item>
 					<item
 					addcaps="cell,accessible"
@@ -1902,10 +1902,10 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;' Row']
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']/cell[@accessiblename&gt;' Row']
 					</item>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']
+						/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']
 					</basepath>
 				</folder>
 				<basepath>

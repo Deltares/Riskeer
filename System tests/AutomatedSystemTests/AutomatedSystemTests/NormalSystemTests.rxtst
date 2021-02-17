@@ -29660,7 +29660,7 @@
 		</DataSource>
 		<DataSource
 		id="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
-		lastknownrowcount="18"
+		lastknownrowcount="17"
 		name="script06_DataForSectionsInAllFMs"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -30060,28 +30060,6 @@
 					</td>
 					<td>
 						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-					</td>
-					<td>
-						X:\script06\reference\Generic_3Sections.csv
-					</td>
-					<td>
-						X:\script06\reference\Generic_5Sections.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						Traject&gt;Duinwaterkering - Duinafslag&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						Traject&gt;Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						Traject&gt;Duinwaterkering - Duinafslag&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 					</td>
