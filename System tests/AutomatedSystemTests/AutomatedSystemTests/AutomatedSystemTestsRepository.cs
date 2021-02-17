@@ -7472,7 +7472,7 @@ namespace AutomatedSystemTests
             /// Creates a new LastRowMessage  folder.
             /// </summary>
             public LastRowMessageFolder(RepoGenBaseFolder parentFolder) :
-                    base("LastRowMessage", "row[@accessiblename='Row 0']", parentFolder, 30000, null, false, "b8b81b1e-3805-45e2-bbbf-bd069416fe50", "")
+                    base("LastRowMessage", "row[@accessiblename<' 0']", parentFolder, 30000, null, false, "b8b81b1e-3805-45e2-bbbf-bd069416fe50", "")
             {
                 _lastcellmessageInfo = new RepoItemInfo(this, "LastCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "073038e2-924e-4a9e-b82b-1d992e9dd9ce");
                 _lastcelliconInfo = new LastCellIconInfoClass(this);
