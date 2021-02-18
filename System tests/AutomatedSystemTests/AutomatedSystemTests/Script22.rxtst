@@ -1251,7 +1251,7 @@
 				<parameters>
 					<param
 					name="fileToOpen"
-					value="X:\script22\currentVersion\Project_assemblage_22.risk">
+					value="X:\script22\currentRelease\Project_assemblage_22.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
