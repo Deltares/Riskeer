@@ -114,11 +114,15 @@
 					</param>
 					<param
 					name="migrationSourceFolder"
-					value="X:\script15\previous">
+					value="X:\script15\previousRelease">
 					</param>
 					<param
 					name="migrationTargetFolder"
-					value="X:\script15\input">
+					value="X:\script15\currentRelease">
+					</param>
+					<param
+					name="filterRiskeerProjects"
+					value="*.risk">
 					</param>
 				</parameters>
 			</testcase>
@@ -253,7 +257,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\input\Project_15a_15b_15c_zonder_resultaten.risk">
+					value="X:\script15\currentRelease\Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -605,7 +609,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\External\Project_15d_zonder_resultaten.risk">
+					value="X:\script15\currentRelease\Project_15d_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1953,6 +1957,29 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskeerProjects"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a0157b87-e5a5-40ad-8a7a-568786c17fcc"
 			name="SetRangeLoopSeparateCalculationsBeforeChangeClimateScenario">
@@ -2809,6 +2836,9 @@
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
 			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
 				<databinding>
 					<var
 					dataname="migrationSourceFolder"
@@ -3550,6 +3580,10 @@
 							<testmodule
 							id="ae153244-59f1-46c6-9246-1be63f6377ab"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
+							name="DeleteAllSearchFilteredFiles">
 							</testmodule>
 							<testmodule
 							id="cf7dacec-fefd-4383-9e15-403cbd95220f"
