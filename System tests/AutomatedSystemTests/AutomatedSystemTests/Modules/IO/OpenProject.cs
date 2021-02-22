@@ -105,48 +105,50 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            ValidateFileExists(fileName);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key 'Ctrl+O' Press with focus on 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(2));
             Keyboard.PrepareFocus(repo.RiskeerMainWindow.Self);
             Keyboard.Press(System.Windows.Forms.Keys.O | System.Windows.Forms.Keys.Control, Keyboard.DefaultScanCode, Keyboard.DefaultKeyPressTime, 1, true);
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(4));
             
-            Report.Log(ReportLevel.Info, "User", fileName, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "User", fileName, new RecordItemIndex(5));
             
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileName' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileName' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(6));
             repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileName);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(7));
             repo.OpenDialog.ButtonOpen.Click();
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(8));
             Delay.Duration(300, false);
             
             Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(10));
             Delay.Duration(300, false);
             
             // Wait until file has been loaded and open dialog has been closed
-            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(11));
             repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(11));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(12));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(30000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(12));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(13));
             Delay.Duration(1000, false);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotContains (Text!>'Openen van project is mislukt.') on item 'RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessage'.", repo.RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, new RecordItemIndex(13));
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotContains (Text!>'Openen van project is mislukt.') on item 'RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessage'.", repo.RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, new RecordItemIndex(14));
             Validate.AttributeNotContains(repo.RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, "Text", "Openen van project is mislukt.");
             
         }

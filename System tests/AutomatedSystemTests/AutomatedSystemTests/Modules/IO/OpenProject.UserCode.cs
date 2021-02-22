@@ -58,5 +58,15 @@ namespace AutomatedSystemTests.Modules.IO
             } catch(Exception) { }
         }
 
+        public void ValidateFileExists(string fileName)
+        {
+            if (!System.IO.File.Exists(fileName))
+                {
+                // skip the iteration in case of missing file
+                throw new RanorexException("File Does not exist! File: " + fileName); 
+                }
+            else
+                Report.Log(ReportLevel.Success, "Validation", "File " + fileName + " exists.");
+        }
     }
 }

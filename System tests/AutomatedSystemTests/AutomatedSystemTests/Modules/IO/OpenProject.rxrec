@@ -33,6 +33,31 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
+		<userrecorditem
+		classname="OpenProject"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateFileExists"
+		namespace="AutomatedSystemTests.Modules.IO"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="a1a22577-9d4d-4bd2-8961-4510b1e7342d">
+				<argument
+				argname="fileName"
+				id="ecd6b9ef-5705-4622-9ab9-dc92179d40f1"
+				variable="fileName">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
