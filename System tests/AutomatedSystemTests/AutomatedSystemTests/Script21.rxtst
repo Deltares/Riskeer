@@ -733,6 +733,12 @@
 					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
 					variablename="scriptOutputPath">
 					</var>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="b8d4cd98-c368-4f81-a1b8-d36930cb6da9"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
