@@ -35,7 +35,7 @@ mode="Global">
 	<recorditems>
 		<userrecorditem
 		classname="OpenProject"
-		enabled="True"
+		enabled="False"
 		isexternaltestmethod="False"
 		methodname="ValidateFileExists"
 		namespace="AutomatedSystemTests.Modules.IO"

@@ -105,7 +105,7 @@ namespace AutomatedSystemTests.Modules.IO
 
             Init();
 
-            ValidateFileExists(fileName);
+            //ValidateFileExists(fileName);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow' at UpperCenter.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Self.Click(Location.UpperCenter);

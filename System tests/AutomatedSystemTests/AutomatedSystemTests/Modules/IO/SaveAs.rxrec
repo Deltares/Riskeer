@@ -1269,6 +1269,15 @@ rr/oISf9+0/wq9RQB//Z
 				</path>
 			</info>
 		</WaitForRecordItem>
+		<explicitdelayitem
+		duration="2000ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

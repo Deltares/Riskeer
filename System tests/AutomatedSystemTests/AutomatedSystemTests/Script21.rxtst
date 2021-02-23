@@ -728,18 +728,20 @@
 				</description>
 				<databinding>
 					<var
-					dataname="relativePathFileToOpen"
-					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileName">
-					</var>
-					<var
 					dataname="scriptOutputFolder"
 					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
 					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
@@ -2934,10 +2936,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="FileToOpen"
+			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
 			id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
-			name="OpenFaalkansProject">
+			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
 			<testmodule
 			id="f4bb0466-46cd-47a3-b418-dba6d0f68d9e"
@@ -3350,7 +3352,7 @@
 							name="Simple_Assessment">
 								<smartfoldernode
 								id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
-								name="OpenFaalkansProject">
+								name="OpenDetailedFaalkansProject">
 									<testmodule
 									id="24686253-a2bd-4e01-9c20-8dc7e178fb8e"
 									name="OpenProject">
