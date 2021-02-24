@@ -82,6 +82,7 @@ namespace AutomatedSystemTests.Modules.Wait
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(0));
             Delay.Duration(500, false);
             
+            // Wait for 4 hours until calculation has finished.
             MergeScreenshotAndWaitUntilDialogClosed(repo.ActivityProgressDialog.SelfInfo);
             Delay.Milliseconds(0);
             

@@ -1817,6 +1817,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="900b704e-770b-4187-9dea-07e27f4cbb24"
+			name="InterruptCalculationsAt2ndTask">
+			</smartfoldernode>
 			<testmodule
 			id="92d80658-cb18-4e58-9c15-6d4dcb6dc248"
 			name="SelectGenericItemInProjectExplorer"
@@ -3561,6 +3565,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d"
+			name="WaitForAllCalculationsToFinish">
+			</smartfoldernode>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -3677,10 +3685,14 @@
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
-									<testmodule
-									id="e77336f0-b76b-4947-ac5d-7758d25c0c5c"
-									name="PressCancelDialogAtTaskText">
-									</testmodule>
+									<smartfoldernode
+									id="900b704e-770b-4187-9dea-07e27f4cbb24"
+									name="InterruptCalculationsAt2ndTask">
+										<testmodule
+										id="e77336f0-b76b-4947-ac5d-7758d25c0c5c"
+										name="PressCancelDialogAtTaskText">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="d1d8d24b-9d2c-4c1e-80f4-0410b69cbcc4"
 									name="ValidateAfterCalculationsHaveBeenInterrupted">
@@ -3825,10 +3837,14 @@
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
-									<testmodule
-									id="3dbc413a-f7f6-490f-940b-4374717d13a2"
-									name="WaitUntilAllCalculationsHaveBeenCarriedOut">
-									</testmodule>
+									<smartfoldernode
+									id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d"
+									name="WaitForAllCalculationsToFinish">
+										<testmodule
+										id="3dbc413a-f7f6-490f-940b-4374717d13a2"
+										name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="0436f3cb-d85c-41d9-80ef-c80ca62925e9"
@@ -10382,6 +10398,9 @@
 			id="8df05726-7bd6-44eb-86e8-fefc1d9cc88b">
 			</testcontainer>
 			<testcontainer
+			id="900b704e-770b-4187-9dea-07e27f4cbb24">
+			</testcontainer>
+			<testcontainer
 			id="9641c767-1998-472a-9f7e-b031819cb143">
 			</testcontainer>
 			<testcontainer
@@ -10497,6 +10516,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fe69f44f-870d-45af-aaed-6672764eb387">
+			</testcontainer>
+			<testcontainer
+			id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
