@@ -2,6 +2,56 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			enabled="False"
+			id="3cc174ab-03d8-47ce-a56b-eee4eeda5711"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
+					variablename="scriptOutputFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testcase
+			id="3ff89539-4b10-4a5f-8a7b-355c7233b5dc"
+			name="TestCase">
+			</testcase>
+			<setup
+			id="736da658-010b-4bd5-b479-32f0e0fb854a"
+			name="setup">
+			</setup>
+			<testmodule
+			enabled="False"
+			id="a4e039cd-0039-4989-94ec-d0245e35e1d4"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<missingdatabinding>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -21,6 +71,20 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<testmodule
+			id="bc54924a-13f0-4c4c-a712-d2f4134e9fd4"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<testcase
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 			name="WorkInProgressDavid"
@@ -36,6 +100,30 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="d6fcee89-f2cc-4e6e-a076-c534fea4ba61"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<teardown
+			id="f034a225-8245-41a5-8d0b-43451f4bade3"
+			name="teardown">
+			</teardown>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -44,6 +132,34 @@
 				<testcase
 				id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
 				name="WorkInProgressDavid">
+					<testcase
+					id="3ff89539-4b10-4a5f-8a7b-355c7233b5dc"
+					name="TestCase">
+						<setup
+						id="736da658-010b-4bd5-b479-32f0e0fb854a"
+						name="setup">
+							<testmodule
+							id="d6fcee89-f2cc-4e6e-a076-c534fea4ba61"
+							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="3cc174ab-03d8-47ce-a56b-eee4eeda5711"
+							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="a4e039cd-0039-4989-94ec-d0245e35e1d4"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
+							</testmodule>
+						</setup>
+						<teardown
+						id="f034a225-8245-41a5-8d0b-43451f4bade3"
+						name="teardown">
+							<testmodule
+							id="bc54924a-13f0-4c4c-a712-d2f4134e9fd4"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -3800,6 +3916,9 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="3ff89539-4b10-4a5f-8a7b-355c7233b5dc">
+			</testcontainer>
 			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
