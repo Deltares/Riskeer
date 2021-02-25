@@ -1230,6 +1230,18 @@
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
       <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
     </Compile>
+    <Compile Include="Modules\OpenViews\RotateMouseWheel.cs">
+      <BoundTo>1e4239d5-8bbc-4343-8595-2c63a9fa3a1e</BoundTo>
+      <DependentUpon>RotateMouseWheel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>75e4b59b-6daf-4da3-8e30-884475537755</id>
+    </Compile>
+    <Compile Include="Modules\OpenViews\RotateMouseWheel.UserCode.cs">
+      <BoundTo>1e4239d5-8bbc-4343-8595-2c63a9fa3a1e</BoundTo>
+      <DependentUpon>RotateMouseWheel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>944a39cf-7ce7-4835-a12d-af0df4cfca63</id>
+    </Compile>
     <Compile Include="Modules\OpenViews\SetActiveTabView.cs">
       <BoundTo>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</BoundTo>
       <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
@@ -2979,6 +2991,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
+    </None>
+    <None Include="Modules\OpenViews\RotateMouseWheel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1e4239d5-8bbc-4343-8595-2c63a9fa3a1e</id>
+      <recordtableid>88e2392a-b0a8-4144-8df7-e88cb547c53f</recordtableid>
     </None>
     <None Include="Modules\OpenViews\SetActiveTabView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

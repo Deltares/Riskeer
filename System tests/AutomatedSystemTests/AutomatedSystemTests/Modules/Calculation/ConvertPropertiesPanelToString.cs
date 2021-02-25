@@ -64,7 +64,10 @@ namespace AutomatedSystemTests.Modules.Calculation
                 stringifiedPropertiesPanel += "[" + index.ToString() + ";" + row.Element.GetAttributeValueText("AccessibleName") + ";" + row.Element.GetAttributeValueText("AccessibleValue") + "];";
                 index++;
             }
-            stringifiedPropertiesPanel = stringifiedPropertiesPanel.Remove(stringifiedPropertiesPanel.Length - 1);
+            if (stringifiedPropertiesPanel.Length>0) {
+                stringifiedPropertiesPanel = stringifiedPropertiesPanel.Remove(stringifiedPropertiesPanel.Length - 1);
+            }
+            
             
             Report.Log(ReportLevel.Info, stringifiedPropertiesPanel);
         }

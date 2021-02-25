@@ -59,10 +59,14 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
             
-            Ranorex.Row currentRow = propertiesPanelAdapter.As<Table>().Rows.ToList()[0];
-            currentRow.Focus();
-            currentRow.Select();
-            currentRow.PressKeys("{Right " + durationPressRightKey + "}");
+            var rowsList = propertiesPanelAdapter.As<Table>().Rows.ToList();
+            if (rowsList.Count>0) {
+                Ranorex.Row currentRow = rowsList[0];
+                currentRow.Focus();
+                currentRow.Select();
+                currentRow.PressKeys("{Right " + durationPressRightKey + "}");
+            }
+            
         }
     }
 }
