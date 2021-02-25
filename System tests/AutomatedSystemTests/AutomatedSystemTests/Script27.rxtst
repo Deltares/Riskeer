@@ -2097,6 +2097,10 @@
 			name="CalculateStructureOriginalFolderCalculations">
 			</smartfoldernode>
 			<smartfoldernode
+			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f"
+			name="SaveProjectWhenRequired">
+			</smartfoldernode>
+			<smartfoldernode
 			id="773bd48d-6095-4b0e-a359-453ebbab9cd0"
 			name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
 				<parameters>
@@ -2158,7 +2162,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="77b30075-fb9b-4927-95d8-5c4273951577"
-			name="SingleCalculation">
+			name="StandaloneCalculation">
 			</smartfoldernode>
 			<testmodule
 			id="7a70fec7-cdd1-48d9-b5da-f475cb83a915"
@@ -2206,6 +2210,37 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="7bb4d524-db01-467e-8a39-44d39421597d"
+			name="ProjectType2NeedsToBeSaved">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="script27aType2.risk">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="7c8fcab6-a906-4fb7-b211-697c7443cbc1"
 			name="ConcatenateStrings"
@@ -2275,6 +2310,40 @@
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="801a49b3-0a12-4183-9b83-173e22421e44"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="7bb4d524-db01-467e-8a39-44d39421597d"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -3245,6 +3314,10 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<smartfoldernode
+			id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
+			name="BuildPathToStandaloneCalculation">
+			</smartfoldernode>
 			<testmodule
 			id="b59aacd7-b9d0-4d7a-98b1-d09550534607"
 			name="ConcatenateStrings"
@@ -4341,13 +4414,34 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7"
-			name="SaveProject">
+			name="ProjectType1NeedsToBeSaved">
 				<parameters>
 					<param
 					name="fileNameToSave"
-					value="script27a.risk">
+					value="script27aType1.risk">
 					</param>
 				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STKWp">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="eb5b231b-1ec1-4b24-863f-ba2c3e606965"
@@ -4905,14 +4999,26 @@
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7"
-							name="SaveProject">
-								<testmodule
-								id="4c321591-4ccb-4998-9b6c-b839a13744af"
-								name="SaveAs">
-								</testmodule>
+								<smartfoldernode
+								id="768bcc76-ffdf-4ff1-86d2-a4675864f30f"
+								name="SaveProjectWhenRequired">
+									<smartfoldernode
+									id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7"
+									name="ProjectType1NeedsToBeSaved">
+										<testmodule
+										id="4c321591-4ccb-4998-9b6c-b839a13744af"
+										name="SaveAs">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="7bb4d524-db01-467e-8a39-44d39421597d"
+									name="ProjectType2NeedsToBeSaved">
+										<testmodule
+										id="801a49b3-0a12-4183-9b83-173e22421e44"
+										name="SaveAs">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -4977,23 +5083,27 @@
 									name="ReadInputOriginalCaculations">
 										<smartfoldernode
 										id="77b30075-fb9b-4927-95d8-5c4273951577"
-										name="SingleCalculation">
-											<testmodule
-											id="91730efa-5eb8-4432-a20c-5efcf3aa8bac"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="e53ee017-7665-4694-88cf-a4595a6ff161"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="1d1f0426-d3bc-4bf0-bc35-71eb0f2be0a8"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="399f7cd1-6eab-4067-b0ee-97b5ef51f3d2"
-											name="ConcatenateStrings">
-											</testmodule>
+										name="StandaloneCalculation">
+											<smartfoldernode
+											id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
+											name="BuildPathToStandaloneCalculation">
+												<testmodule
+												id="91730efa-5eb8-4432-a20c-5efcf3aa8bac"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="e53ee017-7665-4694-88cf-a4595a6ff161"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="1d1f0426-d3bc-4bf0-bc35-71eb0f2be0a8"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="399f7cd1-6eab-4067-b0ee-97b5ef51f3d2"
+												name="ConcatenateStrings">
+												</testmodule>
+											</smartfoldernode>
 											<testmodule
 											id="14c33598-00f3-4424-b4d7-c40b1d581a36"
 											name="SelectGenericItemInProjectExplorer">
@@ -6256,7 +6366,7 @@
 						STPH
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500
+						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
 						12_2_02500 Segment_12004_1D1
@@ -6320,7 +6430,7 @@
 						STBI
 					</td>
 					<td>
-						41-1 STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123
+						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
 						Vak_41-123 Vak_41-123_Segment_41009_1D2
@@ -6352,7 +6462,7 @@
 						HTKW
 					</td>
 					<td>
-						Traject 36-2 HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						'Keersluis Cuijk'
@@ -6384,7 +6494,7 @@
 						BSKW
 					</td>
 					<td>
-						Traject 34-1 BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						'Amersluis'
@@ -6416,7 +6526,7 @@
 						STKWp
 					</td>
 					<td>
-						Traject 44-2 STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
 						Kunstwerk1
@@ -6577,7 +6687,13 @@
 			id="67f96106-b81a-4d2e-bd8f-52daca8f7e7f">
 			</testcontainer>
 			<testcontainer
+			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f">
+			</testcontainer>
+			<testcontainer
 			id="773bd48d-6095-4b0e-a359-453ebbab9cd0">
+			</testcontainer>
+			<testcontainer
+			id="7bb4d524-db01-467e-8a39-44d39421597d">
 			</testcontainer>
 			<testcontainer
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33">
