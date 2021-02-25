@@ -4096,7 +4096,7 @@
 		</DataSource>
 		<DataSource
 		id="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
-		lastknownrowcount="58"
+		lastknownrowcount="60"
 		name="script29b_LayersInMapViewForTrajectAndFailureMechanisms"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4136,10 +4136,26 @@
 				</tr>
 				<tr>
 					<td>
+						Semi-probabilistische berekeningen
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Probabilistische berekeningen
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Berekeningen
 					</td>
 					<td>
-						STPH, STBI
+						STBI
 					</td>
 				</tr>
 				<tr>
@@ -4634,7 +4650,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						3-14
+						3,4,6-16
 					</td>
 					<td>
 						Traject 12-2&gt;Dijken en dammen - Piping
@@ -4651,7 +4667,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						3-14
+						5-16
 					</td>
 					<td>
 						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
@@ -4668,7 +4684,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						15-26
+						17-28
 					</td>
 					<td>
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
@@ -4685,7 +4701,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						27-38
+						29-40
 					</td>
 					<td>
 						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
@@ -4702,7 +4718,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						27-38
+						29-40
 					</td>
 					<td>
 						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk
@@ -4719,7 +4735,7 @@
 						X:\script29\currentRelease\script20cd.risk
 					</td>
 					<td>
-						27-38
+						29-40
 					</td>
 					<td>
 						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
@@ -4736,7 +4752,7 @@
 						X:\script29\currentRelease\script15abc.risk
 					</td>
 					<td>
-						39-49
+						41-51
 					</td>
 					<td>
 						Traject 28-1 (ZST)&gt;Dijken en dammen - Stabiliteit steenzetting
@@ -4753,7 +4769,7 @@
 						X:\script29\currentRelease\script15abc.risk
 					</td>
 					<td>
-						39-49
+						41-51
 					</td>
 					<td>
 						Traject 8-3 (AGK)&gt;Dijken en dammen - Golfklappen op asfaltbekleding
@@ -4770,7 +4786,7 @@
 						X:\script29\currentRelease\script15abc.risk
 					</td>
 					<td>
-						39-49
+						41-51
 					</td>
 					<td>
 						Traject 6-6 (GEBU)&gt;Dijken en dammen - Grasbekleding erosie buitentalud
@@ -4787,7 +4803,7 @@
 						X:\script29\currentRelease\script15abc.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 14-9&gt;Duinwaterkering - Duinafslag
@@ -4804,7 +4820,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 50-1&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
@@ -4821,7 +4837,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 50-1&gt;Dijken en dammen - Microstabiliteit
@@ -4838,7 +4854,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-52,54-58
+						52-54,56-60
 					</td>
 					<td>
 						Traject 50-1&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
@@ -4855,7 +4871,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
@@ -4872,7 +4888,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
@@ -4889,7 +4905,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-58
+						52-60
 					</td>
 					<td>
 						Traject 50-1&gt;Kunstwerken - Piping bij kunstwerk
@@ -4906,7 +4922,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-52,54-58
+						52-54,56-60
 					</td>
 					<td>
 						Traject 50-1&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
@@ -4923,7 +4939,7 @@
 						X:\script29\currentRelease\Project_andere.risk
 					</td>
 					<td>
-						50-52,54-58
+						52-54,56-60
 					</td>
 					<td>
 						Traject 50-1&gt;Technische innovaties - Technische innovaties
