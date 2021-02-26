@@ -682,6 +682,9 @@
 			name="SaveAs"
 			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
 			type="Recording">
+				<description>
+					<![CDATA[Save final project file]]>
+				</description>
 				<databinding>
 					<var
 					dataname="fileNameToSave"
