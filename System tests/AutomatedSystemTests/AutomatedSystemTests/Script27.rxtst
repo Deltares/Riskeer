@@ -29,6 +29,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script27bExportAndImportConfigurations"
 			errorbehavior="ContinueNextIteration"
 			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
@@ -6488,7 +6489,7 @@
 						28-1 ZST&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
 					</td>
 					<td>
-						berekening
+						dam0voorland0
 					</td>
 					<td>
 						150
@@ -6517,7 +6518,7 @@
 						8-3 AGK&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
 					</td>
 					<td>
-						berekening
+						dam1voorland1
 					</td>
 					<td>
 						150
@@ -6546,7 +6547,7 @@
 						6-6 GEBU&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
 					</td>
 					<td>
-						berekening
+						dam0voorland1
 					</td>
 					<td>
 						150
