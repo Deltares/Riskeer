@@ -25,6 +25,66 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="de3b2c38-87bc-4814-9cd7-37e09a0282e4">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+				</path>
+			</info>
+			<arguments
+			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="EnsureVisible"
+		enabled="True"
+		optional="False"
+		searchpropertyid="de3b2c38-87bc-4814-9cd7-37e09a0282e4">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+				</path>
+			</info>
+			<arguments
+			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="de3b2c38-87bc-4814-9cd7-37e09a0282e4">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="84e8db46-22cb-4998-a061-4a0b52815ee7"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+				</path>
+			</info>
+			<arguments
+			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
