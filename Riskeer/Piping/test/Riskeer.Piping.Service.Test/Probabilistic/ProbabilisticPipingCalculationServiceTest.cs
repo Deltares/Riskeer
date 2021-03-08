@@ -963,7 +963,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(
-                    "De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.",
+                    "De verschuiving van het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water.",
                     msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });

@@ -827,7 +827,7 @@
 					</param>
 					<param
 					name="pathProjectOld"
-					value="X:\script28\previousRelease\Project_samenvoegen_B.risk">
+					value="X:\script28\previousRelease\Project_samenvoegen_oud.risk">
 					</param>
 					<param
 					name="indecesAddedFMs"
@@ -4487,10 +4487,10 @@
 					<td>
 					</td>
 					<td>
-						10000
+						12000
 					</td>
 					<td>
-						14000
+						15000
 					</td>
 				</tr>
 				<tr>

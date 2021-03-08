@@ -83,7 +83,7 @@ namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
         {
             TreeItem treeitemToMove = GetTreeItemInProjectExplorerGivenPath(pathItemToMove, rootNodeInfo);
             TreeItem treeItemDestination = GetTreeItemInProjectExplorerGivenPath(pathItemDestination, rootNodeInfo);
-            
+
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Down item 'treeitemToMove' at Center.");
             treeitemToMove.MoveTo();
             Mouse.ButtonDown(System.Windows.Forms.MouseButtons.Left);

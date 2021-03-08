@@ -970,7 +970,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 		optional="False"
 		searchpropertyid="3703acb5-4eb3-45bd-993f-73c3bcc39a79"
 		waitaction="NotExists"
-		waittimeout="5000ms">
+		waittimeout="30000ms">
 			<comment>
 			</comment>
 			<bindings>
@@ -984,7 +984,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="500ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>
@@ -1008,7 +1008,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		PressCancelDialog.UserCode.cs
+		PressCancelDialogAtTaskText.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

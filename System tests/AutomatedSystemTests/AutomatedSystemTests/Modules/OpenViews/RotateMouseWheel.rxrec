@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="88e2392a-b0a8-4144-8df7-e88cb547c53f"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="RotateMouseWheel"
+	namespace="AutomatedSystemTests.Modules.OpenViews">
+	</codegen>
+	<variables>
+		<var
+		id="a534115f-640e-48c6-83f3-cd9a0b1460f9"
+		name="deltaWheelMouseVertical">
+		</var>
+	</variables>
+	<recorditems>
+		<mousewheelitem
+		delta="480"
+		duration="300ms"
+		enabled="True"
+		optional="False"
+		orientation="Vertical">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Delta"
+				variable="deltaWheelMouseVertical">
+				</binding>
+			</bindings>
+		</mousewheelitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="..\..\AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		RotateMouseWheel.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

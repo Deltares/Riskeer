@@ -214,6 +214,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup1And2CustomAssessmentTraject"
+			errorbehavior="ContinueNextIteration"
 			id="0cecaf93-6b16-47d3-93fa-8f1bae82b9d3"
 			name="FMsGroup1And2">
 			</smartfoldernode>
@@ -555,6 +556,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_FMGroup3ExpectedDetailedAssessment"
+			errorbehavior="ContinueNextIteration"
 			id="1b5f7559-247f-469a-8907-66df02b36a30"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
@@ -566,6 +568,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3DetailedAssessment"
+			errorbehavior="ContinueNextIteration"
 			id="1b9ab885-8d98-415e-800e-54f30ef0815d"
 			name="FMsGroup3">
 			</smartfoldernode>
@@ -728,18 +731,26 @@
 				</description>
 				<databinding>
 					<var
-					dataname="relativePathFileToOpen"
-					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileName">
-					</var>
-					<var
 					dataname="scriptOutputFolder"
 					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
 					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
 					variablename="scriptOutputPath">
 					</var>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="b8d4cd98-c368-4f81-a1b8-d36930cb6da9"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
@@ -798,6 +809,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup1DetailedAssessment"
+			errorbehavior="ContinueNextIteration"
 			id="2b2eec3e-6722-4905-a0a5-d8022ba006c6"
 			name="FMsGroup1">
 			</smartfoldernode>
@@ -1079,6 +1091,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21b_FMsGroup5NoDetailedAssessment"
+			errorbehavior="ContinueNextIteration"
 			id="4323bb7b-2766-4ec8-a5d0-5f883f5592e1"
 			name="FMsGroup5NoDetailedAssessment">
 				<parameters>
@@ -2428,6 +2441,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_FMGroup4CustomAssessmentTraject"
+			errorbehavior="ContinueNextIteration"
 			id="b08e7053-4bae-4648-9e95-2ecc72d9a68b"
 			name="FMsGroup4">
 			</smartfoldernode>
@@ -2593,6 +2607,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3And4DetailedAssessmentTypes"
+			errorbehavior="ContinueNextIteration"
 			id="c5dad796-1e2e-4ade-8840-d79abde19c45"
 			name="LoopRows">
 			</smartfoldernode>
@@ -2783,6 +2798,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_FMGroup4WithDetailedAssessmentSections"
+			errorbehavior="ContinueNextIteration"
 			id="d5930397-d1c8-4f86-9fab-7b80292af52d"
 			name="FMsGroup4WithDetailedAssessment">
 			</smartfoldernode>
@@ -2934,10 +2950,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="FileToOpen"
+			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
 			id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
-			name="OpenFaalkansProject">
+			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
 			<testmodule
 			id="f4bb0466-46cd-47a3-b418-dba6d0f68d9e"
@@ -2978,6 +2994,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3CustomAssessmentTraject"
+			errorbehavior="ContinueNextIteration"
 			id="f7b10a4e-9305-49f1-b0ae-8f74e4c5bdb1"
 			name="FMsGroup3">
 			</smartfoldernode>
@@ -3350,7 +3367,7 @@
 							name="Simple_Assessment">
 								<smartfoldernode
 								id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
-								name="OpenFaalkansProject">
+								name="OpenDetailedFaalkansProject">
 									<testmodule
 									id="24686253-a2bd-4e01-9c20-8dc7e178fb8e"
 									name="OpenProject">
@@ -4828,7 +4845,7 @@
 						Traject 12-2 STPH
 					</td>
 					<td>
-						1/64614
+						1/96344&#32;
 					</td>
 					<td>
 						8
@@ -4913,7 +4930,7 @@
 						Traject 44-2 STKWp
 					</td>
 					<td>
-						1/18820769
+						1/20412226
 					</td>
 					<td>
 						14
@@ -4933,7 +4950,7 @@
 						1/123456
 					</td>
 					<td>
-						2
+						3
 					</td>
 				</tr>
 			</table>
@@ -5330,10 +5347,13 @@
 		</DataSource>
 		<DataSource
 		id="174c91f1-fb54-4e46-860e-159d479e7ee9"
-		lastknownrowcount="4"
+		lastknownrowcount="3"
 		name="script21_FMGroup3ExpectedDetailedAssessment"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
+				<column>
+					label
+				</column>
 				<column>
 					rowIndex
 				</column>
@@ -5346,6 +5366,9 @@
 			<table>
 				<tr>
 					<th>
+						label
+					</th>
+					<th>
 						rowIndex
 					</th>
 					<th>
@@ -5353,6 +5376,9 @@
 					</th>
 				</tr>
 				<tr>
+					<td>
+						row 0 - Iv
+					</td>
 					<td>
 						0
 					</td>
@@ -5362,6 +5388,9 @@
 				</tr>
 				<tr>
 					<td>
+						row 1 - IIv
+					</td>
+					<td>
 						1
 					</td>
 					<td>
@@ -5370,18 +5399,13 @@
 				</tr>
 				<tr>
 					<td>
+						row 2 - IIIv
+					</td>
+					<td>
 						2
 					</td>
 					<td>
 						IIIv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						3
-					</td>
-					<td>
-						VIIv
 					</td>
 				</tr>
 			</table>

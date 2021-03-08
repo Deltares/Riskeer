@@ -812,7 +812,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(
-                    "Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.",
+                    "Het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water.",
                     msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });

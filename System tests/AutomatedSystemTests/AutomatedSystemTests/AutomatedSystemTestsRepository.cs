@@ -7715,6 +7715,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _wisuitvoerInfo;
             RepoItemInfo _zoomnaarallesInfo;
             RepoItemInfo _nieuweverticaletabgroepInfo;
+            RepoItemInfo _newverticaltabgroupInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -7754,6 +7755,7 @@ namespace AutomatedSystemTests
                 _wisuitvoerInfo = new RepoItemInfo(this, "WisUitvoer", "menuitem[@accessiblename='Wis uitvoer...']", 30000, null, "34b51270-6c61-4914-ad78-6119cf59670e");
                 _zoomnaarallesInfo = new RepoItemInfo(this, "ZoomNaarAlles", "menuitem[@accessiblename='Zoom naar alles']", 30000, null, "5acc1275-2883-4570-affa-a36a1d5dd4df");
                 _nieuweverticaletabgroepInfo = new RepoItemInfo(this, "NieuweVerticaleTabgroep", "?/?/text[@caption='Nieuwe verticale tabgroep']", 30000, null, "e5a4d4cc-3dc6-4ac7-859e-347a1cf90541");
+                _newverticaltabgroupInfo = new RepoItemInfo(this, "NewVerticalTabGroup", "?/?/text[@caption~'ertical']", 30000, null, "3ebcc52e-31c4-467c-b814-ed00988e981f");
             }
 
             /// <summary>
@@ -8545,6 +8547,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _nieuweverticaletabgroepInfo;
+                }
+            }
+
+            /// <summary>
+            /// The NewVerticalTabGroup item.
+            /// </summary>
+            [RepositoryItem("3ebcc52e-31c4-467c-b814-ed00988e981f")]
+            public virtual Ranorex.Text NewVerticalTabGroup
+            {
+                get
+                {
+                    return _newverticaltabgroupInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The NewVerticalTabGroup item info.
+            /// </summary>
+            [RepositoryItemInfo("3ebcc52e-31c4-467c-b814-ed00988e981f")]
+            public virtual RepoItemInfo NewVerticalTabGroupInfo
+            {
+                get
+                {
+                    return _newverticaltabgroupInfo;
                 }
             }
         }

@@ -114,11 +114,15 @@
 					</param>
 					<param
 					name="migrationSourceFolder"
-					value="X:\script15\previous">
+					value="X:\script15\previousRelease">
 					</param>
 					<param
 					name="migrationTargetFolder"
-					value="X:\script15\input">
+					value="X:\script15\currentRelease">
+					</param>
+					<param
+					name="filterRiskeerProjects"
+					value="*.risk">
 					</param>
 				</parameters>
 			</testcase>
@@ -253,7 +257,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\input\Project_15a_15b_15c_zonder_resultaten.risk">
+					value="X:\script15\currentRelease\Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -533,6 +537,9 @@
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
 			type="Recording">
+				<description>
+					<![CDATA[Open project Project_15a_15b_15c]]>
+				</description>
 				<databinding>
 					<var
 					dataname="fielNameToOpen"
@@ -605,7 +612,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\External\Project_15d_zonder_resultaten.risk">
+					value="X:\script15\currentRelease\Project_15d_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1813,6 +1820,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="900b704e-770b-4187-9dea-07e27f4cbb24"
+			name="InterruptCalculationsAt2ndTask">
+			</smartfoldernode>
 			<testmodule
 			id="92d80658-cb18-4e58-9c15-6d4dcb6dc248"
 			name="SelectGenericItemInProjectExplorer"
@@ -1952,6 +1963,30 @@
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			enabled="False"
+			id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskeerProjects"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="a0157b87-e5a5-40ad-8a7a-568786c17fcc"
@@ -2805,10 +2840,14 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="cf7dacec-fefd-4383-9e15-403cbd95220f"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
 			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
 				<databinding>
 					<var
 					dataname="migrationSourceFolder"
@@ -3529,6 +3568,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d"
+			name="WaitForAllCalculationsToFinish">
+			</smartfoldernode>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -3550,6 +3593,10 @@
 							<testmodule
 							id="ae153244-59f1-46c6-9246-1be63f6377ab"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
+							name="DeleteAllSearchFilteredFiles">
 							</testmodule>
 							<testmodule
 							id="cf7dacec-fefd-4383-9e15-403cbd95220f"
@@ -3641,10 +3688,14 @@
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
-									<testmodule
-									id="e77336f0-b76b-4947-ac5d-7758d25c0c5c"
-									name="PressCancelDialogAtTaskText">
-									</testmodule>
+									<smartfoldernode
+									id="900b704e-770b-4187-9dea-07e27f4cbb24"
+									name="InterruptCalculationsAt2ndTask">
+										<testmodule
+										id="e77336f0-b76b-4947-ac5d-7758d25c0c5c"
+										name="PressCancelDialogAtTaskText">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="d1d8d24b-9d2c-4c1e-80f4-0410b69cbcc4"
 									name="ValidateAfterCalculationsHaveBeenInterrupted">
@@ -3789,10 +3840,14 @@
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
-									<testmodule
-									id="3dbc413a-f7f6-490f-940b-4374717d13a2"
-									name="WaitUntilAllCalculationsHaveBeenCarriedOut">
-									</testmodule>
+									<smartfoldernode
+									id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d"
+									name="WaitForAllCalculationsToFinish">
+										<testmodule
+										id="3dbc413a-f7f6-490f-940b-4374717d13a2"
+										name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="0436f3cb-d85c-41d9-80ef-c80ca62925e9"
@@ -10346,6 +10401,9 @@
 			id="8df05726-7bd6-44eb-86e8-fefc1d9cc88b">
 			</testcontainer>
 			<testcontainer
+			id="900b704e-770b-4187-9dea-07e27f4cbb24">
+			</testcontainer>
+			<testcontainer
 			id="9641c767-1998-472a-9f7e-b031819cb143">
 			</testcontainer>
 			<testcontainer
@@ -10461,6 +10519,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fe69f44f-870d-45af-aaed-6672764eb387">
+			</testcontainer>
+			<testcontainer
+			id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

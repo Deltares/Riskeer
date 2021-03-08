@@ -42,6 +42,7 @@ mode="Global">
 		namespace="AutomatedSystemTests.Modules.Wait"
 		optional="False">
 			<comment>
+				Wait for 4 hours until calculation has finished.
 			</comment>
 			<bindings>
 			</bindings>

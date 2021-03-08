@@ -73,22 +73,29 @@ namespace AutomatedSystemTests.Modules.Validation
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
-                var list1 = string1PropertiesPanel.Substring(1,string1PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
-                var list2 = string2PropertiesPanel.Substring(1,string2PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
-                int maxIndex = Math.Min(list1.Length, list2.Length);
-                if (maximumNumberOfRowsToValidate!="") {
-                    maxIndex = Math.Min(maxIndex, Int32.Parse(maximumNumberOfRowsToValidate));
+            string[] list1 = new string[]{};
+            string[] list2 = new string[]{};
+            if (string1PropertiesPanel.Length>0) {
+                list1 = string1PropertiesPanel.Substring(1,string1PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
+            }
+            if (string2PropertiesPanel.Length>0) {
+                list2 = string2PropertiesPanel.Substring(1,string2PropertiesPanel.Length-2).Split(new[] { "];[" }, StringSplitOptions.None);
+            }
+            
+            int maxIndex = Math.Min(list1.Length, list2.Length);
+            if (maximumNumberOfRowsToValidate!="") {
+                maxIndex = Math.Min(maxIndex, Int32.Parse(maximumNumberOfRowsToValidate));
+            }
+            for (int idx = 0; idx < maxIndex; idx++) {
+                var elements1 = list1[idx].Split(';');
+                var elements2 = list2[idx].Split(';');
+                if (elements1[1]==elements2[1]) {
+                    Validate.AreEqual(elements1[2], elements2[2], "Validating values for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
+                } else {
+                    // Will give an error showing different Accessible names
+                    Validate.AreEqual(elements1[1], elements2[1], "Validating parameter names for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
                 }
-                for (int idx = 0; idx < maxIndex; idx++) {
-                    var elements1 = list1[idx].Split(';');
-                    var elements2 = list2[idx].Split(';');
-                    if (elements1[1]==elements2[1]) {
-                        Validate.AreEqual(elements1[2], elements2[2], "Validating values for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
-                    } else {
-                        // Will give an error showing different Accessible names
-                        Validate.AreEqual(elements1[1], elements2[1], "Validating parameter names for row= " + elements1[0] + ", parameter name = " + elements1[1] + ". Expected: {0}       Actual: {1}");
-                    }
-                }
+            }
         }
     }
 }

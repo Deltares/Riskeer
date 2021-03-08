@@ -2296,6 +2296,15 @@ FjcAAAAASUVORK5CYII=
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/?/?/text[@caption='Nieuwe verticale tabgroep']
 			</item>
+			<item
+			addcaps="text,wpfelement,wpfgroupelement"
+			capname="text"
+			id="3ebcc52e-31c4-467c-b814-ed00988e981f"
+			name="NewVerticalTabGroup"
+			refimgid="2c3d882a-6795-4f54-8828-02a2a50d2404"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/?/?/text[@caption~'ertical']
+			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
 			</basepath>

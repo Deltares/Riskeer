@@ -984,7 +984,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="500ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>

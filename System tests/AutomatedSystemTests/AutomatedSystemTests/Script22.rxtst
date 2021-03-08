@@ -841,6 +841,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="9882e068-be69-493b-8d9b-3ad912df060c"
+			name="SaveProject">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="script22.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script22_d_ValidationAfterManualAssessment"
 			id="99662edd-33d5-47ba-b495-ace7af131f41"
 			name="ValidateValuesInTable">
@@ -1251,7 +1261,7 @@
 				<parameters>
 					<param
 					name="fileToOpen"
-					value="X:\script22\currentVersion\Project_assemblage_22.risk">
+					value="X:\script22\currentRelease\Project_assemblage_22.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1299,6 +1309,40 @@
 			id="f5420ec8-877b-4267-a99d-d4b20dc88a34"
 			name="OpenSectionsCombinedView">
 			</smartfoldernode>
+			<testmodule
+			id="f7a2c461-12ca-484c-a96f-9479960f6386"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="9882e068-be69-493b-8d9b-3ad912df060c"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="f8c57e86-3ccc-402c-a567-d184de47414f"
 			name="CloseViewCentralPanelWithFocus"
@@ -1854,6 +1898,14 @@
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
+						<smartfoldernode
+						id="9882e068-be69-493b-8d9b-3ad912df060c"
+						name="SaveProject">
+							<testmodule
+							id="f7a2c461-12ca-484c-a96f-9479960f6386"
+							name="SaveAs">
+							</testmodule>
+						</smartfoldernode>
 						<teardown
 						id="4584882f-0c24-4d1d-b35a-71e6c594cdf6"
 						name="teardown">
@@ -2275,6 +2327,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9669a194-aad9-4149-8d16-f92fc720643f">
+			</testcontainer>
+			<testcontainer
+			id="9882e068-be69-493b-8d9b-3ad912df060c">
 			</testcontainer>
 			<testcontainer
 			id="99662edd-33d5-47ba-b495-ace7af131f41">
