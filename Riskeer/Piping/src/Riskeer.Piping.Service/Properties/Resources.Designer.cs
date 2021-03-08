@@ -282,7 +282,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        ///   Looks up a localized string similar to De verschuiving van het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water..
         /// </summary>
         internal static string ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight {
             get {
@@ -312,7 +312,7 @@ namespace Riskeer.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        ///   Looks up a localized string similar to Het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water..
         /// </summary>
         internal static string SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
             get {

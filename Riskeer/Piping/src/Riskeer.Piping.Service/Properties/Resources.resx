@@ -160,10 +160,10 @@
     <value>Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.</value>
   </data>
   <data name="SemiProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
-    <value>Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
+    <value>Het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water.</value>
   </data>
   <data name="ProbabilisticPipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_shift_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
-    <value>De verschuiving van het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
+    <value>De verschuiving van het verzadigd gewicht van de deklaag moet groter zijn dan of gelijk zijn aan het volumiek gewicht van water.</value>
   </data>
   <data name="ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0" xml:space="preserve">
     <value>Uitvoeren sterkte berekening voor {0}</value>
