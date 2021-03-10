@@ -6,11 +6,15 @@ ren %_rxzlog% zippedReport.zip
 md unzipped
 powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('zippedReport.zip', 'unzipped'); }"
 FOR /F %%G IN ('dir /b /ad unzipped\*images*') DO set _d1=%%G
-md %_d1%
-xcopy unzipped\%_d1% %_d1% >xcopy.log
+IF DEFINED _d1 (
+  md %_d1%
+  xcopy unzipped\%_d1% %_d1% >xcopy.log
+)
 FOR /F %%G IN ('dir /b /ad unzipped\*videos*') DO set _d2=%%G
-md %_d2%
-xcopy unzipped\%_d2% %_d2% >xcopy.log
+IF DEFINED _d2 (
+  md %_d2%
+  xcopy unzipped\%_d2% %_d2% >xcopy.log
+)
 rd /s /q unzipped
 del xcopy.log
 
