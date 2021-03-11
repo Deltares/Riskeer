@@ -74,10 +74,13 @@ namespace AutomatedSystemTests.Modules.IO
             
             foreach (var sourceFilePath in Directory.GetFiles(sourceFolder, "*.risk"))
                 {
+                Report.Info("Migrating project file: " + sourceFilePath);
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
                 string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >migration.log";
                 RunCommand(commandToRun);
+                Delay.Duration(new Duration(300));
+                ValidateMigratedFilesExists(destinationFilePath);
                 }
         }
         
@@ -91,6 +94,16 @@ namespace AutomatedSystemTests.Modules.IO
             process.StartInfo = startInfo;
             process.Start();
             process.WaitForExit();
+        }
+        
+        private void ValidateMigratedFilesExists(string pathMigratedFile)
+        {
+            Report.Info("Validating if migrated project file has been created...");
+            if (File.Exists(pathMigratedFile)) {
+                    Report.Info(pathMigratedFile + " has been found in migration destination folder.");
+                } else {
+                    Report.Error(pathMigratedFile + " has NOT been found in migration destination folder.");
+                }
         }
     }
 }
