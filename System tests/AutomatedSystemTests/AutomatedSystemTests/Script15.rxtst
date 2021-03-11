@@ -1965,7 +1965,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
 			name="DeleteAllSearchFilteredFiles"
 			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
@@ -2840,7 +2839,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="cf7dacec-fefd-4383-9e15-403cbd95220f"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
