@@ -172,7 +172,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="migrationTargetFolder"
+					dataname="scriptOutputFolder"
 					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
 					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
 					variablename="targetFolder">
@@ -353,7 +353,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script18\currentRelease\script17b.risk">
+					value="script17b.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>

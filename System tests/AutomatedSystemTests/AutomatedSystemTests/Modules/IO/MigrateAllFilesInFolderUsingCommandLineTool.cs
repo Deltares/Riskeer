@@ -77,7 +77,7 @@ namespace AutomatedSystemTests.Modules.IO
                 Report.Info("Migrating project file: " + sourceFilePath);
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
-                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe " + @sourceFilePath + " " + @destinationFilePath + " >migration.log";
+                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
                 RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
                 ValidateMigratedFilesExists(destinationFilePath);
