@@ -77,7 +77,8 @@ namespace AutomatedSystemTests.Modules.IO
                 Report.Info("Migrating project file: " + sourceFilePath);
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
-                string commandToRun = "/C ..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
+                string pathMigrationProgram = GetPathMigrationProgram();
+                string commandToRun = "/C " + pathMigrationProgram + " \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
                 RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
                 ValidateMigratedFilesExists(destinationFilePath);
@@ -104,6 +105,23 @@ namespace AutomatedSystemTests.Modules.IO
                 } else {
                     Report.Error(pathMigratedFile + " has NOT been found in migration destination folder.");
                 }
+        }
+        
+        private string GetPathMigrationProgram()
+        {
+            string pathMigrationDebug =   "..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe";
+            string pathMigrationRelease = "..\\..\\..\\..\\..\\bin\\Release\\Migratiehulpprogramma.exe";
+            string pathMigrationProgramFound;
+            if (File.Exists(pathMigrationDebug)) {
+                pathMigrationProgramFound = pathMigrationDebug;
+                } else if (File.Exists(pathMigrationRelease)) {
+                pathMigrationProgramFound = pathMigrationRelease;
+                } else {
+                Report.Error("Migration program not found!!");
+                return "";
+                       }
+                Report.Info("Migration program found at " + pathMigrationProgramFound);
+                return pathMigrationProgramFound;
         }
     }
 }
