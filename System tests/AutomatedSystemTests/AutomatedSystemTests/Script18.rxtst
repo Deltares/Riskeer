@@ -163,6 +163,43 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="6fdd63f3-98dc-4de5-9c17-540461667cff"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="migrationSourceFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="migrationSourceFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="71878c99-ebd8-40e3-8d1e-ea11162a6757"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
 			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
@@ -272,6 +309,43 @@
 			ref="c755c323-fb6e-4704-8789-dd16a021e929"
 			type="UserCode">
 			</testmodule>
+			<testmodule
+			id="a8b11b98-fa66-4313-a563-b15f8fd01487"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="filterRiskeerProjects"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskeerProjects"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="ac46696e-02c7-477f-b922-a2e5b1422738"
@@ -279,7 +353,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script18\input\script17b.risk">
+					value="X:\script18\currentRelease\script17b.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -373,6 +447,18 @@
 					<param
 					name="scriptOutputFolder"
 					value="">
+					</param>
+					<param
+					name="filterRiskeerProjects"
+					value="*.risk">
+					</param>
+					<param
+					name="migrationTargetFolder"
+					value="X:\script18\currentRelease">
+					</param>
+					<param
+					name="migrationSourceFolder"
+					value="X:\script18\previousRelease">
 					</param>
 				</parameters>
 			</testcase>
@@ -497,6 +583,14 @@
 							<testmodule
 							id="c8703f35-d335-4cec-ba04-8745ac13e515"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="a8b11b98-fa66-4313-a563-b15f8fd01487"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="6fdd63f3-98dc-4de5-9c17-540461667cff"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
