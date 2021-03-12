@@ -79,7 +79,8 @@ namespace AutomatedSystemTests.Modules.IO
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
                 string pathMigrationProgram = GetPathMigrationProgram();
                 string commandToRun = "/C " + pathMigrationProgram + " \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
-                RunCommand(commandToRun);
+                RunCommand("/C dir ..\\..\\..\\..\\..\\*.exe /s /b >output\\script18\\exeFiles.log");
+                //RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
                 ValidateMigratedFilesExists(destinationFilePath);
                 }
