@@ -79,9 +79,7 @@ namespace AutomatedSystemTests.Modules.IO
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
                 string pathMigrationProgram = GetPathMigrationProgram();
                 string commandToRun = "/C " + pathMigrationProgram + " \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
-                RunCommand("/C cd >output\\script18\\cd.log");
-                RunCommand("/C dir ..\\..\\..\\..\\..\\*.exe /s /b >output\\script18\\exeFiles.log");
-                //RunCommand(commandToRun);
+                RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
                 ValidateMigratedFilesExists(destinationFilePath);
                 }
@@ -112,12 +110,12 @@ namespace AutomatedSystemTests.Modules.IO
         private string GetPathMigrationProgram()
         {
             string pathMigrationDebug =   "..\\..\\..\\..\\..\\bin\\Debug\\Migratiehulpprogramma.exe";
-            string pathMigrationRelease = "..\\..\\..\\..\\..\\bin\\Release\\Migratiehulpprogramma.exe";
+            string pathMigrationAgent = "bin\\Release\\Migratiehulpprogramma.exe";
             string pathMigrationProgramFound;
             if (File.Exists(pathMigrationDebug)) {
                 pathMigrationProgramFound = pathMigrationDebug;
-                } else if (File.Exists(pathMigrationRelease)) {
-                pathMigrationProgramFound = pathMigrationRelease;
+                } else if (File.Exists(pathMigrationAgent)) {
+                pathMigrationProgramFound = pathMigrationAgent;
                 } else {
                 Report.Error("Migration program not found!!");
                 return "";
