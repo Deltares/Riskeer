@@ -103,21 +103,13 @@ namespace Riskeer.Integration.Plugin.Merge
             CloseViewsForFailureMechanism(mergeData.MergePiping, assessmentSection.Piping);
             CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards);
             CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityInwards, assessmentSection.MacroStabilityInwards);
-            CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityOutwards, assessmentSection.MacroStabilityOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeMicrostability, assessmentSection.Microstability);
             CloseViewsForFailureMechanism(mergeData.MergeStabilityStoneCover, assessmentSection.StabilityStoneCover);
             CloseViewsForFailureMechanism(mergeData.MergeWaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover);
-            CloseViewsForFailureMechanism(mergeData.MergeWaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover);
             CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards);
             CloseViewsForFailureMechanism(mergeData.MergeHeightStructures, assessmentSection.HeightStructures);
             CloseViewsForFailureMechanism(mergeData.MergeClosingStructures, assessmentSection.ClosingStructures);
-            CloseViewsForFailureMechanism(mergeData.MergePipingStructure, assessmentSection.PipingStructure);
             CloseViewsForFailureMechanism(mergeData.MergeStabilityPointStructures, assessmentSection.StabilityPointStructures);
-            CloseViewsForFailureMechanism(mergeData.MergeStrengthStabilityLengthwiseConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
             CloseViewsForFailureMechanism(mergeData.MergeDuneErosion, assessmentSection.DuneErosion);
-            CloseViewsForFailureMechanism(mergeData.MergeTechnicalInnovation, assessmentSection.TechnicalInnovation);
         }
 
         private void CloseViewsForFailureMechanism(bool shouldClose, IFailureMechanism failureMechanism)
@@ -232,18 +224,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.MacroStabilityInwards);
             }
 
-            if (mergeData.MergeMacroStabilityOutwards)
-            {
-                targetAssessmentSection.MacroStabilityOutwards = sourceAssessmentSection.MacroStabilityOutwards;
-                LogMergeMessage(targetAssessmentSection.MacroStabilityOutwards);
-            }
-
-            if (mergeData.MergeMicrostability)
-            {
-                targetAssessmentSection.Microstability = sourceAssessmentSection.Microstability;
-                LogMergeMessage(targetAssessmentSection.Microstability);
-            }
-
             if (mergeData.MergeStabilityStoneCover)
             {
                 targetAssessmentSection.StabilityStoneCover = sourceAssessmentSection.StabilityStoneCover;
@@ -260,12 +240,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.WaveImpactAsphaltCover);
             }
 
-            if (mergeData.MergeWaterPressureAsphaltCover)
-            {
-                targetAssessmentSection.WaterPressureAsphaltCover = sourceAssessmentSection.WaterPressureAsphaltCover;
-                LogMergeMessage(targetAssessmentSection.WaterPressureAsphaltCover);
-            }
-
             if (mergeData.MergeGrassCoverErosionOutwards)
             {
                 targetAssessmentSection.GrassCoverErosionOutwards = sourceAssessmentSection.GrassCoverErosionOutwards;
@@ -273,18 +247,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsInput>(
                     targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.GrassCoverErosionOutwards);
-            }
-
-            if (mergeData.MergeGrassCoverSlipOffOutwards)
-            {
-                targetAssessmentSection.GrassCoverSlipOffOutwards = sourceAssessmentSection.GrassCoverSlipOffOutwards;
-                LogMergeMessage(targetAssessmentSection.GrassCoverSlipOffOutwards);
-            }
-
-            if (mergeData.MergeGrassCoverSlipOffInwards)
-            {
-                targetAssessmentSection.GrassCoverSlipOffInwards = sourceAssessmentSection.GrassCoverSlipOffInwards;
-                LogMergeMessage(targetAssessmentSection.GrassCoverSlipOffInwards);
             }
 
             if (mergeData.MergeHeightStructures)
@@ -303,12 +265,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.ClosingStructures);
             }
 
-            if (mergeData.MergePipingStructure)
-            {
-                targetAssessmentSection.PipingStructure = sourceAssessmentSection.PipingStructure;
-                LogMergeMessage(targetAssessmentSection.PipingStructure);
-            }
-
             if (mergeData.MergeStabilityPointStructures)
             {
                 targetAssessmentSection.StabilityPointStructures = sourceAssessmentSection.StabilityPointStructures;
@@ -317,22 +273,10 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.StabilityPointStructures);
             }
 
-            if (mergeData.MergeStrengthStabilityLengthwiseConstruction)
-            {
-                targetAssessmentSection.StrengthStabilityLengthwiseConstruction = sourceAssessmentSection.StrengthStabilityLengthwiseConstruction;
-                LogMergeMessage(targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
-            }
-
             if (mergeData.MergeDuneErosion)
             {
                 targetAssessmentSection.DuneErosion = sourceAssessmentSection.DuneErosion;
                 LogMergeMessage(targetAssessmentSection.DuneErosion);
-            }
-
-            if (mergeData.MergeTechnicalInnovation)
-            {
-                targetAssessmentSection.TechnicalInnovation = sourceAssessmentSection.TechnicalInnovation;
-                LogMergeMessage(targetAssessmentSection.TechnicalInnovation);
             }
         }
 
