@@ -198,9 +198,7 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
             {
                 {
-                    isRelevantColumnIndex, failureMechanism is OtherFailureMechanism
-                                               ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                                               : new DataGridViewColumnStateDefinition()
+                    isRelevantColumnIndex, new DataGridViewColumnStateDefinition()
                 },
                 {
                     nameColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
