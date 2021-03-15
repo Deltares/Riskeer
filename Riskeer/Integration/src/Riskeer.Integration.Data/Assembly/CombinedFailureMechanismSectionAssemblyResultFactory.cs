@@ -80,21 +80,13 @@ namespace Riskeer.Integration.Data.Assembly
                 Piping = GetCategoryGroup(assessmentSection.Piping, failureMechanisms, failureMechanismResults),
                 GrassCoverErosionInwards = GetCategoryGroup(assessmentSection.GrassCoverErosionInwards, failureMechanisms, failureMechanismResults),
                 MacroStabilityInwards = GetCategoryGroup(assessmentSection.MacroStabilityInwards, failureMechanisms, failureMechanismResults),
-                MacroStabilityOutwards = GetCategoryGroup(assessmentSection.MacroStabilityOutwards, failureMechanisms, failureMechanismResults),
-                Microstability = GetCategoryGroup(assessmentSection.Microstability, failureMechanisms, failureMechanismResults),
                 StabilityStoneCover = GetCategoryGroup(assessmentSection.StabilityStoneCover, failureMechanisms, failureMechanismResults),
                 WaveImpactAsphaltCover = GetCategoryGroup(assessmentSection.WaveImpactAsphaltCover, failureMechanisms, failureMechanismResults),
-                WaterPressureAsphaltCover = GetCategoryGroup(assessmentSection.WaterPressureAsphaltCover, failureMechanisms, failureMechanismResults),
                 GrassCoverErosionOutwards = GetCategoryGroup(assessmentSection.GrassCoverErosionOutwards, failureMechanisms, failureMechanismResults),
-                GrassCoverSlipOffOutwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms, failureMechanismResults),
-                GrassCoverSlipOffInwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffInwards, failureMechanisms, failureMechanismResults),
                 HeightStructures = GetCategoryGroup(assessmentSection.HeightStructures, failureMechanisms, failureMechanismResults),
                 ClosingStructures = GetCategoryGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
-                PipingStructure = GetCategoryGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
                 StabilityPointStructures = GetCategoryGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
-                StrengthStabilityLengthwiseConstruction = GetCategoryGroup(assessmentSection.StrengthStabilityLengthwiseConstruction, failureMechanisms, failureMechanismResults),
-                DuneErosion = GetCategoryGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
-                TechnicalInnovation = GetCategoryGroup(assessmentSection.TechnicalInnovation, failureMechanisms, failureMechanismResults)
+                DuneErosion = GetCategoryGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults)
             };
 
             return constructionProperties;

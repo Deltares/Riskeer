@@ -82,7 +82,6 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.Piping.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.HeightStructures.Create(registry));
-            entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructures.Create(registry));
             entity.FailureMechanismEntities.Add(section.MacroStabilityInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));

@@ -172,21 +172,13 @@ namespace Riskeer.Integration.Forms.Merge
                 new FailureMechanismMergeDataRow(assessmentSection.Piping),
                 new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
                 new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
-                new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityOutwards),
-                new FailureMechanismMergeDataRow(assessmentSection.Microstability),
                 new FailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
                 new FailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
-                new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
                 new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
-                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
-                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
                 new FailureMechanismMergeDataRow(assessmentSection.HeightStructures),
                 new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
-                new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
                 new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
-                new FailureMechanismMergeDataRow(assessmentSection.StrengthStabilityLengthwiseConstruction),
-                new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
-                new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
+                new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
             };
 
             dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
