@@ -35,7 +35,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data.Properties;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
@@ -64,21 +63,13 @@ namespace Riskeer.Integration.Data
         private PipingFailureMechanism piping;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards;
         private MacroStabilityInwardsFailureMechanism macroStabilityInwards;
-        private MacroStabilityOutwardsFailureMechanism macroStabilityOutwards;
-        private MicrostabilityFailureMechanism microstability;
         private StabilityStoneCoverFailureMechanism stabilityStoneCover;
         private WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover;
-        private WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover;
         private GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards;
-        private GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards;
-        private GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards;
         private HeightStructuresFailureMechanism heightStructures;
         private ClosingStructuresFailureMechanism closingStructures;
-        private PipingStructureFailureMechanism pipingStructure;
         private StabilityPointStructuresFailureMechanism stabilityPointStructures;
-        private StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction;
         private DuneErosionFailureMechanism duneErosion;
-        private TechnicalInnovationFailureMechanism technicalInnovation;
         private RoundedDouble failureProbabilityMarginFactor;
 
         /// <summary>
@@ -117,21 +108,13 @@ namespace Riskeer.Integration.Data
             piping = new PipingFailureMechanism();
             grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
             macroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
-            macroStabilityOutwards = new MacroStabilityOutwardsFailureMechanism();
-            microstability = new MicrostabilityFailureMechanism();
             stabilityStoneCover = new StabilityStoneCoverFailureMechanism();
             waveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
-            waterPressureAsphaltCover = new WaterPressureAsphaltCoverFailureMechanism();
             grassCoverErosionOutwards = new GrassCoverErosionOutwardsFailureMechanism();
-            grassCoverSlipOffOutwards = new GrassCoverSlipOffOutwardsFailureMechanism();
-            grassCoverSlipOffInwards = new GrassCoverSlipOffInwardsFailureMechanism();
             heightStructures = new HeightStructuresFailureMechanism();
             closingStructures = new ClosingStructuresFailureMechanism();
             stabilityPointStructures = new StabilityPointStructuresFailureMechanism();
-            strengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-            pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
-            technicalInnovation = new TechnicalInnovationFailureMechanism();
             OtherFailureMechanism = new OtherFailureMechanism();
 
             failureProbabilityMarginFactor = new RoundedDouble(2);
@@ -195,42 +178,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards
-        {
-            get
-            {
-                return macroStabilityOutwards;
-            }
-            set
-            {
-                ValidateContribution(macroStabilityOutwards, value);
-                macroStabilityOutwards = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the "Dijken en dammen - Microstabiliteit" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public MicrostabilityFailureMechanism Microstability
-        {
-            get
-            {
-                return microstability;
-            }
-            set
-            {
-                ValidateContribution(microstability, value);
-                microstability = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
@@ -267,24 +214,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover
-        {
-            get
-            {
-                return waterPressureAsphaltCover;
-            }
-            set
-            {
-                ValidateContribution(waterPressureAsphaltCover, value);
-                waterPressureAsphaltCover = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
@@ -299,42 +228,6 @@ namespace Riskeer.Integration.Data
             {
                 ValidateContribution(grassCoverErosionOutwards, value);
                 grassCoverErosionOutwards = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards
-        {
-            get
-            {
-                return grassCoverSlipOffOutwards;
-            }
-            set
-            {
-                ValidateContribution(grassCoverSlipOffOutwards, value);
-                grassCoverSlipOffOutwards = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards
-        {
-            get
-            {
-                return grassCoverSlipOffInwards;
-            }
-            set
-            {
-                ValidateContribution(grassCoverSlipOffInwards, value);
-                grassCoverSlipOffInwards = value;
             }
         }
 
@@ -375,24 +268,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public PipingStructureFailureMechanism PipingStructure
-        {
-            get
-            {
-                return pipingStructure;
-            }
-            set
-            {
-                ValidateContribution(pipingStructure, value);
-                pipingStructure = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
@@ -411,24 +286,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction
-        {
-            get
-            {
-                return strengthStabilityLengthwiseConstruction;
-            }
-            set
-            {
-                ValidateContribution(strengthStabilityLengthwiseConstruction, value);
-                strengthStabilityLengthwiseConstruction = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
@@ -443,24 +300,6 @@ namespace Riskeer.Integration.Data
             {
                 ValidateContribution(duneErosion, value);
                 duneErosion = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the "Technische innovaties - Technische innovaties" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public TechnicalInnovationFailureMechanism TechnicalInnovation
-        {
-            get
-            {
-                return technicalInnovation;
-            }
-            set
-            {
-                ValidateContribution(technicalInnovation, value);
-                technicalInnovation = value;
             }
         }
 
@@ -589,21 +428,13 @@ namespace Riskeer.Integration.Data
             yield return Piping;
             yield return GrassCoverErosionInwards;
             yield return MacroStabilityInwards;
-            yield return MacroStabilityOutwards;
-            yield return Microstability;
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;
-            yield return WaterPressureAsphaltCover;
             yield return GrassCoverErosionOutwards;
-            yield return GrassCoverSlipOffOutwards;
-            yield return GrassCoverSlipOffInwards;
             yield return HeightStructures;
             yield return ClosingStructures;
-            yield return PipingStructure;
             yield return StabilityPointStructures;
-            yield return StrengthStabilityLengthwiseConstruction;
             yield return DuneErosion;
-            yield return TechnicalInnovation;
         }
 
         public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
@@ -616,7 +447,6 @@ namespace Riskeer.Integration.Data
             yield return GrassCoverErosionOutwards;
             yield return HeightStructures;
             yield return ClosingStructures;
-            yield return PipingStructure;
             yield return StabilityPointStructures;
             yield return DuneErosion;
             yield return OtherFailureMechanism;
@@ -642,13 +472,11 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
-                    PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
                     OtherFailureMechanism.Contribution = 30;
@@ -658,13 +486,11 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
                     MacroStabilityInwards.Contribution = 0;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 0;
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
                     HeightStructures.Contribution = 0;
                     ClosingStructures.Contribution = 0;
-                    PipingStructure.Contribution = 0;
                     StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
                     OtherFailureMechanism.Contribution = 30;
@@ -674,13 +500,11 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
-                    PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
                     OtherFailureMechanism.Contribution = 20;
@@ -745,7 +569,6 @@ namespace Riskeer.Integration.Data
             HeightStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             ClosingStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
         }
     }
