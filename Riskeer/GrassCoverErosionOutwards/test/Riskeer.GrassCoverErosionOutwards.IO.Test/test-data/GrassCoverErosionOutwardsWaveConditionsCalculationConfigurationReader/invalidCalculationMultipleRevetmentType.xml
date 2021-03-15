@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
-  <berekening naam="Calculation">
-    <typebekleding>Gras (golfoploop)</typebekleding>
-    <typebekleding>Gras (golfklap)</typebekleding>
-  </berekening>
-</configuratie>

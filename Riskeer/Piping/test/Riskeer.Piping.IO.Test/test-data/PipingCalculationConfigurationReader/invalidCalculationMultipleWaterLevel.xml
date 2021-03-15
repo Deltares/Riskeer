@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
-  <berekening naam="Calculation">
-    <semi-probabilistisch>
-      <waterstand>1.1</waterstand>
-      <waterstand>2.2</waterstand>
-    </semi-probabilistisch>
-  </berekening>
-</configuratie>
