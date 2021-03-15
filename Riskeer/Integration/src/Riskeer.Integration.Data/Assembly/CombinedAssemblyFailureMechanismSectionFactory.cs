@@ -29,9 +29,6 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
@@ -90,20 +87,6 @@ namespace Riskeer.Integration.Data.Assembly
                                                   assessmentSection, MacroStabilityInwardsAssemblyFunc, useManual));
             }
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
-                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc, useManual));
-            }
-
-            MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
-            if (failureMechanisms.Contains(microstabilityFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(microstabilityFailureMechanism.SectionResults,
-                                                  MicrostabilityAssemblyFunc, useManual));
-            }
-
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             if (failureMechanisms.Contains(stabilityStoneCoverFailureMechanism))
             {
@@ -118,32 +101,11 @@ namespace Riskeer.Integration.Data.Assembly
                                                   WaveImpactAsphaltCoverAssemblyFunc, useManual));
             }
 
-            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            if (failureMechanisms.Contains(waterPressureAsphaltCoverFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResults,
-                                                  WaterPressureAsphaltCoverAssemblyFunc, useManual));
-            }
-
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             if (failureMechanisms.Contains(grassCoverErosionOutwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverErosionOutwardsFailureMechanism.SectionResults,
                                                   GrassCoverErosionOutwardsAssemblyFunc, useManual));
-            }
-
-            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(grassCoverSlipOffOutwardsFailureMechanism.SectionResults,
-                                                  GrassCoverSlipOffOutwardsAssemblyFunc, useManual));
-            }
-
-            GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            if (failureMechanisms.Contains(grassCoverSlipOffInwardsFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResults,
-                                                  GrassCoverSlipOffInwardsAssemblyFunc, useManual));
             }
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
@@ -160,13 +122,6 @@ namespace Riskeer.Integration.Data.Assembly
                                                   assessmentSection, ClosingStructuresAssemblyFunc, useManual));
             }
 
-            PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
-            if (failureMechanisms.Contains(pipingStructureFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResults,
-                                                  PipingStructureAssemblyFunc, useManual));
-            }
-
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             if (failureMechanisms.Contains(stabilityPointStructuresFailureMechanism))
             {
@@ -174,25 +129,11 @@ namespace Riskeer.Integration.Data.Assembly
                                                   assessmentSection, StabilityPointStructuresAssemblyFunc, useManual));
             }
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            if (failureMechanisms.Contains(strengthStabilityLengthwiseConstructionFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResults,
-                                                  StrengthStabilityLengthwiseConstructionAssemblyFunc, useManual));
-            }
-
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             if (failureMechanisms.Contains(duneErosionFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults,
                                                   DuneErosionAssemblyFunc, useManual));
-            }
-
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            if (failureMechanisms.Contains(technicalInnovationFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResults,
-                                                  TechnicalInnovationAssemblyFunc, useManual));
             }
 
             return inputs;
@@ -275,23 +216,6 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<MacroStabilityOutwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
-        {
-            get
-            {
-                return (sectionResult, assessmentSection, useManual) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection, useManual);
-            }
-        }
-
-        private static Func<MicrostabilityFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
-        {
-            get
-            {
-                return MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
         private static Func<StabilityStoneCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityStoneCoverAssemblyFunc
         {
             get
@@ -308,35 +232,11 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
-        {
-            get
-            {
-                return WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
         private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
         {
             get
             {
                 return GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
-        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
-        {
-            get
-            {
-                return GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
-        private static Func<GrassCoverSlipOffInwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffInwardsAssemblyFunc
-        {
-            get
-            {
-                return GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
             }
         }
 
@@ -357,15 +257,7 @@ namespace Riskeer.Integration.Data.Assembly
                     sectionResult, assessmentSection.ClosingStructures, assessmentSection, useManual);
             }
         }
-
-        private static Func<PipingStructureFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
-        {
-            get
-            {
-                return PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
+        
         private static Func<StabilityPointStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
         {
             get
@@ -375,27 +267,11 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
-        {
-            get
-            {
-                return StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
         private static Func<DuneErosionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
         {
             get
             {
                 return DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
-        private static Func<TechnicalInnovationFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
-        {
-            get
-            {
-                return TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
             }
         }
 

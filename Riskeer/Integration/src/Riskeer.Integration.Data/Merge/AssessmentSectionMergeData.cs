@@ -53,21 +53,13 @@ namespace Riskeer.Integration.Data.Merge
             MergePiping = properties.MergePiping;
             MergeGrassCoverErosionInwards = properties.MergeGrassCoverErosionInwards;
             MergeMacroStabilityInwards = properties.MergeMacroStabilityInwards;
-            MergeMacroStabilityOutwards = properties.MergeMacroStabilityOutwards;
-            MergeMicrostability = properties.MergeMicrostability;
             MergeStabilityStoneCover = properties.MergeStabilityStoneCover;
             MergeWaveImpactAsphaltCover = properties.MergeWaveImpactAsphaltCover;
-            MergeWaterPressureAsphaltCover = properties.MergeWaterPressureAsphaltCover;
             MergeGrassCoverErosionOutwards = properties.MergeGrassCoverErosionOutwards;
-            MergeGrassCoverSlipOffOutwards = properties.MergeGrassCoverSlipOffOutwards;
-            MergeGrassCoverSlipOffInwards = properties.MergeGrassCoverSlipOffInwards;
             MergeHeightStructures = properties.MergeHeightStructures;
             MergeClosingStructures = properties.MergeClosingStructures;
-            MergePipingStructure = properties.MergePipingStructure;
             MergeStabilityPointStructures = properties.MergeStabilityPointStructures;
-            MergeStrengthStabilityLengthwiseConstruction = properties.MergeStrengthStabilityLengthwiseConstruction;
             MergeDuneErosion = properties.MergeDuneErosion;
-            MergeTechnicalInnovation = properties.MergeTechnicalInnovation;
         }
 
         /// <summary>
@@ -91,16 +83,6 @@ namespace Riskeer.Integration.Data.Merge
         public bool MergeMacroStabilityInwards { get; }
 
         /// <summary>
-        /// Gets the indicator whether macro stability outwards should be merged.
-        /// </summary>
-        public bool MergeMacroStabilityOutwards { get; }
-
-        /// <summary>
-        /// Gets the indicator whether microstability should be merged.
-        /// </summary>
-        public bool MergeMicrostability { get; }
-
-        /// <summary>
         /// Gets the indicator whether stability stone cover should be merged.
         /// </summary>
         public bool MergeStabilityStoneCover { get; }
@@ -111,24 +93,9 @@ namespace Riskeer.Integration.Data.Merge
         public bool MergeWaveImpactAsphaltCover { get; }
 
         /// <summary>
-        /// Gets the indicator whether water pressure asphalt cover should be merged.
-        /// </summary>
-        public bool MergeWaterPressureAsphaltCover { get; }
-
-        /// <summary>
         /// Gets the indicator whether grass cover erosion outwards should be merged.
         /// </summary>
         public bool MergeGrassCoverErosionOutwards { get; }
-
-        /// <summary>
-        /// Gets the indicator whether grass cover slip off outwards should be merged.
-        /// </summary>
-        public bool MergeGrassCoverSlipOffOutwards { get; }
-
-        /// <summary>
-        /// Gets the indicator whether grass cover slip off inwards should be merged.
-        /// </summary>
-        public bool MergeGrassCoverSlipOffInwards { get; }
 
         /// <summary>
         /// Gets the indicator whether height structures should be merged.
@@ -141,29 +108,14 @@ namespace Riskeer.Integration.Data.Merge
         public bool MergeClosingStructures { get; }
 
         /// <summary>
-        /// Gets the indicator whether piping structure should be merged.
-        /// </summary>
-        public bool MergePipingStructure { get; }
-
-        /// <summary>
         /// Gets the indicator whether stability point structures should be merged.
         /// </summary>
         public bool MergeStabilityPointStructures { get; }
 
         /// <summary>
-        /// Gets the indicator whether strength stability lengthwise construction should be merged.
-        /// </summary>
-        public bool MergeStrengthStabilityLengthwiseConstruction { get; }
-
-        /// <summary>
         /// Gets the indicator whether dune erosion should be merged.
         /// </summary>
         public bool MergeDuneErosion { get; }
-
-        /// <summary>
-        /// Gets the indicator whether technical innovation should be merged.
-        /// </summary>
-        public bool MergeTechnicalInnovation { get; }
 
         /// <summary>
         /// Container for properties for constructing an <see cref="AssessmentSectionMergeData"/>.
@@ -186,16 +138,6 @@ namespace Riskeer.Integration.Data.Merge
             public bool MergeMacroStabilityInwards { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the indicator whether macro stability outwards should be merged.
-            /// </summary>
-            public bool MergeMacroStabilityOutwards { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether microstability should be merged.
-            /// </summary>
-            public bool MergeMicrostability { internal get; set; }
-
-            /// <summary>
             /// Gets or sets the indicator whether stability stone cover should be merged.
             /// </summary>
             public bool MergeStabilityStoneCover { internal get; set; }
@@ -206,24 +148,9 @@ namespace Riskeer.Integration.Data.Merge
             public bool MergeWaveImpactAsphaltCover { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the indicator whether water pressure asphalt cover should be merged.
-            /// </summary>
-            public bool MergeWaterPressureAsphaltCover { internal get; set; }
-
-            /// <summary>
             /// Gets or sets the indicator whether grass cover erosion outwards should be merged.
             /// </summary>
             public bool MergeGrassCoverErosionOutwards { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether grass cover slip off outwards should be merged.
-            /// </summary>
-            public bool MergeGrassCoverSlipOffOutwards { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether grass cover slip off inwards should be merged.
-            /// </summary>
-            public bool MergeGrassCoverSlipOffInwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the indicator whether height structures should be merged.
@@ -236,29 +163,14 @@ namespace Riskeer.Integration.Data.Merge
             public bool MergeClosingStructures { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the indicator whether piping structure should be merged.
-            /// </summary>
-            public bool MergePipingStructure { internal get; set; }
-
-            /// <summary>
             /// Gets or sets the indicator whether stability point structures should be merged.
             /// </summary>
             public bool MergeStabilityPointStructures { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the indicator whether strength stability lengthwise construction should be merged.
-            /// </summary>
-            public bool MergeStrengthStabilityLengthwiseConstruction { internal get; set; }
-
-            /// <summary>
             /// Gets or sets the indicator whether dune erosion should be merged.
             /// </summary>
             public bool MergeDuneErosion { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether technical innovation should be merged.
-            /// </summary>
-            public bool MergeTechnicalInnovation { internal get; set; }
         }
     }
 }

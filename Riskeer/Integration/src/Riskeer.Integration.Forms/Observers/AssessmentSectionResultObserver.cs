@@ -31,8 +31,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -60,14 +58,6 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer stabilityPointStructuresObserver;
         private readonly Observer stabilityStoneCoverObserver;
         private readonly Observer waveImpactAsphaltCoverObserver;
-        private readonly Observer grassCoverSlipOffInwardsObserver;
-        private readonly Observer grassCoverSlipOffOutwardsObserver;
-        private readonly Observer macroStabilityOutwardsObserver;
-        private readonly Observer microstabilityObserver;
-        private readonly Observer pipingStructureObserver;
-        private readonly Observer strengthStabilityLengthwiseConstructionObserver;
-        private readonly Observer technicalInnovationObserver;
-        private readonly Observer waterPressureAsphaltCoverObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
@@ -124,30 +114,6 @@ namespace Riskeer.Integration.Forms.Observers
 
             waveImpactAsphaltCoverObserver = CreateFailureMechanismObserver<WaveImpactAsphaltCoverFailureMechanism,
                 WaveImpactAsphaltCoverFailureMechanismSectionResult>(assessmentSection.WaveImpactAsphaltCover);
-
-            grassCoverSlipOffInwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffInwardsFailureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffInwards);
-
-            grassCoverSlipOffOutwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffOutwards);
-
-            macroStabilityOutwardsObserver = CreateFailureMechanismObserver<MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult>(assessmentSection.MacroStabilityOutwards);
-
-            microstabilityObserver = CreateFailureMechanismObserver<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>(assessmentSection.Microstability);
-
-            pipingStructureObserver = CreateFailureMechanismObserver<PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResult>(assessmentSection.PipingStructure);
-
-            strengthStabilityLengthwiseConstructionObserver = CreateFailureMechanismObserver<StrengthStabilityLengthwiseConstructionFailureMechanism,
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(assessmentSection.StrengthStabilityLengthwiseConstruction);
-
-            technicalInnovationObserver = CreateFailureMechanismObserver<TechnicalInnovationFailureMechanism,
-                TechnicalInnovationFailureMechanismSectionResult>(assessmentSection.TechnicalInnovation);
-
-            waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
         }
 
         public void Dispose()
@@ -175,14 +141,6 @@ namespace Riskeer.Integration.Forms.Observers
             stabilityPointStructuresObserver.Dispose();
             stabilityStoneCoverObserver.Dispose();
             waveImpactAsphaltCoverObserver.Dispose();
-            grassCoverSlipOffInwardsObserver.Dispose();
-            grassCoverSlipOffOutwardsObserver.Dispose();
-            macroStabilityOutwardsObserver.Dispose();
-            microstabilityObserver.Dispose();
-            pipingStructureObserver.Dispose();
-            strengthStabilityLengthwiseConstructionObserver.Dispose();
-            technicalInnovationObserver.Dispose();
-            waterPressureAsphaltCoverObserver.Dispose();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
@@ -197,14 +155,6 @@ namespace Riskeer.Integration.Forms.Observers
             stabilityPointStructuresObserver.Observable = assessmentSection.StabilityPointStructures;
             stabilityStoneCoverObserver.Observable = assessmentSection.StabilityStoneCover;
             waveImpactAsphaltCoverObserver.Observable = assessmentSection.WaveImpactAsphaltCover;
-            grassCoverSlipOffInwardsObserver.Observable = assessmentSection.GrassCoverSlipOffInwards;
-            grassCoverSlipOffOutwardsObserver.Observable = assessmentSection.GrassCoverSlipOffOutwards;
-            macroStabilityOutwardsObserver.Observable = assessmentSection.MacroStabilityOutwards;
-            microstabilityObserver.Observable = assessmentSection.Microstability;
-            pipingStructureObserver.Observable = assessmentSection.PipingStructure;
-            strengthStabilityLengthwiseConstructionObserver.Observable = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            technicalInnovationObserver.Observable = assessmentSection.TechnicalInnovation;
-            waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)

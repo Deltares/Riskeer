@@ -75,18 +75,10 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadHeightStructuresFailureMechanism(assessmentSection, collector);
-            entity.ReadStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection, collector);
-            entity.ReadTechnicalInnovationFailureMechanism(assessmentSection, collector);
-            entity.ReadWaterPressureAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadClosingStructuresFailureMechanism(assessmentSection, collector);
             entity.ReadMacroStabilityInwardsFailureMechanism(assessmentSection, collector);
-            entity.ReadMacroStabilityOutwardsFailureMechanism(assessmentSection, collector);
             entity.ReadWaveImpactAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionOutwardsFailureMechanism(assessmentSection, collector);
-            entity.ReadGrassCoverSlipOffInwardsFailureMechanism(assessmentSection, collector);
-            entity.ReadGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection, collector);
-            entity.ReadMicrostabilityFailureMechanism(assessmentSection, collector);
-            entity.ReadPipingStructureFailureMechanism(assessmentSection, collector);
             entity.ReadDuneErosionFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
@@ -167,24 +159,6 @@ namespace Riskeer.Storage.Core.Read
             heightStructuresFailureMechanismEntity?.ReadAsHeightStructuresFailureMechanism(assessmentSection.HeightStructures, collector);
         }
 
-        private static void ReadStrengthStabilityLengthwiseConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity strengthStabilityLengthwiseConstructionFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            strengthStabilityLengthwiseConstructionFailureMechanismEntity?.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
-        }
-
-        private static void ReadTechnicalInnovationFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity technicalInnovationFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.TechnicalInnovations);
-            technicalInnovationFailureMechanismEntity?.ReadAsTechnicalInnovationFailureMechanism(assessmentSection.TechnicalInnovation, collector);
-        }
-
-        private static void ReadWaterPressureAsphaltCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity waterPressureAsphaltCoverFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            waterPressureAsphaltCoverFailureMechanismEntity?.ReadAsWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover, collector);
-        }
-
         private static void ReadClosingStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             FailureMechanismEntity closingStructuresFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.ReliabilityClosingOfStructure);
@@ -197,12 +171,6 @@ namespace Riskeer.Storage.Core.Read
             macroStabilityInwardsFailureMechanismEntity?.ReadAsMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, collector);
         }
 
-        private static void ReadMacroStabilityOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity macroStabilityOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacroStabilityOutwards);
-            macroStabilityOutwardsFailureMechanismEntity?.ReadAsMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, collector);
-        }
-
         private static void ReadWaveImpactAsphaltCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             FailureMechanismEntity waveImpactAsphaltCoverFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.WaveImpactOnAsphaltRevetment);
@@ -213,30 +181,6 @@ namespace Riskeer.Storage.Core.Read
         {
             FailureMechanismEntity grassCoverErosionOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentErosionOutwards);
             grassCoverErosionOutwardsFailureMechanismEntity?.ReadAsGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards, collector);
-        }
-
-        private static void ReadGrassCoverSlipOffInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity grassCoverSlipOffInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentSlidingInwards);
-            grassCoverSlipOffInwardsFailureMechanismEntity?.ReadAsGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, collector);
-        }
-
-        private static void ReadGrassCoverSlipOffOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity grassCoverSlipOffOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentSlidingOutwards);
-            grassCoverSlipOffOutwardsFailureMechanismEntity?.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, collector);
-        }
-
-        private static void ReadMicrostabilityFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity microstabilityFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.Microstability);
-            microstabilityFailureMechanismEntity?.ReadAsMicrostabilityFailureMechanism(assessmentSection.Microstability, collector);
-        }
-
-        private static void ReadPipingStructureFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity pipingStructureFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.PipingAtStructure);
-            pipingStructureFailureMechanismEntity?.ReadAsPipingStructureFailureMechanism(assessmentSection.PipingStructure, collector);
         }
 
         private static void ReadDuneErosionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

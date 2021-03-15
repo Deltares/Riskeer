@@ -32,7 +32,6 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
@@ -87,21 +86,13 @@ namespace Riskeer.Integration.Forms.Merge
                     MergePiping = FailureMechanismIsSelectedToMerge<PipingFailureMechanism>(),
                     MergeGrassCoverErosionInwards = FailureMechanismIsSelectedToMerge<GrassCoverErosionInwardsFailureMechanism>(),
                     MergeMacroStabilityInwards = FailureMechanismIsSelectedToMerge<MacroStabilityInwardsFailureMechanism>(),
-                    MergeMacroStabilityOutwards = FailureMechanismIsSelectedToMerge<MacroStabilityOutwardsFailureMechanism>(),
-                    MergeMicrostability = FailureMechanismIsSelectedToMerge<MicrostabilityFailureMechanism>(),
                     MergeStabilityStoneCover = FailureMechanismIsSelectedToMerge<StabilityStoneCoverFailureMechanism>(),
                     MergeWaveImpactAsphaltCover = FailureMechanismIsSelectedToMerge<WaveImpactAsphaltCoverFailureMechanism>(),
-                    MergeWaterPressureAsphaltCover = FailureMechanismIsSelectedToMerge<WaterPressureAsphaltCoverFailureMechanism>(),
                     MergeGrassCoverErosionOutwards = FailureMechanismIsSelectedToMerge<GrassCoverErosionOutwardsFailureMechanism>(),
-                    MergeGrassCoverSlipOffOutwards = FailureMechanismIsSelectedToMerge<GrassCoverSlipOffOutwardsFailureMechanism>(),
-                    MergeGrassCoverSlipOffInwards = FailureMechanismIsSelectedToMerge<GrassCoverSlipOffInwardsFailureMechanism>(),
                     MergeHeightStructures = FailureMechanismIsSelectedToMerge<HeightStructuresFailureMechanism>(),
                     MergeClosingStructures = FailureMechanismIsSelectedToMerge<ClosingStructuresFailureMechanism>(),
-                    MergePipingStructure = FailureMechanismIsSelectedToMerge<PipingStructureFailureMechanism>(),
                     MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
-                    MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
-                    MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
-                    MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
+                    MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>()
                 };
 
                 return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,

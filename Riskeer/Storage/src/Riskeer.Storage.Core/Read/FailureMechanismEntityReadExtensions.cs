@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
@@ -31,8 +30,6 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
@@ -44,9 +41,7 @@ using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
-using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
 using Riskeer.Storage.Core.Read.Piping;
-using Riskeer.Storage.Core.Read.PipingStructure;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
@@ -329,99 +324,6 @@ namespace Riskeer.Storage.Core.Read
 
         #endregion
 
-        #region Strength Stability Lengthwise Construction
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity,
-                                                                                           StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
-                                                                                           ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                               StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
-                                                                                               ReadConversionCollector collector)
-        {
-            foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
-        #region Technical Innovation
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="TechnicalInnovationFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="TechnicalInnovationFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsTechnicalInnovationFailureMechanism(this FailureMechanismEntity entity,
-                                                                       TechnicalInnovationFailureMechanism failureMechanism,
-                                                                       ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadTechnicalInnovationMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadTechnicalInnovationMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                           TechnicalInnovationFailureMechanism failureMechanism,
-                                                                           ReadConversionCollector collector)
-        {
-            foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                TechnicalInnovationFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
-        #region Water Pressure Asphalt
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="WaterPressureAsphaltCoverFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="WaterPressureAsphaltCoverFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsWaterPressureAsphaltCoverFailureMechanism(this FailureMechanismEntity entity,
-                                                                             WaterPressureAsphaltCoverFailureMechanism failureMechanism,
-                                                                             ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadWaterPressureAsphaltCoverMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadWaterPressureAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                 WaterPressureAsphaltCoverFailureMechanism failureMechanism,
-                                                                                 ReadConversionCollector collector)
-        {
-            foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                WaterPressureAsphaltCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
         #region Closing Structures
 
         /// <summary>
@@ -581,55 +483,6 @@ namespace Riskeer.Storage.Core.Read
 
         #endregion
 
-        #region MacroStability Outwards
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacroStabilityOutwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacroStabilityOutwardsFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void ReadAsMacroStabilityOutwardsFailureMechanism(this FailureMechanismEntity entity,
-                                                                          MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                                          ReadConversionCollector collector)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
-            }
-
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadMacroStabilityOutwardsMechanismSectionResults(failureMechanism, collector);
-            MacroStabilityOutwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
-            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput);
-        }
-
-        private static void ReadMacroStabilityOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                              MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                                              ReadConversionCollector collector)
-        {
-            foreach (MacroStabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityOutwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacroStabilityOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
         #region Wave Impact Asphalt Cover
 
         /// <summary>
@@ -767,148 +620,6 @@ namespace Riskeer.Storage.Core.Read
         private static GrassCoverErosionOutwardsFailureMechanismMetaEntity GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(FailureMechanismEntity entity)
         {
             return entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
-        }
-
-        #endregion
-
-        #region Grass Cover Slip Off Inwards
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverSlipOffInwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsGrassCoverSlipOffInwardsFailureMechanism(this FailureMechanismEntity entity,
-                                                                            GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
-                                                                            ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadGrassCoverSlipOffInwardsMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadGrassCoverSlipOffInwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
-                                                                                ReadConversionCollector collector)
-        {
-            foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverSlipOffInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
-        #region Grass Cover Slip Off Outwards
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsGrassCoverSlipOffOutwardsFailureMechanism(this FailureMechanismEntity entity,
-                                                                             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
-                                                                             ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadGrassCoverSlipOffOutwardsMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadGrassCoverSlipOffOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                 GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
-                                                                                 ReadConversionCollector collector)
-        {
-            foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
-        #region Microstability
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MicrostabilityFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MicrostabilityFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsMicrostabilityFailureMechanism(this FailureMechanismEntity entity,
-                                                                  MicrostabilityFailureMechanism failureMechanism,
-                                                                  ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadMicrostabilityMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadMicrostabilityMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                      MicrostabilityFailureMechanism failureMechanism,
-                                                                      ReadConversionCollector collector)
-        {
-            foreach (MicrostabilitySectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MicrostabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        #endregion
-
-        #region Piping Structure
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="PipingStructureFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="PipingStructureFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void ReadAsPipingStructureFailureMechanism(this FailureMechanismEntity entity,
-                                                                   PipingStructureFailureMechanism failureMechanism,
-                                                                   ReadConversionCollector collector)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
-            }
-
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadPipingStructureMechanismSectionResults(failureMechanism, collector);
-
-            failureMechanism.N = (RoundedDouble) entity.PipingStructureFailureMechanismMetaEntities.Single().N;
-        }
-
-        private static void ReadPipingStructureMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                       PipingStructureFailureMechanism failureMechanism,
-                                                                       ReadConversionCollector collector)
-        {
-            foreach (PipingStructureSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                PipingStructureFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         #endregion
