@@ -96,10 +96,5 @@ namespace Riskeer.ClosingStructures.Data
             base.AddSectionResult(section);
             sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

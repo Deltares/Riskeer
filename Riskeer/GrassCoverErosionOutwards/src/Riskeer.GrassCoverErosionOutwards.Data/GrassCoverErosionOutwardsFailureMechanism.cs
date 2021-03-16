@@ -185,11 +185,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
         }
 
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
-
         private void ClearHydraulicBoundaryLocationCalculations()
         {
             waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Clear();

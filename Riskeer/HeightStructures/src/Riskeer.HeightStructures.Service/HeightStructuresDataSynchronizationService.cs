@@ -173,7 +173,6 @@ namespace Riskeer.HeightStructures.Service
                                                       .Concat(failureMechanism.HeightStructures)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

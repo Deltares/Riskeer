@@ -96,10 +96,5 @@ namespace Riskeer.StabilityPointStructures.Data
             base.AddSectionResult(section);
             sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

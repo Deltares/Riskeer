@@ -98,10 +98,5 @@ namespace Riskeer.HeightStructures.Data
             base.AddSectionResult(section);
             sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

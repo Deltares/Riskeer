@@ -132,7 +132,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

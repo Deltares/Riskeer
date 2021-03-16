@@ -173,7 +173,6 @@ namespace Riskeer.StabilityPointStructures.Service
                                                       .Concat(failureMechanism.StabilityPointStructures)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

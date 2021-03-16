@@ -89,10 +89,5 @@ namespace Riskeer.StabilityStoneCover.Data
             base.AddSectionResult(section);
             sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

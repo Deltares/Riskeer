@@ -133,7 +133,6 @@ namespace Riskeer.StabilityStoneCover.Service
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

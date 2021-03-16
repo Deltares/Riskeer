@@ -126,7 +126,6 @@ namespace Riskeer.Common.Data.FailureMechanism
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            ClearSectionResults();
             sectionCollection.SetSections(sections, sourcePath);
 
             foreach (FailureMechanismSection failureMechanismSection in Sections)
@@ -134,17 +133,9 @@ namespace Riskeer.Common.Data.FailureMechanism
                 AddSectionResult(failureMechanismSection);
             }
         }
-
-        public void ClearAllSections()
-        {
-            sectionCollection.Clear();
-            ClearSectionResults();
-        }
-
+        
         protected virtual void AddSectionResult(FailureMechanismSection section) {}
-
-        protected virtual void ClearSectionResults() {}
-
+        
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
             const string parameterIsRequired = "Parameter is required.";

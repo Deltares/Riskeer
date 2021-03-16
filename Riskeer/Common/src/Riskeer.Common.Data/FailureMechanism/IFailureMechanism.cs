@@ -97,10 +97,5 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <item><paramref name="sections"/> contains sections that are not properly chained.</item>
         /// </list></exception>
         void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
-
-        /// <summary>
-        /// Clears all sections from <see cref="Sections"/>.
-        /// </summary>
-        void ClearAllSections();
     }
 }

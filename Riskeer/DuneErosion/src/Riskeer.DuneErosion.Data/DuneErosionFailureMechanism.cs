@@ -167,11 +167,6 @@ namespace Riskeer.DuneErosion.Data
             sectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
         }
 
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
-
         private void ClearDuneLocationData()
         {
             duneLocationCollection.Clear();

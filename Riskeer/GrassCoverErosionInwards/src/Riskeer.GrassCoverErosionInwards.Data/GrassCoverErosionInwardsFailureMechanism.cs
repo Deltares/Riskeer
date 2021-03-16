@@ -88,10 +88,5 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
             sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

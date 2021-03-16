@@ -149,7 +149,6 @@ namespace Riskeer.Piping.Service
                                                       .Concat(failureMechanism.SurfaceLines)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

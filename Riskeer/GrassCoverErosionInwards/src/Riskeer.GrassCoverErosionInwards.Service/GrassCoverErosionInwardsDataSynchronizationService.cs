@@ -160,7 +160,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                       .Concat(failureMechanism.DikeProfiles)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

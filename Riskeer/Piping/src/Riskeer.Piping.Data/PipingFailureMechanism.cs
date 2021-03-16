@@ -98,10 +98,5 @@ namespace Riskeer.Piping.Data
             base.AddSectionResult(section);
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

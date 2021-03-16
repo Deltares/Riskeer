@@ -174,7 +174,6 @@ namespace Riskeer.ClosingStructures.Service
                                                       .Concat(failureMechanism.ClosingStructures)
                                                       .ToArray();
 
-            failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 

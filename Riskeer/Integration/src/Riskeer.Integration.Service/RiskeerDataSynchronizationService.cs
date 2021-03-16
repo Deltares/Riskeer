@@ -767,8 +767,6 @@ namespace Riskeer.Integration.Service
                 changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
             }
 
-            failureMechanism.ClearAllSections();
-
             return new ClearResults(changedObjects, removedObjects);
         }
 

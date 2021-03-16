@@ -100,10 +100,5 @@ namespace Riskeer.MacroStabilityInwards.Data
             base.AddSectionResult(section);
             sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }

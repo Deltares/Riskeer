@@ -96,10 +96,5 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             base.AddSectionResult(section);
             sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResult(section));
         }
-
-        protected override void ClearSectionResults()
-        {
-            sectionResults.Clear();
-        }
     }
 }
