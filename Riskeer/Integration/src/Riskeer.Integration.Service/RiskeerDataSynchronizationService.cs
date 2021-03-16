@@ -760,13 +760,6 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
-            if (failureMechanismWithSectionResults != null)
-            {
-                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
-                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
-            }
-
             return new ClearResults(changedObjects, removedObjects);
         }
 
