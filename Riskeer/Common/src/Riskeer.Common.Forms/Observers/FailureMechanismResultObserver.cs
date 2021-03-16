@@ -36,8 +36,6 @@ namespace Riskeer.Common.Forms.Observers
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
-        private readonly Observer failureMechanismSectionResultObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultObserver{TFailureMechanism,TSectionResult}"/>.
@@ -55,18 +53,6 @@ namespace Riskeer.Common.Forms.Observers
             {
                 Observable = failureMechanism
             };
-
-            failureMechanismSectionResultObserver = new Observer(NotifyObservers)
-            {
-                Observable = failureMechanism.SectionResults
-            };
-
-            failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
-                NotifyObservers,
-                sr => sr)
-            {
-                Observable = failureMechanism.SectionResults
-            };
         }
 
         public void Dispose()
@@ -80,8 +66,6 @@ namespace Riskeer.Common.Forms.Observers
             if (disposing)
             {
                 failureMechanismObserver.Dispose();
-                failureMechanismSectionResultObserver.Dispose();
-                failureMechanismSectionResultsObserver.Dispose();
             }
         }
     }
