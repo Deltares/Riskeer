@@ -36,8 +36,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase
     {
         private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -148,14 +147,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             get
             {
                 return WaveConditionsCalculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-            }
-        }
-
-        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

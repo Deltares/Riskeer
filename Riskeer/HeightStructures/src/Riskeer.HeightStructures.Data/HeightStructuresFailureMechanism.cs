@@ -36,8 +36,7 @@ namespace Riskeer.HeightStructures.Data
     /// Failure mechanism for Height structures.
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
-                                                    ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
+                                                    ICalculatableFailureMechanism
     {
         private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults;
 
@@ -82,14 +81,6 @@ namespace Riskeer.HeightStructures.Data
             get
             {
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-            }
-        }
-
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

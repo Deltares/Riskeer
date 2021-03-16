@@ -34,7 +34,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase
     {
         private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
 
@@ -73,14 +73,6 @@ namespace Riskeer.StabilityStoneCover.Data
             get
             {
                 return WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
-            }
-        }
-
-        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

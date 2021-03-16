@@ -33,8 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// Model for performing macro stability inwards calculations.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
-                                                         ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
+                                                         ICalculatableFailureMechanism
     {
         private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
 
@@ -84,14 +83,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             get
             {
                 return CalculationsGroup.GetCalculations();
-            }
-        }
-
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

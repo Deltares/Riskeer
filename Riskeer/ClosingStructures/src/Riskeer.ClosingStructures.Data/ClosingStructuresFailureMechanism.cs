@@ -37,8 +37,7 @@ namespace Riskeer.ClosingStructures.Data
     /// Closing Structures failure mechanism.
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
-                                                     ICalculatableFailureMechanism,
-                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
+                                                     ICalculatableFailureMechanism
     {
         private readonly ObservableList<ClosingStructuresFailureMechanismSectionResult> sectionResults;
 
@@ -82,15 +81,7 @@ namespace Riskeer.ClosingStructures.Data
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
             }
         }
-
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
-
+        
         protected override void AddSectionResult(FailureMechanismSection section)
         {
             base.AddSectionResult(section);

@@ -37,8 +37,7 @@ namespace Riskeer.StabilityPointStructures.Data
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
+                                                            ICalculatableFailureMechanism
     {
         private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
 
@@ -80,14 +79,6 @@ namespace Riskeer.StabilityPointStructures.Data
             get
             {
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-            }
-        }
-
-        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

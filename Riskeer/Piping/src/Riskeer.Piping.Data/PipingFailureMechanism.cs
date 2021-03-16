@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism
     {
         private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
 
@@ -82,14 +82,6 @@ namespace Riskeer.Piping.Data
             get
             {
                 return CalculationsGroup.GetCalculations();
-            }
-        }
-
-        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

@@ -32,7 +32,7 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase
     {
         private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<DuneLocationCalculation>();
@@ -128,14 +128,6 @@ namespace Riskeer.DuneErosion.Data
             get
             {
                 yield break;
-            }
-        }
-
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

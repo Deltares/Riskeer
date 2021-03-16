@@ -35,7 +35,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase
     {
         private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
@@ -80,14 +80,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             get
             {
                 return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-            }
-        }
-
-        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 

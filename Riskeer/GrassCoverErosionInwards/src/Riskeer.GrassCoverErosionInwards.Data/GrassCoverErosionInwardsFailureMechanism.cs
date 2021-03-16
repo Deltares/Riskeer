@@ -34,8 +34,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                                                            ICalculatableFailureMechanism
     {
         private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
 
@@ -71,14 +70,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             get
             {
                 return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-            }
-        }
-
-        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
             }
         }
 
