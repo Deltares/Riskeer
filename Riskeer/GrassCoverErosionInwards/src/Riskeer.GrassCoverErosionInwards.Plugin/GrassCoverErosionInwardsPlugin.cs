@@ -196,21 +196,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                GrassCoverErosionInwardsFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(
-                    context.WrappedData,
-                    (GrassCoverErosionInwardsFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection)
-            };
-
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
@@ -304,15 +289,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -416,27 +392,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
         {
             if (o is GrassCoverErosionInwardsCalculationScenarioContext calculationContext)
@@ -536,9 +491,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection)
+                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

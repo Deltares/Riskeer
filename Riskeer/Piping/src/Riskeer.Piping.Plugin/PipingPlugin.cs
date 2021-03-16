@@ -248,21 +248,6 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
-                IObservableEnumerable<PipingFailureMechanismSectionResult>,
-                PipingFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new PipingFailureMechanismResultView(
-                    context.WrappedData,
-                    (PipingFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection)
-            };
-
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
@@ -391,15 +376,6 @@ namespace Riskeer.Piping.Plugin
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
 
             yield return new TreeNodeInfo<SemiProbabilisticPipingInputContext>
             {
@@ -612,27 +588,6 @@ namespace Riskeer.Piping.Plugin
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as PipingFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<PipingFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<PipingFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
@@ -819,8 +774,7 @@ namespace Riskeer.Piping.Plugin
         {
             return new object[]
             {
-                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection)
+                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

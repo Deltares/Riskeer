@@ -24,7 +24,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Components.Persistence.Stability;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
@@ -245,20 +244,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
-                IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
-                MacroStabilityInwardsFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
-                    context.WrappedData,
-                    (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
-            };
-
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
@@ -330,15 +315,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsInputContext>
             {
@@ -450,27 +426,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<MacroStabilityInwardsFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<MacroStabilityInwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object o)
@@ -627,8 +582,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             return new object[]
             {
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection)
+                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

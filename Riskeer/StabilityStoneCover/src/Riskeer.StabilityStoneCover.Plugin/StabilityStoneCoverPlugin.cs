@@ -149,15 +149,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsInputContext>
             {
                 Text = context => RiskeerCommonFormsResources.Calculation_Input,

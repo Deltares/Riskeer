@@ -168,21 +168,6 @@ namespace Riskeer.HeightStructures.Plugin
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                HeightStructuresFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new HeightStructuresFailureMechanismResultView(
-                    context.WrappedData,
-                    (HeightStructuresFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection)
-            };
-
             yield return new ViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>
             {
                 CreateInstance = context => new HeightStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
@@ -249,15 +234,6 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                   .AddPropertiesItem()
                                                                                   .Build()
             };
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
         }
 
         #region ViewInfos
@@ -270,27 +246,6 @@ namespace Riskeer.HeightStructures.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as HeightStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<HeightStructuresFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<HeightStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
@@ -326,8 +281,7 @@ namespace Riskeer.HeightStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection)
             };
         }
 
@@ -339,15 +293,6 @@ namespace Riskeer.HeightStructures.Plugin
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection)
             };
         }
 

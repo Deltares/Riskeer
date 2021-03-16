@@ -103,20 +103,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
-                    context.WrappedData,
-                    (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
-            };
-
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
@@ -155,15 +141,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved,
                 CalculationType.Probabilistic);
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
 
             yield return new TreeNodeInfo<ClosingStructuresContext>
             {
@@ -290,27 +267,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as ClosingStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<ClosingStructuresFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<ClosingStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as ClosingStructuresFailureMechanism;
@@ -391,9 +347,7 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection)
+                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

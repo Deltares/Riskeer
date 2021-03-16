@@ -128,15 +128,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 WaveConditionsCalculationGroupContextChildNodeObjects,
                 WaveConditionsCalculationGroupContextContextMenuStrip,

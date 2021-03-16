@@ -101,20 +101,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
-                StabilityPointStructuresFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(
-                    context.WrappedData,
-                    (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
-            };
-
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
@@ -142,15 +128,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
-
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
 
             yield return new TreeNodeInfo<StabilityPointStructuresContext>
             {
@@ -288,27 +265,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
-        {
-            var assessmentSection = viewData as IAssessmentSection;
-            var failureMechanism = viewData as StabilityPointStructuresFailureMechanism;
-            var failureMechanismContext = viewData as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<StabilityPointStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as StabilityPointStructuresFailureMechanism;
@@ -398,9 +354,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection)
+                new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

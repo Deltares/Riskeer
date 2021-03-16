@@ -89,15 +89,6 @@ namespace Riskeer.DuneErosion.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<DuneLocationCalculationsGroupContext>
             {
                 Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,

@@ -1479,15 +1479,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultaat.
-        /// </summary>
-        public static string FailureMechanism_AssessmentResult_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_AssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het label van het toetsspoor..
         /// </summary>
         public static string FailureMechanism_Code_Description {
@@ -2073,16 +2064,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FailureMechanismSectionResultIcon {
-            get {
-                object obj = ResourceManager.GetObject("FailureMechanismSectionResultIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
