@@ -310,18 +310,6 @@
   <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Toetsoordeel verversen</value>
   </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description" xml:space="preserve">
-    <value>De categoriegrenzen voor dit traject en toetsspoor.</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen voor dit traject</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description" xml:space="preserve">
-    <value>De categoriegrenzen per vak voor dit toetsspoor.</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen per vak</value>
-  </data>
   <data name="FailureMechanismMergeDataRow_HasSections_DisplayName" xml:space="preserve">
     <value>Heeft vakindeling</value>
   </data>

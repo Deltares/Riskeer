@@ -398,7 +398,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection)

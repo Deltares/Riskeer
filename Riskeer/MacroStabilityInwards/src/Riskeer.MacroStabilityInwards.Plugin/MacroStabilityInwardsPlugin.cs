@@ -35,7 +35,6 @@ using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.Helpers;
@@ -626,12 +625,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                              assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection)
             };

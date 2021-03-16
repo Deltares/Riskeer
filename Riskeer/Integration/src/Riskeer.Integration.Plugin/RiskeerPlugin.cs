@@ -312,11 +312,6 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
-            {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.GetFailureMechanismCategoriesFunc(),
-                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc())
-            };
             yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
             {
                 CreateInstance = context =>
@@ -425,17 +420,6 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
-            };
-
-            yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
-                                                                                       context.AssessmentSection,
-                                                                                       context.GetFailureMechanismCategoriesFunc,
-                                                                                       context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
         }
 
@@ -769,17 +753,6 @@ namespace Riskeer.Integration.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = output => RiskeerCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
-            {
-                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()

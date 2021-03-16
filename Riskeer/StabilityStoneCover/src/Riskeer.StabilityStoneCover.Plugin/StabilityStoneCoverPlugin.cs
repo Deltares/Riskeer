@@ -295,7 +295,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
 
@@ -317,11 +317,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism)
             };

@@ -405,35 +405,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen voor dit traject.
-        /// </summary>
-        public static string FailureMechanismAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen voor dit traject en toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
-                        "escription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
-                        "ories_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Trajecttype: {0}.
         /// </summary>
         public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {
@@ -513,15 +484,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailureMechanismProperties_Contribution_Other_Percentage_0 {
             get {
                 return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_Percentage_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen per vak.
-        /// </summary>
-        public static string FailureMechanismSectionAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategories_DisplayName", resourceCulture);
             }
         }
         
