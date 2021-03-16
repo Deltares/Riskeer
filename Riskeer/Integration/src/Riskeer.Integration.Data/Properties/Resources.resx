@@ -123,27 +123,6 @@
   <data name="AssessmentSection_DisplayName" xml:space="preserve">
     <value>Traject</value>
   </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Piping bij kunstwerk</value>
-  </data>
-  <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
-  </data>
-  <data name="MacroStabilityOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit buitenwaarts</value>
-  </data>
-  <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Microstabiliteit</value>
-  </data>
-  <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Technische innovaties - Technische innovaties</value>
-  </data>
-  <data name="WaterPressureAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Wateroverdruk bij asfaltbekleding</value>
-  </data>
   <data name="AssessmentSection_Id_0" xml:space="preserve">
     <value>Traject {0}</value>
   </data>

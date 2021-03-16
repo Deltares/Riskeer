@@ -128,74 +128,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven binnentalud.
-        /// </summary>
-        public static string GrassCoverSlipOffInwardsFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverSlipOffInwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven buitentalud.
-        /// </summary>
-        public static string GrassCoverSlipOffOutwardsFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverSlipOffOutwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit buitenwaarts.
-        /// </summary>
-        public static string MacroStabilityOutwardsFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Microstabiliteit.
-        /// </summary>
-        public static string MicrostabilityFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("MicrostabilityFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Piping bij kunstwerk.
-        /// </summary>
-        public static string PipingStructureFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingStructureFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit langsconstructies.
         /// </summary>
         public static string StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Technische innovaties - Technische innovaties.
-        /// </summary>
-        public static string TechnicalInnovationFailureMechanismFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("TechnicalInnovationFailureMechanismFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Wateroverdruk bij asfaltbekleding.
-        /// </summary>
-        public static string WaterPressureAsphaltCoverFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterPressureAsphaltCoverFailureMechanism_DisplayName", resourceCulture);
             }
         }
     }

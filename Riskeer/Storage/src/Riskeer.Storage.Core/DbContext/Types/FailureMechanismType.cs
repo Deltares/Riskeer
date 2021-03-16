@@ -47,11 +47,6 @@ namespace Riskeer.Storage.Core.DbContext
         GrassRevetmentErosionOutwards = 4,
 
         /// <summary>
-        /// Grasbekleding afschuiven buitentalud - GABU
-        /// </summary>
-        GrassRevetmentSlidingOutwards = 5,
-
-        /// <summary>
         /// Grasbekleding erosie kruin en binnentalud - GEKB
         /// </summary>
         GrassRevetmentTopErosionAndInwards = 6,
@@ -75,45 +70,10 @@ namespace Riskeer.Storage.Core.DbContext
         /// Betrouwbaarheid sluiting kunstwerk - BSKW
         /// </summary>
         ReliabilityClosingOfStructure = 10,
-
-        /// <summary>
-        /// Piping bij kunstwerk - PKW
-        /// </summary>
-        PipingAtStructure = 11,
-
+        
         /// <summary>
         /// Sterkte en stabiliteit puntconstructies - STKWp
         /// </summary>
-        StabilityPointStructures = 12,
-
-        /// <summary>
-        /// Macrostabiliteit buitenwaarts - STBU
-        /// </summary>
-        MacroStabilityOutwards = 13,
-
-        /// <summary>
-        /// Microstabiliteit - STMI
-        /// </summary>
-        Microstability = 14,
-
-        /// <summary>
-        /// Wateroverdruk bij asfaltbekleding - AWO
-        /// </summary>
-        WaterOverpressureAsphaltRevetment = 15,
-
-        /// <summary>
-        /// Grasbekleding afschuiven binnentalud - GABI
-        /// </summary>
-        GrassRevetmentSlidingInwards = 16,
-
-        /// <summary>
-        /// Sterkte en stabiliteit langsconstructies - STKWl
-        /// </summary>
-        StrengthAndStabilityParallelConstruction = 17,
-
-        /// <summary>
-        /// Technische innovaties - INN
-        /// </summary>
-        TechnicalInnovations = 18
+        StabilityPointStructures = 12
     }
 }
