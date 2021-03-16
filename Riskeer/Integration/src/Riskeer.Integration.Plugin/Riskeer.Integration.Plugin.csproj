@@ -71,7 +71,6 @@
     <None Include="Resources\Foreshore.png" />
     <None Include="Resources\AssemblyResultPerSection.png" />
     <None Include="Resources\AssemblyResultTotal.png" />
-    <None Include="Resources\AssemblyResultPerSectionMap.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

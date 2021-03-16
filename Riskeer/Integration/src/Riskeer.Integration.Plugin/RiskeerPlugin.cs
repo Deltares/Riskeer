@@ -467,13 +467,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
             };
-            yield return new ViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>
-            {
-                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
-                Image = Resources.AssemblyResultPerSectionMap,
-                CloseForData = CloseAssemblyResultPerSectionMapViewForData,
-                CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
-            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -875,15 +868,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<AssemblyResultPerSectionMapContext>
-            {
-                Text = context => Resources.AssemblyResultPerSection_Map_DisplayName,
-                Image = context => Resources.AssemblyResultPerSectionMap,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
@@ -1219,15 +1203,6 @@ namespace Riskeer.Integration.Plugin
         #region AssemblyResultCategoriesContext ViewInfo
 
         private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
-        {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
-        #region AssemblyResultPerSectionMapContext ViewInfo
-
-        private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object o)
         {
             return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
@@ -1758,8 +1733,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new AssemblyResultCategoriesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
-                new AssemblyResultPerSectionContext(assessmentSection),
-                new AssemblyResultPerSectionMapContext(assessmentSection)
+                new AssemblyResultPerSectionContext(assessmentSection)
             };
         }
 
