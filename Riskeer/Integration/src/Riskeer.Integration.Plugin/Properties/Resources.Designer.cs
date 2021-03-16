@@ -100,16 +100,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultTotal {
-            get {
-                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voer alle berekeningen binnen dit traject uit..
         /// </summary>
         public static string AssessmentSection_Calculate_All_ToolTip {

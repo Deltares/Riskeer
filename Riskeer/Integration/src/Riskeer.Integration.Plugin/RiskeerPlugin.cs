@@ -431,14 +431,6 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
-            yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
-                Image = Resources.AssemblyResultTotal,
-                CloseForData = CloseAssemblyResultTotalViewForData,
-                CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
-            };
-
             yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -807,15 +799,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssemblyResultTotalContext>
-            {
-                Text = context => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
-                Image = context => Resources.AssemblyResultTotal,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
             {
                 Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -1023,15 +1006,6 @@ namespace Riskeer.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
-        }
-
-        #endregion
-
-        #region AssemblyResultTotalContext ViewInfo
-
-        private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
-        {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1567,8 +1541,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
-                new AssemblyResultCategoriesContext(assessmentSection),
-                new AssemblyResultTotalContext(assessmentSection)
+                new AssemblyResultCategoriesContext(assessmentSection)
             };
         }
 
