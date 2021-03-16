@@ -43,24 +43,11 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         internal static FailureMechanismEntity Create(this WaveImpactAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForFailureMechanismMeta(WaveImpactAsphaltCoverFailureMechanism failureMechanism,

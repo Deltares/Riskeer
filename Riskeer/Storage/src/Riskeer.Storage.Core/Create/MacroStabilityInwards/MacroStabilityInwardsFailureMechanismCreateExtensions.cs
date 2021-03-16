@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -49,7 +48,6 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
@@ -88,18 +86,6 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
             foreach (MacroStabilityInwardsSurfaceLine surfaceLine in mechanism.SurfaceLines)
             {
                 entity.SurfaceLineEntities.Add(surfaceLine.Create(registry, index++));
-            }
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                MacroStabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.MacroStabilityInwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

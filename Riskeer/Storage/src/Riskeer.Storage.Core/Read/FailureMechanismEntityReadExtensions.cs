@@ -156,22 +156,7 @@ namespace Riskeer.Storage.Core.Read
                                                        surfaceLineCollectionSourcePath);
             }
 
-            entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
-
             ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity,
-                                                              PipingFailureMechanism failureMechanism,
-                                                              ReadConversionCollector collector)
-        {
-            foreach (PipingSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                PipingFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadPipingRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
@@ -203,7 +188,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadGeneralGrassCoverErosionInwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
             ReadGrassCoverErosionInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-            entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
         private static void ReadGeneralGrassCoverErosionInwardsCalculationInput(this FailureMechanismEntity entity,
@@ -225,19 +209,6 @@ namespace Riskeer.Storage.Core.Read
                                             .Select(dp => dp.Read(collector))
                                             .ToArray(),
                                       sourcePath);
-            }
-        }
-
-        private static void ReadGrassCoverErosionInwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                                ReadConversionCollector collector)
-        {
-            foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverErosionInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -269,24 +240,10 @@ namespace Riskeer.Storage.Core.Read
         {
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
             entity.ReadHeightStructures(failureMechanism.HeightStructures, metaEntity.HeightStructureCollectionSourcePath, collector);
             entity.ReadHeightStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                        HeightStructuresFailureMechanism failureMechanism,
-                                                                        ReadConversionCollector collector)
-        {
-            foreach (HeightStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadHeightStructures(this FailureMechanismEntity entity,
@@ -337,7 +294,6 @@ namespace Riskeer.Storage.Core.Read
                                                                      ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
 
@@ -349,19 +305,6 @@ namespace Riskeer.Storage.Core.Read
 
             entity.ReadClosingStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadClosingStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadClosingStructuresMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                         ClosingStructuresFailureMechanism failureMechanism,
-                                                                         ReadConversionCollector collector)
-        {
-            foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadClosingStructuresGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
@@ -452,21 +395,7 @@ namespace Riskeer.Storage.Core.Read
                                                        surfaceLineCollectionSourcePath);
             }
 
-            entity.ReadMacroStabilityInwardsMechanismSectionResults(failureMechanism, collector);
             ReadMacroStabilityInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadMacroStabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                             MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                             ReadConversionCollector collector)
-        {
-            foreach (MacroStabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacroStabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadMacroStabilityInwardsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
@@ -496,26 +425,12 @@ namespace Riskeer.Storage.Core.Read
                                                                           ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
 
             WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
             ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
             entity.ReadWaveImpactAsphaltCoverGeneralInput(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
-        }
-
-        private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                              WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                              ReadConversionCollector collector)
-        {
-            foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                WaveImpactAsphaltCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadWaveImpactAsphaltCoverRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
@@ -552,7 +467,6 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
-            entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
 
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
                 entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
@@ -570,19 +484,6 @@ namespace Riskeer.Storage.Core.Read
                                                                                  GeneralGrassCoverErosionOutwardsInput input)
         {
             GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(entity).Read(input);
-        }
-
-        private static void ReadGrassCoverErosionOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                 GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                 ReadConversionCollector collector)
-        {
-            foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverErosionOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadHydraulicBoundaryLocationCalculations(this FailureMechanismEntity entity,
@@ -636,7 +537,6 @@ namespace Riskeer.Storage.Core.Read
                                                                ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
             entity.ReadDuneLocations(failureMechanism, collector);
             entity.ReadDuneLocationCalculations(failureMechanism, collector);
@@ -645,19 +545,6 @@ namespace Riskeer.Storage.Core.Read
         private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
         {
             GetDuneErosionFailureMechanismMetaEntity(entity).Read(input);
-        }
-
-        private static void ReadDuneErosionMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                   DuneErosionFailureMechanism failureMechanism,
-                                                                   ReadConversionCollector collector)
-        {
-            foreach (DuneErosionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                DuneErosionFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadDuneLocations(this FailureMechanismEntity entity,
@@ -704,7 +591,6 @@ namespace Riskeer.Storage.Core.Read
                                                                        ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadStabilityStoneCoverMechanismSectionResults(failureMechanism, collector);
 
             StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
                 entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
@@ -717,19 +603,6 @@ namespace Riskeer.Storage.Core.Read
                                                                       failureMechanism.WaveConditionsCalculationGroup,
                                                                       collector);
             entity.ReadStabilityStoneCoverGeneralInput(failureMechanism.GeneralInput);
-        }
-
-        private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                           StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                           ReadConversionCollector collector)
-        {
-            foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StabilityStoneCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
@@ -765,7 +638,6 @@ namespace Riskeer.Storage.Core.Read
                                                                             ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
 
             StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
                 entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
@@ -778,20 +650,6 @@ namespace Riskeer.Storage.Core.Read
                                                 collector);
             entity.ReadStabilityPointStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadStabilityPointStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadStabilityPointStructuresMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                                ReadConversionCollector collector)
-        {
-            foreach (StabilityPointStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults
-                                                                                               .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
         }
 
         private static void ReadStabilityPointStructures(this FailureMechanismEntity entity,

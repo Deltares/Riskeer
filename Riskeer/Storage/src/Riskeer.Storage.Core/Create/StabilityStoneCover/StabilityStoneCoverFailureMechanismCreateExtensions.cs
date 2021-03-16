@@ -43,25 +43,12 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         internal static FailureMechanismEntity Create(this StabilityStoneCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                StabilityStoneCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForFailureMechanismMeta(StabilityStoneCoverFailureMechanism failureMechanism,

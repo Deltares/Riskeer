@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
@@ -48,21 +47,8 @@ namespace Riskeer.Storage.Core.Create.ClosingStructures
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.ClosingStructuresSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForForeshoreProfiles(

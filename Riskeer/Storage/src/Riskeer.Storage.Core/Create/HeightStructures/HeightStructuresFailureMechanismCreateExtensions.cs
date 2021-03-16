@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.DikeProfiles;
@@ -48,21 +47,8 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
             AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.HeightStructuresSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForForeshoreProfiles(

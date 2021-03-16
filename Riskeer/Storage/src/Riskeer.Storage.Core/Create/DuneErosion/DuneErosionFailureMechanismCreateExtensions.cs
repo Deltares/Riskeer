@@ -41,22 +41,9 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         internal static FailureMechanismEntity Create(this DuneErosionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             return entity;
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (DuneErosionFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                DuneErosionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForFailureMechanismMeta(DuneErosionFailureMechanism failureMechanism,

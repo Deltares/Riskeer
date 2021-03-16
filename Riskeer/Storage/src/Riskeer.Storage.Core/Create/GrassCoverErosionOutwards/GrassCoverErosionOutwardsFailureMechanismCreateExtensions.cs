@@ -43,7 +43,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         internal static FailureMechanismEntity Create(this GrassCoverErosionOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -73,18 +72,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             };
 
             entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(metaEntity);
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (GrassCoverErosionOutwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
-            }
         }
 
         private static void AddEntitiesForForeshoreProfiles(

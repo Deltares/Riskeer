@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -46,7 +45,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
             AddEntitiesForGeneralInput(mechanism, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
@@ -67,18 +65,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
             {
                 DikeProfile dikeProfile = mechanism.DikeProfiles[i];
                 entity.DikeProfileEntities.Add(dikeProfile.Create(registry, i));
-            }
-        }
-
-        private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-            PersistenceRegistry registry)
-        {
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
-            {
-                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.GrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }
