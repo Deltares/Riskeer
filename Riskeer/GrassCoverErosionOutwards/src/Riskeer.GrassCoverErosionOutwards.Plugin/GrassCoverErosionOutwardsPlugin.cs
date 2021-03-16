@@ -159,20 +159,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                GrassCoverErosionOutwardsFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
-                    context.WrappedData,
-                    (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
-            };
-
-            yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 DesignWaterLevelCalculationsView>
@@ -422,27 +408,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool CloseHydraulicBoundaryCalculationsViewForData(IAssessmentSection viewAssessmentSection,
                                                                           object dataToCloseFor)
         {
@@ -481,8 +446,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
+                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection)
             };
         }
 
@@ -501,15 +465,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 new GrassCoverErosionOutwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism)
             };
         }
 
