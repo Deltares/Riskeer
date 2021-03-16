@@ -32,7 +32,7 @@ namespace Riskeer.Common.Forms.Observers
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
     public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+        where TFailureMechanism : IFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
