@@ -59,11 +59,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         Comment InputComments { get; }
 
         /// <summary>
-        /// Gets the comments associated with the output of the data object.
-        /// </summary>
-        Comment OutputComments { get; }
-
-        /// <summary>
         /// Gets the comments associated when the failure mechanism is set to be not relevant.
         /// </summary>
         Comment NotRelevantComments { get; }

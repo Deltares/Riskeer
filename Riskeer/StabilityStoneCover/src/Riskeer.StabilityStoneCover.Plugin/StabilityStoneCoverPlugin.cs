@@ -323,8 +323,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                    failureMechanism.SectionResults, failureMechanism)
             };
         }
 

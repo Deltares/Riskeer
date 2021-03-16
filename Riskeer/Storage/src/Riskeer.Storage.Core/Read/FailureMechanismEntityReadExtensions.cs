@@ -67,7 +67,6 @@ namespace Riskeer.Storage.Core.Read
         {
             failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.InputComments.Body = entity.InputComments;
-            failureMechanism.OutputComments.Body = entity.OutputComments;
             failureMechanism.NotRelevantComments.Body = entity.NotRelevantComments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);

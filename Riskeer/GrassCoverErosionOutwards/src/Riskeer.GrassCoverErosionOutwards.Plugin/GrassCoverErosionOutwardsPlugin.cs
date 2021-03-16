@@ -510,8 +510,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                    failureMechanism.SectionResults, failureMechanism)
             };
         }
 

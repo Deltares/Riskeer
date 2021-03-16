@@ -51,7 +51,6 @@ namespace Riskeer.Storage.Core.Create
                 FailureMechanismType = (short) type,
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant),
                 InputComments = mechanism.InputComments.Body.DeepClone(),
-                OutputComments = mechanism.OutputComments.Body.DeepClone(),
                 NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = mechanism.FailureMechanismSectionSourcePath.DeepClone()
             };

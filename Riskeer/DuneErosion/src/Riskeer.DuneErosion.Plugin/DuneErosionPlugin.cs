@@ -290,8 +290,7 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                    failureMechanism.SectionResults, failureMechanism)
             };
         }
 

@@ -62,7 +62,6 @@ namespace Riskeer.Common.Data.FailureMechanism
             sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
             InputComments = new Comment();
-            OutputComments = new Comment();
             NotRelevantComments = new Comment();
         }
 
@@ -110,8 +109,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         }
 
         public Comment InputComments { get; }
-
-        public Comment OutputComments { get; }
 
         public Comment NotRelevantComments { get; }
 

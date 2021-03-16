@@ -953,7 +953,6 @@ namespace Riskeer.Integration.Plugin
         private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism.InputComments;
-            yield return failureMechanism.OutputComments;
             yield return failureMechanism.NotRelevantComments;
             foreach (ICalculation calculation in failureMechanism.Calculations)
             {
