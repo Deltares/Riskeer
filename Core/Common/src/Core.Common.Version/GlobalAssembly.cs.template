@@ -35,5 +35,5 @@ using System.Resources;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 
-[assembly: AssemblyVersion("21.1.1.2")]
-[assembly: AssemblyFileVersion("21.1.1.2")]
+[assembly: AssemblyVersion("21.1.2.1")]
+[assembly: AssemblyFileVersion("21.1.2.1")]
