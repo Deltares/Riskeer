@@ -155,13 +155,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             var changedObjects = new List<IObservable>();
             object[] removedObjects = failureMechanism.Sections
                                                       .OfType<object>()
-                                                      .Concat(failureMechanism.SectionResults)
                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.DikeProfiles)
                                                       .ToArray();
 
             changedObjects.Add(failureMechanism);
-            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.CalculationsGroup.Children.Clear();
             changedObjects.Add(failureMechanism.CalculationsGroup);
