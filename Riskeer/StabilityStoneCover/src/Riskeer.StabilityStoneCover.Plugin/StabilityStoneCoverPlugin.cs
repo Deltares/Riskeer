@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -95,19 +94,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 CloseForData = CloseStabilityStoneCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
-            };
-
-            yield return new ViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
-                IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
-                StabilityStoneCoverResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new StabilityStoneCoverResultView(
-                    context.WrappedData,
-                    (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
             };
 
             yield return new ViewInfo<StabilityStoneCoverWaveConditionsInputContext,
@@ -258,28 +244,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
-        {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<StabilityStoneCoverFailureMechanism>;
-
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<StabilityStoneCoverFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         #endregion
 
         #region TreeNodeInfos
@@ -294,8 +258,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection)
             };
         }
 
@@ -316,16 +279,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 failureMechanism.InputComments
             };
         }
-
-        private static IEnumerable<object> GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism)
-            };
-        }
-
+        
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
