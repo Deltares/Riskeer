@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
@@ -28,11 +26,5 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
     public interface IHasSectionResults<out T> : IFailureMechanism
-        where T : FailureMechanismSectionResult
-    {
-        /// <summary>
-        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
-        /// </summary>
-        IObservableEnumerable<T> SectionResults { get; }
-    }
+        where T : FailureMechanismSectionResult {}
 }

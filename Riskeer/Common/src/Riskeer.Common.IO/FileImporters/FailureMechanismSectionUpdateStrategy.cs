@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -75,8 +74,6 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            T[] oldSectionResults = failureMechanism.SectionResults.ToArray();
-
             try
             {
                 failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
@@ -84,17 +81,6 @@ namespace Riskeer.Common.IO.FileImporters
             catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
-            }
-
-            foreach (T sectionResult in failureMechanism.SectionResults)
-            {
-                T equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
-                                                                          && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
-
-                if (equalSection != null)
-                {
-                    sectionResultUpdateStrategy.UpdateSectionResult(equalSection, sectionResult);
-                }
             }
         }
 
