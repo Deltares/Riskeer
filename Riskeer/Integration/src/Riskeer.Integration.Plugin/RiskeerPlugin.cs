@@ -341,10 +341,6 @@ namespace Riskeer.Integration.Plugin
                     return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
                 }
             };
-            yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
-            {
-                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
-            };
         }
 
         /// <summary>
@@ -440,15 +436,6 @@ namespace Riskeer.Integration.Plugin
                                                                                        context.AssessmentSection,
                                                                                        context.GetFailureMechanismCategoriesFunc,
                                                                                        context.GetFailureMechanismSectionAssemblyCategoriesFunc)
-            };
-
-            yield return new ViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = CloseAssemblyResultCategoriesViewForData,
-                CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
-                                                                             context.GetAssemblyCategoriesFunc)
             };
         }
 
@@ -814,23 +801,11 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<AssemblyResultCategoriesContext>
-            {
-                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RiskeerCommonFormsResources.NormsIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
         }
@@ -1006,15 +981,6 @@ namespace Riskeer.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
-        }
-
-        #endregion
-
-        #region AssemblyResultCategoriesContext ViewInfo
-
-        private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
-        {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1530,19 +1496,6 @@ namespace Riskeer.Integration.Plugin
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-        }
-
-        #endregion
-
-        #region AssemblyResults TreeNodeInfo
-
-        private static object[] AssemblyResultsContextChildNodeObjects(AssemblyResultsContext context)
-        {
-            AssessmentSection assessmentSection = context.WrappedData;
-            return new object[]
-            {
-                new AssemblyResultCategoriesContext(assessmentSection)
-            };
         }
 
         #endregion

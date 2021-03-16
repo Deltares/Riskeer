@@ -338,18 +338,6 @@
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
-  <data name="CategoryBoundariesGroupOneAndTwo_Description" xml:space="preserve">
-    <value>De categoriegrenzen voor de gecombineerde toetssporen in groep 1 en 2.</value>
-  </data>
-  <data name="CategoryBoundariesGroupOneAndTwo_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen groep 1 en 2</value>
-  </data>
-  <data name="FailureProbabilityMarginFactor_Description" xml:space="preserve">
-    <value>De gecombineerde faalkansruimte voor de toetssporen in groep 1 en 2.</value>
-  </data>
-  <data name="FailureProbabilityMarginFactor_DisplayName" xml:space="preserve">
-    <value>Gecombineerde faalkansruimte</value>
-  </data>
   <data name="AssemblyResultCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen voor de gecombineerde toetssporen 1 en 2</value>
   </data>
