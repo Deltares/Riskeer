@@ -119,20 +119,6 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<
-                FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
-                IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
-                DuneErosionFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new DuneErosionFailureMechanismResultView(
-                    context.WrappedData,
-                    (DuneErosionFailureMechanism) context.FailureMechanism)
-            };
-
             yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -206,27 +192,6 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as DuneErosionFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<DuneErosionFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<DuneErosionFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
         private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -270,8 +235,7 @@ namespace Riskeer.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection)
             };
         }
 
@@ -283,16 +247,7 @@ namespace Riskeer.DuneErosion.Plugin
                 failureMechanism.InputComments
             };
         }
-
-        private static IEnumerable<object> GetOutputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism)
-            };
-        }
-
+        
         private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
         {
             return new object[]
