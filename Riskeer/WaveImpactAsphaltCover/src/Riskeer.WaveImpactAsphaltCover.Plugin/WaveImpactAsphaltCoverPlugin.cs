@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -92,19 +91,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
-            };
-
-            yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                WaveImpactAsphaltCoverFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
-                    context.WrappedData,
-                    (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism)
             };
 
             yield return new ViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
@@ -257,29 +243,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
-        {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>;
-
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<WaveImpactAsphaltCoverFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
+        
         #endregion
 
         #region TreeNodeInfos
@@ -294,8 +258,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection)
             };
         }
 
@@ -316,16 +279,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 failureMechanism.InputComments
             };
         }
-
-        private static IEnumerable<object> GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism)
-            };
-        }
-
+        
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
