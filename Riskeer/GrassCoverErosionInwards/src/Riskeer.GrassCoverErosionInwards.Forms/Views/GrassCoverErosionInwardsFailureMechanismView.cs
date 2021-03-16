@@ -55,11 +55,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
@@ -78,7 +73,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation> calculationObserver;
         private RecursiveObserver<DikeProfileCollection, DikeProfile> dikeProfileObserver;
-        private RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
@@ -150,7 +144,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             calculationObserver.Dispose();
             dikeProfilesObserver.Dispose();
             dikeProfileObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -174,24 +167,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
             mapDataCollection.Add(referenceLineMapData);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
 
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(dikeProfilesMapData);
@@ -257,12 +238,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = FailureMechanism.DikeProfiles
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                GrassCoverErosionInwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
         private void SetAllMapDataFeatures()
@@ -273,30 +248,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             SetSectionsMapData();
             SetDikeProfilesMapData();
-
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
@@ -304,8 +256,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -357,8 +307,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()

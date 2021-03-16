@@ -55,11 +55,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
@@ -78,7 +73,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
-        private RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>, WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismView"/>.
@@ -150,7 +144,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -173,24 +166,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
             mapDataCollection.Add(referenceLineMapData);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
 
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(foreshoreProfilesMapData);
@@ -255,12 +236,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                WaveImpactAsphaltCoverFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
         private void SetMapDataFeatures()
@@ -270,29 +245,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             SetHydraulicBoundaryLocationsMapData();
             SetForeshoreProfilesMapData();
             SetCalculationsMapData();
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
-            tailorMadeAssemblyMapData.Features = WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
-            combinedAssemblyMapData.Features = WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
@@ -300,8 +253,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -352,8 +303,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()

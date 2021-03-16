@@ -443,15 +443,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor een of meerdere vakken kan geen resultaat worden bepaald..
-        /// </summary>
-        public static string FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vv.
         /// </summary>
         public static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
