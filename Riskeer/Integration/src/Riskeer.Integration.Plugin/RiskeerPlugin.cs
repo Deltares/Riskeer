@@ -521,16 +521,6 @@ namespace Riskeer.Integration.Plugin
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
             };
-
-            yield return new ExportInfo<AssemblyResultsContext>
-            {
-                Name = RiskeerCommonFormsResources.AssemblyResult_DisplayName,
-                Extension = Resources.AssemblyResult_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                                                                           RiskeerCommonFormsResources.AssemblyResult_DisplayName))
-            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -794,18 +784,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<AssemblyResultsContext>
-            {
-                Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
                                                                                  .Build()
             };
         }
@@ -1096,7 +1074,6 @@ namespace Riskeer.Integration.Plugin
             };
 
             childNodes.AddRange(WrapFailureMechanismsInContexts(nodeData));
-            childNodes.Add(new AssemblyResultsContext(nodeData));
 
             return childNodes.ToArray();
         }

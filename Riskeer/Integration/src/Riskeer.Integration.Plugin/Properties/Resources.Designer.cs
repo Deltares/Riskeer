@@ -82,24 +82,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to gml.
-        /// </summary>
-        public static string AssemblyResult_file_filter_Extension {
-            get {
-                return ResourceManager.GetString("AssemblyResult_file_filter_Extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assemblage.
-        /// </summary>
-        public static string AssemblyResultsCategoryTreeFolder_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultsCategoryTreeFolder_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voer alle berekeningen binnen dit traject uit..
         /// </summary>
         public static string AssessmentSection_Calculate_All_ToolTip {
