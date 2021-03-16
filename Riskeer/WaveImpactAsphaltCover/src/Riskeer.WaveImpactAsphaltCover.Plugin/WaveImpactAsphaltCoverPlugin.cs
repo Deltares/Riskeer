@@ -40,7 +40,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -53,7 +52,6 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
-using Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -209,14 +207,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 }, filePath),
                 GetInquiryHelper());
         }
-
-        public override IEnumerable<UpdateInfo> GetUpdateInfos()
-        {
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
-                new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
-        }
-
+        
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
         {
             return new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,

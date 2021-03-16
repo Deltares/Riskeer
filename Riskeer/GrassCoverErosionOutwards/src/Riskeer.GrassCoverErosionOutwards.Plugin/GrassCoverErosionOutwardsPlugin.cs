@@ -46,7 +46,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
@@ -58,7 +57,6 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
 using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
-using Riskeer.GrassCoverErosionOutwards.Plugin.FileImporters;
 using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
@@ -366,13 +364,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     context.WrappedData
                 }, filePath),
                 GetInquiryHelper());
-        }
-
-        public override IEnumerable<UpdateInfo> GetUpdateInfos()
-        {
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
-                new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override void Activate()

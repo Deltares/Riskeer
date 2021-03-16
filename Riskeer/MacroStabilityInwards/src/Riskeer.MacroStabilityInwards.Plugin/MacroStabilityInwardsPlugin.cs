@@ -41,7 +41,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
@@ -227,10 +226,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                         context,
                         Resources.MacroStabilityInwardsPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
-
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResult>(
-                new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

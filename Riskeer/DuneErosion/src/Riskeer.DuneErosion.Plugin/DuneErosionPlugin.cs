@@ -37,7 +37,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.TypeConverters;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
@@ -47,7 +46,6 @@ using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.DuneErosion.IO;
-using Riskeer.DuneErosion.Plugin.FileImporters;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -160,13 +158,6 @@ namespace Riskeer.DuneErosion.Plugin
                 IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
-        }
-
-        public override IEnumerable<UpdateInfo> GetUpdateInfos()
-        {
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
-                new DuneErosionFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override void Activate()

@@ -44,7 +44,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Service;
@@ -136,10 +135,6 @@ namespace Riskeer.HeightStructures.Plugin
                         context.FailureMechanism,
                         RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
-
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResult>(
-                new HeightStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()

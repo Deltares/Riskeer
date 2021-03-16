@@ -39,7 +39,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Plugin;
@@ -152,10 +151,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm)
             };
-
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionInwardsFailureMechanismSectionsContext, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()

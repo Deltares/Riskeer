@@ -40,7 +40,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -53,7 +52,6 @@ using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Forms.Views;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Exporters;
-using Riskeer.StabilityStoneCover.Plugin.FileImporters;
 using Riskeer.StabilityStoneCover.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -207,13 +205,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     context.WrappedData
                 }, filePath),
                 GetInquiryHelper());
-        }
-
-        public override IEnumerable<UpdateInfo> GetUpdateInfos()
-        {
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
-                new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
