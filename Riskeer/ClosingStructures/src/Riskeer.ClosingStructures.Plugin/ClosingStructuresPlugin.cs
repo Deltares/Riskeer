@@ -103,15 +103,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
-            {
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = RiskeerCommonFormsResources.ScenariosIcon,
-                CreateInstance = context => new ClosingStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
-                CloseForData = CloseScenariosViewForData
-            };
-
             yield return new ViewInfo<ClosingStructuresCalculationGroupContext, CalculationGroup, ClosingStructuresCalculationsView>
             {
                 CreateInstance = context => new ClosingStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
@@ -174,15 +165,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<ClosingStructuresScenariosContext>
-            {
-                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
                                                                                  .Build()
             };
         }
@@ -267,25 +249,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object removedData)
-        {
-            var failureMechanism = removedData as ClosingStructuresFailureMechanism;
-
-            if (removedData is ClosingStructuresFailureMechanismContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (removedData is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<ClosingStructuresFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
-        }
-
         private static bool CloseCalculationsViewForData(ClosingStructuresCalculationsView view, object o)
         {
             var failureMechanism = o as ClosingStructuresFailureMechanism;
@@ -319,8 +282,7 @@ namespace Riskeer.ClosingStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection)
             };
         }
 
@@ -342,15 +304,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 failureMechanism.InputComments
             };
         }
-
-        private static IEnumerable<object> GetOutputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
-            };
-        }
-
+        
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)

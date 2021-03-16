@@ -274,15 +274,6 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingInputViewForData
             };
 
-            yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
-            {
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = RiskeerCommonFormsResources.ScenariosIcon,
-                CloseForData = ClosePipingScenariosViewForData,
-                CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
-            };
-
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
             {
                 GetViewData = context => context.WrappedData.Sections,
@@ -461,16 +452,7 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<PipingScenariosContext>
-            {
-                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
+            
             yield return new TreeNodeInfo<EmptySemiProbabilisticPipingOutput>
             {
                 Text = emptyPipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
@@ -607,27 +589,7 @@ namespace Riskeer.Piping.Plugin
 
             return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
         }
-
-        private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var pipingFailureMechanism = o as PipingFailureMechanism;
-
-            if (o is PipingFailureMechanismContext pipingFailureMechanismContext)
-            {
-                pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                          .OfType<PipingFailureMechanism>()
-                                                          .FirstOrDefault();
-            }
-
-            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
-        }
-
+        
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
             if (o is ProbabilisticPipingCalculationScenarioContext probabilisticPipingCalculationScenarioContext)
@@ -746,8 +708,7 @@ namespace Riskeer.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection)
             };
         }
 
@@ -767,14 +728,6 @@ namespace Riskeer.Piping.Plugin
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 

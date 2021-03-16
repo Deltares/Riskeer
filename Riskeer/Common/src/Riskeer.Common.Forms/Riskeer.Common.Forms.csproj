@@ -47,7 +47,6 @@
     <None Include="Resources\folder_output.png" />
     <None Include="Resources\PlayAll.png" />
     <None Include="Resources\table_delete.png" />
-    <None Include="Resources\cards.png" />
     <None Include="Resources\application_form.png" />
     <None Include="Resources\DikeProfile.png" />
     <None Include="Resources\calculation_icon.png" />

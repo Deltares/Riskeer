@@ -265,16 +265,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                context.AssessmentSection,
                                                                                () => context.AssessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(context.WrappedData.HydraulicBoundaryLocation))
             };
-
-            yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
-            {
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = RiskeerCommonFormsResources.ScenariosIcon,
-                CloseForData = CloseScenariosViewForData,
-                CreateInstance = context => new MacroStabilityInwardsScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
-            };
-
+            
             yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
             {
                 GetViewData = context => context.WrappedData,
@@ -392,15 +383,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<MacroStabilityInwardsScenariosContext>
-            {
-                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
         }
 
         private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, MacroStabilityInwardsCalculation calculation)
@@ -447,27 +429,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        private static bool CloseScenariosViewForData(MacroStabilityInwardsScenariosView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-
-            if (o is MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<MacroStabilityInwardsFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
-        }
-
+        
         private static bool CloseInputViewForData(MacroStabilityInwardsInputView view, object o)
         {
             if (o is MacroStabilityInwardsCalculationScenarioContext calculationScenarioContext)
@@ -554,8 +516,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection)
             };
         }
 
@@ -575,14 +536,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection)
             };
         }
 
