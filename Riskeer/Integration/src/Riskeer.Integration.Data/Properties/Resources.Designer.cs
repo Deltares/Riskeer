@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -128,29 +128,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GABI.
-        /// </summary>
-        public static string GrassCoverSlipOffInwardsFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("GrassCoverSlipOffInwardsFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven binnentalud.
         /// </summary>
         public static string GrassCoverSlipOffInwardsFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverSlipOffInwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GABU.
-        /// </summary>
-        public static string GrassCoverSlipOffOutwardsFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("GrassCoverSlipOffOutwardsFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -164,29 +146,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STBU.
-        /// </summary>
-        public static string MacroStabilityOutwardsFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit buitenwaarts.
         /// </summary>
         public static string MacroStabilityOutwardsFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to STMI.
-        /// </summary>
-        public static string MicrostabilityFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("MicrostabilityFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -200,29 +164,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PKW.
-        /// </summary>
-        public static string PipingStructureFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("PipingStructureFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken - Piping bij kunstwerk.
         /// </summary>
         public static string PipingStructureFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("PipingStructureFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to STKWl.
-        /// </summary>
-        public static string StrengthStabilityLengthwiseConstructionFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("StrengthStabilityLengthwiseConstructionFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -236,29 +182,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INN.
-        /// </summary>
-        public static string TechnicalInnovationFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("TechnicalInnovationFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Technische innovaties - Technische innovaties.
         /// </summary>
         public static string TechnicalInnovationFailureMechanismFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("TechnicalInnovationFailureMechanismFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AWO.
-        /// </summary>
-        public static string WaterPressureAsphaltCoverFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("WaterPressureAsphaltCoverFailureMechanism_Code", resourceCulture);
             }
         }
         

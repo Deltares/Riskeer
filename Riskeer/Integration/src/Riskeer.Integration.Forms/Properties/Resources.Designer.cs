@@ -110,15 +110,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
-        /// </summary>
-        public static string AssemblyResultPerSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel groepen 3 en 4.
         /// </summary>
         public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {

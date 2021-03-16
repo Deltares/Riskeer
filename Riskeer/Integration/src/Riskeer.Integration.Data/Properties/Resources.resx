@@ -129,41 +129,17 @@
   <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Piping bij kunstwerk</value>
   </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GABU</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_Code" xml:space="preserve">
-    <value>PKW</value>
-  </data>
-  <data name="GrassCoverSlipOffInwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GABI</value>
-  </data>
   <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
-  </data>
-  <data name="MacroStabilityOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>STBU</value>
   </data>
   <data name="MacroStabilityOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Macrostabiliteit buitenwaarts</value>
   </data>
-  <data name="MicrostabilityFailureMechanism_Code" xml:space="preserve">
-    <value>STMI</value>
-  </data>
   <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Microstabiliteit</value>
   </data>
-  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_Code" xml:space="preserve">
-    <value>STKWl</value>
-  </data>
-  <data name="TechnicalInnovationFailureMechanism_Code" xml:space="preserve">
-    <value>INN</value>
-  </data>
   <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
     <value>Technische innovaties - Technische innovaties</value>
-  </data>
-  <data name="WaterPressureAsphaltCoverFailureMechanism_Code" xml:space="preserve">
-    <value>AWO</value>
   </data>
   <data name="WaterPressureAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Wateroverdruk bij asfaltbekleding</value>

@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Foreshore.png" />
-    <None Include="Resources\AssemblyResultPerSection.png" />
     <None Include="Resources\AssemblyResultTotal.png" />
   </ItemGroup>
   <ItemGroup>

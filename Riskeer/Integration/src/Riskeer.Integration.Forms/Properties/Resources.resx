@@ -353,9 +353,6 @@
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
-  <data name="AssemblyResultPerSection_DisplayName" xml:space="preserve">
-    <value>Gecombineerd vakoordeel</value>
-  </data>
   <data name="CategoryBoundariesGroupOneAndTwo_Description" xml:space="preserve">
     <value>De categoriegrenzen voor de gecombineerde toetssporen in groep 1 en 2.</value>
   </data>

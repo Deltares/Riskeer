@@ -51,7 +51,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -440,14 +439,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
 
-            yield return new ViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>
-            {
-                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
-                Image = Resources.AssemblyResultPerSection,
-                CloseForData = CloseAssemblyResultPerSectionViewForData,
-                CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
-            };
-
             yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -825,15 +816,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
-            {
-                Text = context => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
-                Image = context => Resources.AssemblyResultPerSection,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
             {
                 Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -866,41 +848,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
-            };
-        }
-
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
-            TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
-            Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
-            where TResult : FailureMechanismSectionResult
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
-            where TResultRow : FailureMechanismSectionResultRow<TResult>
-            where TAssemblyResultControl : AssemblyResultControl, new()
-        {
-            return new ViewInfo<
-                FailureMechanismSectionResultContext<TResult>,
-                IObservableEnumerable<TResult>,
-                TView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = createInstanceFunc
-            };
-        }
-
-        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()
-            where T : FailureMechanismSectionResult
-        {
-            return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
                                                                                  .Build()
             };
         }
@@ -986,76 +933,6 @@ namespace Riskeer.Integration.Plugin
 
         #region ViewInfos
 
-        #region FailureMechanismWithDetailedAssessmentView ViewInfo
-
-        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
-            Func<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
-            where TSectionResult : FailureMechanismSectionResult
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
-            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
-        {
-            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
-            {
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
-                CreateInstance = createInstanceFunc
-            };
-        }
-
-        private static bool CloseFailureMechanismWithDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        #endregion
-
-        #region FailureMechanismWithoutDetailedAssessmentView ViewInfo
-
-        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
-            Func<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
-            where TSectionResult : FailureMechanismSectionResult
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
-            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
-        {
-            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
-            {
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
-                CreateInstance = createInstanceFunc
-            };
-        }
-
-        private static bool CloseFailureMechanismWithoutDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        #endregion
-
         #region FailureMechanismContributionContext ViewInfo
 
         private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
@@ -1070,38 +947,6 @@ namespace Riskeer.Integration.Plugin
         private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object o)
         {
             return o is IAssessmentSection assessmentSection && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
-        }
-
-        #endregion
-
-        #region FailureMechanismResults ViewInfo
-
-        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(TView view, object dataToCloseFor)
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
-            where TResult : FailureMechanismSectionResult
-            where TResultRow : FailureMechanismSectionResultRow<TResult>
-            where TAssemblyResultControl : AssemblyResultControl, new()
-        {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as IFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<IFailureMechanism>;
-
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults
-                   && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion
@@ -1185,15 +1030,6 @@ namespace Riskeer.Integration.Plugin
         #region AssemblyResultTotalContext ViewInfo
 
         private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
-        {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
-        #region AssemblyResultPerSectionContext ViewInfo
-
-        private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
         {
             return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
@@ -1732,8 +1568,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new AssemblyResultCategoriesContext(assessmentSection),
-                new AssemblyResultTotalContext(assessmentSection),
-                new AssemblyResultPerSectionContext(assessmentSection)
+                new AssemblyResultTotalContext(assessmentSection)
             };
         }
 
